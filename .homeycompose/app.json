@@ -1,0 +1,44 @@
+{
+  "id": "solaredge.modbus2",
+  "version": "2.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "SolarEdge2"
+  },
+  "description": {
+    "en": "Monitor SolarEdge inverters over modbus protocol"
+  },
+  "category": [
+    "energy"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Edwin Biemond",
+    "email": "biemond@gmail.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Pieter Verougstraete",
+        "email": "pieter.Verougstraete@gmail.com"
+      },
+      {
+        "name": "Richard Barkestam",
+        "email": "richard@barkestam.se"
+      },
+      {
+        "name": "Jelger Haanstra",
+        "email": "homey@solidewebservices.com"
+      }
+    ]
+  } 
+}

@@ -1,0 +1,107 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "solaredge.modbus2",
+  "version": "2.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "SolarEdge2"
+  },
+  "description": {
+    "en": "Monitor SolarEdge inverters over modbus protocol"
+  },
+  "category": [
+    "energy"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Edwin Biemond",
+    "email": "biemond@gmail.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Pieter Verougstraete",
+        "email": "pieter.Verougstraete@gmail.com"
+      },
+      {
+        "name": "Richard Barkestam",
+        "email": "richard@barkestam.se"
+      },
+      {
+        "name": "Jelger Haanstra",
+        "email": "homey@solidewebservices.com"
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "invertor with storedge"
+      },
+      "class": "solarpanel",
+      "capabilities": [
+        "measure_power"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "icon": "/assets/sun.svg",
+          "decimals": 0,
+          "title": {
+            "en": "Solar Power"
+          }
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [],
+      "images": {
+        "small": "/drivers/invertorwithbatt/assets/images/small.png",
+        "large": "/drivers/invertorwithbatt/assets/images/large.png",
+        "xlarge": "/drivers/invertorwithbatt/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "start"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Inverter settings"
+          },
+          "children": [
+            {
+              "id": "address",
+              "type": "text",
+              "value": "0.0.0.0",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "port",
+              "type": "number",
+              "value": 1502,
+              "step": 1,
+              "label": {
+                "en": "Port"
+              }
+            }
+          ]
+        }
+      ],
+      "id": "invertorwithbatt"
+    }
+  ]
+}
