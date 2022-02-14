@@ -1,5 +1,11 @@
 import Homey from 'homey';
 
+export interface Measurement {
+   value: string;
+   scale: string;
+   label: string;
+}
+
 export class Solaredge extends Homey.Device {
 
     registers : Object  = {
@@ -14,21 +20,26 @@ export class Solaredge extends Homey.Device {
         "l1_current":           [0x9c88, 1, 'UINT16', "L1 Current"],
         "l2_current":           [0x9c89, 1, 'UINT16', "L2 Current"],
         "l3_current":           [0x9c8a, 1, 'UINT16', "L3 Current"],
-        "current_scale":        [0x9c8b, 1, 'SCALE', "Current Scale Factor"],
+        "current_scale":        [0x9c8b, 1, 'SCALE',  "Current Scale Factor"],
 
         "l1_voltage":           [0x9c8c, 1, 'UINT16', "L1 Voltage"],
+        "l1_voltage_scale":     [0x9c92, 1, 'SCALE',  "Voltage Scale Factor"],
         "l2_voltage":           [0x9c8d, 1, 'UINT16', "L2 Voltage"],
+        "l2_voltage_scale":     [0x9c92, 1, 'SCALE',  "Voltage Scale Factor"],
         "l3_voltage":           [0x9c8e, 1, 'UINT16', "L3 Voltage"],
+        "l3_voltage_scale":     [0x9c92, 1, 'SCALE',  "Voltage Scale Factor"],
         "l1n_voltage":          [0x9c8f, 1, 'UINT16', "L1-N Voltage"],
+        "l1n_voltage_scale":     [0x9c92, 1, 'SCALE',  "Voltage Scale Factor"],
         "l2n_voltage":          [0x9c90, 1, 'UINT16', "L2-N Voltage"],
+        "l2n_voltage_scale":     [0x9c92, 1, 'SCALE',  "Voltage Scale Factor"],
         "l3n_voltage":          [0x9c91, 1, 'UINT16', "L3-N Voltage"],
-        "voltage_scale":        [0x9c92, 1, 'SCALE', "Voltage Scale Factor"],
+        "l3n_voltage_scale":     [0x9c92, 1, 'SCALE',  "Voltage Scale Factor"],
 
         "power_ac":             [0x9c93, 1, 'INT16', "Power"],
         "power_ac_scale":       [0x9c94, 1, 'SCALE', "Power Scale Factor"],
 
         "frequency":            [0x9c95, 1, 'UINT16', "Frequency"],
-        "frequency_scale":      [0x9c96, 1, 'SCALE', "Frequency Scale Factor"],
+        "frequency_scale":      [0x9c96, 1, 'SCALE',  "Frequency Scale Factor"],
 
         "power_apparent":       [0x9c97, 1, 'INT16', "Power [Apparent]"],
         "power_apparent_scale": [0x9c98, 1, 'SCALE', "Power [Apparent] Scale Factor"],
@@ -41,10 +52,10 @@ export class Solaredge extends Homey.Device {
         "energy_total_scale":   [0x9c9f, 1, 'SCALE', "Total Energy Scale Factor"],
 
         "current_dc":           [0x9ca0, 1, 'UINT16', "DC Current"],
-        "current_dc_scale":     [0x9ca1, 1, 'SCALE', "DC Current Scale Factor"],
+        "current_dc_scale":     [0x9ca1, 1, 'SCALE',  "DC Current Scale Factor"],
 
         "voltage_dc":           [0x9ca2, 1, 'UINT16', "DC Voltage"],
-        "voltage_dc_scale":     [0x9ca3, 1, 'SCALE', "DC Voltage Scale Factor"],
+        "voltage_dc_scale":     [0x9ca3, 1, 'SCALE',  "DC Voltage Scale Factor"],
 
         "power_dc":             [0x9ca4, 1, 'INT16', "DC Power"],
         "power_dc_scale":       [0x9ca5, 1, 'SCALE', "DC Power Scale Factor"],
@@ -55,15 +66,15 @@ export class Solaredge extends Homey.Device {
         "status":               [0x9cab, 1, 'UINT16', "Status"],
         "vendor_status":        [0x9cac, 1, 'UINT16', "Vendor Status"],
 
-        "rrcr_state":           [0xf000, 1, 'UINT16', "RRCR State"],
-        "active_power_limit":   [0xf001, 1, 'UINT16', "Active Power Limit"],
+        "rrcr_state":           [0xf000, 1, 'UINT16',  "RRCR State"],
+        "active_power_limit":   [0xf001, 1, 'UINT16',  "Active Power Limit"],
         "cosphi":               [0xf002, 2, 'FLOAT32', "CosPhi"],
 
-        "storage_control_mode":                   [0xe004, 1, 'UINT16', "Storage Control Mode"],
-        "storage_accharge_policy":                [0xe005, 1, 'UINT16', "Storage AC Charge Policy"],
+        "storage_control_mode":                   [0xe004, 1, 'UINT16',  "Storage Control Mode"],
+        "storage_accharge_policy":                [0xe005, 1, 'UINT16',  "Storage AC Charge Policy"],
         "storage_accharge_Limit":                 [0xe006, 2, 'FLOAT32', "Storage AC Charge Limit"],
 
-        "remote_control_command_mode":            [0xe00d, 1, 'UINT16', "Remote Control Command Mode"],
+        "remote_control_command_mode":            [0xe00d, 1, 'UINT16',  "Remote Control Command Mode"],
         "remote_control_charge_limit":            [0xe00e, 2, 'FLOAT32', "Remote Control Charge Limit"],
         "remote_control_command_discharge_limit": [0xe010, 2, 'FLOAT32', "Remote Control Command Discharge Limit"]
     };
@@ -97,7 +108,7 @@ export class Solaredge extends Homey.Device {
         "l12_voltage":   [0x9d08 , 1, 'INT16', "L1-l2 Voltage"],
         "l23_voltage":   [0x9d09 , 1, 'INT16', "L2-l3 Voltage"],
         "l31_voltage":   [0x9d0a , 1, 'INT16', "L3-l1 Voltage"],
-        "voltage_scale": [0x9d0b , 1, 'SCALE', "Voltage Scale Factor"],
+        "voltage_ln_scale": [0x9d0b , 1, 'SCALE', "Voltage Scale Factor"],
 
         "frequency":       [0x9d0c , 1, 'INT16', "Frequency"],
         "frequency_scale": [0x9d0d , 1, 'SCALE', "Frequency Scale Factor"],
@@ -134,7 +145,7 @@ export class Solaredge extends Homey.Device {
         "l1_import_energy_active": [0x9d2c, 2,'UINT32', "L1 Imported Energy (Active)"],
         "l2_import_energy_active": [0x9d2e, 2,'UINT32', "L2 Imported Energy (Active)"],
         "l3_import_energy_active": [0x9d30, 2,'UINT32', "L3 Imported Energy (Active)"],
-        "energy_active_scale":     [0x9d32, 1,'SCALE', "Energy (Active) Scale Factor"],
+        "export_energy_active_scale":     [0x9d32, 1,'SCALE', "Energy (Active) Scale Factor"],
 
         "export_energy_apparent":    [0x9d33, 2,'UINT32', "Total Exported Energy (Apparent)"],
         "l1_export_energy_apparent": [0x9d35, 2,'UINT32', "L1 Exported Energy (Apparent)"],
@@ -144,7 +155,7 @@ export class Solaredge extends Homey.Device {
         "l1_import_energy_apparent": [0x9d3d, 2,'UINT32', "L1 Imported Energy (Apparent)"],
         "l2_import_energy_apparent": [0x9d3f, 2,'UINT32', "L2 Imported Energy (Apparent)"],
         "l3_import_energy_apparent": [0x9d41, 2,'UINT32', "L3 Imported Energy (Apparent)"],
-        "energy_apparent_scale":     [0x9d43, 1,'SCALE', "Energy (Apparent) Scale Factor"],
+        "export_energy_apparent_scale": [0x9d43, 1,'SCALE', "Energy (Apparent) Scale Factor"],
 
         "import_energy_reactive_q1":    [0x9d44, 2,'UINT32', "Total Imported Energy (Reactive) Quadrant 1"],
         "l1_import_energy_reactive_q1": [0x9d46, 2,'UINT32', "L1 Imported Energy (Reactive) Quadrant 1"],
@@ -162,9 +173,7 @@ export class Solaredge extends Homey.Device {
         "l1_export_energy_reactive_q4": [0x9d5e, 2,'UINT32', "L1 Exported Energy (Reactive) Quadrant 4"],
         "l2_export_energy_reactive_q4": [0x9d60, 2,'UINT32', "L2 Exported Energy (Reactive) Quadrant 4"],
         "l3_export_energy_reactive_q4": [0x9d62, 2,'UINT32', "L3 Exported Energy (Reactive) Quadrant 4"],
-        "energy_reactive_scale":        [0x9d64, 1,'SCALE',  "Energy (Reactive) Scale Factor"]        
-        
-
+        "import_energy_reactive_q1_scale": [0x9d64, 1,'SCALE',  "Energy (Reactive) Scale Factor"]        
     }
 
     battery_dids : Object  = {

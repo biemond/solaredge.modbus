@@ -1,6 +1,7 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import {Solaredge} from '../solaredge';
+import {Measurement} from '../solaredge';
 
 const RETRY_INTERVAL = 20 * 1000; 
 let timer:NodeJS.Timer;
@@ -83,43 +84,62 @@ class MySolaredgeDevice extends Solaredge {
     function handleErrorsMeters(err: any) {
       console.log('No meter');
     }
+    let result: Record<string, Measurement> = {};
 
     socket.connect(modbusOptions);
     socket.on('connect', () => {
       console.log('Connected ...');
-
+      result = {};
+   
       for (const [key, value] of Object.entries(this.registers)) {
         client.readHoldingRegisters(value[0],value[1])
         .then(({ metrics, request, response }) => {
           // console.log('Transfer Time: ' + metrics.transferTime)
           // console.log('Response Body Payload: ' + response.body.valuesAsArray)
           // console.log('Response Body Payload As Buffer: ' + response.body.valuesAsBuffer)
+          const measurement: Measurement = {
+            value: 'xxx',
+            scale: 'xxx',
+            label: value[3],
+          };
+          let resultValue: string = 'xxx';          
           switch( value[2]) { 
-            case 'UINT16': 
-              console.log(value[3] + ": " + response.body.valuesAsBuffer.readInt16BE());
+            case 'UINT16':
+              resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
+              // console.log(value[3] + ": " + resultValue);
               break;
             case 'ACC32':
-              console.log(value[3] + ": " + response.body.valuesAsBuffer.readUInt32BE());
+              resultValue = response.body.valuesAsBuffer.readUInt32BE().toString();
+              // console.log(value[3] + ": " + resultValue);
               break;
             case 'FLOAT':
-              console.log(value[3] + ": " + response.body.valuesAsBuffer.readFloatBE());
+              resultValue = response.body.valuesAsBuffer.readFloatBE().toString();
+              // console.log(value[3] + ": " + resultValue);
               break;
             case 'STRING':
-              console.log(value[3] + ": " + response.body.valuesAsBuffer);
+              resultValue = response.body.valuesAsBuffer.toString();
+              // console.log(value[3] + ": " + resultValue);
               break;
             case 'INT16': 
-              console.log(value[3] + ": " + response.body.valuesAsBuffer.readInt16BE());
+              resultValue = response.body.valuesAsBuffer.readInt16BE().toString(); 
+              // console.log(value[3] + ": " + resultValue);
               break;
-            case 'SCALE': 
-              console.log(value[3] + ": " + response.body.valuesAsBuffer.readInt16BE());
+            case 'SCALE':
+              resultValue = response.body.valuesAsBuffer.readInt16BE().toString(); 
+              // console.log(value[3] + ": " + resultValue);
+              // console.log(key.replace('_scale', ''));
+              result[key.replace('_scale', '')].scale = resultValue
               break;
             case 'FLOAT32':
-              console.log(value[3] + ": " + response.body.valuesAsBuffer.swap16().swap32().readFloatBE());
+              resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
+              // console.log(value[3] + ": " + resultValue);
               break;
-            default: 
+            default:
               console.log(key + ": type not found " + value[2]);
               break;
-            }            
+            }
+            measurement.value = resultValue;
+            result[key] = measurement;
         })
         .catch(handleErrors);
       }
@@ -129,39 +149,55 @@ class MySolaredgeDevice extends Solaredge {
         .then(({ metrics, request, response }) => {
           // console.log('Transfer Time: ' + metrics.transferTime)
           // console.log('Response Body Payload: ' + response.body.valuesAsArray)
-          console.log('Response Body Payload As Buffer: ' + response.body.valuesAsBuffer)
+          // console.log('Response Body Payload As Buffer: ' + response.body.valuesAsBuffer)
           if ( value[2] == 'UINT16') {
             for (const [key2, value2] of Object.entries(this.meter_registers)) {
                 // console.log(key2, value2);
                 // console.log( "offset "+value[3]);
                 client.readHoldingRegisters(value2[0] + value[3], value2[1])
                 .then(({ metrics, request, response }) => {
+                    const measurement: Measurement = {
+                      value: 'xxx',
+                      scale: 'xxx',
+                      label: value2[3],
+                    };
+                    let resultValue: string = 'xxx';   
                     switch( value2[2]) {
                     case 'UINT16':
-                        console.log(key + "-" + value2[3] + ": " + response.body.valuesAsBuffer.readUInt16BE());
+                        resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
+                        // console.log(key + "-" + value2[3] + ": " + resultValue);
                         break;
                     case 'UINT32':
-                        console.log(key + "-" +value2[3] + ": " + response.body.valuesAsBuffer.readUInt32BE()); 
+                        resultValue = response.body.valuesAsBuffer.readUInt32BE().toString();
+                        // console.log(key + "-" +value2[3] + ": " + resultValue); 
                         break;                               
                     case 'SEFLOAT':
-                        console.log(key + "-" + value2[3] + ": " + response.body.valuesAsBuffer.swap16().swap32().readFloatBE());
+                        resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
+                        // console.log(key + "-" + value2[3] + ": " + resultValue);
                         break;
                     case 'STRING':
-                        console.log(key + "-" + value2[3] + ": " + response.body.valuesAsBuffer);
+                        resultValue = response.body.valuesAsBuffer.toString();
+                        // console.log(key + "-" + value2[3] + ": " + resultValue);
                         break;
                     case 'UINT64':
-                        console.log(key + "-" + value2[3] + ": " + response.body.valuesAsBuffer.readBigUInt64LE());
+                        resultValue = response.body.valuesAsBuffer.readBigUInt64LE().toString();
+                        // console.log(key + "-" + value2[3] + ": " + resultValue);
                         break;
                     case 'INT16':
-                        console.log(key + "-" + value2[3] + ": " + response.body.valuesAsBuffer.readInt16BE());
+                        resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
+                        // console.log(key + "-" + value2[3] + ": " + resultValue);
                         break;
                     case 'SCALE':
-                        console.log(key + "-" + value2[3] + ": " + response.body.valuesAsBuffer.readInt16BE()); 
+                        resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
+                        // console.log(key + "-" + value2[3] + ": " + resultValue);
+                        result[key2.replace('_scale', '')].scale = resultValue 
                         break;                         
                     default:
                         console.log(key2 + ": type not found " + value2[2]);
                         break;
-                    }                                  
+                    }
+                    measurement.value = resultValue;
+                    result[key2] = measurement;                                  
                 })
                 .catch((err) => {
                     console.log(err);
@@ -186,26 +222,39 @@ class MySolaredgeDevice extends Solaredge {
                   client.readHoldingRegisters(value2[0] + value[3] ,value2[1])
                   .then(({ metrics, request, response }) => {
                       // console.log(resp.response._body);
+                      const measurement: Measurement = {
+                        value: 'xxx',
+                        scale: 'xxx',
+                        label: value2[3],
+                      };
+                      let resultValue: string = 'xxx';  
                       switch( value2[2]) { 
                         case  'SEFLOAT':
-                            console.log(key + "-" + value2[3] + ": " + response.body.valuesAsBuffer.swap16().swap32().readFloatBE());
+                            resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
+                            // console.log(key + "-" + value2[3] + ": " + resultValue);
                             break;
                         case 'STRING':
-                            console.log(key + "-" + value2[3] + ": " + response.body.valuesAsBuffer);
+                            resultValue = response.body.valuesAsBuffer.toString();
+                            // console.log(key + "-" + value2[3] + ": " + resultValue);
                             break;
-                        case 'UINT16':     
-                            console.log(key + "-" + value2[3] + ": " + response.body.valuesAsBuffer.readInt16BE());
+                        case 'UINT16':
+                            resultValue = response.body.valuesAsBuffer.readInt16BE().toString();     
+                            // console.log(key + "-" + value2[3] + ": " + resultValue);
                             break;
                         case 'UINT32':
-                            console.log(key + "-" + value2[3] + ": " + response.body.valuesAsArray[0]);
+                            resultValue = response.body.valuesAsArray[0].toString();
+                            // console.log(key + "-" + value2[3] + ": " + resultValue);
                             break;
                         case 'UINT64':
-                            console.log(key + "-" + value2[3] + ": " + response.body.valuesAsBuffer.readBigUInt64LE());
+                            resultValue = response.body.valuesAsBuffer.readBigUInt64LE().toString();
+                            // console.log(key + "-" + value2[3] + ": " + resultValue);
                             break;
                         default:
-                            console.log(key2 + ": type not found " + value2[2]);
+                            // console.log(key2 + ": type not found " + value2[2]);
                             break;
-                      }                                 
+                      }
+                      measurement.value = resultValue;
+                      result[key2] = measurement;                                    
                   })
                   .catch((err) => {
                       console.log(err);
@@ -222,6 +271,10 @@ class MySolaredgeDevice extends Solaredge {
     {
       console.log('disconnect'); 
       socket.end();
+      // result
+      for (let k in result) {
+        console.log(k, result[k].value, result[k].scale, result[k].label)
+      }  
     }, 10000)
 
     socket.on('error', (err) => {
