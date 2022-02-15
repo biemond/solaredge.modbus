@@ -1,0 +1,18 @@
+{
+      "type": "number",
+      "title": {
+        "en": "Battery Health",
+        "nl": "Batterij SoH"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "decimals": 1,
+      "uiComponent": "sensor",
+      "icon": "/assets/battery.svg",
+      "units": {
+        "en": "%",
+        "nl": "%"
+      }
+}
+    

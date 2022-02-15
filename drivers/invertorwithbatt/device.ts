@@ -274,7 +274,46 @@ class MySolaredgeDevice extends Solaredge {
       // result
       for (let k in result) {
         console.log(k, result[k].value, result[k].scale, result[k].label)
-      }  
+      }
+
+      this.addCapability('measure_power');
+      var acpower = Number(result['power_ac'].value)*(Math.pow(10, Number(result['power_ac'].scale)));      
+      this.setCapabilityValue('measure_power', Math.round(acpower));      
+
+      this.addCapability('meter_power'); 
+      var total = Number(result['energy_total'].value)*(Math.pow(10, Number(result['energy_total'].scale)));  
+      this.setCapabilityValue('meter_power', total / 1000);       
+
+      // meters
+      this.addCapability('meter_power.export');
+      var totalexport = Number(result['export_energy_active'].value)*(Math.pow(10, Number(result['export_energy_active'].scale)));
+      this.setCapabilityValue('meter_power.export', totalexport / 1000);    
+
+      // meters
+      this.addCapability('meter_power.import');
+      var totalimport = Number(result['import_energy_active'].value)*(Math.pow(10, Number(result['export_energy_active'].scale)));
+      this.setCapabilityValue('meter_power.import', totalimport / 1000);    
+
+      // "measure_voltage.meter",
+      // "measure_power.ac"
+
+      this.addCapability('measure_voltage.dc');
+      var dcpower = Number(result['power_dc'].value)*(Math.pow(10, Number(result['power_dc'].scale)));
+      this.setCapabilityValue('measure_voltage.dc', dcpower);
+
+      this.addCapability('measure_temperature');
+      var temperature = Number(result['temperature'].value)*(Math.pow(10, Number(result['temperature'].scale)));
+      this.setCapabilityValue('measure_temperature', temperature);      
+      
+      // battery
+      this.addCapability('battery')      
+      var battery = Number(result['soe'].value)
+      this.setCapabilityValue('battery', battery); 
+
+      this.addCapability('batterysoh')      
+      var battery = Number(result['soh'].value)
+      this.setCapabilityValue('batterysoh', battery);       
+
     }, 10000)
 
     socket.on('error', (err) => {

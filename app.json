@@ -47,16 +47,81 @@
       "name": {
         "en": "invertor with storedge"
       },
-      "class": "solarpanel",
+      "class": "sensor",
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
       "capabilities": [
-        "measure_power"
+        "measure_power",
+        "meter_power",
+        "meter_power.export",
+        "meter_power.import",
+        "measure_voltage.meter",
+        "measure_voltage.dc",
+        "measure_temperature",
+        "measure_power.ac",
+        "battery",
+        "batterysoh"
       ],
       "capabilitiesOptions": {
         "measure_power": {
           "icon": "/assets/sun.svg",
           "decimals": 0,
           "title": {
-            "en": "Solar Power"
+            "en": "Solar Power",
+            "nl": "Solar Power"
+          }
+        },
+        "measure_power.ac": {
+          "icon": "/assets/sun.svg",
+          "decimals": 0,
+          "title": {
+            "en": "AC Power",
+            "nl": "AC Power"
+          }
+        },
+        "meter_power": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Total Yield",
+            "nl": "Totale opbrengst"
+          }
+        },
+        "measure_voltage.dc": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "DC Voltage",
+            "nl": "DC Voltage"
+          }
+        },
+        "measure_voltage.meter": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "AC Voltage",
+            "nl": "AC Voltage"
+          }
+        },
+        "measure_temperature": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Heatsink temperature",
+            "nl": "Heatsink temperatuur"
+          }
+        },
+        "meter_power.import": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Total Import",
+            "nl": "Totale Import"
+          }
+        },
+        "meter_power.export": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Total Export",
+            "nl": "Totale Export"
           }
         }
       },
@@ -103,5 +168,41 @@
       ],
       "id": "invertorwithbatt"
     }
-  ]
+  ],
+  "capabilities": {
+    "battery": {
+      "type": "number",
+      "title": {
+        "en": "Battery Charge",
+        "nl": "Batterij lading"
+      },
+      "getable": true,
+      "setable": false,
+      "decimals": 1,
+      "insights": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/battery.svg",
+      "units": {
+        "en": "%",
+        "nl": "%"
+      }
+    },
+    "batterysoh": {
+      "type": "number",
+      "title": {
+        "en": "Battery Health",
+        "nl": "Batterij SoH"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "decimals": 1,
+      "uiComponent": "sensor",
+      "icon": "/assets/battery.svg",
+      "units": {
+        "en": "%",
+        "nl": "%"
+      }
+    }
+  }
 }
