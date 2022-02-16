@@ -1,0 +1,22 @@
+{
+"triggers": [
+    {
+      "id": "changedBattery",
+      "title": {
+        "en": "Battery Charge Changed",
+        "nl": "Batterij lading gewijzigd"
+      },
+      "tokens": [
+        {
+          "name": "charge",
+          "type": "number",
+          "title": {
+            "en": "Battery Charge (%)",
+            "nl": "Batterij lading (%)"
+          },
+          "example": 66
+        }
+      ]
+    }
+  ] 
+}    

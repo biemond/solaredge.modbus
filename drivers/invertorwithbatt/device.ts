@@ -318,27 +318,30 @@ class MySolaredgeDevice extends Solaredge {
       
       // battery  measure_battery
       if (result['soe'].value != 'xxx' ){
-        this.addCapability('battery')      
-        this.addCapability('measure_battery')    
-        var battery = Number(result['soe'].value)
+        this.addCapability('battery');      
+        this.addCapability('measure_battery');    
+        var battery = Number(Number.parseFloat(result['soe'].value).toFixed(2));
+        if (this.getCapabilityValue('battery') != battery) {
+          this.homey.flow.getDeviceTriggerCard('changedBattery').trigger(this, { charge: battery }, {});
+        }      
         this.setCapabilityValue('battery', battery);
         this.setCapabilityValue('measure_battery', battery);
       }        
 
       if (result['soh'].value != 'xxx' ){
-        var battery = Number(result['soh'].value)
-        this.setCapabilityValue('batterysoh', battery);
+        var health = Number(result['soh'].value);
+        this.setCapabilityValue('batterysoh', health);
       }   
       
       if (result['storage_control_mode'].value != 'xxx' ){
-        this.addCapability('storagecontrolmode') 
-        var storagecontrolmode = result['storage_control_mode'].value
+        this.addCapability('storagecontrolmode') ;
+        var storagecontrolmode = result['storage_control_mode'].value;
         this.setCapabilityValue('storagecontrolmode', storagecontrolmode);
       }         
 
       if (result['remote_control_command_mode'].value != 'xxx' ){
-        this.addCapability('storagedefaultmode') 
-        var storagedefaultmode = result['remote_control_command_mode'].value
+        this.addCapability('storagedefaultmode') ;
+        var storagedefaultmode = result['remote_control_command_mode'].value;
         this.setCapabilityValue('storagedefaultmode', storagedefaultmode);
       }      
 

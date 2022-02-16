@@ -42,6 +42,35 @@
       }
     ]
   },
+  "flow": {
+    "triggers": [
+      {
+        "id": "changedBattery",
+        "title": {
+          "en": "Battery Charge Changed",
+          "nl": "Batterij lading gewijzigd"
+        },
+        "tokens": [
+          {
+            "name": "charge",
+            "type": "number",
+            "title": {
+              "en": "Battery Charge (%)",
+              "nl": "Batterij lading (%)"
+            },
+            "example": 66
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      }
+    ]
+  },
   "drivers": [
     {
       "name": {
