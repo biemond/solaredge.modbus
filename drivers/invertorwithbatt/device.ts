@@ -58,7 +58,6 @@ class MySolaredgeDevice extends Solaredge {
     this.log('MySolaredgeDevice has been deleted');
     this.homey.clearInterval(timer);
   }
-
   
   async pollInvertor() {
     this.log("pollInvertor");
@@ -275,44 +274,80 @@ class MySolaredgeDevice extends Solaredge {
       for (let k in result) {
         console.log(k, result[k].value, result[k].scale, result[k].label)
       }
+      
+      if (result['power_ac'].value != 'xxx' ){
+        this.addCapability('measure_power');
+        var acpower = Number(result['power_ac'].value)*(Math.pow(10, Number(result['power_ac'].scale)));      
+        this.setCapabilityValue('measure_power', Math.round(acpower));     
+      } 
 
-      this.addCapability('measure_power');
-      var acpower = Number(result['power_ac'].value)*(Math.pow(10, Number(result['power_ac'].scale)));      
-      this.setCapabilityValue('measure_power', Math.round(acpower));      
-
-      this.addCapability('meter_power'); 
-      var total = Number(result['energy_total'].value)*(Math.pow(10, Number(result['energy_total'].scale)));  
-      this.setCapabilityValue('meter_power', total / 1000);       
+      if (result['energy_total'].value != 'xxx' ){
+        this.addCapability('meter_power'); 
+        var total = Number(result['energy_total'].value)*(Math.pow(10, Number(result['energy_total'].scale)));  
+        this.setCapabilityValue('meter_power', total / 1000);
+      }       
 
       // meters
-      this.addCapability('meter_power.export');
-      var totalexport = Number(result['export_energy_active'].value)*(Math.pow(10, Number(result['export_energy_active'].scale)));
-      this.setCapabilityValue('meter_power.export', totalexport / 1000);    
+      if (result['export_energy_active'].value != 'xxx' ){
+        this.addCapability('meter_power.export');
+        var totalexport = Number(result['export_energy_active'].value)*(Math.pow(10, Number(result['export_energy_active'].scale)));
+        this.setCapabilityValue('meter_power.export', totalexport / 1000);
+      }    
 
       // meters
-      this.addCapability('meter_power.import');
-      var totalimport = Number(result['import_energy_active'].value)*(Math.pow(10, Number(result['export_energy_active'].scale)));
-      this.setCapabilityValue('meter_power.import', totalimport / 1000);    
+      if (result['import_energy_active'].value != 'xxx' ){
+        this.addCapability('meter_power.import');
+        var totalimport = Number(result['import_energy_active'].value)*(Math.pow(10, Number(result['export_energy_active'].scale)));
+        this.setCapabilityValue('meter_power.import', totalimport / 1000); 
+      }   
 
       // "measure_voltage.meter",
       // "measure_power.ac"
 
-      this.addCapability('measure_voltage.dc');
-      var dcpower = Number(result['power_dc'].value)*(Math.pow(10, Number(result['power_dc'].scale)));
-      this.setCapabilityValue('measure_voltage.dc', dcpower);
+      if (result['power_dc'].value != 'xxx' ){
+        this.addCapability('measure_voltage.dc');
+        var dcpower = Number(result['power_dc'].value)*(Math.pow(10, Number(result['power_dc'].scale)));
+        this.setCapabilityValue('measure_voltage.dc', dcpower);
+      }
 
-      this.addCapability('measure_temperature');
-      var temperature = Number(result['temperature'].value)*(Math.pow(10, Number(result['temperature'].scale)));
-      this.setCapabilityValue('measure_temperature', temperature);      
+      if (result['temperature'].value != 'xxx' ){
+        this.addCapability('measure_temperature.invertor');
+        var temperature = Number(result['temperature'].value)*(Math.pow(10, Number(result['temperature'].scale)));
+        this.setCapabilityValue('measure_temperature.invertor', temperature);
+      }      
       
-      // battery
-      this.addCapability('battery')      
-      var battery = Number(result['soe'].value)
-      this.setCapabilityValue('battery', battery); 
+      // battery  measure_battery
+      if (result['soe'].value != 'xxx' ){
+        this.addCapability('battery')      
+        this.addCapability('measure_battery')    
+        var battery = Number(result['soe'].value)
+        this.setCapabilityValue('battery', battery);
+        this.setCapabilityValue('measure_battery', battery);
+      }        
 
-      this.addCapability('batterysoh')      
-      var battery = Number(result['soh'].value)
-      this.setCapabilityValue('batterysoh', battery);       
+      if (result['soh'].value != 'xxx' ){
+        var battery = Number(result['soh'].value)
+        this.setCapabilityValue('batterysoh', battery);
+      }   
+      
+      if (result['storage_control_mode'].value != 'xxx' ){
+        this.addCapability('storagecontrolmode') 
+        var storagecontrolmode = result['storage_control_mode'].value
+        this.setCapabilityValue('storagecontrolmode', storagecontrolmode);
+      }         
+
+      if (result['remote_control_command_mode'].value != 'xxx' ){
+        this.addCapability('storagedefaultmode') 
+        var storagedefaultmode = result['remote_control_command_mode'].value
+        this.setCapabilityValue('storagedefaultmode', storagedefaultmode);
+      }      
+
+      if (result['average_temperature'].value != 'xxx' ){
+        this.addCapability("measure_temperature.battery");
+        var batt_temperature = Number(result['average_temperature'].value);
+        this.setCapabilityValue("measure_temperature.battery", Math.round(batt_temperature));
+      }         
+      
 
     }, 10000)
 

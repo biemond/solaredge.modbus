@@ -1,0 +1,42 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Storage Control Mode"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "picker",
+    "uiQuickAction": false,
+    "values": [
+        {
+            "id": "0",
+            "title": {
+                "en": "Disabled"
+            }
+        },
+        {
+            "id": "1",
+            "title": {
+                "en": "Maximize Self Consumption"
+            }
+        },
+        {
+            "id": "2",
+            "title": {
+                "en": "Time of Use"
+            }
+        },
+        {
+            "id": "3",
+            "title": {
+                "en": "Backup Only"
+            }
+        },
+        {
+            "id": "4",
+            "title": {
+                "en": "Remote Control"
+            }
+        }                
+    ]
+}

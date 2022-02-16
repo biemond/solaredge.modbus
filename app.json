@@ -45,7 +45,7 @@
   "drivers": [
     {
       "name": {
-        "en": "invertor with storedge"
+        "en": "Invertor with storedge"
       },
       "class": "sensor",
       "energy": {
@@ -54,16 +54,20 @@
         ]
       },
       "capabilities": [
+        "measure_battery",
         "measure_power",
         "meter_power",
         "meter_power.export",
         "meter_power.import",
         "measure_voltage.meter",
         "measure_voltage.dc",
-        "measure_temperature",
+        "measure_temperature.invertor",
+        "measure_temperature.battery",
         "measure_power.ac",
         "battery",
-        "batterysoh"
+        "batterysoh",
+        "storagecontrolmode",
+        "storagedefaultmode"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -103,11 +107,17 @@
             "nl": "AC Voltage"
           }
         },
-        "measure_temperature": {
+        "measure_temperature.invertor": {
           "icon": "/assets/sun.svg",
           "title": {
             "en": "Heatsink temperature",
             "nl": "Heatsink temperatuur"
+          }
+        },
+        "measure_temperature.battery": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Battery avg temperature"
           }
         },
         "meter_power.import": {
@@ -203,6 +213,108 @@
         "en": "%",
         "nl": "%"
       }
+    },
+    "storagecontrolmode": {
+      "type": "enum",
+      "title": {
+        "en": "Storage Control Mode"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "picker",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Disabled"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Maximize Self Consumption"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Time of Use"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Backup Only"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Remote Control"
+          }
+        }
+      ]
+    },
+    "storagedefaultmode": {
+      "type": "enum",
+      "title": {
+        "en": "Storage Charge/Discharge Mode"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "picker",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "-1",
+          "title": {
+            "en": "Disabled"
+          }
+        },
+        {
+          "id": "0",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Charge excess PV power only"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Charge from PV 1st, before producing to AC"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Charge from PV+AC"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Maximize export"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Discharge to meet loads consumption"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "Maximize self-consumption"
+          }
+        }
+      ]
     }
   }
 }

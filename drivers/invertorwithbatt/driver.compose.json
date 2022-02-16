@@ -9,16 +9,20 @@
     ]
   },  
   "capabilities": [
+    "measure_battery",
     "measure_power",
     "meter_power",
     "meter_power.export",
     "meter_power.import",
     "measure_voltage.meter",
     "measure_voltage.dc",
-    "measure_temperature",
+    "measure_temperature.invertor",
+    "measure_temperature.battery",
     "measure_power.ac",
     "battery",
-    "batterysoh"
+    "batterysoh",
+    "storagecontrolmode",
+    "storagedefaultmode"
   ],
   "capabilitiesOptions": {
       "measure_power": {
@@ -58,13 +62,19 @@
           "nl": "AC Voltage"
         }
       },
-      "measure_temperature": {
+      "measure_temperature.invertor": {
         "icon": "/assets/sun.svg",
         "title": {
           "en": "Heatsink temperature",
           "nl": "Heatsink temperatuur"
         }
       },
+      "measure_temperature.battery": {
+        "icon": "/assets/sun.svg",
+        "title": {
+          "en": "Battery avg temperature"
+        }
+      },      
       "meter_power.import": {
         "icon": "/assets/sun.svg",
         "title": {
