@@ -202,17 +202,13 @@
       },
       "capabilities": [
         "measure_battery",
+        "measure_power.batt_charge",
+        "measure_power.batt_discharge",
         "measure_power",
-        "meter_power",
-        "meter_power.export",
-        "meter_power.import",
         "measure_voltage.meter",
         "measure_voltage.dc",
         "measure_temperature.invertor",
         "measure_temperature.battery",
-        "measure_power.ac",
-        "measure_power.batt_charge",
-        "measure_power.batt_discharge",
         "battery",
         "batterysoh",
         "storagecontrolmode",
@@ -223,8 +219,7 @@
           "icon": "/assets/sun.svg",
           "decimals": 0,
           "title": {
-            "en": "Solar Power",
-            "nl": "Solar Power"
+            "en": "Solar + Batt Power"
           }
         },
         "measure_power.batt_discharge": {
@@ -239,21 +234,6 @@
           "decimals": 0,
           "title": {
             "en": "Battery Power charge"
-          }
-        },
-        "measure_power.ac": {
-          "icon": "/assets/sun.svg",
-          "decimals": 0,
-          "title": {
-            "en": "AC Power",
-            "nl": "AC Power"
-          }
-        },
-        "meter_power": {
-          "icon": "/assets/sun.svg",
-          "title": {
-            "en": "Total Yield",
-            "nl": "Totale opbrengst"
           }
         },
         "measure_voltage.dc": {
@@ -281,20 +261,6 @@
           "icon": "/assets/sun.svg",
           "title": {
             "en": "Battery avg temperature"
-          }
-        },
-        "meter_power.import": {
-          "icon": "/assets/sun.svg",
-          "title": {
-            "en": "Total Import",
-            "nl": "Totale Import"
-          }
-        },
-        "meter_power.export": {
-          "icon": "/assets/sun.svg",
-          "title": {
-            "en": "Total Export",
-            "nl": "Totale Export"
           }
         }
       },
