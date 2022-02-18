@@ -80,9 +80,9 @@ export class Solaredge extends Homey.Device {
     };
 
     meter_dids : Object  = {
-        "meter1 Modbus ID": [0x9cfc, 1, 'UINT16',  0x0],
-        "meter2 Modbus ID": [0x9daa, 1, 'UINT16',  0xae],
-        "meter3 Modbus ID": [0x9e59, 1, 'UINT16',  0x15c]
+        "meter1": [0x9cfc, 1, 'UINT16',  0x0],
+        "meter2": [0x9daa, 1, 'UINT16',  0xae],
+        "meter3": [0x9e59, 1, 'UINT16',  0x15c]
     }
 
     meter_registers : Object  = {
@@ -177,8 +177,8 @@ export class Solaredge extends Homey.Device {
     }
 
     battery_dids : Object  = {
-       "batt1 Modbus ID": [0xe140, 1, 'UINT16', 0x0],
-       "batt2 Modbus ID": [0xe240, 1, 'UINT16', 0x100]
+       "batt1": [0xe140, 1, 'UINT16', 0x0],
+       "batt2": [0xe240, 1, 'UINT16', 0x100]
     }
  
     batt_registers  : Object  = {

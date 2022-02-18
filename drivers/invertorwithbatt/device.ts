@@ -288,14 +288,14 @@ class MySolaredgeDevice extends Solaredge {
                     case 'SCALE':
                         resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
                         // console.log(key + "-" + value2[3] + ": " + resultValue);
-                        result[key2.replace('_scale', '')].scale = resultValue 
+                        result[key+'-'+key2.replace('_scale', '')].scale = resultValue 
                         break;                         
                     default:
                         console.log(key2 + ": type not found " + value2[2]);
                         break;
                     }
                     measurement.value = resultValue;
-                    result[key2] = measurement;                                  
+                    result[key+'-'+key2] = measurement;                                  
                 })
                 .catch((err) => {
                     console.log(err);
@@ -352,7 +352,7 @@ class MySolaredgeDevice extends Solaredge {
                             break;
                       }
                       measurement.value = resultValue;
-                      result[key2] = measurement;                                    
+                      result[key+'-'+key2] = measurement;                                    
                   })
                   .catch((err) => {
                       console.log(err);
@@ -393,29 +393,6 @@ class MySolaredgeDevice extends Solaredge {
         this.setCapabilityValue('measure_power.ac', voltageac);
       }
 
-      // meters
-      if (result['export_energy_active'] && result['export_energy_active'].value != 'xxx' ){
-        this.addCapability('meter_power.export');
-        var totalexport = Number(result['export_energy_active'].value)*(Math.pow(10, Number(result['export_energy_active'].scale)));
-        this.setCapabilityValue('meter_power.export', totalexport / 1000);
-      }    
-
-      // meters
-      if (result['import_energy_active'] && result['import_energy_active'].value != 'xxx' ){
-        this.addCapability('meter_power.import');
-        var totalimport = Number(result['import_energy_active'].value)*(Math.pow(10, Number(result['export_energy_active'].scale)));
-        this.setCapabilityValue('meter_power.import', totalimport / 1000); 
-      }   
-
-
-
-      // "measure_voltage.meter",
-      if (result['voltage_ln'] && result['voltage_ln'].value != 'xxx' ){
-        this.addCapability('measure_voltage.meter');
-        var voltageac = Number(result['voltage_ln'].value)*(Math.pow(10, Number(result['voltage_ln'].scale)));
-        this.setCapabilityValue('measure_voltage.meter', voltageac);
-      }
-
       if (result['power_dc'] && result['power_dc'].value != 'xxx' ){
         this.addCapability('measure_voltage.dc');
         var dcpower = Number(result['power_dc'].value)*(Math.pow(10, Number(result['power_dc'].scale)));
@@ -426,13 +403,33 @@ class MySolaredgeDevice extends Solaredge {
         this.addCapability('measure_temperature.invertor');
         var temperature = Number(result['temperature'].value)*(Math.pow(10, Number(result['temperature'].scale)));
         this.setCapabilityValue('measure_temperature.invertor', temperature);
-      }      
+      }   
+
+      // meters
+      if (result['meter1-export_energy_active'] && result['meter1-export_energy_active'].value != 'xxx' ){
+        this.addCapability('meter_power.export');
+        var totalexport = Number(result['meter1-export_energy_active'].value)*(Math.pow(10, Number(result['meter1-export_energy_active'].scale)));
+        this.setCapabilityValue('meter_power.export', totalexport / 1000);
+      }    
+
+      // meters
+      if (result['meter1-import_energy_active'] && result['meter1-import_energy_active'].value != 'xxx' ){
+        this.addCapability('meter_power.import');
+        var totalimport = Number(result['meter1-import_energy_active'].value)*(Math.pow(10, Number(result['meter1-export_energy_active'].scale)));
+        this.setCapabilityValue('meter_power.import', totalimport / 1000); 
+      }   
+
+      if (result['meter1-voltage_ln'] && result['meter1-voltage_ln'].value != 'xxx' ){
+        this.addCapability('measure_voltage.meter');
+        var voltageac = Number(result['meter1-voltage_ln'].value)*(Math.pow(10, Number(result['meter1-voltage_ln'].scale)));
+        this.setCapabilityValue('measure_voltage.meter', voltageac);
+      }
       
       // battery  measure_battery
-      if (result['soe'] && result['soe'].value != 'xxx' ){
+      if (result['batt1-soe'] && result['batt1-soe'].value != 'xxx' ){
         this.addCapability('battery');      
         this.addCapability('measure_battery');    
-        var battery = Number(Number.parseFloat(result['soe'].value).toFixed(2));
+        var battery = Number(Number.parseFloat(result['batt1-soe'].value).toFixed(2));
         if (this.getCapabilityValue('battery') != battery) {
           this.homey.flow.getDeviceTriggerCard('changedBattery').trigger(this, { charge: battery }, {});
         }      
@@ -440,8 +437,8 @@ class MySolaredgeDevice extends Solaredge {
         this.setCapabilityValue('measure_battery', battery);
       }        
 
-      if (result['soh'] && result['soh'].value != 'xxx' ){
-        var health = Number(result['soh'].value);
+      if (result['batt1-soh'] && result['batt1-soh'].value != 'xxx' ){
+        var health = Number(result['batt1-soh'].value);
         this.setCapabilityValue('batterysoh', health);
       }   
       
@@ -457,9 +454,9 @@ class MySolaredgeDevice extends Solaredge {
         this.setCapabilityValue('storagedefaultmode', storagedefaultmode);
       }      
 
-      if (result['average_temperature'] && result['average_temperature'].value != 'xxx' ){
+      if (result['batt1-average_temperature'] && result['batt1-average_temperature'].value != 'xxx' ){
         this.addCapability("measure_temperature.battery");
-        var batt_temperature = Number(result['average_temperature'].value);
+        var batt_temperature = Number(result['batt1-average_temperature'].value);
         this.setCapabilityValue("measure_temperature.battery", Math.round(batt_temperature));
       }         
     }, 10000)
