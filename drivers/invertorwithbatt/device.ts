@@ -425,7 +425,20 @@ class MySolaredgeDevice extends Solaredge {
         this.setCapabilityValue('measure_voltage.meter', voltageac);
       }
       
-      // battery  measure_battery
+      // battery  
+      if (result['batt1-instantaneous_power'] && result['batt1-instantaneous_power'].value != 'xxx' ){
+        this.addCapability('measure_power.batt_charge') ;
+        this.addCapability('measure_power.batt_discharge') ;
+        var battpower = Number(result['batt1-instantaneous_power'].value);
+        if ( battpower > 0 ) {
+          this.setCapabilityValue('measure_power.batt_charge', battpower);
+          this.setCapabilityValue('measure_power.batt_discharge', 0); 
+        } else {
+          this.setCapabilityValue('measure_power.batt_charge', 0);
+          this.setCapabilityValue('measure_power.batt_discharge', -1 * battpower); 
+        }       
+      }   
+
       if (result['batt1-soe'] && result['batt1-soe'].value != 'xxx' ){
         this.addCapability('battery');      
         this.addCapability('measure_battery');    

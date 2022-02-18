@@ -211,6 +211,8 @@
         "measure_temperature.invertor",
         "measure_temperature.battery",
         "measure_power.ac",
+        "measure_power.batt_charge",
+        "measure_power.batt_discharge",
         "battery",
         "batterysoh",
         "storagecontrolmode",
@@ -223,6 +225,20 @@
           "title": {
             "en": "Solar Power",
             "nl": "Solar Power"
+          }
+        },
+        "measure_power.batt_discharge": {
+          "icon": "/assets/sun.svg",
+          "decimals": 0,
+          "title": {
+            "en": "Battery Power discharge"
+          }
+        },
+        "measure_power.batt_charge": {
+          "icon": "/assets/sun.svg",
+          "decimals": 0,
+          "title": {
+            "en": "Battery Power charge"
           }
         },
         "measure_power.ac": {
