@@ -3,10 +3,12 @@ import net from 'net';
 import {Solaredge} from '../solaredge';
 import {Measurement} from '../solaredge';
 
-const RETRY_INTERVAL = 20 * 1000; 
+const RETRY_INTERVAL = 40 * 1000; 
 let timer:NodeJS.Timer;
 
 class MySolaredgeDevice extends Solaredge {
+
+
   /**
    * onInit is called when the device is initialized.
    */
@@ -17,10 +19,23 @@ class MySolaredgeDevice extends Solaredge {
     this.log("device name id " + name );
     this.log("device name " + this.getName());
 
+    this.pollInvertor();
+
     timer = this.homey.setInterval(() => {
       // poll device state from invertor
       this.pollInvertor();
     }, RETRY_INTERVAL);
+
+  
+    this.registerCapabilityListener('storagecontrolmode', async (value)  => {
+      this.updateControl('storagecontrolmode', Number(value));
+      return value;
+    }); 
+
+    this.registerCapabilityListener('storagedefaultmode', async (value)  => {
+      this.updateControl('storagedefaultmode', Number(value));
+      return value;
+    }); 
   }
 
   /**
@@ -59,9 +74,13 @@ class MySolaredgeDevice extends Solaredge {
     this.homey.clearInterval(timer);
   }
   
-  async pollInvertor() {
-    this.log("pollInvertor");
-    this.log(this.getSetting('address'));
+ async updateControl(type: string, value: number) {
+    function handleErrors(err: any) {
+      console.log('Unknown Error', err);
+    }
+    this.log("storagecontrolmode set  ", value );
+    let socket = new net.Socket()
+    let client = new Modbus.client.TCP(socket);  
 
     let modbusOptions = {
       'host': this.getSetting('address'),
@@ -73,8 +92,66 @@ class MySolaredgeDevice extends Solaredge {
       'logLevel': 'error',
       'logEnabled': true
     }    
-    const socket = new net.Socket()
-    const client = new Modbus.client.TCP(socket);
+
+    socket.connect(modbusOptions);
+    socket.on('connect', () => {
+      console.log('Connected ...');
+
+        if ( type == 'storagecontrolmode'){
+          // 0 – Disabled
+          // 1 – Maximize Self Consumption – requires a SolarEdge Electricity meter on the grid or load connection point
+          // 2 – Time of Use (Profile programming) – requires a SolarEdge Electricity meter on the grid or load connection point 3 – Backup Only (applicable only for systems support backup functionality)
+          // 4 – Remote Control – the battery charge/discharge state is controlled by an external controller
+          client.writeSingleRegister(0xe004, Number(value))
+          .then(function (resp) {
+            console.log('controlmodewrite', resp)
+          })
+          .catch(handleErrors);
+        }
+
+        if ( type == 'storagedefaultmode'){
+          client.writeSingleRegister(0xe004, 4)
+          .then(function (resp) {
+            console.log('controlmodewrite', resp)
+          })
+          // 0 – Off
+          // 1 – Charge excess PV power only.
+          // Only PV excess power not going to AC is used for charging the battery. Inverter NominalActivePowerLimit (or the inverter rated power whichever is lower) sets how much power the inverter is producing to the AC. In this mode, the battery cannot be discharged. If the PV power is lower than NominalActivePowerLimit the AC production will be equal to the PV power.
+          // 2 – Charge from PV first, before producing power to the AC.
+          // The Battery charge has higher priority than AC production. First charge the battery then produce AC.
+          // If StorageRemoteCtrl_ChargeLimit is lower than PV excess power goes to AC according to NominalActivePowerLimit. If NominalActivePowerLimit is reached and battery StorageRemoteCtrl_ChargeLimit is reached, PV power is curtailed.
+          // 3 – Charge from PV+AC according to the max battery power.
+          // Charge from both PV and AC with priority on PV power.
+          // If PV production is lower than StorageRemoteCtrl_ChargeLimit, the battery will be charged from AC up to NominalActivePow-erLimit. In this case AC power = StorageRemoteCtrl_ChargeLimit- PVpower.
+          // If PV power is larger than StorageRemoteCtrl_ChargeLimit the excess PV power will be directed to the AC up to the Nominal-ActivePowerLimit beyond which the PV is curtailed.
+          // 4 – Maximize export – discharge battery to meet max inverter AC limit.
+          // AC power is maintained to NominalActivePowerLimit, using PV power and/or battery power. If the PV power is not sufficient, battery power is used to complement AC power up to StorageRemoteCtrl_DishargeLimit. In this mode, charging excess power will occur if there is more PV than the AC limit.
+          // 5 – Discharge to meet loads consumption. Discharging to the grid is not allowed. 
+          // 7 – Maximize self-consumption
+          client.writeSingleRegister(0xe00d, value)
+          .then(function (resp) {
+            console.log('remotecontrolwrite', resp)
+          })          
+        }
+
+    })
+
+    setTimeout(() => 
+    {
+      console.log('disconnect'); 
+      client.socket.end();
+      socket.end();
+    }, 2000)
+
+    socket.on('error', (err) => {
+      console.log(err);
+      socket.end();
+    })  
+  }
+
+  async pollInvertor() {
+    this.log("pollInvertor");
+    this.log(this.getSetting('address'));
 
     function handleErrors(err: any) {
       console.log('Unknown Error', err);
@@ -85,6 +162,19 @@ class MySolaredgeDevice extends Solaredge {
     }
     let result: Record<string, Measurement> = {};
 
+    let modbusOptions = {
+      'host': this.getSetting('address'),
+      'port': this.getSetting('port'),
+      'unitId': 1,
+      'timeout': 20,
+      'autoReconnect': false,
+      'logLabel' : 'solaredge Inverter',
+      'logLevel': 'error',
+      'logEnabled': true
+    }    
+
+    let socket = new net.Socket()
+    let client = new Modbus.client.TCP(socket);  
     socket.connect(modbusOptions);
     socket.on('connect', () => {
       console.log('Connected ...');
@@ -269,33 +359,34 @@ class MySolaredgeDevice extends Solaredge {
     setTimeout(() => 
     {
       console.log('disconnect'); 
+      client.socket.end();
       socket.end();
       // result
       for (let k in result) {
         console.log(k, result[k].value, result[k].scale, result[k].label)
       }
       
-      if (result['power_ac'].value != 'xxx' ){
+      if (result['power_ac'] && result['power_ac'].value != 'xxx' ){
         this.addCapability('measure_power');
         var acpower = Number(result['power_ac'].value)*(Math.pow(10, Number(result['power_ac'].scale)));      
         this.setCapabilityValue('measure_power', Math.round(acpower));     
       } 
 
-      if (result['energy_total'].value != 'xxx' ){
+      if (result['energy_total'] && result['energy_total'].value != 'xxx' ){
         this.addCapability('meter_power'); 
         var total = Number(result['energy_total'].value)*(Math.pow(10, Number(result['energy_total'].scale)));  
         this.setCapabilityValue('meter_power', total / 1000);
       }       
 
       // meters
-      if (result['export_energy_active'].value != 'xxx' ){
+      if (result['export_energy_active'] && result['export_energy_active'].value != 'xxx' ){
         this.addCapability('meter_power.export');
         var totalexport = Number(result['export_energy_active'].value)*(Math.pow(10, Number(result['export_energy_active'].scale)));
         this.setCapabilityValue('meter_power.export', totalexport / 1000);
       }    
 
       // meters
-      if (result['import_energy_active'].value != 'xxx' ){
+      if (result['import_energy_active'] && result['import_energy_active'].value != 'xxx' ){
         this.addCapability('meter_power.import');
         var totalimport = Number(result['import_energy_active'].value)*(Math.pow(10, Number(result['export_energy_active'].scale)));
         this.setCapabilityValue('meter_power.import', totalimport / 1000); 
@@ -304,20 +395,20 @@ class MySolaredgeDevice extends Solaredge {
       // "measure_voltage.meter",
       // "measure_power.ac"
 
-      if (result['power_dc'].value != 'xxx' ){
+      if (result['power_dc'] && result['power_dc'].value != 'xxx' ){
         this.addCapability('measure_voltage.dc');
         var dcpower = Number(result['power_dc'].value)*(Math.pow(10, Number(result['power_dc'].scale)));
         this.setCapabilityValue('measure_voltage.dc', dcpower);
       }
 
-      if (result['temperature'].value != 'xxx' ){
+      if (result['temperature'] && result['temperature'].value != 'xxx' ){
         this.addCapability('measure_temperature.invertor');
         var temperature = Number(result['temperature'].value)*(Math.pow(10, Number(result['temperature'].scale)));
         this.setCapabilityValue('measure_temperature.invertor', temperature);
       }      
       
       // battery  measure_battery
-      if (result['soe'].value != 'xxx' ){
+      if (result['soe'] && result['soe'].value != 'xxx' ){
         this.addCapability('battery');      
         this.addCapability('measure_battery');    
         var battery = Number(Number.parseFloat(result['soe'].value).toFixed(2));
@@ -328,30 +419,28 @@ class MySolaredgeDevice extends Solaredge {
         this.setCapabilityValue('measure_battery', battery);
       }        
 
-      if (result['soh'].value != 'xxx' ){
+      if (result['soh'] && result['soh'].value != 'xxx' ){
         var health = Number(result['soh'].value);
         this.setCapabilityValue('batterysoh', health);
       }   
       
-      if (result['storage_control_mode'].value != 'xxx' ){
+      if (result['storage_control_mode'] && result['storage_control_mode'].value != 'xxx' ){
         this.addCapability('storagecontrolmode') ;
         var storagecontrolmode = result['storage_control_mode'].value;
         this.setCapabilityValue('storagecontrolmode', storagecontrolmode);
       }         
 
-      if (result['remote_control_command_mode'].value != 'xxx' ){
+      if (result['remote_control_command_mode'] && result['remote_control_command_mode'].value != 'xxx' ){
         this.addCapability('storagedefaultmode') ;
         var storagedefaultmode = result['remote_control_command_mode'].value;
         this.setCapabilityValue('storagedefaultmode', storagedefaultmode);
       }      
 
-      if (result['average_temperature'].value != 'xxx' ){
+      if (result['average_temperature'] && result['average_temperature'].value != 'xxx' ){
         this.addCapability("measure_temperature.battery");
         var batt_temperature = Number(result['average_temperature'].value);
         this.setCapabilityValue("measure_temperature.battery", Math.round(batt_temperature));
       }         
-      
-
     }, 10000)
 
     socket.on('error', (err) => {

@@ -4,7 +4,7 @@
         "en": "Storage Charge/Discharge Mode"
     },
     "getable": true,
-    "setable": false,
+    "setable": true,
     "uiComponent": "picker",
     "uiQuickAction": false,
     "values": [

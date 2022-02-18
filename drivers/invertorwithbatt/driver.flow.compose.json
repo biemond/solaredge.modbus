@@ -18,5 +18,113 @@
         }
       ]
     }
-  ] 
+  ],
+  "actions": [
+    {
+        "id": "storagecontrolmode",
+        "title": {
+          "en": "Storage Control Mode"
+        },
+        "args": [
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+                {
+                    "id": "0",
+                    "title": {
+                        "en": "Disabled"
+                    }
+                },
+                {
+                    "id": "1",
+                    "title": {
+                        "en": "Maximize Self Consumption"
+                    }
+                },
+                {
+                    "id": "2",
+                    "title": {
+                        "en": "Time of Use"
+                    }
+                },
+                {
+                    "id": "3",
+                    "title": {
+                        "en": "Backup Only"
+                    }
+                },
+                {
+                    "id": "4",
+                    "title": {
+                        "en": "Remote Control"
+                    }
+                } 
+            ]        
+          }
+        ]
+    },
+    {
+        "id": "storagedefaultmode",
+        "title": {
+          "en": "Storage Charge/Discharge Mode"
+        },
+        "args": [
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+                {
+                    "id": "-1",
+                    "title": {
+                        "en": "Disabled"
+                    }
+                },        
+                {
+                    "id": "0",
+                    "title": {
+                        "en": "Off"
+                    }
+                },
+                {
+                    "id": "1",
+                    "title": {
+                        "en": "Charge excess PV power only"
+                    }
+                },
+                {
+                    "id": "2",
+                    "title": {
+                        "en": "Charge from PV 1st, before producing to AC"
+                    }
+                },
+                {
+                    "id": "3",
+                    "title": {
+                        "en": "Charge from PV+AC"
+                    }
+                },
+                {
+                    "id": "4",
+                    "title": {
+                        "en": "Maximize export"
+                    }
+                },                
+                {
+                    "id": "5",
+                    "title": {
+                        "en": "Discharge to meet loads consumption"
+                    }
+                } ,
+                {
+                    "id": "7",
+                    "title": {
+                        "en": "Maximize self-consumption"
+                    }
+                }          
+            ]        
+          }
+        ]
+    }    
+  ] 			   
 }    
