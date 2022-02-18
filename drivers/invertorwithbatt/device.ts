@@ -26,16 +26,25 @@ class MySolaredgeDevice extends Solaredge {
       this.pollInvertor();
     }, RETRY_INTERVAL);
 
-  
+    // homey menu / device actions
     this.registerCapabilityListener('storagecontrolmode', async (value)  => {
       this.updateControl('storagecontrolmode', Number(value));
       return value;
     }); 
-
     this.registerCapabilityListener('storagedefaultmode', async (value)  => {
       this.updateControl('storagedefaultmode', Number(value));
       return value;
     }); 
+
+    // flow action 
+    let controlAction = this.homey.flow.getActionCard('storagecontrolmode');
+    controlAction.registerRunListener(async (args, state) => {
+      await this.updateControl('storagecontrolmode', Number(args.mode));
+    });
+    let customModeAction = this.homey.flow.getActionCard('storagedefaultmode');
+    customModeAction.registerRunListener(async (args, state) => {
+      await this.updateControl('storagedefaultmode', Number(args.mode));
+    });
   }
 
   /**
@@ -378,6 +387,12 @@ class MySolaredgeDevice extends Solaredge {
         this.setCapabilityValue('meter_power', total / 1000);
       }       
 
+      if (result['power_ac'] && result['power_ac'].value != 'xxx' ){
+        this.addCapability('measure_power.ac');
+        var voltageac = Number(result['power_ac'].value)*(Math.pow(10, Number(result['power_ac'].scale)));
+        this.setCapabilityValue('measure_power.ac', voltageac);
+      }
+
       // meters
       if (result['export_energy_active'] && result['export_energy_active'].value != 'xxx' ){
         this.addCapability('meter_power.export');
@@ -392,8 +407,14 @@ class MySolaredgeDevice extends Solaredge {
         this.setCapabilityValue('meter_power.import', totalimport / 1000); 
       }   
 
+
+
       // "measure_voltage.meter",
-      // "measure_power.ac"
+      if (result['voltage_ln'] && result['voltage_ln'].value != 'xxx' ){
+        this.addCapability('measure_voltage.meter');
+        var voltageac = Number(result['voltage_ln'].value)*(Math.pow(10, Number(result['voltage_ln'].scale)));
+        this.setCapabilityValue('measure_voltage.meter', voltageac);
+      }
 
       if (result['power_dc'] && result['power_dc'].value != 'xxx' ){
         this.addCapability('measure_voltage.dc');
