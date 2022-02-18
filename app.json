@@ -194,7 +194,7 @@
       "name": {
         "en": "Invertor with storedge"
       },
-      "class": "sensor",
+      "class": "solarpanel",
       "energy": {
         "batteries": [
           "OTHER"
