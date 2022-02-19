@@ -122,7 +122,7 @@ class MySolaredgeDevice extends Solaredge {
           client.writeSingleRegister(0xe004, 4)
           .then(function (resp) {
             console.log('controlmodewrite', resp)
-          })
+          }).catch(handleErrors);
           // 0 – Off
           // 1 – Charge excess PV power only.
           // Only PV excess power not going to AC is used for charging the battery. Inverter NominalActivePowerLimit (or the inverter rated power whichever is lower) sets how much power the inverter is producing to the AC. In this mode, the battery cannot be discharged. If the PV power is lower than NominalActivePowerLimit the AC production will be equal to the PV power.
@@ -140,9 +140,8 @@ class MySolaredgeDevice extends Solaredge {
           client.writeSingleRegister(0xe00d, value)
           .then(function (resp) {
             console.log('remotecontrolwrite', resp)
-          })          
+          }).catch(handleErrors);          
         }
-
     })
 
     setTimeout(() => 
@@ -206,6 +205,10 @@ class MySolaredgeDevice extends Solaredge {
               resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
               // console.log(value[3] + ": " + resultValue);
               break;
+            case 'UINT32':
+              resultValue = response.body.valuesAsBuffer.readUInt32BE().toString();
+              // console.log(value[3] + ": " + resultValue); 
+              break;                   
             case 'ACC32':
               resultValue = response.body.valuesAsBuffer.readUInt32BE().toString();
               // console.log(value[3] + ": " + resultValue);
@@ -387,11 +390,11 @@ class MySolaredgeDevice extends Solaredge {
       //   this.setCapabilityValue('meter_power', total / 1000);
       // }       
 
-      if (result['power_dc'] && result['power_dc'].value != 'xxx' ){
-        this.addCapability('measure_voltage.dc');
-        var dcpower = Number(result['power_dc'].value)*(Math.pow(10, Number(result['power_dc'].scale)));
-        this.setCapabilityValue('measure_voltage.dc', dcpower);
-      }
+      // if (result['power_dc'] && result['power_dc'].value != 'xxx' ){
+      //   this.addCapability('measure_voltage.dc');
+      //   var dcpower = Number(result['power_dc'].value)*(Math.pow(10, Number(result['power_dc'].scale)));
+      //   this.setCapabilityValue('measure_voltage.dc', dcpower);
+      // }
 
       if (result['temperature'] && result['temperature'].value != 'xxx' ){
         this.addCapability('measure_temperature.invertor');
@@ -418,7 +421,21 @@ class MySolaredgeDevice extends Solaredge {
         var voltageac = Number(result['meter1-voltage_ln'].value)*(Math.pow(10, Number(result['meter1-voltage_ln'].scale)));
         this.setCapabilityValue('measure_voltage.meter', voltageac);
       }
-      
+
+      // meter  
+      if (result['meter1-power'] && result['meter1-power'].value != 'xxx' ){
+        this.addCapability('measure_power.import') ;
+        this.addCapability('measure_power.export') ;
+        var meterpower = Number(result['meter1-power'].value)*(Math.pow(10, Number(result['meter1-power'].scale)));
+        if ( meterpower > 0 ) {
+          this.setCapabilityValue('measure_power.export', meterpower);
+          this.setCapabilityValue('measure_power.import', 0); 
+        } else {
+          this.setCapabilityValue('measure_power.export', 0);
+          this.setCapabilityValue('measure_power.import', -1 * meterpower); 
+        }       
+      }        
+
       // battery  
       if (result['batt1-instantaneous_power'] && result['batt1-instantaneous_power'].value != 'xxx' ){
         this.addCapability('measure_power.batt_charge') ;

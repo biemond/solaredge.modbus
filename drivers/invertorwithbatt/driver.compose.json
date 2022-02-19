@@ -13,8 +13,9 @@
     "measure_power.batt_charge",
     "measure_power.batt_discharge",  
     "measure_power",
+    "measure_power.import", 
+    "measure_power.export",           
     "measure_voltage.meter",
-    "measure_voltage.dc",
     "measure_temperature.invertor",
     "measure_temperature.battery",
     "battery",
@@ -44,11 +45,18 @@
           "en":  "Battery Power charge"
         }
       },
-      "measure_voltage.dc": {
+      "measure_power.import":{
         "icon": "/assets/sun.svg",
+        "decimals": 0,
         "title": {
-          "en": "DC Voltage",
-          "nl": "DC Voltage"
+          "en": "Power Grid import"
+        }
+      },        
+      "measure_power.export":{
+        "icon": "/assets/sun.svg",
+        "decimals": 0,
+        "title": {
+          "en":  "Power Grid export"
         }
       },
       "measure_voltage.meter": {
