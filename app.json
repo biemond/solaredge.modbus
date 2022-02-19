@@ -72,7 +72,7 @@
     ],
     "conditions": [
       {
-        "id": "batterycharge",
+        "id": "batterylevel",
         "title": {
           "en": "Battery !{{is|isn't}} higher than"
         },
@@ -87,6 +87,106 @@
           },
           {
             "name": "charged",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "id": "batterycharge",
+        "title": {
+          "en": "Battery charging !{{is|isn't}} higher than"
+        },
+        "hint": {
+          "en": "Battery charing in watts"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          },
+          {
+            "name": "charging",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "id": "batterydischarge",
+        "title": {
+          "en": "Battery discharging !{{is|isn't}} higher than"
+        },
+        "hint": {
+          "en": "Battery discharing in watts"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          },
+          {
+            "name": "discharging",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "id": "gridexport",
+        "title": {
+          "en": "Grid export !{{is|isn't}} higher than"
+        },
+        "hint": {
+          "en": "Grid export"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          },
+          {
+            "name": "export",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "id": "gridimport",
+        "title": {
+          "en": "Grid import !{{is|isn't}} higher than"
+        },
+        "hint": {
+          "en": "Grid import"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          },
+          {
+            "name": "import",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "id": "solarbattcharge",
+        "title": {
+          "en": "Invertor + Battery !{{is|isn't}} higher than"
+        },
+        "hint": {
+          "en": "Invertor plus battery charging in watts"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          },
+          {
+            "name": "charging",
             "type": "number"
           }
         ]

@@ -21,7 +21,7 @@
   ],
   "conditions": [
     {
-        "id": "batterycharge",
+        "id": "batterylevel",
         "title": {
             "en": "Battery !{{is|isn't}} higher than"
         },
@@ -34,7 +34,82 @@
                 "type": "number"
             }
         ]
-    }
+    },
+    {
+        "id": "batterycharge",
+        "title": {
+            "en": "Battery charging !{{is|isn't}} higher than"
+        },
+        "hint": {
+            "en": "Battery charing in watts"
+        },
+        "args": [
+            {
+                "name": "charging",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "id": "batterydischarge",
+        "title": {
+            "en": "Battery discharging !{{is|isn't}} higher than"
+        },
+        "hint": {
+            "en": "Battery discharing in watts"
+        },
+        "args": [
+            {
+                "name": "discharging",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "id": "gridexport",
+        "title": {
+            "en": "Grid export !{{is|isn't}} higher than"
+        },
+        "hint": {
+            "en": "Grid export"
+        },
+        "args": [
+            {
+                "name": "export",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "id": "gridimport",
+        "title": {
+            "en": "Grid import !{{is|isn't}} higher than"
+        },
+        "hint": {
+            "en": "Grid import"
+        },
+        "args": [
+            {
+                "name": "import",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "id": "solarbattcharge",
+        "title": {
+            "en": "Invertor + Battery !{{is|isn't}} higher than"
+        },
+        "hint": {
+            "en": "Invertor plus battery charging in watts"
+        },
+        "args": [
+            {
+                "name": "charging",
+                "type": "number"
+            }
+        ]
+    }          
   ], 
   "actions": [
     {

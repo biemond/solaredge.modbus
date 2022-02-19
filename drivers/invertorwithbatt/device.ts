@@ -47,12 +47,41 @@ class MySolaredgeDevice extends Solaredge {
       await this.updateControl('storagedefaultmode', Number(args.mode));
     });
 
-    let batteryChargedStatus = this.homey.flow.getConditionCard("batterycharge");
-    batteryChargedStatus.registerRunListener(async (args, state) => {
+    let batterylevelStatus = this.homey.flow.getConditionCard("batterylevel");
+    batterylevelStatus.registerRunListener(async (args, state) => {
         let result = (await this.getCapabilityValue('measure_battery') >= args.charged);
         return Promise.resolve(result);
     })
 
+    let batterychargeStatus = this.homey.flow.getConditionCard("batterycharge");
+    batterychargeStatus.registerRunListener(async (args, state) => {
+        let result = (await this.getCapabilityValue('measure_power.batt_charge') >= args.charging);
+        return Promise.resolve(result);
+    })
+
+    let batterydischargeStatus = this.homey.flow.getConditionCard("batterydischarge");
+    batterydischargeStatus.registerRunListener(async (args, state) => {
+        let result = (await this.getCapabilityValue('measure_power.batt_discharge') >= args.discharging);
+        return Promise.resolve(result);
+    })    
+
+    let solarbattchargeStatus = this.homey.flow.getConditionCard("solarbattcharge");
+    solarbattchargeStatus.registerRunListener(async (args, state) => {
+        let result = (await this.getCapabilityValue('measure_power') >= args.discharging);
+        return Promise.resolve(result);
+    })  
+
+    let gridimportStatus = this.homey.flow.getConditionCard("gridimport");
+    gridimportStatus.registerRunListener(async (args, state) => {
+        let result = (await this.getCapabilityValue('measure_power.import') >= args.import);
+        return Promise.resolve(result);
+    })
+
+    let gridexportStatus = this.homey.flow.getConditionCard("gridexport");
+    gridexportStatus.registerRunListener(async (args, state) => {
+        let result = (await this.getCapabilityValue('measure_power.export') >= args.export);
+        return Promise.resolve(result);
+    })
   }
 
   /**
