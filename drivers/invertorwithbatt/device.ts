@@ -1,4 +1,4 @@
-import { checkPrime } from 'crypto';
+
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import {Solaredge} from '../solaredge';
@@ -200,12 +200,17 @@ class MySolaredgeDevice extends Solaredge {
       console.log('Connected ...');
       result = {};
 
-      async function checkRegister(registers : Object, ctx : MySolaredgeDevice){
+      async function checkRegister(
+        registers : Object, 
+        ctx : MySolaredgeDevice,
+        socket: net.Socket,  
+        client : InstanceType<typeof  Modbus.client.TCP>,
+        result: Record<string, Measurement>) {
         for (const [key, value] of Object.entries(registers)) {
           const res= client.readHoldingRegisters(value[0],value[1])
           const actualRes = await res;
-          const metrics = actualRes.metrics;
-          const request = actualRes.request;
+          // const metrics = actualRes.metrics;
+          // const request = actualRes.request;
           const response = actualRes.response;
           const measurement: Measurement = {
             value: 'xxx',
@@ -249,25 +254,31 @@ class MySolaredgeDevice extends Solaredge {
             result[key] = measurement;
         }
         hasRegisterFinished = true;
-        ctx.closeSocket(hasBatteryFinished,hasRegisterFinished,hasMeterFinished,result,socket,client);
+        ctx.closeSocket(hasBatteryFinished, hasRegisterFinished, hasMeterFinished, result, socket, client);
       }
 
-      async function checkMeter(meter_dids : Object, meter_registers:Object, ctx : MySolaredgeDevice){
+      async function checkMeter(meter_dids : Object, 
+                               meter_registers:Object, 
+                               ctx : MySolaredgeDevice,
+                               socket: net.Socket,  
+                               client : InstanceType<typeof  Modbus.client.TCP>,
+                               result: Record<string, Measurement>
+                               ){
         for (const [key, value] of Object.entries(meter_dids)) {
           try{
             const res = client.readHoldingRegisters(value[0],value[1])
             const actualRes = await res;
-            const metrics = actualRes?.metrics;
-            const request = actualRes?.request;
-            const response = actualRes?.response;
+            // const metrics = actualRes?.metrics;
+            // const request = actualRes?.request;
+            // const response = actualRes?.response;
 
             if ( value[2] == 'UINT16') {
               for (const [key2, value2] of Object.entries(meter_registers)) {
 
                 const innerRes= client.readHoldingRegisters(value2[0] + value[3], value2[1])
                 const actualRes = await innerRes
-                const metrics = actualRes.metrics;
-                const request = actualRes.request;
+                // const metrics = actualRes.metrics;
+                // const request = actualRes.request;
                 const response = actualRes.response;
                 
                 const measurement: Measurement = {
@@ -316,7 +327,13 @@ class MySolaredgeDevice extends Solaredge {
         ctx.closeSocket(hasBatteryFinished,hasRegisterFinished,hasMeterFinished,result,socket,client);
       }
 
-      async function checkBattery(battery_dids:Object, batt_registers : Object, ctx : MySolaredgeDevice){
+      async function checkBattery(battery_dids:Object, 
+                                 batt_registers : Object, 
+                                 ctx : MySolaredgeDevice,
+                                 socket: net.Socket,  
+                                 client : InstanceType<typeof  Modbus.client.TCP>,
+                                 result: Record<string, Measurement>
+                                 ){
           for (const [key, value] of Object.entries(battery_dids)) {
             const res =client.readHoldingRegisters(value[0],value[1])
             const actualRes = await res;
@@ -370,135 +387,16 @@ class MySolaredgeDevice extends Solaredge {
           hasBatteryFinished = true;   
           ctx.closeSocket(hasBatteryFinished,hasRegisterFinished,hasMeterFinished,result,socket,client);
         }
-        checkRegister(this.registers,this)
-        checkMeter(this.meter_dids, this.meter_registers,this).catch((e)=>console.log(e))      
-        checkBattery(this.battery_dids, this.batt_registers, this).catch((e)=>console.log(e))        
+
+        checkRegister(this.registers, this, socket, client, result);
+        checkMeter(this.meter_dids, this.meter_registers, this, socket, client, result).catch((e)=>console.log(e)) ;     
+        checkBattery(this.battery_dids, this.batt_registers, this, socket, client, result).catch((e)=>console.log(e)) ;      
     });    
 
     socket.on('error', (err) => {
       console.log(err);
       socket.end();
     })
-  }
-  
-  closeSocket(hasBatteryFinished: boolean, hasRegisterFinished: boolean,hasMeterFinished: boolean,
-    result: Record<string, Measurement>, socket:net.Socket,client: InstanceType<typeof  Modbus.client.TCP>  ){
-    if(hasRegisterFinished && hasMeterFinished && hasBatteryFinished)
-    {
-      console.log('disconnect'); 
-      client.socket.end();
-      socket.end();
-      // result
-      for (let k in result) {
-        console.log(k, result[k].value, result[k].scale, result[k].label)
-      }
-      
-      if (result['power_ac'] && result['power_ac'].value != 'xxx' ){
-        this.addCapability('measure_power');
-        var acpower = Number(result['power_ac'].value)*(Math.pow(10, Number(result['power_ac'].scale)));      
-        this.setCapabilityValue('measure_power', Math.round(acpower));     
-      } 
-
-      // if (result['energy_total'] && result['energy_total'].value != 'xxx' ){
-      //   this.addCapability('meter_power'); 
-      //   var total = Number(result['energy_total'].value)*(Math.pow(10, Number(result['energy_total'].scale)));  
-      //   this.setCapabilityValue('meter_power', total / 1000);
-      // }       
-
-      // if (result['power_dc'] && result['power_dc'].value != 'xxx' ){
-      //   this.addCapability('measure_voltage.dc');
-      //   var dcpower = Number(result['power_dc'].value)*(Math.pow(10, Number(result['power_dc'].scale)));
-      //   this.setCapabilityValue('measure_voltage.dc', dcpower);
-      // }
-
-      if (result['temperature'] && result['temperature'].value != 'xxx' ){
-        this.addCapability('measure_temperature.invertor');
-        var temperature = Number(result['temperature'].value)*(Math.pow(10, Number(result['temperature'].scale)));
-        this.setCapabilityValue('measure_temperature.invertor', temperature);
-      }   
-
-      // // meters
-      // if (result['meter1-export_energy_active'] && result['meter1-export_energy_active'].value != 'xxx' ){
-      //   this.addCapability('meter_power.export');
-      //   var totalexport = Number(result['meter1-export_energy_active'].value)*(Math.pow(10, Number(result['meter1-export_energy_active'].scale)));
-      //   this.setCapabilityValue('meter_power.export', totalexport / 1000);
-      // }    
-
-      // // meters
-      // if (result['meter1-import_energy_active'] && result['meter1-import_energy_active'].value != 'xxx' ){
-      //   this.addCapability('meter_power.import');
-      //   var totalimport = Number(result['meter1-import_energy_active'].value)*(Math.pow(10, Number(result['meter1-export_energy_active'].scale)));
-      //   this.setCapabilityValue('meter_power.import', totalimport / 1000); 
-      // }   
-
-      if (result['meter1-voltage_ln'] && result['meter1-voltage_ln'].value != 'xxx' ){
-        this.addCapability('measure_voltage.meter');
-        var voltageac = Number(result['meter1-voltage_ln'].value)*(Math.pow(10, Number(result['meter1-voltage_ln'].scale)));
-        this.setCapabilityValue('measure_voltage.meter', voltageac);
-      }
-
-      // meter  
-      if (result['meter1-power'] && result['meter1-power'].value != 'xxx' ){
-        this.addCapability('measure_power.import') ;
-        this.addCapability('measure_power.export') ;
-        var meterpower = Number(result['meter1-power'].value)*(Math.pow(10, Number(result['meter1-power'].scale)));
-        if ( meterpower > 0 ) {
-          this.setCapabilityValue('measure_power.export', meterpower);
-          this.setCapabilityValue('measure_power.import', 0); 
-        } else {
-          this.setCapabilityValue('measure_power.export', 0);
-          this.setCapabilityValue('measure_power.import', -1 * meterpower); 
-        }       
-      }        
-
-      // battery  
-      if (result['batt1-instantaneous_power'] && result['batt1-instantaneous_power'].value != 'xxx' ){
-        this.addCapability('measure_power.batt_charge') ;
-        this.addCapability('measure_power.batt_discharge') ;
-        var battpower = Number(result['batt1-instantaneous_power'].value);
-        if ( battpower > 0 ) {
-          this.setCapabilityValue('measure_power.batt_charge', battpower);
-          this.setCapabilityValue('measure_power.batt_discharge', 0); 
-        } else {
-          this.setCapabilityValue('measure_power.batt_charge', 0);
-          this.setCapabilityValue('measure_power.batt_discharge', -1 * battpower); 
-        }       
-      }   
-
-      if (result['batt1-soe'] && result['batt1-soe'].value != 'xxx' ){
-        this.addCapability('battery');      
-        this.addCapability('measure_battery');    
-        var battery = Number(Number.parseFloat(result['batt1-soe'].value).toFixed(2));
-        if (this.getCapabilityValue('battery') != battery) {
-          this.homey.flow.getDeviceTriggerCard('changedBattery').trigger(this, { charge: battery }, {});
-        }      
-        this.setCapabilityValue('battery', battery);
-        this.setCapabilityValue('measure_battery', battery);
-      }        
-
-      if (result['batt1-soh'] && result['batt1-soh'].value != 'xxx' ){
-        var health = Number(result['batt1-soh'].value);
-        this.setCapabilityValue('batterysoh', health);
-      }   
-      
-      if (result['storage_control_mode'] && result['storage_control_mode'].value != 'xxx' ){
-        this.addCapability('storagecontrolmode') ;
-        var storagecontrolmode = result['storage_control_mode'].value;
-        this.setCapabilityValue('storagecontrolmode', storagecontrolmode);
-      }         
-
-      if (result['remote_control_command_mode'] && result['remote_control_command_mode'].value != 'xxx' ){
-        this.addCapability('storagedefaultmode') ;
-        var storagedefaultmode = result['remote_control_command_mode'].value;
-        this.setCapabilityValue('storagedefaultmode', storagedefaultmode);
-      }      
-
-      if (result['batt1-average_temperature'] && result['batt1-average_temperature'].value != 'xxx' ){
-        this.addCapability("measure_temperature.battery");
-        var batt_temperature = Number(result['batt1-average_temperature'].value);
-        this.setCapabilityValue("measure_temperature.battery", Math.round(batt_temperature));
-      }         
-    }
   }
 }
 
