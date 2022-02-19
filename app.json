@@ -70,6 +70,28 @@
         ]
       }
     ],
+    "conditions": [
+      {
+        "id": "batterycharge",
+        "title": {
+          "en": "Battery !{{is|isn't}} higher than"
+        },
+        "hint": {
+          "en": "Battery charged in percentage"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          },
+          {
+            "name": "charged",
+            "type": "number"
+          }
+        ]
+      }
+    ],
     "actions": [
       {
         "id": "storagecontrolmode",

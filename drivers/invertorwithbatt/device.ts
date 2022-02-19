@@ -45,6 +45,13 @@ class MySolaredgeDevice extends Solaredge {
     customModeAction.registerRunListener(async (args, state) => {
       await this.updateControl('storagedefaultmode', Number(args.mode));
     });
+
+    let batteryChargedStatus = this.homey.flow.getConditionCard("batterycharge");
+    batteryChargedStatus.registerRunListener(async (args, state) => {
+        let result = (await this.getCapabilityValue('measure_battery') >= args.charged);
+        return Promise.resolve(result);
+    })
+
   }
 
   /**
