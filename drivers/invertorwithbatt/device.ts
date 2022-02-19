@@ -1,17 +1,14 @@
-
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import {Solaredge}     from '../solaredge';
-import {checkRegister} from '../solaredge';
-import {checkMeter}    from '../solaredge';
-import {checkBattery}  from '../solaredge';
+import {checkRegister} from '../response';
+import {checkMeter}    from '../response';
+import {checkBattery}  from '../response';
 
 const RETRY_INTERVAL = 30 * 1000; 
 let timer:NodeJS.Timer;
 
 class MySolaredgeDevice extends Solaredge {
-
-
   /**
    * onInit is called when the device is initialized.
    */
