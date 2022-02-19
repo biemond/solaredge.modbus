@@ -224,17 +224,12 @@ export class Solaredge extends Homey.Device {
 
 
     
-    closeSocket(hasBatteryFinished: boolean, 
-                hasRegisterFinished: boolean,
-                hasMeterFinished: boolean,
-                result: Record<string, Measurement>, 
-                socket: net.Socket, 
-                client: InstanceType<typeof  Modbus.client.TCP>){
-        if(hasRegisterFinished && hasMeterFinished && hasBatteryFinished)
+    processResult(
+                result: Record<string, Measurement>
+               ){
+        if(result)
         {
-          console.log('disconnect'); 
-          client.socket.end();
-          socket.end();
+          
           // result
           for (let k in result) {
             console.log(k, result[k].value, result[k].scale, result[k].label)

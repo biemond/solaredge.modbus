@@ -140,7 +140,7 @@ class MySolaredgeDevice extends Solaredge {
     }    
 
     socket.connect(modbusOptions);
-    socket.on('connect', () => {
+    socket.on('connect', async () => {
       console.log('Connected ...');
 
         if ( type == 'storagecontrolmode'){
@@ -148,18 +148,13 @@ class MySolaredgeDevice extends Solaredge {
           // 1 – Maximize Self Consumption – requires a SolarEdge Electricity meter on the grid or load connection point
           // 2 – Time of Use (Profile programming) – requires a SolarEdge Electricity meter on the grid or load connection point 3 – Backup Only (applicable only for systems support backup functionality)
           // 4 – Remote Control – the battery charge/discharge state is controlled by an external controller
-          client.writeSingleRegister(0xe004, Number(value))
-          .then(function (resp) {
-            console.log('controlmodewrite', resp)
-          })
-          .catch(handleErrors);
+        const storagecontrolmodeRes = await client.writeSingleRegister(0xe004, Number(value));
+        console.log('controlmodewrite', storagecontrolmodeRes)
         }
 
         if ( type == 'storagedefaultmode'){
-          client.writeSingleRegister(0xe004, 4)
-          .then(function (resp) {
-            console.log('controlmodewrite', resp)
-          }).catch(handleErrors);
+         const storagedefaultmodeRes= await client.writeSingleRegister(0xe004, 4);
+         console.log('controlmodewrite', storagedefaultmodeRes)
           // 0 – Off
           // 1 – Charge excess PV power only.
           // Only PV excess power not going to AC is used for charging the battery. Inverter NominalActivePowerLimit (or the inverter rated power whichever is lower) sets how much power the inverter is producing to the AC. In this mode, the battery cannot be discharged. If the PV power is lower than NominalActivePowerLimit the AC production will be equal to the PV power.
@@ -174,19 +169,16 @@ class MySolaredgeDevice extends Solaredge {
           // AC power is maintained to NominalActivePowerLimit, using PV power and/or battery power. If the PV power is not sufficient, battery power is used to complement AC power up to StorageRemoteCtrl_DishargeLimit. In this mode, charging excess power will occur if there is more PV than the AC limit.
           // 5 – Discharge to meet loads consumption. Discharging to the grid is not allowed. 
           // 7 – Maximize self-consumption
-          client.writeSingleRegister(0xe00d, value)
-          .then(function (resp) {
+         const resp=  await client.writeSingleRegister(0xe00d, value)
             console.log('remotecontrolwrite', resp)
-          }).catch(handleErrors);          
         }
-    })
 
-    setTimeout(() => 
-    {
       console.log('disconnect'); 
       client.socket.end();
       socket.end();
-    }, 2000)
+    })
+
+      
 
     socket.on('error', (err) => {
       console.log(err);
@@ -205,7 +197,6 @@ class MySolaredgeDevice extends Solaredge {
     function handleErrorsMeters(err: any) {
       console.log('No meter');
     }
-    let result: Record<string, Measurement> = {};
 
     let modbusOptions = {
       'host': this.getSetting('address'),
@@ -221,20 +212,15 @@ class MySolaredgeDevice extends Solaredge {
     let socket = new net.Socket()
     let client = new Modbus.client.TCP(socket);  
     socket.connect(modbusOptions);
-    let hasRegisterFinished = false;
-    let hasMeterFinished = false;
-    let hasBatteryFinished = false;
 
-    socket.on('connect', () => {
+    socket.on('connect', async () => {
       console.log('Connected ...');
-      result = {};
 
       async function checkRegister(
         registers : Object, 
-        ctx : MySolaredgeDevice,
-        socket: net.Socket,  
-        client : InstanceType<typeof  Modbus.client.TCP>,
-        result: Record<string, Measurement>) {
+        client : InstanceType<typeof  Modbus.client.TCP>
+        ) {
+        let result: Record<string, Measurement> ={};
         for (const [key, value] of Object.entries(registers)) {
           const res= client.readHoldingRegisters(value[0],value[1])
           const actualRes = await res;
@@ -282,17 +268,14 @@ class MySolaredgeDevice extends Solaredge {
             measurement.value = resultValue;
             result[key] = measurement;
         }
-        hasRegisterFinished = true;
-        ctx.closeSocket(hasBatteryFinished, hasRegisterFinished, hasMeterFinished, result, socket, client);
+        return result;
       }
 
       async function checkMeter(meter_dids : Object, 
                                meter_registers:Object, 
-                               ctx : MySolaredgeDevice,
-                               socket: net.Socket,  
-                               client : InstanceType<typeof  Modbus.client.TCP>,
-                               result: Record<string, Measurement>
+                               client : InstanceType<typeof  Modbus.client.TCP>
                                ){
+        let result: Record<string, Measurement> = {};
         for (const [key, value] of Object.entries(meter_dids)) {
           try{
             const res = client.readHoldingRegisters(value[0],value[1])
@@ -352,22 +335,19 @@ class MySolaredgeDevice extends Solaredge {
           console.log(e);
         }
       }
-        hasMeterFinished = true; 
-        ctx.closeSocket(hasBatteryFinished,hasRegisterFinished,hasMeterFinished,result,socket,client);
-      }
+      return result;
+    }
 
       async function checkBattery(battery_dids:Object, 
                                  batt_registers : Object, 
-                                 ctx : MySolaredgeDevice,
-                                 socket: net.Socket,  
-                                 client : InstanceType<typeof  Modbus.client.TCP>,
-                                 result: Record<string, Measurement>
+                                 client : InstanceType<typeof  Modbus.client.TCP>
                                  ){
+          let result: Record<string, Measurement> = {};
           for (const [key, value] of Object.entries(battery_dids)) {
             const res =client.readHoldingRegisters(value[0],value[1])
             const actualRes = await res;
-            const metrics = actualRes.metrics;
-            const request = actualRes.request;
+           // const metrics = actualRes.metrics;
+           // const request = actualRes.request;
             const response = actualRes.response;
 
             if ( value[2] == 'UINT16') {
@@ -377,8 +357,8 @@ class MySolaredgeDevice extends Solaredge {
                 for (const [key2, value2] of Object.entries(batt_registers)) {
                 const res =   client.readHoldingRegisters(value2[0] + value[3] ,value2[1])
                 const actualRes = await res;
-                const metrics = actualRes.metrics;
-                const request = actualRes.request;
+                //const metrics = actualRes.metrics;
+                //const request = actualRes.request;
                 const response = actualRes.response;
                 // console.log(resp.response._body);
                 const measurement: Measurement = {
@@ -413,14 +393,18 @@ class MySolaredgeDevice extends Solaredge {
               }
             }      
           }  
-          hasBatteryFinished = true;   
-          ctx.closeSocket(hasBatteryFinished,hasRegisterFinished,hasMeterFinished,result,socket,client);
+          return result;
         }
 
-        checkRegister(this.registers, this, socket, client, result);
-        checkMeter(this.meter_dids, this.meter_registers, this, socket, client, result).catch((e)=>console.log(e)) ;     
-        checkBattery(this.battery_dids, this.batt_registers, this, socket, client, result).catch((e)=>console.log(e)) ;      
-    });    
+       const checkRegisterRes = await checkRegister(this.registers, client);
+       const checkMeterRes = await checkMeter(this.meter_dids, this.meter_registers, client);    
+       const checkBatteryRes = await checkBattery(this.battery_dids, this.batt_registers, client);
+       console.log('disconnect'); 
+       client.socket.end();
+       socket.end();
+       const finalRes = {...checkRegisterRes,...checkMeterRes,...checkBatteryRes}
+       this.processResult(finalRes)
+      });    
 
     socket.on('error', (err) => {
       console.log(err);
