@@ -360,7 +360,8 @@
       },
       "capabilities": [
         "measure_power",
-        "measure_temperature.invertor"
+        "measure_temperature.invertor",
+        "invertorstatus"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -444,7 +445,8 @@
         "battery",
         "batterysoh",
         "storagecontrolmode",
-        "storagedefaultmode"
+        "storagedefaultmode",
+        "invertorstatus"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -581,6 +583,72 @@
         "en": "%",
         "nl": "%"
       }
+    },
+    "invertorstatus": {
+      "type": "enum",
+      "title": {
+        "en": "Invertor status"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "picker",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Undefined"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Sleeping"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Grid Monitoring"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Producing"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Producing (Throttled)"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "Shutting Down"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "Fault"
+          }
+        },
+        {
+          "id": "8",
+          "title": {
+            "en": "Standby"
+          }
+        }
+      ]
     },
     "storagecontrolmode": {
       "type": "enum",

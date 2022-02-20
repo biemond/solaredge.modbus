@@ -252,6 +252,11 @@ export class Solaredge extends Homey.Device {
                 this.setCapabilityValue('measure_temperature.invertor', temperature);
             }
 
+            if (result['status'] && result['status'].value != 'xxx') {
+                this.addCapability('invertorstatus');
+                this.setCapabilityValue('invertorstatus', result['status'].value);
+            }
+
             // // meters
             // if (result['meter1-export_energy_active'] && result['meter1-export_energy_active'].value != 'xxx' ){
             //   this.addCapability('meter_power.export');

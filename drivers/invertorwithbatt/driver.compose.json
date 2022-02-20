@@ -21,7 +21,8 @@
     "battery",
     "batterysoh",
     "storagecontrolmode",
-    "storagedefaultmode"
+    "storagedefaultmode",
+    "invertorstatus"
   ],
   "capabilitiesOptions": {
       "measure_power": {

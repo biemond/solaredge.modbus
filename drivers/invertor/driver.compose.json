@@ -10,7 +10,8 @@
   },  
   "capabilities": [
     "measure_power",
-    "measure_temperature.invertor"
+    "measure_temperature.invertor",
+    "invertorstatus"
   ],
   "capabilitiesOptions": {
       "measure_power": {
