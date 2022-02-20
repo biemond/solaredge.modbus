@@ -180,6 +180,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
     socket.on('error', (err) => {
       console.log(err);
       socket.end();
+      setTimeout(() => socket.connect(modbusOptions), 2000);
     })  
   }
 
