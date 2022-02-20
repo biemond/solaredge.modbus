@@ -316,16 +316,18 @@ export class Solaredge extends Homey.Device {
                 this.setCapabilityValue('batterysoh', health);
             }
 
-            if (result['storage_control_mode'] && result['storage_control_mode'].value != 'xxx') {
-                this.addCapability('storagecontrolmode');
-                var storagecontrolmode = result['storage_control_mode'].value;
-                this.setCapabilityValue('storagecontrolmode', storagecontrolmode);
-            }
+            if (result['batt1-soh'] && result['batt1-soh'].value != 'xxx') {
+                if (result['storage_control_mode'] && result['storage_control_mode'].value != 'xxx') {
+                    this.addCapability('storagecontrolmode');
+                    var storagecontrolmode = result['storage_control_mode'].value;
+                    this.setCapabilityValue('storagecontrolmode', storagecontrolmode);
+                }
 
-            if (result['remote_control_command_mode'] && result['remote_control_command_mode'].value != 'xxx') {
-                this.addCapability('storagedefaultmode');
-                var storagedefaultmode = result['remote_control_command_mode'].value;
-                this.setCapabilityValue('storagedefaultmode', storagedefaultmode);
+                if (result['remote_control_command_mode'] && result['remote_control_command_mode'].value != 'xxx') {
+                    this.addCapability('storagedefaultmode');
+                    var storagedefaultmode = result['remote_control_command_mode'].value;
+                    this.setCapabilityValue('storagedefaultmode', storagedefaultmode);
+                }
             }
 
             if (result['batt1-average_temperature'] && result['batt1-average_temperature'].value != 'xxx') {

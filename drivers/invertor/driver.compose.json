@@ -1,0 +1,72 @@
+{
+  "name": {
+    "en": "Invertor"
+  },
+  "class": "solarpanel",
+  "energy": {
+    "batteries": [
+      "OTHER"
+    ]
+  },  
+  "capabilities": [
+    "measure_power",
+    "measure_temperature.invertor"
+  ],
+  "capabilitiesOptions": {
+      "measure_power": {
+        "icon": "/assets/sun.svg",
+        "decimals": 0,
+        "title": {
+          "en": "Solar Power"
+        }
+      },
+      "measure_temperature.invertor": {
+        "icon": "/assets/sun.svg",
+        "title": {
+          "en": "Heatsink temperature",
+          "nl": "Heatsink temperatuur"
+        }
+      }
+  },  
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "xlarge": "{{driverAssetsPath}}/images/xlarge.png"
+  },
+  "pair": [
+    {
+      "id": "start"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Inverter settings"
+      },
+      "children": [
+        {
+          "id": "address",
+          "type": "text",
+          "value": "0.0.0.0",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "value": 1502,
+          "step": 1,
+          "label": {
+            "en": "Port"
+          }
+        }
+      ]
+    }
+  ]              
+}

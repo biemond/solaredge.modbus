@@ -8,12 +8,12 @@ import {checkBattery}  from '../response';
 const RETRY_INTERVAL = 30 * 1000; 
 let timer:NodeJS.Timer;
 
-class MySolaredgeDevice extends Solaredge {
+class MySolaredgeBatteryDevice extends Solaredge {
   /**
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    this.log('MySolaredgeDevice has been initialized');
+    this.log('MySolaredgeBatteryDevice has been initialized');
 
     let name = this.getData().id;
     this.log("device name id " + name );
@@ -66,7 +66,7 @@ class MySolaredgeDevice extends Solaredge {
 
     let solarbattchargeStatus = this.homey.flow.getConditionCard("solarbattcharge");
     solarbattchargeStatus.registerRunListener(async (args, state) => {
-        let result = (await this.getCapabilityValue('measure_power') >= args.discharging);
+        let result = (await this.getCapabilityValue('measure_power') >= args.charging);
         return Promise.resolve(result);
     })  
 
@@ -87,7 +87,7 @@ class MySolaredgeDevice extends Solaredge {
    * onAdded is called when the user adds the device, called just after pairing.
    */
   async onAdded() {
-    this.log('MySolaredgeDevice has been added');
+    this.log('MySolaredgeBatteryDevice has been added');
   }
 
   /**
@@ -99,7 +99,7 @@ class MySolaredgeDevice extends Solaredge {
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
   async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string|void> {
-    this.log('MySolaredgeDevice settings where changed');
+    this.log('MySolaredgeBatteryDevice settings where changed');
   }
 
   /**
@@ -108,14 +108,14 @@ class MySolaredgeDevice extends Solaredge {
    * @param {string} name The new name
    */
   async onRenamed(name: string) {
-    this.log('MySolaredgeDevice was renamed');
+    this.log('MySolaredgeBatteryDevice was renamed');
   }
 
   /**
    * onDeleted is called when the user deleted the device.
    */
   async onDeleted() {
-    this.log('MySolaredgeDevice has been deleted');
+    this.log('MySolaredgeBatteryDevice has been deleted');
     this.homey.clearInterval(timer);
   }
   
@@ -230,4 +230,4 @@ class MySolaredgeDevice extends Solaredge {
   }
 }
 
-module.exports = MySolaredgeDevice;
+module.exports = MySolaredgeBatteryDevice;

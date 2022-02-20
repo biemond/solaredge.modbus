@@ -1,12 +1,12 @@
 import Homey from 'homey';
 
-class MySolaredgeBatteryDriver extends Homey.Driver {
+class MySolaredgeDriver extends Homey.Driver {
 
   /**
    * onInit is called when the driver is initialized.
    */
   async onInit() {
-    this.log('MySolaredgeBatteryDriver has been initialized');
+    this.log('MySolaredgeDriver has been initialized');
   }
 
   /**
@@ -20,4 +20,4 @@ class MySolaredgeBatteryDriver extends Homey.Driver {
   
 }
 
-module.exports = MySolaredgeBatteryDriver;
+module.exports = MySolaredgeDriver;

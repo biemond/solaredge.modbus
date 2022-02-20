@@ -59,34 +59,27 @@
     ]
   },
   "flow": {
-    "triggers": [
+    "conditions": [
       {
-        "id": "changedBattery",
+        "id": "solarcharge",
         "title": {
-          "en": "Battery Charge Changed",
-          "nl": "Batterij lading gewijzigd"
+          "en": "Invertor !{{is|isn't}} higher than"
         },
-        "tokens": [
-          {
-            "name": "charge",
-            "type": "number",
-            "title": {
-              "en": "Battery Charge (%)",
-              "nl": "Batterij lading (%)"
-            },
-            "example": 66
-          }
-        ],
+        "hint": {
+          "en": "Invertor charging in watts"
+        },
         "args": [
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=invertorwithbatt"
+            "filter": "driver_id=invertor"
+          },
+          {
+            "name": "charging",
+            "type": "number"
           }
         ]
-      }
-    ],
-    "conditions": [
+      },
       {
         "id": "batterylevel",
         "title": {
@@ -204,6 +197,33 @@
           {
             "name": "charging",
             "type": "number"
+          }
+        ]
+      }
+    ],
+    "triggers": [
+      {
+        "id": "changedBattery",
+        "title": {
+          "en": "Battery Charge Changed",
+          "nl": "Batterij lading gewijzigd"
+        },
+        "tokens": [
+          {
+            "name": "charge",
+            "type": "number",
+            "title": {
+              "en": "Battery Charge (%)",
+              "nl": "Batterij lading (%)"
+            },
+            "example": 66
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
           }
         ]
       }
@@ -328,6 +348,79 @@
     ]
   },
   "drivers": [
+    {
+      "name": {
+        "en": "Invertor"
+      },
+      "class": "solarpanel",
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "capabilities": [
+        "measure_power",
+        "measure_temperature.invertor"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "icon": "/assets/sun.svg",
+          "decimals": 0,
+          "title": {
+            "en": "Solar + Batt Power"
+          }
+        },
+        "measure_temperature.invertor": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Heatsink temperature",
+            "nl": "Heatsink temperatuur"
+          }
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [],
+      "images": {
+        "small": "/drivers/invertor/assets/images/small.png",
+        "large": "/drivers/invertor/assets/images/large.png",
+        "xlarge": "/drivers/invertor/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "start"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Inverter settings"
+          },
+          "children": [
+            {
+              "id": "address",
+              "type": "text",
+              "value": "0.0.0.0",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "port",
+              "type": "number",
+              "value": 1502,
+              "step": 1,
+              "label": {
+                "en": "Port"
+              }
+            }
+          ]
+        }
+      ],
+      "id": "invertor"
+    },
     {
       "name": {
         "en": "Invertor with storedge"

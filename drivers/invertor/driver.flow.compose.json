@@ -1,0 +1,21 @@
+{
+    "triggers": [],
+    "conditions": [
+        {
+            "id": "solarcharge",
+            "title": {
+                "en": "Invertor !{{is|isn't}} higher than"
+            },
+            "hint": {
+                "en": "Invertor charging in watts"
+            },
+            "args": [
+                {
+                    "name": "charging",
+                    "type": "number"
+                }
+            ]
+        }          
+    ], 
+    "actions": [] 			   
+}
