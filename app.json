@@ -4,6 +4,7 @@
   "version": "2.0.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
+  "brandColor": "#df001c",
   "platforms": [
     "local"
   ],
@@ -34,9 +35,8 @@
   "homeyCommunityTopicId": 45487,
   "permissions": [],
   "images": {
-    "small": "/assets/images/small.png",
-    "large": "/assets/images/large.png",
-    "xlarge": "/assets/images/xlarge.png"
+    "small": "/assets/images/small.jpg",
+    "large": "/assets/images/large.jpg"
   },
   "author": {
     "name": "Edwin Biemond",
@@ -384,9 +384,8 @@
       ],
       "connectivity": [],
       "images": {
-        "small": "/drivers/invertor/assets/images/small.png",
-        "large": "/drivers/invertor/assets/images/large.png",
-        "xlarge": "/drivers/invertor/assets/images/xlarge.png"
+        "small": "/drivers/invertor/assets/images/small.jpg",
+        "large": "/drivers/invertor/assets/images/large.jpg"
       },
       "pair": [
         {
@@ -513,9 +512,8 @@
       ],
       "connectivity": [],
       "images": {
-        "small": "/drivers/invertorwithbatt/assets/images/small.png",
-        "large": "/drivers/invertorwithbatt/assets/images/large.png",
-        "xlarge": "/drivers/invertorwithbatt/assets/images/xlarge.png"
+        "small": "/drivers/invertorwithbatt/assets/images/small.jpg",
+        "large": "/drivers/invertorwithbatt/assets/images/large.jpg"
       },
       "pair": [
         {
