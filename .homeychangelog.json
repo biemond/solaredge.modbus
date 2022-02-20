@@ -1,4 +1,7 @@
 {
+   "2.0.1": {
+    "en": "refactored release for sdk 3, please re-add device, non blocking socket"
+    }, 
     "2.0.0": {
       "en": "refactored release for sdk 3, please re-add device, non blocking socket"
     }
