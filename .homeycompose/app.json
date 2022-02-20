@@ -15,6 +15,22 @@
   "category": [
     "energy"
   ],
+  "tags": {
+    "en": [
+      "solaredge",
+      "inverter",
+      "solar"
+    ],
+    "nl": [
+      "Solaredge",
+      "omvormer",
+      "zonnepanelen"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/biemond/solaredge.modbus/issues"
+  },
+  "homeyCommunityTopicId": 45487,      
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
