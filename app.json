@@ -367,7 +367,7 @@
           "icon": "/assets/sun.svg",
           "decimals": 0,
           "title": {
-            "en": "Solar + Batt Power"
+            "en": "Solar Power"
           }
         },
         "measure_temperature.invertor": {
