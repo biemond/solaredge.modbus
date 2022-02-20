@@ -5,7 +5,7 @@ import {checkRegister} from '../response';
 import {checkMeter}    from '../response';
 import {checkBattery}  from '../response';
 
-const RETRY_INTERVAL = 30 * 1000; 
+const RETRY_INTERVAL = 20 * 1000; 
 let timer:NodeJS.Timer;
 
 class MySolaredgeBatteryDevice extends Solaredge {
