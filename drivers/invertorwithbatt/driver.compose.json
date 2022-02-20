@@ -22,7 +22,10 @@
     "batterysoh",
     "storagecontrolmode",
     "storagedefaultmode",
-    "invertorstatus"
+    "invertorstatus",
+    "battstatus",
+    "batterycap",
+    "batterymaxcap"        
   ],
   "capabilitiesOptions": {
       "measure_power": {

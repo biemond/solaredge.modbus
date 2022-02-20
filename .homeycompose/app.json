@@ -1,5 +1,5 @@
 {
-  "id": "solaredge.modbus2",
+  "id": "solaredge.modbus",
   "version": "2.0.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
@@ -7,7 +7,7 @@
     "local"
   ],
   "name": {
-    "en": "SolarEdge2"
+    "en": "SolarEdge"
   },
   "description": {
     "en": "Monitor SolarEdge inverters over modbus protocol"

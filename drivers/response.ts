@@ -153,6 +153,8 @@ export async function checkBattery(battery_dids: Object, batt_registers: Object,
                             resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
                             break;
                         case 'UINT32':
+                            // console.log(response.body.valuesAsArray);
+                            // console.log(response.body.valuesAsBuffer);
                             resultValue = response.body.valuesAsArray[0].toString();
                             break;
                         case 'UINT64':

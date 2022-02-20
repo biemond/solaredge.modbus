@@ -1,7 +1,7 @@
 {
     "type": "enum",
     "title": {
-        "en": "Invertor status"
+        "en": "Battery status"
     },
     "getable": true,
     "setable": false,
@@ -11,56 +11,50 @@
         {
             "id": "0",
             "title": {
-                "en": "Undefined"
+                "en": "Off"
             }
         },
         {
             "id": "1",
             "title": {
-                "en": "Off"
+                "en": "Standby"
             }
         },
         {
             "id": "2",
             "title": {
-                "en": "Sleeping"
+                "en": "Init"
             }
         },
         {
             "id": "3",
             "title": {
-                "en": "Grid Monitoring"
+                "en": "Charge"
             }
         },
         {
             "id": "4",
             "title": {
-                "en": "Producing"
+                "en": "Discharge"
             }
         },
         {
             "id": "5",
             "title": {
-                "en": "Producing (Throttled)"
+                "en": "Fault"
             }
         },
         {
             "id": "6",
             "title": {
-                "en": "Shutting Down"
+                "en": "Idle"
             }
         },
         {
-            "id": "7",
+            "id": "10",
             "title": {
-                "en": "Fault"
+                "en": "Unknown"
             }
-        },
-        {
-            "id": "8",
-            "title": {
-                "en": "Maintenance"
-            }
-        }                                                 
+        }                                                           
     ]
 }

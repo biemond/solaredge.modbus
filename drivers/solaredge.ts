@@ -340,6 +340,21 @@ export class Solaredge extends Homey.Device {
                 var batt_temperature = Number(result['batt1-average_temperature'].value);
                 this.setCapabilityValue("measure_temperature.battery", Math.round(batt_temperature));
             }
+            
+            if (result['batt1-status'] && result['batt1-status'].value != 'xxx') {
+                this.addCapability('battstatus');
+                this.setCapabilityValue('battstatus', result['batt1-status'].value);
+            }
+            if (result['batt1-maximum_energy'] && result['batt1-maximum_energy'].value != 'xxx') {
+                var maxenergy = Number(result['batt1-maximum_energy'].value);
+                this.addCapability('batterymaxcap');
+                this.setCapabilityValue('batterymaxcap', maxenergy/1000);
+            }
+            if (result['batt1-available_energy'] && result['batt1-available_energy'].value != 'xxx') {
+                var availenergy = Number(result['batt1-available_energy'].value);
+                this.addCapability('batterycap');
+                this.setCapabilityValue('batterycap', availenergy/1000);
+            }                         
         }
     }
 }
