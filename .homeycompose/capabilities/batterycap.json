@@ -8,7 +8,7 @@
       "insights": true,
       "decimals": 1,
       "uiComponent": "sensor",
-      "icon": "/assets/battery.svg",
+      "icon": "/assets/battery_capacity.svg",
       "units": {
         "en": "kWh"
       }

@@ -473,14 +473,14 @@
           }
         },
         "measure_power.import": {
-          "icon": "/assets/sun.svg",
+          "icon": "/assets/powergrid_feed_in.svg",
           "decimals": 0,
           "title": {
             "en": "Power Grid import"
           }
         },
         "measure_power.export": {
-          "icon": "/assets/sun.svg",
+          "icon": "/assets/powergrid_feed_in.svg",
           "decimals": 0,
           "title": {
             "en": "Power Grid export"
@@ -578,7 +578,7 @@
       "insights": true,
       "decimals": 1,
       "uiComponent": "sensor",
-      "icon": "/assets/battery.svg",
+      "icon": "/assets/battery_capacity.svg",
       "units": {
         "en": "kWh"
       }
@@ -593,7 +593,7 @@
       "insights": true,
       "decimals": 1,
       "uiComponent": "sensor",
-      "icon": "/assets/battery.svg",
+      "icon": "/assets/battery_capacity.svg",
       "units": {
         "en": "kWh"
       }
@@ -622,8 +622,9 @@
       },
       "getable": true,
       "setable": false,
-      "uiComponent": "picker",
+      "uiComponent": "sensor",
       "uiQuickAction": false,
+      "icon": "/assets/operational_status.svg",
       "values": [
         {
           "id": "0",
@@ -682,7 +683,8 @@
       },
       "getable": true,
       "setable": false,
-      "uiComponent": "picker",
+      "uiComponent": "sensor",
+      "icon": "/assets/operational_status.svg",
       "uiQuickAction": false,
       "values": [
         {

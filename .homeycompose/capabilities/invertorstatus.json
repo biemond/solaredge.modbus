@@ -5,7 +5,8 @@
     },
     "getable": true,
     "setable": false,
-    "uiComponent": "picker",
+    "uiComponent": "sensor",
+    "icon": "/assets/operational_status.svg",    
     "uiQuickAction": false,
     "values": [
         {

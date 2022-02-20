@@ -50,14 +50,14 @@
         }
       },
       "measure_power.import":{
-        "icon": "/assets/sun.svg",
+        "icon": "/assets/powergrid_feed_in.svg",
         "decimals": 0,
         "title": {
           "en": "Power Grid import"
         }
       },        
       "measure_power.export":{
-        "icon": "/assets/sun.svg",
+        "icon": "/assets/powergrid_feed_in.svg",
         "decimals": 0,
         "title": {
           "en":  "Power Grid export"
