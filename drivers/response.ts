@@ -20,7 +20,8 @@ export async function checkRegister(registers: Object, client: InstanceType<type
                 resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
                 break;
             case 'UINT32':
-                resultValue = response.body.valuesAsBuffer.readUInt32BE().toString();
+                resultValue = response.body.valuesAsArray[0].toString();
+                // console.log( response.body);
                 break;
             case 'ACC32':
                 resultValue = response.body.valuesAsBuffer.readUInt32BE().toString();

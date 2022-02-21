@@ -77,7 +77,8 @@ export class Solaredge extends Homey.Device {
         "remote_control_command_mode": [0xe00d, 1, 'UINT16', "Remote Control Command Mode"],
         "remote_control_charge_limit": [0xe00e, 2, 'FLOAT32', "Remote Control Charge Limit"],
         "remote_control_command_discharge_limit": [0xe010, 2, 'FLOAT32', "Remote Control Command Discharge Limit"],
-        "remote_control_command_timeout": [0xe00b, 2, 'UINT32', "Remote Control Command Timeout"]
+        "remote_control_command_timeout": [0xe00b, 2, 'UINT32', "Remote Control Command Timeout"],
+        "remote_control_default_command_mode": [0xe00a , 1, 'UINT16', "Storage Charge/Discharge Default Mode"]
 
     };
 
