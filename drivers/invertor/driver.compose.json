@@ -65,7 +65,21 @@
           "label": {
             "en": "Port"
           }
-        }
+        },
+        {
+          "id": "id",
+          "type": "number",
+          "value": 1,
+          "step": 1,
+          "attr": {
+            "min": 0,
+            "max": 50
+          },
+          "label": {
+            "en": "Inverter ID",
+            "nl": "Inverter ID"
+          }
+        }          
       ]
     }
   ]              

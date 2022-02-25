@@ -334,6 +334,19 @@ export class Solaredge extends Homey.Device {
                     var storagedefaultmode = result['remote_control_command_mode'].value;
                     this.setCapabilityValue('storagedefaultmode', storagedefaultmode);
                 }
+
+                if (result['remote_control_charge_limit'] && result['remote_control_charge_limit'].value != 'xxx') {
+                    this.addCapability('measure_power.chargesetting');
+                    var chargeLimit = Number(result['remote_control_charge_limit'].value);
+                    this.setCapabilityValue('measure_power.chargesetting', chargeLimit);
+                }
+
+                if (result['remote_control_command_discharge_limit'] && result['remote_control_command_discharge_limit'].value != 'xxx') {
+                    this.addCapability('measure_power.dischargesetting');
+                    var dischargeLimit = Number(result['remote_control_command_discharge_limit'].value);
+                    this.setCapabilityValue('measure_power.dischargesetting', dischargeLimit);
+                }
+                                
             }
 
             if (result['batt1-average_temperature'] && result['batt1-average_temperature'].value != 'xxx') {

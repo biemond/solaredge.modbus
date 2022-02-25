@@ -85,8 +85,8 @@ class MySolaredgeDevice extends Solaredge {
     let modbusOptions = {
       'host': this.getSetting('address'),
       'port': this.getSetting('port'),
-      'unitId': 1,
-      'timeout': 20,
+      'unitId': this.getSetting('id'),
+      'timeout': 15,
       'autoReconnect': false,
       'logLabel' : 'solaredge Inverter',
       'logLevel': 'error',

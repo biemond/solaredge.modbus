@@ -45,6 +45,15 @@ class MySolaredgeBatteryDevice extends Solaredge {
     customModeAction.registerRunListener(async (args, state) => {
       await this.updateControl('storagedefaultmode', Number(args.mode));
     });
+    let chargeLimitAction = this.homey.flow.getActionCard('setcharging');
+    chargeLimitAction.registerRunListener(async (args, state) => {
+      await this.updateControl('chargelimit', Number(args.chargepower));
+    });
+    let dischargeLimitAction = this.homey.flow.getActionCard('setdischarging');
+    dischargeLimitAction.registerRunListener(async (args, state) => {
+      await this.updateControl('dischargelimit', Number(args.dischargepower));
+    });
+
 
     let batterylevelStatus = this.homey.flow.getConditionCard("batterylevel");
     batterylevelStatus.registerRunListener(async (args, state) => {
@@ -130,8 +139,8 @@ class MySolaredgeBatteryDevice extends Solaredge {
     let modbusOptions = {
       'host': this.getSetting('address'),
       'port': this.getSetting('port'),
-      'unitId': 1,
-      'timeout': 20,
+      'unitId': this.getSetting('id'),
+      'timeout': 15,
       'autoReconnect': false,
       'logLabel': 'solaredge Inverter',
       'logLevel': 'error',
@@ -141,6 +150,78 @@ class MySolaredgeBatteryDevice extends Solaredge {
     socket.connect(modbusOptions);
     socket.on('connect', async () => {
       console.log('Connected ...');
+      if (type == 'chargelimit') {
+        var chargehex1 = 16384;
+        var chargehex2 = 17820;
+        //chargepower
+        if (value == 500) {
+          chargehex1 =  0;
+          chargehex2 =  17402;
+        } else if (value == 1000) {
+          chargehex1 =  0;
+          chargehex2 =  17530;
+        }  else if (value == 1500) {
+          chargehex1 =  32768;
+          chargehex2 =  17596;
+        } else if (value == 2000) {
+          chargehex1 = 0;
+          chargehex2 = 17658;
+        } else if (value == 2500) {
+          chargehex1 =  16384;
+          chargehex2 =  17692;
+        } else if (value == 3000) {
+          chargehex1 =  32768;
+          chargehex2 =  17723;
+        } else if (value == 4000) {
+          chargehex1 =  0;
+          chargehex2 =  17786;
+        } else if (value == 5000) {
+          chargehex1 =  16384;
+          chargehex2 =  17820;
+        } else if (value == 6600) {
+          chargehex1 =  16384;
+          chargehex2 =  17870;
+        }
+        const chargeRes = await client.writeMultipleRegisters(0xe00e, [chargehex1, chargehex2]);
+        console.log('charge', chargeRes);
+      }
+      
+      if (type == 'dischargelimit') {
+        var dischargehex1 = 16384;
+        var dischargehex2 = 17820;
+        //dischargepower
+        if (value == 500) {
+          dischargehex1 =  0;
+          dischargehex2 =  17402;
+        } else if (value == 1000) {
+          dischargehex1 =  0;
+          dischargehex2 =  17530;
+        }  else if (value == 1500) {
+          dischargehex1 =  32768;
+          dischargehex2 =  17596;
+        } else if (value == 2000) {
+          dischargehex1 = 0;
+          dischargehex2 = 17658;
+        } else if (value == 2500) {
+          dischargehex1 =  16384;
+          dischargehex2 =  17692;
+        } else if (value == 3000) {
+          dischargehex1 =  32768;
+          dischargehex2 =  17723;
+        } else if (value == 4000) {
+          dischargehex1 =  0;
+          dischargehex2 =  17786;
+        } else if (value == 5000) {
+          dischargehex1 =  16384;
+          dischargehex2 =  17820;
+        }
+        else if (value == 6600) {
+          dischargehex1 =  16384;
+          dischargehex2 =  17870;
+        }
+        const dischargeRes = await client.writeMultipleRegisters(0xe010, [dischargehex1, dischargehex2]);
+        console.log('discharge', dischargeRes);        
+      }
 
       if (type == 'storagecontrolmode') {
         // 0 – Disabled
@@ -203,8 +284,8 @@ class MySolaredgeBatteryDevice extends Solaredge {
     let modbusOptions = {
       'host': this.getSetting('address'),
       'port': this.getSetting('port'),
-      'unitId': 1,
-      'timeout': 20,
+      'unitId': this.getSetting('id'),
+      'timeout': 15,
       'autoReconnect': false,
       'logLabel': 'solaredge Inverter',
       'logLevel': 'error',
