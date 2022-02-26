@@ -5,7 +5,7 @@ import { checkRegister } from '../response';
 import { checkMeter } from '../response';
 import { checkBattery } from '../response';
 
-const RETRY_INTERVAL = 20 * 1000;
+const RETRY_INTERVAL = 28 * 1000;
 let timer: NodeJS.Timer;
 
 class MySolaredgeBatteryDevice extends Solaredge {
@@ -133,8 +133,9 @@ class MySolaredgeBatteryDevice extends Solaredge {
       console.log('Unknown Error', err);
     }
     this.log("storagecontrolmode set  ", value);
-    let socket = new net.Socket()
-    let client = new Modbus.client.TCP(socket);
+    let socket = new net.Socket();
+    var unitID = this.getSetting('id');
+    let client = new Modbus.client.TCP(socket, unitID); 
 
     let modbusOptions = {
       'host': this.getSetting('address'),
@@ -292,8 +293,9 @@ class MySolaredgeBatteryDevice extends Solaredge {
       'logEnabled': true
     }
 
-    let socket = new net.Socket()
-    let client = new Modbus.client.TCP(socket);
+    let socket = new net.Socket();
+    var unitID = this.getSetting('id');
+    let client = new Modbus.client.TCP(socket, unitID); 
     socket.connect(modbusOptions);
 
     socket.on('connect', async () => {

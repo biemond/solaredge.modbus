@@ -3,7 +3,7 @@ import net from 'net';
 import {Solaredge}     from '../solaredge';
 import {checkRegister} from '../response';
 
-const RETRY_INTERVAL = 20 * 1000; 
+const RETRY_INTERVAL = 18 * 1000; 
 let timer:NodeJS.Timer;
 
 class MySolaredgeDevice extends Solaredge {
@@ -93,8 +93,9 @@ class MySolaredgeDevice extends Solaredge {
       'logEnabled': true
     }    
 
-    let socket = new net.Socket()
-    let client = new Modbus.client.TCP(socket);  
+    let socket = new net.Socket();
+    var unitID = this.getSetting('id');
+    let client = new Modbus.client.TCP(socket, unitID);  
     socket.connect(modbusOptions);
 
     socket.on('connect', async () => {
