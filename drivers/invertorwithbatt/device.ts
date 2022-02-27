@@ -54,7 +54,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
       await this.updateControl('dischargelimit', Number(args.dischargepower));
     });
 
-
+    // flow conditions
     let batterylevelStatus = this.homey.flow.getConditionCard("batterylevel");
     batterylevelStatus.registerRunListener(async (args, state) => {
       let result = (await this.getCapabilityValue('measure_battery') >= args.charged);
@@ -129,9 +129,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
   }
 
   async updateControl(type: string, value: number) {
-    function handleErrors(err: any) {
-      console.log('Unknown Error', err);
-    }
+
     this.log("storagecontrolmode set  ", value);
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
@@ -148,6 +146,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
       'logEnabled': true
     }
 
+    socket.setKeepAlive(false); 
     socket.connect(modbusOptions);
     socket.on('connect', async () => {
       console.log('Connected ...');
@@ -263,6 +262,10 @@ class MySolaredgeBatteryDevice extends Solaredge {
       socket.end();
     })
 
+    socket.on('close', () => {
+      console.log('Client closed');
+    }); 
+
     socket.on('error', (err) => {
       console.log(err);
       socket.end();
@@ -295,7 +298,8 @@ class MySolaredgeBatteryDevice extends Solaredge {
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID); 
+    let client = new Modbus.client.TCP(socket, unitID);
+    socket.setKeepAlive(false);  
     socket.connect(modbusOptions);
 
     socket.on('connect', async () => {
@@ -309,6 +313,15 @@ class MySolaredgeBatteryDevice extends Solaredge {
       socket.end();
       const finalRes = { ...checkRegisterRes, ...checkMeterRes, ...checkBatteryRes }
       this.processResult(finalRes)
+    });
+
+    socket.on('close', () => {
+      console.log('Client closed');
+    });    
+
+    socket.on('timeout', () => {
+      console.log('socket timed out!');
+      socket.end();
     });
 
     socket.on('error', (err) => {

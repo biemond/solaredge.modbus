@@ -74,14 +74,6 @@ class MySolaredgeDevice extends Solaredge {
     this.log("pollInvertor");
     this.log(this.getSetting('address'));
 
-    function handleErrors(err: any) {
-      console.log('Unknown Error', err);
-    }
-
-    function handleErrorsMeters(err: any) {
-      console.log('No meter');
-    }
-
     let modbusOptions = {
       'host': this.getSetting('address'),
       'port': this.getSetting('port'),
@@ -95,7 +87,8 @@ class MySolaredgeDevice extends Solaredge {
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID);  
+    let client = new Modbus.client.TCP(socket, unitID);
+    socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
     socket.on('connect', async () => {
@@ -108,6 +101,15 @@ class MySolaredgeDevice extends Solaredge {
        const finalRes = {...checkRegisterRes}
        this.processResult(finalRes)
     });    
+
+    socket.on('close', () => {
+      console.log('Client closed');
+    });  
+
+    socket.on('timeout', () => {
+      console.log('socket timed out!');
+      socket.end();
+    });
 
     socket.on('error', (err) => {
       console.log(err);

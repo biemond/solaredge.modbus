@@ -1,5 +1,5 @@
 {
-  "2.0.4": {
+  "2.0.5": {
     "en": "refactored release for sdk 3, please re-add device, non blocking socket"
   }
 }    
