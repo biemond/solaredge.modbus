@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -507,7 +507,8 @@
       "capabilities": [
         "measure_power",
         "measure_temperature.invertor",
-        "invertorstatus"
+        "invertorstatus",
+        "meter_power"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -522,6 +523,13 @@
           "title": {
             "en": "Heatsink temperature",
             "nl": "Heatsink temperatuur"
+          }
+        },
+        "meter_power": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Total Yield",
+            "nl": "Totale opbrengst"
           }
         }
       },
@@ -610,7 +618,10 @@
         "batterycap",
         "batterymaxcap",
         "measure_power.chargesetting",
-        "measure_power.dischargesetting"
+        "measure_power.dischargesetting",
+        "meter_power",
+        "meter_power.export",
+        "meter_power.import"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -676,6 +687,27 @@
         "measure_power.dischargesetting": {
           "title": {
             "en": "Disharge setting"
+          }
+        },
+        "meter_power": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Total Yield",
+            "nl": "Totale opbrengst"
+          }
+        },
+        "meter_power.import": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Total Import",
+            "nl": "Totale Import"
+          }
+        },
+        "meter_power.export": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Total Export",
+            "nl": "Totale Export"
           }
         }
       },

@@ -27,7 +27,10 @@
     "batterycap",
     "batterymaxcap",
     "measure_power.chargesetting",
-    "measure_power.dischargesetting"            
+    "measure_power.dischargesetting",
+    "meter_power",
+    "meter_power.export",
+    "meter_power.import"                
   ],
   "capabilitiesOptions": {
       "measure_power": {
@@ -94,7 +97,28 @@
         "title": {
           "en": "Disharge setting"
         }
-      }      
+      },
+      "meter_power": {
+        "icon": "/assets/sun.svg",
+        "title": {
+          "en": "Total Yield",
+          "nl": "Totale opbrengst"
+        }
+      },
+      "meter_power.import": {
+        "icon": "/assets/sun.svg",
+        "title": {
+          "en": "Total Import",
+          "nl": "Totale Import"
+        }
+      },
+      "meter_power.export": {
+        "icon": "/assets/sun.svg",
+        "title": {
+          "en": "Total Export",
+          "nl": "Totale Export"
+        }
+      }                     
   },  
   "platforms": [
     "local"

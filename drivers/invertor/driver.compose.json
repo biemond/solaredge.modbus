@@ -11,7 +11,8 @@
   "capabilities": [
     "measure_power",
     "measure_temperature.invertor",
-    "invertorstatus"
+    "invertorstatus",
+    "meter_power"
   ],
   "capabilitiesOptions": {
       "measure_power": {
@@ -27,7 +28,14 @@
           "en": "Heatsink temperature",
           "nl": "Heatsink temperatuur"
         }
-      }
+      },
+      "meter_power": {
+        "icon": "/assets/sun.svg",
+        "title": {
+          "en": "Total Yield",
+          "nl": "Totale opbrengst"
+        }
+      }      
   },  
   "platforms": [
     "local"
