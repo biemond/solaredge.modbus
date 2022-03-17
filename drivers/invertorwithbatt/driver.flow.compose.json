@@ -1,5 +1,5 @@
 {
-"triggers": [
+  "triggers": [
     {
       "id": "changedBattery",
       "title": {
@@ -17,342 +17,386 @@
           "example": 66
         }
       ]
-    }
+    },
+    {
+      "id": "changedInvertorStatus",
+      "title": {
+        "en": "Status Changed",
+        "nl": "Status gewijzigd"
+      },
+      "titleFormatted": {
+        "en": "Status changed",
+        "nl": "Status veranderd"
+      },
+      "tokens": [
+        {
+          "name": "status",
+          "type": "string",
+          "title": {
+            "en": "Status",
+            "nl": "Status"
+          },
+          "example": "Fault"
+        }
+      ]
+    },
+    {
+      "id": "changedBatteryStatus",
+      "title": {
+        "en": "Battery status changed",
+        "nl": "Batterij status gewijzigd"
+      },
+      "titleFormatted": {
+        "en": "Battery status changed",
+        "nl": "Batterij status veranderd"
+      },
+      "tokens": [
+        {
+          "name": "status",
+          "type": "string",
+          "title": {
+            "en": "Status",
+            "nl": "Status"
+          },
+          "example": "Fault"
+        }
+      ]
+    }    
   ],
   "conditions": [
     {
-        "id": "batterylevel",
-        "title": {
-            "en": "Battery !{{is|isn't}} higher than"
-        },
-        "hint": {
-            "en": "Battery charged in percentage"
-        },
-        "args": [
-            {
-                "name": "charged",
-                "type": "number"
-            }
-        ]
+      "id": "batterylevel",
+      "title": {
+        "en": "Battery !{{is|isn't}} higher than"
+      },
+      "hint": {
+        "en": "Battery charged in percentage"
+      },
+      "args": [
+        {
+          "name": "charged",
+          "type": "number"
+        }
+      ]
     },
     {
-        "id": "batterycharge",
-        "title": {
-            "en": "Battery charging !{{is|isn't}} higher than"
-        },
-        "hint": {
-            "en": "Battery charing in watts"
-        },
-        "args": [
-            {
-                "name": "charging",
-                "type": "number"
-            }
-        ]
+      "id": "batterycharge",
+      "title": {
+        "en": "Battery charging !{{is|isn't}} higher than"
+      },
+      "hint": {
+        "en": "Battery charing in watts"
+      },
+      "args": [
+        {
+          "name": "charging",
+          "type": "number"
+        }
+      ]
     },
     {
-        "id": "batterydischarge",
-        "title": {
-            "en": "Battery discharging !{{is|isn't}} higher than"
-        },
-        "hint": {
-            "en": "Battery discharing in watts"
-        },
-        "args": [
-            {
-                "name": "discharging",
-                "type": "number"
-            }
-        ]
+      "id": "batterydischarge",
+      "title": {
+        "en": "Battery discharging !{{is|isn't}} higher than"
+      },
+      "hint": {
+        "en": "Battery discharing in watts"
+      },
+      "args": [
+        {
+          "name": "discharging",
+          "type": "number"
+        }
+      ]
     },
     {
-        "id": "gridexport",
-        "title": {
-            "en": "Grid export !{{is|isn't}} higher than"
-        },
-        "hint": {
-            "en": "Grid export"
-        },
-        "args": [
-            {
-                "name": "export",
-                "type": "number"
-            }
-        ]
+      "id": "gridexport",
+      "title": {
+        "en": "Grid export !{{is|isn't}} higher than"
+      },
+      "hint": {
+        "en": "Grid export"
+      },
+      "args": [
+        {
+          "name": "export",
+          "type": "number"
+        }
+      ]
     },
     {
-        "id": "gridimport",
-        "title": {
-            "en": "Grid import !{{is|isn't}} higher than"
-        },
-        "hint": {
-            "en": "Grid import"
-        },
-        "args": [
-            {
-                "name": "import",
-                "type": "number"
-            }
-        ]
+      "id": "gridimport",
+      "title": {
+        "en": "Grid import !{{is|isn't}} higher than"
+      },
+      "hint": {
+        "en": "Grid import"
+      },
+      "args": [
+        {
+          "name": "import",
+          "type": "number"
+        }
+      ]
     },
     {
-        "id": "solarbattcharge",
-        "title": {
-            "en": "Invertor + Battery !{{is|isn't}} higher than"
-        },
-        "hint": {
-            "en": "Invertor plus battery charging in watts"
-        },
-        "args": [
-            {
-                "name": "charging",
-                "type": "number"
-            }
-        ]
-    }          
-  ], 
+      "id": "solarbattcharge",
+      "title": {
+        "en": "Invertor + Battery !{{is|isn't}} higher than"
+      },
+      "hint": {
+        "en": "Invertor plus battery charging in watts"
+      },
+      "args": [
+        {
+          "name": "charging",
+          "type": "number"
+        }
+      ]
+    }
+  ],
   "actions": [
     {
-        "id": "storagecontrolmode",
-        "title": {
-          "en": "Storage Control Mode"
-        },
-        "args": [
-          {
-            "name": "mode",
-            "type": "dropdown",
-            "values": [
-                {
-                    "id": "0",
-                    "title": {
-                        "en": "Disabled"
-                    }
-                },
-                {
-                    "id": "1",
-                    "title": {
-                        "en": "Maximize Self Consumption"
-                    }
-                },
-                {
-                    "id": "2",
-                    "title": {
-                        "en": "Time of Use"
-                    }
-                },
-                {
-                    "id": "3",
-                    "title": {
-                        "en": "Backup Only"
-                    }
-                },
-                {
-                    "id": "4",
-                    "title": {
-                        "en": "Remote Control"
-                    }
-                } 
-            ]        
-          }
-        ]
-    },
-    {
-        "id": "storagedefaultmode",
-        "title": {
-          "en": "Storage Charge/Discharge Mode"
-        },
-        "args": [
-          {
-            "name": "mode",
-            "type": "dropdown",
-            "values": [
-                {
-                    "id": "-1",
-                    "title": {
-                        "en": "Disabled"
-                    }
-                },        
-                {
-                    "id": "0",
-                    "title": {
-                        "en": "Off"
-                    }
-                },
-                {
-                    "id": "1",
-                    "title": {
-                        "en": "Charge excess PV power only"
-                    }
-                },
-                {
-                    "id": "2",
-                    "title": {
-                        "en": "Charge from PV 1st, before producing to AC"
-                    }
-                },
-                {
-                    "id": "3",
-                    "title": {
-                        "en": "Charge from PV+AC"
-                    }
-                },
-                {
-                    "id": "4",
-                    "title": {
-                        "en": "Maximize export"
-                    }
-                },                
-                {
-                    "id": "5",
-                    "title": {
-                        "en": "Discharge to meet loads consumption"
-                    }
-                } ,
-                {
-                    "id": "7",
-                    "title": {
-                        "en": "Maximize self-consumption"
-                    }
-                }          
-            ]        
-          }
-        ]
-    },
-    {
-        "id": "setcharging",
-        "title": {
-          "en": "Set Charge power"
-        },
-        "args": [
-          {
-            "type": "dropdown",
-            "name": "chargepower",
-            "values": [
-              {
-                "id": "500",
-                "label": {
-                  "en": "500W"
-                }
-              },
-              {
-                "id": "1000",
-                "label": {
-                  "en": "1000W"
-                }
-              },
-              {
-                "id": "1500",
-                "label": {
-                  "en": "1500W"
-                }
-              },
-              {
-                "id": "2000",
-                "label": {
-                  "en": "2000W"
-                }
-              },
-              {
-                "id": "2500",
-                "label": {
-                  "en": "2500W"
-                }
-              },
-              {
-                "id": "3000",
-                "label": {
-                  "en": "3000W"
-                }
-              },
-              {
-                "id": "4000",
-                "label": {
-                  "en": "4000W"
-                }
-              },
-              {
-                "id": "5000",
-                "label": {
-                  "en": "5000W"
-                }
-              },
-              {
-                "id": "6600",
-                "label": {
-                  "en": "6600W"
-                }
-              }
-            ]
-          }
-        ]
+      "id": "storagecontrolmode",
+      "title": {
+        "en": "Storage Control Mode"
       },
-      {
-        "id": "setdischarging",
-        "title": {
-          "en": "Set Discharge power"
-        },
-        "args": [
-          {
-            "type": "dropdown",
-            "name": "dischargepower",
-            "values": [
-              {
-                "id": "500",
-                "label": {
-                  "en": "500W"
-                }
-              },
-              {
-                "id": "1000",
-                "label": {
-                  "en": "1000W"
-                }
-              },
-              {
-                "id": "1500",
-                "label": {
-                  "en": "1500W"
-                }
-              },
-              {
-                "id": "2000",
-                "label": {
-                  "en": "2000W"
-                }
-              },
-              {
-                "id": "2500",
-                "label": {
-                  "en": "2500W"
-                }
-              },
-              {
-                "id": "3000",
-                "label": {
-                  "en": "3000W"
-                }
-              },
-              {
-                "id": "4000",
-                "label": {
-                  "en": "4000W"
-                }
-              },
-              {
-                "id": "5000",
-                "label": {
-                  "en": "5000W"
-                }
-              },
-              {
-                "id": "6600",
-                "label": {
-                  "en": "6600W"
-                }
+      "args": [
+        {
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Disabled"
               }
-            ]
-          }
-        ]
-      }        
-  ] 			   
-}    
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Maximize Self Consumption"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Time of Use"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "Backup Only"
+              }
+            },
+            {
+              "id": "4",
+              "title": {
+                "en": "Remote Control"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "storagedefaultmode",
+      "title": {
+        "en": "Storage Charge/Discharge Mode"
+      },
+      "args": [
+        {
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "-1",
+              "title": {
+                "en": "Disabled"
+              }
+            },
+            {
+              "id": "0",
+              "title": {
+                "en": "Off"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Charge excess PV power only"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Charge from PV 1st, before producing to AC"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "Charge from PV+AC"
+              }
+            },
+            {
+              "id": "4",
+              "title": {
+                "en": "Maximize export"
+              }
+            },
+            {
+              "id": "5",
+              "title": {
+                "en": "Discharge to meet loads consumption"
+              }
+            },
+            {
+              "id": "7",
+              "title": {
+                "en": "Maximize self-consumption"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "setcharging",
+      "title": {
+        "en": "Set Charge power"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "chargepower",
+          "values": [
+            {
+              "id": "500",
+              "label": {
+                "en": "500W"
+              }
+            },
+            {
+              "id": "1000",
+              "label": {
+                "en": "1000W"
+              }
+            },
+            {
+              "id": "1500",
+              "label": {
+                "en": "1500W"
+              }
+            },
+            {
+              "id": "2000",
+              "label": {
+                "en": "2000W"
+              }
+            },
+            {
+              "id": "2500",
+              "label": {
+                "en": "2500W"
+              }
+            },
+            {
+              "id": "3000",
+              "label": {
+                "en": "3000W"
+              }
+            },
+            {
+              "id": "4000",
+              "label": {
+                "en": "4000W"
+              }
+            },
+            {
+              "id": "5000",
+              "label": {
+                "en": "5000W"
+              }
+            },
+            {
+              "id": "6600",
+              "label": {
+                "en": "6600W"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "setdischarging",
+      "title": {
+        "en": "Set Discharge power"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "dischargepower",
+          "values": [
+            {
+              "id": "500",
+              "label": {
+                "en": "500W"
+              }
+            },
+            {
+              "id": "1000",
+              "label": {
+                "en": "1000W"
+              }
+            },
+            {
+              "id": "1500",
+              "label": {
+                "en": "1500W"
+              }
+            },
+            {
+              "id": "2000",
+              "label": {
+                "en": "2000W"
+              }
+            },
+            {
+              "id": "2500",
+              "label": {
+                "en": "2500W"
+              }
+            },
+            {
+              "id": "3000",
+              "label": {
+                "en": "3000W"
+              }
+            },
+            {
+              "id": "4000",
+              "label": {
+                "en": "4000W"
+              }
+            },
+            {
+              "id": "5000",
+              "label": {
+                "en": "5000W"
+              }
+            },
+            {
+              "id": "6600",
+              "label": {
+                "en": "6600W"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -255,10 +255,30 @@ export class Solaredge extends Homey.Device {
 
             if (result['status'] && result['status'].value != 'xxx') {
                 this.addCapability('invertorstatus');
+                if (this.getCapabilityValue('invertorstatus') != result['status'].value) {
+                    let status_str: {[key: string]: string}  = { 
+                        "0": 'Undefined', 
+                        '1': 'Off',
+                        '2': 'Sleeping',
+                        '3': 'Grid Monitoring',
+                        '4': 'Producing',
+                        '5': 'Producing (Throttled)',
+                        '6': 'Shutting Down',
+                        '7': 'Fault',
+                        '8': 'Maintenance'
+                    }
+                    console.log(this.driver.id);
+                    // console.log(status_str[result['status'].value]);
+                    if (this.driver.id == 'invertorwithbatt') {
+                      this.homey.flow.getDeviceTriggerCard('changedInvertorStatus').trigger(this, { status: status_str[result['status'].value] }, {});
+                    } else {
+                      this.homey.flow.getDeviceTriggerCard('changedStatus').trigger(this, { status: status_str[result['status'].value] }, {});
+                    }  
+                }
                 this.setCapabilityValue('invertorstatus', result['status'].value);
             }
 
-            // // meters
+            // meters
             if (result['meter1-export_energy_active'] && result['meter1-export_energy_active'].value != 'xxx' ){
               this.addCapability('meter_power.export');
               var totalexport = Number(result['meter1-export_energy_active'].value)*(Math.pow(10, Number(result['meter1-export_energy_active'].scale)));
@@ -357,6 +377,20 @@ export class Solaredge extends Homey.Device {
             
             if (result['batt1-status'] && result['batt1-status'].value != 'xxx') {
                 this.addCapability('battstatus');
+                if (this.getCapabilityValue('battstatus') != result['batt1-status'].value) {
+                    let status_str: {[key: string]: string}  = { 
+                        "0": 'Off', 
+                        '1': 'Standby',
+                        '2': 'Init',
+                        '3': 'Charge',
+                        '4': 'Discharge',
+                        '5': 'Fault',
+                        '6': 'Idle',
+                        '10': 'Unknown'
+                    }
+                    console.log(this.driver.id);
+                    this.homey.flow.getDeviceTriggerCard('changedBatteryStatus').trigger(this, { status: status_str[result['batt1-status'].value] }, {});
+                }
                 this.setCapabilityValue('battstatus', result['batt1-status'].value);
             }
             if (result['batt1-maximum_energy'] && result['batt1-maximum_energy'].value != 'xxx') {
