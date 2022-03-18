@@ -1,0 +1,28 @@
+{
+    "title": {
+      "en": "Status Changed",
+      "nl": "Status gewijzigd"
+    },
+    "titleFormatted": {
+      "en": "Status changed",
+      "nl": "Status veranderd"
+    },
+    "tokens": [
+      {
+        "name": "status",
+        "type": "string",
+        "title": {
+          "en": "Status",
+          "nl": "Status"
+        },
+        "example": "Fault"
+      }
+    ],
+    "args": [
+      {
+        "type": "device",
+        "name": "device",
+        "filter": "driver_id=invertor|invertorwithbatt"
+      }
+    ]
+  }

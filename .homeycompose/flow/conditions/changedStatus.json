@@ -1,0 +1,78 @@
+{
+    "title": {
+        "en": "Invertor status is"
+    },
+    "titleFormatted": {
+        "en": "Invertor status is [[argument_main]]"
+    },    
+    "hint": {
+        "en": "Invertor status"
+    },
+    "args": [
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertor|invertorwithbatt"
+        },
+        {
+            "name": "argument_main",
+            "type": "dropdown",
+            "values": [
+                {
+                    "id": "0",
+                    "label": {
+                        "en": "Undefined"
+                    }
+                },
+                {
+                    "id": "1",
+                    "label": {
+                        "en": "Off"
+                    }
+                },
+                {
+                    "id": "2",
+                    "label": {
+                        "en": "Sleeping"
+                    }
+                },
+                {
+                    "id": "3",
+                    "label": {
+                        "en": "Grid Monitoring"
+                    }
+                },
+                {
+                    "id": "4",
+                    "label": {
+                        "en": "Producing"
+                    }
+                },
+                {
+                    "id": "5",
+                    "label": {
+                        "en": "Producing (Throttled)"
+                    }
+                },
+                {
+                    "id": "6",
+                    "label": {
+                        "en": "Shutting Down"
+                    }
+                },
+                {
+                    "id": "7",
+                    "label": {
+                        "en": "Fault"
+                    }
+                },
+                {
+                    "id": "8",
+                    "label": {
+                        "en": "Maintenance"
+                    }
+                }                                 
+            ]
+        }
+    ]
+}

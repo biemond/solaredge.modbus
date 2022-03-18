@@ -1,6 +1,6 @@
 {
-  "2.0.7": {
-    "en": "adding flow status triggers"
+  "2.0.8": {
+    "en": "adding flow status triggers and conditions"
   },   
   "2.0.6": {
     "en": "adding Total Yield for all devices, total import + export when there is a meter installed"

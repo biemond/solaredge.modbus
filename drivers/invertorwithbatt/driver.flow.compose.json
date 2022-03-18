@@ -19,28 +19,6 @@
       ]
     },
     {
-      "id": "changedInvertorStatus",
-      "title": {
-        "en": "Status Changed",
-        "nl": "Status gewijzigd"
-      },
-      "titleFormatted": {
-        "en": "Status changed",
-        "nl": "Status veranderd"
-      },
-      "tokens": [
-        {
-          "name": "status",
-          "type": "string",
-          "title": {
-            "en": "Status",
-            "nl": "Status"
-          },
-          "example": "Fault"
-        }
-      ]
-    },
-    {
       "id": "changedBatteryStatus",
       "title": {
         "en": "Battery status changed",
@@ -153,7 +131,75 @@
           "type": "number"
         }
       ]
-    }
+    },
+    {
+      "id": "changedBatteryStatus",
+      "title": {
+          "en": "Battery status is"
+      },
+      "titleFormatted": {
+          "en": "Battery status is [[argument_main]]"
+      },    
+      "hint": {
+          "en": "Battery status"
+      },
+      "args": [
+          {
+              "name": "argument_main",
+              "type": "dropdown",
+              "values": [
+                  {
+                      "id": "0",
+                      "label": {
+                          "en": "Off"
+                      }
+                  },
+                  {
+                      "id": "1",
+                      "label": {
+                          "en": "Standby"
+                      }
+                  },
+                  {
+                      "id": "2",
+                      "label": {
+                          "en": "Init"
+                      }
+                  },
+                  {
+                      "id": "3",
+                      "label": {
+                          "en": "Charge"
+                      }
+                  },
+                  {
+                      "id": "4",
+                      "label": {
+                          "en": "Discharge"
+                      }
+                  },
+                  {
+                      "id": "5",
+                      "label": {
+                          "en": "Fault"
+                      }
+                  },
+                  {
+                      "id": "6",
+                      "label": {
+                          "en": "Idle"
+                      }
+                  },
+                  {
+                      "id": "10",
+                      "label": {
+                          "en": "Unknown"
+                      }
+                  }                         
+              ]
+          }
+      ]
+  }
   ],
   "actions": [
     {

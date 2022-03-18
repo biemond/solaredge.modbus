@@ -269,11 +269,7 @@ export class Solaredge extends Homey.Device {
                     }
                     console.log(this.driver.id);
                     // console.log(status_str[result['status'].value]);
-                    if (this.driver.id == 'invertorwithbatt') {
-                      this.homey.flow.getDeviceTriggerCard('changedInvertorStatus').trigger(this, { status: status_str[result['status'].value] }, {});
-                    } else {
-                      this.homey.flow.getDeviceTriggerCard('changedStatus').trigger(this, { status: status_str[result['status'].value] }, {});
-                    }  
+                    this.homey.flow.getDeviceTriggerCard('changedStatus').trigger(this, { status: status_str[result['status'].value] }, {});
                 }
                 this.setCapabilityValue('invertorstatus', result['status'].value);
             }

@@ -1,27 +1,5 @@
 {
     "triggers": [
-        {
-            "id": "changedStatus",
-            "title": {
-                "en": "Status Changed",
-                "nl": "Status gewijzigd"
-            },
-            "titleFormatted": {
-                "en": "Status changed",
-                "nl": "Status veranderd"
-            },
-            "tokens": [
-                {
-                    "name": "status",
-                    "type": "string",
-                    "title": {
-                        "en": "Status",
-                        "nl": "Status"
-                    },
-                    "example": "Fault"
-                }
-            ]
-        }
     ],
     "conditions": [
         {
