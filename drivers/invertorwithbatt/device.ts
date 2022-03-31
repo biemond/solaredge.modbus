@@ -160,6 +160,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
 
     socket.setKeepAlive(false); 
     socket.connect(modbusOptions);
+    console.log(modbusOptions);
     socket.on('connect', async () => {
       console.log('Connected ...');
       if (type == 'chargelimit') {
@@ -301,7 +302,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
       'host': this.getSetting('address'),
       'port': this.getSetting('port'),
       'unitId': this.getSetting('id'),
-      'timeout': 15,
+      'timeout': 25,
       'autoReconnect': false,
       'logLabel': 'solaredge Inverter',
       'logLevel': 'error',
@@ -313,7 +314,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
     let client = new Modbus.client.TCP(socket, unitID);
     socket.setKeepAlive(false);  
     socket.connect(modbusOptions);
-
+    console.log(modbusOptions);
     socket.on('connect', async () => {
       console.log('Connected ...');
 

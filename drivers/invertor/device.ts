@@ -100,13 +100,14 @@ class MySolaredgeDevice extends Solaredge {
 
     socket.on('connect', async () => {
       console.log('Connected ...');
+      console.log(modbusOptions);
 
-       const checkRegisterRes = await checkRegister(this.registers, client);
-       console.log('disconnect'); 
-       client.socket.end();
-       socket.end();
-       const finalRes = {...checkRegisterRes}
-       this.processResult(finalRes)
+      const checkRegisterRes = await checkRegister(this.registers, client);
+      console.log('disconnect'); 
+      client.socket.end();
+      socket.end();
+      const finalRes = {...checkRegisterRes}
+      this.processResult(finalRes)
     });    
 
     socket.on('close', () => {

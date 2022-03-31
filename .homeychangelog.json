@@ -1,4 +1,7 @@
 {
+  "2.0.9": {
+    "en": "better error handling"
+  },     
   "2.0.8": {
     "en": "adding flow status triggers and conditions"
   },   
