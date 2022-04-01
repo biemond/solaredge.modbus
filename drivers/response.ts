@@ -3,8 +3,8 @@ import { Measurement } from './solaredge';
 
 export async function checkRegister(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
     let result: Record<string, Measurement> = {};
-    try {
-        for (const [key, value] of Object.entries(registers)) {
+    for (const [key, value] of Object.entries(registers)) {
+        try {
             const res = client.readHoldingRegisters(value[0], value[1])
             const actualRes = await res;
             // const metrics = actualRes.metrics;
@@ -52,27 +52,28 @@ export async function checkRegister(registers: Object, client: InstanceType<type
             measurement.value = resultValue;
             result[key] = measurement;
         }
+        catch (err) {
+            console.log("key: " + key);
+            console.log(err);
+        }
         console.log('checkRegister result');
         return result;
-    } catch (err) {
-        console.log(err);
     }
 }
 
 export async function checkMeter(meter_dids: Object, meter_registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
     let result: Record<string, Measurement> = {};
-    try {
-        for (const [key, value] of Object.entries(meter_dids)) {
-            try {
-                const res = client.readHoldingRegisters(value[0], value[1])
-                const actualRes = await res;
-                // const metrics = actualRes?.metrics;
-                // const request = actualRes?.request;
-                // const response = actualRes?.response;
+    for (const [key, value] of Object.entries(meter_dids)) {
+        try {
+            const res = client.readHoldingRegisters(value[0], value[1])
+            const actualRes = await res;
+            // const metrics = actualRes?.metrics;
+            // const request = actualRes?.request;
+            // const response = actualRes?.response;
 
-                if (value[2] == 'UINT16') {
-                    for (const [key2, value2] of Object.entries(meter_registers)) {
-
+            if (value[2] == 'UINT16') {
+                for (const [key2, value2] of Object.entries(meter_registers)) {
+                    try {
                         const innerRes = client.readHoldingRegisters(value2[0] + value[3], value2[1])
                         const actualRes = await innerRes
                         // const metrics = actualRes.metrics;
@@ -114,72 +115,85 @@ export async function checkMeter(meter_dids: Object, meter_registers: Object, cl
                         }
                         measurement.value = resultValue;
                         result[key + '-' + key2] = measurement;
+                    } catch (e) {
+                        console.log("key: " + key + " key2: " + key2);
+                        console.log(e);
                     }
                 }
-            } catch (e) {
-                // console.log(e);
             }
+        } catch (e) {
+            console.log("key: " + key);
+            console.log(e);
         }
-        console.log('checkMeter result');
-        return result;
-    } catch (err) {
-        console.log(err);
     }
+    console.log('checkMeter result');
+    return result;
+
 }
 
 export async function checkBattery(battery_dids: Object, batt_registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
     let result: Record<string, Measurement> = {};
     try {
         for (const [key, value] of Object.entries(battery_dids)) {
-            const res = client.readHoldingRegisters(value[0], value[1])
-            const actualRes = await res;
-            // const metrics = actualRes.metrics;
-            // const request = actualRes.request;
-            const response = actualRes.response;
+            try {
+                const res = client.readHoldingRegisters(value[0], value[1])
+                const actualRes = await res;
+                // const metrics = actualRes.metrics;
+                // const request = actualRes.request;
+                const response = actualRes.response;
 
-            if (value[2] == 'UINT16') {
-                if (response.body.valuesAsBuffer.readUInt16BE() != 255) {
-                    console.log(key + ": " + response.body.valuesAsBuffer.readUInt16BE());
-                    let offset = 0x0;
-                    for (const [key2, value2] of Object.entries(batt_registers)) {
-                        const res = client.readHoldingRegisters(value2[0] + value[3], value2[1])
-                        const actualRes = await res;
-                        //const metrics = actualRes.metrics;
-                        //const request = actualRes.request;
-                        const response = actualRes.response;
-                        // console.log(resp.response._body);
-                        const measurement: Measurement = {
-                            value: 'xxx',
-                            scale: 'xxx',
-                            label: value2[3],
-                        };
-                        let resultValue: string = 'xxx';
-                        switch (value2[2]) {
-                            case 'SEFLOAT':
-                                resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
-                                break;
-                            case 'STRING':
-                                resultValue = response.body.valuesAsBuffer.toString();
-                                break;
-                            case 'UINT16':
-                                resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
-                                break;
-                            case 'UINT32':
-                                // console.log(response.body.valuesAsArray);
-                                // console.log(response.body.valuesAsBuffer);
-                                resultValue = response.body.valuesAsArray[0].toString();
-                                break;
-                            case 'UINT64':
-                                resultValue = response.body.valuesAsBuffer.readBigUInt64LE().toString();
-                                break;
-                            default:
-                                console.log(key2 + ": type not found " + value2[2]);
-                                break;
+                if (value[2] == 'UINT16') {
+                    if (response.body.valuesAsBuffer.readUInt16BE() != 255) {
+                        // console.log(key + ": " + response.body.valuesAsBuffer.readUInt16BE());
+                        let offset = 0x0;
+                        for (const [key2, value2] of Object.entries(batt_registers)) {
+                            try {
+                                const res = client.readHoldingRegisters(value2[0] + value[3], value2[1])
+                                const actualRes = await res;
+                                //const metrics = actualRes.metrics;
+                                //const request = actualRes.request;
+                                const response = actualRes.response;
+                                // console.log(resp.response._body);
+                                const measurement: Measurement = {
+                                    value: 'xxx',
+                                    scale: 'xxx',
+                                    label: value2[3],
+                                };
+                                let resultValue: string = 'xxx';
+                                switch (value2[2]) {
+                                    case 'SEFLOAT':
+                                        resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
+                                        break;
+                                    case 'STRING':
+                                        resultValue = response.body.valuesAsBuffer.toString();
+                                        break;
+                                    case 'UINT16':
+                                        resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
+                                        break;
+                                    case 'UINT32':
+                                        // console.log(response.body.valuesAsArray);
+                                        // console.log(response.body.valuesAsBuffer);
+                                        resultValue = response.body.valuesAsArray[0].toString();
+                                        break;
+                                    case 'UINT64':
+                                        resultValue = response.body.valuesAsBuffer.readBigUInt64LE().toString();
+                                        break;
+                                    default:
+                                        console.log(key2 + ": type not found " + value2[2]);
+                                        break;
+                                }
+                                measurement.value = resultValue;
+                                result[key + '-' + key2] = measurement;
+                            } catch (e) {
+                                console.log("key: " + key + " key2: " + key2);
+                                console.log(e);
+                            }
                         }
-                        measurement.value = resultValue;
-                        result[key + '-' + key2] = measurement;
                     }
                 }
+            } catch (e) {
+                console.log("key: " + key);
+                console.log(e);
             }
         }
         console.log('checkBattery result');

@@ -317,7 +317,6 @@ class MySolaredgeBatteryDevice extends Solaredge {
     console.log(modbusOptions);
     socket.on('connect', async () => {
       console.log('Connected ...');
-
       const checkRegisterRes = await checkRegister(this.registers, client);
       const checkMeterRes = await checkMeter(this.meter_dids, this.meter_registers, client);
       const checkBatteryRes = await checkBattery(this.battery_dids, this.batt_registers, client);
