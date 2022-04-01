@@ -53,8 +53,8 @@ export async function checkRegister(registers: Object, client: InstanceType<type
             result[key] = measurement;
         }
         catch (err) {
-            console.log("key: " + key);
-            console.log(err);
+            console.log("error with key: " + key);
+            // console.log(err);
         }
         console.log('checkRegister result');
         return result;
@@ -116,14 +116,14 @@ export async function checkMeter(meter_dids: Object, meter_registers: Object, cl
                         measurement.value = resultValue;
                         result[key + '-' + key2] = measurement;
                     } catch (e) {
-                        console.log("key: " + key + " key2: " + key2);
-                        console.log(e);
+                        console.log("error with key: " + key + " key2: " + key2);
+                        // console.log(e);
                     }
                 }
             }
         } catch (e) {
-            console.log("key: " + key);
-            console.log(e);
+            console.log("error with key: " + key);
+            // console.log(e);
         }
     }
     console.log('checkMeter result');
@@ -185,14 +185,14 @@ export async function checkBattery(battery_dids: Object, batt_registers: Object,
                                 measurement.value = resultValue;
                                 result[key + '-' + key2] = measurement;
                             } catch (e) {
-                                console.log("key: " + key + " key2: " + key2);
+                                console.log("error with key: " + key + " key2: " + key2);
                                 console.log(e);
                             }
                         }
                     }
                 }
             } catch (e) {
-                console.log("key: " + key);
+                console.log("error with key: " + key);
                 console.log(e);
             }
         }
