@@ -51,15 +51,17 @@ export async function checkRegister(registers: Object, client: InstanceType<type
             }
             measurement.value = resultValue;
             result[key] = measurement;
-        }
-        catch (err) {
+
+        } catch (err) {
             console.log("error with key: " + key);
             // console.log(err);
         }
-        console.log('checkRegister result');
-        return result;
     }
+
+    console.log('checkRegister result');
+    return result;
 }
+
 
 export async function checkMeter(meter_dids: Object, meter_registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
     let result: Record<string, Measurement> = {};

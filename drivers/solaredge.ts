@@ -78,7 +78,7 @@ export class Solaredge extends Homey.Device {
         "remote_control_charge_limit": [0xe00e, 2, 'FLOAT32', "Remote Control Charge Limit"],
         "remote_control_command_discharge_limit": [0xe010, 2, 'FLOAT32', "Remote Control Command Discharge Limit"],
         "remote_control_command_timeout": [0xe00b, 2, 'UINT32', "Remote Control Command Timeout"],
-        "remote_control_default_command_mode": [0xe00a , 1, 'UINT16', "Storage Charge/Discharge Default Mode"]
+        "remote_control_default_command_mode": [0xe00a, 1, 'UINT16', "Storage Charge/Discharge Default Mode"]
 
     };
 
@@ -235,11 +235,11 @@ export class Solaredge extends Homey.Device {
                 this.setCapabilityValue('measure_power', Math.round(acpower));
             }
 
-            if (result['energy_total'] && result['energy_total'].value != 'xxx' ){
-              this.addCapability('meter_power'); 
-              var total = Number(result['energy_total'].value)*(Math.pow(10, Number(result['energy_total'].scale)));  
-              this.setCapabilityValue('meter_power', total / 1000);
-            }       
+            if (result['energy_total'] && result['energy_total'].value != 'xxx') {
+                this.addCapability('meter_power');
+                var total = Number(result['energy_total'].value) * (Math.pow(10, Number(result['energy_total'].scale)));
+                this.setCapabilityValue('meter_power', total / 1000);
+            }
 
             // if (result['power_dc'] && result['power_dc'].value != 'xxx' ){
             //   this.addCapability('measure_voltage.dc');
@@ -254,39 +254,41 @@ export class Solaredge extends Homey.Device {
             }
 
             if (result['status'] && result['status'].value != 'xxx') {
-                this.addCapability('invertorstatus');
-                if (this.getCapabilityValue('invertorstatus') != result['status'].value) {
-                    let status_str: {[key: string]: string}  = { 
-                        "0": 'Undefined', 
-                        '1': 'Off',
-                        '2': 'Sleeping',
-                        '3': 'Grid Monitoring',
-                        '4': 'Producing',
-                        '5': 'Producing (Throttled)',
-                        '6': 'Shutting Down',
-                        '7': 'Fault',
-                        '8': 'Maintenance'
+                if (parseInt(result['status'].value) < 9) {
+                    this.addCapability('invertorstatus');
+                    if (this.getCapabilityValue('invertorstatus') != result['status'].value) {
+                        let status_str: { [key: string]: string } = {
+                            "0": 'Undefined',
+                            '1': 'Off',
+                            '2': 'Sleeping',
+                            '3': 'Grid Monitoring',
+                            '4': 'Producing',
+                            '5': 'Producing (Throttled)',
+                            '6': 'Shutting Down',
+                            '7': 'Fault',
+                            '8': 'Maintenance'
+                        }
+                        // console.log(this.driver.id);
+                        // console.log(status_str[result['status'].value]);
+                        this.homey.flow.getDeviceTriggerCard('changedStatus').trigger(this, { status: status_str[result['status'].value] }, {});
                     }
-                    console.log(this.driver.id);
-                    // console.log(status_str[result['status'].value]);
-                    this.homey.flow.getDeviceTriggerCard('changedStatus').trigger(this, { status: status_str[result['status'].value] }, {});
+                    this.setCapabilityValue('invertorstatus', result['status'].value);
                 }
-                this.setCapabilityValue('invertorstatus', result['status'].value);
             }
 
             // meters
-            if (result['meter1-export_energy_active'] && result['meter1-export_energy_active'].value != 'xxx' ){
-              this.addCapability('meter_power.export');
-              var totalexport = Number(result['meter1-export_energy_active'].value)*(Math.pow(10, Number(result['meter1-export_energy_active'].scale)));
-              this.setCapabilityValue('meter_power.export', totalexport / 1000);
-            }    
+            if (result['meter1-export_energy_active'] && result['meter1-export_energy_active'].value != 'xxx') {
+                this.addCapability('meter_power.export');
+                var totalexport = Number(result['meter1-export_energy_active'].value) * (Math.pow(10, Number(result['meter1-export_energy_active'].scale)));
+                this.setCapabilityValue('meter_power.export', totalexport / 1000);
+            }
 
             // meters
-            if (result['meter1-import_energy_active'] && result['meter1-import_energy_active'].value != 'xxx' ){
-              this.addCapability('meter_power.import');
-              var totalimport = Number(result['meter1-import_energy_active'].value)*(Math.pow(10, Number(result['meter1-export_energy_active'].scale)));
-              this.setCapabilityValue('meter_power.import', totalimport / 1000); 
-            }   
+            if (result['meter1-import_energy_active'] && result['meter1-import_energy_active'].value != 'xxx') {
+                this.addCapability('meter_power.import');
+                var totalimport = Number(result['meter1-import_energy_active'].value) * (Math.pow(10, Number(result['meter1-export_energy_active'].scale)));
+                this.setCapabilityValue('meter_power.import', totalimport / 1000);
+            }
 
             if (result['meter1-voltage_ln'] && result['meter1-voltage_ln'].value != 'xxx') {
                 this.addCapability('measure_voltage.meter');
@@ -362,7 +364,7 @@ export class Solaredge extends Homey.Device {
                     var dischargeLimit = Number(result['remote_control_command_discharge_limit'].value);
                     this.setCapabilityValue('measure_power.dischargesetting', dischargeLimit);
                 }
-                                
+
             }
 
             if (result['batt1-average_temperature'] && result['batt1-average_temperature'].value != 'xxx') {
@@ -370,35 +372,37 @@ export class Solaredge extends Homey.Device {
                 var batt_temperature = Number(result['batt1-average_temperature'].value);
                 this.setCapabilityValue("measure_temperature.battery", Math.round(batt_temperature));
             }
-            
+
             if (result['batt1-status'] && result['batt1-status'].value != 'xxx') {
-                this.addCapability('battstatus');
-                if (this.getCapabilityValue('battstatus') != result['batt1-status'].value) {
-                    let status_str: {[key: string]: string}  = { 
-                        "0": 'Off', 
-                        '1': 'Standby',
-                        '2': 'Init',
-                        '3': 'Charge',
-                        '4': 'Discharge',
-                        '5': 'Fault',
-                        '6': 'Idle',
-                        '10': 'Unknown'
+                if (parseInt(result['batt1-status'].value) < 11) {
+                    this.addCapability('battstatus');
+                    if (this.getCapabilityValue('battstatus') != result['batt1-status'].value) {
+                        let status_str: { [key: string]: string } = {
+                            "0": 'Off',
+                            '1': 'Standby',
+                            '2': 'Init',
+                            '3': 'Charge',
+                            '4': 'Discharge',
+                            '5': 'Fault',
+                            '6': 'Idle',
+                            '10': 'Unknown'
+                        }
+                        // console.log(this.driver.id);
+                        this.homey.flow.getDeviceTriggerCard('changedBatteryStatus').trigger(this, { status: status_str[result['batt1-status'].value] }, {});
                     }
-                    console.log(this.driver.id);
-                    this.homey.flow.getDeviceTriggerCard('changedBatteryStatus').trigger(this, { status: status_str[result['batt1-status'].value] }, {});
+                    this.setCapabilityValue('battstatus', result['batt1-status'].value);
                 }
-                this.setCapabilityValue('battstatus', result['batt1-status'].value);
             }
             if (result['batt1-maximum_energy'] && result['batt1-maximum_energy'].value != 'xxx') {
                 var maxenergy = Number(result['batt1-maximum_energy'].value);
                 this.addCapability('batterymaxcap');
-                this.setCapabilityValue('batterymaxcap', maxenergy/1000);
+                this.setCapabilityValue('batterymaxcap', maxenergy / 1000);
             }
             if (result['batt1-available_energy'] && result['batt1-available_energy'].value != 'xxx') {
                 var availenergy = Number(result['batt1-available_energy'].value);
                 this.addCapability('batterycap');
-                this.setCapabilityValue('batterycap', availenergy/1000);
-            }                         
+                this.setCapabilityValue('batterycap', availenergy / 1000);
+            }
         }
     }
 }
