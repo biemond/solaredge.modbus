@@ -39,7 +39,73 @@
           "example": "Fault"
         }
       ]
-    }    
+    },
+    {
+      "id": "changedExportPower",
+      "title": {
+        "en": "Power Export Changed (W)",
+        "nl": "Power Export gewijzigd (W)"
+      },
+      "titleFormatted": {
+        "en": "Power Export Changed (W)",
+        "nl": "Power Export gewijzigd (W)"
+      },
+      "tokens": [
+        {
+          "name": "measure_power.export",
+          "type": "number",
+          "title": {
+            "en": "Power Export (W)",
+            "nl": "Power Export (W)"
+          },
+          "example": 303
+        }
+      ]
+    },
+    {
+      "id": "changedImportPower",
+      "title": {
+        "en": "Power Import Changed (W)",
+        "nl": "Power Import gewijzigd (W)"
+      },
+      "titleFormatted": {
+        "en": "Power Import Changed (W)",
+        "nl": "Power Import gewijzigd (W)"
+      },
+      "tokens": [
+        {
+          "name": "measure_power.import",
+          "type": "number",
+          "title": {
+            "en": "Power Import (W)",
+            "nl": "Power Import (W)"
+          },
+          "example": 42
+        }
+      ]
+    },
+    {
+      "id": "changedConsumption",
+      "title": {
+        "en": "Consumption Changed",
+        "nl": "Verbruik gewijzigd"
+      },
+      "titleFormatted": {
+        "en": "Consumption Changed",
+        "nl": "Verbruik gewijzigd"
+      },
+      "tokens": [
+        {
+          "name": "ownconsumption",
+          "type": "number",
+          "title": {
+            "en": "Consumption",
+            "nl": "Verbruik"
+          },
+          "example": 200
+        }
+      ]
+    }                
   ],
   "conditions": [
     {

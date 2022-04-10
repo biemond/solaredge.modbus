@@ -1,4 +1,7 @@
 {
+  "2.0.13": {
+    "en": "adding owncomsumption for battery invertors, export, import & consumption triggers"
+  },    
   "2.0.12": {
     "en": "better error handling"
   },   

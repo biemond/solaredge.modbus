@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "2.0.12",
+  "version": "2.0.13",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -133,6 +133,93 @@
               "nl": "Status"
             },
             "example": "Fault"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "changedExportPower",
+        "title": {
+          "en": "Power Export Changed (W)",
+          "nl": "Power Export gewijzigd (W)"
+        },
+        "titleFormatted": {
+          "en": "Power Export Changed (W)",
+          "nl": "Power Export gewijzigd (W)"
+        },
+        "tokens": [
+          {
+            "name": "measure_power.export",
+            "type": "number",
+            "title": {
+              "en": "Power Export (W)",
+              "nl": "Power Export (W)"
+            },
+            "example": 303
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "changedImportPower",
+        "title": {
+          "en": "Power Import Changed (W)",
+          "nl": "Power Import gewijzigd (W)"
+        },
+        "titleFormatted": {
+          "en": "Power Import Changed (W)",
+          "nl": "Power Import gewijzigd (W)"
+        },
+        "tokens": [
+          {
+            "name": "measure_power.import",
+            "type": "number",
+            "title": {
+              "en": "Power Import (W)",
+              "nl": "Power Import (W)"
+            },
+            "example": 42
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "changedConsumption",
+        "title": {
+          "en": "Consumption Changed",
+          "nl": "Verbruik gewijzigd"
+        },
+        "titleFormatted": {
+          "en": "Consumption Changed",
+          "nl": "Verbruik gewijzigd"
+        },
+        "tokens": [
+          {
+            "name": "ownconsumption",
+            "type": "number",
+            "title": {
+              "en": "Consumption",
+              "nl": "Verbruik"
+            },
+            "example": 200
           }
         ],
         "args": [
@@ -831,7 +918,8 @@
         "measure_power.dischargesetting",
         "meter_power",
         "meter_power.export",
-        "meter_power.import"
+        "meter_power.import",
+        "ownconsumption"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -1170,6 +1258,23 @@
           }
         }
       ]
+    },
+    "ownconsumption": {
+      "type": "number",
+      "title": {
+        "en": "Consumption",
+        "nl": "Verbruik"
+      },
+      "getable": true,
+      "setable": false,
+      "decimals": 0,
+      "uiComponent": "sensor",
+      "insights": true,
+      "icon": "/assets/home.svg",
+      "units": {
+        "en": "W",
+        "nl": "W"
+      }
     },
     "storagecontrolmode": {
       "type": "enum",

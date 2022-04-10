@@ -300,13 +300,23 @@ export class Solaredge extends Homey.Device {
             if (result['meter1-power'] && result['meter1-power'].value != 'xxx') {
                 this.addCapability('measure_power.import');
                 this.addCapability('measure_power.export');
+                this.addCapability('ownconsumption');
+                var acpower = Number(result['power_ac'].value) * (Math.pow(10, Number(result['power_ac'].scale)));
                 var meterpower = Number(result['meter1-power'].value) * (Math.pow(10, Number(result['meter1-power'].scale)));
                 if (meterpower > 0) {
                     this.setCapabilityValue('measure_power.export', meterpower);
                     this.setCapabilityValue('measure_power.import', 0);
+                    this.setCapabilityValue('ownconsumption', acpower - meterpower);
+                    this.homey.flow.getDeviceTriggerCard('changedExportPower').trigger(this,{ 'measure_power.export' : meterpower }, {});
+                    this.homey.flow.getDeviceTriggerCard('changedImportPower').trigger(this,{ 'measure_power.import' : 0 }, {});
+                    this.homey.flow.getDeviceTriggerCard('changedConsumption').trigger(this,{ 'ownconsumption' : acpower - meterpower }, {});
                 } else {
                     this.setCapabilityValue('measure_power.export', 0);
                     this.setCapabilityValue('measure_power.import', -1 * meterpower);
+                    this.setCapabilityValue('ownconsumption', acpower + (-1 * meterpower));
+                    this.homey.flow.getDeviceTriggerCard('changedExportPower').trigger(this,{ 'measure_power.export' : 0 }, {});
+                    this.homey.flow.getDeviceTriggerCard('changedImportPower').trigger(this,{ 'measure_power.import' : -1 * meterpower }, {});
+                    this.homey.flow.getDeviceTriggerCard('changedConsumption').trigger(this,{ 'ownconsumption' : acpower + (-1 * meterpower) }, {});
                 }
             }
 

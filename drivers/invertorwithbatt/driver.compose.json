@@ -30,7 +30,8 @@
     "measure_power.dischargesetting",
     "meter_power",
     "meter_power.export",
-    "meter_power.import"                
+    "meter_power.import",
+    "ownconsumption"                
   ],
   "capabilitiesOptions": {
       "measure_power": {
