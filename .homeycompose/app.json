@@ -1,9 +1,9 @@
 {
   "id": "solaredge.modbus",
-  "version": "2.0.13",
+  "version": "2.1.1",
   "compatibility": ">=5.0.0",
   "sdk": 3,
-  "brandColor": "#df001c",  
+  "brandColor": "#df001c",
   "platforms": [
     "local"
   ],
@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/biemond/solaredge.modbus/issues"
   },
-  "homeyCommunityTopicId": 45487,      
+  "homeyCommunityTopicId": 45487,
   "permissions": [],
   "images": {
     "small": "/assets/images/small.jpg",

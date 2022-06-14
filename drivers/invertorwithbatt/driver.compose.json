@@ -31,7 +31,8 @@
     "meter_power",
     "meter_power.export",
     "meter_power.import",
-    "ownconsumption"                
+    "ownconsumption",
+    "activepowerlimit"                
   ],
   "capabilitiesOptions": {
       "measure_power": {

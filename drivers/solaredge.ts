@@ -79,7 +79,6 @@ export class Solaredge extends Homey.Device {
         "remote_control_command_discharge_limit": [0xe010, 2, 'FLOAT32', "Remote Control Command Discharge Limit"],
         "remote_control_command_timeout": [0xe00b, 2, 'UINT32', "Remote Control Command Timeout"],
         "remote_control_default_command_mode": [0xe00a, 1, 'UINT16', "Storage Charge/Discharge Default Mode"]
-
     };
 
     meter_dids: Object = {
@@ -251,6 +250,12 @@ export class Solaredge extends Homey.Device {
                 this.addCapability('measure_temperature.invertor');
                 var temperature = Number(result['temperature'].value) * (Math.pow(10, Number(result['temperature'].scale)));
                 this.setCapabilityValue('measure_temperature.invertor', temperature);
+            }
+
+            if (result['active_power_limit'] && result['active_power_limit'].value != 'xxx') {
+                this.addCapability('activepowerlimit');
+                var power_limit = Number(Number.parseFloat(result['active_power_limit'].value).toFixed(2));
+                this.setCapabilityValue('activepowerlimit', power_limit);
             }
 
             if (result['status'] && result['status'].value != 'xxx') {

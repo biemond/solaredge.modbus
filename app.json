@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "2.0.13",
+  "version": "2.1.1",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -805,7 +805,8 @@
         "measure_power",
         "measure_temperature.invertor",
         "invertorstatus",
-        "meter_power"
+        "meter_power",
+        "activepowerlimit"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -919,7 +920,8 @@
         "meter_power",
         "meter_power.export",
         "meter_power.import",
-        "ownconsumption"
+        "ownconsumption",
+        "activepowerlimit"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -1067,6 +1069,20 @@
     }
   ],
   "capabilities": {
+    "activepowerlimit": {
+      "type": "number",
+      "title": {
+        "en": "Active power limit"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "decimals": 1,
+      "uiComponent": "sensor",
+      "units": {
+        "en": "%"
+      }
+    },
     "battery": {
       "type": "number",
       "title": {

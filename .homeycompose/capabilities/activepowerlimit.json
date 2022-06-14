@@ -1,0 +1,15 @@
+{
+      "type": "number",
+      "title": {
+        "en": "Active power limit"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "decimals": 1,
+      "uiComponent": "sensor",
+      "units": {
+        "en": "%"
+      }
+}
+    

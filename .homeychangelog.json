@@ -1,4 +1,7 @@
 {
+  "2.1.1": {
+    "en": "active power limit"
+  },   
   "2.0.13": {
     "en": "adding owncomsumption for battery invertors, export, import & consumption triggers"
   },    
