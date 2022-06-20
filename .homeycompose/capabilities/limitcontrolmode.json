@@ -1,0 +1,24 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Limit mode"
+    },
+    "getable": true,
+    "setable": true,
+    "uiComponent": "picker",
+    "uiQuickAction": false,
+    "values": [
+        {
+            "id": "0",
+            "title": {
+                "en": "Disabled"
+            }
+        },
+        {
+            "id": "1",
+            "title": {
+                "en": "Export Control"
+            }
+        }                                  
+    ]
+}

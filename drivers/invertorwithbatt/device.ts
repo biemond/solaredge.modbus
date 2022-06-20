@@ -5,13 +5,15 @@ import { checkRegister } from '../response';
 import { checkMeter } from '../response';
 import { checkBattery } from '../response';
 
-const RETRY_INTERVAL = 28 * 1000;
-let timer: NodeJS.Timer;
+const RETRY_INTERVAL = 45 * 1000;
 
 class MySolaredgeBatteryDevice extends Solaredge {
+
   /**
    * onInit is called when the device is initialized.
    */
+  timer!: NodeJS.Timer;    
+
   async onInit() {
     this.log('MySolaredgeBatteryDevice has been initialized');
 
@@ -21,7 +23,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
 
     this.pollInvertor();
 
-    timer = this.homey.setInterval(() => {
+    this.timer = this.homey.setInterval(() => {
       // poll device state from invertor
       this.pollInvertor();
     }, RETRY_INTERVAL);
@@ -35,6 +37,11 @@ class MySolaredgeBatteryDevice extends Solaredge {
       this.updateControl('storagedefaultmode', Number(value));
       return value;
     });
+    this.registerCapabilityListener('limitcontrolmode', async (value) => {
+      this.updateControl('limitcontrolmode', Number(value));
+      return value;
+    });
+
 
     // flow action 
     let controlAction = this.homey.flow.getActionCard('storagecontrolmode');
@@ -137,12 +144,10 @@ class MySolaredgeBatteryDevice extends Solaredge {
    */
   async onDeleted() {
     this.log('MySolaredgeBatteryDevice has been deleted');
-    this.homey.clearInterval(timer);
+    this.homey.clearInterval(this.timer);
   }
 
   async updateControl(type: string, value: number) {
-
-    this.log("storagecontrolmode set  ", value);
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
     let client = new Modbus.client.TCP(socket, unitID); 
@@ -236,6 +241,27 @@ class MySolaredgeBatteryDevice extends Solaredge {
         console.log('discharge', dischargeRes);        
       }
 
+      if (type == 'limitcontrolmode') {
+        // 0 – Disabled
+        // 1 – Export Control
+        // 2 – Production Control
+        // 11 – Minimum Import Control
+        if (value == 1) {
+          const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(1));
+          console.log('limitcontrolmode', limitcontrolmodeeRes);
+          // side = 0
+          const limitcontrolsideRes = await client.writeSingleRegister(0xe001, Number(0));
+          console.log('limitcontrolside', limitcontrolsideRes);
+          // 5000
+          const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [ 16384, 17820]);
+          console.log('limitcontrolwatt', limitcontrolWattRes);
+        } else {
+          const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(0));
+          console.log('limitcontrolmode', limitcontrolmodeeRes);
+        }
+
+      }
+
       if (type == 'storagecontrolmode') {
         // 0 – Disabled
         // 1 – Maximize Self Consumption – requires a SolarEdge Electricity meter on the grid or load connection point
@@ -282,7 +308,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
     socket.on('error', (err) => {
       console.log(err);
       socket.end();
-      setTimeout(() => socket.connect(modbusOptions), 2000);
+      setTimeout(() => socket.connect(modbusOptions), 4000);
     })
   }
 
@@ -333,11 +359,13 @@ class MySolaredgeBatteryDevice extends Solaredge {
 
     socket.on('timeout', () => {
       console.log('socket timed out!');
+      client.socket.end();
       socket.end();
     });
 
     socket.on('error', (err) => {
       console.log(err);
+      client.socket.end();
       socket.end();
     })
   }

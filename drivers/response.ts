@@ -19,6 +19,8 @@ export async function checkRegister(registers: Object, client: InstanceType<type
             switch (value[2]) {
                 case 'UINT16':
                     resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
+                    // console.log(key);
+                    // console.log( response.body);
                     break;
                 case 'UINT32':
                     resultValue = response.body.valuesAsArray[0].toString();

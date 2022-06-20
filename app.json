@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "2.1.1",
+  "version": "2.1.3",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -921,7 +921,10 @@
         "meter_power.export",
         "meter_power.import",
         "ownconsumption",
-        "activepowerlimit"
+        "activepowerlimit",
+        "limitcontrolmode",
+        "exportcontrollimitmode",
+        "exportcontrolsitelimit"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -1208,6 +1211,45 @@
         }
       ]
     },
+    "exportcontrollimitmode": {
+      "type": "enum",
+      "title": {
+        "en": "Export Control Limit Mode"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Total"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Per Phase"
+          }
+        }
+      ]
+    },
+    "exportcontrolsitelimit": {
+      "type": "number",
+      "title": {
+        "en": "Export Control Site Limit"
+      },
+      "getable": true,
+      "setable": false,
+      "decimals": 0,
+      "uiComponent": "sensor",
+      "insights": true,
+      "units": {
+        "en": "W",
+        "nl": "W"
+      }
+    },
     "invertorstatus": {
       "type": "enum",
       "title": {
@@ -1271,6 +1313,30 @@
           "id": "8",
           "title": {
             "en": "Maintenance"
+          }
+        }
+      ]
+    },
+    "limitcontrolmode": {
+      "type": "enum",
+      "title": {
+        "en": "Limit mode"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Disabled"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Export Control"
           }
         }
       ]

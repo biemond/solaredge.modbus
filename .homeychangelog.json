@@ -1,6 +1,6 @@
 {
-  "2.1.1": {
-    "en": "active power limit"
+  "2.1.3": {
+    "en": "active power, export limit control for batt and meters"
   },   
   "2.0.13": {
     "en": "adding owncomsumption for battery invertors, export, import & consumption triggers"

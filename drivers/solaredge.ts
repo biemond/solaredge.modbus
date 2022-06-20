@@ -66,10 +66,6 @@ export class Solaredge extends Homey.Device {
         "status": [0x9cab, 1, 'UINT16', "Status"],
         "vendor_status": [0x9cac, 1, 'UINT16', "Vendor Status"],
 
-        "rrcr_state": [0xf000, 1, 'UINT16', "RRCR State"],
-        "active_power_limit": [0xf001, 1, 'UINT16', "Active Power Limit"],
-        "cosphi": [0xf002, 2, 'FLOAT32', "CosPhi"],
-
         "storage_control_mode": [0xe004, 1, 'UINT16', "Storage Control Mode"],
         "storage_accharge_policy": [0xe005, 1, 'UINT16', "Storage AC Charge Policy"],
         "storage_accharge_Limit": [0xe006, 2, 'FLOAT32', "Storage AC Charge Limit"],
@@ -78,7 +74,20 @@ export class Solaredge extends Homey.Device {
         "remote_control_charge_limit": [0xe00e, 2, 'FLOAT32', "Remote Control Charge Limit"],
         "remote_control_command_discharge_limit": [0xe010, 2, 'FLOAT32', "Remote Control Command Discharge Limit"],
         "remote_control_command_timeout": [0xe00b, 2, 'UINT32', "Remote Control Command Timeout"],
-        "remote_control_default_command_mode": [0xe00a, 1, 'UINT16', "Storage Charge/Discharge Default Mode"]
+        "remote_control_default_command_mode": [0xe00a, 1, 'UINT16', "Storage Charge/Discharge Default Mode"],
+
+        "rrcr_state": [0xf000, 1, 'UINT16', "RRCR State"],
+        "active_power_limit": [0xf001, 1, 'UINT16', "Active Power Limit"],
+        "cosphi": [0xf002, 2, 'FLOAT32', "CosPhi"],
+
+        "advancedpwrcontrolen": [0xf142, 2, 'UINT32', "Advanced Power Control En"],
+        "reactivepwrconfig": [0xf102, 2, 'UINT32', "Reactive Power Config"],        
+        "export_control_mode": [0xe000, 1, 'UINT16', "Export control Mode"],
+        "export_control_limit_mode": [0xe001, 1, 'UINT16', "Export control limit Mode"],
+        "export_control_site": [0xe002, 2, 'FLOAT32', "Export control site limit"],
+        "powerreduce": [0xf140, 2, 'FLOAT32', "Power Reduce"],
+        "maxcurrent": [0xf18e, 2, 'FLOAT32', "Max Current"]
+
     };
 
     meter_dids: Object = {
@@ -258,6 +267,20 @@ export class Solaredge extends Homey.Device {
                 this.setCapabilityValue('activepowerlimit', power_limit);
             }
 
+            if (result['export_control_mode'] && result['export_control_mode'].value != 'xxx') {
+                this.addCapability('limitcontrolmode');
+                this.setCapabilityValue('limitcontrolmode', result['export_control_mode'].value);
+            }            
+
+            if (result['export_control_limit_mode'] && result['export_control_limit_mode'].value != 'xxx') {
+                this.addCapability('exportcontrollimitmode');
+                this.setCapabilityValue('exportcontrollimitmode', result['export_control_limit_mode'].value);
+            }   
+            if (result['export_control_site'] && result['export_control_site'].value != 'xxx') {
+                this.addCapability('exportcontrolsitelimit');
+                this.setCapabilityValue('exportcontrolsitelimit', Number(result['export_control_site'].value));
+            } 
+            
             if (result['status'] && result['status'].value != 'xxx') {
                 if (parseInt(result['status'].value) < 9) {
                     this.addCapability('invertorstatus');

@@ -3,10 +3,10 @@ import net from 'net';
 import {Solaredge}     from '../solaredge';
 import {checkRegister} from '../response';
 
-const RETRY_INTERVAL = 18 * 1000; 
-let timer:NodeJS.Timer;
+const RETRY_INTERVAL = 28 * 1000; 
 
 class MySolaredgeDevice extends Solaredge {
+  timer!: NodeJS.Timer;  
   /**
    * onInit is called when the device is initialized.
    */
@@ -19,7 +19,7 @@ class MySolaredgeDevice extends Solaredge {
 
     this.pollInvertor();
 
-    timer = this.homey.setInterval(() => {
+    this.timer = this.homey.setInterval(() => {
       // poll device state from invertor
       this.pollInvertor();
     }, RETRY_INTERVAL);
@@ -74,7 +74,7 @@ class MySolaredgeDevice extends Solaredge {
    */
   async onDeleted() {
     this.log('MySolaredgeDevice has been deleted');
-    this.homey.clearInterval(timer);
+    this.homey.clearInterval(this.timer);
   }
   
   async pollInvertor() {
@@ -116,11 +116,13 @@ class MySolaredgeDevice extends Solaredge {
 
     socket.on('timeout', () => {
       console.log('socket timed out!');
+      client.socket.end();
       socket.end();
     });
 
     socket.on('error', (err) => {
       console.log(err);
+      client.socket.end();
       socket.end();
     })
   }
