@@ -60,6 +60,14 @@ class MySolaredgeBatteryDevice extends Solaredge {
     dischargeLimitAction.registerRunListener(async (args, state) => {
       await this.updateControl('dischargelimit', Number(args.dischargepower));
     });
+    let limitControlModeAction = this.homey.flow.getActionCard('limitcontrolmode');
+    limitControlModeAction.registerRunListener(async (args, state) => {
+      await this.updateControl('limitcontrolmode', Number(args.mode));
+    });
+    let exportLimitAction = this.homey.flow.getActionCard('exportlimit');
+    exportLimitAction.registerRunListener(async (args, state) => {
+      await this.updateControl('exportlimit', Number(args.exportlimit));
+    });        
 
     // flow conditions
     let changedStatus = this.homey.flow.getConditionCard("changedStatus");
@@ -252,14 +260,50 @@ class MySolaredgeBatteryDevice extends Solaredge {
           // side = 0
           const limitcontrolsideRes = await client.writeSingleRegister(0xe001, Number(0));
           console.log('limitcontrolside', limitcontrolsideRes);
-          // 5000
-          const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [ 16384, 17820]);
+          // 3000
+          const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [ 32768, 17723]);
           console.log('limitcontrolwatt', limitcontrolWattRes);
         } else {
           const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(0));
           console.log('limitcontrolmode', limitcontrolmodeeRes);
         }
+      }
 
+      if (type == 'exportlimit') {
+        var dischargehex1 = 16384;
+        var dischargehex2 = 17820;
+
+        if (value == 500) {
+          dischargehex1 =  0;
+          dischargehex2 =  17402;
+        } else if (value == 1000) {
+          dischargehex1 =  0;
+          dischargehex2 =  17530;
+        }  else if (value == 1500) {
+          dischargehex1 =  32768;
+          dischargehex2 =  17596;
+        } else if (value == 2000) {
+          dischargehex1 = 0;
+          dischargehex2 = 17658;
+        } else if (value == 2500) {
+          dischargehex1 =  16384;
+          dischargehex2 =  17692;
+        } else if (value == 3000) {
+          dischargehex1 =  32768;
+          dischargehex2 =  17723;
+        } else if (value == 4000) {
+          dischargehex1 =  0;
+          dischargehex2 =  17786;
+        } else if (value == 5000) {
+          dischargehex1 =  16384;
+          dischargehex2 =  17820;
+        }
+        else if (value == 6600) {
+          dischargehex1 =  16384;
+          dischargehex2 =  17870;
+        }
+        const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [dischargehex1, dischargehex2]);
+        console.log('limitcontrolwatt', limitcontrolWattRes);        
       }
 
       if (type == 'storagecontrolmode') {
