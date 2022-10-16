@@ -243,6 +243,27 @@ export class Solaredge extends Homey.Device {
                 this.setCapabilityValue('measure_power', Math.round(acpower));
             }
 
+            if (result['current'] && result['current'].value != 'xxx') {
+                this.addCapability('measure_current');
+                var currenteac = Number(result['current'].value) * (Math.pow(10, Number(result['current'].scale)));
+                this.setCapabilityValue('measure_current', currenteac);
+            }
+            if (result['l1_current'] && result['l1_current'].value != '-1' && result['l1_current'].value != 'xxx') {
+                this.addCapability('measure_current.phase1');
+                var currenteac1 = Number(result['l1_current'].value) * (Math.pow(10,  Number(result['current'].scale)));
+                this.setCapabilityValue('measure_current.phase1', currenteac1);
+            }
+            if (result['l2_current'] && result['l2_current'].value != '-1' && result['l2_current'].value != 'xxx') {
+                this.addCapability('measure_current.phase2');
+                var currenteac2 = Number(result['l2_current'].value) * (Math.pow(10,  Number(result['current'].scale)));
+                this.setCapabilityValue('measure_current.phase2', currenteac2);
+            }
+            if (result['l3_current'] && result['l2_current'].value != '-1' && result['l3_current'].value != 'xxx') {
+                this.addCapability('measure_current.phase3');
+                var currenteac3 = Number(result['l3_current'].value) * (Math.pow(10,  Number(result['current'].scale)));
+                this.setCapabilityValue('measure_current.phase3', currenteac3);
+            }
+
             if (result['energy_total'] && result['energy_total'].value != 'xxx') {
                 this.addCapability('meter_power');
                 var total = Number(result['energy_total'].value) * (Math.pow(10, Number(result['energy_total'].scale)));
@@ -322,6 +343,29 @@ export class Solaredge extends Homey.Device {
                 this.addCapability('measure_voltage.meter');
                 var voltageac = Number(result['meter1-voltage_ln'].value) * (Math.pow(10, Number(result['meter1-voltage_ln'].scale)));
                 this.setCapabilityValue('measure_voltage.meter', voltageac);
+            }
+
+            if (result['meter1-current'] && result['meter1-current'].value != 'xxx') {
+                this.addCapability('measure_current.meter');
+                var currenteac = Number(result['meter1-current'].value) * (Math.pow(10, Number(result['meter1-current'].scale)));
+                this.setCapabilityValue('measure_current.meter', currenteac);
+            }
+
+            if (result['meter1-l1_current'] && result['meter1-l1_current'].value != 'xxx') {
+                this.addCapability('measure_current.meter_phase1');
+                var currenteac1 = Number(result['meter1-l1_current'].value) * (Math.pow(10,  Number(result['meter1-current'].scale)));
+                this.setCapabilityValue('measure_current.meter_phase1', currenteac1);
+            }
+
+            if (result['meter1-l2_current'] && result['meter1-l2_current'].value != 'xxx') {
+                this.addCapability('measure_current.meter_phase2');
+                var currenteac2 = Number(result['meter1-l2_current'].value) * (Math.pow(10,  Number(result['meter1-current'].scale)));
+                this.setCapabilityValue('measure_current.meter_phase2', currenteac2);
+            }
+            if (result['meter1-l3_current'] && result['meter1-l3_current'].value != 'xxx') {
+                this.addCapability('measure_current.meter_phase3');
+                var currenteac3 = Number(result['meter1-l3_current'].value) * (Math.pow(10,  Number(result['meter1-current'].scale)));
+                this.setCapabilityValue('measure_current.meter_phase3', currenteac3);
             }
 
             // meter  

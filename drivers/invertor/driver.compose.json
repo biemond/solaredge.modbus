@@ -10,6 +10,10 @@
   },  
   "capabilities": [
     "measure_power",
+    "measure_current",
+    "measure_current.phase1",
+    "measure_current.phase2",
+    "measure_current.phase3",     
     "measure_temperature.invertor",
     "invertorstatus",
     "meter_power",
@@ -23,6 +27,30 @@
           "en": "Solar Power"
         }
       },
+      "measure_current.phase1": {
+        "icon": "/assets/sun.svg",
+        "title": {
+          "en": "AC Current phase1"
+        }
+      },
+      "measure_current.phase2": {
+        "icon": "/assets/sun.svg",
+        "title": {
+          "en": "AC Current phase2"
+        }
+      },
+      "measure_current.phase3": {
+        "icon": "/assets/sun.svg",
+        "title": {
+          "en": "AC Current phase3"
+        }
+      },
+      "measure_current": {
+        "icon": "/assets/sun.svg",
+        "title": {
+          "en": "AC Current"
+        }
+      },  
       "measure_temperature.invertor": {
         "icon": "/assets/sun.svg",
         "title": {

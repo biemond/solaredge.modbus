@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -907,6 +907,10 @@
       },
       "capabilities": [
         "measure_power",
+        "measure_current",
+        "measure_current.phase1",
+        "measure_current.phase2",
+        "measure_current.phase3",
         "measure_temperature.invertor",
         "invertorstatus",
         "meter_power",
@@ -918,6 +922,30 @@
           "decimals": 0,
           "title": {
             "en": "Solar Power"
+          }
+        },
+        "measure_current.phase1": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "AC Current phase1"
+          }
+        },
+        "measure_current.phase2": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "AC Current phase2"
+          }
+        },
+        "measure_current.phase3": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "AC Current phase3"
+          }
+        },
+        "measure_current": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "AC Current"
           }
         },
         "measure_temperature.invertor": {
@@ -1006,9 +1034,17 @@
         "measure_power.batt_charge",
         "measure_power.batt_discharge",
         "measure_power",
+        "measure_current",
+        "measure_current.phase1",
+        "measure_current.phase2",
+        "measure_current.phase3",
         "measure_power.import",
         "measure_power.export",
         "measure_voltage.meter",
+        "measure_current.meter",
+        "measure_current.meter_phase1",
+        "measure_current.meter_phase2",
+        "measure_current.meter_phase3",
         "measure_temperature.invertor",
         "measure_temperature.battery",
         "battery",
@@ -1036,6 +1072,30 @@
           "decimals": 0,
           "title": {
             "en": "Solar + Batt Power"
+          }
+        },
+        "measure_current.phase1": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "AC Current phase1"
+          }
+        },
+        "measure_current.phase2": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "AC Current phase2"
+          }
+        },
+        "measure_current.phase3": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "AC Current phase3"
+          }
+        },
+        "measure_current": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "AC Current"
           }
         },
         "measure_power.batt_discharge": {
@@ -1069,8 +1129,31 @@
         "measure_voltage.meter": {
           "icon": "/assets/sun.svg",
           "title": {
-            "en": "AC Voltage",
-            "nl": "AC Voltage"
+            "en": "Meter AC Voltage"
+          }
+        },
+        "measure_current.meter_phase1": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Meter AC Current phase1"
+          }
+        },
+        "measure_current.meter_phase2": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Meter AC Current phase2"
+          }
+        },
+        "measure_current.meter_phase3": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Meter AC Current phase3"
+          }
+        },
+        "measure_current.meter": {
+          "icon": "/assets/sun.svg",
+          "title": {
+            "en": "Meter AC Current"
           }
         },
         "measure_temperature.invertor": {

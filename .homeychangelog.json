@@ -1,4 +1,7 @@
 {
+  "2.1.6": {
+    "en": "added invertor and meter1 current caps"
+  },    
   "2.1.5": {
     "en": "active power, export limit control for batt or meters (action + flows)"
   },   
