@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -551,6 +551,12 @@
                 "id": "1",
                 "title": {
                   "en": "Export Control"
+                }
+              },
+              {
+                "id": "11",
+                "title": {
+                  "en": "Import Control"
                 }
               }
             ]
@@ -1425,7 +1431,7 @@
     "exportcontrolsitelimit": {
       "type": "number",
       "title": {
-        "en": "Export Control Site Limit"
+        "en": "Im/Export Control Site Limit"
       },
       "getable": true,
       "setable": false,
@@ -1524,6 +1530,12 @@
           "id": "1",
           "title": {
             "en": "Export Control"
+          }
+        },
+        {
+          "id": "11",
+          "title": {
+            "en": "Import Control"
           }
         }
       ]

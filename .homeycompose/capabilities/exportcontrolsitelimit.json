@@ -1,7 +1,7 @@
 {
     "type": "number",
     "title": {
-      "en": "Export Control Site Limit"
+      "en": "Im/Export Control Site Limit"
     },
     "getable": true,
     "setable": false,
