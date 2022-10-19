@@ -174,7 +174,11 @@ class MySolaredgeBatteryDevice extends Solaredge {
     socket.setKeepAlive(false); 
     socket.connect(modbusOptions);
     console.log(modbusOptions);
+    
     socket.on('connect', async () => {
+      // https://babbage.cs.qc.cuny.edu/ieee-754.old/Decimal.html
+      // https://www.rapidtables.com/convert/number/hex-to-decimal.html
+      
       console.log('Connected ...');
       if (type == 'chargelimit') {
         var chargehex1 = 16384;
@@ -240,8 +244,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
         } else if (value == 5000) {
           dischargehex1 =  16384;
           dischargehex2 =  17820;
-        }
-        else if (value == 6600) {
+        } else if (value == 6600) {
           dischargehex1 =  16384;
           dischargehex2 =  17870;
         }
@@ -276,16 +279,36 @@ class MySolaredgeBatteryDevice extends Solaredge {
       }
 
       if (type == 'exportlimit') {
+      // https://babbage.cs.qc.cuny.edu/ieee-754.old/Decimal.html
+      // https://www.rapidtables.com/convert/number/hex-to-decimal.html        
         var dischargehex1 = 16384;
         var dischargehex2 = 17820;
 
-        if (value == 500) {
+        if (value == 50) {
+          dischargehex1 =  0;
+          dischargehex2 =  16968;
+        } else if (value == 100) {
+          dischargehex1 =  0;
+          dischargehex2 =  17096;
+        } else if (value == 150) {
+          dischargehex1 =  0;
+          dischargehex2 =  17174;
+        }  else if (value == 200) {
+          dischargehex1 =  0;
+          dischargehex2 =  17224;
+        } else if (value == 300) {
+          dischargehex1 = 0;
+          dischargehex2 = 17302;
+        } else if (value == 400) {
+          dischargehex1 =  0;
+          dischargehex2 =  17352;
+        } else if (value == 500) {
           dischargehex1 =  0;
           dischargehex2 =  17402;
         } else if (value == 1000) {
           dischargehex1 =  0;
           dischargehex2 =  17530;
-        }  else if (value == 1500) {
+        } else if (value == 1500) {
           dischargehex1 =  32768;
           dischargehex2 =  17596;
         } else if (value == 2000) {
@@ -303,8 +326,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
         } else if (value == 5000) {
           dischargehex1 =  16384;
           dischargehex2 =  17820;
-        }
-        else if (value == 6600) {
+        } else if (value == 6600) {
           dischargehex1 =  16384;
           dischargehex2 =  17870;
         }
