@@ -38,15 +38,15 @@ export class Solaredge extends Homey.Device {
         "power_ac": [0x9c93, 1, 'INT16', "Power"],
         "power_ac_scale": [0x9c94, 1, 'SCALE', "Power Scale Factor"],
 
-        "frequency": [0x9c95, 1, 'UINT16', "Frequency"],
-        "frequency_scale": [0x9c96, 1, 'SCALE', "Frequency Scale Factor"],
+        // "frequency": [0x9c95, 1, 'UINT16', "Frequency"],
+        // "frequency_scale": [0x9c96, 1, 'SCALE', "Frequency Scale Factor"],
 
-        "power_apparent": [0x9c97, 1, 'INT16', "Power [Apparent]"],
-        "power_apparent_scale": [0x9c98, 1, 'SCALE', "Power [Apparent] Scale Factor"],
-        "power_reactive": [0x9c99, 1, 'INT16', "Power [Reactive]"],
-        "power_reactive_scale": [0x9c9a, 1, 'SCALE', "Power [Reactive] Scale Factor"],
-        "power_factor": [0x9c9b, 1, 'INT16', "Power Factor"],
-        "power_factor_scale": [0x9c9c, 1, 'SCALE', "Power Factor Scale Factor"],
+        // "power_apparent": [0x9c97, 1, 'INT16', "Power [Apparent]"],
+        // "power_apparent_scale": [0x9c98, 1, 'SCALE', "Power [Apparent] Scale Factor"],
+        // "power_reactive": [0x9c99, 1, 'INT16', "Power [Reactive]"],
+        // "power_reactive_scale": [0x9c9a, 1, 'SCALE', "Power [Reactive] Scale Factor"],
+        // "power_factor": [0x9c9b, 1, 'INT16', "Power Factor"],
+        // "power_factor_scale": [0x9c9c, 1, 'SCALE', "Power Factor Scale Factor"],
 
         "energy_total": [0x9c9d, 2, 'ACC32', "Total Energy"],
         "energy_total_scale": [0x9c9f, 1, 'SCALE', "Total Energy Scale Factor"],
@@ -76,9 +76,9 @@ export class Solaredge extends Homey.Device {
         "remote_control_command_timeout": [0xe00b, 2, 'UINT32', "Remote Control Command Timeout"],
         "remote_control_default_command_mode": [0xe00a, 1, 'UINT16', "Storage Charge/Discharge Default Mode"],
 
-        "rrcr_state": [0xf000, 1, 'UINT16', "RRCR State"],
+        // "rrcr_state": [0xf000, 1, 'UINT16', "RRCR State"],
         "active_power_limit": [0xf001, 1, 'UINT16', "Active Power Limit"],
-        "cosphi": [0xf002, 2, 'FLOAT32', "CosPhi"],
+        // "cosphi": [0xf002, 2, 'FLOAT32', "CosPhi"],
 
         "advancedpwrcontrolen": [0xf142, 2, 'UINT32', "Advanced Power Control En"],
         "reactivepwrconfig": [0xf102, 2, 'UINT32', "Reactive Power Config"],        
@@ -92,8 +92,8 @@ export class Solaredge extends Homey.Device {
 
     meter_dids: Object = {
         "meter1": [0x9cfc, 1, 'UINT16', 0x0],
-        "meter2": [0x9daa, 1, 'UINT16', 0xae],
-        "meter3": [0x9e59, 1, 'UINT16', 0x15c]
+        // "meter2": [0x9daa, 1, 'UINT16', 0xae],
+        // "meter3": [0x9e59, 1, 'UINT16', 0x15c]
     }
 
     meter_registers: Object = {
@@ -130,23 +130,23 @@ export class Solaredge extends Homey.Device {
         "l3_power": [0x9d11, 1, 'INT16', "L3 Power"],
         "power_scale": [0x9d12, 1, 'SCALE', "Power Scale Factor"],
 
-        "power_apparent": [0x9d13, 1, 'INT16', "Power (Apparent)"],
-        "l1_power_apparent": [0x9d14, 1, 'INT16', "L1 Power (Apparent)"],
-        "l2_power_apparent": [0x9d15, 1, 'INT16', "L2 Power (Apparent)"],
-        "l3_power_apparent": [0x9d16, 1, 'INT16', "L3 Power (Apparent)"],
-        "power_apparent_scale": [0x9d17, 1, 'SCALE', "Power (Apparent) Scale Factor"],
+        // "power_apparent": [0x9d13, 1, 'INT16', "Power (Apparent)"],
+        // "l1_power_apparent": [0x9d14, 1, 'INT16', "L1 Power (Apparent)"],
+        // "l2_power_apparent": [0x9d15, 1, 'INT16', "L2 Power (Apparent)"],
+        // "l3_power_apparent": [0x9d16, 1, 'INT16', "L3 Power (Apparent)"],
+        // "power_apparent_scale": [0x9d17, 1, 'SCALE', "Power (Apparent) Scale Factor"],
 
-        "power_reactive": [0x9d18, 1, 'INT16', "Power (Reactive)"],
-        "l1_power_reactive": [0x9d19, 1, 'INT16', "L1 Power (Reactive)"],
-        "l2_power_reactive": [0x9d1a, 1, 'INT16', "L2 Power (Reactive)"],
-        "l3_power_reactive": [0x9d1b, 1, 'INT16', "L3 Power (Reactive)"],
-        "power_reactive_scale": [0x9d1c, 1, 'SCALE', "Power (Reactive) Scale Factor"],
+        // "power_reactive": [0x9d18, 1, 'INT16', "Power (Reactive)"],
+        // "l1_power_reactive": [0x9d19, 1, 'INT16', "L1 Power (Reactive)"],
+        // "l2_power_reactive": [0x9d1a, 1, 'INT16', "L2 Power (Reactive)"],
+        // "l3_power_reactive": [0x9d1b, 1, 'INT16', "L3 Power (Reactive)"],
+        // "power_reactive_scale": [0x9d1c, 1, 'SCALE', "Power (Reactive) Scale Factor"],
 
-        "power_factor": [0x9d1d, 1, 'INT16', "Power Factor"],
-        "l1_power_factor": [0x9d1e, 1, 'INT16', "L1 Power Factor"],
-        "l2_power_factor": [0x9d1f, 1, 'INT16', "L2 Power Factor"],
-        "l3_power_factor": [0x9d20, 1, 'INT16', "L3 Power Factor"],
-        "power_factor_scale": [0x9d21, 1, 'SCALE', "Power Factor Scale Factor"],
+        // "power_factor": [0x9d1d, 1, 'INT16', "Power Factor"],
+        // "l1_power_factor": [0x9d1e, 1, 'INT16', "L1 Power Factor"],
+        // "l2_power_factor": [0x9d1f, 1, 'INT16', "L2 Power Factor"],
+        // "l3_power_factor": [0x9d20, 1, 'INT16', "L3 Power Factor"],
+        // "power_factor_scale": [0x9d21, 1, 'SCALE', "Power Factor Scale Factor"],
 
         "export_energy_active": [0x9d22, 2, 'UINT32', "Total Exported Energy (Active)"],
         "l1_export_energy_active": [0x9d24, 2, 'UINT32', "L1 Exported Energy (Active)"],
@@ -158,38 +158,38 @@ export class Solaredge extends Homey.Device {
         "l3_import_energy_active": [0x9d30, 2, 'UINT32', "L3 Imported Energy (Active)"],
         "export_energy_active_scale": [0x9d32, 1, 'SCALE', "Energy (Active) Scale Factor"],
 
-        "export_energy_apparent": [0x9d33, 2, 'UINT32', "Total Exported Energy (Apparent)"],
-        "l1_export_energy_apparent": [0x9d35, 2, 'UINT32', "L1 Exported Energy (Apparent)"],
-        "l2_export_energy_apparent": [0x9d37, 2, 'UINT32', "L2 Exported Energy (Apparent)"],
-        "l3_export_energy_apparent": [0x9d39, 2, 'UINT32', "L3 Exported Energy (Apparent)"],
-        "import_energy_apparent": [0x9d3b, 2, 'UINT32', "Total Imported Energy (Apparent)"],
-        "l1_import_energy_apparent": [0x9d3d, 2, 'UINT32', "L1 Imported Energy (Apparent)"],
-        "l2_import_energy_apparent": [0x9d3f, 2, 'UINT32', "L2 Imported Energy (Apparent)"],
-        "l3_import_energy_apparent": [0x9d41, 2, 'UINT32', "L3 Imported Energy (Apparent)"],
-        "export_energy_apparent_scale": [0x9d43, 1, 'SCALE', "Energy (Apparent) Scale Factor"],
+        // "export_energy_apparent": [0x9d33, 2, 'UINT32', "Total Exported Energy (Apparent)"],
+        // "l1_export_energy_apparent": [0x9d35, 2, 'UINT32', "L1 Exported Energy (Apparent)"],
+        // "l2_export_energy_apparent": [0x9d37, 2, 'UINT32', "L2 Exported Energy (Apparent)"],
+        // "l3_export_energy_apparent": [0x9d39, 2, 'UINT32', "L3 Exported Energy (Apparent)"],
+        // "import_energy_apparent": [0x9d3b, 2, 'UINT32', "Total Imported Energy (Apparent)"],
+        // "l1_import_energy_apparent": [0x9d3d, 2, 'UINT32', "L1 Imported Energy (Apparent)"],
+        // "l2_import_energy_apparent": [0x9d3f, 2, 'UINT32', "L2 Imported Energy (Apparent)"],
+        // "l3_import_energy_apparent": [0x9d41, 2, 'UINT32', "L3 Imported Energy (Apparent)"],
+        // "export_energy_apparent_scale": [0x9d43, 1, 'SCALE', "Energy (Apparent) Scale Factor"],
 
-        "import_energy_reactive_q1": [0x9d44, 2, 'UINT32', "Total Imported Energy (Reactive) Quadrant 1"],
-        "l1_import_energy_reactive_q1": [0x9d46, 2, 'UINT32', "L1 Imported Energy (Reactive) Quadrant 1"],
-        "l2_import_energy_reactive_q1": [0x9d48, 2, 'UINT32', "L2 Imported Energy (Reactive) Quadrant 1"],
-        "l3_import_energy_reactive_q1": [0x9d4a, 2, 'UINT32', "L3 Imported Energy (Reactive) Quadrant 1"],
-        "import_energy_reactive_q2": [0x9d4c, 2, 'UINT32', "Total Imported Energy (Reactive) Quadrant 2"],
-        "l1_import_energy_reactive_q2": [0x9d4e, 2, 'UINT32', "L1 Imported Energy (Reactive) Quadrant 2"],
-        "l2_import_energy_reactive_q2": [0x9d50, 2, 'UINT32', "L2 Imported Energy (Reactive) Quadrant 2"],
-        "l3_import_energy_reactive_q2": [0x9d52, 2, 'UINT32', "L3 Imported Energy (Reactive) Quadrant 2"],
-        "export_energy_reactive_q3": [0x9d54, 2, 'UINT32', "Total Exported Energy (Reactive) Quadrant 3"],
-        "l1_export_energy_reactive_q3": [0x9d56, 2, 'UINT32', "L1 Exported Energy (Reactive) Quadrant 3"],
-        "l2_export_energy_reactive_q3": [0x9d58, 2, 'UINT32', "L2 Exported Energy (Reactive) Quadrant 3"],
-        "l3_export_energy_reactive_q3": [0x9d5a, 2, 'UINT32', "L3 Exported Energy (Reactive) Quadrant 3"],
-        "export_energy_reactive_q4": [0x9d5c, 2, 'UINT32', "Total Exported Energy (Reactive) Quadrant 4"],
-        "l1_export_energy_reactive_q4": [0x9d5e, 2, 'UINT32', "L1 Exported Energy (Reactive) Quadrant 4"],
-        "l2_export_energy_reactive_q4": [0x9d60, 2, 'UINT32', "L2 Exported Energy (Reactive) Quadrant 4"],
-        "l3_export_energy_reactive_q4": [0x9d62, 2, 'UINT32', "L3 Exported Energy (Reactive) Quadrant 4"],
-        "import_energy_reactive_q1_scale": [0x9d64, 1, 'SCALE', "Energy (Reactive) Scale Factor"]
+        // "import_energy_reactive_q1": [0x9d44, 2, 'UINT32', "Total Imported Energy (Reactive) Quadrant 1"],
+        // "l1_import_energy_reactive_q1": [0x9d46, 2, 'UINT32', "L1 Imported Energy (Reactive) Quadrant 1"],
+        // "l2_import_energy_reactive_q1": [0x9d48, 2, 'UINT32', "L2 Imported Energy (Reactive) Quadrant 1"],
+        // "l3_import_energy_reactive_q1": [0x9d4a, 2, 'UINT32', "L3 Imported Energy (Reactive) Quadrant 1"],
+        // "import_energy_reactive_q2": [0x9d4c, 2, 'UINT32', "Total Imported Energy (Reactive) Quadrant 2"],
+        // "l1_import_energy_reactive_q2": [0x9d4e, 2, 'UINT32', "L1 Imported Energy (Reactive) Quadrant 2"],
+        // "l2_import_energy_reactive_q2": [0x9d50, 2, 'UINT32', "L2 Imported Energy (Reactive) Quadrant 2"],
+        // "l3_import_energy_reactive_q2": [0x9d52, 2, 'UINT32', "L3 Imported Energy (Reactive) Quadrant 2"],
+        // "export_energy_reactive_q3": [0x9d54, 2, 'UINT32', "Total Exported Energy (Reactive) Quadrant 3"],
+        // "l1_export_energy_reactive_q3": [0x9d56, 2, 'UINT32', "L1 Exported Energy (Reactive) Quadrant 3"],
+        // "l2_export_energy_reactive_q3": [0x9d58, 2, 'UINT32', "L2 Exported Energy (Reactive) Quadrant 3"],
+        // "l3_export_energy_reactive_q3": [0x9d5a, 2, 'UINT32', "L3 Exported Energy (Reactive) Quadrant 3"],
+        // "export_energy_reactive_q4": [0x9d5c, 2, 'UINT32', "Total Exported Energy (Reactive) Quadrant 4"],
+        // "l1_export_energy_reactive_q4": [0x9d5e, 2, 'UINT32', "L1 Exported Energy (Reactive) Quadrant 4"],
+        // "l2_export_energy_reactive_q4": [0x9d60, 2, 'UINT32', "L2 Exported Energy (Reactive) Quadrant 4"],
+        // "l3_export_energy_reactive_q4": [0x9d62, 2, 'UINT32', "L3 Exported Energy (Reactive) Quadrant 4"],
+        // "import_energy_reactive_q1_scale": [0x9d64, 1, 'SCALE', "Energy (Reactive) Scale Factor"]
     }
 
     battery_dids: Object = {
         "batt1": [0xe140, 1, 'UINT16', 0x0],
-        "batt2": [0xe240, 1, 'UINT16', 0x100]
+        // "batt2": [0xe240, 1, 'UINT16', 0x100]
     }
 
     batt_registers: Object = {

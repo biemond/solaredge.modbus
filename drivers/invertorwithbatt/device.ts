@@ -5,7 +5,7 @@ import { checkRegister } from '../response';
 import { checkMeter } from '../response';
 import { checkBattery } from '../response';
 
-const RETRY_INTERVAL = 45 * 1000;
+const RETRY_INTERVAL = 30 * 1000;
 
 class MySolaredgeBatteryDevice extends Solaredge {
 
@@ -414,6 +414,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
     socket.connect(modbusOptions);
     console.log(modbusOptions);
     socket.on('connect', async () => {
+      const startTime = new Date();
       console.log('Connected ...');
       const checkRegisterRes = await checkRegister(this.registers, client);
       const checkMeterRes = await checkMeter(this.meter_dids, this.meter_registers, client);
@@ -423,6 +424,10 @@ class MySolaredgeBatteryDevice extends Solaredge {
       socket.end();
       const finalRes = { ...checkRegisterRes, ...checkMeterRes, ...checkBatteryRes }
       this.processResult(finalRes)
+      const endTime = new Date();
+      const timeDiff = endTime.getTime() - startTime.getTime();
+      let seconds = Math.floor(timeDiff / 1000);
+      console.log("total time: " +seconds + " seconds");
     });
 
     socket.on('close', () => {

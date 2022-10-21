@@ -1,6 +1,6 @@
 {
-  "2.1.8": {
-    "en": "added import control action plus flow, control min import even with battery"
+  "2.1.9": {
+    "en": "performance boost (disable meter2,3 and batt2) takes 4 seconds to measure, polling back to 30 sec, added import control action plus flow, control min import even with battery"
   },   
   "2.1.6": {
     "en": "added invertor and meter1 current caps"
