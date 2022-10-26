@@ -1,4 +1,7 @@
 {
+  "2.1.10": {
+    "en": "spelling fix"
+  },     
   "2.1.9": {
     "en": "performance boost (disable meter2,3 and batt2) takes 4 seconds to measure, polling back to 30 sec, added import control action plus flow, control min import even with battery"
   },   
