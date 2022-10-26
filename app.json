@@ -234,13 +234,13 @@
     "conditions": [
       {
         "title": {
-          "en": "Invertor status is"
+          "en": "Inverter status is"
         },
         "titleFormatted": {
-          "en": "Invertor status is [[argument_main]]"
+          "en": "Inverter status is [[argument_main]]"
         },
         "hint": {
-          "en": "Invertor status"
+          "en": "Inverter status"
         },
         "args": [
           {
@@ -314,10 +314,10 @@
       {
         "id": "solarcharge",
         "title": {
-          "en": "Invertor !{{is|isn't}} higher than"
+          "en": "Inverter !{{is|isn't}} higher than"
         },
         "hint": {
-          "en": "Invertor charging in watts"
+          "en": "Inverter charging in watts"
         },
         "args": [
           {
@@ -434,10 +434,10 @@
       {
         "id": "solarbattcharge",
         "title": {
-          "en": "Invertor + Battery !{{is|isn't}} higher than"
+          "en": "Inverter + Battery !{{is|isn't}} higher than"
         },
         "hint": {
-          "en": "Invertor plus battery charging in watts"
+          "en": "Inverter plus battery charging in watts"
         },
         "args": [
           {
@@ -939,7 +939,7 @@
   "drivers": [
     {
       "name": {
-        "en": "Invertor"
+        "en": "Inverter"
       },
       "class": "solarpanel",
       "energy": {
@@ -1063,7 +1063,7 @@
     },
     {
       "name": {
-        "en": "Invertor with storedge"
+        "en": "Inverter with storedge"
       },
       "class": "solarpanel",
       "energy": {
@@ -1482,7 +1482,7 @@
     "invertorstatus": {
       "type": "enum",
       "title": {
-        "en": "Invertor status"
+        "en": "Inverter status"
       },
       "getable": true,
       "setable": false,
