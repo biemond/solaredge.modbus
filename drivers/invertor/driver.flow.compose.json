@@ -5,10 +5,10 @@
         {
             "id": "solarcharge",
             "title": {
-                "en": "Invertor !{{is|isn't}} higher than"
+                "en": "Inverter !{{is|isn't}} higher than"
             },
             "hint": {
-                "en": "Invertor charging in watts"
+                "en": "Inverter charging in watts"
             },
             "args": [
                 {

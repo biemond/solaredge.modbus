@@ -1,12 +1,12 @@
 {
     "title": {
-        "en": "Invertor status is"
+        "en": "Inverter status is"
     },
     "titleFormatted": {
-        "en": "Invertor status is [[argument_main]]"
+        "en": "Inverter status is [[argument_main]]"
     },    
     "hint": {
-        "en": "Invertor status"
+        "en": "Inverter status"
     },
     "args": [
         {

@@ -24,7 +24,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
     this.pollInvertor();
 
     this.timer = this.homey.setInterval(() => {
-      // poll device state from invertor
+      // poll device state from inverter
       this.pollInvertor();
     }, RETRY_INTERVAL);
 

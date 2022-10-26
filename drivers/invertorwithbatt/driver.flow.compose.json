@@ -186,10 +186,10 @@
     {
       "id": "solarbattcharge",
       "title": {
-        "en": "Invertor + Battery !{{is|isn't}} higher than"
+        "en": "Inverter + Battery !{{is|isn't}} higher than"
       },
       "hint": {
-        "en": "Invertor plus battery charging in watts"
+        "en": "Inverter plus battery charging in watts"
       },
       "args": [
         {

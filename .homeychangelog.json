@@ -3,13 +3,13 @@
     "en": "performance boost (disable meter2,3 and batt2) takes 4 seconds to measure, polling back to 30 sec, added import control action plus flow, control min import even with battery"
   },   
   "2.1.6": {
-    "en": "added invertor and meter1 current caps"
+    "en": "added inverter and meter1 current caps"
   },    
   "2.1.5": {
     "en": "active power, export limit control for batt or meters (action + flows)"
   },   
   "2.0.13": {
-    "en": "adding owncomsumption for battery invertors, export, import & consumption triggers"
+    "en": "adding owncomsumption for battery inverters, export, import & consumption triggers"
   },    
   "2.0.12": {
     "en": "better error handling"
