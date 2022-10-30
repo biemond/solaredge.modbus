@@ -1,4 +1,4 @@
-import Homey from 'homey';
+import Homey, { Device } from 'homey';
 
 export interface Measurement {
     value: string;
@@ -264,10 +264,30 @@ export class Solaredge extends Homey.Device {
                 this.setCapabilityValue('measure_current.phase3', currenteac3);
             }
 
+            let tz = this.homey.clock.getTimezone();
+            var now = new Date().toLocaleString(this.homey.i18n.getLanguage(),
+                {
+                    hour12: false,
+                    timeZone: tz,
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
             if (result['energy_total'] && result['energy_total'].value != 'xxx') {
                 this.addCapability('meter_power');
                 var total = Number(result['energy_total'].value) * (Math.pow(10, Number(result['energy_total'].scale)));
                 this.setCapabilityValue('meter_power', total / 1000);
+
+                if (this.getStoreValue("daily") == null ) {
+                    this.setStoreValue("daily",total / 1000 );
+                 } else if ( now == "00:00" || now == "00:01" ) {
+                    this.setStoreValue("daily",total / 1000 );
+                 }
+                 var daily_power  = (total / 1000) -  this.getStoreValue("daily");
+                //  console.log("daily: " + daily_power);
+                 this.addCapability('meter_power.daily');
+                 this.setCapabilityValue('meter_power.daily', daily_power);
             }
 
             // if (result['power_dc'] && result['power_dc'].value != 'xxx' ){

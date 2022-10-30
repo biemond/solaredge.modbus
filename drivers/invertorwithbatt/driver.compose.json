@@ -37,6 +37,7 @@
     "measure_power.chargesetting",
     "measure_power.dischargesetting",
     "meter_power",
+    "meter_power.daily",        
     "meter_power.export",
     "meter_power.import",
     "ownconsumption",
@@ -163,6 +164,13 @@
         "title": {
           "en": "Total Yield",
           "nl": "Totale opbrengst"
+        }
+      },
+      "meter_power.daily": {
+        "icon": "/assets/sun.svg",
+        "title": {
+          "en": "Total Day Yield",
+          "nl": "Totale dag opbrengst"
         }
       },
       "meter_power.import": {
