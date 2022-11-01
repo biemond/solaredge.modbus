@@ -278,14 +278,16 @@ export class Solaredge extends Homey.Device {
                 this.addCapability('meter_power');
                 var total = Number(result['energy_total'].value) * (Math.pow(10, Number(result['energy_total'].scale)));
                 this.setCapabilityValue('meter_power', total / 1000);
-
+                console.log(now);
                 if (this.getStoreValue("daily") == null ) {
                     this.setStoreValue("daily",total / 1000 );
-                 } else if ( now == "00:00" || now == "00:01" ) {
+                 } else if ( now == "24:01" || now == "24:02" ) {
+                    console.log("reset");
+                    console.log(total / 1000);
                     this.setStoreValue("daily",total / 1000 );
                  }
                  var daily_power  = (total / 1000) -  this.getStoreValue("daily");
-                //  console.log("daily: " + daily_power);
+                 console.log("daily: " + daily_power);
                  this.addCapability('meter_power.daily');
                  this.setCapabilityValue('meter_power.daily', daily_power);
             }
