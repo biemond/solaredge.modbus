@@ -192,7 +192,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
           chargehex2 =  17530;
         }  else if (value == 1500) {
           chargehex1 =  32768;
-          chargehex2 =  17596;
+          chargehex2 =  17595;
         } else if (value == 2000) {
           chargehex1 = 0;
           chargehex2 = 17658;
@@ -228,7 +228,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
           dischargehex2 =  17530;
         }  else if (value == 1500) {
           dischargehex1 =  32768;
-          dischargehex2 =  17596;
+          dischargehex2 =  17595;
         } else if (value == 2000) {
           dischargehex1 = 0;
           dischargehex2 = 17658;
@@ -284,7 +284,10 @@ class MySolaredgeBatteryDevice extends Solaredge {
         var dischargehex1 = 16384;
         var dischargehex2 = 17820;
 
-        if (value == 50) {
+        if (value == 0) {
+          dischargehex1 =  0;
+          dischargehex2 =  0;        
+        } else if (value == 50) {
           dischargehex1 =  0;
           dischargehex2 =  16968;
         } else if (value == 100) {
@@ -310,7 +313,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
           dischargehex2 =  17530;
         } else if (value == 1500) {
           dischargehex1 =  32768;
-          dischargehex2 =  17596;
+          dischargehex2 =  17595;
         } else if (value == 2000) {
           dischargehex1 = 0;
           dischargehex2 = 17658;

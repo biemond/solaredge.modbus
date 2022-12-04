@@ -311,6 +311,12 @@
           "name": "exportlimit",
           "values": [
             {
+              "id": "0",
+              "label": {
+                "en": "0W"
+              }
+            },
+            {
               "id": "50",
               "label": {
                 "en": "50W"
