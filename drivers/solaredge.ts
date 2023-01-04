@@ -311,23 +311,29 @@ export class Solaredge extends Homey.Device {
             }
 
             if (result['export_control_mode'] && result['export_control_mode'].value != 'xxx') {
-                this.addCapability('limitcontrolmode');
-                var mode = '0';
-                if ( result['export_control_mode'].value == '1' ) {
-                    mode = '1';
-                } else if ( result['export_control_mode'].value == '2049' ) {
-                    mode = '11';
+                if (this.hasCapability('limitcontrolmode')) {
+                    this.addCapability('limitcontrolmode');
+                    var mode = '0';
+                    if ( result['export_control_mode'].value == '1' ) {
+                        mode = '1';
+                    } else if ( result['export_control_mode'].value == '2049' ) {
+                        mode = '11';
+                    }
+                    this.setCapabilityValue('limitcontrolmode', mode);
                 }
-                this.setCapabilityValue('limitcontrolmode', mode);
             }            
 
             if (result['export_control_limit_mode'] && result['export_control_limit_mode'].value != 'xxx') {
-                this.addCapability('exportcontrollimitmode');
-                this.setCapabilityValue('exportcontrollimitmode', result['export_control_limit_mode'].value);
+                if (this.hasCapability('exportcontrollimitmode')) {
+                    this.addCapability('exportcontrollimitmode');
+                    this.setCapabilityValue('exportcontrollimitmode', result['export_control_limit_mode'].value);
+                }
             }   
             if (result['export_control_site'] && result['export_control_site'].value != 'xxx') {
-                this.addCapability('exportcontrolsitelimit');
-                this.setCapabilityValue('exportcontrolsitelimit', Number(result['export_control_site'].value));
+                if (this.hasCapability('exportcontrolsitelimit')) {
+                    this.addCapability('exportcontrolsitelimit');
+                    this.setCapabilityValue('exportcontrolsitelimit', Number(result['export_control_site'].value));
+                }
             } 
             
             if (result['status'] && result['status'].value != 'xxx') {
@@ -438,11 +444,13 @@ export class Solaredge extends Homey.Device {
                 this.addCapability('battery');
                 this.addCapability('measure_battery');
                 var battery = Number(Number.parseFloat(result['batt1-soe'].value).toFixed(2));
-                if (this.getCapabilityValue('battery') != battery) {
-                    this.homey.flow.getDeviceTriggerCard('changedBattery').trigger(this, { charge: battery }, {});
+                if ( battery > 0 ) {
+                    if (this.getCapabilityValue('battery') != battery) {
+                        this.homey.flow.getDeviceTriggerCard('changedBattery').trigger(this, { charge: battery }, {});
+                    }
+                    this.setCapabilityValue('battery', battery);
+                    this.setCapabilityValue('measure_battery', battery);
                 }
-                this.setCapabilityValue('battery', battery);
-                this.setCapabilityValue('measure_battery', battery);
             }
 
             if (result['batt1-soh'] && result['batt1-soh'].value != 'xxx') {
@@ -495,6 +503,7 @@ export class Solaredge extends Homey.Device {
                             '4': 'Discharge',
                             '5': 'Fault',
                             '6': 'Idle',
+                            '7': 'Idle',                            
                             '10': 'Unknown'
                         }
                         // console.log(this.driver.id);

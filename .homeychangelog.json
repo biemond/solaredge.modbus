@@ -1,4 +1,7 @@
 {
+  "2.1.12": {
+    "en": "Allow 0W as export limit + fix stacktraces "
+  },    
   "2.1.11": {
     "en": "Allow 0W as export limit "
   },   

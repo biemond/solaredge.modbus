@@ -52,6 +52,12 @@
             }
         },
         {
+            "id": "7",
+            "title": {
+                "en": "Idle"
+            }
+        },        
+        {
             "id": "10",
             "title": {
                 "en": "Unknown"
