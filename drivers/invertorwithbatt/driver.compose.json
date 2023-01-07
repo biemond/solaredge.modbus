@@ -160,28 +160,29 @@
         }
       },
       "meter_power": {
-        "icon": "/assets/sun.svg",
+        "icon": "/assets/total_yield.svg",
         "title": {
           "en": "Total Yield",
           "nl": "Totale opbrengst"
         }
       },
       "meter_power.daily": {
-        "icon": "/assets/sun.svg",
+        "icon": "/assets/total_yield.svg",
         "title": {
           "en": "Total Day Yield",
           "nl": "Totale dag opbrengst"
-        }
+        },
+        "decimals": 2        
       },
       "meter_power.import": {
-        "icon": "/assets/sun.svg",
+        "icon": "/assets/total_yield.svg",
         "title": {
           "en": "Total Import",
           "nl": "Totale Import"
         }
       },
       "meter_power.export": {
-        "icon": "/assets/sun.svg",
+        "icon": "/assets/total_yield.svg",
         "title": {
           "en": "Total Export",
           "nl": "Totale Export"

@@ -1,0 +1,16 @@
+{
+    "type": "number",
+    "title": {
+        "en": "Temp"
+    },
+    "getable": true,
+    "setable": false,
+    "decimals": 0,
+    "uiComponent": "sensor",
+    "insights": true,
+    "icon": "/assets/sun.svg",
+    "units": {
+      "en": "C",
+      "nl": "C"
+    }
+}
