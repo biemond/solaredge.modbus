@@ -48,103 +48,87 @@
   ],
   "capabilitiesOptions": {
       "measure_power": {
-        "icon": "/assets/sun.svg",
         "decimals": 0,
         "title": {
           "en": "Solar + Batt Power"
         }
       },
       "measure_current.phase1": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "AC Current phase1"
         }
       },
       "measure_current.phase2": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "AC Current phase2"
         }
       },
       "measure_current.phase3": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "AC Current phase3"
         }
       },
       "measure_current": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "AC Current"
         }
       },     
       "measure_power.batt_discharge":{
-        "icon": "/assets/sun.svg",
         "decimals": 0,
         "title": {
           "en": "Battery Power discharge"
         }
       },        
       "measure_power.batt_charge":{
-        "icon": "/assets/sun.svg",
         "decimals": 0,
         "title": {
           "en":  "Battery Power charge"
         }
       },
       "measure_power.import":{
-        "icon": "/assets/powergrid_feed_in.svg",
         "decimals": 0,
         "title": {
           "en": "Power Grid import"
         }
       },        
       "measure_power.export":{
-        "icon": "/assets/powergrid_feed_in.svg",
         "decimals": 0,
         "title": {
           "en":  "Power Grid export"
         }
       },
       "measure_voltage.meter": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "Meter AC Voltage"
         }
       },
       "measure_current.meter_phase1": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "Meter AC Current phase1"
         }
       },
       "measure_current.meter_phase2": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "Meter AC Current phase2"
         }
       },
       "measure_current.meter_phase3": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "Meter AC Current phase3"
         }
       },
       "measure_current.meter": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "Meter AC Current"
         }
       },                  
       "measure_temperature.invertor": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "Heatsink temperature",
           "nl": "Heatsink temperatuur"
         }
       },
       "measure_temperature.battery": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "Battery avg temperature"
         }
@@ -156,18 +140,16 @@
       },
       "measure_power.dischargesetting": {
         "title": {
-          "en": "Disharge setting"
+          "en": "Discharge setting"
         }
       },
       "meter_power": {
-        "icon": "/assets/total_yield.svg",
         "title": {
           "en": "Total Yield",
           "nl": "Totale opbrengst"
         }
       },
       "meter_power.daily": {
-        "icon": "/assets/total_yield.svg",
         "title": {
           "en": "Total Day Yield",
           "nl": "Totale dag opbrengst"
@@ -175,14 +157,12 @@
         "decimals": 2        
       },
       "meter_power.import": {
-        "icon": "/assets/total_yield.svg",
         "title": {
           "en": "Total Import",
           "nl": "Totale Import"
         }
       },
       "meter_power.export": {
-        "icon": "/assets/total_yield.svg",
         "title": {
           "en": "Total Export",
           "nl": "Totale Export"

@@ -8,7 +8,6 @@
     "decimals": 2,
     "uiComponent": "sensor",
     "insights": true,
-    "icon": "/assets/sun.svg",
     "units": {
       "en": "A",
       "nl": "A"

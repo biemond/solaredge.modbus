@@ -9,7 +9,7 @@
     "decimals": 0,
     "uiComponent": "sensor",
     "insights": true,
-    "icon": "/assets/sun.svg",
+    "icon": "/assets/total_yield.svg",
     "units": {
       "en": "kWh",
       "nl": "kWh"

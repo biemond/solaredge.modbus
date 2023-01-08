@@ -22,52 +22,44 @@
   ],
   "capabilitiesOptions": {
       "measure_power": {
-        "icon": "/assets/sun.svg",
         "decimals": 0,
         "title": {
           "en": "Solar Power"
         }
       },
       "measure_current.phase1": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "AC Current phase1"
         }
       },
       "measure_current.phase2": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "AC Current phase2"
         }
       },
       "measure_current.phase3": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "AC Current phase3"
         }
       },
       "measure_current": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "AC Current"
         }
       },  
       "measure_temperature.invertor": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "Heatsink temperature",
           "nl": "Heatsink temperatuur"
         }
       },
       "meter_power": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "Total Yield",
           "nl": "Totale opbrengst"
         }
       },
       "meter_power.daily": {
-        "icon": "/assets/sun.svg",
         "title": {
           "en": "Total Day Yield",
           "nl": "Totale dag opbrengst"
