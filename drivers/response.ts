@@ -42,7 +42,9 @@ export async function checkRegister(registers: Object, client: InstanceType<type
                     resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
                     // console.log(value[3] + ": " + resultValue);
                     // console.log(key.replace('_scale', ''));
-                    result[key.replace('_scale', '')].scale = resultValue
+                    if (resultValue) {
+                        result[key.replace('_scale', '')].scale = resultValue
+                    }
                     break;
                 case 'FLOAT32':
                     resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
@@ -51,7 +53,9 @@ export async function checkRegister(registers: Object, client: InstanceType<type
                     console.log(key + ": type not found " + value[2]);
                     break;
             }
-            measurement.value = resultValue;
+            if (resultValue) {
+                measurement.value = resultValue;
+            }
             result[key] = measurement;
 
         } catch (err) {
@@ -111,13 +115,17 @@ export async function checkMeter(meter_dids: Object, meter_registers: Object, cl
                                 break;
                             case 'SCALE':
                                 resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
-                                result[key + '-' + key2.replace('_scale', '')].scale = resultValue
+                                if (resultValue) {
+                                    result[key + '-' + key2.replace('_scale', '')].scale = resultValue
+                                }    
                                 break;
                             default:
                                 console.log(key2 + ": type not found " + value2[2]);
                                 break;
                         }
-                        measurement.value = resultValue;
+                        if (resultValue) {
+                            measurement.value = resultValue;
+                        }
                         result[key + '-' + key2] = measurement;
                     } catch (e) {
                         console.log("error with key: " + key + " key2: " + key2);
@@ -186,7 +194,9 @@ export async function checkBattery(battery_dids: Object, batt_registers: Object,
                                         console.log(key2 + ": type not found " + value2[2]);
                                         break;
                                 }
-                                measurement.value = resultValue;
+                                if (resultValue) {
+                                    measurement.value = resultValue;
+                                }
                                 result[key + '-' + key2] = measurement;
                             } catch (e) {
                                 console.log("error with key: " + key + " key2: " + key2);

@@ -1,12 +1,12 @@
 {
   "2.1.13": {
-    "en": "Add capability definitions"
+    "en": "Add capability definitions + fix stacktraces"
   },    
   "2.1.12": {
-    "en": "Allow 0W as export limit + fix stacktraces "
+    "en": "Allow 0W as export limit + fix stacktraces"
   },    
   "2.1.11": {
-    "en": "Allow 0W as export limit "
+    "en": "Allow 0W as export limit"
   },   
   "2.1.10": {
     "en": "daily meter power, spelling fixes"

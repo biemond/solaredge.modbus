@@ -9,7 +9,6 @@
     "uiComponent": "sensor",
     "insights": true,
     "units": {
-      "en": "A",
-      "nl": "A"
+      "en": "A"
     }
 }
