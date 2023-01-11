@@ -281,7 +281,7 @@ export class Solaredge extends Homey.Device {
                 console.log(now);
                 if (this.getStoreValue("daily") == null ) {
                     this.setStoreValue("daily",total / 1000 );
-                 } else if ( now == "24:01" || now == "24:02" ) {
+                 } else if ( now == "24:01" || now == "24:02" || now == "00:01" || now == "00:02" ) {
                     console.log("reset");
                     console.log(total / 1000);
                     this.setStoreValue("daily",total / 1000 );

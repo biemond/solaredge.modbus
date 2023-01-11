@@ -1,4 +1,10 @@
 {
+  "2.1.15": {
+    "en": "fix daily reset for other areas, remove mesaure_power capability for flows"
+  },     
+  "2.1.14": {
+    "en": "remove mesaure_power capability for flows"
+  },   
   "2.1.13": {
     "en": "Add capability definitions + fix stacktraces"
   },    
