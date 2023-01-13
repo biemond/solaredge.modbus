@@ -6,7 +6,7 @@
     },
     "getable": true,
     "setable": false,
-    "decimals": 0,
+    "decimals": 2,
     "uiComponent": "sensor",
     "insights": true,
     "icon": "/assets/total_yield.svg",

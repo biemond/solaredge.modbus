@@ -57,13 +57,15 @@
         "title": {
           "en": "Total Yield",
           "nl": "Totale opbrengst"
-        }
+        },
+        "decimals": 2    
       },
       "meter_power.daily": {
         "title": {
           "en": "Total Day Yield",
           "nl": "Totale dag opbrengst"
-        }
+        },
+        "decimals": 2    
       }              
   },  
   "platforms": [

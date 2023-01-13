@@ -147,7 +147,8 @@
         "title": {
           "en": "Total Yield",
           "nl": "Totale opbrengst"
-        }
+        },
+        "decimals": 2    
       },
       "meter_power.daily": {
         "title": {
@@ -160,13 +161,15 @@
         "title": {
           "en": "Total Import",
           "nl": "Totale Import"
-        }
+        },
+        "decimals": 2    
       },
       "meter_power.export": {
         "title": {
           "en": "Total Export",
           "nl": "Totale Export"
-        }
+        },
+        "decimals": 2    
       }                     
   },  
   "platforms": [
