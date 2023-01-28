@@ -1,0 +1,24 @@
+{
+    "title": {
+      "en": "Total Day Yield changed",
+      "nl": "Totale dag opbrengst is veranderd"
+    },
+    "tokens": [
+      {
+        "name": "meter_power.daily",
+        "title": {
+          "en": "Energy",
+          "nl": "Energie"
+        },
+        "type": "number",
+        "example": 25
+      }
+    ],
+    "args": [
+        {
+          "type": "device",
+          "name": "device",
+          "filter": "driver_id=invertor|invertorwithbatt"
+        }
+    ]    
+}

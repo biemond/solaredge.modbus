@@ -1,17 +1,23 @@
 {
       "type": "number",
       "title": {
-        "en": "Battery Charge",
-        "nl": "Batterij lading"
+        "en": "Battery",
+        "nl": "Accuniveau"
       },
-      "getable": true,
-      "setable": false,
-      "decimals": 1,
       "insights": false,
-      "uiComponent": "sensor",
       "icon": "/assets/battery.svg",
       "units": {
-        "en": "%",
-        "nl": "%"
-      }
+        "en": "%"
+      },
+      "min": 0,
+      "max": 100,
+      "desc": {
+        "en": "Battery charge in percentage (%)",
+        "nl": "Accuniveau in procenten (%)"
+      },
+      "chartType": "spline",
+      "decimals": 2,
+      "getable": true,
+      "setable": false,
+      "uiComponent": "battery"      
 }

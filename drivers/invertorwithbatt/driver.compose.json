@@ -10,15 +10,17 @@
   },  
   "capabilities": [
     "measure_battery",
+    "measure_power",
+    "measure_power.import", 
+    "measure_power.export",   
     "measure_power.batt_charge",
     "measure_power.batt_discharge",  
-    "measure_power",
+    "measure_power.chargesetting",
+    "measure_power.dischargesetting",    
     "measure_current",
     "measure_current.phase1",
     "measure_current.phase2",
     "measure_current.phase3",    
-    "measure_power.import", 
-    "measure_power.export",           
     "measure_voltage.meter",
     "measure_current.meter",
     "measure_current.meter_phase1",
@@ -26,6 +28,10 @@
     "measure_current.meter_phase3",
     "measure_temperature.invertor",
     "measure_temperature.battery",
+    "meter_power",
+    "meter_power.daily",        
+    "meter_power.export",
+    "meter_power.import",    
     "battery",
     "batterysoh",
     "storagecontrolmode",
@@ -34,12 +40,6 @@
     "battstatus",
     "batterycap",
     "batterymaxcap",
-    "measure_power.chargesetting",
-    "measure_power.dischargesetting",
-    "meter_power",
-    "meter_power.daily",        
-    "meter_power.export",
-    "meter_power.import",
     "ownconsumption",
     "activepowerlimit",
     "limitcontrolmode",
@@ -121,17 +121,19 @@
         "title": {
           "en": "Meter AC Current"
         }
-      },                  
+      },
       "measure_temperature.invertor": {
         "title": {
           "en": "Heatsink temperature",
           "nl": "Heatsink temperatuur"
-        }
+        },
+        "decimals": 2
       },
       "measure_temperature.battery": {
         "title": {
           "en": "Battery avg temperature"
-        }
+        },
+        "decimals": 2
       },
       "measure_power.chargesetting": {
         "title": {
@@ -155,21 +157,24 @@
           "en": "Total Day Yield",
           "nl": "Totale dag opbrengst"
         },
-        "decimals": 2        
+        "decimals": 2,
+        "icon": "/assets/total_yield.svg"            
       },
       "meter_power.import": {
         "title": {
           "en": "Total Import",
           "nl": "Totale Import"
         },
-        "decimals": 2    
+        "decimals": 2,
+        "icon": "/assets/total_yield.svg"        
       },
       "meter_power.export": {
         "title": {
           "en": "Total Export",
           "nl": "Totale Export"
         },
-        "decimals": 2    
+        "decimals": 2,
+        "icon": "/assets/total_yield.svg"        
       }                     
   },  
   "platforms": [

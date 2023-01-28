@@ -1,0 +1,24 @@
+{
+    "title": {
+      "en": "The electric current changed",
+      "nl": "De elektrische stroom is veranderd"
+    },
+    "tokens": [
+      {
+        "name": "measure_current",
+        "title": {
+          "en": "Current",
+          "nl": "Stroom"
+        },
+        "type": "number",
+        "example": 7.5
+      }
+    ],
+    "args": [
+      {
+        "type": "device",
+        "name": "device",
+        "filter": "driver_id=invertor|invertorwithbatt"
+      }
+    ]
+}

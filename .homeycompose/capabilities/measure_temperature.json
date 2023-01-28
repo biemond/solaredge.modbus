@@ -1,14 +1,20 @@
 {
-    "type": "number",
-    "title": {
-        "en": "Temp"
-    },
-    "getable": true,
-    "setable": false,
-    "decimals": 0,
-    "uiComponent": "sensor",
-    "insights": true,
-    "units": {
-      "en": "°C"
-    }
+  "type": "number",
+  "title": {
+    "en": "Temperature",
+    "nl": "Temperatuur"
+  },
+  "units": {
+    "en": "°C"
+  },
+  "insights": true,
+  "desc": {
+    "en": "Temperature in degrees Celsius (°C)",
+    "nl": "Temperatuur in graden Celsius (°C)"
+  },
+  "decimals": 2,
+  "chartType": "spline",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor"
 }

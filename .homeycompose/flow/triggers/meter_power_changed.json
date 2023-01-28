@@ -1,0 +1,24 @@
+{
+    "title": {
+      "en": "Total Yield changed",
+      "nl": "Totale opbrengst is veranderd"
+    },
+    "tokens": [
+      {
+        "name": "meter_power",
+        "title": {
+          "en": "Energy",
+          "nl": "Energie"
+        },
+        "type": "number",
+        "example": 25
+      }
+    ],
+    "args": [
+        {
+          "type": "device",
+          "name": "device",
+          "filter": "driver_id=invertor|invertorwithbatt"
+        }
+    ]    
+}

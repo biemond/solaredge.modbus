@@ -46,12 +46,13 @@
         "title": {
           "en": "AC Current"
         }
-      },  
+      },
       "measure_temperature.invertor": {
         "title": {
           "en": "Heatsink temperature",
           "nl": "Heatsink temperatuur"
-        }
+        },
+        "decimals": 2
       },
       "meter_power": {
         "title": {
@@ -65,7 +66,8 @@
           "en": "Total Day Yield",
           "nl": "Totale dag opbrengst"
         },
-        "decimals": 2    
+        "decimals": 2,
+        "icon": "/assets/total_yield.svg"      
       }              
   },  
   "platforms": [

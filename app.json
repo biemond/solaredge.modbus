@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "2.1.17",
+  "version": "2.1.18",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -88,6 +88,133 @@
           }
         ],
         "id": "changedStatus"
+      },
+      {
+        "title": {
+          "en": "The electric current changed",
+          "nl": "De elektrische stroom is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_current",
+            "title": {
+              "en": "Current",
+              "nl": "Stroom"
+            },
+            "type": "number",
+            "example": 7.5
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertor|invertorwithbatt"
+          }
+        ],
+        "id": "measure_current_changed"
+      },
+      {
+        "highlight": true,
+        "title": {
+          "en": "The solar power changed",
+          "nl": "Het solar vermogen is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_power",
+            "title": {
+              "en": "Power",
+              "nl": "Vermogen"
+            },
+            "type": "number",
+            "example": 100
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertor|invertorwithbatt"
+          }
+        ],
+        "id": "measure_power_changed"
+      },
+      {
+        "highlight": true,
+        "title": {
+          "en": "The inverter temperature changed",
+          "nl": "De inverter temperatuur is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_temperature.invertor",
+            "title": {
+              "en": "Temperature",
+              "nl": "Temperatuur"
+            },
+            "type": "number",
+            "example": 23.5
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertor|invertorwithbatt"
+          }
+        ],
+        "id": "measure_temperature_inverter_changed"
+      },
+      {
+        "title": {
+          "en": "Total Yield changed",
+          "nl": "Totale opbrengst is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "meter_power",
+            "title": {
+              "en": "Energy",
+              "nl": "Energie"
+            },
+            "type": "number",
+            "example": 25
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertor|invertorwithbatt"
+          }
+        ],
+        "id": "meter_power_changed"
+      },
+      {
+        "title": {
+          "en": "Total Day Yield changed",
+          "nl": "Totale dag opbrengst is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "meter_power.daily",
+            "title": {
+              "en": "Energy",
+              "nl": "Energie"
+            },
+            "type": "number",
+            "example": 25
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertor|invertorwithbatt"
+          }
+        ],
+        "id": "meter_power_day_changed"
       },
       {
         "id": "changedBattery",
@@ -220,6 +347,211 @@
               "nl": "Verbruik"
             },
             "example": 200
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "measure_voltage_changed",
+        "title": {
+          "en": "The voltage changed",
+          "nl": "Het voltage is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_voltage",
+            "title": {
+              "en": "Voltage",
+              "nl": "Voltage"
+            },
+            "type": "number",
+            "example": 230
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "measure_temperature.battery_changed",
+        "highlight": true,
+        "title": {
+          "en": "The battery temperature changed",
+          "nl": "De batterij temperatuur is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_temperature.battery",
+            "title": {
+              "en": "Temperature",
+              "nl": "Temperatuur"
+            },
+            "type": "number",
+            "example": 23.5
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "meter_power.import_changed",
+        "title": {
+          "en": "Total Import Yield changed",
+          "nl": "Totale import opbrengst is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "meter_power.import",
+            "title": {
+              "en": "Energy",
+              "nl": "Energie"
+            },
+            "type": "number",
+            "example": 25
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "meter_power.export_changed",
+        "title": {
+          "en": "Total Export Yield changed",
+          "nl": "Totale Export opbrengst is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "meter_power.export",
+            "title": {
+              "en": "Energy",
+              "nl": "Energie"
+            },
+            "type": "number",
+            "example": 25
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "measure_power.import_changed",
+        "highlight": true,
+        "title": {
+          "en": "The grid import power changed",
+          "nl": "Het net import vermogen is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_power.import",
+            "title": {
+              "en": "Power",
+              "nl": "Vermogen"
+            },
+            "type": "number",
+            "example": 100
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "measure_power.export_changed",
+        "highlight": true,
+        "title": {
+          "en": "The grid export power changed",
+          "nl": "Het net export vermogen is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_power.export",
+            "title": {
+              "en": "Power",
+              "nl": "Vermogen"
+            },
+            "type": "number",
+            "example": 100
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "measure_power.batt_discharge_changed",
+        "highlight": true,
+        "title": {
+          "en": "The battery discharge power changed",
+          "nl": "Het batterij ontlaad vermogen is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_power.batt_discharge",
+            "title": {
+              "en": "Power",
+              "nl": "Vermogen"
+            },
+            "type": "number",
+            "example": 100
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "measure_power.batt_charge_changed",
+        "highlight": true,
+        "title": {
+          "en": "The battery charge power changed",
+          "nl": "Het batterij oplaad vermogen is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_power.batt_charge",
+            "title": {
+              "en": "Power",
+              "nl": "Vermogen"
+            },
+            "type": "number",
+            "example": 100
           }
         ],
         "args": [
@@ -996,7 +1328,8 @@
           "title": {
             "en": "Heatsink temperature",
             "nl": "Heatsink temperatuur"
-          }
+          },
+          "decimals": 2
         },
         "meter_power": {
           "title": {
@@ -1010,7 +1343,8 @@
             "en": "Total Day Yield",
             "nl": "Totale dag opbrengst"
           },
-          "decimals": 2
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
         }
       },
       "platforms": [
@@ -1081,15 +1415,17 @@
       },
       "capabilities": [
         "measure_battery",
+        "measure_power",
+        "measure_power.import",
+        "measure_power.export",
         "measure_power.batt_charge",
         "measure_power.batt_discharge",
-        "measure_power",
+        "measure_power.chargesetting",
+        "measure_power.dischargesetting",
         "measure_current",
         "measure_current.phase1",
         "measure_current.phase2",
         "measure_current.phase3",
-        "measure_power.import",
-        "measure_power.export",
         "measure_voltage.meter",
         "measure_current.meter",
         "measure_current.meter_phase1",
@@ -1097,6 +1433,10 @@
         "measure_current.meter_phase3",
         "measure_temperature.invertor",
         "measure_temperature.battery",
+        "meter_power",
+        "meter_power.daily",
+        "meter_power.export",
+        "meter_power.import",
         "battery",
         "batterysoh",
         "storagecontrolmode",
@@ -1105,12 +1445,6 @@
         "battstatus",
         "batterycap",
         "batterymaxcap",
-        "measure_power.chargesetting",
-        "measure_power.dischargesetting",
-        "meter_power",
-        "meter_power.daily",
-        "meter_power.export",
-        "meter_power.import",
         "ownconsumption",
         "activepowerlimit",
         "limitcontrolmode",
@@ -1197,12 +1531,14 @@
           "title": {
             "en": "Heatsink temperature",
             "nl": "Heatsink temperatuur"
-          }
+          },
+          "decimals": 2
         },
         "measure_temperature.battery": {
           "title": {
             "en": "Battery avg temperature"
-          }
+          },
+          "decimals": 2
         },
         "measure_power.chargesetting": {
           "title": {
@@ -1226,21 +1562,24 @@
             "en": "Total Day Yield",
             "nl": "Totale dag opbrengst"
           },
-          "decimals": 2
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
         },
         "meter_power.import": {
           "title": {
             "en": "Total Import",
             "nl": "Totale Import"
           },
-          "decimals": 2
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
         },
         "meter_power.export": {
           "title": {
             "en": "Total Export",
             "nl": "Totale Export"
           },
-          "decimals": 2
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
         }
       },
       "platforms": [
@@ -1318,19 +1657,25 @@
     "battery": {
       "type": "number",
       "title": {
-        "en": "Battery Charge",
-        "nl": "Batterij lading"
+        "en": "Battery",
+        "nl": "Accuniveau"
       },
-      "getable": true,
-      "setable": false,
-      "decimals": 1,
       "insights": false,
-      "uiComponent": "sensor",
       "icon": "/assets/battery.svg",
       "units": {
-        "en": "%",
-        "nl": "%"
-      }
+        "en": "%"
+      },
+      "min": 0,
+      "max": 100,
+      "desc": {
+        "en": "Battery charge in percentage (%)",
+        "nl": "Accuniveau in procenten (%)"
+      },
+      "chartType": "spline",
+      "decimals": 2,
+      "getable": true,
+      "setable": false,
+      "uiComponent": "battery"
     },
     "batterycap": {
       "type": "number",
@@ -1585,44 +1930,82 @@
     "measure_current": {
       "type": "number",
       "title": {
-        "en": "Current"
+        "en": "Current",
+        "nl": "Stroom"
       },
-      "getable": true,
-      "setable": false,
-      "decimals": 2,
-      "uiComponent": "sensor",
-      "insights": true,
       "units": {
         "en": "A"
-      }
+      },
+      "insights": true,
+      "desc": {
+        "en": "Electric current (A)",
+        "nl": "Elektrische stroom (A)"
+      },
+      "chartType": "stepLine",
+      "decimals": 2,
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
+    },
+    "measure_power": {
+      "type": "number",
+      "title": {
+        "en": "Power",
+        "nl": "Vermogen"
+      },
+      "units": {
+        "en": "W"
+      },
+      "insights": true,
+      "desc": {
+        "en": "Power in watt (W)",
+        "nl": "Vermogen in watt (W)"
+      },
+      "chartType": "stepLine",
+      "decimals": 2,
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
     },
     "measure_temperature": {
       "type": "number",
       "title": {
-        "en": "Temp"
+        "en": "Temperature",
+        "nl": "Temperatuur"
       },
-      "getable": true,
-      "setable": false,
-      "decimals": 0,
-      "uiComponent": "sensor",
-      "insights": true,
       "units": {
         "en": "°C"
-      }
+      },
+      "insights": true,
+      "desc": {
+        "en": "Temperature in degrees Celsius (°C)",
+        "nl": "Temperatuur in graden Celsius (°C)"
+      },
+      "decimals": 2,
+      "chartType": "spline",
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
     },
     "measure_voltage": {
       "type": "number",
       "title": {
-        "en": "Voltage"
+        "en": "Voltage",
+        "nl": "Voltage"
       },
-      "getable": true,
-      "setable": false,
-      "decimals": 0,
-      "uiComponent": "sensor",
-      "insights": true,
       "units": {
         "en": "V"
-      }
+      },
+      "desc": {
+        "en": "Voltage (V)",
+        "nl": "Voltage (V)"
+      },
+      "insights": true,
+      "chartType": "stepLine",
+      "decimals": 2,
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
     },
     "meter_power": {
       "type": "number",
@@ -1630,15 +2013,20 @@
         "en": "Total Yield",
         "nl": "Totale opbrengst"
       },
-      "getable": true,
-      "setable": false,
       "decimals": 2,
-      "uiComponent": "sensor",
-      "insights": true,
-      "icon": "/assets/total_yield.svg",
       "units": {
         "en": "kWh"
-      }
+      },
+      "desc": {
+        "en": "Energy usage in kilowatt-hour (kWh)",
+        "nl": "Energie verbruik in kilowattuur (kWh)"
+      },
+      "chartType": "spline",
+      "insights": true,
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/total_yield.svg"
     },
     "ownconsumption": {
       "type": "number",

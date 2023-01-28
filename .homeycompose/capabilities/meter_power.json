@@ -1,16 +1,21 @@
 {
-    "type": "number",
-    "title": {
-        "en": "Total Yield",
-        "nl": "Totale opbrengst"
-    },
-    "getable": true,
-    "setable": false,
-    "decimals": 2,
-    "uiComponent": "sensor",
-    "insights": true,
-    "icon": "/assets/total_yield.svg",
-    "units": {
-      "en": "kWh"
-    }
+  "type": "number",
+  "title": {
+    "en": "Total Yield",
+    "nl": "Totale opbrengst"
+  },
+  "decimals": 2,
+  "units": {
+    "en": "kWh"
+  },
+  "desc": {
+    "en": "Energy usage in kilowatt-hour (kWh)",
+    "nl": "Energie verbruik in kilowattuur (kWh)"
+  },
+  "chartType": "spline",
+  "insights": true,
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/total_yield.svg"  
 }

@@ -1,17 +1,17 @@
 {
   "type": "number",
   "title": {
-    "en": "Voltage",
-    "nl": "Voltage"
+    "en": "Power",
+    "nl": "Vermogen"
   },
   "units": {
-    "en": "V"
-  },
-  "desc": {
-    "en": "Voltage (V)",
-    "nl": "Voltage (V)"
+    "en": "W"
   },
   "insights": true,
+  "desc": {
+    "en": "Power in watt (W)",
+    "nl": "Vermogen in watt (W)"
+  },
   "chartType": "stepLine",
   "decimals": 2,
   "getable": true,
