@@ -7,20 +7,20 @@
     "batteries": [
       "OTHER"
     ]
-  },  
+  },
   "capabilities": [
     "measure_battery",
     "measure_power",
-    "measure_power.import", 
-    "measure_power.export",   
+    "measure_power.import",
+    "measure_power.export",
     "measure_power.batt_charge",
-    "measure_power.batt_discharge",  
+    "measure_power.batt_discharge",
     "measure_power.chargesetting",
-    "measure_power.dischargesetting",    
+    "measure_power.dischargesetting",
     "measure_current",
     "measure_current.phase1",
     "measure_current.phase2",
-    "measure_current.phase3",    
+    "measure_current.phase3",
     "measure_voltage.meter",
     "measure_current.meter",
     "measure_current.meter_phase1",
@@ -29,9 +29,9 @@
     "measure_temperature.invertor",
     "measure_temperature.battery",
     "meter_power",
-    "meter_power.daily",        
+    "meter_power.daily",
     "meter_power.export",
-    "meter_power.import",    
+    "meter_power.import",
     "battery",
     "batterysoh",
     "storagecontrolmode",
@@ -44,143 +44,145 @@
     "activepowerlimit",
     "limitcontrolmode",
     "exportcontrollimitmode",
-    "exportcontrolsitelimit"              
+    "exportcontrolsitelimit"
   ],
   "capabilitiesOptions": {
-      "measure_power": {
-        "decimals": 0,
-        "title": {
-          "en": "Solar + Batt Power"
-        }
+    "measure_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar + Batt Power"
+      }
+    },
+    "measure_current.phase1": {
+      "title": {
+        "en": "AC Current phase1"
+      }
+    },
+    "measure_current.phase2": {
+      "title": {
+        "en": "AC Current phase2"
+      }
+    },
+    "measure_current.phase3": {
+      "title": {
+        "en": "AC Current phase3"
+      }
+    },
+    "measure_current": {
+      "title": {
+        "en": "AC Current"
+      }
+    },
+    "measure_power.batt_discharge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power discharge"
+      }
+    },
+    "measure_power.batt_charge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power charge"
+      }
+    },
+    "measure_power.import": {
+      "decimals": 0,
+      "title": {
+        "en": "Power Grid import"
+      }
+    },
+    "measure_power.export": {
+      "decimals": 0,
+      "title": {
+        "en": "Power Grid export"
+      }
+    },
+    "measure_voltage.meter": {
+      "title": {
+        "en": "Meter AC Voltage"
+      }
+    },
+    "measure_current.meter_phase1": {
+      "title": {
+        "en": "Meter AC Current phase1"
+      }
+    },
+    "measure_current.meter_phase2": {
+      "title": {
+        "en": "Meter AC Current phase2"
+      }
+    },
+    "measure_current.meter_phase3": {
+      "title": {
+        "en": "Meter AC Current phase3"
+      }
+    },
+    "measure_current.meter": {
+      "title": {
+        "en": "Meter AC Current"
+      }
+    },
+    "measure_temperature.invertor": {
+      "title": {
+        "en": "Heatsink temperature",
+        "nl": "Heatsink temperatuur"
       },
-      "measure_current.phase1": {
-        "title": {
-          "en": "AC Current phase1"
-        }
+      "decimals": 2
+    },
+    "measure_temperature.battery": {
+      "title": {
+        "en": "Battery avg temperature"
       },
-      "measure_current.phase2": {
-        "title": {
-          "en": "AC Current phase2"
-        }
+      "decimals": 2
+    },
+    "measure_power.chargesetting": {
+      "title": {
+        "en": "Charge setting"
+      }
+    },
+    "measure_power.dischargesetting": {
+      "title": {
+        "en": "Discharge setting"
+      }
+    },
+    "meter_power": {
+      "title": {
+        "en": "Total Yield",
+        "nl": "Totale opbrengst"
       },
-      "measure_current.phase3": {
-        "title": {
-          "en": "AC Current phase3"
-        }
+      "decimals": 2
+    },
+    "meter_power.daily": {
+      "title": {
+        "en": "Total Day Yield",
+        "nl": "Totale dag opbrengst"
       },
-      "measure_current": {
-        "title": {
-          "en": "AC Current"
-        }
-      },     
-      "measure_power.batt_discharge":{
-        "decimals": 0,
-        "title": {
-          "en": "Battery Power discharge"
-        }
-      },        
-      "measure_power.batt_charge":{
-        "decimals": 0,
-        "title": {
-          "en":  "Battery Power charge"
-        }
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.import": {
+      "title": {
+        "en": "Total Import",
+        "nl": "Totale Import"
       },
-      "measure_power.import":{
-        "decimals": 0,
-        "title": {
-          "en": "Power Grid import"
-        }
-      },        
-      "measure_power.export":{
-        "decimals": 0,
-        "title": {
-          "en":  "Power Grid export"
-        }
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.export": {
+      "title": {
+        "en": "Total Export",
+        "nl": "Totale Export"
       },
-      "measure_voltage.meter": {
-        "title": {
-          "en": "Meter AC Voltage"
-        }
-      },
-      "measure_current.meter_phase1": {
-        "title": {
-          "en": "Meter AC Current phase1"
-        }
-      },
-      "measure_current.meter_phase2": {
-        "title": {
-          "en": "Meter AC Current phase2"
-        }
-      },
-      "measure_current.meter_phase3": {
-        "title": {
-          "en": "Meter AC Current phase3"
-        }
-      },
-      "measure_current.meter": {
-        "title": {
-          "en": "Meter AC Current"
-        }
-      },
-      "measure_temperature.invertor": {
-        "title": {
-          "en": "Heatsink temperature",
-          "nl": "Heatsink temperatuur"
-        },
-        "decimals": 2
-      },
-      "measure_temperature.battery": {
-        "title": {
-          "en": "Battery avg temperature"
-        },
-        "decimals": 2
-      },
-      "measure_power.chargesetting": {
-        "title": {
-          "en": "Charge setting"
-        }
-      },
-      "measure_power.dischargesetting": {
-        "title": {
-          "en": "Discharge setting"
-        }
-      },
-      "meter_power": {
-        "title": {
-          "en": "Total Yield",
-          "nl": "Totale opbrengst"
-        },
-        "decimals": 2    
-      },
-      "meter_power.daily": {
-        "title": {
-          "en": "Total Day Yield",
-          "nl": "Totale dag opbrengst"
-        },
-        "decimals": 2,
-        "icon": "/assets/total_yield.svg"            
-      },
-      "meter_power.import": {
-        "title": {
-          "en": "Total Import",
-          "nl": "Totale Import"
-        },
-        "decimals": 2,
-        "icon": "/assets/total_yield.svg"        
-      },
-      "meter_power.export": {
-        "title": {
-          "en": "Total Export",
-          "nl": "Totale Export"
-        },
-        "decimals": 2,
-        "icon": "/assets/total_yield.svg"        
-      }                     
-  },  
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    }
+  },
   "platforms": [
     "local"
   ],
-  "connectivity": [],
+  "connectivity": [
+    "lan"
+  ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.jpg",
     "large": "{{driverAssetsPath}}/images/large.jpg"
@@ -227,8 +229,8 @@
             "en": "Inverter ID",
             "nl": "Inverter ID"
           }
-        }        
+        }
       ]
     }
-  ]              
+  ]
 }

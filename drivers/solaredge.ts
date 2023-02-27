@@ -336,7 +336,11 @@ export class Solaredge extends Homey.Device {
             if (result['export_control_site'] && result['export_control_site'].value != 'xxx') {
                 if (this.hasCapability('exportcontrolsitelimit')) {
                     this.addCapability('exportcontrolsitelimit');
-                    this.setCapabilityValue('exportcontrolsitelimit', Number(result['export_control_site'].value));
+                    if (Number(result['export_control_site'].value) > 0 ) {
+                      this.setCapabilityValue('exportcontrolsitelimit', Number(result['export_control_site'].value));
+                    } else {
+                        this.setCapabilityValue('exportcontrolsitelimit', 0);
+                    }
                 }
             } 
             

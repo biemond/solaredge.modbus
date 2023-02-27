@@ -7,73 +7,75 @@
     "batteries": [
       "OTHER"
     ]
-  },  
+  },
   "capabilities": [
     "measure_power",
     "measure_current",
     "measure_current.phase1",
     "measure_current.phase2",
-    "measure_current.phase3",     
+    "measure_current.phase3",
     "measure_temperature.invertor",
     "invertorstatus",
     "meter_power",
-    "meter_power.daily",    
+    "meter_power.daily",
     "activepowerlimit"
   ],
   "capabilitiesOptions": {
-      "measure_power": {
-        "decimals": 0,
-        "title": {
-          "en": "Solar Power"
-        }
+    "measure_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar Power"
+      }
+    },
+    "measure_current.phase1": {
+      "title": {
+        "en": "AC Current phase1"
+      }
+    },
+    "measure_current.phase2": {
+      "title": {
+        "en": "AC Current phase2"
+      }
+    },
+    "measure_current.phase3": {
+      "title": {
+        "en": "AC Current phase3"
+      }
+    },
+    "measure_current": {
+      "title": {
+        "en": "AC Current"
+      }
+    },
+    "measure_temperature.invertor": {
+      "title": {
+        "en": "Heatsink temperature",
+        "nl": "Heatsink temperatuur"
       },
-      "measure_current.phase1": {
-        "title": {
-          "en": "AC Current phase1"
-        }
+      "decimals": 2
+    },
+    "meter_power": {
+      "title": {
+        "en": "Total Yield",
+        "nl": "Totale opbrengst"
       },
-      "measure_current.phase2": {
-        "title": {
-          "en": "AC Current phase2"
-        }
+      "decimals": 2
+    },
+    "meter_power.daily": {
+      "title": {
+        "en": "Total Day Yield",
+        "nl": "Totale dag opbrengst"
       },
-      "measure_current.phase3": {
-        "title": {
-          "en": "AC Current phase3"
-        }
-      },
-      "measure_current": {
-        "title": {
-          "en": "AC Current"
-        }
-      },
-      "measure_temperature.invertor": {
-        "title": {
-          "en": "Heatsink temperature",
-          "nl": "Heatsink temperatuur"
-        },
-        "decimals": 2
-      },
-      "meter_power": {
-        "title": {
-          "en": "Total Yield",
-          "nl": "Totale opbrengst"
-        },
-        "decimals": 2    
-      },
-      "meter_power.daily": {
-        "title": {
-          "en": "Total Day Yield",
-          "nl": "Totale dag opbrengst"
-        },
-        "decimals": 2,
-        "icon": "/assets/total_yield.svg"      
-      }              
-  },  
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    }
+  },
   "platforms": [
     "local"
   ],
-  "connectivity": [],
+  "connectivity": [
+    "lan"
+  ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.jpg",
     "large": "{{driverAssetsPath}}/images/large.jpg"
@@ -120,8 +122,8 @@
             "en": "Inverter ID",
             "nl": "Inverter ID"
           }
-        }          
+        }
       ]
     }
-  ]              
+  ]
 }

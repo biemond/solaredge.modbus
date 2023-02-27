@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "2.1.18",
+  "version": "2.1.19",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -1350,7 +1350,9 @@
       "platforms": [
         "local"
       ],
-      "connectivity": [],
+      "connectivity": [
+        "lan"
+      ],
       "images": {
         "small": "/drivers/invertor/assets/images/small.jpg",
         "large": "/drivers/invertor/assets/images/large.jpg"
@@ -1585,7 +1587,9 @@
       "platforms": [
         "local"
       ],
-      "connectivity": [],
+      "connectivity": [
+        "lan"
+      ],
       "images": {
         "small": "/drivers/invertorwithbatt/assets/images/small.jpg",
         "large": "/drivers/invertorwithbatt/assets/images/large.jpg"
