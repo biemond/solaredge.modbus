@@ -1,8 +1,9 @@
 {
     "pair": {
       "title": "Add Solaredge Inverter",
+      "title_growatt": "Add Growatt Inverter",
       "nosettings": "Please fill in all the required fields.",
-      "intro": "Enter the IP address and port of your Solaredge Inverter and set the polling frequency.",
+      "intro": "Enter the IP address and port of your inverter and set the polling frequency.",
       "address": "IP Address",
       "port": "Port",
       "polling": "Polling Frequency",

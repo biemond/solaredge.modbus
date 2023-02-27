@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "2.1.19",
+  "version": "3.0.1",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -9,10 +9,10 @@
     "local"
   ],
   "name": {
-    "en": "SolarEdge"
+    "en": "SolarEdge + Growatt"
   },
   "description": {
-    "en": "Monitor SolarEdge inverters over modbus protocol"
+    "en": "Monitor SolarEdge + Growatt inverters over modbus protocol"
   },
   "category": [
     "energy"
@@ -20,13 +20,17 @@
   "tags": {
     "en": [
       "solaredge",
+      "growatt",
       "inverter",
-      "solar"
+      "solar",
+      "modbus"
     ],
     "nl": [
       "Solaredge",
+      "growatt",
       "omvormer",
-      "zonnepanelen"
+      "zonnepanelen",
+      "modbus"
     ]
   },
   "bugs": {
@@ -1277,7 +1281,136 @@
   "drivers": [
     {
       "name": {
-        "en": "Inverter"
+        "en": "Growatt Inverter"
+      },
+      "class": "solarpanel",
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "capabilities": [
+        "measure_power",
+        "measure_current",
+        "measure_current.phase1",
+        "measure_current.phase2",
+        "measure_current.phase3",
+        "measure_temperature.invertor",
+        "invertorstatus",
+        "meter_power",
+        "meter_power.daily"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "decimals": 0,
+          "title": {
+            "en": "Solar Power"
+          }
+        },
+        "measure_current.phase1": {
+          "title": {
+            "en": "AC Current phase1"
+          }
+        },
+        "measure_current.phase2": {
+          "title": {
+            "en": "AC Current phase2"
+          }
+        },
+        "measure_current.phase3": {
+          "title": {
+            "en": "AC Current phase3"
+          }
+        },
+        "measure_current": {
+          "title": {
+            "en": "AC Current"
+          }
+        },
+        "measure_temperature.invertor": {
+          "title": {
+            "en": "Heatsink temperature",
+            "nl": "Heatsink temperatuur"
+          },
+          "decimals": 2
+        },
+        "meter_power": {
+          "title": {
+            "en": "Total Yield",
+            "nl": "Totale opbrengst"
+          },
+          "decimals": 2
+        },
+        "meter_power.daily": {
+          "title": {
+            "en": "Total Day Yield",
+            "nl": "Totale dag opbrengst"
+          },
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "small": "/drivers/growatt/assets/images/small.png",
+        "large": "/drivers/growatt/assets/images/large.png"
+      },
+      "pair": [
+        {
+          "id": "start"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Inverter settings"
+          },
+          "children": [
+            {
+              "id": "address",
+              "type": "text",
+              "value": "0.0.0.0",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "port",
+              "type": "number",
+              "value": 1502,
+              "step": 1,
+              "label": {
+                "en": "Port"
+              }
+            },
+            {
+              "id": "id",
+              "type": "number",
+              "value": 1,
+              "step": 1,
+              "attr": {
+                "min": 0,
+                "max": 50
+              },
+              "label": {
+                "en": "Inverter ID",
+                "nl": "Inverter ID"
+              }
+            }
+          ]
+        }
+      ],
+      "id": "growatt"
+    },
+    {
+      "name": {
+        "en": "Solaredge Inverter"
       },
       "class": "solarpanel",
       "energy": {
@@ -1407,7 +1540,7 @@
     },
     {
       "name": {
-        "en": "Inverter with storedge"
+        "en": "Solaredge + Storedge"
       },
       "class": "solarpanel",
       "energy": {

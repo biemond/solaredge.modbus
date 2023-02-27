@@ -1,6 +1,6 @@
 {
   "name": {
-    "en": "Solaredge Inverter"
+    "en": "Growatt Inverter"
   },
   "class": "solarpanel",
   "energy": {
@@ -17,8 +17,7 @@
     "measure_temperature.invertor",
     "invertorstatus",
     "meter_power",
-    "meter_power.daily",
-    "activepowerlimit"
+    "meter_power.daily"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -77,8 +76,8 @@
     "lan"
   ],
   "images": {
-    "small": "{{driverAssetsPath}}/images/small.jpg",
-    "large": "{{driverAssetsPath}}/images/large.jpg"
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
   },
   "pair": [
     {
