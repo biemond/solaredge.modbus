@@ -80,11 +80,6 @@ export class Growatt extends Homey.Device {
                 this.setCapabilityValue('measure_power.output', Math.round(acpower));
             }
 
-            if (result['current'] && result['current'].value != 'xxx') {
-                this.addCapability('measure_current');
-                var currenteac = Number(result['current'].value) * (Math.pow(10, Number(result['current'].scale)));
-                this.setCapabilityValue('measure_current', currenteac);
-            }
             if (result['l1_current'] && result['l1_current'].value != '-1' && result['l1_current'].value != 'xxx') {
                 this.addCapability('measure_current.phase1');
                 var currenteac1 = Number(result['l1_current'].value) * (Math.pow(10,  Number(result['l1_current'].scale)));

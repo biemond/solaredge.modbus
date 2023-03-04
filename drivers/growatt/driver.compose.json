@@ -12,7 +12,6 @@
     "measure_power",
     "measure_power.input",
     "measure_power.output",        
-    "measure_current",
     "measure_current.phase1",
     "measure_current.phase2",
     "measure_current.phase3",
