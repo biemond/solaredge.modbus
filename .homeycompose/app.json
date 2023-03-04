@@ -8,10 +8,10 @@
     "local"
   ],
   "name": {
-    "en": "SolarEdge + Growatt"
+    "en": "SolarEdge + Growatt TCP modbus"
   },
   "description": {
-    "en": "Monitor SolarEdge + Growatt inverters over modbus protocol"
+    "en": "Monitor SolarEdge + Growatt inverters over TCP modbus protocol"
   },
   "category": [
     "energy"
