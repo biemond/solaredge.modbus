@@ -32,12 +32,12 @@ class MyGrowattDevice extends Growatt {
         return Promise.resolve(result);
     })  
 
-    // flow conditions
-    let changedStatus = this.homey.flow.getConditionCard("changedStatus");
-    changedStatus.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('invertorstatus') == args.argument_main);
-      return Promise.resolve(result);
-    })  
+    // // flow conditions
+    // let changedStatus = this.homey.flow.getConditionCard("changedStatus");
+    // changedStatus.registerRunListener(async (args, state) => {
+    //   let result = (await this.getCapabilityValue('invertorstatus') == args.argument_main);
+    //   return Promise.resolve(result);
+    // })  
 
   }
 
