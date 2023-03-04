@@ -88,27 +88,27 @@ export async function checkRegisterGrowatt(registers: Object, client: InstanceTy
                 case 'UINT16':
                     resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
                     // console.log(key);
-                    // console.log( response.body);
+                    console.log( response.body);
                     break;
                 case 'UINT32':
                     resultValue = response.body.valuesAsArray[0].toString();
-                    // console.log( response.body);
+                    console.log( response.body);
                     break;
-                case 'ACC32':
-                    resultValue = response.body.valuesAsBuffer.readUInt32BE().toString();
-                    break;
-                case 'FLOAT':
-                    resultValue = response.body.valuesAsBuffer.readFloatBE().toString();
-                    break;
-                case 'STRING':
-                    resultValue = response.body.valuesAsBuffer.toString();
-                    break;
-                case 'INT16':
-                    resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
-                    break;
-                case 'FLOAT32':
-                    resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
-                    break;
+                // case 'ACC32':
+                //     resultValue = response.body.valuesAsBuffer.readUInt32BE().toString();
+                //     break;
+                // case 'FLOAT':
+                //     resultValue = response.body.valuesAsBuffer.readFloatBE().toString();
+                //     break;
+                // case 'STRING':
+                //     resultValue = response.body.valuesAsBuffer.toString();
+                //     break;
+                // case 'INT16':
+                //     resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
+                //     break;
+                // case 'FLOAT32':
+                //     resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
+                //     break;
                 default:
                     console.log(key + ": type not found " + value[2]);
                     break;
