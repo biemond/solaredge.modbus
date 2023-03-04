@@ -87,7 +87,7 @@ class MyGrowattDevice extends Growatt {
       'unitId': this.getSetting('id'),
       'timeout': 15,
       'autoReconnect': false,
-      'logLabel' : 'solaredge Inverter',
+      'logLabel' : 'Growatt Inverter',
       'logLevel': 'error',
       'logEnabled': true
     }    

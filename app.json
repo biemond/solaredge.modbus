@@ -1291,12 +1291,13 @@
       },
       "capabilities": [
         "measure_power",
+        "measure_power.input",
+        "measure_power.output",
         "measure_current",
         "measure_current.phase1",
         "measure_current.phase2",
         "measure_current.phase3",
         "measure_temperature.invertor",
-        "invertorstatus",
         "meter_power",
         "meter_power.daily"
       ],
@@ -1304,7 +1305,19 @@
         "measure_power": {
           "decimals": 0,
           "title": {
-            "en": "Solar Power"
+            "en": "Power"
+          }
+        },
+        "measure_power.input": {
+          "decimals": 0,
+          "title": {
+            "en": "Input Power"
+          }
+        },
+        "measure_power.output": {
+          "decimals": 0,
+          "title": {
+            "en": "Output Power"
           }
         },
         "measure_current.phase1": {
@@ -1322,11 +1335,6 @@
             "en": "AC Current phase3"
           }
         },
-        "measure_current": {
-          "title": {
-            "en": "AC Current"
-          }
-        },
         "measure_temperature.invertor": {
           "title": {
             "en": "Heatsink temperature",
@@ -1339,14 +1347,17 @@
             "en": "Total Yield",
             "nl": "Totale opbrengst"
           },
-          "decimals": 2
+          "decimals": 2,
+          "units": {
+            "en": "MWh"
+          }
         },
         "meter_power.daily": {
           "title": {
             "en": "Total Day Yield",
             "nl": "Totale dag opbrengst"
           },
-          "decimals": 2,
+          "decimals": 1,
           "icon": "/assets/total_yield.svg"
         }
       },

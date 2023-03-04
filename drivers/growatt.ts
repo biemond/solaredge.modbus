@@ -10,33 +10,46 @@ export class Growatt extends Homey.Device {
 
     registers: Object = {
 
-        // "current":    [0x9c87, 1, 'UINT16', "Current", -2 ], 
+        "l1_current": [39, 1, 'UINT16', "L1 Current", -1 ],         
+        "l2_current": [43, 1, 'UINT16', "L2 Current", -1 ],
+        "l3_current": [47, 1, 'UINT16', "L3 Current", -1 ], 
+
+        "temperature": [93, 1, 'UINT16', "Temperature", -1],
+
+        "status":      [0, 1, 'UINT16', "Status", 0],        
+        "inputPower":  [1, 2, 'UINT32', "Input Power", -1], 
+        "outputPower": [35 ,2, 'UINT32', "Output Power", -1 ], 
+        "power_ac":    [40, 2, 'UINT32', "Power", -1],
+
+        "pv1Voltage": [3 ,1, 'UINT16', "pv1 Voltage", -1 ],
+        "pv2Voltage": [7 ,1, 'UINT16', "pv2 Voltage", -1 ], 
 
 
-        "l1_current": [0x9c88, 1, 'UINT16', "L1 Current", -2 ], 
-        // "l1_current": [0x040F, 1, 'UINT16', "L1 Current", -1 ],         
-        // 39.	Iac1	Three/single phase grid output current		0.1A		78	1039	164	UINT	16	/10	A
+        "gridFrequency":     [37 ,1, 'UINT16', "Grid Frequency", -2 ],
+        "gridVoltage":       [38 ,1, 'UINT16', "Grid Voltage", -1 ],
+        "gridOutputCurrent": [39 ,1, 'UINT16', "Grid Output Current", -1 ],
+        "gridOutputPower":   [40 ,2, 'UINT32', "Grid Output Power", -1 ], 
+        "todayEnergy":       [53 ,2, 'UINT32', "Today Energy", -1 ], 
+        "totalEnergy":       [55 ,2, 'UINT32', "Total Energy", -1 ], 
 
-        "l2_current": [0x9c89, 1, 'UINT16', "L2 Current", -2 ],
-        // "l2_current": [0x0413, 1, 'UINT16', "L2 Current", -1 ],
-        // 43.	Iac2	Three phase grid output current		0.1A		86	1043	168	UINT	16	/10	A
 
-        "l3_current": [0x9c8a, 1, 'UINT16', "L3 Current", -2 ], 
-        // "l3_current": [0x0417, 1, 'UINT16', "L3 Current", -1 ], 
-        // 47.	Iac3	Three phase grid output current		0.1A		94	1047	172	UINT	16	/10	A        
+        // pv1Current: data[4] / 10.0, //A
+        // pv1InputPower: (data[5] << 16 | data[6]) / 10.0, //W
+        // pv2Voltage: data[7] / 10.0, //V
+        // pv2Current: data[8] / 10.0, //A
+        // pv2InputPower: (data[9] << 16 | data[10]) / 10.0, //W
 
-        "power_ac": [0x9c93, 1, 'INT16', "Power", -1],
-        // "power_ac": [0x0410, 2, 'UINT32', "Power", -1],
-        //40.	Pac1 H	Three/single phase grid output wattVA(high)		0.1VA		80	1040	165	UINT	32	/10	VA
-        //41.	Pac1 L	Three/single phase grid output watt VA(low)		0.1VA		82	1041	166				  
+        // pv1TodayEnergy: (data[59] << 16 | data[60]) / 10.0, //kWh
+        // pv1TotalEnergy: (data[61] << 16 | data[62]) / 10.0, //kWh
+        // pv2TodayEnergy: (data[63] << 16 | data[64]) / 10.0, //kWh
+        // pv2TotalEnergy: (data[65] << 16 | data[66]) / 10.0, //kWh
+        // pvEnergyTotal: (data[91] << 16 | data[92]) / 10.0, //kWh
 
-        "temperature": [0x9ca7, 1, 'INT16', "Temperature", -2],
-        // "temperature": [0x0445, 1, 'UINT16', "Temperature", -1],
-        //93.	Temp1	Inverter temperature		0.1C		186	1093	218	UINT	16	/10	C
+        // ipmTemperature: data[94] / 10.0, //°C
+        // inverterOutputPf: data[100], //powerfactor 0-20000
+        // error: errorMap[data[105]] || data[105],
+        // realPowerPercent: data[113] //% 0-100
 
-        // "status": [0x9cab, 1, 'UINT16', "Status", 0],
-        //0.	Inverter Status	Inverter run state	0:waiting, 1:normal, 3:fault			0	1000	125	UINT	16	BIN	
-        // "status": [0x03e8, 1, 'UINT16', "Status", 0],        
 
     };
 
@@ -53,6 +66,18 @@ export class Growatt extends Homey.Device {
                 this.addCapability('measure_power');
                 var acpower = Number(result['power_ac'].value) * (Math.pow(10, Number(result['power_ac'].scale)));
                 this.setCapabilityValue('measure_power', Math.round(acpower));
+            }
+
+            if (result['inputPower'] && result['inputPower'].value != 'xxx') {
+                this.addCapability('measure_power.input');
+                var acpower = Number(result['inputPower'].value) * (Math.pow(10, Number(result['inputPower'].scale)));
+                this.setCapabilityValue('measure_power.input', Math.round(acpower));
+            }
+
+            if (result['outputPower'] && result['outputPower'].value != 'xxx') {
+                this.addCapability('measure_power.output');
+                var acpower = Number(result['outputPower'].value) * (Math.pow(10, Number(result['outputPower'].scale)));
+                this.setCapabilityValue('measure_power.output', Math.round(acpower));
             }
 
             if (result['current'] && result['current'].value != 'xxx') {
@@ -81,29 +106,19 @@ export class Growatt extends Homey.Device {
                 var temperature = Number(result['temperature'].value) * (Math.pow(10, Number(result['temperature'].scale)));
                 this.setCapabilityValue('measure_temperature.invertor', temperature);
             }
-           
-            if (result['status'] && result['status'].value != 'xxx') {
-                if (parseInt(result['status'].value) < 9) {
-                    this.addCapability('invertorstatus');
-                    if (this.getCapabilityValue('invertorstatus') != result['status'].value) {
-                        let status_str: { [key: string]: string } = {
-                            "0": 'Undefined',
-                            '1': 'Off',
-                            '2': 'Sleeping',
-                            '3': 'Grid Monitoring',
-                            '4': 'Producing',
-                            '5': 'Producing (Throttled)',
-                            '6': 'Shutting Down',
-                            '7': 'Fault',
-                            '8': 'Maintenance'
-                        }
-                        // console.log(this.driver.id);
-                        // console.log(status_str[result['status'].value]);
-                        this.homey.flow.getDeviceTriggerCard('changedStatus').trigger(this, { status: status_str[result['status'].value] }, {});
-                    }
-                    this.setCapabilityValue('invertorstatus', result['status'].value);
-                }
+
+            if (result['todayEnergy'] && result['todayEnergy'].value != 'xxx') {
+                this.addCapability('meter_power.daily');
+                var total = Number(result['todayEnergy'].value) * (Math.pow(10, Number(result['todayEnergy'].scale)));
+                this.setCapabilityValue('meter_power.daily', total);
             }
+
+            if (result['totalEnergy'] && result['totalEnergy'].value != 'xxx') {
+                this.addCapability('meter_power');
+                var total = Number(result['totalEnergy'].value) * (Math.pow(10, Number(result['totalEnergy'].scale)));
+                this.setCapabilityValue('meter_power', total / 1000);
+            }
+
         }
     }
 }

@@ -1,13 +1,13 @@
-Homey app to receive realtime data from your SolarEdge solar installation using local Modbus TCP
+Homey app to receive realtime data from your SolarEdge or Growatt solar installation using local Modbus TCP
 
 ## Purpose
 The difference of this app and the already existing solar panels app is that this app reads the data directly from the inverter.
 The SolarEdge api is only limited to 300 calls/ day, so you get only updates every 10-15 minutes.
 
 The modbus app receives data every few seconds.
-If you have the SolarEdge energy monitor installed you can maximize your self-consumption and limit your exported power by using it. You can make flows based on your generated solar power, exported power, imported power or current power consumption.
+If you have an energy monitor installed you can maximize your self-consumption and limit your exported power by using it. You can make flows based on your generated solar power, exported power, imported power or current power consumption.
 
-The iOS / android app from SolarEdge is fine, so it is not the purpose to create this app again.
+The iOS / android app from SolarEdge or Growatt is fine, so it is not the purpose to create this app again.
 
 ## Supported devices
 Following devices are supported
