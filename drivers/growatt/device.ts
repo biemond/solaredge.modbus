@@ -1,11 +1,11 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import {Solaredge}     from '../solaredge';
-import {checkRegister} from '../response';
+import {checkRegisterGrowatt} from '../response';
+import { Growatt } from '../growatt';
 
 const RETRY_INTERVAL = 28 * 1000; 
 
-class MyGrowattDevice extends Solaredge {
+class MyGrowattDevice extends Growatt {
   timer!: NodeJS.Timer;  
   /**
    * onInit is called when the device is initialized.
@@ -102,7 +102,7 @@ class MyGrowattDevice extends Solaredge {
       console.log('Connected ...');
       console.log(modbusOptions);
 
-      const checkRegisterRes = await checkRegister(this.registers, client);
+      const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
       console.log('disconnect'); 
       client.socket.end();
       socket.end();

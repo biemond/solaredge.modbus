@@ -240,6 +240,10 @@ export class Solaredge extends Homey.Device {
             if (result['power_ac'] && result['power_ac'].value != 'xxx') {
                 this.addCapability('measure_power');
                 var acpower = Number(result['power_ac'].value) * (Math.pow(10, Number(result['power_ac'].scale)));
+                // console.log( Number(result['power_ac'].value));
+                // console.log( Math.pow(10, Number(result['power_ac'].scale)));
+                // console.log( acpower );
+
                 this.setCapabilityValue('measure_power', Math.round(acpower));
             }
 

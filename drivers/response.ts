@@ -69,6 +69,65 @@ export async function checkRegister(registers: Object, client: InstanceType<type
 }
 
 
+export async function checkRegisterGrowatt(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
+    let result: Record<string, Measurement> = {};
+    for (const [key, value] of Object.entries(registers)) {
+        try {
+            const res = client.readHoldingRegisters(value[0], value[1])
+            const actualRes = await res;
+            // const metrics = actualRes.metrics;
+            // const request = actualRes.request;
+            const response = actualRes.response;
+            const measurement: Measurement = {
+                value: 'xxx',
+                scale: value[4],
+                label: value[3],
+            };
+            let resultValue: string = 'xxx';
+            switch (value[2]) {
+                case 'UINT16':
+                    resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
+                    // console.log(key);
+                    // console.log( response.body);
+                    break;
+                case 'UINT32':
+                    resultValue = response.body.valuesAsArray[0].toString();
+                    // console.log( response.body);
+                    break;
+                case 'ACC32':
+                    resultValue = response.body.valuesAsBuffer.readUInt32BE().toString();
+                    break;
+                case 'FLOAT':
+                    resultValue = response.body.valuesAsBuffer.readFloatBE().toString();
+                    break;
+                case 'STRING':
+                    resultValue = response.body.valuesAsBuffer.toString();
+                    break;
+                case 'INT16':
+                    resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
+                    break;
+                case 'FLOAT32':
+                    resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
+                    break;
+                default:
+                    console.log(key + ": type not found " + value[2]);
+                    break;
+            }
+            if (resultValue) {
+                measurement.value = resultValue;
+            }
+            result[key] = measurement;
+
+        } catch (err) {
+            console.log("error with key: " + key);
+            // console.log(err);
+        }
+    }
+
+    console.log('checkRegister result');
+    return result;
+}
+
 export async function checkMeter(meter_dids: Object, meter_registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
     let result: Record<string, Measurement> = {};
     for (const [key, value] of Object.entries(meter_dids)) {
