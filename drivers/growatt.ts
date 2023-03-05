@@ -170,9 +170,12 @@ export class Growatt extends Homey.Device {
 
             if (result['battsoc'] && result['battsoc'].value != 'xxx') {
                 this.addCapability('battery');
+                this.addCapability('measure_battery');
                 var temperature = Number(result['battsoc'].value) * (Math.pow(10, Number(result['battsoc'].scale)));
                 this.setCapabilityValue('battery', temperature);
+                this.setCapabilityValue('measure_battery', temperature);
             }
+            
             if (result['bmshealth'] && result['bmshealth'].value != 'xxx') {
                 this.addCapability('batterysoh');
                 var temperature = Number(result['bmshealth'].value) * (Math.pow(10, Number(result['bmshealth'].scale)));

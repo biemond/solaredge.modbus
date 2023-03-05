@@ -26,6 +26,7 @@
     "meter_power.pv2TodayEnergy", 
     "meter_power.pv2TotalEnergy",
     "battery",
+    "measure_battery",
     "batterysoh",
     "measure_power.batt_charge",
     "measure_power.batt_discharge",
@@ -36,7 +37,7 @@
     "measure_power": {
       "decimals": 0,
       "title": {
-        "en": "Power"
+        "en": "Solar/Batt Power"
       }
     },
     "measure_power.input": {
