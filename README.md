@@ -7,20 +7,22 @@ The SolarEdge api is only limited to 300 calls/ day, so you get only updates eve
 The modbus app receives data every few seconds.
 If you have an energy monitor installed you can maximize your self-consumption and limit your exported power by using it. You can make flows based on your generated solar power, exported power, imported power or current power consumption.
 
-The iOS / android app from SolarEdge or Growatt is fine, so it is not the purpose to create this app again.
+The iOS / android app from SolarEdge or Growatt are fine, so it is not the purpose to create this app again.
 
 ## Supported devices
 Following devices are supported
 - Inverters with SetApp and with display
 - Modbus energy Meter
 - Storedge devices (DC connected battery storage)
+- Growatt - SPH 8000TL3 BH-UP Hybrid Inverter and others in the same range
 
 ## Inverters
 Modbus TCP is disabled by default on all inverters, you have to enable this function
 Important: The TCP server idle time is 2 minutes after starting. In order to leave the connection open, the request should be made
 within 2 minutes. The connection can remain open without any MODBUS requests.
 General information can be found at:
-https://www.SolarEdge.com/sites/default/files/sunspec-implementation-technical-note.pdf
+- https://www.SolarEdge.com/sites/default/files/sunspec-implementation-technical-note.pdf
+- https://www.photovoltaikforum.com/core/attachment/265072-pdfcoffee-com-growatt-inverter-modbus-rtu-protocolii-v120-english-pdf-free-pdf/
 
 ## Inverters with SetApp
 Enable wifi direct on the inverter. Connect to the inverter access point like you would for a normal wifi network. The wifi password is published at the right side of the inverter. Then open up a browser and go to http://172.16.0.1 . From this webpage you can enable modbus TCP without setApp or installer account.

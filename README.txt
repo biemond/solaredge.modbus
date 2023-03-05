@@ -12,4 +12,4 @@ Following devices are supported
 - Solaredge Inverters with SetApp and with display
 - Modbus energy Meter
 - Solaredge StorEdge devices (DC connected battery storage)
-- Growatt inverter
+- Growatt - SPH 8000TL3 BH-UP Hybrid Inverter and others in the same range

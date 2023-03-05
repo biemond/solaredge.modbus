@@ -11,13 +11,26 @@
   "capabilities": [
     "measure_power",
     "measure_power.input",
-    "measure_power.output",        
+    "measure_power.gridoutput",
+    "measure_power.pv1input",
+    "measure_power.pv2input",        
     "measure_current.phase1",
     "measure_current.phase2",
     "measure_current.phase3",
     "measure_temperature.invertor",
+    "measure_temperature.battery",
     "meter_power",
-    "meter_power.daily"
+    "meter_power.daily",
+    "meter_power.pv1TodayEnergy", 
+    "meter_power.pv1TotalEnergy", 
+    "meter_power.pv2TodayEnergy", 
+    "meter_power.pv2TotalEnergy",
+    "battery",
+    "batterysoh",
+    "measure_power.batt_charge",
+    "measure_power.batt_discharge",
+    "batterystatus",
+    "batterycycles"            
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -29,13 +42,25 @@
     "measure_power.input": {
       "decimals": 0,
       "title": {
-        "en": "Input Power"
+        "en": "Solar input"
       }
     },
-    "measure_power.output": {
+    "measure_power.pv1input": {
       "decimals": 0,
       "title": {
-        "en": "Output Power"
+        "en": "PV1 input"
+      }
+    },
+    "measure_power.pv2input": {
+      "decimals": 0,
+      "title": {
+        "en": "PV2 input"
+      }
+    },        
+    "measure_power.gridoutput": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid output"
       }
     },        
     "measure_current.phase1": {
@@ -60,16 +85,42 @@
       },
       "decimals": 2
     },
+    "measure_temperature.battery": {
+      "title": {
+        "en": "Battery temperature"
+      },
+      "decimals": 2
+    },    
     "meter_power": {
       "title": {
         "en": "Total Yield",
         "nl": "Totale opbrengst"
       },
-      "decimals": 2,
       "units": {
         "en": "MWh"
-      }      
+      },         
+      "decimals": 2   
     },
+    "meter_power.pv1TotalEnergy": {
+      "title": {
+        "en": "Total PV1 Yield",
+        "nl": "Totale PV1 opbrengst"
+      },
+      "units": {
+        "en": "MWh"
+      },         
+      "decimals": 2   
+    },
+    "meter_power.pv2TotalEnergy": {
+      "title": {
+        "en": "Total PV2 Yield",
+        "nl": "Totale PV2 opbrengst"
+      },
+      "units": {
+        "en": "MWh"
+      },         
+      "decimals": 2   
+    },        
     "meter_power.daily": {
       "title": {
         "en": "Total Day Yield",
@@ -77,7 +128,35 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    }
+    },
+    "meter_power.pv1TodayEnergy": {
+      "title": {
+        "en": "Total PV1 Day Yield",
+        "nl": "Totale PV1 dag opbrengst"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.pv2TodayEnergy": {
+      "title": {
+        "en": "Total PV2 Day Yield",
+        "nl": "Totale PV2 dag opbrengst"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "measure_power.batt_discharge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power discharge"
+      }
+    },
+    "measure_power.batt_charge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power charge"
+      }
+    }       
   },
   "platforms": [
     "local"

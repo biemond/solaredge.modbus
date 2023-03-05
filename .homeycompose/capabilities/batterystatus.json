@@ -1,0 +1,12 @@
+{
+    "type": "number",
+    "title": {
+        "en": "Battery status"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "uiQuickAction": false,
+    "icon": "/assets/operational_status.svg",
+    "decimals": 0
+}
