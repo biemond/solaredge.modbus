@@ -31,7 +31,9 @@
     "measure_power.batt_charge",
     "measure_power.batt_discharge",
     "batterystatus",
-    "batterycycles"            
+    "batterycycles",
+    "measure_voltage.meter",
+    "measure_voltage.battery"            
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -97,30 +99,21 @@
         "en": "Total Yield",
         "nl": "Totale opbrengst"
       },
-      "units": {
-        "en": "MWh"
-      },         
-      "decimals": 2   
+      "decimals": 1   
     },
     "meter_power.pv1TotalEnergy": {
       "title": {
         "en": "Total PV1 Yield",
         "nl": "Totale PV1 opbrengst"
       },
-      "units": {
-        "en": "MWh"
-      },         
-      "decimals": 2   
+      "decimals": 1   
     },
     "meter_power.pv2TotalEnergy": {
       "title": {
         "en": "Total PV2 Yield",
         "nl": "Totale PV2 opbrengst"
       },
-      "units": {
-        "en": "MWh"
-      },         
-      "decimals": 2   
+      "decimals": 1   
     },        
     "meter_power.daily": {
       "title": {
@@ -157,7 +150,17 @@
       "title": {
         "en": "Battery Power charge"
       }
-    }       
+    },
+    "measure_voltage.meter": {
+      "title": {
+        "en": "Meter AC Voltage"
+      }
+    },
+    "measure_voltage.battery": {
+      "title": {
+        "en": "Battery Voltage"
+      }
+    }               
   },
   "platforms": [
     "local"
