@@ -1,13 +1,13 @@
 {
   "name": {
-    "en": "Growatt Inverter"
+    "en": "Growatt + Battery"
   },
   "class": "solarpanel",
   "energy": {
     "batteries": [
       "OTHER"
     ]
-  },
+  },  
   "capabilities": [
     "measure_power",
     "measure_power.input",
@@ -18,19 +18,28 @@
     "measure_current.phase2",
     "measure_current.phase3",
     "measure_temperature.invertor",
+    "measure_temperature.battery",
     "meter_power",
     "meter_power.daily",
     "meter_power.pv1TodayEnergy", 
     "meter_power.pv1TotalEnergy", 
     "meter_power.pv2TodayEnergy", 
     "meter_power.pv2TotalEnergy",
-    "measure_voltage.meter"
+    "battery",
+    "measure_battery",
+    "batterysoh",
+    "measure_power.batt_charge",
+    "measure_power.batt_discharge",
+    "batterystatus",
+    "batterycycles",
+    "measure_voltage.meter",
+    "measure_voltage.battery"            
   ],
   "capabilitiesOptions": {
     "measure_power": {
       "decimals": 0,
       "title": {
-        "en": "Solar Power"
+        "en": "Solar/Batt Power"
       }
     },
     "measure_power.input": {
@@ -79,6 +88,12 @@
       },
       "decimals": 2
     },
+    "measure_temperature.battery": {
+      "title": {
+        "en": "Battery temperature"
+      },
+      "decimals": 2
+    },    
     "meter_power": {
       "title": {
         "en": "Total Yield",
@@ -124,11 +139,28 @@
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
     },
+    "measure_power.batt_discharge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power discharge"
+      }
+    },
+    "measure_power.batt_charge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power charge"
+      }
+    },
     "measure_voltage.meter": {
       "title": {
         "en": "Meter AC Voltage"
       }
-    }
+    },
+    "measure_voltage.battery": {
+      "title": {
+        "en": "Battery Voltage"
+      }
+    }               
   },
   "platforms": [
     "local"

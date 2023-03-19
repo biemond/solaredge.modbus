@@ -56,7 +56,7 @@
   "2.0.5": {
     "en": "refactored release for sdk 3, please re-add device, non blocking socket"
   },
-  "3.0.6": {
+  "3.0.7": {
     "en": "Support for growatt inverters"
   }
 }
