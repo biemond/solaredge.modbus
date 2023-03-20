@@ -12,4 +12,4 @@ Following devices are supported
 - Solaredge Inverters with SetApp and with display
 - Modbus energy Meter
 - Solaredge StorEdge devices (DC connected battery storage)
-- Growatt - SPHxxx series Hybrid Inverter and others in the same range, follow this doc  this doc https://www.dropbox.com/s/584915enkxc508u/Setup%20Growatt.pdf?dl=0
+- Growatt - SPHxxx series Hybrid Inverter and others in the same range, follow this doc https://www.dropbox.com/s/584915enkxc508u/Setup%20Growatt.pdf?dl=0
