@@ -69,6 +69,51 @@ export async function checkRegister(registers: Object, client: InstanceType<type
 }
 
 
+export async function checkRegisterGrowatt(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
+    let result: Record<string, Measurement> = {};
+
+    for (const [key, value] of Object.entries(registers)) {
+        try {
+
+            const res = client.readInputRegisters(value[0], value[1])
+            const actualRes = await res;
+            // const metrics = actualRes.metrics;
+            // const request = actualRes.request;
+            const response = actualRes.response;
+            const measurement: Measurement = {
+                value: 'xxx',
+                scale: value[4],
+                label: value[3],
+            };
+            let resultValue: string = 'xxx';
+            switch (value[2]) {
+                case 'UINT16':
+                    resultValue = response.body.valuesAsArray[0].toString();
+                    console.log(key);
+                    break;
+                case 'UINT32':
+                    resultValue = (response.body.valuesAsArray[0]  << 16 | response.body.valuesAsArray[1]).toString();
+                    console.log(key);
+                    break;
+                default:
+                    console.log(key + ": type not found " + value[2]);
+                    break;
+            }
+            if (resultValue) {
+                measurement.value = resultValue;
+            }
+            result[key] = measurement;
+
+        } catch (err) {
+            console.log("error with key: " + key);
+            // console.log(err);
+        }
+    }
+
+    console.log('checkRegister result');
+    return result;
+}
+
 export async function checkMeter(meter_dids: Object, meter_registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
     let result: Record<string, Measurement> = {};
     for (const [key, value] of Object.entries(meter_dids)) {
@@ -183,12 +228,11 @@ export async function checkBattery(battery_dids: Object, batt_registers: Object,
                                         resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
                                         break;
                                     case 'UINT32':
-                                        // console.log(response.body.valuesAsArray);
-                                        // console.log(response.body.valuesAsBuffer);
                                         resultValue = response.body.valuesAsArray[0].toString();
                                         break;
                                     case 'UINT64':
-                                        resultValue = response.body.valuesAsBuffer.readBigUInt64LE().toString();
+                                        resultValue = response.body.valuesAsArray[0].toString();
+                                        // resultValue = response.body.valuesAsBuffer.readBigUInt64LE().toString();
                                         break;
                                     default:
                                         console.log(key2 + ": type not found " + value2[2]);

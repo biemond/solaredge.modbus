@@ -1,59 +1,62 @@
 {
   "2.1.19": {
     "en": "Small fixes"
-  },  
+  },
   "2.1.18": {
     "en": "Smpl capabilities + change trigger for most of them"
-  },   
+  },
   "2.1.17": {
     "en": "2 decimals for meter total values + fix daily"
-  },    
+  },
   "2.1.16": {
     "en": "2 decimals for meter total values"
-  },    
+  },
   "2.1.15": {
     "en": "fix daily reset for other areas, remove mesaure_power capability for flows"
-  },     
+  },
   "2.1.14": {
     "en": "remove mesaure_power capability for flows"
-  },   
+  },
   "2.1.13": {
     "en": "Add capability definitions + fix stacktraces"
-  },    
+  },
   "2.1.12": {
     "en": "Allow 0W as export limit + fix stacktraces"
-  },    
+  },
   "2.1.11": {
     "en": "Allow 0W as export limit"
-  },   
+  },
   "2.1.10": {
     "en": "daily meter power, spelling fixes"
-  },     
+  },
   "2.1.9": {
     "en": "performance boost (disable meter2,3 and batt2) takes 4 seconds to measure, polling back to 30 sec, added import control action plus flow, control min import even with battery"
-  },   
+  },
   "2.1.6": {
     "en": "added inverter and meter1 current caps"
-  },    
+  },
   "2.1.5": {
     "en": "active power, export limit control for batt or meters (action + flows)"
-  },   
+  },
   "2.0.13": {
     "en": "adding owncomsumption for battery inverters, export, import & consumption triggers"
-  },    
+  },
   "2.0.12": {
     "en": "better error handling"
-  },   
+  },
   "2.0.11": {
     "en": "better error handling"
-  },     
+  },
   "2.0.8": {
     "en": "adding flow status triggers and conditions"
-  },   
+  },
   "2.0.6": {
     "en": "adding Total Yield for all devices, total import + export when there is a meter installed"
-  }, 
+  },
   "2.0.5": {
     "en": "refactored release for sdk 3, please re-add device, non blocking socket"
+  },
+  "3.0.7": {
+    "en": "Support for growatt inverters"
   }
-}    
+}

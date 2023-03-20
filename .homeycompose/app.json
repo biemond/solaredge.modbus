@@ -1,6 +1,6 @@
 {
   "id": "solaredge.modbus",
-  "version": "2.1.19",
+  "version": "3.0.7",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -8,10 +8,10 @@
     "local"
   ],
   "name": {
-    "en": "SolarEdge"
+    "en": "SolarEdge + Growatt TCP modbus"
   },
   "description": {
-    "en": "Monitor SolarEdge inverters over modbus protocol"
+    "en": "Monitor SolarEdge + Growatt inverters over TCP modbus protocol"
   },
   "category": [
     "energy"
@@ -19,13 +19,17 @@
   "tags": {
     "en": [
       "solaredge",
+      "growatt",      
       "inverter",
-      "solar"
+      "solar",
+      "modbus"
     ],
     "nl": [
       "Solaredge",
+      "growatt",      
       "omvormer",
-      "zonnepanelen"
+      "zonnepanelen",
+      "modbus"      
     ]
   },
   "bugs": {

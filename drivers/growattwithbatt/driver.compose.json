@@ -1,0 +1,221 @@
+{
+  "name": {
+    "en": "Growatt + Battery"
+  },
+  "class": "solarpanel",
+  "energy": {
+    "batteries": [
+      "OTHER"
+    ]
+  },  
+  "capabilities": [
+    "measure_power",
+    "measure_power.input",
+    "measure_power.gridoutput",
+    "measure_power.pv1input",
+    "measure_power.pv2input",        
+    "measure_current.phase1",
+    "measure_current.phase2",
+    "measure_current.phase3",
+    "measure_temperature.invertor",
+    "measure_temperature.battery",
+    "meter_power",
+    "meter_power.daily",
+    "meter_power.pv1TodayEnergy", 
+    "meter_power.pv1TotalEnergy", 
+    "meter_power.pv2TodayEnergy", 
+    "meter_power.pv2TotalEnergy",
+    "battery",
+    "measure_battery",
+    "batterysoh",
+    "measure_power.batt_charge",
+    "measure_power.batt_discharge",
+    "batterystatus",
+    "batterycycles",
+    "measure_voltage.meter",
+    "measure_voltage.battery"            
+  ],
+  "capabilitiesOptions": {
+    "measure_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar/Batt Power"
+      }
+    },
+    "measure_power.input": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar input"
+      }
+    },
+    "measure_power.pv1input": {
+      "decimals": 0,
+      "title": {
+        "en": "PV1 input"
+      }
+    },
+    "measure_power.pv2input": {
+      "decimals": 0,
+      "title": {
+        "en": "PV2 input"
+      }
+    },        
+    "measure_power.gridoutput": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid output"
+      }
+    },        
+    "measure_current.phase1": {
+      "title": {
+        "en": "AC Current phase1"
+      }
+    },
+    "measure_current.phase2": {
+      "title": {
+        "en": "AC Current phase2"
+      }
+    },
+    "measure_current.phase3": {
+      "title": {
+        "en": "AC Current phase3"
+      }
+    },
+    "measure_temperature.invertor": {
+      "title": {
+        "en": "Heatsink temperature",
+        "nl": "Heatsink temperatuur"
+      },
+      "decimals": 2
+    },
+    "measure_temperature.battery": {
+      "title": {
+        "en": "Battery temperature"
+      },
+      "decimals": 2
+    },    
+    "meter_power": {
+      "title": {
+        "en": "Total Yield",
+        "nl": "Totale opbrengst"
+      },
+      "decimals": 1   
+    },
+    "meter_power.pv1TotalEnergy": {
+      "title": {
+        "en": "Total PV1 Yield",
+        "nl": "Totale PV1 opbrengst"
+      },
+      "decimals": 1   
+    },
+    "meter_power.pv2TotalEnergy": {
+      "title": {
+        "en": "Total PV2 Yield",
+        "nl": "Totale PV2 opbrengst"
+      },
+      "decimals": 1   
+    },        
+    "meter_power.daily": {
+      "title": {
+        "en": "Total Day Yield",
+        "nl": "Totale dag opbrengst"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.pv1TodayEnergy": {
+      "title": {
+        "en": "Total PV1 Day Yield",
+        "nl": "Totale PV1 dag opbrengst"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.pv2TodayEnergy": {
+      "title": {
+        "en": "Total PV2 Day Yield",
+        "nl": "Totale PV2 dag opbrengst"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "measure_power.batt_discharge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power discharge"
+      }
+    },
+    "measure_power.batt_charge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power charge"
+      }
+    },
+    "measure_voltage.meter": {
+      "title": {
+        "en": "Meter AC Voltage"
+      }
+    },
+    "measure_voltage.battery": {
+      "title": {
+        "en": "Battery Voltage"
+      }
+    }               
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
+  "pair": [
+    {
+      "id": "start"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Inverter settings"
+      },
+      "children": [
+        {
+          "id": "address",
+          "type": "text",
+          "value": "0.0.0.0",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "value": 1502,
+          "step": 1,
+          "label": {
+            "en": "Port"
+          }
+        },
+        {
+          "id": "id",
+          "type": "number",
+          "value": 1,
+          "step": 1,
+          "attr": {
+            "min": 0,
+            "max": 50
+          },
+          "label": {
+            "en": "Inverter ID",
+            "nl": "Inverter ID"
+          }
+        }
+      ]
+    }
+  ]
+}

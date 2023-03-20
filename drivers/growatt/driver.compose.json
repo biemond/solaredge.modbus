@@ -1,6 +1,6 @@
 {
   "name": {
-    "en": "Solaredge Inverter"
+    "en": "Growatt Inverter"
   },
   "class": "solarpanel",
   "energy": {
@@ -10,15 +10,21 @@
   },
   "capabilities": [
     "measure_power",
-    "measure_current",
+    "measure_power.input",
+    "measure_power.gridoutput",
+    "measure_power.pv1input",
+    "measure_power.pv2input",        
     "measure_current.phase1",
     "measure_current.phase2",
     "measure_current.phase3",
     "measure_temperature.invertor",
-    "invertorstatus",
     "meter_power",
     "meter_power.daily",
-    "activepowerlimit"
+    "meter_power.pv1TodayEnergy", 
+    "meter_power.pv1TotalEnergy", 
+    "meter_power.pv2TodayEnergy", 
+    "meter_power.pv2TotalEnergy",
+    "measure_voltage.meter"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -27,6 +33,30 @@
         "en": "Solar Power"
       }
     },
+    "measure_power.input": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar input"
+      }
+    },
+    "measure_power.pv1input": {
+      "decimals": 0,
+      "title": {
+        "en": "PV1 input"
+      }
+    },
+    "measure_power.pv2input": {
+      "decimals": 0,
+      "title": {
+        "en": "PV2 input"
+      }
+    },        
+    "measure_power.gridoutput": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid output"
+      }
+    },        
     "measure_current.phase1": {
       "title": {
         "en": "AC Current phase1"
@@ -42,11 +72,6 @@
         "en": "AC Current phase3"
       }
     },
-    "measure_current": {
-      "title": {
-        "en": "AC Current"
-      }
-    },
     "measure_temperature.invertor": {
       "title": {
         "en": "Heatsink temperature",
@@ -59,15 +84,50 @@
         "en": "Total Yield",
         "nl": "Totale opbrengst"
       },
-      "decimals": 2
+      "decimals": 1   
     },
+    "meter_power.pv1TotalEnergy": {
+      "title": {
+        "en": "Total PV1 Yield",
+        "nl": "Totale PV1 opbrengst"
+      },
+      "decimals": 1   
+    },
+    "meter_power.pv2TotalEnergy": {
+      "title": {
+        "en": "Total PV2 Yield",
+        "nl": "Totale PV2 opbrengst"
+      },
+      "decimals": 1   
+    },        
     "meter_power.daily": {
       "title": {
         "en": "Total Day Yield",
         "nl": "Totale dag opbrengst"
       },
-      "decimals": 2,
+      "decimals": 1,
       "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.pv1TodayEnergy": {
+      "title": {
+        "en": "Total PV1 Day Yield",
+        "nl": "Totale PV1 dag opbrengst"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.pv2TodayEnergy": {
+      "title": {
+        "en": "Total PV2 Day Yield",
+        "nl": "Totale PV2 dag opbrengst"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "measure_voltage.meter": {
+      "title": {
+        "en": "Meter AC Voltage"
+      }
     }
   },
   "platforms": [
@@ -77,8 +137,8 @@
     "lan"
   ],
   "images": {
-    "small": "{{driverAssetsPath}}/images/small.jpg",
-    "large": "{{driverAssetsPath}}/images/large.jpg"
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
   },
   "pair": [
     {
