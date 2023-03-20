@@ -14,7 +14,7 @@ Following devices are supported
 - Inverters with SetApp and with display
 - Modbus energy Meter
 - Storedge devices (DC connected battery storage)
-- Growatt - SPH 8000TL3 BH-UP Hybrid Inverter and others in the same range
+- Growatt - SPH XXX Hybrid Inverter and others in the same range
 
 ## Inverters
 Modbus TCP is disabled by default on all inverters, you have to enable this function
@@ -24,10 +24,10 @@ General information can be found at:
 - https://www.SolarEdge.com/sites/default/files/sunspec-implementation-technical-note.pdf
 - https://www.photovoltaikforum.com/core/attachment/265072-pdfcoffee-com-growatt-inverter-modbus-rtu-protocolii-v120-english-pdf-free-pdf/
 
-## Inverters with SetApp
+## Solaredge Inverters with SetApp
 Enable wifi direct on the inverter. Connect to the inverter access point like you would for a normal wifi network. The wifi password is published at the right side of the inverter. Then open up a browser and go to http://172.16.0.1 . From this webpage you can enable modbus TCP without setApp or installer account.
 
-## Inverters with display (without SetApp)
+## Solaredge Inverters with display (without SetApp)
 Your CPU firmware has to be at least v 3.xxxx, if this is not the case, upgrade your firmware.
 https://www.SolarEdge.com/sites/default/files/upgrading_an_inverter_using_micro_sd_card.pdf
 Go to the menu by the following steps:
@@ -36,6 +36,9 @@ Go to the menu by the following steps:
 - The screen will ask a password, this is '12312312' (the 2nd button from the left is '1', the 3rd button is '2', etc...)
 - Go to Communication --> LAN Conf --> Modbus TCP (the default port is 502).
 - To modify the TCP port, select Modbus TCP --> TCP Port, set the port number and long-press Enter
+
+## Growatt inverters
+Please do the following on Growatt described in this doc https://www.dropbox.com/s/584915enkxc508u/Setup%20Growatt.pdf?dl=0
 
 ## Support topic
 For support please use the official support topic on the forum [here](https://community.athom.com/t/app-SolarEdge/45487).

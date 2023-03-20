@@ -392,7 +392,7 @@ export class Solaredge extends Homey.Device {
                 this.setCapabilityValue('meter_power.export', totalexport / 1000);
             }
 
-            if (this.validResultRecord(result['meter1-import_energy_active'])) {
+            if (this.validResultRecord(result['meter1-import_energy_active']) && this.validResultScaleRecord(result['meter1-export_energy_active']) ) {
                 this.addCapability('meter_power.import');
                 var totalimport = Number(result['meter1-import_energy_active'].value) * (Math.pow(10, Number(result['meter1-export_energy_active'].scale)));
                 this.setCapabilityValue('meter_power.import', totalimport / 1000);

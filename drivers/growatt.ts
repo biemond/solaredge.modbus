@@ -75,32 +75,32 @@ export class Growatt extends Homey.Device {
             
             if (result['outputPower'] && result['outputPower'].value != 'xxx') {
                 this.addCapability('measure_power');
-                var acpower = Number(result['outputPower'].value) * (Math.pow(10, Number(result['outputPower'].scale)));
-                this.setCapabilityValue('measure_power', Math.round(acpower));
+                var outputPower = Number(result['outputPower'].value) * (Math.pow(10, Number(result['outputPower'].scale)));
+                this.setCapabilityValue('measure_power', Math.round(outputPower));
             }
 
             if (result['gridOutputPower'] && result['gridOutputPower'].value != 'xxx') {
                 this.addCapability('measure_power.gridoutput');
-                var acpower = Number(result['gridOutputPower'].value) * (Math.pow(10, Number(result['gridOutputPower'].scale)));
-                this.setCapabilityValue('measure_power.gridoutput', Math.round(acpower));
+                var gridOutputPower = Number(result['gridOutputPower'].value) * (Math.pow(10, Number(result['gridOutputPower'].scale)));
+                this.setCapabilityValue('measure_power.gridoutput', Math.round(gridOutputPower));
             }
 
             if (result['inputPower'] && result['inputPower'].value != 'xxx') {
                 this.addCapability('measure_power.input');
-                var acpower = Number(result['inputPower'].value) * (Math.pow(10, Number(result['inputPower'].scale)));
-                this.setCapabilityValue('measure_power.input', Math.round(acpower));
+                var inputPower = Number(result['inputPower'].value) * (Math.pow(10, Number(result['inputPower'].scale)));
+                this.setCapabilityValue('measure_power.input', Math.round(inputPower));
             }
 
             if (result['pv1InputPower'] && result['pv1InputPower'].value != 'xxx') {
                 this.addCapability('measure_power.pv1input');
-                var acpower = Number(result['pv1InputPower'].value) * (Math.pow(10, Number(result['pv1InputPower'].scale)));
-                this.setCapabilityValue('measure_power.pv1input', Math.round(acpower));
+                var pv1InputPower = Number(result['pv1InputPower'].value) * (Math.pow(10, Number(result['pv1InputPower'].scale)));
+                this.setCapabilityValue('measure_power.pv1input', Math.round(pv1InputPower));
             }
 
             if (result['pv2InputPower'] && result['pv2InputPower'].value != 'xxx') {
                 this.addCapability('measure_power.pv2input');
-                var acpower = Number(result['pv2InputPower'].value) * (Math.pow(10, Number(result['pv2InputPower'].scale)));
-                this.setCapabilityValue('measure_power.pv2input', Math.round(acpower));
+                var pv2InputPower = Number(result['pv2InputPower'].value) * (Math.pow(10, Number(result['pv2InputPower'].scale)));
+                this.setCapabilityValue('measure_power.pv2input', Math.round(pv2InputPower));
             }            
 
             if (result['l1_current'] && result['l1_current'].value != '-1' && result['l1_current'].value != 'xxx') {
@@ -127,98 +127,95 @@ export class Growatt extends Homey.Device {
 
             if (result['todayEnergy'] && result['todayEnergy'].value != 'xxx') {
                 this.addCapability('meter_power.daily');
-                var total = Number(result['todayEnergy'].value) * (Math.pow(10, Number(result['todayEnergy'].scale)));
-                this.setCapabilityValue('meter_power.daily', total);
+                var todayEnergy = Number(result['todayEnergy'].value) * (Math.pow(10, Number(result['todayEnergy'].scale)));
+                this.setCapabilityValue('meter_power.daily', todayEnergy);
             }
 
             if (result['pv1TodayEnergy'] && result['pv1TodayEnergy'].value != 'xxx') {
                 this.addCapability('meter_power.pv1TodayEnergy');
-                var total = Number(result['pv1TodayEnergy'].value) * (Math.pow(10, Number(result['pv1TodayEnergy'].scale)));
-                this.setCapabilityValue('meter_power.pv1TodayEnergy', total);
+                var pv1TodayEnergy = Number(result['pv1TodayEnergy'].value) * (Math.pow(10, Number(result['pv1TodayEnergy'].scale)));
+                this.setCapabilityValue('meter_power.pv1TodayEnergy', pv1TodayEnergy);
             }
 
             if (result['pv2TodayEnergy'] && result['pv2TodayEnergy'].value != 'xxx') {
                 this.addCapability('meter_power.pv2TodayEnergy');
-                var total = Number(result['pv2TodayEnergy'].value) * (Math.pow(10, Number(result['pv2TodayEnergy'].scale)));
-                this.setCapabilityValue('meter_power.pv2TodayEnergy', total);
+                var pv2TodayEnergy = Number(result['pv2TodayEnergy'].value) * (Math.pow(10, Number(result['pv2TodayEnergy'].scale)));
+                this.setCapabilityValue('meter_power.pv2TodayEnergy', pv2TodayEnergy);
             }
 
             if (result['totalEnergy'] && result['totalEnergy'].value != 'xxx') {
                 this.addCapability('meter_power');
-                var total = Number(result['totalEnergy'].value) * (Math.pow(10, Number(result['totalEnergy'].scale)));
-                this.setCapabilityValue('meter_power', total);
+                var totalEnergy = Number(result['totalEnergy'].value) * (Math.pow(10, Number(result['totalEnergy'].scale)));
+                this.setCapabilityValue('meter_power', totalEnergy);
             }
 
             if (result['pv1TotalEnergy'] && result['pv1TotalEnergy'].value != 'xxx') {
                 this.addCapability('meter_power.pv1TotalEnergy');
-                var total = Number(result['pv1TotalEnergy'].value) * (Math.pow(10, Number(result['pv1TotalEnergy'].scale)));
-                this.setCapabilityValue('meter_power.pv1TotalEnergy', total);
+                var pv1TotalEnergy = Number(result['pv1TotalEnergy'].value) * (Math.pow(10, Number(result['pv1TotalEnergy'].scale)));
+                this.setCapabilityValue('meter_power.pv1TotalEnergy', pv1TotalEnergy);
             }
 
             if (result['pv2TotalEnergy'] && result['pv2TotalEnergy'].value != 'xxx') {
                 this.addCapability('meter_power.pv2TotalEnergy');
-                var total = Number(result['pv2TotalEnergy'].value) * (Math.pow(10, Number(result['pv2TotalEnergy'].scale)));
-                this.setCapabilityValue('meter_power.pv2TotalEnergy', total);
+                var pv2TotalEnergy = Number(result['pv2TotalEnergy'].value) * (Math.pow(10, Number(result['pv2TotalEnergy'].scale)));
+                this.setCapabilityValue('meter_power.pv2TotalEnergy', pv2TotalEnergy);
             }
 
             if (result['gridVoltage'] && result['gridVoltage'].value != 'xxx') {
                 this.addCapability('measure_voltage.meter');
-                var temperature = Number(result['gridVoltage'].value) * (Math.pow(10, Number(result['gridVoltage'].scale)));
-                this.setCapabilityValue('measure_voltage.meter', temperature);
+                var gridVoltage = Number(result['gridVoltage'].value) * (Math.pow(10, Number(result['gridVoltage'].scale)));
+                this.setCapabilityValue('measure_voltage.meter', gridVoltage);
             }
 
             // batt
-            if (result['battvoltage'] && result['battvoltage'].value != 'xxx') {
+            if (result['battvoltage'] && result['battvoltage'].value != 'xxx' && this.hasCapability('measure_voltage.battery')) {
                 this.addCapability('measure_voltage.battery');
-                var temperature = Number(result['battvoltage'].value) * (Math.pow(10, Number(result['battvoltage'].scale)));
-                this.setCapabilityValue('measure_voltage.battery', temperature);
+                var battvoltage = Number(result['battvoltage'].value) * (Math.pow(10, Number(result['battvoltage'].scale)));
+                this.setCapabilityValue('measure_voltage.battery', battvoltage);
             }
 
-            if (result['batttemperature'] && result['batttemperature'].value != 'xxx') {
+            if (result['batttemperature'] && result['batttemperature'].value != 'xxx' && this.hasCapability('measure_temperature.battery')) {
                 this.addCapability('measure_temperature.battery');
                 var temperature = Number(result['batttemperature'].value) * (Math.pow(10, Number(result['batttemperature'].scale)));
                 this.setCapabilityValue('measure_temperature.battery', temperature);
             }
 
-            if (result['battsoc'] && result['battsoc'].value != 'xxx') {
+            if (result['battsoc'] && result['battsoc'].value != 'xxx'  && this.hasCapability('measure_battery')) {
                 this.addCapability('battery');
                 this.addCapability('measure_battery');
-                var temperature = Number(result['battsoc'].value) * (Math.pow(10, Number(result['battsoc'].scale)));
-                this.setCapabilityValue('battery', temperature);
-                this.setCapabilityValue('measure_battery', temperature);
+                var soc = Number(result['battsoc'].value) * (Math.pow(10, Number(result['battsoc'].scale)));
+                this.setCapabilityValue('battery', soc);
+                this.setCapabilityValue('measure_battery', soc);
             }
             
-            if (result['bmshealth'] && result['bmshealth'].value != 'xxx') {
+            if (result['bmshealth'] && result['bmshealth'].value != 'xxx' && this.hasCapability('batterysoh')) {
                 this.addCapability('batterysoh');
-                var temperature = Number(result['bmshealth'].value) * (Math.pow(10, Number(result['bmshealth'].scale)));
-                this.setCapabilityValue('batterysoh', temperature);
+                var soh = Number(result['bmshealth'].value) * (Math.pow(10, Number(result['bmshealth'].scale)));
+                this.setCapabilityValue('batterysoh', soh);
             }            
 
-            if (result['battDischarge'] && result['battDischarge'].value != 'xxx') {
+            if (result['battDischarge'] && result['battDischarge'].value != 'xxx' && this.hasCapability('measure_power.batt_discharge')) {
                 this.addCapability('measure_power.batt_discharge');
-                var temperature = Number(result['battDischarge'].value) * (Math.pow(10, Number(result['battDischarge'].scale)));
-                this.setCapabilityValue('measure_power.batt_discharge', temperature);
+                var discharge = Number(result['battDischarge'].value) * (Math.pow(10, Number(result['battDischarge'].scale)));
+                this.setCapabilityValue('measure_power.batt_discharge', discharge);
             }
-            if (result['battCharge'] && result['battCharge'].value != 'xxx') {
+            if (result['battCharge'] && result['battCharge'].value != 'xxx' && this.hasCapability('measure_power.batt_charge')) {
                 this.addCapability('measure_power.batt_charge');
-                var temperature = Number(result['battCharge'].value) * (Math.pow(10, Number(result['battCharge'].scale)));
-                this.setCapabilityValue('measure_power.batt_charge', temperature);
+                var charge = Number(result['battCharge'].value) * (Math.pow(10, Number(result['battCharge'].scale)));
+                this.setCapabilityValue('measure_power.batt_charge', charge);
             }            
 
-            if (result['bmsstatus'] && result['bmsstatus'].value != 'xxx') {
+            if (result['bmsstatus'] && result['bmsstatus'].value != 'xxx' && this.hasCapability('batterystatus')) {
                 this.addCapability('batterystatus');
-                var temperature = Number(result['bmsstatus'].value) * (Math.pow(10, Number(result['bmsstatus'].scale)));
-                this.setCapabilityValue('batterystatus', temperature);
+                var battstatus = Number(result['bmsstatus'].value) * (Math.pow(10, Number(result['bmsstatus'].scale)));
+                this.setCapabilityValue('batterystatus', battstatus);
             }            
 
-            if (result['bmscyclecount'] && result['bmscyclecount'].value != 'xxx') {
+            if (result['bmscyclecount'] && result['bmscyclecount'].value != 'xxx' && this.hasCapability('batterycycles')) {
                 this.addCapability('batterycycles');
-                var temperature = Number(result['bmscyclecount'].value) * (Math.pow(10, Number(result['bmscyclecount'].scale)));
-                this.setCapabilityValue('batterycycles', temperature);
+                var bmscyclecount = Number(result['bmscyclecount'].value) * (Math.pow(10, Number(result['bmscyclecount'].scale)));
+                this.setCapabilityValue('batterycycles', bmscyclecount);
             }    
-
-        
-
         }
     }
 }
