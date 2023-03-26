@@ -108,7 +108,7 @@
       {
         "type": "device",
         "name": "device",
-        "filter": "driver_id=invertor|invertorwithbatt"
+        "filter": "driver_id=invertorwithbatt"
       }
   ]     
 }

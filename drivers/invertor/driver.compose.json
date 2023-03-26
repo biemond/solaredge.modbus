@@ -18,10 +18,7 @@
     "invertorstatus",
     "meter_power",
     "meter_power.daily",
-    "activepowerlimit",
-    "limitcontrolmode",
-    "exportcontrollimitmode",
-    "exportcontrolsitelimit"    
+    "activepowerlimit"
   ],
   "capabilitiesOptions": {
     "measure_power": {

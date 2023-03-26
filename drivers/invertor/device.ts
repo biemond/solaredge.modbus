@@ -24,11 +24,11 @@ class MySolaredgeDevice extends Solaredge {
       this.pollInvertor();
     }, RETRY_INTERVAL);
 
-    // homey menu / device actions
-    this.registerCapabilityListener('limitcontrolmode', async (value) => {
-      this.updateControl('limitcontrolmode', Number(value));
-      return value;
-    });
+    // // homey menu / device actions
+    // this.registerCapabilityListener('limitcontrolmode', async (value) => {
+    //   this.updateControl('limitcontrolmode', Number(value));
+    //   return value;
+    // });
 
     // flow action 
     let solarchargeStatus = this.homey.flow.getConditionCard("solarcharge");
@@ -192,7 +192,6 @@ class MySolaredgeDevice extends Solaredge {
         const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [dischargehex1, dischargehex2]);
         console.log('limitcontrolwatt', limitcontrolWattRes);        
       }
-
 
       console.log('disconnect');
       client.socket.end();
