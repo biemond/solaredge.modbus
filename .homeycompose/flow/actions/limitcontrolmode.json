@@ -1,0 +1,36 @@
+{
+    "title": {
+      "en": "Limit mode"
+    },
+    "args": [
+      {
+        "name": "mode",
+        "type": "dropdown",
+        "values": [
+          {
+            "id": "0",
+            "title": {
+              "en": "Disabled"
+            }
+          },
+          {
+            "id": "1",
+            "title": {
+              "en": "Export Control"
+            }
+          },
+          {
+            "id": "11",
+            "title": {
+              "en": "Import Control"
+            }
+          }
+        ]
+      },
+      {
+        "type": "device",
+        "name": "device",
+        "filter": "driver_id=invertor|invertorwithbatt"
+      }      
+    ]
+}

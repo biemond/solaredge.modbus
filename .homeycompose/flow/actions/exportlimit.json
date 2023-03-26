@@ -1,0 +1,115 @@
+{
+    "title": {
+      "en": "Set Export Limit"
+    },
+    "args": [
+      {
+        "type": "dropdown",
+        "name": "exportlimit",
+        "values": [
+          {
+            "id": "0",
+            "label": {
+              "en": "0W"
+            }
+          },
+          {
+            "id": "50",
+            "label": {
+              "en": "50W"
+            }
+          },
+          {
+            "id": "100",
+            "label": {
+              "en": "100W"
+            }
+          },
+          {
+            "id": "150",
+            "label": {
+              "en": "150W"
+            }
+          },
+          {
+            "id": "200",
+            "label": {
+              "en": "200W"
+            }
+          },
+          {
+            "id": "300",
+            "label": {
+              "en": "300W"
+            }
+          },
+          {
+            "id": "400",
+            "label": {
+              "en": "400W"
+            }
+          },
+          {
+            "id": "500",
+            "label": {
+              "en": "500W"
+            }
+          },
+          {
+            "id": "1000",
+            "label": {
+              "en": "1000W"
+            }
+          },
+          {
+            "id": "1500",
+            "label": {
+              "en": "1500W"
+            }
+          },
+          {
+            "id": "2000",
+            "label": {
+              "en": "2000W"
+            }
+          },
+          {
+            "id": "2500",
+            "label": {
+              "en": "2500W"
+            }
+          },
+          {
+            "id": "3000",
+            "label": {
+              "en": "3000W"
+            }
+          },
+          {
+            "id": "4000",
+            "label": {
+              "en": "4000W"
+            }
+          },
+          {
+            "id": "5000",
+            "label": {
+              "en": "5000W"
+            }
+          },
+          {
+            "id": "6600",
+            "label": {
+              "en": "6600W"
+            }
+          }
+        ]
+      },
+      {
+        "type": "device",
+        "name": "device",
+        "filter": "driver_id=invertor|invertorwithbatt"
+      }
+  ]     
+}
+    
