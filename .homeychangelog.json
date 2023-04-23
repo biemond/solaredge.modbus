@@ -58,5 +58,8 @@
   },
   "3.0.9": {
     "en": "Support for growatt inverters"
-  }  
+  },
+  "3.0.10": {
+    "en": "Adding change triggers"
+  }     
 }

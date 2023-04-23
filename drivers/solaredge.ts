@@ -306,9 +306,15 @@ export class Solaredge extends Homey.Device {
                         this.setStoreValue("daily", total / 1000 );
                     }
                     if (this.getStoreValue("daily") != null ) {
-                        var daily_power  = (total / 1000) -  this.getStoreValue("daily");
+                        var daily_power  = Number(((total / 1000) -  this.getStoreValue("daily")).toFixed(2));
                         console.log("daily: " + daily_power);
                         this.addCapability('meter_power.daily');
+                        if (this.getCapabilityValue('meter_power.daily') != daily_power) {
+                            let tokens = {
+                                "meter_power.daily": daily_power
+                            };
+                            this.homey.flow.getDeviceTriggerCard('meter_power_day_changed').trigger(this,tokens);
+                        }
                         this.setCapabilityValue('meter_power.daily', daily_power);
                     }
                 }
@@ -322,7 +328,14 @@ export class Solaredge extends Homey.Device {
 
             if (this.validResultRecord(result['temperature'])) {
                 this.addCapability('measure_temperature.invertor');
-                var temperature = Number(result['temperature'].value) * (Math.pow(10, Number(result['temperature'].scale)));
+                var temperature = Number((Number(result['temperature'].value) * (Math.pow(10, Number(result['temperature'].scale)))).toFixed(2));
+
+                if (this.getCapabilityValue('measure_temperature.invertor') != temperature) {
+                    let tokens = {
+                        "measure_temperature.invertor": temperature
+                    };
+                    this.homey.flow.getDeviceTriggerCard('measure_temperature_inverter_changed').trigger(this,tokens);
+                }
                 this.setCapabilityValue('measure_temperature.invertor', temperature);
             }
 
