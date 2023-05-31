@@ -1,6 +1,6 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import {checkRegisterGrowatt} from '../response';
+import {checkRegisterGrowatt, checkHoldingRegisterGrowatt} from '../response';
 import { Growatt } from '../growatt';
 
 const RETRY_INTERVAL = 28 * 1000; 
@@ -103,10 +103,12 @@ class MyGrowattBattery extends Growatt {
       console.log(modbusOptions);
 
       const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
+      const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegisters, client);      
+
       console.log('disconnect'); 
       client.socket.end();
       socket.end();
-      const finalRes = {...checkRegisterRes}
+      const finalRes = {...checkRegisterRes, ...checkHoldingRegisterRes}
       this.processResult(finalRes)
     });    
 

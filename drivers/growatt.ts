@@ -8,6 +8,11 @@ export interface Measurement {
 
 export class Growatt extends Homey.Device {
 
+    holdingRegisters: Object = {
+        "exportLimitEnabled":   [122, 1, 'UINT16', "Export Limit enable", 0],         
+        "ExportLimitPowerRate": [123, 1, 'UINT16', "Export Limit Power Rate", -1]         
+    }
+
     registers: Object = {
 
         "l1_current": [39, 1, 'UINT16', "L1 Current", -1 ],         
