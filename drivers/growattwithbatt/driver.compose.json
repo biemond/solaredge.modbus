@@ -33,7 +33,9 @@
     "batterystatus",
     "batterycycles",
     "measure_voltage.meter",
-    "measure_voltage.battery"            
+    "measure_voltage.battery",
+    "exportlimitenabled",
+    "exportlimitpowerrate"            
   ],
   "capabilitiesOptions": {
     "measure_power": {

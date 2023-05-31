@@ -212,7 +212,7 @@ export class Growatt extends Homey.Device {
 
             if (result['bmsstatus'] && result['bmsstatus'].value != 'xxx' && this.hasCapability('batterystatus')) {
                 this.addCapability('batterystatus');
-                var battstatus = Number(result['bmsstatus'].value) * (Math.pow(10, Number(result['bmsstatus'].scale)));
+                var battstatus = Number(result['bmsstatus'].value);
                 this.setCapabilityValue('batterystatus', battstatus);
             }            
 
@@ -220,7 +220,19 @@ export class Growatt extends Homey.Device {
                 this.addCapability('batterycycles');
                 var bmscyclecount = Number(result['bmscyclecount'].value) * (Math.pow(10, Number(result['bmscyclecount'].scale)));
                 this.setCapabilityValue('batterycycles', bmscyclecount);
-            }    
+            }  
+ 
+            if (result['exportLimitEnabled'] && result['exportLimitEnabled'].value != 'xxx' && this.hasCapability('exportlimitenabled')) {
+                this.addCapability('exportlimitenabled');
+                var exportlimitenabled = Number(result['exportLimitEnabled'].value);
+                this.setCapabilityValue('exportlimitenabled', exportlimitenabled);
+            }     
+            
+            if (result['ExportLimitPowerRate'] && result['ExportLimitPowerRate'].value != 'xxx' && this.hasCapability('exportlimitpowerrate')) {
+                this.addCapability('exportlimitpowerrate');
+                var exportlimitpowerrate = Number(result['ExportLimitPowerRate'].value) * (Math.pow(10, Number(result['ExportLimitPowerRate'].scale)));
+                this.setCapabilityValue('exportlimitpowerrate', exportlimitpowerrate);
+            }                
         }
     }
 }

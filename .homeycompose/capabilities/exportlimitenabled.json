@@ -1,0 +1,24 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Export Limit enabled"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "uiQuickAction": false,
+    "values": [
+        {
+            "id": "0",
+            "title": {
+                "en": "Disabled"
+            }
+        },
+        {
+            "id": "1",
+            "title": {
+                "en": "Enabled"
+            }
+        }                                   
+    ]
+}

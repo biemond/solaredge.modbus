@@ -1,0 +1,15 @@
+{
+    "type": "number",
+    "title": {
+      "en": "Export Limit % disabled"
+    },
+    "getable": true,
+    "setable": false,
+    "decimals": 1,
+    "uiComponent": "sensor",
+    "insights": true,
+    "units": {
+      "en": "%",
+      "nl": "%"
+    }
+}
