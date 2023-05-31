@@ -9,8 +9,8 @@ export interface Measurement {
 export class Growatt extends Homey.Device {
 
     holdingRegisters: Object = {
-        "exportLimitEnabled":   [122, 1, 'UINT16', "Export Limit enable", 0],         
-        "ExportLimitPowerRate": [123, 1, 'UINT16', "Export Limit Power Rate", -1]         
+        "exportlimitenabled":   [122, 1, 'UINT16', "Export Limit enable", 0],         
+        "exportlimitpowerrate": [123, 1, 'UINT16', "Export Limit Power Rate", -1]         
     }
 
     registers: Object = {
@@ -54,8 +54,8 @@ export class Growatt extends Homey.Device {
         "error": [105 ,1, 'UINT16', "Error", 0 ],
         // realPowerPercent: data[113] //% 0-100
 
-        "ACchargePower_H": [116 ,1, 'UINT16', "AC charge Power_H", -1 ],
-        "ACchargePower_L": [117 ,1, 'UINT16', "AC charge Power_L", -1 ], 
+        "ac_chargepower_h": [116 ,1, 'UINT16', "AC charge Power_H", -1 ],
+        "ac_chargepower_l": [117 ,1, 'UINT16', "AC charge Power_L", -1 ], 
 
         "battDischarge": [1009, 2, 'UINT32', "battery Discharge", -1 ], 
         "battCharge":    [1011, 2, 'UINT32', "battery Charge", -1 ], 
@@ -224,16 +224,15 @@ export class Growatt extends Homey.Device {
                 var bmscyclecount = Number(result['bmscyclecount'].value) * (Math.pow(10, Number(result['bmscyclecount'].scale)));
                 this.setCapabilityValue('batterycycles', bmscyclecount);
             }  
- 
-            if (result['exportLimitEnabled'] && result['exportLimitEnabled'].value != 'xxx' && this.hasCapability('exportlimitenabled')) {
+
+            if (result['exportlimitenabled'] && result['exportlimitenabled'].value != 'xxx' && this.hasCapability('exportlimitenabled')) {
                 this.addCapability('exportlimitenabled');
-                var exportlimitenabled = Number(result['exportLimitEnabled'].value);
-                this.setCapabilityValue('exportlimitenabled', exportlimitenabled);
+                this.setCapabilityValue('exportlimitenabled', result['exportlimitenabled'].value);
             }     
             
-            if (result['ExportLimitPowerRate'] && result['ExportLimitPowerRate'].value != 'xxx' && this.hasCapability('exportlimitpowerrate')) {
+            if (result['exportlimitpowerrate'] && result['exportlimitpowerrate'].value != 'xxx' && this.hasCapability('exportlimitpowerrate')) {
                 this.addCapability('exportlimitpowerrate');
-                var exportlimitpowerrate = Number(result['ExportLimitPowerRate'].value) * (Math.pow(10, Number(result['ExportLimitPowerRate'].scale)));
+                var exportlimitpowerrate = Number(result['exportlimitpowerrate'].value) * (Math.pow(10, Number(result['exportlimitpowerrate'].scale)));
                 this.setCapabilityValue('exportlimitpowerrate', exportlimitpowerrate);
             }                
         }
