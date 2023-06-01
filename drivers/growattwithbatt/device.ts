@@ -25,6 +25,16 @@ class MyGrowattBattery extends Growatt {
     }, RETRY_INTERVAL);
 
 
+    // homey menu / device actions
+    this.registerCapabilityListener('exportlimitenabled', async (value) => {
+      this.updateControl('exportlimitenabled', Number(value));
+      return value;
+    });
+    this.registerCapabilityListener('exportlimitpowerrate', async (value) => {
+      this.updateControl('exportlimitpowerrate', value);
+      return value;
+    });
+
     // flow action 
     let solarchargeStatus = this.homey.flow.getConditionCard("solarcharge");
     solarchargeStatus.registerRunListener(async (args, state) => {
@@ -77,6 +87,71 @@ class MyGrowattBattery extends Growatt {
     this.homey.clearInterval(this.timer);
   }
   
+  async updateControl(type: string, value: number) {
+    let socket = new net.Socket();
+    var unitID = this.getSetting('id');
+    let client = new Modbus.client.TCP(socket, unitID); 
+
+    let modbusOptions = {
+      'host': this.getSetting('address'),
+      'port': this.getSetting('port'),
+      'unitId': this.getSetting('id'),
+      'timeout': 15,
+      'autoReconnect': false,
+      'logLabel': 'growatt Inverter',
+      'logLevel': 'error',
+      'logEnabled': true
+    }
+
+    socket.setKeepAlive(false); 
+    socket.connect(modbusOptions);
+    console.log(modbusOptions);
+    
+    socket.on('connect', async () => {
+      console.log('Connected ...');
+
+      if (type == 'exportlimitenabled') {
+        // 0 – Disabled
+        // 1 – Enabled
+        if (value == 1) {
+          const exportlimitenabledRes = await client.writeSingleRegister(122, Number(1));
+          console.log('exportlimitenabled', exportlimitenabledRes);
+        } else if (value == 0) {
+          const exportlimitenabledRes = await client.writeSingleRegister(122, Number(0));
+          console.log('exportlimitenabled', exportlimitenabledRes);
+        } else {
+          console.log('exportlimitenabled unknown value: ' + value);
+        }
+      }
+ 
+      if (type == 'exportlimitpowerrate') {
+        // 0 – 100 % with 1 decimal
+        // 0 – 1000 as values
+        if (value >= 0 && value <= 100) {
+          const exportlimitpowerratedRes = await client.writeSingleRegister(123, value * 10);
+          console.log('exportlimitpowerrate', exportlimitpowerratedRes);
+        } else {
+          console.log('exportlimitpowerrate unknown value: ' + value);
+        }
+      }
+
+      console.log('disconnect');
+      client.socket.end();
+      socket.end();
+    })
+
+    socket.on('close', () => {
+      console.log('Client closed');
+    }); 
+
+    socket.on('error', (err) => {
+      console.log(err);
+      socket.end();
+      setTimeout(() => socket.connect(modbusOptions), 4000);
+    })
+  }
+
+
   async pollInvertor() {
     this.log("pollInvertor");
     this.log(this.getSetting('address'));

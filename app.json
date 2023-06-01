@@ -2282,8 +2282,8 @@
         "en": "Export Limit enabled"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "toggle",
       "uiQuickAction": false,
       "values": [
         {
@@ -2306,14 +2306,18 @@
         "en": "Export Limit % disabled"
       },
       "getable": true,
-      "setable": false,
-      "decimals": 1,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "slider",
+      "uiQuickAction": false,
       "insights": true,
       "units": {
         "en": "%",
         "nl": "%"
-      }
+      },
+      "decimals": 1,
+      "min": 0,
+      "max": 30,
+      "step": 0.1
     },
     "invertorstatus": {
       "type": "enum",

@@ -4,9 +4,9 @@
         "en": "Export Limit enabled"
     },
     "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,
+    "setable": true,
+    "uiComponent": "toggle",
+    "uiQuickAction": false,   
     "values": [
         {
             "id": "0",
