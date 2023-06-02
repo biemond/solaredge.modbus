@@ -1,7 +1,7 @@
 {
     "type": "number",
     "title": {
-      "en": "Limit disabled %"
+      "en": "Export limit %"
     },
     "getable": true,
     "setable": true,
