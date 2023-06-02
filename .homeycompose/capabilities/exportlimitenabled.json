@@ -1,12 +1,12 @@
 {
     "type": "enum",
     "title": {
-        "en": "Export Limit enabled"
+        "en": "Export enabled"
     },
     "getable": true,
     "setable": true,
-    "uiComponent": "toggle",
-    "uiQuickAction": false,   
+    "uiComponent": "picker",
+    "uiQuickAction": true,   
     "values": [
         {
             "id": "0",

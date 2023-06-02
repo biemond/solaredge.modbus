@@ -1506,7 +1506,9 @@
         "measure_voltage.meter",
         "measure_voltage.battery",
         "exportlimitenabled",
-        "exportlimitpowerrate"
+        "exportlimitpowerrate",
+        "measure_power.gridpowertoloadh",
+        "measure_power.gridpowertoloadl"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -1633,6 +1635,24 @@
           "title": {
             "en": "Battery Voltage"
           }
+        },
+        "measure_power.gridpowertoloadh": {
+          "title": {
+            "en": "Grid Power To Load (H)"
+          },
+          "units": {
+            "en": "kWH"
+          },
+          "decimals": 1
+        },
+        "measure_power.gridpowertoloadl": {
+          "title": {
+            "en": "Grid Power To Load (L)"
+          },
+          "units": {
+            "en": "kWH"
+          },
+          "decimals": 1
         }
       },
       "platforms": [
@@ -1842,8 +1862,6 @@
         "measure_power.batt_discharge",
         "measure_power.chargesetting",
         "measure_power.dischargesetting",
-        "measure_power.gridpowertoloadh",
-        "measure_power.gridpowertoloadl",
         "measure_current",
         "measure_current.phase1",
         "measure_current.phase2",
@@ -1971,24 +1989,6 @@
           "title": {
             "en": "Discharge setting"
           }
-        },
-        "measure_power.gridpowertoloadh": {
-          "title": {
-            "en": "Grid Power To Load (H)"
-          },
-          "units": {
-            "en": "kWH"
-          },
-          "decimals": 1
-        },
-        "measure_power.gridpowertoloadl": {
-          "title": {
-            "en": "Grid Power To Load (L)"
-          },
-          "units": {
-            "en": "kWH"
-          },
-          "decimals": 1
         },
         "meter_power": {
           "title": {
@@ -2299,12 +2299,12 @@
     "exportlimitenabled": {
       "type": "enum",
       "title": {
-        "en": "Export Limit enabled"
+        "en": "Export enabled"
       },
       "getable": true,
       "setable": true,
-      "uiComponent": "toggle",
-      "uiQuickAction": false,
+      "uiComponent": "picker",
+      "uiQuickAction": true,
       "values": [
         {
           "id": "0",
@@ -2323,12 +2323,12 @@
     "exportlimitpowerrate": {
       "type": "number",
       "title": {
-        "en": "Export Limit % disabled"
+        "en": "Limit disabled %"
       },
       "getable": true,
       "setable": true,
       "uiComponent": "slider",
-      "uiQuickAction": false,
+      "uiQuickAction": true,
       "insights": true,
       "units": {
         "en": "%",
@@ -2336,7 +2336,7 @@
       },
       "decimals": 1,
       "min": 0,
-      "max": 30,
+      "max": 100,
       "step": 0.1
     },
     "invertorstatus": {

@@ -17,8 +17,6 @@
     "measure_power.batt_discharge",
     "measure_power.chargesetting",
     "measure_power.dischargesetting",
-    "measure_power.gridpowertoloadh",
-    "measure_power.gridpowertoloadl",    
     "measure_current",
     "measure_current.phase1",
     "measure_current.phase2",
@@ -147,24 +145,6 @@
         "en": "Discharge setting"
       }
     },
-    "measure_power.gridpowertoloadh": {
-      "title": {
-        "en": "Grid Power To Load (H)"
-      },
-      "units": {
-        "en": "kWH"
-      },
-      "decimals": 1            
-    },
-    "measure_power.gridpowertoloadl": {
-      "title": {
-        "en": "Grid Power To Load (L)"
-      },
-      "units": {
-        "en": "kWH"
-      },
-      "decimals": 1              
-    },    
     "meter_power": {
       "title": {
         "en": "Total Yield",

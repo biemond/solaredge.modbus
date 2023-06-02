@@ -35,7 +35,9 @@
     "measure_voltage.meter",
     "measure_voltage.battery",
     "exportlimitenabled",
-    "exportlimitpowerrate"            
+    "exportlimitpowerrate",
+    "measure_power.gridpowertoloadh",
+    "measure_power.gridpowertoloadl"            
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -162,7 +164,25 @@
       "title": {
         "en": "Battery Voltage"
       }
-    }               
+    },
+    "measure_power.gridpowertoloadh": {
+      "title": {
+        "en": "Grid Power To Load (H)"
+      },
+      "units": {
+        "en": "kWH"
+      },
+      "decimals": 1            
+    },
+    "measure_power.gridpowertoloadl": {
+      "title": {
+        "en": "Grid Power To Load (L)"
+      },
+      "units": {
+        "en": "kWH"
+      },
+      "decimals": 1              
+    }                    
   },
   "platforms": [
     "local"
