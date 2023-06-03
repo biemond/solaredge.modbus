@@ -10,7 +10,8 @@ export class Growatt extends Homey.Device {
 
     holdingRegisters: Object = {
         "exportlimitenabled":   [122, 1, 'UINT16', "Export Limit enable", 0],         
-        "exportlimitpowerrate": [123, 1, 'UINT16', "Export Limit Power Rate", -1]         
+        "exportlimitpowerrate": [123, 1, 'UINT16', "Export Limit Power Rate", -1],
+        "exportlimitwhenfailed": [3000, 1, 'UINT16', "Export Limit when limit failed", -1]           
     }
 
     registers: Object = {
@@ -48,6 +49,9 @@ export class Growatt extends Homey.Device {
         "pv2TodayEnergy": [63, 2, 'UINT32', "pv2 Today Energy", -1 ], 
         "pv2TotalEnergy": [65, 2, 'UINT32', "pv2 Total Energy", -1 ], 
         "pvEnergyTotal":  [91, 2, 'UINT32', "pv Total Energy", -1 ], 
+
+        "realoutputpercentage": [101, 1, 'UINT16', "real output power percentage", 0],
+        "outputmaxpowerlimited": [102 ,2, 'UINT32', "output max power limited", -1 ],
 
         // ipmTemperature: data[94] / 10.0, //°C
         // inverterOutputPf: data[100], //powerfactor 0-20000
@@ -241,6 +245,24 @@ export class Growatt extends Homey.Device {
                 this.setCapabilityValue('measure_power.gridpowertoload', gridpowertoload);
                 console.log('gridpowertoload ' + gridpowertoload);
             }     
+            
+            if (result['realoutputpercentage'] && result['realoutputpercentage'].value != 'xxx' && this.hasCapability('realoutputpercentage')) {
+                this.addCapability('realoutputpercentage');
+                var realoutputpercentage = Number(result['realoutputpercentage'].value) * (Math.pow(10, Number(result['realoutputpercentage'].scale)));
+                this.setCapabilityValue('realoutputpercentage', realoutputpercentage);
+            }   
+ 
+            if (result['outputmaxpowerlimited'] && result['outputmaxpowerlimited'].value != 'xxx' && this.hasCapability('outputmaxpowerlimited')) {
+                this.addCapability('outputmaxpowerlimited');
+                var outputmaxpowerlimited = Number(result['outputmaxpowerlimited'].value) * (Math.pow(10, Number(result['outputmaxpowerlimited'].scale)));
+                this.setCapabilityValue('outputmaxpowerlimited', outputmaxpowerlimited);
+            }
+            
+            if (result['exportlimitwhenfailed'] && result['exportlimitwhenfailed'].value != 'xxx' && this.hasCapability('exportlimitwhenfailed')) {
+                this.addCapability('exportlimitwhenfailed');
+                var exportlimitwhenfailed = Number(result['exportlimitwhenfailed'].value) * (Math.pow(10, Number(result['exportlimitwhenfailed'].scale)));
+                this.setCapabilityValue('exportlimitwhenfailed', exportlimitwhenfailed);
+            }              
         }
     }
 }

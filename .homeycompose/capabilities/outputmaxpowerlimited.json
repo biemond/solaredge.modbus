@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Output max power limited"
+  },
+  "units": {
+    "en": "W"
+  },
+  "insights": true,
+  "decimals": 1,
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor"
+}

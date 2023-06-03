@@ -1,0 +1,18 @@
+{
+    "type": "number",
+    "title": {
+      "en": "real output power"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "uiQuickAction": false,    
+    "insights": true,
+    "units": {
+      "en": "%",
+      "nl": "%"
+    },
+    "decimals": 0,
+    "min": 0,
+    "max": 100    
+}

@@ -1,0 +1,18 @@
+{
+    "type": "number",
+    "title": {
+      "en": "Export limit failed"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "uiQuickAction": false,    
+    "insights": true,
+    "units": {
+      "en": "%",
+      "nl": "%"
+    },
+    "decimals": 1,
+    "min": 0,
+    "max": 100    
+}

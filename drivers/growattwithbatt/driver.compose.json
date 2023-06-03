@@ -36,7 +36,10 @@
     "measure_voltage.battery",
     "exportlimitenabled",
     "exportlimitpowerrate",
-    "measure_power.gridpowertoload"           
+    "measure_power.gridpowertoload",
+    "realoutputpercentage",
+    "outputmaxpowerlimited",
+    "exportlimitwhenfailed"           
   ],
   "capabilitiesOptions": {
     "measure_power": {
