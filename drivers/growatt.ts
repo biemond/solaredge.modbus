@@ -54,8 +54,7 @@ export class Growatt extends Homey.Device {
         "error": [105 ,1, 'UINT16', "Error", 0 ],
         // realPowerPercent: data[113] //% 0-100
 
-        "ac_chargepower_h": [116 ,1, 'UINT16', "AC charge Power_H", -1 ],
-        "ac_chargepower_l": [117 ,1, 'UINT16', "AC charge Power_L", -1 ], 
+        "ac_chargepower": [116 ,2, 'UINT32', "AC charge Power", -1 ],
 
         "battDischarge": [1009, 2, 'UINT32', "battery Discharge", -1 ], 
         "battCharge":    [1011, 2, 'UINT32', "battery Charge", -1 ], 
@@ -236,16 +235,10 @@ export class Growatt extends Homey.Device {
                 this.setCapabilityValue('exportlimitpowerrate', exportlimitpowerrate);
             }     
 
-            if (result['ac_chargepower_h'] && result['ac_chargepower_h'].value != 'xxx' && this.hasCapability('measure_power.gridpowertoloadh')) {
-                this.addCapability('measure_power.gridpowertoloadh');
-                var gridpowertoloadh = Number(result['ac_chargepower_h'].value) * (Math.pow(10, Number(result['ac_chargepower_h'].scale)));
-                this.setCapabilityValue('measure_power.gridpowertoloadh', gridpowertoloadh);
-            }     
-
-            if (result['ac_chargepower_l'] && result['ac_chargepower_l'].value != 'xxx' && this.hasCapability('measure_power.gridpowertoloadl')) {
-                this.addCapability('measure_power.gridpowertoloadl');
-                var gridpowertoloadl = Number(result['ac_chargepower_l'].value) * (Math.pow(10, Number(result['ac_chargepower_l'].scale)));
-                this.setCapabilityValue('measure_power.gridpowertoloadl', gridpowertoloadl);
+            if (result['ac_chargepower'] && result['ac_chargepower'].value != 'xxx' && this.hasCapability('measure_power.gridpowertoload')) {
+                this.addCapability('measure_power.gridpowertoload');
+                var gridpowertoloadh = Number(result['ac_chargepower'].value) * (Math.pow(10, Number(result['ac_chargepower'].scale)));
+                this.setCapabilityValue('measure_power.gridpowertoload', gridpowertoloadh);
             }     
         }
     }

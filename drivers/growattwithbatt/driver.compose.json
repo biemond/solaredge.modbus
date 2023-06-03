@@ -165,24 +165,15 @@
         "en": "Battery Voltage"
       }
     },
-    "measure_power.gridpowertoloadh": {
+    "measure_power.gridpowertoload": {
       "title": {
-        "en": "Grid Power To Load (H)"
+        "en": "Grid Power To Load"
       },
       "units": {
         "en": "kWH"
       },
       "decimals": 1            
-    },
-    "measure_power.gridpowertoloadl": {
-      "title": {
-        "en": "Grid Power To Load (L)"
-      },
-      "units": {
-        "en": "kWH"
-      },
-      "decimals": 1              
-    }                    
+    }       
   },
   "platforms": [
     "local"
