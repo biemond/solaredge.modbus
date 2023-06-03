@@ -237,8 +237,9 @@ export class Growatt extends Homey.Device {
 
             if (result['ac_chargepower'] && result['ac_chargepower'].value != 'xxx' && this.hasCapability('measure_power.gridpowertoload')) {
                 this.addCapability('measure_power.gridpowertoload');
-                var gridpowertoloadh = Number(result['ac_chargepower'].value) * (Math.pow(10, Number(result['ac_chargepower'].scale)));
-                this.setCapabilityValue('measure_power.gridpowertoload', gridpowertoloadh);
+                var gridpowertoload = Number(result['ac_chargepower'].value) * (Math.pow(10, Number(result['ac_chargepower'].scale)));
+                this.setCapabilityValue('measure_power.gridpowertoload', gridpowertoload);
+                console.log('gridpowertoload ' + gridpowertoload);
             }     
         }
     }
