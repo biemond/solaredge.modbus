@@ -24,6 +24,17 @@ class MyGrowattBattery extends Growatt {
       this.pollInvertor();
     }, RETRY_INTERVAL);
 
+    // flow action 
+    let exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
+    exportEnabledAction.registerRunListener(async (args, state) => {
+      await this.updateControl('exportlimitenabled', Number(args.mode));
+    });
+
+    let exportlimitpowerrateAction = this.homey.flow.getActionCard('exportlimitpowerrate');
+    exportlimitpowerrateAction.registerRunListener(async (args, state) => {
+      await this.updateControl('exportlimitpowerrate', args.percentage);
+    });
+
 
     // homey menu / device actions
     this.registerCapabilityListener('exportlimitenabled', async (value) => {

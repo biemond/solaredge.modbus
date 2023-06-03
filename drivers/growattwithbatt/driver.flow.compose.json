@@ -1,0 +1,48 @@
+{
+  "actions": [
+    {
+      "id": "exportlimitenabled",
+      "title": {
+        "en": "Set export limit"
+      },
+      "args": [
+        {
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                  "en": "Disabled"
+              }
+          },
+          {
+              "id": "1",
+              "title": {
+                  "en": "Enabled"
+              }
+          }  
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exportlimitpowerrate",
+      "title": {
+        "en": "Export limit %"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "percentage",
+          "title": { "en": "percentage" },
+          "min": 0,
+          "max": 100,
+          "step": 0.1,
+          "label": "%",
+          "labelDecimals": 1
+        }
+      ]  
+    }
+  ]
+}
