@@ -72,7 +72,24 @@ export class Growatt extends Homey.Device {
         "bmscyclecount":   [1095, 1, 'UINT16', "bms cycle count", 0],
         "bmshealth":       [1096, 1, 'UINT16', "bms soh", 0],  
         "bmsstatus":       [1083, 1, 'UINT16', "bms status", 0], 
-        "bmserror":        [1085, 1, 'UINT16', "bms error", 0],                           
+        "bmserror":        [1085, 1, 'UINT16', "bms error", 0],   
+        
+        "totalhouseload": [1037 ,2, 'UINT32', "Total house Load", -1 ],
+        "priority":       [118, 1, 'UINT16', "priority", 0], 
+
+        "today_grid_import": [1044 ,2, 'UINT32', "Today's Grid Import", -1 ],
+        "total_grid_import": [1046 ,2, 'UINT32', "Total Grid Import", -1 ],
+        "today_grid_export": [1048 ,2, 'UINT32', "Today's Grid Export", -1 ],
+        "total_grid_export": [1050 ,2, 'UINT32', "Total Grid Export", -1 ],
+
+        "today_battery_output_energy": [1052 ,2, 'UINT32', "Today's Battery Output Energy", -1 ],
+        "total_battery_output_energy": [1054 ,2, 'UINT32', "Total Battery Output Energy", -1 ],
+        "today_battery_input_energy": [1056 ,2, 'UINT32', "Today's Battery Input Energy", -1 ],
+        "total_battery_intput_energy": [1058 ,2, 'UINT32', "Total Battery Input Energy", -1 ],
+
+        "today_load": [1060 ,2, 'UINT32', "Today's Load", -1 ],
+        "total_load": [1062 ,2, 'UINT32', "Total Load", -1 ],
+ 
     };
 
 
@@ -262,7 +279,49 @@ export class Growatt extends Homey.Device {
                 this.addCapability('exportlimitwhenfailed');
                 var exportlimitwhenfailed = Number(result['exportlimitwhenfailed'].value) * (Math.pow(10, Number(result['exportlimitwhenfailed'].scale)));
                 this.setCapabilityValue('exportlimitwhenfailed', exportlimitwhenfailed);
-            }              
+            } 
+            
+            if (result['priority'] && result['priority'].value != 'xxx' && this.hasCapability('priority')) {
+                this.addCapability('priority');
+                this.setCapabilityValue('priority', result['priority'].value);
+            }  
+
+            if (result['totalhouseload'] && result['totalhouseload'].value != 'xxx' && this.hasCapability('measure_power.houseload')) {
+                this.addCapability('measure_power.houseload');
+                var totalhouseload = Number(result['totalhouseload'].value) * (Math.pow(10, Number(result['totalhouseload'].scale)));
+                this.setCapabilityValue('measure_power.houseload', totalhouseload);
+            }             
+
+            if (result['today_grid_import'] && result['today_grid_import'].value != 'xxx' && this.hasCapability('meter_power.today_grid_import')) {
+                this.addCapability('meter_power.today_grid_import');
+                var today_grid_import = Number(result['today_grid_import'].value) * (Math.pow(10, Number(result['today_grid_import'].scale)));
+                this.setCapabilityValue('meter_power.today_grid_import', today_grid_import);
+            }   
+
+            if (result['today_grid_export'] && result['today_grid_export'].value != 'xxx' && this.hasCapability('meter_power.today_grid_export')) {
+                this.addCapability('meter_power.today_grid_export');
+                var today_grid_export = Number(result['today_grid_export'].value) * (Math.pow(10, Number(result['today_grid_export'].scale)));
+                this.setCapabilityValue('meter_power.today_grid_export', today_grid_export);
+            } 
+
+            if (result['today_battery_output_energy'] && result['today_battery_output_energy'].value != 'xxx' && this.hasCapability('meter_power.today_batt_output')) {
+                this.addCapability('meter_power.today_batt_output');
+                var today_battery_output_energy = Number(result['today_battery_output_energy'].value) * (Math.pow(10, Number(result['today_battery_output_energy'].scale)));
+                this.setCapabilityValue('meter_power.today_batt_output', today_battery_output_energy);
+            }   
+
+            if (result['today_battery_input_energy'] && result['today_battery_input_energy'].value != 'xxx' && this.hasCapability('meter_power.today_batt_input')) {
+                this.addCapability('meter_power.today_batt_input');
+                var today_battery_input_energy = Number(result['today_battery_input_energy'].value) * (Math.pow(10, Number(result['today_battery_input_energy'].scale)));
+                this.setCapabilityValue('meter_power.today_batt_input', today_battery_input_energy);
+            }             
+
+            if (result['today_load'] && result['today_load'].value != 'xxx' && this.hasCapability('meter_power.today_load')) {
+                this.addCapability('meter_power.today_load');
+                var today_load = Number(result['today_load'].value) * (Math.pow(10, Number(result['today_load'].scale)));
+                this.setCapabilityValue('meter_power.today_load', today_load);
+            }   
+
         }
     }
 }

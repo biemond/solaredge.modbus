@@ -39,7 +39,14 @@
     "measure_power.gridpowertoload",
     "realoutputpercentage",
     "outputmaxpowerlimited",
-    "exportlimitwhenfailed"           
+    "exportlimitwhenfailed",
+    "priority",
+    "measure_power.houseload",           
+    "meter_power.today_grid_import",
+    "meter_power.today_grid_export",
+    "meter_power.today_batt_output",
+    "meter_power.today_batt_input",
+    "meter_power.today_load"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -157,6 +164,12 @@
         "en": "Battery Power charge"
       }
     },
+    "measure_power.houseload": {
+      "decimals": 1,
+      "title": {
+        "en": "House load"
+      }
+    },
     "measure_voltage.meter": {
       "title": {
         "en": "Meter AC Voltage"
@@ -175,7 +188,57 @@
         "en": "kWH"
       },
       "decimals": 1            
-    }       
+    },
+    "meter_power.today_grid_import": {
+      "title": {
+        "en": "Grid Import Day Yield"
+      },
+      "units": {
+        "en": "kWH"
+      },      
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.today_grid_export": {
+      "title": {
+        "en": "Grid Export Day Yield"
+      },
+      "units": {
+        "en": "kWH"
+      },      
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },    
+    "meter_power.today_batt_output": {
+      "title": {
+        "en": "Battery Output Day Yield"
+      },
+      "units": {
+        "en": "kWH"
+      },      
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.today_batt_input": {
+      "title": {
+        "en": "Battery Input Day Yield"
+      },
+      "units": {
+        "en": "kWH"
+      },      
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.today_load": {
+      "title": {
+        "en": "Load Day Yield"
+      },
+      "units": {
+        "en": "kWH"
+      },      
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    }                       
   },
   "platforms": [
     "local"

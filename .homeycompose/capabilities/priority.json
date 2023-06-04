@@ -1,0 +1,30 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Priority"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "uiQuickAction": false,
+    "values": [
+        {
+            "id": "0",
+            "title": {
+                "en": "Load First"
+            }
+        },
+        {
+            "id": "1",
+            "title": {
+                "en": "Battery First"
+            }
+        },
+        {
+            "id": "2",
+            "title": {
+                "en": "Grid First"
+            }
+        }        
+    ]
+}
