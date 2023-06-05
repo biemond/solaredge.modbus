@@ -58,7 +58,7 @@ export class Growatt extends Homey.Device {
         "error": [105 ,1, 'UINT16', "Error", 0 ],
         // realPowerPercent: data[113] //% 0-100
 
-        "ac_chargepower": [116 ,2, 'UINT32', "AC charge Power", -1 ],
+        "ac_chargepower": [116 ,2, 'UINT32', "AC charge Power", -2 ],
 
         "battDischarge": [1009, 2, 'UINT32', "battery Discharge", -1 ], 
         "battCharge":    [1011, 2, 'UINT32', "battery Charge", -1 ], 
