@@ -4,8 +4,8 @@
         "en": "Set export limit"
     },
     "getable": true,
-    "setable": true,
-    "uiComponent": "picker",
+    "setable": false,
+    "uiComponent": "sensor",
     "uiQuickAction": true,   
     "values": [
         {

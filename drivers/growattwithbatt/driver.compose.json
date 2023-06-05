@@ -36,10 +36,6 @@
     "measure_voltage.battery",
     "exportlimitenabled",
     "exportlimitpowerrate",
-    "measure_power.gridpowertoload",
-    "realoutputpercentage",
-    "outputmaxpowerlimited",
-    "exportlimitwhenfailed",
     "priority",
     "measure_power.houseload",           
     "meter_power.today_grid_import",
@@ -179,15 +175,6 @@
       "title": {
         "en": "Battery Voltage"
       }
-    },
-    "measure_power.gridpowertoload": {
-      "title": {
-        "en": "Grid Power To Load"
-      },
-      "units": {
-        "en": "kWH"
-      },
-      "decimals": 3            
     },
     "meter_power.today_grid_import": {
       "title": {

@@ -88,11 +88,11 @@ export async function checkRegisterGrowatt(registers: Object, client: InstanceTy
             switch (value[2]) {
                 case 'UINT16':
                     resultValue = response.body.valuesAsArray[0].toString();
-                    console.log(key);
+                    // console.log(key);
                     break;
                 case 'UINT32':
                     resultValue = (response.body.valuesAsArray[0]  << 16 | response.body.valuesAsArray[1]).toString();
-                    console.log(key);
+                    // console.log(key);
                     break;
                 default:
                     console.log(key + ": type not found " + value[2]);
@@ -133,11 +133,11 @@ export async function checkHoldingRegisterGrowatt(registers: Object, client: Ins
             switch (value[2]) {
                 case 'UINT16':
                     resultValue = response.body.valuesAsArray[0].toString();
-                    console.log(key);
+                    // console.log(key);
                     break;
                 case 'UINT32':
                     resultValue = (response.body.valuesAsArray[0]  << 16 | response.body.valuesAsArray[1]).toString();
-                    console.log(key);
+                    // console.log(key);
                     break;
                 default:
                     console.log(key + ": type not found " + value[2]);

@@ -4,8 +4,8 @@
       "en": "Export limit %"
     },
     "getable": true,
-    "setable": true,
-    "uiComponent": "slider",
+    "setable": false,
+    "uiComponent": "sensor",
     "uiQuickAction": true,    
     "insights": true,
     "units": {

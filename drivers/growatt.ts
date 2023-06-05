@@ -50,15 +50,15 @@ export class Growatt extends Homey.Device {
         "pv2TotalEnergy": [65, 2, 'UINT32', "pv2 Total Energy", -1 ], 
         "pvEnergyTotal":  [91, 2, 'UINT32', "pv Total Energy", -1 ], 
 
-        "realoutputpercentage": [101, 1, 'UINT16', "real output power percentage", 0],
-        "outputmaxpowerlimited": [102 ,2, 'UINT32', "output max power limited", -1 ],
+        // "realoutputpercentage": [101, 1, 'UINT16', "real output power percentage", 0],
+        // "outputmaxpowerlimited": [102 ,2, 'UINT32', "output max power limited", -1 ],
 
         // ipmTemperature: data[94] / 10.0, //°C
         // inverterOutputPf: data[100], //powerfactor 0-20000
         "error": [105 ,1, 'UINT16', "Error", 0 ],
         // realPowerPercent: data[113] //% 0-100
 
-        "ac_chargepower": [116 ,2, 'UINT32', "AC charge Power", -1 ],
+        // "ac_chargepower": [116 ,2, 'UINT32', "AC charge Power", -1 ],
 
         "battDischarge": [1009, 2, 'UINT32', "battery Discharge", -1 ], 
         "battCharge":    [1011, 2, 'UINT32', "battery Charge", -1 ], 
@@ -76,6 +76,10 @@ export class Growatt extends Homey.Device {
         
         "totalhouseload": [1037 ,2, 'UINT32', "Total house Load", -1 ],
         "priority":       [118, 1, 'UINT16', "priority", 0], 
+
+        "pactouserr":  [1015 ,2, 'UINT32', "AC power to user", -1 ],
+        // "pactousers":  [1017 ,2, 'UINT32', "pac to user s", -1 ],
+        // "pactousert":  [1019 ,2, 'UINT32', "pac to user t", -1 ],
 
         "today_grid_import": [1044 ,2, 'UINT32', "Today's Grid Import", -1 ],
         "total_grid_import": [1046 ,2, 'UINT32', "Total Grid Import", -1 ],
@@ -256,30 +260,30 @@ export class Growatt extends Homey.Device {
                 this.setCapabilityValue('exportlimitpowerrate', exportlimitpowerrate);
             }     
 
-            if (result['ac_chargepower'] && result['ac_chargepower'].value != 'xxx' && this.hasCapability('measure_power.gridpowertoload')) {
-                this.addCapability('measure_power.gridpowertoload');
-                var gridpowertoload = Number(result['ac_chargepower'].value) * (Math.pow(10, Number(result['ac_chargepower'].scale)));
-                this.setCapabilityValue('measure_power.gridpowertoload', gridpowertoload);
-                console.log('gridpowertoload ' + gridpowertoload);
-            }     
+            // if (result['ac_chargepower'] && result['ac_chargepower'].value != 'xxx' && this.hasCapability('measure_power.gridpowertoload')) {
+            //     this.addCapability('measure_power.gridpowertoload');
+            //     var gridpowertoload = Number(result['ac_chargepower'].value) * (Math.pow(10, Number(result['ac_chargepower'].scale)));
+            //     this.setCapabilityValue('measure_power.gridpowertoload', gridpowertoload);
+            //     console.log('gridpowertoload ' + gridpowertoload);
+            // }     
             
-            if (result['realoutputpercentage'] && result['realoutputpercentage'].value != 'xxx' && this.hasCapability('realoutputpercentage')) {
-                this.addCapability('realoutputpercentage');
-                var realoutputpercentage = Number(result['realoutputpercentage'].value) * (Math.pow(10, Number(result['realoutputpercentage'].scale)));
-                this.setCapabilityValue('realoutputpercentage', realoutputpercentage);
-            }   
+            // if (result['realoutputpercentage'] && result['realoutputpercentage'].value != 'xxx' && this.hasCapability('realoutputpercentage')) {
+            //     this.addCapability('realoutputpercentage');
+            //     var realoutputpercentage = Number(result['realoutputpercentage'].value) * (Math.pow(10, Number(result['realoutputpercentage'].scale)));
+            //     this.setCapabilityValue('realoutputpercentage', realoutputpercentage);
+            // }   
  
-            if (result['outputmaxpowerlimited'] && result['outputmaxpowerlimited'].value != 'xxx' && this.hasCapability('outputmaxpowerlimited')) {
-                this.addCapability('outputmaxpowerlimited');
-                var outputmaxpowerlimited = Number(result['outputmaxpowerlimited'].value) * (Math.pow(10, Number(result['outputmaxpowerlimited'].scale)));
-                this.setCapabilityValue('outputmaxpowerlimited', outputmaxpowerlimited);
-            }
+            // if (result['outputmaxpowerlimited'] && result['outputmaxpowerlimited'].value != 'xxx' && this.hasCapability('outputmaxpowerlimited')) {
+            //     this.addCapability('outputmaxpowerlimited');
+            //     var outputmaxpowerlimited = Number(result['outputmaxpowerlimited'].value) * (Math.pow(10, Number(result['outputmaxpowerlimited'].scale)));
+            //     this.setCapabilityValue('outputmaxpowerlimited', outputmaxpowerlimited);
+            // }
             
-            if (result['exportlimitwhenfailed'] && result['exportlimitwhenfailed'].value != 'xxx' && this.hasCapability('exportlimitwhenfailed')) {
-                this.addCapability('exportlimitwhenfailed');
-                var exportlimitwhenfailed = Number(result['exportlimitwhenfailed'].value) * (Math.pow(10, Number(result['exportlimitwhenfailed'].scale)));
-                this.setCapabilityValue('exportlimitwhenfailed', exportlimitwhenfailed);
-            } 
+            // if (result['exportlimitwhenfailed'] && result['exportlimitwhenfailed'].value != 'xxx' && this.hasCapability('exportlimitwhenfailed')) {
+            //     this.addCapability('exportlimitwhenfailed');
+            //     var exportlimitwhenfailed = Number(result['exportlimitwhenfailed'].value) * (Math.pow(10, Number(result['exportlimitwhenfailed'].scale)));
+            //     this.setCapabilityValue('exportlimitwhenfailed', exportlimitwhenfailed);
+            // } 
             
             if (result['priority'] && result['priority'].value != 'xxx' && this.hasCapability('priority')) {
                 this.addCapability('priority');
