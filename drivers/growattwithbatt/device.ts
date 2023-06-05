@@ -138,9 +138,11 @@ class MyGrowattBattery extends Growatt {
       if (type == 'exportlimitpowerrate') {
         // 0 – 100 % with 1 decimal
         // 0 – 1000 as values
+        console.log('exportlimitpowerrate value: ' + value);
         if (value >= 0 && value <= 100) {
           const exportlimitpowerratedRes = await client.writeSingleRegister(123, value * 10);
           console.log('exportlimitpowerrate', exportlimitpowerratedRes);
+          console.log('exportlimitpowerrate value 2: ' + value * 10);
         } else {
           console.log('exportlimitpowerrate unknown value: ' + value);
         }
