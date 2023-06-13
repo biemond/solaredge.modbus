@@ -64,5 +64,8 @@
   },
   "3.0.29": {
     "en": "Adding growatt export limit parameters / flows"
-  }         
+  },
+  "3.0.30": {
+    "en": "Adding active power flows"
+  }
 }

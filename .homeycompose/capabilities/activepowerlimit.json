@@ -1,15 +1,43 @@
 {
-      "type": "number",
+  "type": "enum",
+  "title": {
+    "en": "Active power limit"
+  },
+  "getable": true,
+  "setable": true,
+  "insights": true,
+  "decimals": 0,
+  "uiComponent": "picker",
+  "values": [
+    {
+      "id": "0",
       "title": {
-        "en": "Active power limit"
-      },
-      "getable": true,
-      "setable": false,
-      "insights": true,
-      "decimals": 1,
-      "uiComponent": "sensor",
-      "units": {
-        "en": "%"
+        "en": "0%"
       }
+    },
+    {
+      "id": "25",
+      "title": {
+        "en": "25%"
+      }
+    },
+    {
+      "id": "50",
+      "title": {
+        "en": "50%"
+      }
+    },
+    {
+      "id": "75",
+      "title": {
+        "en": "75%"
+      }
+    },
+    {
+      "id": "100",
+      "title": {
+        "en": "100%"
+      }
+    }
+  ]
 }
-    

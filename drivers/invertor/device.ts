@@ -25,6 +25,12 @@ class MySolaredgeDevice extends Solaredge {
     }, RETRY_INTERVAL);
 
     // // homey menu / device actions
+    this.registerCapabilityListener('activepowerlimit', async (value) => {
+      this.updateControl('activepowerlimit', Number(value));
+      return value;
+    });
+
+
     // this.registerCapabilityListener('limitcontrolmode', async (value) => {
     //   this.updateControl('limitcontrolmode', Number(value));
     //   return value;
@@ -107,6 +113,11 @@ class MySolaredgeDevice extends Solaredge {
       // https://www.rapidtables.com/convert/number/hex-to-decimal.html
       
       console.log('Connected ...');
+
+      if (type == 'activepowerlimit') {
+        const activepowerlimitRes = await client.writeSingleRegister(0xf001, Number(value));
+        console.log('activepowerlimit', activepowerlimitRes);        
+      }
 
       if (type == 'limitcontrolmode') {
         // 0 – Disabled

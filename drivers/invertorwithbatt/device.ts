@@ -41,7 +41,10 @@ class MySolaredgeBatteryDevice extends Solaredge {
       this.updateControl('limitcontrolmode', Number(value));
       return value;
     });
-
+    this.registerCapabilityListener('activepowerlimit', async (value) => {
+      this.updateControl('activepowerlimit', Number(value));
+      return value;
+    });
 
     // flow action 
     let controlAction = this.homey.flow.getActionCard('storagecontrolmode');
@@ -250,6 +253,11 @@ class MySolaredgeBatteryDevice extends Solaredge {
         }
         const dischargeRes = await client.writeMultipleRegisters(0xe010, [dischargehex1, dischargehex2]);
         console.log('discharge', dischargeRes);        
+      }
+
+      if (type == 'activepowerlimit') {
+        const activepowerlimitRes = await client.writeSingleRegister(0xf001, Number(value));
+        console.log('activepowerlimit', activepowerlimitRes);        
       }
 
       if (type == 'limitcontrolmode') {
