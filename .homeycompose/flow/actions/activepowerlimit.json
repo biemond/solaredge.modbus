@@ -1,0 +1,48 @@
+{
+    "title": {
+        "en": "Active Power Limit"
+    },
+    "args": [
+        {
+            "name": "value",
+            "type": "dropdown",
+            "values": [
+                {
+                    "id": "0",
+                    "title": {
+                        "en": "0%"
+                    }
+                },
+                {
+                    "id": "25",
+                    "title": {
+                        "en": "25%"
+                    }
+                },
+                {
+                    "id": "50",
+                    "title": {
+                        "en": "50%"
+                    }
+                },
+                {
+                    "id": "75",
+                    "title": {
+                        "en": "75%"
+                    }
+                },
+                {
+                    "id": "100",
+                    "title": {
+                        "en": "100%"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertor|invertorwithbatt"
+        }
+    ]
+}

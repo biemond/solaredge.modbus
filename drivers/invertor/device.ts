@@ -42,7 +42,11 @@ class MySolaredgeDevice extends Solaredge {
         let result = (await this.getCapabilityValue('measure_power') >= args.charging);
         return Promise.resolve(result);
     })  
-
+    let controlActionActivePower = this.homey.flow.getActionCard('activepowerlimit');
+    controlActionActivePower.registerRunListener(async (args, state) => {
+      await this.updateControl('activepowerlimit', Number(args.value));
+    });   
+        
     // flow conditions
     let changedStatus = this.homey.flow.getConditionCard("changedStatus");
     changedStatus.registerRunListener(async (args, state) => {

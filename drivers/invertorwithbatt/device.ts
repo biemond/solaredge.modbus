@@ -46,7 +46,11 @@ class MySolaredgeBatteryDevice extends Solaredge {
       return value;
     });
 
-    // flow action 
+    // flow action
+    let controlActionActivePower = this.homey.flow.getActionCard('activepowerlimit');
+    controlActionActivePower.registerRunListener(async (args, state) => {
+      await this.updateControl('activepowerlimit', Number(args.value));
+    });     
     let controlAction = this.homey.flow.getActionCard('storagecontrolmode');
     controlAction.registerRunListener(async (args, state) => {
       await this.updateControl('storagecontrolmode', Number(args.mode));
