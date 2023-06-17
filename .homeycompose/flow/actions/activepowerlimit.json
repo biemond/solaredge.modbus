@@ -4,40 +4,15 @@
     },
     "args": [
         {
+            "type": "range",
             "name": "value",
-            "type": "dropdown",
-            "values": [
-                {
-                    "id": "0",
-                    "title": {
-                        "en": "0%"
-                    }
-                },
-                {
-                    "id": "25",
-                    "title": {
-                        "en": "25%"
-                    }
-                },
-                {
-                    "id": "50",
-                    "title": {
-                        "en": "50%"
-                    }
-                },
-                {
-                    "id": "75",
-                    "title": {
-                        "en": "75%"
-                    }
-                },
-                {
-                    "id": "100",
-                    "title": {
-                        "en": "100%"
-                    }
-                }
-            ]
+            "title": {
+                "en": "percentage"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "labelDecimals": 0
         },
         {
             "type": "device",

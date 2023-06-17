@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.31",
+  "version": "3.0.32",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -868,40 +868,15 @@
         },
         "args": [
           {
+            "type": "range",
             "name": "value",
-            "type": "dropdown",
-            "values": [
-              {
-                "id": "0",
-                "title": {
-                  "en": "0%"
-                }
-              },
-              {
-                "id": "25",
-                "title": {
-                  "en": "25%"
-                }
-              },
-              {
-                "id": "50",
-                "title": {
-                  "en": "50%"
-                }
-              },
-              {
-                "id": "75",
-                "title": {
-                  "en": "75%"
-                }
-              },
-              {
-                "id": "100",
-                "title": {
-                  "en": "100%"
-                }
-              }
-            ]
+            "title": {
+              "en": "percentage"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "labelDecimals": 0
           },
           {
             "type": "device",
@@ -2230,47 +2205,20 @@
   ],
   "capabilities": {
     "activepowerlimit": {
-      "type": "enum",
+      "type": "number",
       "title": {
         "en": "Active power limit"
       },
       "getable": true,
-      "setable": true,
+      "setable": false,
       "insights": true,
+      "uiComponent": "sensor",
+      "units": {
+        "en": "%"
+      },
       "decimals": 0,
-      "uiComponent": "picker",
-      "values": [
-        {
-          "id": "0",
-          "title": {
-            "en": "0%"
-          }
-        },
-        {
-          "id": "25",
-          "title": {
-            "en": "25%"
-          }
-        },
-        {
-          "id": "50",
-          "title": {
-            "en": "50%"
-          }
-        },
-        {
-          "id": "75",
-          "title": {
-            "en": "75%"
-          }
-        },
-        {
-          "id": "100",
-          "title": {
-            "en": "100%"
-          }
-        }
-      ]
+      "min": 0,
+      "max": 100
     },
     "battery": {
       "type": "number",
