@@ -1,0 +1,18 @@
+{
+      "type": "number",
+      "title": {
+        "en": "Battery Upper Capacity"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "uiComponent": "sensor",
+      "icon": "/assets/battery.svg",
+      "units": {
+        "en": "%",
+        "nl": "%"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1         
+}    

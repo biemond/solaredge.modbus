@@ -42,7 +42,9 @@
     "meter_power.today_grid_export",
     "meter_power.today_batt_output",
     "meter_power.today_batt_input",
-    "meter_power.today_load"
+    "meter_power.today_load",
+    "batterymaxsoc",
+    "batteryminsoc"        
   ],
   "capabilitiesOptions": {
     "measure_power": {

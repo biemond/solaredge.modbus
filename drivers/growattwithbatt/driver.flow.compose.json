@@ -13,15 +13,15 @@
             {
               "id": "0",
               "title": {
-                  "en": "Disabled"
+                "en": "Disabled"
               }
-          },
-          {
+            },
+            {
               "id": "1",
               "title": {
-                  "en": "Enabled"
+                "en": "Enabled"
               }
-          }  
+            }
           ]
         }
       ]
@@ -35,13 +35,149 @@
         {
           "type": "range",
           "name": "percentage",
-          "title": { "en": "percentage" },
+          "title": {
+            "en": "percentage"
+          },
           "min": 0,
           "max": 100,
           "step": 0.1,
           "labelDecimals": 1
         }
-      ]  
+      ]
+    },
+    {
+      "id": "battfirsttime1",
+      "title": {
+        "en": "Batt 1st time 1"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "hourstart",
+          "title": {
+            "en": "Hour"
+          },
+          "min": 0,
+          "max": 23,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "name": "minstart",
+          "title": {
+            "en": "Minute"
+          },
+          "min": 0,
+          "max": 59,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "name": "hourstop",
+          "title": {
+            "en": "Hour"
+          },
+          "min": 0,
+          "max": 23,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "name": "minstop",
+          "title": {
+            "en": "Minute"
+          },
+          "min": 0,
+          "max": 59,
+          "step": 1
+        },
+        {
+          "name": "active",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Disabled"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Enabled"
+              }
+            }
+          ]
+        }        
+      ]
+    },    
+    {
+      "id": "battery_minimum_capacity",
+      "title": {
+        "en": "Battery Minimum Capacity %"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "percentage",
+          "title": {
+            "en": "percentage"
+          },
+          "min": 10,
+          "max": 100,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "id": "battery_maximum_capacity",
+      "title": {
+        "en": "Battery Maximum Capacity %"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "percentage",
+          "title": {
+            "en": "percentage"
+          },
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "id": "prioritymode",
+      "title": {
+        "en": "Priority mode"
+      },
+      "args": [
+        {
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Load"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Battery"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Grid"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

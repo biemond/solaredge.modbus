@@ -35,6 +35,20 @@ class MyGrowattBattery extends Growatt {
       await this.updateControl('exportlimitpowerrate', args.percentage);
     });
 
+    let battmaxsocAction = this.homey.flow.getActionCard('battery_maximum_capacity');
+    battmaxsocAction.registerRunListener(async (args, state) => {
+      await this.updateControl('battmaxsoc', Number(args.mode));
+    });
+
+    let battminsocAction = this.homey.flow.getActionCard('battery_minimum_capacity');
+    battminsocAction.registerRunListener(async (args, state) => {
+      await this.updateControl('battminsoc', args.percentage);
+    });
+    
+    let prioritychangeAction = this.homey.flow.getActionCard('prioritymode');
+    prioritychangeAction.registerRunListener(async (args, state) => {
+      await this.updateControl('prioritymode', Number(args.mode));
+    });
 
     // homey menu / device actions
     this.registerCapabilityListener('exportlimitenabled', async (value) => {
@@ -147,6 +161,35 @@ class MyGrowattBattery extends Growatt {
           console.log('exportlimitpowerrate unknown value: ' + value);
         }
       }
+
+      if (type == 'battmaxsoc') {
+        // 0 – 100 % 
+        console.log('battmaxsoc value: ' + value);
+        if (value >= 0 && value <= 100) {
+          const battmaxsocRes = await client.writeSingleRegister(1091, value);
+          console.log('battmaxsoc', battmaxsocRes);
+        } else {
+          console.log('battmaxsoc unknown value: ' + value);
+        }
+      }
+
+      if (type == 'battminsoc') {
+        // 10 – 100 % 
+        console.log('battminsoc value: ' + value);
+        if (value >= 10 && value <= 100) {
+          const battminsocRes = await client.writeSingleRegister(1071, value);
+          console.log('battminsoc', battminsocRes);
+        } else {
+          console.log('battminsoc unknown value: ' + value);
+        }
+      }
+
+      if (type == 'prioritymode') {
+        console.log('prioritymode value: ' + value);
+        const prioritychangeRes = await client.writeSingleRegister(1044, value);
+        console.log('prioritymode', prioritychangeRes);
+      }
+      
 
       console.log('disconnect');
       client.socket.end();

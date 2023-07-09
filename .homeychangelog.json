@@ -67,5 +67,8 @@
   },
   "3.0.32": {
     "en": "Adding active power menu actions and flow actions"
-  }
+  },
+  "3.0.33": {
+    "en": "Growatt load 1st with batt limit"
+  }  
 }

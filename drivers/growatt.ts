@@ -9,9 +9,25 @@ export interface Measurement {
 export class Growatt extends Homey.Device {
 
     holdingRegisters: Object = {
-        "exportlimitenabled":   [122, 1, 'UINT16', "Export Limit enable", 0],         
-        "exportlimitpowerrate": [123, 1, 'UINT16', "Export Limit Power Rate", -1],
-        "exportlimitwhenfailed": [3000, 1, 'UINT16', "Export Limit when limit failed", -1]           
+        "exportlimitenabled":    [122, 1, 'UINT16', "Export Limit enable", 0],         
+        "exportlimitpowerrate":  [123, 1, 'UINT16', "Export Limit Power Rate", -1],
+        "prioritychange":        [1044, 1, 'UINT16', "Priority", 0],
+        "gridfirststopsoc":      [1071, 1, 'UINT16', "GridFirst stop SOC", 0],
+        "batfirststopsoc":       [1091, 1, 'UINT16', "BatFirst stop SOC", 0],
+
+        "gridfirststarttime1":    [1080, 1, 'UINT16', "Grid First Start Time", 0],
+        "gridfirststoptime1":     [1081, 1, 'UINT16', "Grid First Stop Time", 0],
+        "gridfirststopswitch1":   [1082, 1, 'UINT16', "Grid First Stop Switch 1", 0],
+
+        "battfirststarttime1":    [1100, 1, 'UINT16', "Battery First Start Time", 0],
+        "battfirststoptime1":     [1101, 1, 'UINT16', "Battery First Stop Time", 0],
+        "battfirststopswitch1":   [1102, 1, 'UINT16', "Battery First Stop Switch 1", 0]
+
+        // different inverter
+        // "gridfirststopsoc2":     [3037, 1, 'UINT16', "GridFirst stop SOC 2", 0],
+        // "batfirststopsoc2":      [3048, 1, 'UINT16', "BatFirst stop SOC 2", 0],
+        // "loadfirststopsocset":   [3082, 1, 'UINT16', "LoadFirst stop SOC set", 0],
+        // "exportlimitwhenfailed": [3000, 1, 'UINT16', "Export Limit when limit failed", -1]           
     }
 
     registers: Object = {
@@ -327,6 +343,31 @@ export class Growatt extends Homey.Device {
                 this.setCapabilityValue('meter_power.today_load', today_load);
             }   
 
+            if (result['gridfirststopsoc'] && result['gridfirststopsoc'].value != 'xxx'  && this.hasCapability('batteryminsoc')) {
+                this.addCapability('batteryminsoc');
+                var soc = Number(result['gridfirststopsoc'].value);
+                this.setCapabilityValue('batteryminsoc', soc);
+            }
+
+            if (result['batfirststopsoc'] && result['batfirststopsoc'].value != 'xxx'  && this.hasCapability('batterymaxsoc')) {
+                this.addCapability('batterymaxsoc');
+                var soc = Number(result['batfirststopsoc'].value);
+                this.setCapabilityValue('batterymaxsoc', soc);
+            }
+
+            if (result['gridfirststarttime1'] && result['gridfirststarttime1'].value != 'xxx' ) {
+                var value = Number(result['gridfirststarttime1'].value);
+                let lowVal = value & 0xFF;
+                let highval = (value >> 8) & 0xFF;
+                console.log('gridfirststarttime1: ' + value +  ' hour ' + highval + ' min ' + lowVal );
+            }            
+            if (result['battfirststarttime1'] && result['battfirststarttime1'].value != 'xxx' ) {
+                var value = Number(result['battfirststarttime1'].value);
+
+                let lowVal = value & 0xFF;
+                let highval = (value >> 8) & 0xFF;
+                console.log('battfirststarttime1: value ' + value +  ' hour ' + highval + ' min ' + lowVal );
+            }  
         }
     }
 }
