@@ -44,7 +44,10 @@
     "meter_power.today_batt_input",
     "meter_power.today_load",
     "batterymaxsoc",
-    "batteryminsoc"        
+    "batteryminsoc",
+    "gridfirst1",
+    "battfirst1",
+    "loadfirst1"                
   ],
   "capabilitiesOptions": {
     "measure_power": {

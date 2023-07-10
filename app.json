@@ -1141,7 +1141,7 @@
               "en": "Minute"
             },
             "min": 0,
-            "max": 23,
+            "max": 59,
             "step": 1
           },
           {
@@ -1748,7 +1748,10 @@
         "meter_power.today_batt_input",
         "meter_power.today_load",
         "batterymaxsoc",
-        "batteryminsoc"
+        "batteryminsoc",
+        "gridfirst1",
+        "battfirst1",
+        "loadfirst1"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -2506,6 +2509,16 @@
       "icon": "/assets/operational_status.svg",
       "decimals": 0
     },
+    "battfirst1": {
+      "type": "string",
+      "title": {
+        "en": "Battery 1st 1"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false
+    },
     "battstatus": {
       "type": "enum",
       "title": {
@@ -2673,6 +2686,16 @@
       "min": 0,
       "max": 100
     },
+    "gridfirst1": {
+      "type": "string",
+      "title": {
+        "en": "Grid 1st 1"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false
+    },
     "invertorstatus": {
       "type": "enum",
       "title": {
@@ -2769,6 +2792,16 @@
           }
         }
       ]
+    },
+    "loadfirst1": {
+      "type": "string",
+      "title": {
+        "en": "Load 1st 1"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false
     },
     "measure_current": {
       "type": "number",
