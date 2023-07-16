@@ -15,6 +15,8 @@ export class Growatt extends Homey.Device {
         "gridfirststopsoc": [1071, 1, 'UINT16', "GridFirst stop SOC", 0],
         "batfirststopsoc": [1091, 1, 'UINT16', "BatFirst stop SOC", 0],
 
+        "acchargeswitch": [1092, 1, 'UINT16', "Batt AC charge switch", 0],
+
         "gridfirststarttime1": [1080, 1, 'UINT16', "Grid First Start Time", 0],
         "gridfirststoptime1": [1081, 1, 'UINT16', "Grid First Stop Time", 0],
         "gridfirststopswitch1": [1082, 1, 'UINT16', "Grid First Stop Switch 1", 0],
@@ -359,6 +361,12 @@ export class Growatt extends Homey.Device {
                 this.setCapabilityValue('batterymaxsoc', soc);
             }
 
+            if (result['acchargeswitch'] && result['acchargeswitch'].value != 'xxx' && this.hasCapability('battacchargeswitch')) {
+                this.addCapability('battacchargeswitch');
+                var acswitch = result['acchargeswitch'].value;
+                this.setCapabilityValue('battacchargeswitch', acswitch);
+            }
+
             if (result['gridfirststarttime1'] && result['gridfirststarttime1'].value != 'xxx' && this.hasCapability('gridfirst1')) {
                 var value = Number(result['gridfirststarttime1'].value);
                 let lowVal = value & 0xFF;
@@ -437,45 +445,45 @@ export class Growatt extends Homey.Device {
                     useGrouping: false
                 }) + ' enabled: ' + value3);                
             }
-            if (result['loadfirststarttime1'] && result['loadfirststarttime1'].value != 'xxx' && this.hasCapability('loadfirst1')) {
-                var value = Number(result['loadfirststarttime1'].value);
-                let lowVal = value & 0xFF;
-                let highval = (value >> 8) & 0xFF;
-                // console.log('loadfirststarttime1: hour ' + highval + ' min ' + lowVal );
-                var value2 = Number(result['loadfirststoptime1'].value);
-                let lowVal2 = value2 & 0xFF;
-                let highval2 = (value2 >> 8) & 0xFF;
-                // console.log('loadfirststoptime1: hour ' + highval2 + ' min ' + lowVal2 );
-                var value3 = result['loadfirststopswitch1'].value;
-                // console.log('loadfirststopswitch1: ' + value3);
-                console.log('loadfirst1 from: ' + highval.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                }) + ':' + lowVal.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                }) + ' to: ' + highval2.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                }) + ':' + lowVal2.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                }) + ' enabled: ' + value3);
-                this.addCapability('loadfirst1');
-                this.setCapabilityValue('loadfirst1', highval.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                }) + ':' + lowVal.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                }) + ' to: ' + highval2.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                }) + ':' + lowVal2.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                }) + ' enabled: ' + value3);                
-            }
+            // if (result['loadfirststarttime1'] && result['loadfirststarttime1'].value != 'xxx' && this.hasCapability('loadfirst1')) {
+            //     var value = Number(result['loadfirststarttime1'].value);
+            //     let lowVal = value & 0xFF;
+            //     let highval = (value >> 8) & 0xFF;
+            //     // console.log('loadfirststarttime1: hour ' + highval + ' min ' + lowVal );
+            //     var value2 = Number(result['loadfirststoptime1'].value);
+            //     let lowVal2 = value2 & 0xFF;
+            //     let highval2 = (value2 >> 8) & 0xFF;
+            //     // console.log('loadfirststoptime1: hour ' + highval2 + ' min ' + lowVal2 );
+            //     var value3 = result['loadfirststopswitch1'].value;
+            //     // console.log('loadfirststopswitch1: ' + value3);
+            //     console.log('loadfirst1 from: ' + highval.toLocaleString('en-US', {
+            //         minimumIntegerDigits: 2,
+            //         useGrouping: false
+            //     }) + ':' + lowVal.toLocaleString('en-US', {
+            //         minimumIntegerDigits: 2,
+            //         useGrouping: false
+            //     }) + ' to: ' + highval2.toLocaleString('en-US', {
+            //         minimumIntegerDigits: 2,
+            //         useGrouping: false
+            //     }) + ':' + lowVal2.toLocaleString('en-US', {
+            //         minimumIntegerDigits: 2,
+            //         useGrouping: false
+            //     }) + ' enabled: ' + value3);
+            //     this.addCapability('loadfirst1');
+            //     this.setCapabilityValue('loadfirst1', highval.toLocaleString('en-US', {
+            //         minimumIntegerDigits: 2,
+            //         useGrouping: false
+            //     }) + ':' + lowVal.toLocaleString('en-US', {
+            //         minimumIntegerDigits: 2,
+            //         useGrouping: false
+            //     }) + ' to: ' + highval2.toLocaleString('en-US', {
+            //         minimumIntegerDigits: 2,
+            //         useGrouping: false
+            //     }) + ':' + lowVal2.toLocaleString('en-US', {
+            //         minimumIntegerDigits: 2,
+            //         useGrouping: false
+            //     }) + ' enabled: ' + value3);                
+            // }
 
         }
     }

@@ -37,7 +37,7 @@ class MyGrowattBattery extends Growatt {
 
     let battmaxsocAction = this.homey.flow.getActionCard('battery_maximum_capacity');
     battmaxsocAction.registerRunListener(async (args, state) => {
-      await this.updateControl('battmaxsoc', Number(args.mode));
+      await this.updateControl('battmaxsoc', Number(args.percentage));
     });
 
     let battminsocAction = this.homey.flow.getActionCard('battery_minimum_capacity');
@@ -49,6 +49,25 @@ class MyGrowattBattery extends Growatt {
     prioritychangeAction.registerRunListener(async (args, state) => {
       await this.updateControl('prioritymode', Number(args.mode));
     });
+
+    let battacchargeswitchAction = this.homey.flow.getActionCard('battacchargeswitch');
+    battacchargeswitchAction.registerRunListener(async (args, state) => {
+      await this.updateControl('battacchargeswitch', Number(args.mode));
+    });
+
+    let battfirsttime1Action = this.homey.flow.getActionCard('battfirsttime1');
+    battfirsttime1Action.registerRunListener(async (args, state) => {
+      await this.updateControlProfile('battfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+    });
+    let gridfirsttime1Action = this.homey.flow.getActionCard('gridfirsttime1');
+    gridfirsttime1Action.registerRunListener(async (args, state) => {
+      await this.updateControlProfile('gridfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+    });
+    // let loadfirsttime1Action = this.homey.flow.getActionCard('loadfirsttime1');
+    // loadfirsttime1Action.registerRunListener(async (args, state) => {
+    //   await this.updateControlProfile('loadfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+    // });    
+
 
     // homey menu / device actions
     this.registerCapabilityListener('exportlimitenabled', async (value) => {
@@ -149,6 +168,20 @@ class MyGrowattBattery extends Growatt {
         }
       }
  
+      if (type == 'battacchargeswitch') {
+        // 0 – Disabled
+        // 1 – Enabled
+        if (value == 1) {
+          const battacchargeswitchRes = await client.writeSingleRegister(1092, Number(1));
+          console.log('battacchargeswitch', battacchargeswitchRes);
+        } else if (value == 0) {
+          const battacchargeswitchRes = await client.writeSingleRegister(1092, Number(0));
+          console.log('battacchargeswitch', battacchargeswitchRes);
+        } else {
+          console.log('battacchargeswitch unknown value: ' + value);
+        }
+      }      
+
       if (type == 'exportlimitpowerrate') {
         // 0 – 100 % with 1 decimal
         // 0 – 1000 as values
@@ -190,6 +223,92 @@ class MyGrowattBattery extends Growatt {
         console.log('prioritymode', prioritychangeRes);
       }
       
+
+      console.log('disconnect');
+      client.socket.end();
+      socket.end();
+    })
+
+    socket.on('close', () => {
+      console.log('Client closed');
+    }); 
+
+    socket.on('error', (err) => {
+      console.log(err);
+      socket.end();
+      setTimeout(() => socket.connect(modbusOptions), 4000);
+    })
+  }
+
+  async updateControlProfile(type: string, hourstart: number, minstart: number, hourstop: number, minstop: number, enabled: string) {
+    let socket = new net.Socket();
+    var unitID = this.getSetting('id');
+    let client = new Modbus.client.TCP(socket, unitID); 
+
+    let modbusOptions = {
+      'host': this.getSetting('address'),
+      'port': this.getSetting('port'),
+      'unitId': this.getSetting('id'),
+      'timeout': 15,
+      'autoReconnect': false,
+      'logLabel': 'growatt Inverter',
+      'logLevel': 'error',
+      'logEnabled': true
+    }
+
+    socket.setKeepAlive(false); 
+    socket.connect(modbusOptions);
+    console.log(modbusOptions);
+    
+    socket.on('connect', async () => {
+      console.log('Connected ...');
+      let startRegister = 0;
+      let stopRegister = 0;
+      let enabledRegister = 0;
+      if (type == 'battfirsttime1') {
+        // "battfirststarttime1": [1100, 1, 'UINT16', "Battery First Start Time", 0],
+        // "battfirststoptime1": [1101, 1, 'UINT16', "Battery First Stop Time", 0],
+        // "battfirststopswitch1": [1102, 1, 'UINT16', "Battery First Stop Switch 1", 0],
+        startRegister = 1100
+        stopRegister = 1101
+        enabledRegister = 1102
+      }
+
+      if (type == 'gridfirsttime1') {
+        // "gridfirststarttime1": [1080, 1, 'UINT16', "Grid First Start Time", 0],
+        // "gridfirststoptime1": [1081, 1, 'UINT16', "Grid First Stop Time", 0],
+        // "gridfirststopswitch1": [1082, 1, 'UINT16', "Grid First Stop Switch 1", 0],
+        startRegister = 1080
+        stopRegister = 1081
+        enabledRegister = 1082
+      }
+
+      if (type == 'loadfirsttime1') {
+        // "loadfirststarttime1": [1110, 1, 'UINT16', "Load First Start Time", 0],
+        // "loadfirststoptime1": [1111, 1, 'UINT16', "Load First Stop Time", 0],
+        // "loadfirststopswitch1": [1112, 1, 'UINT16', "Load First Stop Switch 1", 0]
+        startRegister = 1110
+        stopRegister = 1111
+        enabledRegister = 1112
+      }      
+
+      let start  =  (hourstart * 256) + minstart;
+      const startRes = await client.writeSingleRegister(startRegister, start);
+      console.log('start', startRes);
+      let stop  =  (hourstop * 256) + minstop;   
+      const stopRes = await client.writeSingleRegister(stopRegister, stop);
+      console.log('stop', stopRes);             
+      // 0 – Disabled
+      // 1 – Enabled
+      if (enabled == "1") {
+        const enabledRes = await client.writeSingleRegister(enabledRegister, Number(1));
+        console.log('timeenabled', enabledRes);
+      } else if (enabled == "0") {
+        const enabledRes = await client.writeSingleRegister(enabledRegister, Number(0));
+        console.log('timeenabled', enabledRes);
+      } else {
+        console.log('timeenabled unknown value: ' + enabled);
+      }
 
       console.log('disconnect');
       client.socket.end();

@@ -27,6 +27,32 @@
       ]
     },
     {
+      "id": "battacchargeswitch",
+      "title": {
+        "en": "Batt AC charge switch"
+      },
+      "args": [
+        {
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Disabled"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Enabled"
+              }
+            }
+          ]
+        }
+      ]
+    },    
+    {
       "id": "exportlimitpowerrate",
       "title": {
         "en": "Export limit %"
@@ -110,7 +136,73 @@
           ]
         }        
       ]
-    },    
+    },
+    {
+      "id": "gridfirsttime1",
+      "title": {
+        "en": "Grid 1st time 1"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "hourstart",
+          "title": {
+            "en": "Hour"
+          },
+          "min": 0,
+          "max": 23,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "name": "minstart",
+          "title": {
+            "en": "Minute"
+          },
+          "min": 0,
+          "max": 59,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "name": "hourstop",
+          "title": {
+            "en": "Hour"
+          },
+          "min": 0,
+          "max": 23,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "name": "minstop",
+          "title": {
+            "en": "Minute"
+          },
+          "min": 0,
+          "max": 59,
+          "step": 1
+        },
+        {
+          "name": "active",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Disabled"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Enabled"
+              }
+            }
+          ]
+        }        
+      ]
+    },
     {
       "id": "battery_minimum_capacity",
       "title": {

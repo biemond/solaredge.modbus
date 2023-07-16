@@ -47,7 +47,7 @@
     "batteryminsoc",
     "gridfirst1",
     "battfirst1",
-    "loadfirst1"                
+    "battacchargeswitch"                
   ],
   "capabilitiesOptions": {
     "measure_power": {
