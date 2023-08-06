@@ -93,6 +93,43 @@ class MyGrowattBattery extends Growatt {
     //   return Promise.resolve(result);
     // })  
 
+   
+    if (this.hasCapability('priority') === false) {
+      await this.addCapability('priority');
+    }
+    if (this.hasCapability('measure_power.houseload') === false) {
+      await this.addCapability('measure_power.houseload');
+    }
+    if (this.hasCapability('meter_power.today_grid_import') === false) {
+      await this.addCapability('meter_power.today_grid_import');
+    }    
+    if (this.hasCapability('meter_power.today_grid_export') === false) {
+      await this.addCapability('meter_power.today_grid_export');
+    }
+    if (this.hasCapability('meter_power.today_batt_output') === false) {
+      await this.addCapability('meter_power.today_batt_output');
+    }
+    if (this.hasCapability('meter_power.today_batt_input') === false) {
+      await this.addCapability('meter_power.today_batt_input');
+    }
+    if (this.hasCapability('meter_power.today_load') === false) {
+      await this.addCapability('meter_power.today_load');
+    }    
+    if (this.hasCapability('batteryminsoc') === false) {
+      await this.addCapability('batteryminsoc');
+    }
+    if (this.hasCapability('batterymaxsoc') === false) {
+      await this.addCapability('batterymaxsoc');
+    }
+    if (this.hasCapability('gridfirst1') === false) {
+      await this.addCapability('gridfirst1');
+    }    
+    if (this.hasCapability('battfirst1') === false) {
+      await this.addCapability('battfirst1');
+    }
+    if (this.hasCapability('battacchargeswitch') === false) {
+      await this.addCapability('battacchargeswitch');
+    }
   }
 
   /**
@@ -291,7 +328,9 @@ class MyGrowattBattery extends Growatt {
         stopRegister = 1111
         enabledRegister = 1112
       }      
-
+      if ( hourstart == 0 && minstart == 0 ) {
+        minstart = 1;
+      }
       let start  =  (hourstart * 256) + minstart;
       const startRes = await client.writeSingleRegister(startRegister, start);
       console.log('start', startRes);

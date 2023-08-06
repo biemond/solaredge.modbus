@@ -1,7 +1,7 @@
 {
     "type": "string",
     "title": {
-        "en": "Grid 1st 1"
+        "en": "Grid 1st, Time slot 1"
     },
     "getable": true,
     "setable": false,

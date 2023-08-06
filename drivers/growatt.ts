@@ -384,13 +384,13 @@ export class Growatt extends Homey.Device {
                 }) + ':' + lowVal.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
-                }) + ' to: ' + highval2.toLocaleString('en-US', {
+                }) + ' ~ ' + highval2.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
                 }) + ':' + lowVal2.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
-                }) + ' enabled: ' + value3);
+                }) + ' state: ' + value3);
                 this.addCapability('gridfirst1');
                 this.setCapabilityValue('gridfirst1', highval.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
@@ -398,13 +398,13 @@ export class Growatt extends Homey.Device {
                 }) + ':' + lowVal.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
-                }) + ' to: ' + highval2.toLocaleString('en-US', {
+                }) + ' ~ ' + highval2.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
                 }) + ':' + lowVal2.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
-                }) + ' enabled: ' + value3);
+                }) + ' state: ' + value3);
             }
             if (result['battfirststarttime1'] && result['battfirststarttime1'].value != 'xxx' && this.hasCapability('battfirst1')) {
                 var value = Number(result['battfirststarttime1'].value);
@@ -423,13 +423,13 @@ export class Growatt extends Homey.Device {
                 }) + ':' + lowVal.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
-                }) + ' to: ' + highval2.toLocaleString('en-US', {
+                }) + ' ~ ' + highval2.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
                 }) + ':' + lowVal2.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
-                }) + ' enabled: ' + value3);
+                }) + ' state: ' + value3);
                 this.addCapability('battfirst1');
                 this.setCapabilityValue('battfirst1', highval.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
@@ -437,13 +437,13 @@ export class Growatt extends Homey.Device {
                 }) + ':' + lowVal.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
-                }) + ' to: ' + highval2.toLocaleString('en-US', {
+                }) + ' ~ ' + highval2.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
                 }) + ':' + lowVal2.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
-                }) + ' enabled: ' + value3);                
+                }) + ' state: ' + value3);                
             }
             // if (result['loadfirststarttime1'] && result['loadfirststarttime1'].value != 'xxx' && this.hasCapability('loadfirst1')) {
             //     var value = Number(result['loadfirststarttime1'].value);
@@ -462,13 +462,13 @@ export class Growatt extends Homey.Device {
             //     }) + ':' + lowVal.toLocaleString('en-US', {
             //         minimumIntegerDigits: 2,
             //         useGrouping: false
-            //     }) + ' to: ' + highval2.toLocaleString('en-US', {
+            //     }) + ' ~ ' + highval2.toLocaleString('en-US', {
             //         minimumIntegerDigits: 2,
             //         useGrouping: false
             //     }) + ':' + lowVal2.toLocaleString('en-US', {
             //         minimumIntegerDigits: 2,
             //         useGrouping: false
-            //     }) + ' enabled: ' + value3);
+            //     }) + ' state: ' + value3);
             //     this.addCapability('loadfirst1');
             //     this.setCapabilityValue('loadfirst1', highval.toLocaleString('en-US', {
             //         minimumIntegerDigits: 2,
@@ -476,13 +476,13 @@ export class Growatt extends Homey.Device {
             //     }) + ':' + lowVal.toLocaleString('en-US', {
             //         minimumIntegerDigits: 2,
             //         useGrouping: false
-            //     }) + ' to: ' + highval2.toLocaleString('en-US', {
+            //     }) + ' ~ ' + highval2.toLocaleString('en-US', {
             //         minimumIntegerDigits: 2,
             //         useGrouping: false
             //     }) + ':' + lowVal2.toLocaleString('en-US', {
             //         minimumIntegerDigits: 2,
             //         useGrouping: false
-            //     }) + ' enabled: ' + value3);                
+            //     }) + ' state: ' + value3);                
             // }
 
         }

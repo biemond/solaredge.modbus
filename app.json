@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.33",
+  "version": "3.0.35",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -1127,7 +1127,7 @@
       {
         "id": "battfirsttime1",
         "title": {
-          "en": "Batt 1st time 1"
+          "en": "Battery 1st, time slot 1:"
         },
         "args": [
           {
@@ -1143,7 +1143,9 @@
             },
             "min": 0,
             "max": 23,
-            "step": 1
+            "step": 1,
+            "labelDecimals": 0,
+            "label": ":"
           },
           {
             "type": "range",
@@ -1153,7 +1155,9 @@
             },
             "min": 0,
             "max": 59,
-            "step": 1
+            "step": 1,
+            "labelDecimals": 0,
+            "label": " ~ "
           },
           {
             "type": "range",
@@ -1163,7 +1167,9 @@
             },
             "min": 0,
             "max": 23,
-            "step": 1
+            "step": 1,
+            "labelDecimals": 0,
+            "label": ":"
           },
           {
             "type": "range",
@@ -1173,7 +1179,9 @@
             },
             "min": 0,
             "max": 59,
-            "step": 1
+            "step": 1,
+            "labelDecimals": 0,
+            "label": " state: "
           },
           {
             "name": "active",
@@ -1198,7 +1206,7 @@
       {
         "id": "gridfirsttime1",
         "title": {
-          "en": "Grid 1st time 1"
+          "en": "Grid 1st, time slot 1:"
         },
         "args": [
           {
@@ -1214,7 +1222,9 @@
             },
             "min": 0,
             "max": 23,
-            "step": 1
+            "step": 1,
+            "labelDecimals": 0,
+            "label": ":"
           },
           {
             "type": "range",
@@ -1224,7 +1234,9 @@
             },
             "min": 0,
             "max": 59,
-            "step": 1
+            "step": 1,
+            "labelDecimals": 0,
+            "label": " ~ "
           },
           {
             "type": "range",
@@ -1234,7 +1246,9 @@
             },
             "min": 0,
             "max": 23,
-            "step": 1
+            "step": 1,
+            "labelDecimals": 0,
+            "label": ":"
           },
           {
             "type": "range",
@@ -1244,7 +1258,9 @@
             },
             "min": 0,
             "max": 59,
-            "step": 1
+            "step": 1,
+            "labelDecimals": 0,
+            "label": " state: "
           },
           {
             "name": "active",
@@ -2638,7 +2654,7 @@
     "battfirst1": {
       "type": "string",
       "title": {
-        "en": "Battery 1st 1"
+        "en": "Battery 1st, Time slot 1"
       },
       "getable": true,
       "setable": false,
@@ -2815,7 +2831,7 @@
     "gridfirst1": {
       "type": "string",
       "title": {
-        "en": "Grid 1st 1"
+        "en": "Grid 1st, Time slot 1"
       },
       "getable": true,
       "setable": false,
@@ -2922,7 +2938,7 @@
     "loadfirst1": {
       "type": "string",
       "title": {
-        "en": "Load 1st 1"
+        "en": "Load 1st, Time slot 1"
       },
       "getable": true,
       "setable": false,

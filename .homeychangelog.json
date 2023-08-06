@@ -70,5 +70,11 @@
   },
   "3.0.33": {
     "en": "Growatt load,batt,grid 1st with batt change flows"
-  }  
+  },
+  "3.0.34": {
+    "en": "Growatt batt flow trigger fixes"
+  },
+  "3.0.35": {
+    "en": "Growatt batt migration caps + growatt battery flow decimals"
+  }          
 }
