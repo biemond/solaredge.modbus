@@ -343,10 +343,15 @@ export class Growatt extends Homey.Device {
                 this.setCapabilityValue('meter_power.today_batt_input', today_battery_input_energy);
             }
 
-            if (result['today_load'] && result['today_load'].value != 'xxx' && this.hasCapability('meter_power.today_load')) {
-                this.addCapability('meter_power.today_load');
-                var today_load = Number(result['today_load'].value) * (Math.pow(10, Number(result['today_load'].scale)));
-                this.setCapabilityValue('meter_power.today_load', today_load);
+            try {
+                if (result['today_load'] && result['today_load'].value != 'xxx' && this.hasCapability('meter_power.today_load')) {
+                    this.addCapability('meter_power.today_load');
+                    var today_load = Number(result['today_load'].value) * (Math.pow(10, Number(result['today_load'].scale)));
+                    this.setCapabilityValue('meter_power.today_load', today_load);
+                }
+            } catch (err) {
+                console.log("error with key: today_load");
+                console.log(err);
             }
 
             if (result['gridfirststopsoc'] && result['gridfirststopsoc'].value != 'xxx' && this.hasCapability('batteryminsoc')) {
@@ -443,7 +448,7 @@ export class Growatt extends Homey.Device {
                 }) + ':' + lowVal2.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
-                }) + ' state: ' + value3);                
+                }) + ' state: ' + value3);
             }
             // if (result['loadfirststarttime1'] && result['loadfirststarttime1'].value != 'xxx' && this.hasCapability('loadfirst1')) {
             //     var value = Number(result['loadfirststarttime1'].value);

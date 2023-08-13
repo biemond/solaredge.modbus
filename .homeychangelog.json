@@ -74,7 +74,7 @@
   "3.0.34": {
     "en": "Growatt batt flow trigger fixes"
   },
-  "3.0.35": {
+  "3.0.36": {
     "en": "Growatt batt migration caps + growatt battery flow decimals"
   }          
 }
