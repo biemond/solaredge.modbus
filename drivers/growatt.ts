@@ -99,10 +99,10 @@ export class Growatt extends Homey.Device {
         "totalhouseload": [1037, 2, 'UINT32', "Total house Load", -1],
         "priority": [118, 1, 'UINT16', "priority", 0],
 
-        "pactouserr": [1015, 2, 'UINT32', "pac to user r", -1],
-        "pactousers": [1017, 2, 'UINT32', "pac to user s", -1],
-        "pactousert": [1019, 2, 'UINT32', "pac to user t", -1],
-        "pactousertotal": [1021, 2, 'UINT32', "pac to user total", -1],
+        // "pactouserr": [1015, 2, 'UINT32', "pac to user r", -1],
+        // "pactousers": [1017, 2, 'UINT32', "pac to user s", -1],
+        // "pactousert": [1019, 2, 'UINT32', "pac to user t", -1],
+        // "pactousertotal": [1021, 2, 'UINT32', "pac to user total", -1],
 
         "today_grid_import": [1044, 2, 'UINT32', "Today's Grid Import", -1],
         "total_grid_import": [1046, 2, 'UINT32', "Total Grid Import", -1],
@@ -313,12 +313,17 @@ export class Growatt extends Homey.Device {
                 this.setCapabilityValue('priority', result['priority'].value);
             }
 
-            if (result['totalhouseload'] && result['totalhouseload'].value != 'xxx' && this.hasCapability('measure_power.houseload')) {
-                this.addCapability('measure_power.houseload');
-                var totalhouseload = Number(result['totalhouseload'].value) * (Math.pow(10, Number(result['totalhouseload'].scale)));
-                this.setCapabilityValue('measure_power.houseload', totalhouseload);
+            try {
+                if (result['totalhouseload'] && result['totalhouseload'].value != 'xxx' && this.hasCapability('measure_power.houseload')) {
+                    this.addCapability('measure_power.houseload');
+                    var totalhouseload = Number(result['totalhouseload'].value) * (Math.pow(10, Number(result['totalhouseload'].scale)));
+                    this.setCapabilityValue('measure_power.houseload', totalhouseload);
+                }
+            } catch (err) {
+                console.log("error with key: totalhouseload");
+                console.log(err);
             }
-
+            
             if (result['today_grid_import'] && result['today_grid_import'].value != 'xxx' && this.hasCapability('meter_power.today_grid_import')) {
                 this.addCapability('meter_power.today_grid_import');
                 var today_grid_import = Number(result['today_grid_import'].value) * (Math.pow(10, Number(result['today_grid_import'].scale)));
