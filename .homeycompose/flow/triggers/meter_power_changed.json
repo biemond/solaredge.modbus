@@ -1,14 +1,16 @@
 {
     "title": {
       "en": "Total Yield changed",
-      "nl": "Totale opbrengst is veranderd"
+      "nl": "Totale opbrengst is veranderd",
+		  "de": "Gesamtertrag hat sich geändert"
     },
     "tokens": [
       {
         "name": "meter_power",
         "title": {
           "en": "Energy",
-          "nl": "Energie"
+          "nl": "Energie",
+          "de": "Energie"
         },
         "type": "number",
         "example": 25

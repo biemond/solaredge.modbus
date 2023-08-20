@@ -1,14 +1,16 @@
 {
     "title": {
       "en": "Total Day Yield changed",
-      "nl": "Totale dag opbrengst is veranderd"
+      "nl": "Totale dag opbrengst is veranderd",
+		  "de": "Tagesgesamtertrag hat sich verändert"
     },
     "tokens": [
       {
         "name": "meter_power.daily",
         "title": {
           "en": "Energy",
-          "nl": "Energie"
+          "nl": "Energie",
+          "de": "Energie"
         },
         "type": "number",
         "example": 25

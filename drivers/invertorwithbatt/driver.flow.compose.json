@@ -4,7 +4,8 @@
       "id": "changedBattery",
       "title": {
         "en": "Battery Charge Changed",
-        "nl": "Batterij lading gewijzigd"
+        "nl": "Batterij lading gewijzigd",
+        "de": "Batterieladung hat sich verändert"
       },
       "tokens": [
         {
@@ -12,7 +13,8 @@
           "type": "number",
           "title": {
             "en": "Battery Charge (%)",
-            "nl": "Batterij lading (%)"
+            "nl": "Batterij lading (%)",
+            "de": "Batterieladung (%)"
           },
           "example": 66
         }
@@ -22,11 +24,13 @@
       "id": "changedBatteryStatus",
       "title": {
         "en": "Battery status changed",
-        "nl": "Batterij status gewijzigd"
+        "nl": "Batterij status gewijzigd",
+        "de": "Batteriestatus hat sich geändert"
       },
       "titleFormatted": {
         "en": "Battery status changed",
-        "nl": "Batterij status veranderd"
+        "nl": "Batterij status veranderd",
+        "de": "Batteriestatus hat sich geändert"
       },
       "tokens": [
         {
@@ -34,7 +38,8 @@
           "type": "string",
           "title": {
             "en": "Status",
-            "nl": "Status"
+            "nl": "Status",
+            "de": "Status"
           },
           "example": "Fault"
         }
@@ -44,11 +49,13 @@
       "id": "changedExportPower",
       "title": {
         "en": "Power Export Changed (W)",
-        "nl": "Power Export gewijzigd (W)"
+        "nl": "Power Export gewijzigd (W)",
+        "de": "Exportierte Leistung geändert (W)"
       },
       "titleFormatted": {
         "en": "Power Export Changed (W)",
-        "nl": "Power Export gewijzigd (W)"
+        "nl": "Power Export gewijzigd (W)",
+        "de": "Exportierte Leistung verändert (W)"
       },
       "tokens": [
         {
@@ -56,7 +63,8 @@
           "type": "number",
           "title": {
             "en": "Power Export (W)",
-            "nl": "Power Export (W)"
+            "nl": "Power Export (W)",
+            "de": "Exportierte Leistung (W)"
           },
           "example": 303
         }
@@ -66,11 +74,13 @@
       "id": "changedImportPower",
       "title": {
         "en": "Power Import Changed (W)",
-        "nl": "Power Import gewijzigd (W)"
+        "nl": "Power Import gewijzigd (W)",
+        "de": "Importierte Leistung verändert (W)"
       },
       "titleFormatted": {
         "en": "Power Import Changed (W)",
-        "nl": "Power Import gewijzigd (W)"
+        "nl": "Power Import gewijzigd (W)",
+        "de": "Importierte Leistung verändert (W)"
       },
       "tokens": [
         {
@@ -78,7 +88,8 @@
           "type": "number",
           "title": {
             "en": "Power Import (W)",
-            "nl": "Power Import (W)"
+            "nl": "Power Import (W)",
+            "de": "Importierte Leistung (W)"
           },
           "example": 42
         }
@@ -88,11 +99,13 @@
       "id": "changedConsumption",
       "title": {
         "en": "Consumption Changed",
-        "nl": "Verbruik gewijzigd"
+        "nl": "Verbruik gewijzigd",
+        "de": "Verbrauch verändert"
       },
       "titleFormatted": {
         "en": "Consumption Changed",
-        "nl": "Verbruik gewijzigd"
+        "nl": "Verbruik gewijzigd",
+        "de": "Verbrauch verändert"
       },
       "tokens": [
         {
@@ -100,7 +113,8 @@
           "type": "number",
           "title": {
             "en": "Consumption",
-            "nl": "Verbruik"
+            "nl": "Verbruik",
+            "de": "Vebrauch"
           },
           "example": 200
         }
@@ -110,14 +124,16 @@
       "id": "measure_voltage_changed",
       "title": {
         "en": "The voltage changed",
-        "nl": "Het voltage is veranderd"
+        "nl": "Het voltage is veranderd",
+        "de": "Spannung verändert"
       },
       "tokens": [
         {
           "name": "measure_voltage",
           "title": {
             "en": "Voltage",
-            "nl": "Voltage"
+            "nl": "Voltage",
+            "de": "Spannung"
           },
           "type": "number",
           "example": 230
@@ -129,14 +145,16 @@
       "highlight": true,
       "title": {
         "en": "The battery temperature changed",
-        "nl": "De batterij temperatuur is veranderd"
+        "nl": "De batterij temperatuur is veranderd",
+        "de": "Die Batterietemperatur hat sich verändert"
       },
       "tokens": [
         {
           "name": "measure_temperature.battery",
           "title": {
             "en": "Temperature",
-            "nl": "Temperatuur"
+            "nl": "Temperatuur",
+            "de": "Temperatur"
           },
           "type": "number",
           "example": 23.5
@@ -147,14 +165,16 @@
       "id": "meter_power.import_changed",
       "title": {
         "en": "Total Import Yield changed",
-        "nl": "Totale import opbrengst is veranderd"
+        "nl": "Totale import opbrengst is veranderd",
+        "de": "Gesamtimport verändert"
       },
       "tokens": [
         {
           "name": "meter_power.import",
           "title": {
             "en": "Energy",
-            "nl": "Energie"
+            "nl": "Energie",
+            "de": "Energie"
           },
           "type": "number",
           "example": 25
@@ -165,14 +185,16 @@
       "id": "meter_power.export_changed",
       "title": {
         "en": "Total Export Yield changed",
-        "nl": "Totale Export opbrengst is veranderd"
+        "nl": "Totale Export opbrengst is veranderd",
+        "de": "Gesamtexport verändert"
       },
       "tokens": [
         {
           "name": "meter_power.export",
           "title": {
             "en": "Energy",
-            "nl": "Energie"
+            "nl": "Energie",
+            "de": "Energie"
           },
           "type": "number",
           "example": 25
@@ -184,14 +206,16 @@
       "highlight": true,
       "title": {
         "en": "The grid import power changed",
-        "nl": "Het net import vermogen is veranderd"
+        "nl": "Het net import vermogen is veranderd",
+        "de": "Netzimportleistung verändert"
       },
       "tokens": [
         {
           "name": "measure_power.import",
           "title": {
             "en": "Power",
-            "nl": "Vermogen"
+            "nl": "Vermogen",
+            "de": "Leistung"
           },
           "type": "number",
           "example": 100
@@ -203,14 +227,16 @@
       "highlight": true,
       "title": {
         "en": "The grid export power changed",
-        "nl": "Het net export vermogen is veranderd"
+        "nl": "Het net export vermogen is veranderd",
+        "de": "Netzexportleistung verändert"
       },
       "tokens": [
         {
           "name": "measure_power.export",
           "title": {
             "en": "Power",
-            "nl": "Vermogen"
+            "nl": "Vermogen",
+            "de": "Leistung"
           },
           "type": "number",
           "example": 100
@@ -222,14 +248,16 @@
       "highlight": true,
       "title": {
         "en": "The battery discharge power changed",
-        "nl": "Het batterij ontlaad vermogen is veranderd"
+        "nl": "Het batterij ontlaad vermogen is veranderd",
+        "de": "Batterieentladeleistung verändert"
       },
       "tokens": [
         {
           "name": "measure_power.batt_discharge",
           "title": {
             "en": "Power",
-            "nl": "Vermogen"
+            "nl": "Vermogen",
+            "de": "Leistung"
           },
           "type": "number",
           "example": 100
@@ -241,14 +269,16 @@
       "highlight": true,
       "title": {
         "en": "The battery charge power changed",
-        "nl": "Het batterij oplaad vermogen is veranderd"
+        "nl": "Het batterij oplaad vermogen is veranderd",
+        "de": "Batterieladeleistung verändert"
       },
       "tokens": [
         {
           "name": "measure_power.batt_charge",
           "title": {
             "en": "Power",
-            "nl": "Vermogen"
+            "nl": "Vermogen",
+            "de": "Leistung"
           },
           "type": "number",
           "example": 100

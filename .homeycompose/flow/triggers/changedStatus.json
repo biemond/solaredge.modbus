@@ -1,11 +1,13 @@
 {
     "title": {
       "en": "Status Changed",
-      "nl": "Status gewijzigd"
+      "nl": "Status gewijzigd",
+		  "de": "Status geändert"
     },
     "titleFormatted": {
       "en": "Status changed",
-      "nl": "Status veranderd"
+      "nl": "Status veranderd",
+		  "de": "Status geändert"
     },
     "tokens": [
       {
@@ -13,7 +15,8 @@
         "type": "string",
         "title": {
           "en": "Status",
-          "nl": "Status"
+          "nl": "Status",
+          "de": "Status"
         },
         "example": "Fault"
       }
