@@ -89,6 +89,18 @@ class MySolaredgeBatteryDevice extends Solaredge {
       return Promise.resolve(result);
     })
 
+    let changedStoragedefaultmode = this.homey.flow.getConditionCard("changedStoragedefaultmode");
+    changedStoragedefaultmode.registerRunListener(async (args, state) => {
+      let result = (await this.getCapabilityValue('storagedefaultmode') == args.argument_main);
+      return Promise.resolve(result);
+    })
+
+    let changedStoragecontrolmode = this.homey.flow.getConditionCard("changedStoragecontrolmode");
+    changedStoragecontrolmode.registerRunListener(async (args, state) => {
+      let result = (await this.getCapabilityValue('storagecontrolmode') == args.argument_main);
+      return Promise.resolve(result);
+    })
+
     let batterylevelStatus = this.homey.flow.getConditionCard("batterylevel");
     batterylevelStatus.registerRunListener(async (args, state) => {
       let result = (await this.getCapabilityValue('measure_battery') >= args.charged);
@@ -191,7 +203,10 @@ class MySolaredgeBatteryDevice extends Solaredge {
         var chargehex1 = 16384;
         var chargehex2 = 17820;
         //chargepower
-        if (value == 500) {
+        if (value == 0) {
+          chargehex1 =  0;
+          chargehex2 =  0;
+        } else if (value == 500) {
           chargehex1 =  0;
           chargehex2 =  17402;
         } else if (value == 1000) {
@@ -227,7 +242,10 @@ class MySolaredgeBatteryDevice extends Solaredge {
         var dischargehex1 = 16384;
         var dischargehex2 = 17820;
         //dischargepower
-        if (value == 500) {
+        if (value == 0) {
+          chargehex1 =  0;
+          chargehex2 =  0;
+        } else if (value == 500) {
           dischargehex1 =  0;
           dischargehex2 =  17402;
         } else if (value == 1000) {

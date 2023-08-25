@@ -77,7 +77,7 @@
   "3.0.37": {
     "en": "Growatt batt migration caps + growatt battery flow decimals"
   },
-  "3.0.38": {
-    "en": "Adding some german locale"
+  "3.0.39": {
+    "en": "Adding some german locale, solaredge flow conditions"
   }              
 }
