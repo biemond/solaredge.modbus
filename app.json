@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.39",
+  "version": "3.0.40",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -622,13 +622,16 @@
     "conditions": [
       {
         "title": {
-          "en": "Inverter status is"
+          "en": "Inverter status is",
+          "de": "Status des Wechselrichters ist"
         },
         "titleFormatted": {
-          "en": "Inverter status is [[argument_main]]"
+          "en": "Inverter status is [[argument_main]]",
+          "de": "Status des Wechselrichters ist [[argument_main]]"
         },
         "hint": {
-          "en": "Inverter status"
+          "en": "Inverter status",
+          "de": "Status des Wechselrichters"
         },
         "args": [
           {
@@ -643,55 +646,64 @@
               {
                 "id": "0",
                 "label": {
-                  "en": "Undefined"
+                  "en": "Undefined",
+                  "de": "Undefiniert"
                 }
               },
               {
                 "id": "1",
                 "label": {
-                  "en": "Off"
+                  "en": "Off",
+                  "de": "Aus"
                 }
               },
               {
                 "id": "2",
                 "label": {
-                  "en": "Sleeping"
+                  "en": "Sleeping",
+                  "de": "Schlafend"
                 }
               },
               {
                 "id": "3",
                 "label": {
-                  "en": "Grid Monitoring"
+                  "en": "Grid Monitoring",
+                  "de": "Netzüberwachung"
                 }
               },
               {
                 "id": "4",
                 "label": {
-                  "en": "Producing"
+                  "en": "Producing",
+                  "de": "Produzierend"
                 }
               },
               {
                 "id": "5",
                 "label": {
-                  "en": "Producing (Throttled)"
+                  "en": "Producing (Throttled)",
+                  "de": "Produzierend (gedrosselt)"
                 }
               },
               {
                 "id": "6",
                 "label": {
-                  "en": "Shutting Down"
+                  "en": "Shutting Down",
+                  "de": "Fährt herunter"
                 }
               },
               {
                 "id": "7",
                 "label": {
-                  "en": "Fault"
+                  "en": "Fault",
+                  "de": "Störung"
                 }
               },
               {
                 "id": "8",
                 "label": {
-                  "en": "Maintenance"
+                  "en": "Maintenance",
+                  "de": "Wartung"
                 }
               }
             ]
@@ -702,10 +714,12 @@
       {
         "id": "solarcharge",
         "title": {
-          "en": "Inverter !{{is|isn't}} higher than"
+          "en": "Inverter power !{{is|isn't}} higher than",
+          "de": "Wechselrichterleistung !{{ist|ist nicht}} größer als"
         },
         "hint": {
-          "en": "Inverter charging in watts"
+          "en": "Inverter charging in Watt",
+          "de": "Wechselrichterleistung in Watt"
         },
         "args": [
           {
@@ -722,10 +736,12 @@
       {
         "id": "batterylevel",
         "title": {
-          "en": "Battery !{{is|isn't}} higher than"
+          "en": "Battery !{{is|isn't}} higher than",
+          "de": "Batteriestand !{{ist|ist nicht}} größer als"
         },
         "hint": {
-          "en": "Battery charged in percentage"
+          "en": "Battery charged in percentage",
+          "de": "Batteriestand in Prozent"
         },
         "args": [
           {
@@ -742,10 +758,12 @@
       {
         "id": "batterycharge",
         "title": {
-          "en": "Battery charging !{{is|isn't}} higher than"
+          "en": "Battery charging !{{is|isn't}} higher than",
+          "de": "Batterieladeleistung !{{ist|ist nicht}} größer als"
         },
         "hint": {
-          "en": "Battery charing in watts"
+          "en": "Battery charing in Watt",
+          "de": "Batterieladeleistung in Watt"
         },
         "args": [
           {
@@ -762,10 +780,12 @@
       {
         "id": "batterydischarge",
         "title": {
-          "en": "Battery discharging !{{is|isn't}} higher than"
+          "en": "Battery discharging !{{is|isn't}} higher than",
+          "de": "Batterieentladeleistung !{{ist|ist nicht}} größer als"
         },
         "hint": {
-          "en": "Battery discharing in watts"
+          "en": "Battery discharing in Watt",
+          "de": "Batterieentladeleistung in Watt"
         },
         "args": [
           {
@@ -782,7 +802,8 @@
       {
         "id": "gridexport",
         "title": {
-          "en": "Grid export !{{is|isn't}} higher than"
+          "en": "Grid export !{{is|isn't}} higher than",
+          "de": "Netzexportleistung !{{ist|ist nicht}} größer als"
         },
         "hint": {
           "en": "Grid export"
@@ -802,7 +823,8 @@
       {
         "id": "gridimport",
         "title": {
-          "en": "Grid import !{{is|isn't}} higher than"
+          "en": "Grid import !{{is|isn't}} higher than",
+          "de": "Netzimportleistung !{{ist|ist nicht}} größer als"
         },
         "hint": {
           "en": "Grid import"
@@ -822,10 +844,12 @@
       {
         "id": "solarbattcharge",
         "title": {
-          "en": "Inverter + Battery !{{is|isn't}} higher than"
+          "en": "Inverter + Battery !{{is|isn't}} higher than",
+          "de": "Solar- und Batterie-Wechselrichterleistung !{{ist|ist nicht}} größer als"
         },
         "hint": {
-          "en": "Inverter plus battery charging in watts"
+          "en": "Inverter plus battery charging in Watt",
+          "de": "Solar- und Batterie-Wechselrichterleistung in Watt"
         },
         "args": [
           {
@@ -842,13 +866,16 @@
       {
         "id": "changedBatteryStatus",
         "title": {
-          "en": "Battery status is"
+          "en": "Battery status is",
+          "de": "Batteriestatus ist"
         },
         "titleFormatted": {
-          "en": "Battery status is [[argument_main]]"
+          "en": "Battery status is [[argument_main]]",
+          "de": "Batteriestatus ist [[argument_main]]"
         },
         "hint": {
-          "en": "Battery status"
+          "en": "Battery status",
+          "de": "Batteriestatus"
         },
         "args": [
           {
@@ -863,49 +890,57 @@
               {
                 "id": "0",
                 "label": {
-                  "en": "Off"
+                  "en": "Off",
+                  "de": "Aus"
                 }
               },
               {
                 "id": "1",
                 "label": {
-                  "en": "Standby"
+                  "en": "Standby",
+                  "de": "Bereitschaft"
                 }
               },
               {
                 "id": "2",
                 "label": {
-                  "en": "Init"
+                  "en": "Init",
+                  "de": "Initialisierung"
                 }
               },
               {
                 "id": "3",
                 "label": {
-                  "en": "Charge"
+                  "en": "Charge",
+                  "de": "Ladung"
                 }
               },
               {
                 "id": "4",
                 "label": {
-                  "en": "Discharge"
+                  "en": "Discharge",
+                  "de": "Entladung"
                 }
               },
               {
                 "id": "5",
                 "label": {
-                  "en": "Fault"
+                  "en": "Fault",
+                  "de": "Störung"
                 }
               },
               {
                 "id": "6",
                 "label": {
-                  "en": "Idle"
+                  "en": "Idle",
+                  "de": "Leerlauf"
                 }
               },
               {
                 "id": "10",
                 "label": {
-                  "en": "Unknown"
+                  "en": "Unknown",
+                  "de": "Unbekannt"
                 }
               }
             ]
@@ -1044,14 +1079,16 @@
     "actions": [
       {
         "title": {
-          "en": "Active Power Limit"
+          "en": "Active Power Limit",
+          "de": "Aktive Leistungsbeschränkung"
         },
         "args": [
           {
             "type": "range",
             "name": "value",
             "title": {
-              "en": "percentage"
+              "en": "percentage",
+              "de": "Prozent"
             },
             "min": 0,
             "max": 100,
@@ -1068,7 +1105,8 @@
       },
       {
         "title": {
-          "en": "Set Export Limit"
+          "en": "Set Export Limit",
+          "de": "Setzte Exportbeschränkung"
         },
         "args": [
           {
@@ -1183,7 +1221,8 @@
       },
       {
         "title": {
-          "en": "Limit mode"
+          "en": "Limit mode",
+          "de": "Setze Limit-Modus"
         },
         "args": [
           {
@@ -1193,19 +1232,22 @@
               {
                 "id": "0",
                 "title": {
-                  "en": "Disabled"
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
                 }
               },
               {
                 "id": "1",
                 "title": {
-                  "en": "Export Control"
+                  "en": "Export Control",
+                  "de": "Exportbeschränkung"
                 }
               },
               {
                 "id": "11",
                 "title": {
-                  "en": "Import Control"
+                  "en": "Import Control",
+                  "de": "Importbeschränkung"
                 }
               }
             ]
@@ -1221,7 +1263,8 @@
       {
         "id": "exportlimitenabled",
         "title": {
-          "en": "Set export limit"
+          "en": "Export limit",
+          "de": "Exportbeschränkung"
         },
         "args": [
           {
@@ -1236,13 +1279,15 @@
               {
                 "id": "0",
                 "title": {
-                  "en": "Disabled"
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
                 }
               },
               {
                 "id": "1",
                 "title": {
-                  "en": "Enabled"
+                  "en": "Enabled",
+                  "de": "Aktiviert"
                 }
               }
             ]
@@ -1252,7 +1297,8 @@
       {
         "id": "battacchargeswitch",
         "title": {
-          "en": "Batt AC charge switch"
+          "en": "Batt AC charge switch",
+          "de": "Netzladung der Batterie"
         },
         "args": [
           {
@@ -1267,13 +1313,15 @@
               {
                 "id": "0",
                 "title": {
-                  "en": "Disabled"
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
                 }
               },
               {
                 "id": "1",
                 "title": {
-                  "en": "Enabled"
+                  "en": "Enabled",
+                  "de": "Aktiviert"
                 }
               }
             ]
@@ -1283,7 +1331,8 @@
       {
         "id": "exportlimitpowerrate",
         "title": {
-          "en": "Export limit %"
+          "en": "Export limit %",
+          "de": "Setze Exportbeschränkung"
         },
         "args": [
           {
@@ -1295,7 +1344,8 @@
             "type": "range",
             "name": "percentage",
             "title": {
-              "en": "percentage"
+              "en": "percentage",
+              "de": "Prozent"
             },
             "min": 0,
             "max": 100,
@@ -1307,7 +1357,8 @@
       {
         "id": "battfirsttime1",
         "title": {
-          "en": "Battery 1st, time slot 1:"
+          "en": "Battery 1st, time slot 1:",
+          "de": "Batterie zuerst, Zeitfenster 1:"
         },
         "args": [
           {
@@ -1319,7 +1370,8 @@
             "type": "range",
             "name": "hourstart",
             "title": {
-              "en": "Hour"
+              "en": "Hour",
+              "de": "Stunde"
             },
             "min": 0,
             "max": 23,
@@ -1331,7 +1383,8 @@
             "type": "range",
             "name": "minstart",
             "title": {
-              "en": "Minute"
+              "en": "Minute",
+              "de": "Minute"
             },
             "min": 0,
             "max": 59,
@@ -1343,7 +1396,8 @@
             "type": "range",
             "name": "hourstop",
             "title": {
-              "en": "Hour"
+              "en": "Hour",
+              "de": "Stunde"
             },
             "min": 0,
             "max": 23,
@@ -1355,7 +1409,8 @@
             "type": "range",
             "name": "minstop",
             "title": {
-              "en": "Minute"
+              "en": "Minute",
+              "de": "Minute"
             },
             "min": 0,
             "max": 59,
@@ -1370,13 +1425,15 @@
               {
                 "id": "0",
                 "title": {
-                  "en": "Disabled"
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
                 }
               },
               {
                 "id": "1",
                 "title": {
-                  "en": "Enabled"
+                  "en": "Enabled",
+                  "de": "Aktiviert"
                 }
               }
             ]
@@ -1386,7 +1443,8 @@
       {
         "id": "gridfirsttime1",
         "title": {
-          "en": "Grid 1st, time slot 1:"
+          "en": "Grid 1st, time slot 1:",
+          "de": "Netz zuerst, Zeitfenster 1:"
         },
         "args": [
           {
@@ -1398,7 +1456,8 @@
             "type": "range",
             "name": "hourstart",
             "title": {
-              "en": "Hour"
+              "en": "Hour",
+              "de": "Stunde"
             },
             "min": 0,
             "max": 23,
@@ -1410,7 +1469,8 @@
             "type": "range",
             "name": "minstart",
             "title": {
-              "en": "Minute"
+              "en": "Minute",
+              "de": "Minute"
             },
             "min": 0,
             "max": 59,
@@ -1422,7 +1482,8 @@
             "type": "range",
             "name": "hourstop",
             "title": {
-              "en": "Hour"
+              "en": "Hour",
+              "de": "Stunde"
             },
             "min": 0,
             "max": 23,
@@ -1434,7 +1495,8 @@
             "type": "range",
             "name": "minstop",
             "title": {
-              "en": "Minute"
+              "en": "Minute",
+              "de": "Minute"
             },
             "min": 0,
             "max": 59,
@@ -1449,13 +1511,15 @@
               {
                 "id": "0",
                 "title": {
-                  "en": "Disabled"
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
                 }
               },
               {
                 "id": "1",
                 "title": {
-                  "en": "Enabled"
+                  "en": "Enabled",
+                  "de": "Aktiviert"
                 }
               }
             ]
@@ -1465,7 +1529,8 @@
       {
         "id": "battery_minimum_capacity",
         "title": {
-          "en": "Battery Minimum Capacity %"
+          "en": "Battery Minimum Capacity %",
+          "de": "Batteriemindeststand %"
         },
         "args": [
           {
@@ -1477,7 +1542,8 @@
             "type": "range",
             "name": "percentage",
             "title": {
-              "en": "percentage"
+              "en": "percentage",
+              "de": "Prozent"
             },
             "min": 10,
             "max": 100,
@@ -1488,7 +1554,8 @@
       {
         "id": "battery_maximum_capacity",
         "title": {
-          "en": "Battery Maximum Capacity %"
+          "en": "Battery Maximum Capacity %",
+          "de": "Batteriemaximumstand %"
         },
         "args": [
           {
@@ -1500,7 +1567,8 @@
             "type": "range",
             "name": "percentage",
             "title": {
-              "en": "percentage"
+              "en": "percentage",
+              "de": "Prozent"
             },
             "min": 0,
             "max": 100,
@@ -1511,7 +1579,8 @@
       {
         "id": "prioritymode",
         "title": {
-          "en": "Priority mode"
+          "en": "Priority mode",
+          "de": "Priorität"
         },
         "args": [
           {
@@ -1526,19 +1595,22 @@
               {
                 "id": "0",
                 "title": {
-                  "en": "Load"
+                  "en": "Load",
+                  "de": "Last"
                 }
               },
               {
                 "id": "1",
                 "title": {
-                  "en": "Battery"
+                  "en": "Battery",
+                  "de": "Batterie"
                 }
               },
               {
                 "id": "2",
                 "title": {
-                  "en": "Grid"
+                  "en": "Grid",
+                  "de": "Netz"
                 }
               }
             ]
@@ -1548,7 +1620,8 @@
       {
         "id": "storagecontrolmode",
         "title": {
-          "en": "Storage Control Mode"
+          "en": "Storage Control Mode",
+          "de": "Speicherkontrollmodus"
         },
         "args": [
           {
@@ -1563,31 +1636,36 @@
               {
                 "id": "0",
                 "title": {
-                  "en": "Disabled"
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
                 }
               },
               {
                 "id": "1",
                 "title": {
-                  "en": "Maximize Self Consumption"
+                  "en": "Maximize Self Consumption",
+                  "de": "Maximiere Eigenverbrauch"
                 }
               },
               {
                 "id": "2",
                 "title": {
-                  "en": "Time of Use"
+                  "en": "Time of Use",
+                  "de": "Nutzungszeit"
                 }
               },
               {
                 "id": "3",
                 "title": {
-                  "en": "Backup Only"
+                  "en": "Backup Only",
+                  "de": "Nur als Backup"
                 }
               },
               {
                 "id": "4",
                 "title": {
-                  "en": "Remote Control"
+                  "en": "Remote Control",
+                  "de": "Ferngesteuert"
                 }
               }
             ]
@@ -1597,7 +1675,8 @@
       {
         "id": "storagedefaultmode",
         "title": {
-          "en": "Storage Charge/Discharge Mode"
+          "en": "Storage Charge/Discharge Mode",
+          "de": "Speicher-Lade/Entlade-Modus"
         },
         "args": [
           {
@@ -1612,49 +1691,57 @@
               {
                 "id": "-1",
                 "title": {
-                  "en": "Disabled"
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
                 }
               },
               {
                 "id": "0",
                 "title": {
-                  "en": "Off"
+                  "en": "Off",
+                  "de": "Aus"
                 }
               },
               {
                 "id": "1",
                 "title": {
-                  "en": "Charge excess PV power only"
+                  "en": "Charge excess PV power only",
+                  "de": "Nur PV-Ertrag über Wechselrichterlimit laden"
                 }
               },
               {
                 "id": "2",
                 "title": {
-                  "en": "Charge from PV 1st, before producing to AC"
+                  "en": "Charge from PV 1st, before producing to AC",
+                  "de": "PV-Ertrag zuerst laden, danach Eigenverbrauch/Netzexport"
                 }
               },
               {
                 "id": "3",
                 "title": {
-                  "en": "Charge from PV+AC"
+                  "en": "Charge from PV+AC",
+                  "de": "Lade von PV und Netz"
                 }
               },
               {
                 "id": "4",
                 "title": {
-                  "en": "Maximize export"
+                  "en": "Maximize export",
+                  "de": "Entlade für maximalen Netzexport"
                 }
               },
               {
                 "id": "5",
                 "title": {
-                  "en": "Discharge to meet loads consumption"
+                  "en": "Discharge to meet loads consumption",
+                  "de": "Entlade um Verbrauch zu decken"
                 }
               },
               {
                 "id": "7",
                 "title": {
-                  "en": "Maximize self-consumption"
+                  "en": "Maximize self-consumption",
+                  "de": "Maximiere Eigenverbrauch"
                 }
               }
             ]
@@ -1664,7 +1751,8 @@
       {
         "id": "setcharging",
         "title": {
-          "en": "Set Charge power"
+          "en": "Set Charge power",
+          "de": "Setze maximale Ladeleistung"
         },
         "args": [
           {
@@ -1743,7 +1831,8 @@
       {
         "id": "setdischarging",
         "title": {
-          "en": "Set Discharge power"
+          "en": "Set Discharge power",
+          "de": "Setze maximale Entladeleistung"
         },
         "args": [
           {
@@ -1756,9 +1845,9 @@
             "name": "dischargepower",
             "values": [
               {
-                "id": "0",
+                "id": "10",
                 "label": {
-                  "en": "0W"
+                  "en": "10W"
                 }
               },
               {
@@ -1824,7 +1913,8 @@
   "drivers": [
     {
       "name": {
-        "en": "Growatt Inverter"
+        "en": "Growatt Inverter",
+        "de": "Growatt Wechselrichter"
       },
       "class": "solarpanel",
       "energy": {
@@ -1854,80 +1944,93 @@
         "measure_power": {
           "decimals": 0,
           "title": {
-            "en": "Solar Power"
+            "en": "Solar Power",
+            "de": "Solarleistung"
           }
         },
         "measure_power.input": {
           "decimals": 0,
           "title": {
-            "en": "Solar input"
+            "en": "Solar input",
+            "de": "Solarer Eingang"
           }
         },
         "measure_power.pv1input": {
           "decimals": 0,
           "title": {
-            "en": "PV1 input"
+            "en": "PV1 input",
+            "de": "PV-Strang 1 Eingang"
           }
         },
         "measure_power.pv2input": {
           "decimals": 0,
           "title": {
-            "en": "PV2 input"
+            "en": "PV2 input",
+            "de": " PV-Strang 2 Eingang"
           }
         },
         "measure_power.gridoutput": {
           "decimals": 0,
           "title": {
-            "en": "Grid output"
+            "en": "Grid output",
+            "de": "Netzexport"
           }
         },
         "measure_current.phase1": {
           "title": {
-            "en": "AC Current phase1"
+            "en": "AC Current phase1",
+            "de": "AC-Strom Phase 1"
           }
         },
         "measure_current.phase2": {
           "title": {
-            "en": "AC Current phase2"
+            "en": "AC Current phase2",
+            "de": "AC-Strom Phase 2"
           }
         },
         "measure_current.phase3": {
           "title": {
-            "en": "AC Current phase3"
+            "en": "AC Current phase3",
+            "de": "AC-Strom Phase 3"
           }
         },
         "measure_temperature.invertor": {
           "title": {
             "en": "Heatsink temperature",
-            "nl": "Heatsink temperatuur"
+            "nl": "Heatsink temperatuur",
+            "de": "Kühlkörpertemperatur"
           },
           "decimals": 2
         },
         "meter_power": {
           "title": {
             "en": "Total Yield",
-            "nl": "Totale opbrengst"
+            "nl": "Totale opbrengst",
+            "de": "Gesamtertrag"
           },
           "decimals": 1
         },
         "meter_power.pv1TotalEnergy": {
           "title": {
             "en": "Total PV1 Yield",
-            "nl": "Totale PV1 opbrengst"
+            "nl": "Totale PV1 opbrengst",
+            "de": "Gesamtertrag PV-Strang 1"
           },
           "decimals": 1
         },
         "meter_power.pv2TotalEnergy": {
           "title": {
             "en": "Total PV2 Yield",
-            "nl": "Totale PV2 opbrengst"
+            "nl": "Totale PV2 opbrengst",
+            "de": "Gesamtertrag PV-Strang 2"
           },
           "decimals": 1
         },
         "meter_power.daily": {
           "title": {
             "en": "Total Day Yield",
-            "nl": "Totale dag opbrengst"
+            "nl": "Totale dag opbrengst",
+            "de": "Tagesgesamtertrag"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
@@ -1935,7 +2038,8 @@
         "meter_power.pv1TodayEnergy": {
           "title": {
             "en": "Total PV1 Day Yield",
-            "nl": "Totale PV1 dag opbrengst"
+            "nl": "Totale PV1 dag opbrengst",
+            "de": "Tagesgesamtertrag PV-Strang 1"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
@@ -1943,14 +2047,16 @@
         "meter_power.pv2TodayEnergy": {
           "title": {
             "en": "Total PV2 Day Yield",
-            "nl": "Totale PV2 dag opbrengst"
+            "nl": "Totale PV2 dag opbrengst",
+            "de": "Tagesgesamtertrag PV-Strang 2"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
         },
         "measure_voltage.meter": {
           "title": {
-            "en": "Meter AC Voltage"
+            "en": "Meter AC Voltage",
+            "de": "Zähler AC-Spannung"
           }
         }
       },
@@ -1973,7 +2079,8 @@
         {
           "type": "group",
           "label": {
-            "en": "Inverter settings"
+            "en": "Inverter settings",
+            "de": "Wechselrichtereinstellungen"
           },
           "children": [
             {
@@ -1981,7 +2088,8 @@
               "type": "text",
               "value": "0.0.0.0",
               "label": {
-                "en": "IP Address"
+                "en": "IP Address",
+                "de": "IP-Adresse"
               }
             },
             {
@@ -1990,7 +2098,8 @@
               "value": 1502,
               "step": 1,
               "label": {
-                "en": "Port"
+                "en": "Port",
+                "de": "Port"
               }
             },
             {
@@ -2004,7 +2113,8 @@
               },
               "label": {
                 "en": "Inverter ID",
-                "nl": "Inverter ID"
+                "nl": "Inverter ID",
+                "de": "Wechselrichter-ID"
               }
             }
           ]
@@ -2014,7 +2124,8 @@
     },
     {
       "name": {
-        "en": "Growatt + Battery"
+        "en": "Growatt + Battery",
+        "de": "Growatt mit Batterie"
       },
       "class": "solarpanel",
       "energy": {
@@ -2067,86 +2178,100 @@
         "measure_power": {
           "decimals": 0,
           "title": {
-            "en": "Solar/Batt Power"
+            "en": "Solar/Batt Power",
+            "de": "Solar- und Batterie-Leistung"
           }
         },
         "measure_power.input": {
           "decimals": 0,
           "title": {
-            "en": "Solar input"
+            "en": "Solar input",
+            "de": "Solarer Eingang"
           }
         },
         "measure_power.pv1input": {
           "decimals": 0,
           "title": {
-            "en": "PV1 input"
+            "en": "PV1 input",
+            "de": "PV-Strang 1 Eingang"
           }
         },
         "measure_power.pv2input": {
           "decimals": 0,
           "title": {
-            "en": "PV2 input"
+            "en": "PV2 input",
+            "de": "PV-Strang 2 Eingang"
           }
         },
         "measure_power.gridoutput": {
           "decimals": 0,
           "title": {
-            "en": "Grid output"
+            "en": "Grid output",
+            "de": "Netzexport"
           }
         },
         "measure_current.phase1": {
           "title": {
-            "en": "AC Current phase1"
+            "en": "AC Current phase1",
+            "de": "AC-Strom Phase 1"
           }
         },
         "measure_current.phase2": {
           "title": {
-            "en": "AC Current phase2"
+            "en": "AC Current phase2",
+            "de": "AC-Strom Phase 2"
           }
         },
         "measure_current.phase3": {
           "title": {
-            "en": "AC Current phase3"
+            "en": "AC Current phase3",
+            "de": "AC-Strom Phase 3"
           }
         },
         "measure_temperature.invertor": {
           "title": {
             "en": "Heatsink temperature",
-            "nl": "Heatsink temperatuur"
+            "nl": "Heatsink temperatuur",
+            "de": "Kühlkörpertemperatur"
           },
           "decimals": 2
         },
         "measure_temperature.battery": {
           "title": {
-            "en": "Battery temperature"
+            "en": "Battery temperature",
+            "de": "Batterietemperatur"
           },
           "decimals": 2
         },
         "meter_power": {
           "title": {
             "en": "Total Yield",
-            "nl": "Totale opbrengst"
+            "nl": "Totale opbrengst",
+            "de": "Gesamtertrag"
           },
           "decimals": 1
         },
         "meter_power.pv1TotalEnergy": {
           "title": {
             "en": "Total PV1 Yield",
-            "nl": "Totale PV1 opbrengst"
+            "nl": "Totale PV1 opbrengst",
+            "de": "Gesamtertrag PV-Strang 1"
           },
           "decimals": 1
         },
         "meter_power.pv2TotalEnergy": {
           "title": {
             "en": "Total PV2 Yield",
-            "nl": "Totale PV2 opbrengst"
+            "nl": "Totale PV2 opbrengst",
+            "de": "Gesamtertrag PV-Strang 2"
           },
           "decimals": 1
         },
         "meter_power.daily": {
           "title": {
             "en": "Total Day Yield",
-            "nl": "Totale dag opbrengst"
+            "nl": "Totale dag opbrengst",
+            "de": "Tagesgesamtertrag"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
@@ -2154,7 +2279,8 @@
         "meter_power.pv1TodayEnergy": {
           "title": {
             "en": "Total PV1 Day Yield",
-            "nl": "Totale PV1 dag opbrengst"
+            "nl": "Totale PV1 dag opbrengst",
+            "de": "Tagesgesamtertrag PV-Strang 1"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
@@ -2162,7 +2288,8 @@
         "meter_power.pv2TodayEnergy": {
           "title": {
             "en": "Total PV2 Day Yield",
-            "nl": "Totale PV2 dag opbrengst"
+            "nl": "Totale PV2 dag opbrengst",
+            "de": "Tagesgesamtertrag PV-Strang 2"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
@@ -2170,77 +2297,87 @@
         "measure_power.batt_discharge": {
           "decimals": 0,
           "title": {
-            "en": "Battery Power discharge"
+            "en": "Battery Power discharge",
+            "de": "Batterieentladeleistung"
           }
         },
         "measure_power.batt_charge": {
           "decimals": 0,
           "title": {
-            "en": "Battery Power charge"
+            "en": "Battery Power charge",
+            "de": "Batterieladeleistung"
           }
         },
         "measure_power.houseload": {
           "decimals": 1,
           "title": {
-            "en": "House load"
+            "en": "House load",
+            "de": "Hauslast"
           }
         },
         "measure_voltage.meter": {
           "title": {
-            "en": "Meter AC Voltage"
+            "en": "Meter AC Voltage",
+            "de": "Zähler AC-Spannung"
           }
         },
         "measure_voltage.battery": {
           "title": {
-            "en": "Battery Voltage"
+            "en": "Battery Voltage",
+            "de": "Batteriespannung"
           }
         },
         "meter_power.today_grid_import": {
           "title": {
-            "en": "Grid Import Day Yield"
+            "en": "Grid Import Day Yield",
+            "de": "Netztagesimport"
           },
           "units": {
-            "en": "kWH"
+            "en": "kWh"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
         },
         "meter_power.today_grid_export": {
           "title": {
-            "en": "Grid Export Day Yield"
+            "en": "Grid Export Day Yield",
+            "de": "Netztagesexport"
           },
           "units": {
-            "en": "kWH"
+            "en": "kWh"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
         },
         "meter_power.today_batt_output": {
           "title": {
-            "en": "Battery Output Day Yield"
+            "en": "Battery Output Day Yield",
+            "de": "Tagesgesamtentladung der Batterie"
           },
           "units": {
-            "en": "kWH"
+            "en": "kWh"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
         },
         "meter_power.today_batt_input": {
           "title": {
-            "en": "Battery Input Day Yield"
+            "en": "Battery Input Day Yield",
+            "de": "Tagesgesamtladung der Batterie"
           },
           "units": {
-            "en": "kWH"
+            "en": "kWh"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
         },
         "meter_power.today_load": {
           "title": {
-            "en": "Load Day Yield"
+            "en": "Load Day Yield",
+            "de": "Tagesgesamtverbrauch"
           },
           "units": {
-            "en": "kWH"
+            "en": "kWh"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
@@ -2265,7 +2402,8 @@
         {
           "type": "group",
           "label": {
-            "en": "Inverter settings"
+            "en": "Inverter settings",
+            "de": "Wechselrichtereinstellungen"
           },
           "children": [
             {
@@ -2273,7 +2411,8 @@
               "type": "text",
               "value": "0.0.0.0",
               "label": {
-                "en": "IP Address"
+                "en": "IP Address",
+                "de": "IP-Adresse"
               }
             },
             {
@@ -2282,7 +2421,8 @@
               "value": 1502,
               "step": 1,
               "label": {
-                "en": "Port"
+                "en": "Port",
+                "de": "Port"
               }
             },
             {
@@ -2296,7 +2436,8 @@
               },
               "label": {
                 "en": "Inverter ID",
-                "nl": "Inverter ID"
+                "nl": "Inverter ID",
+                "de": "Wechselrichter-ID"
               }
             }
           ]
@@ -2306,7 +2447,8 @@
     },
     {
       "name": {
-        "en": "Solaredge Inverter"
+        "en": "Solaredge Inverter",
+        "de": "Solaredge Wechselrichter"
       },
       "class": "solarpanel",
       "energy": {
@@ -2330,47 +2472,55 @@
         "measure_power": {
           "decimals": 0,
           "title": {
-            "en": "Solar Power"
+            "en": "Solar Power",
+            "de": "Solarleistung"
           }
         },
         "measure_current.phase1": {
           "title": {
-            "en": "AC Current phase1"
+            "en": "AC Current phase1",
+            "de": "AC-Strom Phase 1"
           }
         },
         "measure_current.phase2": {
           "title": {
-            "en": "AC Current phase2"
+            "en": "AC Current phase2",
+            "de": "AC-Strom Phase 2"
           }
         },
         "measure_current.phase3": {
           "title": {
-            "en": "AC Current phase3"
+            "en": "AC Current phase3",
+            "de": "AC-Strom Phase 3"
           }
         },
         "measure_current": {
           "title": {
-            "en": "AC Current"
+            "en": "AC Current",
+            "de": "AC-Strom"
           }
         },
         "measure_temperature.invertor": {
           "title": {
             "en": "Heatsink temperature",
-            "nl": "Heatsink temperatuur"
+            "nl": "Heatsink temperatuur",
+            "de": "Kühlkörpertemperatur"
           },
           "decimals": 2
         },
         "meter_power": {
           "title": {
             "en": "Total Yield",
-            "nl": "Totale opbrengst"
+            "nl": "Totale opbrengst",
+            "de": "Gesamtertrag"
           },
           "decimals": 2
         },
         "meter_power.daily": {
           "title": {
             "en": "Total Day Yield",
-            "nl": "Totale dag opbrengst"
+            "nl": "Totale dag opbrengst",
+            "de": "Tagesgesamtertrag"
           },
           "decimals": 2,
           "icon": "/assets/total_yield.svg"
@@ -2395,7 +2545,8 @@
         {
           "type": "group",
           "label": {
-            "en": "Inverter settings"
+            "en": "Inverter settings",
+            "de": "Wechselrichtereinstellungen"
           },
           "children": [
             {
@@ -2403,7 +2554,8 @@
               "type": "text",
               "value": "0.0.0.0",
               "label": {
-                "en": "IP Address"
+                "en": "IP Address",
+                "de": "IP-Adresse"
               }
             },
             {
@@ -2412,7 +2564,8 @@
               "value": 1502,
               "step": 1,
               "label": {
-                "en": "Port"
+                "en": "Port",
+                "de": "Port"
               }
             },
             {
@@ -2426,7 +2579,8 @@
               },
               "label": {
                 "en": "Inverter ID",
-                "nl": "Inverter ID"
+                "nl": "Inverter ID",
+                "de": "Wechselrichter-ID"
               }
             }
           ]
@@ -2436,7 +2590,8 @@
     },
     {
       "name": {
-        "en": "Solaredge + Storedge"
+        "en": "Solaredge + Storedge",
+        "de": "Solaredge Storedge (mit Batterie)"
       },
       "class": "solarpanel",
       "energy": {
@@ -2486,112 +2641,132 @@
         "measure_power": {
           "decimals": 0,
           "title": {
-            "en": "Solar + Batt Power"
+            "en": "Solar + Batt Power",
+            "de": "Solar- und Batterie-Leistung"
           }
         },
         "measure_current.phase1": {
           "title": {
-            "en": "AC Current phase1"
+            "en": "AC Current phase1",
+            "de": "AC-Strom Phase 1"
           }
         },
         "measure_current.phase2": {
           "title": {
-            "en": "AC Current phase2"
+            "en": "AC Current phase2",
+            "de": "AC-Strom Phase 2"
           }
         },
         "measure_current.phase3": {
           "title": {
-            "en": "AC Current phase3"
+            "en": "AC Current phase3",
+            "de": "AC-Strom Phase 3"
           }
         },
         "measure_current": {
           "title": {
-            "en": "AC Current"
+            "en": "AC Current",
+            "de": "AC-Strom"
           }
         },
         "measure_power.batt_discharge": {
           "decimals": 0,
           "title": {
-            "en": "Battery Power discharge"
+            "en": "Battery Power discharge",
+            "de": "Batterieentladeleistung"
           }
         },
         "measure_power.batt_charge": {
           "decimals": 0,
           "title": {
-            "en": "Battery Power charge"
+            "en": "Battery Power charge",
+            "de": "Batterieladeleistung"
           }
         },
         "measure_power.import": {
           "decimals": 0,
           "title": {
-            "en": "Power Grid import"
+            "en": "Power Grid import",
+            "de": "Netzimportleistung"
           }
         },
         "measure_power.export": {
           "decimals": 0,
           "title": {
-            "en": "Power Grid export"
+            "en": "Power Grid export",
+            "de": "Netzexportleistung"
           }
         },
         "measure_voltage.meter": {
           "title": {
-            "en": "Meter AC Voltage"
+            "en": "Meter AC Voltage",
+            "de": "Zähler AC-Spannung"
           }
         },
         "measure_current.meter_phase1": {
           "title": {
-            "en": "Meter AC Current phase1"
+            "en": "Meter AC Current phase1",
+            "de": "Zähler AC-Strom Phase 1"
           }
         },
         "measure_current.meter_phase2": {
           "title": {
-            "en": "Meter AC Current phase2"
+            "en": "Meter AC Current phase2",
+            "de": "Zähler AC-Strom Phase 2"
           }
         },
         "measure_current.meter_phase3": {
           "title": {
-            "en": "Meter AC Current phase3"
+            "en": "Meter AC Current phase3",
+            "de": "Zähler AC-Strom Phase 3"
           }
         },
         "measure_current.meter": {
           "title": {
-            "en": "Meter AC Current"
+            "en": "Meter AC Current",
+            "de": "Zähler AC-Strom"
           }
         },
         "measure_temperature.invertor": {
           "title": {
             "en": "Heatsink temperature",
-            "nl": "Heatsink temperatuur"
+            "nl": "Heatsink temperatuur",
+            "de": "Kühlkörpertemperatur"
           },
           "decimals": 2
         },
         "measure_temperature.battery": {
           "title": {
-            "en": "Battery avg temperature"
+            "en": "Battery avg temperature",
+            "de": "Durchschnittliche Batterietemperatur"
           },
           "decimals": 2
         },
         "measure_power.chargesetting": {
           "title": {
-            "en": "Charge setting"
+            "en": "Charge setting",
+            "de": "Maximale Ladeleistung"
           }
         },
         "measure_power.dischargesetting": {
           "title": {
-            "en": "Discharge setting"
+            "en": "Discharge setting",
+            "de": "Maximale Entladeleistung"
           }
         },
         "meter_power": {
           "title": {
             "en": "Total Yield",
-            "nl": "Totale opbrengst"
+            "nl": "Totale opbrengst",
+            "de": "Gesamtertrag"
           },
           "decimals": 2
         },
         "meter_power.daily": {
           "title": {
             "en": "Total Day Yield",
-            "nl": "Totale dag opbrengst"
+            "nl": "Totale dag opbrengst",
+            "de": "Tagesgesamtertrag"
           },
           "decimals": 2,
           "icon": "/assets/total_yield.svg"
@@ -2599,7 +2774,8 @@
         "meter_power.import": {
           "title": {
             "en": "Total Import",
-            "nl": "Totale Import"
+            "nl": "Totale Import",
+            "de": "Gesamtimport"
           },
           "decimals": 2,
           "icon": "/assets/total_yield.svg"
@@ -2607,7 +2783,8 @@
         "meter_power.export": {
           "title": {
             "en": "Total Export",
-            "nl": "Totale Export"
+            "nl": "Totale Export",
+            "de": "Gesamtexport"
           },
           "decimals": 2,
           "icon": "/assets/total_yield.svg"
@@ -2632,7 +2809,8 @@
         {
           "type": "group",
           "label": {
-            "en": "Inverter settings"
+            "en": "Inverter settings",
+            "de": "Wechselrichtereinstellungen"
           },
           "children": [
             {
@@ -2640,7 +2818,8 @@
               "type": "text",
               "value": "0.0.0.0",
               "label": {
-                "en": "IP Address"
+                "en": "IP Address",
+                "de": "IP-Adresse"
               }
             },
             {
@@ -2649,7 +2828,8 @@
               "value": 1502,
               "step": 1,
               "label": {
-                "en": "Port"
+                "en": "Port",
+                "de": "Port"
               }
             },
             {
@@ -2663,7 +2843,8 @@
               },
               "label": {
                 "en": "Inverter ID",
-                "nl": "Inverter ID"
+                "nl": "Inverter ID",
+                "de": "Wechselrichter-ID"
               }
             }
           ]
@@ -2676,7 +2857,8 @@
     "activepowerlimit": {
       "type": "number",
       "title": {
-        "en": "Active power limit"
+        "en": "Active power limit",
+        "de": "Aktive Leistungsbeschränkung"
       },
       "getable": true,
       "setable": false,
@@ -2692,7 +2874,8 @@
     "battacchargeswitch": {
       "type": "enum",
       "title": {
-        "en": "Batt AC charge switch"
+        "en": "Batt AC charge switch",
+        "de": "Netzladung der Batterie"
       },
       "getable": true,
       "setable": false,
@@ -2702,13 +2885,15 @@
         {
           "id": "0",
           "title": {
-            "en": "Disabled"
+            "en": "Disabled",
+            "de": "Deaktiviert"
           }
         },
         {
           "id": "1",
           "title": {
-            "en": "Enabled"
+            "en": "Enabled",
+            "de": "Aktiviert"
           }
         }
       ]
@@ -2717,7 +2902,8 @@
       "type": "number",
       "title": {
         "en": "Battery",
-        "nl": "Accuniveau"
+        "nl": "Accuniveau",
+        "de": "Batteriestand"
       },
       "insights": false,
       "icon": "/assets/battery.svg",
@@ -2728,7 +2914,8 @@
       "max": 100,
       "desc": {
         "en": "Battery charge in percentage (%)",
-        "nl": "Accuniveau in procenten (%)"
+        "nl": "Accuniveau in procenten (%)",
+        "de": "Batteriestand in Prozent (%)"
       },
       "chartType": "spline",
       "decimals": 2,
@@ -2739,7 +2926,8 @@
     "batterycap": {
       "type": "number",
       "title": {
-        "en": "Battery Capacity"
+        "en": "Battery Capacity",
+        "de": "Batteriekapazität"
       },
       "getable": true,
       "setable": false,
@@ -2754,7 +2942,8 @@
     "batterycycles": {
       "type": "number",
       "title": {
-        "en": "Battery cycle count"
+        "en": "Battery cycle count",
+        "de": "Anzahl der Batteriezyklen"
       },
       "getable": true,
       "setable": false,
@@ -2766,7 +2955,8 @@
     "batterymaxcap": {
       "type": "number",
       "title": {
-        "en": "Battery Max capacity"
+        "en": "Battery Max capacity",
+        "de": "Maximale Batteriekapazität"
       },
       "getable": true,
       "setable": false,
@@ -2781,7 +2971,8 @@
     "batterymaxsoc": {
       "type": "number",
       "title": {
-        "en": "Battery Upper Capacity"
+        "en": "Battery Upper Capacity",
+        "de": "Maximaler Batteriestand"
       },
       "getable": true,
       "setable": false,
@@ -2799,7 +2990,8 @@
     "batteryminsoc": {
       "type": "number",
       "title": {
-        "en": "Battery Minimum Capacity"
+        "en": "Battery Minimum Capacity",
+        "de": "Minimaler Batteriestand"
       },
       "getable": true,
       "setable": false,
@@ -2818,7 +3010,8 @@
       "type": "number",
       "title": {
         "en": "Battery Health",
-        "nl": "Batterij SoH"
+        "nl": "Batterij SoH",
+        "de": "Batteriezustand"
       },
       "getable": true,
       "setable": false,
@@ -2834,7 +3027,8 @@
     "batterystatus": {
       "type": "number",
       "title": {
-        "en": "Battery status"
+        "en": "Battery status",
+        "de": "Batteriestatus"
       },
       "getable": true,
       "setable": false,
@@ -2846,7 +3040,8 @@
     "battfirst1": {
       "type": "string",
       "title": {
-        "en": "Battery 1st, Time slot 1"
+        "en": "Battery 1st, Time slot 1",
+        "de": "Batterie zuerst, Zeitfenster 1:"
       },
       "getable": true,
       "setable": false,
@@ -2856,7 +3051,8 @@
     "battstatus": {
       "type": "enum",
       "title": {
-        "en": "Battery status"
+        "en": "Battery status",
+        "de": "Batteriestatus"
       },
       "getable": true,
       "setable": false,
@@ -2867,55 +3063,64 @@
         {
           "id": "0",
           "title": {
-            "en": "Off"
+            "en": "Off",
+            "de": "Aus"
           }
         },
         {
           "id": "1",
           "title": {
-            "en": "Standby"
+            "en": "Standby",
+            "de": "Bereitschaft"
           }
         },
         {
           "id": "2",
           "title": {
-            "en": "Init"
+            "en": "Init",
+            "de": "Initialisierung"
           }
         },
         {
           "id": "3",
           "title": {
-            "en": "Charge"
+            "en": "Charge",
+            "de": "Ladung"
           }
         },
         {
           "id": "4",
           "title": {
-            "en": "Discharge"
+            "en": "Discharge",
+            "de": "Entladung"
           }
         },
         {
           "id": "5",
           "title": {
-            "en": "Fault"
+            "en": "Fault",
+            "de": "Störung"
           }
         },
         {
           "id": "6",
           "title": {
-            "en": "Idle"
+            "en": "Idle",
+            "de": "Leerlauf"
           }
         },
         {
           "id": "7",
           "title": {
-            "en": "Idle"
+            "en": "Idle",
+            "de": "Leerlauf"
           }
         },
         {
           "id": "10",
           "title": {
-            "en": "Unknown"
+            "en": "Unknown",
+            "de": "Unbekannt"
           }
         }
       ]
@@ -2923,7 +3128,8 @@
     "exportcontrollimitmode": {
       "type": "enum",
       "title": {
-        "en": "Export Control Limit Mode"
+        "en": "Export Control Limit Mode",
+        "de": "Exportkontrollbeschränkungsmodus"
       },
       "getable": true,
       "setable": false,
@@ -2933,13 +3139,15 @@
         {
           "id": "0",
           "title": {
-            "en": "Total"
+            "en": "Total",
+            "de": "Gesamt"
           }
         },
         {
           "id": "1",
           "title": {
-            "en": "Per Phase"
+            "en": "Per Phase",
+            "de": "Pro Phase"
           }
         }
       ]
@@ -2947,7 +3155,8 @@
     "exportcontrolsitelimit": {
       "type": "number",
       "title": {
-        "en": "Im/Export Control Site Limit"
+        "en": "Im/Export Control Site Limit",
+        "de": "Standortbeschränkung der Im-/Exportkontrolle"
       },
       "getable": true,
       "setable": false,
@@ -2962,7 +3171,8 @@
     "exportlimitenabled": {
       "type": "enum",
       "title": {
-        "en": "Set export limit"
+        "en": "Set export limit",
+        "de": "Exportbeschränkung"
       },
       "getable": true,
       "setable": false,
@@ -2986,7 +3196,8 @@
     "exportlimitpowerrate": {
       "type": "number",
       "title": {
-        "en": "Export limit %"
+        "en": "Export limit %",
+        "de": "Setze Exportbeschränkung"
       },
       "getable": true,
       "setable": false,
@@ -3005,7 +3216,8 @@
     "exportlimitwhenfailed": {
       "type": "number",
       "title": {
-        "en": "Export limit failed"
+        "en": "Export limit failed",
+        "de": "Exportbeschränkung fehlgeschlagen"
       },
       "getable": true,
       "setable": false,
@@ -3023,7 +3235,8 @@
     "gridfirst1": {
       "type": "string",
       "title": {
-        "en": "Grid 1st, Time slot 1"
+        "en": "Grid 1st, Time slot 1",
+        "de": "Netz zuerst, Zeitfenster 1:"
       },
       "getable": true,
       "setable": false,
@@ -3033,7 +3246,8 @@
     "invertorstatus": {
       "type": "enum",
       "title": {
-        "en": "Inverter status"
+        "en": "Inverter status",
+        "de": "Status des Wechselrichters"
       },
       "getable": true,
       "setable": false,
@@ -3044,55 +3258,64 @@
         {
           "id": "0",
           "title": {
-            "en": "Undefined"
+            "en": "Undefined",
+            "de": "Undefiniert"
           }
         },
         {
           "id": "1",
           "title": {
-            "en": "Off"
+            "en": "Off",
+            "de": "Aus"
           }
         },
         {
           "id": "2",
           "title": {
-            "en": "Sleeping"
+            "en": "Sleeping",
+            "de": "Schlafend"
           }
         },
         {
           "id": "3",
           "title": {
-            "en": "Grid Monitoring"
+            "en": "Grid Monitoring",
+            "de": "Netzüberwachung"
           }
         },
         {
           "id": "4",
           "title": {
-            "en": "Producing"
+            "en": "Producing",
+            "de": "Produzierend"
           }
         },
         {
           "id": "5",
           "title": {
-            "en": "Producing (Throttled)"
+            "en": "Producing (Throttled)",
+            "de": "Produzierend (gedrosselt)"
           }
         },
         {
           "id": "6",
           "title": {
-            "en": "Shutting Down"
+            "en": "Shutting Down",
+            "de": "Fährt herunter"
           }
         },
         {
           "id": "7",
           "title": {
-            "en": "Fault"
+            "en": "Fault",
+            "de": "Störung"
           }
         },
         {
           "id": "8",
           "title": {
-            "en": "Maintenance"
+            "en": "Maintenance",
+            "de": "Wartung"
           }
         }
       ]
@@ -3100,7 +3323,8 @@
     "limitcontrolmode": {
       "type": "enum",
       "title": {
-        "en": "Limit mode"
+        "en": "Limit mode",
+        "de": "Setze Limit-Modus"
       },
       "getable": true,
       "setable": true,
@@ -3110,19 +3334,22 @@
         {
           "id": "0",
           "title": {
-            "en": "Disabled"
+            "en": "Disabled",
+            "de": "Deaktiviert"
           }
         },
         {
           "id": "1",
           "title": {
-            "en": "Export Control"
+            "en": "Export Control",
+            "de": "Exportbeschränkung"
           }
         },
         {
           "id": "11",
           "title": {
-            "en": "Import Control"
+            "en": "Import Control",
+            "de": "Importbeschränkung"
           }
         }
       ]
@@ -3130,7 +3357,8 @@
     "loadfirst1": {
       "type": "string",
       "title": {
-        "en": "Load 1st, Time slot 1"
+        "en": "Load 1st, Time slot 1",
+        "de": "Last zuerst, Zeitfenster 1:"
       },
       "getable": true,
       "setable": false,
@@ -3141,7 +3369,8 @@
       "type": "number",
       "title": {
         "en": "Current",
-        "nl": "Stroom"
+        "nl": "Stroom",
+        "de": "Strom"
       },
       "units": {
         "en": "A"
@@ -3149,7 +3378,8 @@
       "insights": true,
       "desc": {
         "en": "Electric current (A)",
-        "nl": "Elektrische stroom (A)"
+        "nl": "Elektrische stroom (A)",
+        "de": "Elektrischer Strom (A)"
       },
       "chartType": "stepLine",
       "decimals": 2,
@@ -3161,7 +3391,8 @@
       "type": "number",
       "title": {
         "en": "Power",
-        "nl": "Vermogen"
+        "nl": "Vermogen",
+        "de": "Leistung"
       },
       "units": {
         "en": "W"
@@ -3169,7 +3400,8 @@
       "insights": true,
       "desc": {
         "en": "Power in watt (W)",
-        "nl": "Vermogen in watt (W)"
+        "nl": "Vermogen in watt (W)",
+        "de": "Leistung in Watt (W)"
       },
       "chartType": "stepLine",
       "decimals": 2,
@@ -3181,7 +3413,8 @@
       "type": "number",
       "title": {
         "en": "Temperature",
-        "nl": "Temperatuur"
+        "nl": "Temperatuur",
+        "de": "Temperatur"
       },
       "units": {
         "en": "°C"
@@ -3189,7 +3422,8 @@
       "insights": true,
       "desc": {
         "en": "Temperature in degrees Celsius (°C)",
-        "nl": "Temperatuur in graden Celsius (°C)"
+        "nl": "Temperatuur in graden Celsius (°C)",
+        "de": "Temperatur in Grad Celsius (°C)"
       },
       "decimals": 2,
       "chartType": "spline",
@@ -3201,14 +3435,16 @@
       "type": "number",
       "title": {
         "en": "Voltage",
-        "nl": "Voltage"
+        "nl": "Voltage",
+        "de": "Spannung"
       },
       "units": {
         "en": "V"
       },
       "desc": {
         "en": "Voltage (V)",
-        "nl": "Voltage (V)"
+        "nl": "Voltage (V)",
+        "de": "Spannung (V)"
       },
       "insights": true,
       "chartType": "stepLine",
@@ -3221,7 +3457,8 @@
       "type": "number",
       "title": {
         "en": "Total Yield",
-        "nl": "Totale opbrengst"
+        "nl": "Totale opbrengst",
+        "de": "Gesamtertrag"
       },
       "decimals": 2,
       "units": {
@@ -3229,7 +3466,8 @@
       },
       "desc": {
         "en": "Energy usage in kilowatt-hour (kWh)",
-        "nl": "Energie verbruik in kilowattuur (kWh)"
+        "nl": "Energie verbruik in kilowattuur (kWh)",
+        "de": "Verbrauchte Energie in Kilowattstunden (kWh)"
       },
       "chartType": "spline",
       "insights": true,
@@ -3241,7 +3479,8 @@
     "outputmaxpowerlimited": {
       "type": "number",
       "title": {
-        "en": "Output max power limited"
+        "en": "Output max power limited",
+        "de": "Maximale Ausgangsleistung begrenzt"
       },
       "units": {
         "en": "W"
@@ -3256,7 +3495,8 @@
       "type": "number",
       "title": {
         "en": "Consumption",
-        "nl": "Verbruik"
+        "nl": "Verbruik",
+        "de": "Verbrauch"
       },
       "getable": true,
       "setable": false,
@@ -3272,7 +3512,8 @@
     "priority": {
       "type": "enum",
       "title": {
-        "en": "Priority"
+        "en": "Priority",
+        "de": "Priorität"
       },
       "getable": true,
       "setable": false,
@@ -3282,19 +3523,22 @@
         {
           "id": "0",
           "title": {
-            "en": "Load First"
+            "en": "Load First",
+            "de": "Last zuerst"
           }
         },
         {
           "id": "1",
           "title": {
-            "en": "Battery First"
+            "en": "Battery First",
+            "de": "Batterie zuerst"
           }
         },
         {
           "id": "2",
           "title": {
-            "en": "Grid First"
+            "en": "Grid First",
+            "de": "Netz zuerst"
           }
         }
       ]
@@ -3302,7 +3546,8 @@
     "realoutputpercentage": {
       "type": "number",
       "title": {
-        "en": "real output power"
+        "en": "real output power",
+        "de": "Reale Ausgangsleistung"
       },
       "getable": true,
       "setable": false,
@@ -3320,7 +3565,8 @@
     "storagecontrolmode": {
       "type": "enum",
       "title": {
-        "en": "Storage Control Mode"
+        "en": "Storage Control Mode",
+        "de": "Speicherkontrollmodus"
       },
       "getable": true,
       "setable": true,
@@ -3330,31 +3576,36 @@
         {
           "id": "0",
           "title": {
-            "en": "Disabled"
+            "en": "Disabled",
+            "de": "Deaktiviert"
           }
         },
         {
           "id": "1",
           "title": {
-            "en": "Maximize Self Consumption"
+            "en": "Maximize Self Consumption",
+            "de": "Maximiere Eigenverbrauch"
           }
         },
         {
           "id": "2",
           "title": {
-            "en": "Time of Use"
+            "en": "Time of Use",
+            "de": "Nutzungszeit"
           }
         },
         {
           "id": "3",
           "title": {
-            "en": "Backup Only"
+            "en": "Backup Only",
+            "de": "Nur als Backup"
           }
         },
         {
           "id": "4",
           "title": {
-            "en": "Remote Control"
+            "en": "Remote Control",
+            "de": "Ferngesteuert"
           }
         }
       ]
@@ -3362,7 +3613,8 @@
     "storagedefaultmode": {
       "type": "enum",
       "title": {
-        "en": "Storage Charge/Discharge Mode"
+        "en": "Storage Charge/Discharge Mode",
+        "de": "Speicher-Lade/Entlade-Modus"
       },
       "getable": true,
       "setable": true,
@@ -3372,49 +3624,57 @@
         {
           "id": "-1",
           "title": {
-            "en": "Disabled"
+            "en": "Disabled",
+            "de": "Deaktiviert"
           }
         },
         {
           "id": "0",
           "title": {
-            "en": "Off"
+            "en": "Off",
+            "de": "Aus"
           }
         },
         {
           "id": "1",
           "title": {
-            "en": "Charge excess PV power only"
+            "en": "Charge excess PV power only",
+            "de": "Nur PV-Ertrag über Wechselrichterlimit laden"
           }
         },
         {
           "id": "2",
           "title": {
-            "en": "Charge from PV 1st, before producing to AC"
+            "en": "Charge from PV 1st, before producing to AC",
+            "de": "PV-Ertrag zuerst laden, danach Eigenverbrauch/Netzexport"
           }
         },
         {
           "id": "3",
           "title": {
-            "en": "Charge from PV+AC"
+            "en": "Charge from PV+AC",
+            "de": "Lade von PV und Netz"
           }
         },
         {
           "id": "4",
           "title": {
-            "en": "Maximize export"
+            "en": "Maximize export",
+            "de": "Entlade für maximalen Netzexport"
           }
         },
         {
           "id": "5",
           "title": {
-            "en": "Discharge to meet loads consumption"
+            "en": "Discharge to meet loads consumption",
+            "de": "Entlade um Verbrauch zu decken"
           }
         },
         {
           "id": "7",
           "title": {
-            "en": "Maximize self-consumption"
+            "en": "Maximize self-consumption",
+            "de": "Maximiere Eigenverbrauch"
           }
         }
       ]

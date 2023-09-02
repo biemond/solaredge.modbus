@@ -1,7 +1,8 @@
 {
     "type": "number",
     "title": {
-        "en": "Battery status"
+        "en": "Battery status",
+		"de": "Batteriestatus"
     },
     "getable": true,
     "setable": false,

@@ -1,7 +1,8 @@
 {
       "type": "number",
       "title": {
-        "en": "Battery Minimum Capacity"
+        "en": "Battery Minimum Capacity",
+        "de": "Minimaler Batteriestand"
       },
       "getable": true,
       "setable": false,

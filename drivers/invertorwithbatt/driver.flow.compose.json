@@ -290,10 +290,12 @@
     {
       "id": "batterylevel",
       "title": {
-        "en": "Battery !{{is|isn't}} higher than"
+        "en": "Battery !{{is|isn't}} higher than",
+        "de": "Batteriestand !{{ist|ist nicht}} größer als"
       },
       "hint": {
-        "en": "Battery charged in percentage"
+        "en": "Battery charged in percentage",
+        "de": "Batteriestand in Prozent"
       },
       "args": [
         {
@@ -305,10 +307,12 @@
     {
       "id": "batterycharge",
       "title": {
-        "en": "Battery charging !{{is|isn't}} higher than"
+        "en": "Battery charging !{{is|isn't}} higher than",
+        "de": "Batterieladeleistung !{{ist|ist nicht}} größer als"
       },
       "hint": {
-        "en": "Battery charing in watts"
+        "en": "Battery charing in Watt",
+        "de": "Batterieladeleistung in Watt"
       },
       "args": [
         {
@@ -320,10 +324,12 @@
     {
       "id": "batterydischarge",
       "title": {
-        "en": "Battery discharging !{{is|isn't}} higher than"
+        "en": "Battery discharging !{{is|isn't}} higher than",
+        "de": "Batterieentladeleistung !{{ist|ist nicht}} größer als"
       },
       "hint": {
-        "en": "Battery discharing in watts"
+        "en": "Battery discharing in Watt",
+        "de": "Batterieentladeleistung in Watt"
       },
       "args": [
         {
@@ -335,7 +341,8 @@
     {
       "id": "gridexport",
       "title": {
-        "en": "Grid export !{{is|isn't}} higher than"
+        "en": "Grid export !{{is|isn't}} higher than",
+        "de": "Netzexportleistung !{{ist|ist nicht}} größer als"
       },
       "hint": {
         "en": "Grid export"
@@ -350,7 +357,8 @@
     {
       "id": "gridimport",
       "title": {
-        "en": "Grid import !{{is|isn't}} higher than"
+        "en": "Grid import !{{is|isn't}} higher than",
+        "de": "Netzimportleistung !{{ist|ist nicht}} größer als"
       },
       "hint": {
         "en": "Grid import"
@@ -365,10 +373,12 @@
     {
       "id": "solarbattcharge",
       "title": {
-        "en": "Inverter + Battery !{{is|isn't}} higher than"
+        "en": "Inverter + Battery !{{is|isn't}} higher than",
+        "de": "Solar- und Batterie-Wechselrichterleistung !{{ist|ist nicht}} größer als"
       },
       "hint": {
-        "en": "Inverter plus battery charging in watts"
+        "en": "Inverter plus battery charging in Watt",
+        "de": "Solar- und Batterie-Wechselrichterleistung in Watt"
       },
       "args": [
         {
@@ -380,13 +390,16 @@
     {
       "id": "changedBatteryStatus",
       "title": {
-        "en": "Battery status is"
+        "en": "Battery status is",
+        "de": "Batteriestatus ist"
       },
       "titleFormatted": {
-        "en": "Battery status is [[argument_main]]"
+        "en": "Battery status is [[argument_main]]",
+        "de": "Batteriestatus ist [[argument_main]]"
       },
       "hint": {
-        "en": "Battery status"
+        "en": "Battery status",
+        "de": "Batteriestatus"
       },
       "args": [
         {
@@ -396,49 +409,57 @@
             {
               "id": "0",
               "label": {
-                "en": "Off"
+                "en": "Off",
+                "de": "Aus"
               }
             },
             {
               "id": "1",
               "label": {
-                "en": "Standby"
+                "en": "Standby",
+                "de": "Bereitschaft"
               }
             },
             {
               "id": "2",
               "label": {
-                "en": "Init"
+                "en": "Init",
+                "de": "Initialisierung"
               }
             },
             {
               "id": "3",
               "label": {
-                "en": "Charge"
+                "en": "Charge",
+                "de": "Ladung"
               }
             },
             {
               "id": "4",
               "label": {
-                "en": "Discharge"
+                "en": "Discharge",
+                "de": "Entladung"
               }
             },
             {
               "id": "5",
               "label": {
-                "en": "Fault"
+                "en": "Fault",
+                "de": "Störung"
               }
             },
             {
               "id": "6",
               "label": {
-                "en": "Idle"
+                "en": "Idle",
+                "de": "Leerlauf"
               }
             },
             {
               "id": "10",
               "label": {
-                "en": "Unknown"
+                "en": "Unknown",
+                "de": "Unbekannt"
               }
             }
           ]
@@ -568,7 +589,8 @@
     {
       "id": "storagecontrolmode",
       "title": {
-        "en": "Storage Control Mode"
+        "en": "Storage Control Mode",
+        "de": "Speicherkontrollmodus"
       },
       "args": [
         {
@@ -578,31 +600,36 @@
             {
               "id": "0",
               "title": {
-                "en": "Disabled"
+                "en": "Disabled",
+                "de": "Deaktiviert"
               }
             },
             {
               "id": "1",
               "title": {
-                "en": "Maximize Self Consumption"
+                "en": "Maximize Self Consumption",
+                "de": "Maximiere Eigenverbrauch"
               }
             },
             {
               "id": "2",
               "title": {
-                "en": "Time of Use"
+                "en": "Time of Use",
+                "de": "Nutzungszeit"
               }
             },
             {
               "id": "3",
               "title": {
-                "en": "Backup Only"
+                "en": "Backup Only",
+                "de": "Nur als Backup"
               }
             },
             {
               "id": "4",
               "title": {
-                "en": "Remote Control"
+                "en": "Remote Control",
+                "de": "Ferngesteuert"
               }
             }
           ]
@@ -612,7 +639,8 @@
     {
       "id": "storagedefaultmode",
       "title": {
-        "en": "Storage Charge/Discharge Mode"
+        "en": "Storage Charge/Discharge Mode",
+        "de": "Speicher-Lade/Entlade-Modus"
       },
       "args": [
         {
@@ -622,49 +650,57 @@
             {
               "id": "-1",
               "title": {
-                "en": "Disabled"
+                "en": "Disabled",
+                "de": "Deaktiviert"
               }
             },
             {
               "id": "0",
               "title": {
-                "en": "Off"
+                "en": "Off",
+                "de": "Aus"
               }
             },
             {
               "id": "1",
               "title": {
-                "en": "Charge excess PV power only"
+                "en": "Charge excess PV power only",
+                "de": "Nur PV-Ertrag über Wechselrichterlimit laden"
               }
             },
             {
               "id": "2",
               "title": {
-                "en": "Charge from PV 1st, before producing to AC"
+                "en": "Charge from PV 1st, before producing to AC",
+                "de": "PV-Ertrag zuerst laden, danach Eigenverbrauch/Netzexport"
               }
             },
             {
               "id": "3",
               "title": {
-                "en": "Charge from PV+AC"
+                "en": "Charge from PV+AC",
+                "de": "Lade von PV und Netz"
               }
             },
             {
               "id": "4",
               "title": {
-                "en": "Maximize export"
+                "en": "Maximize export",
+                "de": "Entlade für maximalen Netzexport"
               }
             },
             {
               "id": "5",
               "title": {
-                "en": "Discharge to meet loads consumption"
+                "en": "Discharge to meet loads consumption",
+                "de": "Entlade um Verbrauch zu decken"
               }
             },
             {
               "id": "7",
               "title": {
-                "en": "Maximize self-consumption"
+                "en": "Maximize self-consumption",
+                "de": "Maximiere Eigenverbrauch"
               }
             }
           ]
@@ -674,7 +710,8 @@
     {
       "id": "setcharging",
       "title": {
-        "en": "Set Charge power"
+        "en": "Set Charge power",
+        "de": "Setze maximale Ladeleistung"
       },
       "args": [
         {
@@ -748,7 +785,8 @@
     {
       "id": "setdischarging",
       "title": {
-        "en": "Set Discharge power"
+        "en": "Set Discharge power",
+        "de": "Setze maximale Entladeleistung"
       },
       "args": [
         {
@@ -756,9 +794,9 @@
           "name": "dischargepower",
           "values": [
             {
-              "id": "0",
+              "id": "10",
               "label": {
-                "en": "0W"
+                "en": "10W"
               }
             },              
             {

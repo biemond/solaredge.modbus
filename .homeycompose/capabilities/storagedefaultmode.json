@@ -1,7 +1,8 @@
 {
     "type": "enum",
     "title": {
-        "en": "Storage Charge/Discharge Mode"
+        "en": "Storage Charge/Discharge Mode",
+		"de": "Speicher-Lade/Entlade-Modus"
     },
     "getable": true,
     "setable": true,
@@ -11,49 +12,57 @@
         {
             "id": "-1",
             "title": {
-                "en": "Disabled"
+                "en": "Disabled",
+                "de": "Deaktiviert"
             }
         },        
         {
             "id": "0",
             "title": {
-                "en": "Off"
+                "en": "Off",
+                "de": "Aus"
             }
         },
         {
             "id": "1",
             "title": {
-                "en": "Charge excess PV power only"
+                "en": "Charge excess PV power only",
+                "de": "Nur PV-Ertrag über Wechselrichterlimit laden"
             }
         },
         {
             "id": "2",
             "title": {
-                "en": "Charge from PV 1st, before producing to AC"
+                "en": "Charge from PV 1st, before producing to AC",
+                "de": "PV-Ertrag zuerst laden, danach Eigenverbrauch/Netzexport"
             }
         },
         {
             "id": "3",
             "title": {
-                "en": "Charge from PV+AC"
+                "en": "Charge from PV+AC",
+                "de": "Lade von PV und Netz"
             }
         },
         {
             "id": "4",
             "title": {
-                "en": "Maximize export"
+                "en": "Maximize export",
+                "de": "Entlade für maximalen Netzexport"
             }
         },                
         {
             "id": "5",
             "title": {
-                "en": "Discharge to meet loads consumption"
+                "en": "Discharge to meet loads consumption",
+                "de": "Entlade um Verbrauch zu decken"
             }
         } ,
         {
             "id": "7",
             "title": {
-                "en": "Maximize self-consumption"
+                "en": "Maximize self-consumption",
+                "de": "Maximiere Eigenverbrauch"
             }
         }  
     ]

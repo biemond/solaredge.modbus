@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Solaredge + Storedge"
+    "en": "Solaredge + Storedge",
+    "de": "Solaredge Storedge (mit Batterie)"
   },
   "class": "solarpanel",
   "energy": {
@@ -50,112 +51,132 @@
     "measure_power": {
       "decimals": 0,
       "title": {
-        "en": "Solar + Batt Power"
+        "en": "Solar + Batt Power",
+        "de": "Solar- und Batterie-Leistung"
       }
     },
     "measure_current.phase1": {
       "title": {
-        "en": "AC Current phase1"
+        "en": "AC Current phase1",
+        "de": "AC-Strom Phase 1"
       }
     },
     "measure_current.phase2": {
       "title": {
-        "en": "AC Current phase2"
+        "en": "AC Current phase2",
+        "de": "AC-Strom Phase 2"
       }
     },
     "measure_current.phase3": {
       "title": {
-        "en": "AC Current phase3"
+        "en": "AC Current phase3",
+        "de": "AC-Strom Phase 3"
       }
     },
     "measure_current": {
       "title": {
-        "en": "AC Current"
+        "en": "AC Current",
+        "de": "AC-Strom"
       }
     },
     "measure_power.batt_discharge": {
       "decimals": 0,
       "title": {
-        "en": "Battery Power discharge"
+        "en": "Battery Power discharge",
+        "de": "Batterieentladeleistung"
       }
     },
     "measure_power.batt_charge": {
       "decimals": 0,
       "title": {
-        "en": "Battery Power charge"
+        "en": "Battery Power charge",
+        "de": "Batterieladeleistung"
       }
     },
     "measure_power.import": {
       "decimals": 0,
       "title": {
-        "en": "Power Grid import"
+        "en": "Power Grid import",
+        "de": "Netzimportleistung"
       }
     },
     "measure_power.export": {
       "decimals": 0,
       "title": {
-        "en": "Power Grid export"
+        "en": "Power Grid export",
+        "de": "Netzexportleistung"
       }
     },
     "measure_voltage.meter": {
       "title": {
-        "en": "Meter AC Voltage"
+        "en": "Meter AC Voltage",
+        "de": "Zähler AC-Spannung"
       }
     },
     "measure_current.meter_phase1": {
       "title": {
-        "en": "Meter AC Current phase1"
+        "en": "Meter AC Current phase1",
+        "de": "Zähler AC-Strom Phase 1"
       }
     },
     "measure_current.meter_phase2": {
       "title": {
-        "en": "Meter AC Current phase2"
+        "en": "Meter AC Current phase2",
+        "de": "Zähler AC-Strom Phase 2"
       }
     },
     "measure_current.meter_phase3": {
       "title": {
-        "en": "Meter AC Current phase3"
+        "en": "Meter AC Current phase3",
+        "de": "Zähler AC-Strom Phase 3"
       }
     },
     "measure_current.meter": {
       "title": {
-        "en": "Meter AC Current"
+        "en": "Meter AC Current",
+        "de": "Zähler AC-Strom"
       }
     },
     "measure_temperature.invertor": {
       "title": {
         "en": "Heatsink temperature",
-        "nl": "Heatsink temperatuur"
+        "nl": "Heatsink temperatuur",
+        "de": "Kühlkörpertemperatur"
       },
       "decimals": 2
     },
     "measure_temperature.battery": {
       "title": {
-        "en": "Battery avg temperature"
+        "en": "Battery avg temperature",
+        "de": "Durchschnittliche Batterietemperatur"
       },
       "decimals": 2
     },
     "measure_power.chargesetting": {
       "title": {
-        "en": "Charge setting"
+        "en": "Charge setting",
+        "de": "Maximale Ladeleistung"
       }
     },
     "measure_power.dischargesetting": {
       "title": {
-        "en": "Discharge setting"
+        "en": "Discharge setting",
+        "de": "Maximale Entladeleistung"
       }
     },
     "meter_power": {
       "title": {
         "en": "Total Yield",
-        "nl": "Totale opbrengst"
+        "nl": "Totale opbrengst",
+        "de": "Gesamtertrag"
       },
       "decimals": 2
     },
     "meter_power.daily": {
       "title": {
         "en": "Total Day Yield",
-        "nl": "Totale dag opbrengst"
+        "nl": "Totale dag opbrengst",
+        "de": "Tagesgesamtertrag"
       },
       "decimals": 2,
       "icon": "/assets/total_yield.svg"
@@ -163,7 +184,8 @@
     "meter_power.import": {
       "title": {
         "en": "Total Import",
-        "nl": "Totale Import"
+        "nl": "Totale Import",
+        "de": "Gesamtimport"
       },
       "decimals": 2,
       "icon": "/assets/total_yield.svg"
@@ -171,7 +193,8 @@
     "meter_power.export": {
       "title": {
         "en": "Total Export",
-        "nl": "Totale Export"
+        "nl": "Totale Export",
+        "de": "Gesamtexport"
       },
       "decimals": 2,
       "icon": "/assets/total_yield.svg"
@@ -196,7 +219,8 @@
     {
       "type": "group",
       "label": {
-        "en": "Inverter settings"
+        "en": "Inverter settings",
+        "de": "Wechselrichtereinstellungen"
       },
       "children": [
         {
@@ -204,7 +228,8 @@
           "type": "text",
           "value": "0.0.0.0",
           "label": {
-            "en": "IP Address"
+            "en": "IP Address",
+            "de": "IP-Adresse"
           }
         },
         {
@@ -213,7 +238,8 @@
           "value": 1502,
           "step": 1,
           "label": {
-            "en": "Port"
+            "en": "Port",
+            "de": "Port"
           }
         },
         {
@@ -227,7 +253,8 @@
           },
           "label": {
             "en": "Inverter ID",
-            "nl": "Inverter ID"
+            "nl": "Inverter ID",
+            "de": "Wechselrichter-ID"
           }
         }
       ]

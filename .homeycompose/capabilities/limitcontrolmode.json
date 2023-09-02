@@ -1,7 +1,8 @@
 {
     "type": "enum",
     "title": {
-        "en": "Limit mode"
+        "en": "Limit mode",
+		"de": "Setze Limit-Modus"
     },
     "getable": true,
     "setable": true,
@@ -11,19 +12,22 @@
         {
             "id": "0",
             "title": {
-                "en": "Disabled"
+                "en": "Disabled",
+                "de": "Deaktiviert"
             }
         },
         {
             "id": "1",
             "title": {
-                "en": "Export Control"
+                "en": "Export Control",
+                "de": "Exportbeschränkung"
             }
         },
         {
             "id": "11",
             "title": {
-                "en": "Import Control"
+                "en": "Import Control",
+                "de": "Importbeschränkung"
             }
         }                                           
     ]

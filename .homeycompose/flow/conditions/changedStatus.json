@@ -1,12 +1,15 @@
 {
     "title": {
-        "en": "Inverter status is"
+        "en": "Inverter status is",
+        "de": "Status des Wechselrichters ist"
     },
     "titleFormatted": {
-        "en": "Inverter status is [[argument_main]]"
+        "en": "Inverter status is [[argument_main]]",
+        "de": "Status des Wechselrichters ist [[argument_main]]"
     },    
     "hint": {
-        "en": "Inverter status"
+        "en": "Inverter status",
+        "de": "Status des Wechselrichters"
     },
     "args": [
         {
@@ -21,55 +24,64 @@
                 {
                     "id": "0",
                     "label": {
-                        "en": "Undefined"
+                        "en": "Undefined",
+                        "de": "Undefiniert"
                     }
                 },
                 {
                     "id": "1",
                     "label": {
-                        "en": "Off"
+                        "en": "Off",
+                        "de": "Aus"
                     }
                 },
                 {
                     "id": "2",
                     "label": {
-                        "en": "Sleeping"
+                        "en": "Sleeping",
+                        "de": "Schlafend"
                     }
                 },
                 {
                     "id": "3",
                     "label": {
-                        "en": "Grid Monitoring"
+                        "en": "Grid Monitoring",
+                        "de": "Netzüberwachung"
                     }
                 },
                 {
                     "id": "4",
                     "label": {
-                        "en": "Producing"
+                        "en": "Producing",
+                        "de": "Produzierend"
                     }
                 },
                 {
                     "id": "5",
                     "label": {
-                        "en": "Producing (Throttled)"
+                        "en": "Producing (Throttled)",
+                        "de": "Produzierend (gedrosselt)"
                     }
                 },
                 {
                     "id": "6",
                     "label": {
-                        "en": "Shutting Down"
+                        "en": "Shutting Down",
+                        "de": "Fährt herunter"
                     }
                 },
                 {
                     "id": "7",
                     "label": {
-                        "en": "Fault"
+                        "en": "Fault",
+                        "de": "Störung"
                     }
                 },
                 {
                     "id": "8",
                     "label": {
-                        "en": "Maintenance"
+                        "en": "Maintenance",
+                        "de": "Wartung"
                     }
                 }                                 
             ]

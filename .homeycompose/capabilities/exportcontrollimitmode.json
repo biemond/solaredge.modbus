@@ -1,7 +1,8 @@
 {
     "type": "enum",
     "title": {
-        "en": "Export Control Limit Mode"
+        "en": "Export Control Limit Mode",
+		"de": "Exportkontrollbeschränkungsmodus"
     },
     "getable": true,
     "setable": false,
@@ -11,13 +12,15 @@
         {
             "id": "0",
             "title": {
-                "en": "Total"
+                "en": "Total",
+                "de": "Gesamt"
             }
         },
         {
             "id": "1",
             "title": {
-                "en": "Per Phase"
+                "en": "Per Phase",
+                "de": "Pro Phase"
             }
         }                                         
     ]

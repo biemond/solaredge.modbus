@@ -1,13 +1,15 @@
 {
     "title": {
-        "en": "Active Power Limit"
+        "en": "Active Power Limit",
+        "de": "Aktive Leistungsbeschränkung"
     },
     "args": [
         {
             "type": "range",
             "name": "value",
             "title": {
-                "en": "percentage"
+                "en": "percentage",
+                "de": "Prozent"
             },
             "min": 0,
             "max": 100,

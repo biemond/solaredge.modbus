@@ -1,7 +1,8 @@
 {
     "type": "number",
     "title": {
-      "en": "Export limit failed"
+      "en": "Export limit failed",
+      "de": "Exportbeschränkung fehlgeschlagen"
     },
     "getable": true,
     "setable": false,

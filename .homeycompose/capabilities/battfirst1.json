@@ -1,7 +1,8 @@
 {
     "type": "string",
     "title": {
-        "en": "Battery 1st, Time slot 1"
+        "en": "Battery 1st, Time slot 1",
+        "de": "Batterie zuerst, Zeitfenster 1:"
     },
     "getable": true,
     "setable": false,

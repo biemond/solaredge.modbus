@@ -1,19 +1,20 @@
 {
   "name": {
-    "en": "Growatt + Battery"
+    "en": "Growatt + Battery",
+    "de": "Growatt mit Batterie"
   },
   "class": "solarpanel",
   "energy": {
     "batteries": [
       "OTHER"
     ]
-  },  
+  },
   "capabilities": [
     "measure_power",
     "measure_power.input",
     "measure_power.gridoutput",
     "measure_power.pv1input",
-    "measure_power.pv2input",        
+    "measure_power.pv2input",
     "measure_current.phase1",
     "measure_current.phase2",
     "measure_current.phase3",
@@ -21,9 +22,9 @@
     "measure_temperature.battery",
     "meter_power",
     "meter_power.daily",
-    "meter_power.pv1TodayEnergy", 
-    "meter_power.pv1TotalEnergy", 
-    "meter_power.pv2TodayEnergy", 
+    "meter_power.pv1TodayEnergy",
+    "meter_power.pv1TotalEnergy",
+    "meter_power.pv2TodayEnergy",
     "meter_power.pv2TotalEnergy",
     "battery",
     "measure_battery",
@@ -37,7 +38,7 @@
     "exportlimitenabled",
     "exportlimitpowerrate",
     "priority",
-    "measure_power.houseload",           
+    "measure_power.houseload",
     "meter_power.today_grid_import",
     "meter_power.today_grid_export",
     "meter_power.today_batt_output",
@@ -47,92 +48,106 @@
     "batteryminsoc",
     "gridfirst1",
     "battfirst1",
-    "battacchargeswitch"                
+    "battacchargeswitch"
   ],
   "capabilitiesOptions": {
     "measure_power": {
       "decimals": 0,
       "title": {
-        "en": "Solar/Batt Power"
+        "en": "Solar/Batt Power",
+        "de": "Solar- und Batterie-Leistung"
       }
     },
     "measure_power.input": {
       "decimals": 0,
       "title": {
-        "en": "Solar input"
+        "en": "Solar input",
+        "de": "Solarer Eingang"
       }
     },
     "measure_power.pv1input": {
       "decimals": 0,
       "title": {
-        "en": "PV1 input"
+        "en": "PV1 input",
+        "de": "PV-Strang 1 Eingang"
       }
     },
     "measure_power.pv2input": {
       "decimals": 0,
       "title": {
-        "en": "PV2 input"
+        "en": "PV2 input",
+        "de": "PV-Strang 2 Eingang"
       }
-    },        
+    },
     "measure_power.gridoutput": {
       "decimals": 0,
       "title": {
-        "en": "Grid output"
+        "en": "Grid output",
+        "de": "Netzexport"
       }
-    },        
+    },
     "measure_current.phase1": {
       "title": {
-        "en": "AC Current phase1"
+        "en": "AC Current phase1",
+        "de": "AC-Strom Phase 1"
       }
     },
     "measure_current.phase2": {
       "title": {
-        "en": "AC Current phase2"
+        "en": "AC Current phase2",
+        "de": "AC-Strom Phase 2"
       }
     },
     "measure_current.phase3": {
       "title": {
-        "en": "AC Current phase3"
+        "en": "AC Current phase3",
+        "de": "AC-Strom Phase 3"
       }
     },
     "measure_temperature.invertor": {
       "title": {
         "en": "Heatsink temperature",
-        "nl": "Heatsink temperatuur"
+        "nl": "Heatsink temperatuur",
+        "de": "Kühlkörpertemperatur"
       },
       "decimals": 2
     },
     "measure_temperature.battery": {
       "title": {
-        "en": "Battery temperature"
+        "en": "Battery temperature",
+        "de": "Batterietemperatur"
       },
       "decimals": 2
-    },    
+    },
     "meter_power": {
       "title": {
         "en": "Total Yield",
-        "nl": "Totale opbrengst"
+        "nl": "Totale opbrengst",
+        "de": "Gesamtertrag"
       },
-      "decimals": 1   
+      "decimals": 1
     },
     "meter_power.pv1TotalEnergy": {
       "title": {
         "en": "Total PV1 Yield",
-        "nl": "Totale PV1 opbrengst"
+        "nl": "Totale PV1 opbrengst",
+        "de": "Gesamtertrag PV-Strang 1"
       },
-      "decimals": 1   
+      "decimals": 1
     },
     "meter_power.pv2TotalEnergy": {
       "title": {
         "en": "Total PV2 Yield",
-        "nl": "Totale PV2 opbrengst"
+        "nl": "Totale PV2 opbrengst",
+        "de": "Gesamtertrag PV-Strang 2"
       },
-      "decimals": 1   
-    },        
+      "decimals": 1
+    },
     "meter_power.daily": {
       "title": {
         "en": "Total Day Yield",
-        "nl": "Totale dag opbrengst"
+        "nl": "Totale dag opbrengst",
+        "de": "Tagesgesamtertrag"
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
@@ -140,7 +155,8 @@
     "meter_power.pv1TodayEnergy": {
       "title": {
         "en": "Total PV1 Day Yield",
-        "nl": "Totale PV1 dag opbrengst"
+        "nl": "Totale PV1 dag opbrengst",
+        "de": "Tagesgesamtertrag PV-Strang 1"
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
@@ -148,7 +164,8 @@
     "meter_power.pv2TodayEnergy": {
       "title": {
         "en": "Total PV2 Day Yield",
-        "nl": "Totale PV2 dag opbrengst"
+        "nl": "Totale PV2 dag opbrengst",
+        "de": "Tagesgesamtertrag PV-Strang 2"
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
@@ -156,81 +173,91 @@
     "measure_power.batt_discharge": {
       "decimals": 0,
       "title": {
-        "en": "Battery Power discharge"
+        "en": "Battery Power discharge",
+        "de": "Batterieentladeleistung"
       }
     },
     "measure_power.batt_charge": {
       "decimals": 0,
       "title": {
-        "en": "Battery Power charge"
+        "en": "Battery Power charge",
+        "de": "Batterieladeleistung"
       }
     },
     "measure_power.houseload": {
       "decimals": 1,
       "title": {
-        "en": "House load"
+        "en": "House load",
+        "de": "Hauslast"
       }
     },
     "measure_voltage.meter": {
       "title": {
-        "en": "Meter AC Voltage"
+        "en": "Meter AC Voltage",
+        "de": "Zähler AC-Spannung"
       }
     },
     "measure_voltage.battery": {
       "title": {
-        "en": "Battery Voltage"
+        "en": "Battery Voltage",
+        "de": "Batteriespannung"
       }
     },
     "meter_power.today_grid_import": {
       "title": {
-        "en": "Grid Import Day Yield"
+        "en": "Grid Import Day Yield",
+        "de": "Netztagesimport"
       },
       "units": {
-        "en": "kWH"
-      },      
+        "en": "kWh"
+      },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
     },
     "meter_power.today_grid_export": {
       "title": {
-        "en": "Grid Export Day Yield"
+        "en": "Grid Export Day Yield",
+        "de": "Netztagesexport"
       },
       "units": {
-        "en": "kWH"
-      },      
+        "en": "kWh"
+      },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    },    
+    },
     "meter_power.today_batt_output": {
       "title": {
-        "en": "Battery Output Day Yield"
+        "en": "Battery Output Day Yield",
+        "de": "Tagesgesamtentladung der Batterie"
       },
       "units": {
-        "en": "kWH"
-      },      
+        "en": "kWh"
+      },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
     },
     "meter_power.today_batt_input": {
       "title": {
-        "en": "Battery Input Day Yield"
+        "en": "Battery Input Day Yield",
+        "de": "Tagesgesamtladung der Batterie"
       },
       "units": {
-        "en": "kWH"
-      },      
+        "en": "kWh"
+      },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
     },
     "meter_power.today_load": {
       "title": {
-        "en": "Load Day Yield"
+        "en": "Load Day Yield",
+        "de": "Tagesgesamtverbrauch"
       },
       "units": {
-        "en": "kWH"
-      },      
+        "en": "kWh"
+      },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    }                       
+    }
   },
   "platforms": [
     "local"
@@ -251,7 +278,8 @@
     {
       "type": "group",
       "label": {
-        "en": "Inverter settings"
+        "en": "Inverter settings",
+        "de": "Wechselrichtereinstellungen"
       },
       "children": [
         {
@@ -259,7 +287,8 @@
           "type": "text",
           "value": "0.0.0.0",
           "label": {
-            "en": "IP Address"
+            "en": "IP Address",
+            "de": "IP-Adresse"
           }
         },
         {
@@ -268,7 +297,8 @@
           "value": 1502,
           "step": 1,
           "label": {
-            "en": "Port"
+            "en": "Port",
+            "de": "Port"
           }
         },
         {
@@ -282,7 +312,8 @@
           },
           "label": {
             "en": "Inverter ID",
-            "nl": "Inverter ID"
+            "nl": "Inverter ID",
+            "de": "Wechselrichter-ID"
           }
         }
       ]

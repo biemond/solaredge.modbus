@@ -1,7 +1,8 @@
 {
     "type": "enum",
     "title": {
-        "en": "Battery status"
+        "en": "Battery status",
+		"de": "Batteriestatus"
     },
     "getable": true,
     "setable": false,
@@ -12,55 +13,64 @@
         {
             "id": "0",
             "title": {
-                "en": "Off"
+                "en": "Off",
+                "de": "Aus"
             }
         },
         {
             "id": "1",
             "title": {
-                "en": "Standby"
+                "en": "Standby",
+                "de": "Bereitschaft"
             }
         },
         {
             "id": "2",
             "title": {
-                "en": "Init"
+                "en": "Init",
+                "de": "Initialisierung"
             }
         },
         {
             "id": "3",
             "title": {
-                "en": "Charge"
+                "en": "Charge",
+                "de": "Ladung"
             }
         },
         {
             "id": "4",
             "title": {
-                "en": "Discharge"
+                "en": "Discharge",
+                "de": "Entladung"
             }
         },
         {
             "id": "5",
             "title": {
-                "en": "Fault"
+                "en": "Fault",
+                "de": "Störung"
             }
         },
         {
             "id": "6",
             "title": {
-                "en": "Idle"
+                "en": "Idle",
+                "de": "Leerlauf"
             }
         },
         {
             "id": "7",
             "title": {
-                "en": "Idle"
+                "en": "Idle",
+                "de": "Leerlauf"
             }
         },        
         {
             "id": "10",
             "title": {
-                "en": "Unknown"
+                "en": "Unknown",
+                "de": "Unbekannt"
             }
         }                                                           
     ]

@@ -1,7 +1,8 @@
 {
     "type": "number",
     "title": {
-        "en": "Battery cycle count"
+        "en": "Battery cycle count",
+		"de": "Anzahl der Batteriezyklen"
     },
     "getable": true,
     "setable": false,

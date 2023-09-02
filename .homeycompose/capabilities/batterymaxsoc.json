@@ -1,7 +1,8 @@
 {
       "type": "number",
       "title": {
-        "en": "Battery Upper Capacity"
+        "en": "Battery Upper Capacity",
+        "de": "Maximaler Batteriestand"
       },
       "getable": true,
       "setable": false,

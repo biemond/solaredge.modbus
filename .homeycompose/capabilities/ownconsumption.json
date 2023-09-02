@@ -2,7 +2,8 @@
     "type": "number",
     "title": {
       "en": "Consumption",
-      "nl": "Verbruik"
+      "nl": "Verbruik",
+      "de": "Verbrauch"
     },
     "getable": true,
     "setable": false,

@@ -1,7 +1,8 @@
 {
     "type": "enum",
     "title": {
-        "en": "Priority"
+        "en": "Priority",
+		"de": "Priorität"
     },
     "getable": true,
     "setable": false,
@@ -11,19 +12,22 @@
         {
             "id": "0",
             "title": {
-                "en": "Load First"
+                "en": "Load First",
+                "de": "Last zuerst"
             }
         },
         {
             "id": "1",
             "title": {
-                "en": "Battery First"
+                "en": "Battery First",
+                "de": "Batterie zuerst"
             }
         },
         {
             "id": "2",
             "title": {
-                "en": "Grid First"
+                "en": "Grid First",
+                "de": "Netz zuerst"
             }
         }        
     ]

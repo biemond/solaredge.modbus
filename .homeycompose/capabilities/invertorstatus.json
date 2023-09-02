@@ -1,7 +1,8 @@
 {
     "type": "enum",
     "title": {
-        "en": "Inverter status"
+        "en": "Inverter status",
+		"de": "Status des Wechselrichters"
     },
     "getable": true,
     "setable": false,
@@ -12,55 +13,64 @@
         {
             "id": "0",
             "title": {
-                "en": "Undefined"
+                "en": "Undefined",
+                "de": "Undefiniert"
             }
         },
         {
             "id": "1",
             "title": {
-                "en": "Off"
+                "en": "Off",
+                "de": "Aus"
             }
         },
         {
             "id": "2",
             "title": {
-                "en": "Sleeping"
+                "en": "Sleeping",
+                "de": "Schlafend"
             }
         },
         {
             "id": "3",
             "title": {
-                "en": "Grid Monitoring"
+                "en": "Grid Monitoring",
+                "de": "Netzüberwachung"
             }
         },
         {
             "id": "4",
             "title": {
-                "en": "Producing"
+                "en": "Producing",
+                "de": "Produzierend"
             }
         },
         {
             "id": "5",
             "title": {
-                "en": "Producing (Throttled)"
+                "en": "Producing (Throttled)",
+                "de": "Produzierend (gedrosselt)"
             }
         },
         {
             "id": "6",
             "title": {
-                "en": "Shutting Down"
+                "en": "Shutting Down",
+                "de": "Fährt herunter"
             }
         },
         {
             "id": "7",
             "title": {
-                "en": "Fault"
+                "en": "Fault",
+                "de": "Störung"
             }
         },
         {
             "id": "8",
             "title": {
-                "en": "Maintenance"
+                "en": "Maintenance",
+                "de": "Wartung"
             }
         }                                                 
     ]

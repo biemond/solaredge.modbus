@@ -1,7 +1,8 @@
 {
     "type": "string",
     "title": {
-        "en": "Load 1st, Time slot 1"
+        "en": "Load 1st, Time slot 1",
+		"de": "Last zuerst, Zeitfenster 1:"
     },
     "getable": true,
     "setable": false,

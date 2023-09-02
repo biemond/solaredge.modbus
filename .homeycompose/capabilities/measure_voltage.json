@@ -2,14 +2,16 @@
   "type": "number",
   "title": {
     "en": "Voltage",
-    "nl": "Voltage"
+    "nl": "Voltage",
+		"de": "Spannung"
   },
   "units": {
     "en": "V"
   },
   "desc": {
     "en": "Voltage (V)",
-    "nl": "Voltage (V)"
+    "nl": "Voltage (V)",
+		"de": "Spannung (V)"
   },
   "insights": true,
   "chartType": "stepLine",

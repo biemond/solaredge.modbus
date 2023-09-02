@@ -4,10 +4,12 @@
         {
             "id": "solarcharge",
             "title": {
-                "en": "Inverter !{{is|isn't}} higher than"
+                "en": "Inverter power !{{is|isn't}} higher than",
+                "de": "Wechselrichterleistung !{{ist|ist nicht}} größer als"
             },
             "hint": {
-                "en": "Inverter charging in watts"
+                "en": "Inverter charging in Watt",
+                "de": "Wechselrichterleistung in Watt"
             },
             "args": [
                 {

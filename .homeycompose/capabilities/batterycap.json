@@ -1,7 +1,8 @@
 {
       "type": "number",
       "title": {
-        "en": "Battery Capacity"
+        "en": "Battery Capacity",
+        "de": "Batteriekapazität"
       },
       "getable": true,
       "setable": false,

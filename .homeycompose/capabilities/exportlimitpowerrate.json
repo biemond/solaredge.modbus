@@ -1,7 +1,8 @@
 {
     "type": "number",
     "title": {
-      "en": "Export limit %"
+      "en": "Export limit %",
+      "de": "Setze Exportbeschränkung"
     },
     "getable": true,
     "setable": false,

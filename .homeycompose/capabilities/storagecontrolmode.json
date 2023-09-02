@@ -1,7 +1,8 @@
 {
     "type": "enum",
     "title": {
-        "en": "Storage Control Mode"
+        "en": "Storage Control Mode",
+		"de": "Speicherkontrollmodus"
     },
     "getable": true,
     "setable": true,
@@ -11,31 +12,36 @@
         {
             "id": "0",
             "title": {
-                "en": "Disabled"
+                "en": "Disabled",
+                "de": "Deaktiviert"
             }
         },
         {
             "id": "1",
             "title": {
-                "en": "Maximize Self Consumption"
+                "en": "Maximize Self Consumption",
+                "de": "Maximiere Eigenverbrauch"
             }
         },
         {
             "id": "2",
             "title": {
-                "en": "Time of Use"
+                "en": "Time of Use",
+                "de": "Nutzungszeit"
             }
         },
         {
             "id": "3",
             "title": {
-                "en": "Backup Only"
+                "en": "Backup Only",
+                "de": "Nur als Backup"
             }
         },
         {
             "id": "4",
             "title": {
-                "en": "Remote Control"
+                "en": "Remote Control",
+                "de": "Ferngesteuert"
             }
         }                
     ]

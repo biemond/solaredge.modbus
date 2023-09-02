@@ -1,7 +1,8 @@
 {
     "type": "enum",
     "title": {
-        "en": "Batt AC charge switch"
+        "en": "Batt AC charge switch",
+		"de": "Netzladung der Batterie"
     },
     "getable": true,
     "setable": false,
@@ -11,13 +12,15 @@
         {
             "id": "0",
             "title": {
-                "en": "Disabled"
+                "en": "Disabled",
+                "de": "Deaktiviert"
             }
         },
         {
             "id": "1",
             "title": {
-                "en": "Enabled"
+                "en": "Enabled",
+                "de": "Aktiviert"
             }
         }                                    
     ]

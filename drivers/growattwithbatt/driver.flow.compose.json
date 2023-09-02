@@ -3,7 +3,8 @@
     {
       "id": "exportlimitenabled",
       "title": {
-        "en": "Set export limit"
+        "en": "Export limit",
+		    "de": "Exportbeschränkung"
       },
       "args": [
         {
@@ -13,13 +14,15 @@
             {
               "id": "0",
               "title": {
-                "en": "Disabled"
+                "en": "Disabled",
+                "de": "Deaktiviert"
               }
             },
             {
               "id": "1",
               "title": {
-                "en": "Enabled"
+                "en": "Enabled",
+                "de": "Aktiviert"
               }
             }
           ]
@@ -29,7 +32,8 @@
     {
       "id": "battacchargeswitch",
       "title": {
-        "en": "Batt AC charge switch"
+        "en": "Batt AC charge switch",
+        "de": "Netzladung der Batterie"
       },
       "args": [
         {
@@ -39,13 +43,15 @@
             {
               "id": "0",
               "title": {
-                "en": "Disabled"
+                "en": "Disabled",
+                "de": "Deaktiviert"
               }
             },
             {
               "id": "1",
               "title": {
-                "en": "Enabled"
+                "en": "Enabled",
+                "de": "Aktiviert"
               }
             }
           ]
@@ -55,14 +61,16 @@
     {
       "id": "exportlimitpowerrate",
       "title": {
-        "en": "Export limit %"
+        "en": "Export limit %",
+        "de": "Setze Exportbeschränkung"
       },
       "args": [
         {
           "type": "range",
           "name": "percentage",
           "title": {
-            "en": "percentage"
+            "en": "percentage",
+            "de": "Prozent"
           },
           "min": 0,
           "max": 100,
@@ -74,14 +82,16 @@
     {
       "id": "battfirsttime1",
       "title": {
-        "en": "Battery 1st, time slot 1:"
+        "en": "Battery 1st, time slot 1:",
+        "de": "Batterie zuerst, Zeitfenster 1:"
       },
       "args": [
         {
           "type": "range",
           "name": "hourstart",
           "title": {
-            "en": "Hour"
+            "en": "Hour",
+            "de": "Stunde"
           },
           "min": 0,
           "max": 23,
@@ -93,7 +103,8 @@
           "type": "range",
           "name": "minstart",
           "title": {
-            "en": "Minute"
+            "en": "Minute",
+            "de": "Minute"
           },
           "min": 0,
           "max": 59,
@@ -105,7 +116,8 @@
           "type": "range",
           "name": "hourstop",
           "title": {
-            "en": "Hour"
+            "en": "Hour",
+            "de": "Stunde"
           },
           "min": 0,
           "max": 23,
@@ -117,7 +129,8 @@
           "type": "range",
           "name": "minstop",
           "title": {
-            "en": "Minute"
+            "en": "Minute",
+            "de": "Minute"
           },
           "min": 0,
           "max": 59,
@@ -132,13 +145,15 @@
             {
               "id": "0",
               "title": {
-                "en": "Disabled"
+                "en": "Disabled",
+                "de": "Deaktiviert"
               }
             },
             {
               "id": "1",
               "title": {
-                "en": "Enabled"
+                "en": "Enabled",
+                "de": "Aktiviert"
               }
             }
           ]
@@ -148,14 +163,16 @@
     {
       "id": "gridfirsttime1",
       "title": {
-        "en": "Grid 1st, time slot 1:"
+        "en": "Grid 1st, time slot 1:",
+        "de": "Netz zuerst, Zeitfenster 1:"
       },
       "args": [
         {
           "type": "range",
           "name": "hourstart",
           "title": {
-            "en": "Hour"
+            "en": "Hour",
+            "de": "Stunde"
           },
           "min": 0,
           "max": 23,
@@ -167,7 +184,8 @@
           "type": "range",
           "name": "minstart",
           "title": {
-            "en": "Minute"
+            "en": "Minute",
+            "de": "Minute"
           },
           "min": 0,
           "max": 59,
@@ -179,7 +197,8 @@
           "type": "range",
           "name": "hourstop",
           "title": {
-            "en": "Hour"
+            "en": "Hour",
+            "de": "Stunde"
           },
           "min": 0,
           "max": 23,
@@ -191,7 +210,8 @@
           "type": "range",
           "name": "minstop",
           "title": {
-            "en": "Minute"
+            "en": "Minute",
+            "de": "Minute"
           },
           "min": 0,
           "max": 59,
@@ -206,13 +226,15 @@
             {
               "id": "0",
               "title": {
-                "en": "Disabled"
+                "en": "Disabled",
+                "de": "Deaktiviert"
               }
             },
             {
               "id": "1",
               "title": {
-                "en": "Enabled"
+                "en": "Enabled",
+                "de": "Aktiviert"
               }
             }
           ]
@@ -222,14 +244,16 @@
     {
       "id": "battery_minimum_capacity",
       "title": {
-        "en": "Battery Minimum Capacity %"
+        "en": "Battery Minimum Capacity %",
+        "de": "Batteriemindeststand %"
       },
       "args": [
         {
           "type": "range",
           "name": "percentage",
           "title": {
-            "en": "percentage"
+            "en": "percentage",
+            "de": "Prozent"
           },
           "min": 10,
           "max": 100,
@@ -240,14 +264,16 @@
     {
       "id": "battery_maximum_capacity",
       "title": {
-        "en": "Battery Maximum Capacity %"
+        "en": "Battery Maximum Capacity %",
+        "de": "Batteriemaximumstand %"
       },
       "args": [
         {
           "type": "range",
           "name": "percentage",
           "title": {
-            "en": "percentage"
+            "en": "percentage",
+            "de": "Prozent"
           },
           "min": 0,
           "max": 100,
@@ -258,7 +284,8 @@
     {
       "id": "prioritymode",
       "title": {
-        "en": "Priority mode"
+        "en": "Priority mode",
+        "de": "Priorität"
       },
       "args": [
         {
@@ -268,19 +295,22 @@
             {
               "id": "0",
               "title": {
-                "en": "Load"
+                "en": "Load",
+                "de": "Last"
               }
             },
             {
               "id": "1",
               "title": {
-                "en": "Battery"
+                "en": "Battery",
+                "de": "Batterie"
               }
             },
             {
               "id": "2",
               "title": {
-                "en": "Grid"
+                "en": "Grid",
+                "de": "Netz"
               }
             }
           ]

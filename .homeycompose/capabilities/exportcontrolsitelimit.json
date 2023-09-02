@@ -1,7 +1,8 @@
 {
     "type": "number",
     "title": {
-      "en": "Im/Export Control Site Limit"
+      "en": "Im/Export Control Site Limit",
+      "de": "Standortbeschränkung der Im-/Exportkontrolle"
     },
     "getable": true,
     "setable": false,

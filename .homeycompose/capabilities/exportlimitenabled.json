@@ -1,7 +1,8 @@
 {
     "type": "enum",
     "title": {
-        "en": "Set export limit"
+        "en": "Set export limit",
+		"de": "Exportbeschränkung"
     },
     "getable": true,
     "setable": false,

@@ -2,7 +2,8 @@
       "type": "number",
       "title": {
         "en": "Battery Health",
-        "nl": "Batterij SoH"
+        "nl": "Batterij SoH",
+        "de": "Batteriezustand"
       },
       "getable": true,
       "setable": false,
