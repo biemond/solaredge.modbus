@@ -457,6 +457,26 @@ export class Solaredge extends Homey.Device {
                 this.setCapabilityValue('measure_current.meter_phase3', currenteac3);
             }
 
+            if (this.validResultRecord(result['meter1-l1n_voltage']) && this.validResultRecord(result['meter1-voltage_ln_scale']) ) {
+                this.addCapability('measure_voltage.meter_phase1');
+                var voltageeac1 = Number(result['meter1-l1n_voltage'].value) * (Math.pow(10,  Number(result['meter1-voltage_ln_scale'].value)));
+                console.log(voltageeac1);
+                this.setCapabilityValue('measure_voltage.meter_phase1', voltageeac1);
+            }
+
+            if (this.validResultRecord(result['meter1-l2n_voltage']) && this.validResultRecord(result['meter1-voltage_ln_scale']) ) {
+                this.addCapability('measure_voltage.meter_phase2');
+                var voltageeac2 = Number(result['meter1-l2n_voltage'].value) * (Math.pow(10,  Number(result['meter1-voltage_ln_scale'].value)));
+                this.setCapabilityValue('measure_voltage.meter_phase2', voltageeac2);
+            }
+
+            if (this.validResultRecord(result['meter1-l3n_voltage']) && this.validResultRecord(result['meter1-voltage_ln_scale']) ) {
+                this.addCapability('measure_voltage.meter_phase3');
+                var voltageeac3 = Number(result['meter1-l3n_voltage'].value) * (Math.pow(10,  Number(result['meter1-voltage_ln_scale'].value)));
+                this.setCapabilityValue('measure_voltage.meter_phase3', voltageeac3);
+            }
+
+
             if (this.validResultRecord(result['meter1-power']) && this.validResultRecord(result['power_ac']) ) {
                 this.addCapability('measure_power.import');
                 this.addCapability('measure_power.export');

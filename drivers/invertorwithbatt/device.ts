@@ -145,7 +145,16 @@ class MySolaredgeBatteryDevice extends Solaredge {
     }
     if (this.hasCapability('measure_voltage.phase3') === false) {
       await this.addCapability('measure_voltage.phase3');
-    }     
+    }
+    if (this.hasCapability('measure_voltage.meter_phase1') === false) {
+      await this.addCapability('measure_voltage.meter_phase1');
+    }
+    if (this.hasCapability('measure_voltage.meter_phase2') === false) {
+      await this.addCapability('measure_voltage.meter_phase2');
+    }
+    if (this.hasCapability('measure_voltage.meter_phase3') === false) {
+      await this.addCapability('measure_voltage.meter_phase3');
+    }          
   }
 
   /**

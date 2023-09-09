@@ -30,6 +30,9 @@
     "measure_current.meter_phase1",
     "measure_current.meter_phase2",
     "measure_current.meter_phase3",
+    "measure_voltage.meter_phase1",
+    "measure_voltage.meter_phase2",
+    "measure_voltage.meter_phase3",    
     "measure_temperature.invertor",
     "measure_temperature.battery",
     "meter_power",
@@ -134,6 +137,30 @@
         "de": "Zähler AC-Spannung"
       }
     },
+    "measure_voltage.meter_phase1": {
+      "title": {
+        "en": "Meter Voltage phase1",
+        "de": "Zähler Spannung Phase 1"
+      }
+    },
+    "measure_voltage.meter_phase2": {
+      "title": {
+        "en": "Meter Voltage phase2",
+        "de": "Zähler Spannung Phase 2"
+      }
+    },
+    "measure_voltage.meter_phase3": {
+      "title": {
+        "en": "Meter Voltage phase3",
+        "de": "Zähler Spannung Phase 3"
+      }
+    },
+    "measure_current.meter": {
+      "title": {
+        "en": "Meter AC Current",
+        "de": "Zähler AC-Strom"
+      }
+    },
     "measure_current.meter_phase1": {
       "title": {
         "en": "Meter AC Current phase1",
@@ -150,12 +177,6 @@
       "title": {
         "en": "Meter AC Current phase3",
         "de": "Zähler AC-Strom Phase 3"
-      }
-    },
-    "measure_current.meter": {
-      "title": {
-        "en": "Meter AC Current",
-        "de": "Zähler AC-Strom"
       }
     },
     "measure_temperature.invertor": {
