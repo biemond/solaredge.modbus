@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.42",
+  "version": "3.0.40",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -77,12 +77,14 @@
         "title": {
           "en": "Status Changed",
           "nl": "Status gewijzigd",
-          "de": "Status hat sich geändert"
+          "de": "Status geändert"
+TODO:           "de": "Status hat sich geändert"
         },
         "titleFormatted": {
           "en": "Status changed",
           "nl": "Status veranderd",
-          "de": "Status hat sich geändert"
+          "de": "Status geändert"
+TODO: "de": "Status hat sich geändert"
         },
         "tokens": [
           {
@@ -109,7 +111,8 @@
         "title": {
           "en": "The electric current changed",
           "nl": "De elektrische stroom is veranderd",
-          "de": "Strom hat sich verändert"
+          "de": "Der Strom hat sich verändert"
+TODO: "de": "Strom hat sich geändert"
         },
         "tokens": [
           {
@@ -137,7 +140,8 @@
         "title": {
           "en": "The solar power changed",
           "nl": "Het solar vermogen is veranderd",
-          "de": "Solarleistung hat sich geändert"
+          "de": "Die Solarleistung hat sich verändert"
+TODO: "de": "Solarleistung hat sich geändert"
         },
         "tokens": [
           {
@@ -165,7 +169,8 @@
         "title": {
           "en": "The inverter temperature changed",
           "nl": "De inverter temperatuur is veranderd",
-          "de": "Wechselrichtertemperatur hat sich geändert"
+          "de": "Die Wechselrichtertemperatur hat sich verändert"
+TODO: "de": "Wechselrichtertemperatur hat sich geändert"
         },
         "tokens": [
           {
@@ -247,7 +252,8 @@
         "title": {
           "en": "Battery Charge Changed",
           "nl": "Batterij lading gewijzigd",
-          "de": "Batteriestand hat sich geändert"
+          "de": "Batterieladung hat sich verändert"
+TODO: "de": "Batteriestand hat sich geändert"
         },
         "tokens": [
           {
@@ -256,7 +262,8 @@
             "title": {
               "en": "Battery Charge (%)",
               "nl": "Batterij lading (%)",
-              "de": "Batteriestand (%)"
+              "de": "Batterieladung (%)"
+TODO: "de": "Batteriestand (%)"
             },
             "example": 66
           }
@@ -306,12 +313,14 @@
         "title": {
           "en": "Power Export Changed (W)",
           "nl": "Power Export gewijzigd (W)",
-          "de": "Exportierte Leistung hat sich geändert (W)"
+          "de": "Exportierte Leistung geändert (W)"
+TODO: "de": "Exportierte Leistung hat sich geändert (W)"
         },
         "titleFormatted": {
           "en": "Power Export Changed (W)",
           "nl": "Power Export gewijzigd (W)",
-          "de": "Exportierte Leistung hat sich geändert (W)"
+          "de": "Exportierte Leistung verändert (W)"
+TODO: "de": "Exportierte Leistung hat sich geändert (W)"
         },
         "tokens": [
           {
@@ -338,12 +347,14 @@
         "title": {
           "en": "Power Import Changed (W)",
           "nl": "Power Import gewijzigd (W)",
-          "de": "Importierte Leistung hat sich geändert (W)"
+          "de": "Importierte Leistung verändert (W)"
+TODO: "de": "Importierte Leistung hat sich geändert (W)"
         },
         "titleFormatted": {
           "en": "Power Import Changed (W)",
           "nl": "Power Import gewijzigd (W)",
-          "de": "Importierte Leistung hat sich geändert (W)"
+          "de": "Importierte Leistung verändert (W)"
+TODO: "de": "Importierte Leistung hat sich geändert (W)"
         },
         "tokens": [
           {
@@ -370,12 +381,14 @@
         "title": {
           "en": "Consumption Changed",
           "nl": "Verbruik gewijzigd",
-          "de": "Verbrauch hat sich geändert"
+          "de": "Verbrauch verändert"
+TODO: "de": "Verbrauch hat sich geändert"
         },
         "titleFormatted": {
           "en": "Consumption Changed",
           "nl": "Verbruik gewijzigd",
-          "de": "Verbrauch hat sich geändert"
+          "de": "Verbrauch verändert"
+TODO: "de": "Verbrauch hat sich geändert"
         },
         "tokens": [
           {
@@ -384,7 +397,8 @@
             "title": {
               "en": "Consumption",
               "nl": "Verbruik",
-              "de": "Verbrauch"
+              "de": "Vebrauch"
+TODO: "de": "Verbrauch"
             },
             "example": 200
           }
@@ -402,7 +416,8 @@
         "title": {
           "en": "The voltage changed",
           "nl": "Het voltage is veranderd",
-          "de": "Spannung hat sich geändert"
+          "de": "Spannung verändert"
+TODO: "de": "Spannung hat sich geändert"
         },
         "tokens": [
           {
@@ -430,7 +445,8 @@
         "title": {
           "en": "The battery temperature changed",
           "nl": "De batterij temperatuur is veranderd",
-          "de": "Batterietemperatur hat sich geändert"
+          "de": "Die Batterietemperatur hat sich verändert"
+TODO: "de": "Batterietemperatur hat sich geändert"
         },
         "tokens": [
           {
@@ -457,7 +473,8 @@
         "title": {
           "en": "Total Import Yield changed",
           "nl": "Totale import opbrengst is veranderd",
-          "de": "Gesamtimport hat sich geändert"
+          "de": "Gesamtimport verändert"
+TODO: "de": "Gesamtimport hat sich geändert"
         },
         "tokens": [
           {
@@ -484,7 +501,8 @@
         "title": {
           "en": "Total Export Yield changed",
           "nl": "Totale Export opbrengst is veranderd",
-          "de": "Gesamtexport hat sich geändert"
+          "de": "Gesamtexport verändert"
+TODO: "de": "Gesamtexport hat sich geändert"
         },
         "tokens": [
           {
@@ -512,7 +530,8 @@
         "title": {
           "en": "The grid import power changed",
           "nl": "Het net import vermogen is veranderd",
-          "de": "Netzimportleistung hat sich geändert"
+          "de": "Netzimportleistung verändert"
+TODO: "de": "Netzimportleistung hat sich geändert"
         },
         "tokens": [
           {
@@ -540,7 +559,8 @@
         "title": {
           "en": "The grid export power changed",
           "nl": "Het net export vermogen is veranderd",
-          "de": "Netzexportleistung hat sich geändert"
+          "de": "Netzexportleistung verändert"
+TODO: "de": "Netzexportleistung hat sich geändert"
         },
         "tokens": [
           {
@@ -568,7 +588,8 @@
         "title": {
           "en": "The battery discharge power changed",
           "nl": "Het batterij ontlaad vermogen is veranderd",
-          "de": "Batterieentladeleistung hat sich geändert"
+          "de": "Batterieentladeleistung verändert"
+TODO: "de": "Batterieentladeleistung hat sich geändert"
         },
         "tokens": [
           {
@@ -596,7 +617,8 @@
         "title": {
           "en": "The battery charge power changed",
           "nl": "Het batterij oplaad vermogen is veranderd",
-          "de": "Batterieladeleistung hat sich geändert"
+          "de": "Batterieladeleistung verändert"
+TODO: "de": "Batterieladeleistung hat sich geändert"
         },
         "tokens": [
           {
@@ -762,7 +784,8 @@
           "de": "Batterieladeleistung !{{ist|ist nicht}} größer als"
         },
         "hint": {
-          "en": "Battery charging in Watt",
+          "en": "Battery charing in Watt",
+TODO: "en": "Battery charging in Watt",
           "de": "Batterieladeleistung in Watt"
         },
         "args": [
@@ -784,7 +807,8 @@
           "de": "Batterieentladeleistung !{{ist|ist nicht}} größer als"
         },
         "hint": {
-          "en": "Battery discharging in Watt",
+          "en": "Battery discharing in Watt",
+TODO: "en": "Battery discharging in Watt",
           "de": "Batterieentladeleistung in Watt"
         },
         "args": [
@@ -806,8 +830,8 @@
           "de": "Netzexportleistung !{{ist|ist nicht}} größer als"
         },
         "hint": {
-          "en": "Grid export",
-          "de": "Netzexportleistung"
+          "en": "Grid export"
+TODO: "de": "Netzexportleistung"
         },
         "args": [
           {
@@ -828,8 +852,8 @@
           "de": "Netzimportleistung !{{ist|ist nicht}} größer als"
         },
         "hint": {
-          "en": "Grid import",
-          "de": "Netzimportleistung"
+          "en": "Grid import"
+TODO: "de": "Netzimportleistung"		  
         },
         "args": [
           {
@@ -950,18 +974,19 @@
         ]
       },
       {
+TODO: I added translations in this new block
         "id": "changedStoragecontrolmode",
         "title": {
           "en": "Storage Control Mode is",
-          "de": "Speicherkontrollmodus ist"
+		  "de": "Speicherkontrollmodus ist"
         },
         "titleFormatted": {
           "en": "Storage Control Mode is [[argument_main]]",
-          "de": "Speicherkontrollmodus ist [[argument_main]]"
+		  "de": "Speicherkontrollmodus ist [[argument_main]]"
         },
         "hint": {
           "en": "Storage Control Mode",
-          "de": "Speicherkontrollmodus"
+		  "de": "Speicherkontrollmodus"
         },
         "args": [
           {
@@ -969,7 +994,7 @@
             "name": "device",
             "filter": "driver_id=invertorwithbatt"
           },
-          {
+          {#
             "name": "argument_main",
             "type": "dropdown",
             "values": [
@@ -977,35 +1002,35 @@
                 "id": "0",
                 "title": {
                   "en": "Disabled",
-                  "de": "Deaktiviert"
+				  "de": "Deaktiviert"
                 }
               },
               {
                 "id": "1",
                 "title": {
                   "en": "Maximize Self Consumption",
-                  "de": "Maximiere Eigenverbrauch"
+				  "de": "Maximiere Eigenverbrauch"
                 }
               },
               {
                 "id": "2",
                 "title": {
                   "en": "Time of Use",
-                  "de": "Nutzungszeit"
+				  "de": "Nutzungszeit"
                 }
               },
               {
                 "id": "3",
                 "title": {
                   "en": "Backup Only",
-                  "de": "Nur als Backup"
+				  "de": "Nur als Backup"
                 }
               },
               {
                 "id": "4",
                 "title": {
                   "en": "Remote Control",
-                  "de": "Ferngesteuert"
+				  "de": "Ferngesteuert"
                 }
               }
             ]
@@ -1016,15 +1041,15 @@
         "id": "changedStoragedefaultmode",
         "title": {
           "en": "Storage Charge/Discharge Mode is",
-          "de": "Speicher-Lade/Entlade-Modus ist"
+		  "de": "Speicher-Lade/Entlade-Modus ist"
         },
         "titleFormatted": {
           "en": "Storage Charge/Discharge Mode is [[argument_main]]",
-          "de": "Speicher-Lade/Entlade-Modus ist [[argument_main]]"
+		  "de": "Speicher-Lade/Entlade-Modus ist [[argument_main]]"
         },
         "hint": {
           "en": "Storage Charge/Discharge Mode",
-          "de": "Speicher-Lade/Entlade-Modus"
+		  "de": "Speicher-Lade/Entlade-Modus"
         },
         "args": [
           {
@@ -1040,14 +1065,14 @@
                 "id": "-1",
                 "title": {
                   "en": "Disabled",
-                  "de": "Deaktiviert"
+				  "de": "Deaktiviert"
                 }
               },
               {
                 "id": "0",
                 "title": {
                   "en": "Off",
-                  "de": "Aus"
+				  "de": "Aus"
                 }
               },
               {
@@ -1284,7 +1309,7 @@
       {
         "id": "exportlimitenabled",
         "title": {
-          "en": "Set export limit",
+          "en": "Export limit",
           "de": "Exportbeschränkung"
         },
         "args": [
@@ -1865,6 +1890,12 @@
             "type": "dropdown",
             "name": "dischargepower",
             "values": [
+              {
+                "id": "10",
+                "label": {
+                  "en": "10W"
+                }
+              },
               {
                 "id": "500",
                 "label": {
@@ -2477,9 +2508,6 @@
         "measure_current.phase1",
         "measure_current.phase2",
         "measure_current.phase3",
-        "measure_voltage.phase1",
-        "measure_voltage.phase2",
-        "measure_voltage.phase3",
         "measure_temperature.invertor",
         "invertorstatus",
         "meter_power",
@@ -2516,24 +2544,6 @@
           "title": {
             "en": "AC Current",
             "de": "AC-Strom"
-          }
-        },
-        "measure_voltage.phase1": {
-          "title": {
-            "en": "Voltage phase1",
-            "de": "Spannung Phase 1"
-          }
-        },
-        "measure_voltage.phase2": {
-          "title": {
-            "en": "Voltage phase2",
-            "de": "Spannung Phase 2"
-          }
-        },
-        "measure_voltage.phase3": {
-          "title": {
-            "en": "Voltage phase3",
-            "de": "Spannung Phase 3"
           }
         },
         "measure_temperature.invertor": {
@@ -2648,9 +2658,6 @@
         "measure_current.phase1",
         "measure_current.phase2",
         "measure_current.phase3",
-        "measure_voltage.phase1",
-        "measure_voltage.phase2",
-        "measure_voltage.phase3",
         "measure_voltage.meter",
         "measure_current.meter",
         "measure_current.meter_phase1",
@@ -2700,24 +2707,6 @@
           "title": {
             "en": "AC Current phase3",
             "de": "AC-Strom Phase 3"
-          }
-        },
-        "measure_voltage.phase1": {
-          "title": {
-            "en": "Voltage phase1",
-            "de": "Spannung Phase 1"
-          }
-        },
-        "measure_voltage.phase2": {
-          "title": {
-            "en": "Voltage phase2",
-            "de": "Spannung Phase 2"
-          }
-        },
-        "measure_voltage.phase3": {
-          "title": {
-            "en": "Voltage phase3",
-            "de": "Spannung Phase 3"
           }
         },
         "measure_current": {
@@ -3236,16 +3225,19 @@
       "uiComponent": "sensor",
       "uiQuickAction": true,
       "values": [
+TODO: I added two missing translations here
         {
           "id": "0",
           "title": {
-            "en": "Disabled"
+            "en": "Disabled",
+			"de": "Deaktiviert"					  
           }
         },
         {
           "id": "1",
           "title": {
-            "en": "Enabled"
+            "en": "Enabled",
+			"de": "Aktiviert"					
           }
         }
       ]

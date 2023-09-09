@@ -3,7 +3,7 @@
     {
       "id": "exportlimitenabled",
       "title": {
-        "en": "Export limit",
+        "en": "Set export limit",
 		    "de": "Exportbeschränkung"
       },
       "args": [
