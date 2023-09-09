@@ -15,6 +15,9 @@
     "measure_current.phase1",
     "measure_current.phase2",
     "measure_current.phase3",
+    "measure_voltage.phase1",
+    "measure_voltage.phase2",
+    "measure_voltage.phase3",  
     "measure_temperature.invertor",
     "invertorstatus",
     "meter_power",
@@ -53,6 +56,24 @@
         "de": "AC-Strom"
       }
     },
+    "measure_voltage.phase1": {
+      "title": {
+        "en": "Voltage phase1",
+        "de": "Spannung Phase 1"
+      }
+    },
+    "measure_voltage.phase2": {
+      "title": {
+        "en": "Voltage phase2",
+        "de": "Spannung Phase 2"
+      }
+    },
+    "measure_voltage.phase3": {
+      "title": {
+        "en": "Voltage phase3",
+        "de": "Spannung Phase 3"
+      }
+    },  
     "measure_temperature.invertor": {
       "title": {
         "en": "Heatsink temperature",

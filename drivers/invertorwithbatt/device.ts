@@ -136,6 +136,16 @@ class MySolaredgeBatteryDevice extends Solaredge {
       let result = (await this.getCapabilityValue('measure_power.export') >= args.export);
       return Promise.resolve(result);
     })
+
+    if (this.hasCapability('measure_voltage.phase1') === false) {
+      await this.addCapability('measure_voltage.phase1');
+    }
+    if (this.hasCapability('measure_voltage.phase2') === false) {
+      await this.addCapability('measure_voltage.phase2');
+    }
+    if (this.hasCapability('measure_voltage.phase3') === false) {
+      await this.addCapability('measure_voltage.phase3');
+    }     
   }
 
   /**
@@ -242,10 +252,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
         var dischargehex1 = 16384;
         var dischargehex2 = 17820;
         //dischargepower
-        if (value == 10) {
-          chargehex1 =  0;
-          chargehex2 =  16672;
-        } else if (value == 500) {
+        if (value == 500) {
           dischargehex1 =  0;
           dischargehex2 =  17402;
         } else if (value == 1000) {

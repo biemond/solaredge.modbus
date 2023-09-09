@@ -54,6 +54,16 @@ class MySolaredgeDevice extends Solaredge {
       return Promise.resolve(result);
     })  
 
+    if (this.hasCapability('measure_voltage.phase1') === false) {
+      await this.addCapability('measure_voltage.phase1');
+    }
+    if (this.hasCapability('measure_voltage.phase2') === false) {
+      await this.addCapability('measure_voltage.phase2');
+    }
+    if (this.hasCapability('measure_voltage.phase3') === false) {
+      await this.addCapability('measure_voltage.phase3');
+    } 
+
   }
 
   /**
