@@ -2,7 +2,7 @@
     "type": "enum",
     "title": {
         "en": "Limit mode",
-		"de": "Setze Limit-Modus"
+        "de": "Limit-Modus"
     },
     "getable": true,
     "setable": true,

@@ -49,6 +49,10 @@ class MySolaredgeBatteryDevice extends Solaredge {
     // flow action
     let controlActionActivePower = this.homey.flow.getActionCard('activepowerlimit');
     controlActionActivePower.registerRunListener(async (args, state) => {
+      let name = this.getData().id;
+      this.log("device name id " + name );
+      this.log("device name " + this.getName());
+      this.log(args.device.getName());      
       await this.updateControl('activepowerlimit', Number(args.value));
     });     
     let controlAction = this.homey.flow.getActionCard('storagecontrolmode');
@@ -194,6 +198,9 @@ class MySolaredgeBatteryDevice extends Solaredge {
   }
 
   async updateControl(type: string, value: number) {
+    let name = this.getData().id;
+    this.log("device name id " + name );
+    this.log("device name " + this.getName());    
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
     let client = new Modbus.client.TCP(socket, unitID); 

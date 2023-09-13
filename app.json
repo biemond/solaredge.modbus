@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.43",
+  "version": "3.0.44",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -1100,8 +1100,8 @@
     "actions": [
       {
         "title": {
-          "en": "Active Power Limit",
-          "de": "Aktive Leistungsbeschränkung"
+          "en": "Set Active Power Limit to",
+          "de": "Setze Aktive Leistungsbeschränkung auf"
         },
         "args": [
           {
@@ -1126,8 +1126,8 @@
       },
       {
         "title": {
-          "en": "Set Export Limit",
-          "de": "Setzte Exportbeschränkung"
+          "en": "Set Export Limit to",
+          "de": "Setzte Exportbeschränkung auf"
         },
         "args": [
           {
@@ -1242,8 +1242,8 @@
       },
       {
         "title": {
-          "en": "Limit mode",
-          "de": "Setze Limit-Modus"
+          "en": "Set Limit mode to",
+          "de": "Setze Limit-Modus auf"
         },
         "args": [
           {
@@ -1284,8 +1284,8 @@
       {
         "id": "exportlimitenabled",
         "title": {
-          "en": "Set export limit",
-          "de": "Exportbeschränkung"
+          "en": "Set export limit to",
+          "de": "Setze Exportbeschränkung auf"
         },
         "args": [
           {
@@ -1318,8 +1318,8 @@
       {
         "id": "battacchargeswitch",
         "title": {
-          "en": "Batt AC charge switch",
-          "de": "Netzladung der Batterie"
+          "en": "Set Battery AC charge switch to",
+          "de": "Setze Netzladung der Batterie auf"
         },
         "args": [
           {
@@ -1352,8 +1352,8 @@
       {
         "id": "exportlimitpowerrate",
         "title": {
-          "en": "Export limit %",
-          "de": "Setze Exportbeschränkung"
+          "en": "Set Export limit to",
+          "de": "Setze Exportbeschränkung auf"
         },
         "args": [
           {
@@ -1550,8 +1550,8 @@
       {
         "id": "battery_minimum_capacity",
         "title": {
-          "en": "Battery Minimum Capacity %",
-          "de": "Batteriemindeststand %"
+          "en": "Set Battery Minimum Capacity to",
+          "de": "Setze Batteriemindeststand auf"
         },
         "args": [
           {
@@ -1575,8 +1575,8 @@
       {
         "id": "battery_maximum_capacity",
         "title": {
-          "en": "Battery Maximum Capacity %",
-          "de": "Batteriemaximumstand %"
+          "en": "Set Battery Maximum Capacity to",
+          "de": "Setze Batteriemaximumstand auf"
         },
         "args": [
           {
@@ -1600,8 +1600,8 @@
       {
         "id": "prioritymode",
         "title": {
-          "en": "Priority mode",
-          "de": "Priorität"
+          "en": "Set Priority mode to",
+          "de": "Setze Priorität auf"
         },
         "args": [
           {
@@ -1641,8 +1641,8 @@
       {
         "id": "storagecontrolmode",
         "title": {
-          "en": "Storage Control Mode",
-          "de": "Speicherkontrollmodus"
+          "en": "Set Storage Control Mode to",
+          "de": "Setze Speicherkontrollmodus auf"
         },
         "args": [
           {
@@ -1696,8 +1696,8 @@
       {
         "id": "storagedefaultmode",
         "title": {
-          "en": "Storage Charge/Discharge Mode",
-          "de": "Speicher-Lade/Entlade-Modus"
+          "en": "Set Storage Charge/Discharge Mode to",
+          "de": "Setze Speicher-Lade/Entlade-Modus auf"
         },
         "args": [
           {
@@ -1772,8 +1772,8 @@
       {
         "id": "setcharging",
         "title": {
-          "en": "Set Charge power",
-          "de": "Setze maximale Ladeleistung"
+          "en": "Set Charge power to",
+          "de": "Setze maximale Ladeleistung auf"
         },
         "args": [
           {
@@ -1852,8 +1852,8 @@
       {
         "id": "setdischarging",
         "title": {
-          "en": "Set Discharge power",
-          "de": "Setze maximale Entladeleistung"
+          "en": "Set Discharge power to",
+          "de": "Setze maximale Entladeleistung auf"
         },
         "args": [
           {
@@ -3402,7 +3402,7 @@
       "type": "enum",
       "title": {
         "en": "Limit mode",
-        "de": "Setze Limit-Modus"
+        "de": "Limit-Modus"
       },
       "getable": true,
       "setable": true,

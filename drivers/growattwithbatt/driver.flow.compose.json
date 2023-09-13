@@ -3,8 +3,8 @@
     {
       "id": "exportlimitenabled",
       "title": {
-        "en": "Set export limit",
-		    "de": "Exportbeschränkung"
+        "en": "Set export limit to",
+        "de": "Setze Exportbeschränkung auf"
       },
       "args": [
         {
@@ -32,8 +32,8 @@
     {
       "id": "battacchargeswitch",
       "title": {
-        "en": "Batt AC charge switch",
-        "de": "Netzladung der Batterie"
+        "en": "Set Battery AC charge switch to",
+        "de": "Setze Netzladung der Batterie auf"
       },
       "args": [
         {
@@ -61,8 +61,8 @@
     {
       "id": "exportlimitpowerrate",
       "title": {
-        "en": "Export limit %",
-        "de": "Setze Exportbeschränkung"
+        "en": "Set Export limit to",
+        "de": "Setze Exportbeschränkung auf"
       },
       "args": [
         {
@@ -244,8 +244,8 @@
     {
       "id": "battery_minimum_capacity",
       "title": {
-        "en": "Battery Minimum Capacity %",
-        "de": "Batteriemindeststand %"
+        "en": "Set Battery Minimum Capacity to",
+        "de": "Setze Batteriemindeststand auf"
       },
       "args": [
         {
@@ -264,8 +264,8 @@
     {
       "id": "battery_maximum_capacity",
       "title": {
-        "en": "Battery Maximum Capacity %",
-        "de": "Batteriemaximumstand %"
+        "en": "Set Battery Maximum Capacity to",
+        "de": "Setze Batteriemaximumstand auf"
       },
       "args": [
         {
@@ -284,8 +284,8 @@
     {
       "id": "prioritymode",
       "title": {
-        "en": "Priority mode",
-        "de": "Priorität"
+        "en": "Set Priority mode to",
+        "de": "Setze Priorität auf"
       },
       "args": [
         {

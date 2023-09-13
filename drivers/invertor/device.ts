@@ -24,7 +24,7 @@ class MySolaredgeDevice extends Solaredge {
       this.pollInvertor();
     }, RETRY_INTERVAL);
 
-    // // homey menu / device actions
+    // homey menu / device actions
     this.registerCapabilityListener('activepowerlimit', async (value) => {
       this.updateControl('activepowerlimit', Number(value));
       return value;
@@ -42,11 +42,17 @@ class MySolaredgeDevice extends Solaredge {
         let result = (await this.getCapabilityValue('measure_power') >= args.charging);
         return Promise.resolve(result);
     })  
+
     let controlActionActivePower = this.homey.flow.getActionCard('activepowerlimit');
     controlActionActivePower.registerRunListener(async (args, state) => {
+      let name = this.getData().id;
+      this.log("device name id " + name );
+      this.log("device name " + this.getName());
+      this.log(args.device.getName());      
       await this.updateControl('activepowerlimit', Number(args.value));
-    });   
-        
+    });       
+    
+
     // flow conditions
     let changedStatus = this.homey.flow.getConditionCard("changedStatus");
     changedStatus.registerRunListener(async (args, state) => {
@@ -103,6 +109,10 @@ class MySolaredgeDevice extends Solaredge {
   }
   
   async updateControl(type: string, value: number) {
+    let name = this.getData().id;
+    this.log("device name id " + name );
+    this.log("device name " + this.getName());
+
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
     let client = new Modbus.client.TCP(socket, unitID); 

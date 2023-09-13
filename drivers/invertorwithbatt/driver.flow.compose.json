@@ -610,8 +610,8 @@
     {
       "id": "storagecontrolmode",
       "title": {
-        "en": "Storage Control Mode",
-        "de": "Speicherkontrollmodus"
+        "en": "Set Storage Control Mode to",
+        "de": "Setze Speicherkontrollmodus auf"
       },
       "args": [
         {
@@ -660,8 +660,8 @@
     {
       "id": "storagedefaultmode",
       "title": {
-        "en": "Storage Charge/Discharge Mode",
-        "de": "Speicher-Lade/Entlade-Modus"
+        "en": "Set Storage Charge/Discharge Mode to",
+        "de": "Setze Speicher-Lade/Entlade-Modus auf"
       },
       "args": [
         {
@@ -731,8 +731,8 @@
     {
       "id": "setcharging",
       "title": {
-        "en": "Set Charge power",
-        "de": "Setze maximale Ladeleistung"
+        "en": "Set Charge power to",
+        "de": "Setze maximale Ladeleistung auf"
       },
       "args": [
         {
@@ -806,8 +806,8 @@
     {
       "id": "setdischarging",
       "title": {
-        "en": "Set Discharge power",
-        "de": "Setze maximale Entladeleistung"
+        "en": "Set Discharge power to",
+        "de": "Setze maximale Entladeleistung auf"
       },
       "args": [
         {
