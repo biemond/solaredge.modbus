@@ -2,6 +2,7 @@ import * as Modbus from 'jsmodbus';
 import net from 'net';
 import {Solaredge}     from '../solaredge';
 import {checkRegister} from '../response';
+import Homey, { Device } from 'homey';
 
 const RETRY_INTERVAL = 28 * 1000; 
 
@@ -26,7 +27,7 @@ class MySolaredgeDevice extends Solaredge {
 
     // homey menu / device actions
     this.registerCapabilityListener('activepowerlimit', async (value) => {
-      this.updateControl('activepowerlimit', Number(value));
+      this.updateControl('activepowerlimit', Number(value), this);
       return value;
     });
 
@@ -43,13 +44,15 @@ class MySolaredgeDevice extends Solaredge {
         return Promise.resolve(result);
     })  
 
+   
     let controlActionActivePower = this.homey.flow.getActionCard('activepowerlimit');
     controlActionActivePower.registerRunListener(async (args, state) => {
-      let name = this.getData().id;
-      this.log("device name id " + name );
-      this.log("device name " + this.getName());
-      this.log(args.device.getName());      
-      await this.updateControl('activepowerlimit', Number(args.value));
+      // let name = this.getData().id;
+      // this.log("device name id " + name );
+      // this.log("device name " + this.getName());
+      this.log(args.device.getName()); 
+      this.log(args.device.getSettings());            
+      await this.updateControl('activepowerlimit', Number(args.value), args.device);
     });       
     
 
@@ -108,19 +111,19 @@ class MySolaredgeDevice extends Solaredge {
     this.homey.clearInterval(this.timer);
   }
   
-  async updateControl(type: string, value: number) {
-    let name = this.getData().id;
+  async updateControl(type: string, value: number, device:  Homey.Device) {
+    let name = device.getData().id;
     this.log("device name id " + name );
-    this.log("device name " + this.getName());
+    this.log("device name " + device.getName());
 
     let socket = new net.Socket();
-    var unitID = this.getSetting('id');
+    var unitID = device.getSetting('id');
     let client = new Modbus.client.TCP(socket, unitID); 
 
     let modbusOptions = {
-      'host': this.getSetting('address'),
-      'port': this.getSetting('port'),
-      'unitId': this.getSetting('id'),
+      'host': device.getSetting('address'),
+      'port': device.getSetting('port'),
+      'unitId': device.getSetting('id'),
       'timeout': 15,
       'autoReconnect': false,
       'logLabel': 'solaredge Inverter',

@@ -4,6 +4,7 @@ import { Solaredge } from '../solaredge';
 import { checkRegister } from '../response';
 import { checkMeter } from '../response';
 import { checkBattery } from '../response';
+import Homey, { Device } from 'homey';
 
 const RETRY_INTERVAL = 30 * 1000;
 
@@ -30,19 +31,19 @@ class MySolaredgeBatteryDevice extends Solaredge {
 
     // homey menu / device actions
     this.registerCapabilityListener('storagecontrolmode', async (value) => {
-      this.updateControl('storagecontrolmode', Number(value));
+      this.updateControl('storagecontrolmode', Number(value), this);
       return value;
     });
     this.registerCapabilityListener('storagedefaultmode', async (value) => {
-      this.updateControl('storagedefaultmode', Number(value));
+      this.updateControl('storagedefaultmode', Number(value), this);
       return value;
     });
     this.registerCapabilityListener('limitcontrolmode', async (value) => {
-      this.updateControl('limitcontrolmode', Number(value));
+      this.updateControl('limitcontrolmode', Number(value), this);
       return value;
     });
     this.registerCapabilityListener('activepowerlimit', async (value) => {
-      this.updateControl('activepowerlimit', Number(value));
+      this.updateControl('activepowerlimit', Number(value), this);
       return value;
     });
 
@@ -53,31 +54,31 @@ class MySolaredgeBatteryDevice extends Solaredge {
       this.log("device name id " + name );
       this.log("device name " + this.getName());
       this.log(args.device.getName());      
-      await this.updateControl('activepowerlimit', Number(args.value));
+      await this.updateControl('activepowerlimit', Number(args.value), args.device);
     });     
     let controlAction = this.homey.flow.getActionCard('storagecontrolmode');
     controlAction.registerRunListener(async (args, state) => {
-      await this.updateControl('storagecontrolmode', Number(args.mode));
+      await this.updateControl('storagecontrolmode', Number(args.mode), args.device);
     });
     let customModeAction = this.homey.flow.getActionCard('storagedefaultmode');
     customModeAction.registerRunListener(async (args, state) => {
-      await this.updateControl('storagedefaultmode', Number(args.mode));
+      await this.updateControl('storagedefaultmode', Number(args.mode), args.device);
     });
     let chargeLimitAction = this.homey.flow.getActionCard('setcharging');
     chargeLimitAction.registerRunListener(async (args, state) => {
-      await this.updateControl('chargelimit', Number(args.chargepower));
+      await this.updateControl('chargelimit', Number(args.chargepower), args.device);
     });
     let dischargeLimitAction = this.homey.flow.getActionCard('setdischarging');
     dischargeLimitAction.registerRunListener(async (args, state) => {
-      await this.updateControl('dischargelimit', Number(args.dischargepower));
+      await this.updateControl('dischargelimit', Number(args.dischargepower), args.device);
     });
     let limitControlModeAction = this.homey.flow.getActionCard('limitcontrolmode');
     limitControlModeAction.registerRunListener(async (args, state) => {
-      await this.updateControl('limitcontrolmode', Number(args.mode));
+      await this.updateControl('limitcontrolmode', Number(args.mode), args.device);
     });
     let exportLimitAction = this.homey.flow.getActionCard('exportlimit');
     exportLimitAction.registerRunListener(async (args, state) => {
-      await this.updateControl('exportlimit', Number(args.exportlimit));
+      await this.updateControl('exportlimit', Number(args.exportlimit), args.device);
     });        
 
     // flow conditions
@@ -197,18 +198,18 @@ class MySolaredgeBatteryDevice extends Solaredge {
     this.homey.clearInterval(this.timer);
   }
 
-  async updateControl(type: string, value: number) {
-    let name = this.getData().id;
+  async updateControl(type: string, value: number, device:  Homey.Device) {
+    let name = device.getData().id;
     this.log("device name id " + name );
-    this.log("device name " + this.getName());    
+    this.log("device name " + device.getName());    
     let socket = new net.Socket();
-    var unitID = this.getSetting('id');
+    var unitID = device.getSetting('id');
     let client = new Modbus.client.TCP(socket, unitID); 
 
     let modbusOptions = {
-      'host': this.getSetting('address'),
-      'port': this.getSetting('port'),
-      'unitId': this.getSetting('id'),
+      'host': device.getSetting('address'),
+      'port': device.getSetting('port'),
+      'unitId': device.getSetting('id'),
       'timeout': 15,
       'autoReconnect': false,
       'logLabel': 'solaredge Inverter',
