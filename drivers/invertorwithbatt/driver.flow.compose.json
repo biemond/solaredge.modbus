@@ -815,6 +815,30 @@
           "name": "dischargepower",
           "values": [
             {
+              "id": "0",
+              "label": {
+                "en": "0W"
+              }
+            },             
+            {
+              "id": "10",
+              "label": {
+                "en": "10W"
+              }
+            },            
+            {
+              "id": "50",
+              "label": {
+                "en": "50W"
+              }
+            },
+            {
+              "id": "100",
+              "label": {
+                "en": "100W"
+              }
+            },                        
+            {
               "id": "500",
               "label": {
                 "en": "500W"

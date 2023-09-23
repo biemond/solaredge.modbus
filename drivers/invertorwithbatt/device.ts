@@ -269,7 +269,19 @@ class MySolaredgeBatteryDevice extends Solaredge {
         var dischargehex1 = 16384;
         var dischargehex2 = 17820;
         //dischargepower
-        if (value == 500) {
+        if (value == 0) {
+          chargehex1 =  0;
+          chargehex2 =  0;
+        } else if (value == 10) {
+          dischargehex1 =  0;
+          dischargehex2 =  16672;        
+        } else if (value == 50) {
+          dischargehex1 =  0;
+          dischargehex2 =  16968;
+        } else if (value == 100) {
+          dischargehex1 =  0;
+          dischargehex2 =  17096;
+        } else if (value == 500) {
           dischargehex1 =  0;
           dischargehex2 =  17402;
         } else if (value == 1000) {
