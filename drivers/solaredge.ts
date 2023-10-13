@@ -298,6 +298,22 @@ export class Solaredge extends Homey.Device {
                 this.setCapabilityValue('measure_voltage.phase3', voltagel3);
             }
 
+            if (this.validResultRecord(result['l1n_voltage']) && this.validResultScaleRecord(result['l1n_voltage']) && result['l1n_voltage'].value != '-1') {
+                this.addCapability('measure_voltage.phase1n');
+                var voltagel1n = Number(result['l1n_voltage'].value) * (Math.pow(10,  Number(result['l1n_voltage'].scale)));
+                this.setCapabilityValue('measure_voltage.phase1n', voltagel1n);
+            }
+            if (this.validResultRecord(result['l2n_voltage']) && this.validResultScaleRecord(result['l2n_voltage']) && result['l2n_voltage'].value != '-1') {
+                this.addCapability('measure_voltage.phase2n');
+                var voltagel2n = Number(result['l2n_voltage'].value) * (Math.pow(10,  Number(result['l2n_voltage'].scale)));
+                this.setCapabilityValue('measure_voltage.phase2n', voltagel2n);
+            }
+            if (this.validResultRecord(result['l3n_voltage']) && this.validResultScaleRecord(result['l3n_voltage']) && result['l3n_voltage'].value != '-1') {
+                this.addCapability('measure_voltage.phase3n');
+                var voltagel3n = Number(result['l3n_voltage'].value) * (Math.pow(10,  Number(result['l3n_voltage'].scale)));
+                this.setCapabilityValue('measure_voltage.phase3n', voltagel3n);
+            }
+
             let tz = this.homey.clock.getTimezone();
             var now = new Date().toLocaleString(this.homey.i18n.getLanguage(),
                 {

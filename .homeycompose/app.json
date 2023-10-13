@@ -1,12 +1,10 @@
 {
   "id": "solaredge.modbus",
-  "version": "3.0.46",
+  "version": "3.0.47",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
-  "platforms": [
-    "local"
-  ],
+  "platforms": ["local"],
   "name": {
     "en": "SolarEdge + Growatt TCP modbus"
   },
@@ -14,32 +12,18 @@
     "en": "Monitor SolarEdge + Growatt inverters over TCP modbus protocol",
     "de": "Überwache SolarEdge- und Growatt-Wechselrichter über das TCP-Modbus-Protokoll"
   },
-  "category": [
-    "energy"
-  ],
+  "category": ["energy"],
   "tags": {
-    "en": [
-      "solaredge",
-      "growatt",      
-      "inverter",
-      "solar",
-      "modbus"
-    ],
+    "en": ["solaredge", "growatt", "inverter", "solar", "modbus"],
     "nl": [
       "solaredge",
-      "growatt",      
+      "growatt",
       "omvormer",
       "zonnepanelen",
       "modbus",
-      "solar"      
+      "solar"
     ],
-    "de": [
-      "solaredge",
-      "growatt",
-      "wechselrichter",
-      "solar",
-      "modbus"
-    ]
+    "de": ["solaredge", "growatt", "wechselrichter", "solar", "modbus"]
   },
   "bugs": {
     "url": "https://github.com/biemond/solaredge.modbus/issues"
