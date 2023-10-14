@@ -24,7 +24,7 @@
     "measure_current.phase3",
     "measure_voltage.phase1",
     "measure_voltage.phase2",
-    "measure_voltage.phase3",    
+    "measure_voltage.phase3",
     "measure_voltage.meter",
     "measure_current.meter",
     "measure_current.meter_phase1",
@@ -32,7 +32,7 @@
     "measure_current.meter_phase3",
     "measure_voltage.meter_phase1",
     "measure_voltage.meter_phase2",
-    "measure_voltage.meter_phase3",    
+    "measure_voltage.meter_phase3",
     "measure_temperature.invertor",
     "measure_temperature.battery",
     "meter_power",
@@ -96,7 +96,7 @@
         "en": "Voltage phase3",
         "de": "Spannung Phase 3"
       }
-    },    
+    },
     "measure_current": {
       "title": {
         "en": "AC Current",

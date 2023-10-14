@@ -79,5 +79,8 @@
   },
   "3.0.46": {
     "en": "Adding some german locale, solaredge flow conditions, voltage caps"
-  }              
+  },
+  "3.0.47": {
+    "en": "PhaseN voltage for solaredge inverter"
+  }                  
 }
