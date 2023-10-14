@@ -5,9 +5,7 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": [
-      "OTHER"
-    ]
+    "batteries": ["OTHER"]
   },
   "capabilities": [
     "measure_power",
@@ -17,7 +15,10 @@
     "measure_current.phase3",
     "measure_voltage.phase1",
     "measure_voltage.phase2",
-    "measure_voltage.phase3",  
+    "measure_voltage.phase3",
+    "measure_voltage.phase1n",
+    "measure_voltage.phase2n",
+    "measure_voltage.phase3n",
     "measure_temperature.invertor",
     "invertorstatus",
     "meter_power",
@@ -73,7 +74,25 @@
         "en": "Voltage phase3",
         "de": "Spannung Phase 3"
       }
-    },  
+    },
+    "measure_voltage.phase1n": {
+      "title": {
+        "en": "Voltage phase1n",
+        "de": "Spannung Phase 1n"
+      }
+    },
+    "measure_voltage.phase2n": {
+      "title": {
+        "en": "Voltage phase2n",
+        "de": "Spannung Phase 2n"
+      }
+    },
+    "measure_voltage.phase3n": {
+      "title": {
+        "en": "Voltage phase3n",
+        "de": "Spannung Phase 3n"
+      }
+    },
     "measure_temperature.invertor": {
       "title": {
         "en": "Heatsink temperature",
@@ -100,12 +119,8 @@
       "icon": "/assets/total_yield.svg"
     }
   },
-  "platforms": [
-    "local"
-  ],
-  "connectivity": [
-    "lan"
-  ],
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.jpg",
     "large": "{{driverAssetsPath}}/images/large.jpg"
