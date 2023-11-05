@@ -32,10 +32,23 @@ class MySolaredgeBatteryDevice extends Solaredge {
     // homey menu / device actions
     this.registerCapabilityListener('storagecontrolmode', async (value) => {
       this.updateControl('storagecontrolmode', Number(value), this);
+
+      let tokens = {
+        "mode": Number(value)
+      };
+      let state = {};
+      console.log('trigger changedStoragecontrolmode ' + value );
+      this.homey.flow.getDeviceTriggerCard('changedStoragecontrolmode').trigger(this, tokens, state);
       return value;
     });
     this.registerCapabilityListener('storagedefaultmode', async (value) => {
       this.updateControl('storagedefaultmode', Number(value), this);
+      let tokens = {
+        "mode": Number(value)
+      };
+      let state = {};
+      console.log('trigger changedStoragedefaultmode ' + value );
+      this.homey.flow.getDeviceTriggerCard('changedStoragedefaultmode').trigger(this, tokens, state);
       return value;
     });
     this.registerCapabilityListener('limitcontrolmode', async (value) => {
@@ -398,7 +411,25 @@ class MySolaredgeBatteryDevice extends Solaredge {
         } else if (value == 6600) {
           dischargehex1 =  16384;
           dischargehex2 =  17870;
-        }
+        } else if (value == 8000) {
+          dischargehex1 =  0;
+          dischargehex2 =  17914;
+        } else if (value == 10000) {
+          dischargehex1 =  16384;
+          dischargehex2 =  17948;
+        } else if (value == 12000) {
+          dischargehex1 =  32768;
+          dischargehex2 =  17979;
+        } else if (value == 15000) {
+          dischargehex1 =  24576;
+          dischargehex2 =  18026;
+        } else if (value == 20000) {
+          dischargehex1 =  16384;
+          dischargehex2 =  18076;
+        } else if (value == 25000) {
+          dischargehex1 =  20480;
+          dischargehex2 =  18115;
+        }      
         const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [dischargehex1, dischargehex2]);
         console.log('limitcontrolwatt', limitcontrolWattRes);        
       }

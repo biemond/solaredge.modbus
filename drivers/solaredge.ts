@@ -553,12 +553,30 @@ export class Solaredge extends Homey.Device {
                 if (this.validResultRecord(result['storage_control_mode'])) { 
                     this.addCapability('storagecontrolmode');
                     var storagecontrolmode = result['storage_control_mode'].value;
+                    console.log('changedStoragecontrolmode old ' + this.getCapabilityValue('storagecontrolmode') );
+                    console.log('changedStoragecontrolmode new ' + storagecontrolmode );
+                    if (this.getCapabilityValue('storagecontrolmode') != storagecontrolmode) {
+                        let tokens = {
+                            "mode": Number(storagecontrolmode)
+                        };
+                        let state = {};
+                        console.log('trigger changedStoragecontrolmode ' + storagecontrolmode );
+                        this.homey.flow.getDeviceTriggerCard('changedStoragecontrolmode').trigger(this, tokens, state);
+                    }                    
                     this.setCapabilityValue('storagecontrolmode', storagecontrolmode);
                 }
 
                 if (this.validResultRecord(result['remote_control_command_mode'])) { 
                     this.addCapability('storagedefaultmode');
                     var storagedefaultmode = result['remote_control_command_mode'].value;
+                    if (this.getCapabilityValue('storagedefaultmode') != storagedefaultmode) {
+                        let tokens = {
+                            "mode": Number(storagedefaultmode)
+                        };
+                        let state = {};
+                        console.log('trigger changedStoragedefaultmode ' + storagedefaultmode );
+                        this.homey.flow.getDeviceTriggerCard('changedStoragedefaultmode').trigger(this, tokens, state);
+                    } 
                     this.setCapabilityValue('storagedefaultmode', storagedefaultmode);
                 }
 

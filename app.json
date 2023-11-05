@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.47",
+  "version": "3.0.49",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -241,6 +241,56 @@
           }
         ],
         "id": "meter_power_day_changed"
+      },
+      {
+        "id": "changedStoragecontrolmode",
+        "title": {
+          "en": "Storage Control Mode has changed",
+          "de": "Speicherkontrollmodus hat sich geändert"
+        },
+        "tokens": [
+          {
+            "name": "mode",
+            "type": "number",
+            "title": {
+              "en": "Value",
+              "de": "Wert"
+            },
+            "example": 0
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "changedStoragedefaultmode",
+        "title": {
+          "en": "Storage Charge/Discharge Mode has changed",
+          "de": "Speicher-Lade/Entlade-Modus hat sich geändert"
+        },
+        "tokens": [
+          {
+            "name": "mode",
+            "type": "number",
+            "title": {
+              "en": "Value",
+              "de": "Wert"
+            },
+            "example": 0
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
       },
       {
         "id": "changedBattery",
@@ -1228,6 +1278,42 @@
                 "id": "6600",
                 "label": {
                   "en": "6600W"
+                }
+              },
+              {
+                "id": "8000",
+                "label": {
+                  "en": "8000W"
+                }
+              },
+              {
+                "id": "10000",
+                "label": {
+                  "en": "10000W"
+                }
+              },
+              {
+                "id": "12000",
+                "label": {
+                  "en": "12000W"
+                }
+              },
+              {
+                "id": "15000",
+                "label": {
+                  "en": "15000W"
+                }
+              },
+              {
+                "id": "20000",
+                "label": {
+                  "en": "20000W"
+                }
+              },
+              {
+                "id": "25000",
+                "label": {
+                  "en": "25000W"
                 }
               }
             ]

@@ -1,6 +1,42 @@
 {
   "triggers": [
     {
+      "id": "changedStoragecontrolmode",
+      "title": {
+        "en": "Storage Control Mode has changed",
+        "de": "Speicherkontrollmodus hat sich geändert"
+      },
+      "tokens": [
+        {
+          "name": "mode",
+          "type": "number",
+          "title": {
+            "en": "Value",
+            "de": "Wert"
+          },
+          "example": 0
+        }
+      ]      
+    },
+    {
+      "id": "changedStoragedefaultmode",
+      "title": {
+        "en": "Storage Charge/Discharge Mode has changed",
+        "de": "Speicher-Lade/Entlade-Modus hat sich geändert"
+      },
+      "tokens": [
+        {
+          "name": "mode",
+          "type": "number",
+          "title": {
+            "en": "Value",
+            "de": "Wert"
+          },
+          "example": 0
+        }
+      ] 
+    },    
+    {
       "id": "changedBattery",
       "title": {
         "en": "Battery Charge Changed",
