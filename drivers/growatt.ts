@@ -106,7 +106,7 @@ export class Growatt extends Homey.Device {
 
         "battDischarge": [1009, 2, 'UINT32', "battery Discharge", -1],
         "battCharge": [1011, 2, 'UINT32', "battery Charge", -1],
-        "battvoltage": [1013, 1, 'UINT16', "battery Voltage", -10],
+        "battvoltage": [1013, 1, 'UINT16', "battery Voltage", -1],
         "battsoc": [1014, 1, 'UINT16', "battery soc", 0],
 
         "batttemperature": [1040, 1, 'UINT16', "battery Temperature", -1],
@@ -181,7 +181,7 @@ export class Growatt extends Homey.Device {
 
         "battDischarge": [3178, 2, 'UINT32', "battery Discharge", -1],
         "battCharge": [3180, 2, 'UINT32', "battery Charge", -1],
-        "battvoltage": [3169, 1, 'UINT16', "battery Voltage", -1],
+        "battvoltage": [3169, 1, 'UINT16', "battery Voltage", -2],
         "battsoc": [3171, 1, 'UINT16', "battery soc", 0],
 
         "batttemperature": [3218, 1, 'UINT16', "battery Temperature", -1],

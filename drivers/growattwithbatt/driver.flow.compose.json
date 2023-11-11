@@ -161,42 +161,6 @@
           ]
         }        
       ]
-    },
-    {
-      "id": "prioritymode",
-      "title": {
-        "en": "Set Priority mode to",
-        "de": "Setze Priorität auf"
-      },
-      "args": [
-        {
-          "name": "mode",
-          "type": "dropdown",
-          "values": [
-            {
-              "id": "0",
-              "title": {
-                "en": "Load",
-                "de": "Last"
-              }
-            },
-            {
-              "id": "1",
-              "title": {
-                "en": "Battery",
-                "de": "Batterie"
-              }
-            },
-            {
-              "id": "2",
-              "title": {
-                "en": "Grid",
-                "de": "Netz"
-              }
-            }
-          ]
-        }
-      ]
     }
   ]
 }

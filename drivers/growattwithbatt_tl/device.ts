@@ -174,10 +174,10 @@ class MyGrowattTLBattery extends Growatt {
         // 0 – Disabled
         // 1 – Enabled
         if (value == 1) {
-          const battacchargeswitchRes = await client.writeSingleRegister(1092, Number(1));
+          const battacchargeswitchRes = await client.writeSingleRegister(3049, Number(1));
           console.log('battacchargeswitch', battacchargeswitchRes);
         } else if (value == 0) {
-          const battacchargeswitchRes = await client.writeSingleRegister(1092, Number(0));
+          const battacchargeswitchRes = await client.writeSingleRegister(3049, Number(0));
           console.log('battacchargeswitch', battacchargeswitchRes);
         } else {
           console.log('battacchargeswitch unknown value: ' + value);
@@ -201,7 +201,7 @@ class MyGrowattTLBattery extends Growatt {
         // 0 – 100 % 
         console.log('battmaxsoc value: ' + value);
         if (value >= 0 && value <= 100) {
-          const battmaxsocRes = await client.writeSingleRegister(1091, value);
+          const battmaxsocRes = await client.writeSingleRegister(3048, value);
           console.log('battmaxsoc', battmaxsocRes);
         } else {
           console.log('battmaxsoc unknown value: ' + value);
@@ -212,7 +212,7 @@ class MyGrowattTLBattery extends Growatt {
         // 10 – 100 % 
         console.log('battminsoc value: ' + value);
         if (value >= 10 && value <= 100) {
-          const battminsocRes = await client.writeSingleRegister(1071, value);
+          const battminsocRes = await client.writeSingleRegister(3037, value);
           console.log('battminsoc', battminsocRes);
         } else {
           console.log('battminsoc unknown value: ' + value);
