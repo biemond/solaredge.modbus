@@ -29,11 +29,33 @@ export class Growatt extends Homey.Device {
         "loadfirststoptime1": [1111, 1, 'UINT16', "Load First Stop Time", 0],
         "loadfirststopswitch1": [1112, 1, 'UINT16', "Load First Stop Switch 1", 0]
 
-        // different inverter
-        // "gridfirststopsoc2":     [3037, 1, 'UINT16', "GridFirst stop SOC 2", 0],
-        // "batfirststopsoc2":      [3048, 1, 'UINT16', "BatFirst stop SOC 2", 0],
-        // "loadfirststopsocset":   [3082, 1, 'UINT16', "LoadFirst stop SOC set", 0],
-        // "exportlimitwhenfailed": [3000, 1, 'UINT16', "Export Limit when limit failed", -1]           
+
+    }
+
+    holdingRegistersTL: Object = {
+        "exportlimitenabled": [122, 1, 'UINT16', "Export Limit enable", 0],
+        "exportlimitpowerrate": [123, 1, 'UINT16', "Export Limit Power Rate", -1],
+        "gridfirststopsoc": [3037, 1, 'UINT16', "GridFirst stop SOC", 0],
+        "batfirststopsoc": [3048, 1, 'UINT16', "BatFirst stop SOC", 0],
+
+        "acchargeswitch": [3049, 1, 'UINT16', "Batt AC charge switch", 0],
+
+
+        "prioritychange": [1044, 1, 'UINT16', "Priority", 0],
+         
+        "gridfirststarttime1": [1080, 1, 'UINT16', "Grid First Start Time", 0],
+        "gridfirststoptime1": [1081, 1, 'UINT16', "Grid First Stop Time", 0],
+        "gridfirststopswitch1": [1082, 1, 'UINT16', "Grid First Stop Switch 1", 0],
+
+        "battfirststarttime1": [1100, 1, 'UINT16', "Battery First Start Time", 0],
+        "battfirststoptime1": [1101, 1, 'UINT16', "Battery First Stop Time", 0],
+        "battfirststopswitch1": [1102, 1, 'UINT16', "Battery First Stop Switch 1", 0],
+
+        "loadfirststarttime1": [1110, 1, 'UINT16', "Load First Start Time", 0],
+        "loadfirststoptime1": [1111, 1, 'UINT16', "Load First Stop Time", 0],
+        "loadfirststopswitch1": [1112, 1, 'UINT16', "Load First Stop Switch 1", 0]
+
+             
     }
 
     registers: Object = {
@@ -84,7 +106,7 @@ export class Growatt extends Homey.Device {
 
         "battDischarge": [1009, 2, 'UINT32', "battery Discharge", -1],
         "battCharge": [1011, 2, 'UINT32', "battery Charge", -1],
-        "battvoltage": [1013, 1, 'UINT16', "battery Voltage", -1],
+        "battvoltage": [1013, 1, 'UINT16', "battery Voltage", -10],
         "battsoc": [1014, 1, 'UINT16', "battery soc", 0],
 
         "batttemperature": [1040, 1, 'UINT16', "battery Temperature", -1],
@@ -119,6 +141,75 @@ export class Growatt extends Homey.Device {
 
     };
 
+    registersTL: Object = {
+
+        "l1_current": [39, 1, 'UINT16', "L1 Current", -1],
+        "l2_current": [43, 1, 'UINT16', "L2 Current", -1],
+        "l3_current": [47, 1, 'UINT16', "L3 Current", -1],
+
+        "temperature": [93, 1, 'UINT16', "Temperature", -1],
+
+        "status": [0, 1, 'UINT16', "Status", 0],
+        "inputPower": [1, 2, 'UINT32', "Input Power", -1],
+        "outputPower": [35, 2, 'UINT32', "Output Power", -1],
+
+        "pv1Voltage": [3, 1, 'UINT16', "pv1 Voltage", -1],
+        "pv2Voltage": [7, 1, 'UINT16', "pv2 Voltage", -1],
+
+
+        "gridFrequency": [37, 1, 'UINT16', "Grid Frequency", -2],
+        "gridVoltage": [38, 1, 'UINT16', "Grid Voltage", -1],
+        "gridOutputCurrent": [39, 1, 'UINT16', "Grid Output Current", -1],
+        "gridOutputPower": [40, 2, 'UINT32', "Grid Output Power", -1],
+        "todayEnergy": [53, 2, 'UINT32', "Today Energy", -1],
+        "totalEnergy": [55, 2, 'UINT32', "Total Energy", -1],
+
+
+        // pv1Current: data[4] / 10.0, //A
+        "pv1InputPower": [5, 2, 'UINT32', "pv1 Power", -1],
+        // pv2Voltage: data[7] / 10.0, //V
+        // pv2Current: data[8] / 10.0, //A
+        "pv2InputPower": [9, 2, 'UINT32', "pv2 Power", -1],
+
+        "pv1TodayEnergy": [59, 2, 'UINT32', "pv2 Today Energy", -1],
+        "pv1TotalEnergy": [61, 2, 'UINT32', "pv2 Total Energy", -1],
+        "pv2TodayEnergy": [63, 2, 'UINT32', "pv2 Today Energy", -1],
+        "pv2TotalEnergy": [65, 2, 'UINT32', "pv2 Total Energy", -1],
+        "pvEnergyTotal": [91, 2, 'UINT32', "pv Total Energy", -1],
+
+        "error": [105, 1, 'UINT16', "Error", 0],
+
+        "battDischarge": [3178, 2, 'UINT32', "battery Discharge", -1],
+        "battCharge": [3180, 2, 'UINT32', "battery Charge", -1],
+        "battvoltage": [3169, 1, 'UINT16', "battery Voltage", -1],
+        "battsoc": [3171, 1, 'UINT16', "battery soc", 0],
+
+        "batttemperature": [3218, 1, 'UINT16', "battery Temperature", -1],
+
+        "bmssoc": [3215, 1, 'UINT16', "bms soc", 0],
+        "bmstemperature": [3218, 1, 'UINT16', "bms Temperature", -1],
+        "bmscyclecount": [3221, 1, 'UINT16', "bms cycle count", 0],
+        "bmshealth": [3222, 1, 'UINT16', "bms soh", 0],
+        "bmsstatus": [3212, 1, 'UINT16', "bms status", 0],
+        "bmserror": [3202, 1, 'UINT16', "bms error", 0],
+
+        "totalhouseload": [3045, 2, 'UINT32', "Total house Load", -1],
+        "priority": [3144, 1, 'UINT16', "priority", 0],
+
+        "today_grid_import": [3067, 2, 'UINT32', "Today's Grid Import", -1],
+        "total_grid_import": [3069, 2, 'UINT32', "Total Grid Import", -1],
+        "today_grid_export": [3071, 2, 'UINT32', "Today's Grid Export", -1],
+        "total_grid_export": [3073, 2, 'UINT32', "Total Grid Export", -1],
+
+        "today_battery_output_energy": [3125, 2, 'UINT32', "Today's Battery Output Energy", -1],
+        "total_battery_output_energy": [3127, 2, 'UINT32', "Total Battery Output Energy", -1],
+        "today_battery_input_energy": [3129, 2, 'UINT32', "Today's Battery Input Energy", -1],
+        "total_battery_intput_energy": [3131, 2, 'UINT32', "Total Battery Input Energy", -1],
+
+        "today_load": [3075, 2, 'UINT32', "Today's Load", -1],
+        "total_load": [3077, 2, 'UINT32', "Total Load", -1],
+
+    };    
 
     processResult(result: Record<string, Measurement>) {
         if (result) {

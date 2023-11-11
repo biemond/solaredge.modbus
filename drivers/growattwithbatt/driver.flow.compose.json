@@ -1,85 +1,6 @@
 {
   "actions": [
     {
-      "id": "exportlimitenabled",
-      "title": {
-        "en": "Set export limit to",
-        "de": "Setze Exportbeschränkung auf"
-      },
-      "args": [
-        {
-          "name": "mode",
-          "type": "dropdown",
-          "values": [
-            {
-              "id": "0",
-              "title": {
-                "en": "Disabled",
-                "de": "Deaktiviert"
-              }
-            },
-            {
-              "id": "1",
-              "title": {
-                "en": "Enabled",
-                "de": "Aktiviert"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "battacchargeswitch",
-      "title": {
-        "en": "Set Battery AC charge switch to",
-        "de": "Setze Netzladung der Batterie auf"
-      },
-      "args": [
-        {
-          "name": "mode",
-          "type": "dropdown",
-          "values": [
-            {
-              "id": "0",
-              "title": {
-                "en": "Disabled",
-                "de": "Deaktiviert"
-              }
-            },
-            {
-              "id": "1",
-              "title": {
-                "en": "Enabled",
-                "de": "Aktiviert"
-              }
-            }
-          ]
-        }
-      ]
-    },    
-    {
-      "id": "exportlimitpowerrate",
-      "title": {
-        "en": "Set Export limit to",
-        "de": "Setze Exportbeschränkung auf"
-      },
-      "args": [
-        {
-          "type": "range",
-          "name": "percentage",
-          "title": {
-            "en": "percentage",
-            "de": "Prozent"
-          },
-          "min": 0,
-          "max": 100,
-          "step": 0.1,
-          "labelDecimals": 1
-        }
-      ]
-    },
-    {
       "id": "battfirsttime1",
       "title": {
         "en": "Battery 1st, time slot 1:",
@@ -239,46 +160,6 @@
             }
           ]
         }        
-      ]
-    },
-    {
-      "id": "battery_minimum_capacity",
-      "title": {
-        "en": "Set Battery Minimum Capacity to",
-        "de": "Setze Batteriemindeststand auf"
-      },
-      "args": [
-        {
-          "type": "range",
-          "name": "percentage",
-          "title": {
-            "en": "percentage",
-            "de": "Prozent"
-          },
-          "min": 10,
-          "max": 100,
-          "step": 1
-        }
-      ]
-    },
-    {
-      "id": "battery_maximum_capacity",
-      "title": {
-        "en": "Set Battery Maximum Capacity to",
-        "de": "Setze Batteriemaximumstand auf"
-      },
-      "args": [
-        {
-          "type": "range",
-          "name": "percentage",
-          "title": {
-            "en": "percentage",
-            "de": "Prozent"
-          },
-          "min": 0,
-          "max": 100,
-          "step": 1
-        }
       ]
     },
     {

@@ -1,0 +1,33 @@
+{
+    "title": {
+      "en": "Set export limit to",
+      "de": "Setze Exportbeschränkung auf"
+    },
+    "args": [
+      {
+        "name": "mode",
+        "type": "dropdown",
+        "values": [
+          {
+            "id": "0",
+            "title": {
+              "en": "Disabled",
+              "de": "Deaktiviert"
+            }
+          },
+          {
+            "id": "1",
+            "title": {
+              "en": "Enabled",
+              "de": "Aktiviert"
+            }
+          }
+        ]
+    },
+    {
+        "type": "device",
+        "name": "device",
+        "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+    }
+    ]
+}

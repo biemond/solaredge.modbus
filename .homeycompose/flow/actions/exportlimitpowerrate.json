@@ -1,0 +1,25 @@
+{
+    "title": {
+      "en": "Set Export limit to",
+      "de": "Setze Exportbeschränkung auf"
+    },
+    "args": [
+      {
+        "type": "range",
+        "name": "percentage",
+        "title": {
+          "en": "percentage",
+          "de": "Prozent"
+        },
+        "min": 0,
+        "max": 100,
+        "step": 0.1,
+        "labelDecimals": 1
+    },
+    {
+        "type": "device",
+        "name": "device",
+        "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+    }
+    ]
+  }
