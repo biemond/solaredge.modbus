@@ -41,19 +41,19 @@ export class Growatt extends Homey.Device {
         "acchargeswitch": [3049, 1, 'UINT16', "Batt AC charge switch", 0],
 
 
-        "prioritychange": [1044, 1, 'UINT16', "Priority", 0],
+        // "prioritychange": [1044, 1, 'UINT16', "Priority", 0],
          
-        "gridfirststarttime1": [1080, 1, 'UINT16', "Grid First Start Time", 0],
-        "gridfirststoptime1": [1081, 1, 'UINT16', "Grid First Stop Time", 0],
-        "gridfirststopswitch1": [1082, 1, 'UINT16', "Grid First Stop Switch 1", 0],
+        // "gridfirststarttime1": [1080, 1, 'UINT16', "Grid First Start Time", 0],
+        // "gridfirststoptime1": [1081, 1, 'UINT16', "Grid First Stop Time", 0],
+        // "gridfirststopswitch1": [1082, 1, 'UINT16', "Grid First Stop Switch 1", 0],
 
-        "battfirststarttime1": [1100, 1, 'UINT16', "Battery First Start Time", 0],
-        "battfirststoptime1": [1101, 1, 'UINT16', "Battery First Stop Time", 0],
-        "battfirststopswitch1": [1102, 1, 'UINT16', "Battery First Stop Switch 1", 0],
+        // "battfirststarttime1": [1100, 1, 'UINT16', "Battery First Start Time", 0],
+        // "battfirststoptime1": [1101, 1, 'UINT16', "Battery First Stop Time", 0],
+        // "battfirststopswitch1": [1102, 1, 'UINT16', "Battery First Stop Switch 1", 0],
 
-        "loadfirststarttime1": [1110, 1, 'UINT16', "Load First Start Time", 0],
-        "loadfirststoptime1": [1111, 1, 'UINT16', "Load First Stop Time", 0],
-        "loadfirststopswitch1": [1112, 1, 'UINT16', "Load First Stop Switch 1", 0]
+        // "loadfirststarttime1": [1110, 1, 'UINT16', "Load First Start Time", 0],
+        // "loadfirststoptime1": [1111, 1, 'UINT16', "Load First Stop Time", 0],
+        // "loadfirststopswitch1": [1112, 1, 'UINT16', "Load First Stop Switch 1", 0]
 
              
     }
@@ -194,7 +194,7 @@ export class Growatt extends Homey.Device {
         "bmserror": [3202, 1, 'UINT16', "bms error", 0],
 
         "totalhouseload": [3045, 2, 'UINT32', "Total house Load", -1],
-        "priority": [3144, 1, 'UINT16', "priority", 0],
+        "priority": [118, 1, 'UINT16', "priority", 0],
 
         "today_grid_import": [3067, 2, 'UINT32', "Today's Grid Import", -1],
         "total_grid_import": [3069, 2, 'UINT32', "Total Grid Import", -1],

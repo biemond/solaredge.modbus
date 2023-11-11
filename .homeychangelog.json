@@ -83,7 +83,7 @@
   "3.0.49": {
     "en": "PhaseN voltage for solaredge inverter, higher solaredge export limits, solaredge storedge mode change triggers"
   },
-  "3.0.51": {
-    "en": "Adding Growatt TL device with battery"
+  "3.0.52": {
+    "en": "Adding Growatt TL device with battery,PhaseN voltage for solaredge inverter, higher solaredge export limits, solaredge storedge mode change triggers"
   }                       
 }
