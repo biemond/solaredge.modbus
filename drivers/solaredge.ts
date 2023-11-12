@@ -6,6 +6,10 @@ export interface Measurement {
     label: string;
 }
 
+function sleep () {
+    return new Promise((resolve) => setTimeout(resolve, 1000));
+}
+
 export class Solaredge extends Homey.Device {
 
     registers: Object = {
@@ -562,7 +566,10 @@ export class Solaredge extends Homey.Device {
                         let state = {};
                         console.log('trigger changedStoragecontrolmode ' + storagecontrolmode );
                         this.setCapabilityValue('storagecontrolmode', storagecontrolmode);
-                        this.homey.flow.getDeviceTriggerCard('changedStoragecontrolmode').trigger(this, tokens, state);
+                        sleep().then(() => {
+                            this.homey.flow.getDeviceTriggerCard('changedStoragecontrolmode').trigger(this, tokens, state);
+                        });
+                        
                     }                    
                     this.setCapabilityValue('storagecontrolmode', storagecontrolmode);
                 }
@@ -577,7 +584,9 @@ export class Solaredge extends Homey.Device {
                         let state = {};
                         console.log('trigger changedStoragedefaultmode ' + storagedefaultmode );
                         this.setCapabilityValue('storagedefaultmode', storagedefaultmode);
-                        this.homey.flow.getDeviceTriggerCard('changedStoragedefaultmode').trigger(this, tokens, state);
+                        sleep().then(() => {
+                            this.homey.flow.getDeviceTriggerCard('changedStoragedefaultmode').trigger(this, tokens, state);
+                        });
                     } 
                     this.setCapabilityValue('storagedefaultmode', storagedefaultmode);
                 }
