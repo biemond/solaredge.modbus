@@ -1,6 +1,6 @@
 {
   "id": "solaredge.modbus",
-  "version": "3.0.53",
+  "version": "3.0.54",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -11,8 +11,8 @@
     "en": "SolarEdge + Growatt TCP modbus"
   },
   "description": {
-    "en": "Monitor SolarEdge + Growatt inverters over TCP modbus protocol",
-    "de": "Überwache SolarEdge- und Growatt-Wechselrichter über das TCP-Modbus-Protokoll"
+    "en": "Monitor SolarEdge, Growatt and Wattsonic compatiable inverters over TCP modbus protocol",
+    "de": "Überwache SolarEdge- , Growatt- Wattsonic-Wechselrichter über das TCP-Modbus-Protokoll"
   },
   "category": [
     "energy"
@@ -23,7 +23,12 @@
       "growatt",
       "inverter",
       "solar",
-      "modbus"
+      "modbus",
+      "wattsonic",
+      "sunways",
+      "solinteg",
+      "A-Tronix",
+      "St-ems"
     ],
     "nl": [
       "solaredge",
@@ -31,14 +36,25 @@
       "omvormer",
       "zonnepanelen",
       "modbus",
-      "solar"
+      "solar",
+      "modbus",
+      "wattsonic",
+      "sunways",
+      "solinteg",
+      "A-Tronix",
+      "St-ems"
     ],
     "de": [
       "solaredge",
       "growatt",
       "wechselrichter",
       "solar",
-      "modbus"
+      "modbus",
+      "wattsonic",
+      "sunways",
+      "solinteg",
+      "A-Tronix",
+      "St-ems"      
     ]
   },
   "bugs": {

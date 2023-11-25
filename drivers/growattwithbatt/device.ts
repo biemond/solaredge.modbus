@@ -79,19 +79,6 @@ class MyGrowattBattery extends Growatt {
       return value;
     });
 
-    // flow action 
-    let solarchargeStatus = this.homey.flow.getConditionCard("solarcharge");
-    solarchargeStatus.registerRunListener(async (args, state) => {
-        let result = (await this.getCapabilityValue('measure_power') >= args.charging);
-        return Promise.resolve(result);
-    })  
-
-    // // flow conditions
-    // let changedStatus = this.homey.flow.getConditionCard("changedStatus");
-    // changedStatus.registerRunListener(async (args, state) => {
-    //   let result = (await this.getCapabilityValue('invertorstatus') == args.argument_main);
-    //   return Promise.resolve(result);
-    // })  
 
    
     if (this.hasCapability('priority') === false) {

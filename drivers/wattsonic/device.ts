@@ -1,17 +1,17 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import {checkRegisterGrowatt} from '../response';
-import { Growatt } from '../growatt';
+import {checkRegisterWattsonic} from '../response';
+import { Wattsonic } from '../wattsonic';
 
 const RETRY_INTERVAL = 28 * 1000; 
 
-class MyGrowattDevice extends Growatt {
+class MyWattsonicDevice extends Wattsonic {
   timer!: NodeJS.Timer;  
   /**
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    this.log('MyGrowattDevice has been initialized');
+    this.log('MyWattsonicDevice has been initialized');
 
     let name = this.getData().id;
     this.log("device name id " + name );
@@ -23,6 +23,7 @@ class MyGrowattDevice extends Growatt {
       // poll device state from inverter
       this.pollInvertor();
     }, RETRY_INTERVAL);
+ 
 
   }
 
@@ -30,7 +31,7 @@ class MyGrowattDevice extends Growatt {
    * onAdded is called when the user adds the device, called just after pairing.
    */
   async onAdded() {
-    this.log('MyGrowattDevice has been added');
+    this.log('MyWattsonicDevice has been added');
   }
 
   /**
@@ -42,7 +43,7 @@ class MyGrowattDevice extends Growatt {
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
   async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string|void> {
-    this.log('MyGrowattDevice settings where changed');
+    this.log('MyWattsonicDevice settings where changed');
   }
 
   /**
@@ -51,14 +52,14 @@ class MyGrowattDevice extends Growatt {
    * @param {string} name The new name
    */
   async onRenamed(name: string) {
-    this.log('MyGrowattDevice was renamed');
+    this.log('MyWattsonicDevice was renamed');
   }
 
   /**
    * onDeleted is called when the user deleted the device.
    */
   async onDeleted() {
-    this.log('MyGrowattDevice has been deleted');
+    this.log('MyWattsonicDevice has been deleted');
     this.homey.clearInterval(this.timer);
   }
   
@@ -72,7 +73,7 @@ class MyGrowattDevice extends Growatt {
       'unitId': this.getSetting('id'),
       'timeout': 22,
       'autoReconnect': false,
-      'logLabel' : 'Growatt Inverter',
+      'logLabel' : 'wattsonic Inverter',
       'logLevel': 'error',
       'logEnabled': true
     }    
@@ -87,7 +88,7 @@ class MyGrowattDevice extends Growatt {
       console.log('Connected ...');
       console.log(modbusOptions);
 
-      const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
+      const checkRegisterRes = await checkRegisterWattsonic(this.registers, client);
       console.log('disconnect'); 
       client.socket.end();
       socket.end();
@@ -113,4 +114,4 @@ class MyGrowattDevice extends Growatt {
   }
 }
 
-module.exports = MyGrowattDevice;
+module.exports = MyWattsonicDevice;

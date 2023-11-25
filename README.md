@@ -1,4 +1,4 @@
-Homey app to receive realtime data from your SolarEdge or Growatt solar installation using local Modbus TCP
+Homey app to receive realtime data from your SolarEdge, Growatt & Wattsonic solar installation using local Modbus TCP
 
 ## Purpose
 The difference of this app and the already existing solar panels app is that this app reads the data directly from the inverter.
@@ -14,7 +14,8 @@ Following devices are supported
 - Inverters with SetApp and with display
 - Modbus energy Meter
 - Storedge devices (DC connected battery storage)
-- Growatt - SPH XXX Hybrid Inverter and others in the same range
+- Growatt - SPA, SPH or TL-X XXX Hybrid Inverter and others in the same range
+- Wattsonic gen3 inverter and their clones (sunways, solinteg, A-Tronix, St-ems)
 
 ## Inverters
 Modbus TCP is disabled by default on all inverters, you have to enable this function
@@ -39,6 +40,9 @@ Go to the menu by the following steps:
 
 ## Growatt inverters
 Please do the following on Growatt described in this doc https://www.dropbox.com/s/584915enkxc508u/Setup%20Growatt.pdf?dl=0
+
+## Wattsonic gen3 inverter
+following this blog Wattsonic Hybrid Inverter Gen3 Modbus RTU Protocol https://smarthome.exposed/wattsonic-hybrid-inverter-gen3-modbus-rtu-protocol/
 
 ## Support topic
 For support please use the official support topic on the forum [here](https://community.athom.com/t/app-SolarEdge/45487).
