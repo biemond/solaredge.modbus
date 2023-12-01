@@ -509,7 +509,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID);
+    let client = new Modbus.client.TCP(socket, unitID, 500);
     socket.setKeepAlive(false);  
     socket.connect(modbusOptions);
     console.log(modbusOptions);

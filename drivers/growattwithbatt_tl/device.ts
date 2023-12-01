@@ -229,7 +229,7 @@ class MyGrowattTLBattery extends Growatt {
   async updateControlProfile(type: string, hourstart: number, minstart: number, hourstop: number, minstop: number, enabled: string) {
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID); 
+    let client = new Modbus.client.TCP(socket, unitID, 500);
 
     let modbusOptions = {
       'host': this.getSetting('address'),

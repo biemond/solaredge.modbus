@@ -428,7 +428,10 @@ export class Solaredge extends Homey.Device {
                         }
                         // console.log(this.driver.id);
                         // console.log(status_str[result['status'].value]);
-                        this.homey.flow.getDeviceTriggerCard('changedStatus').trigger(this, { status: status_str[result['status'].value] }, {});
+                        this.setCapabilityValue('invertorstatus', result['status'].value);
+                        sleep().then(() => {
+                           this.homey.flow.getDeviceTriggerCard('changedStatus').trigger(this, { status: status_str[result['status'].value] }, {});
+                        });
                     }
                     this.setCapabilityValue('invertorstatus', result['status'].value);
                 }

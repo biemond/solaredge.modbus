@@ -5,13 +5,13 @@ import { Wattsonic } from '../wattsonic';
 
 const RETRY_INTERVAL = 28 * 1000; 
 
-class MyWattsonicDevice extends Wattsonic {
+class MyWattsonicBatteryDevice extends Wattsonic {
   timer!: NodeJS.Timer;  
   /**
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    this.log('MyWattsonicDevice has been initialized');
+    this.log('MyWattsonicBatteryDevice has been initialized');
 
     let name = this.getData().id;
     this.log("device name id " + name );
@@ -31,7 +31,7 @@ class MyWattsonicDevice extends Wattsonic {
    * onAdded is called when the user adds the device, called just after pairing.
    */
   async onAdded() {
-    this.log('MyWattsonicDevice has been added');
+    this.log('MyWattsonicBatteryDevice has been added');
   }
 
   /**
@@ -43,7 +43,7 @@ class MyWattsonicDevice extends Wattsonic {
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
   async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string|void> {
-    this.log('MyWattsonicDevice settings where changed');
+    this.log('MyWattsonicBatteryDevice settings where changed');
   }
 
   /**
@@ -52,14 +52,14 @@ class MyWattsonicDevice extends Wattsonic {
    * @param {string} name The new name
    */
   async onRenamed(name: string) {
-    this.log('MyWattsonicDevice was renamed');
+    this.log('MyWattsonicBatteryDevice was renamed');
   }
 
   /**
    * onDeleted is called when the user deleted the device.
    */
   async onDeleted() {
-    this.log('MyWattsonicDevice has been deleted');
+    this.log('MyWattsonicBatteryDevice has been deleted');
     this.homey.clearInterval(this.timer);
   }
   
@@ -88,7 +88,7 @@ class MyWattsonicDevice extends Wattsonic {
       console.log('Connected ...');
       console.log(modbusOptions);
 
-      const checkRegisterRes = await checkHoldingRegisterWattsonic(this.holdingRegisters, client);
+      const checkRegisterRes = await checkHoldingRegisterWattsonic(this.holdingRegistersBattery, client);
       console.log('disconnect'); 
       client.socket.end();
       socket.end();
@@ -114,4 +114,4 @@ class MyWattsonicDevice extends Wattsonic {
   }
 }
 
-module.exports = MyWattsonicDevice;
+module.exports = MyWattsonicBatteryDevice;

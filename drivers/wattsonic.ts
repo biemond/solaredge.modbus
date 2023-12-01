@@ -10,9 +10,9 @@ export class Wattsonic extends Homey.Device {
 
     holdingRegisters: Object = {
 
-    }
-
-    registers: Object = {
+        "SN":         [10000,	8, 'STRING',"Inverter SN", 0],
+        "firmware":   [10011,	2, 'UINT32', "Firmware Version", 0],
+        "equipment":  [10008,	1, 'UINT16', "Equipment Info", 0],        
 
         "l1_current": [11010, 1, 'UINT16', "L1 Current", -1], // 	A	10
         "l2_current": [11012, 1, 'UINT16', "L2 Current", -1],
@@ -29,6 +29,48 @@ export class Wattsonic extends Homey.Device {
 
         "status": [10105, 1, 'UINT16', "Status", 0],
 
+        // total solar
+        "inputPower": [11028, 2, 'UINT32', "Input Power", 0], //	kW	1000
+
+        "gridFrequency": [11015, 1, 'UINT16', "Grid Frequency", -2],  //Hz	100
+
+        "pv1Voltage": [11038, 1, 'UINT16', "pv1 Voltage", -1], // V	10	
+        "pv2Voltage": [11040, 1, 'UINT16', "pv2 Voltage", -1],
+        
+        "pvEnergyTotal": [11028, 2, 'UINT32', "PV Input Total Power", -1],  //	kW	1000
+        "pv1InputPower": [11062, 2, 'UINT32', "PV1 Input Power", -1],  //	kW	1000
+        "pv2InputPower": [11064, 2, 'UINT32', "PV2 Input Power", -1],
+        "pvTodayEnergy": [11018, 2, 'UINT32', "Total PV Generation on that day", -1], // kWh	10
+        "pvTotalEnergy": [11020, 2, 'UINT32', "Total PV Generation from Installation", -1], //kWh	10
+
+        "error": [10112, 2, 'UINT32', "Error", 0],
+    };
+
+
+    holdingRegistersBattery: Object = {
+
+        "SN":         [10000,	8, 'STRING',"Inverter SN", 0],
+        "firmware":   [10011,	2, 'UINT32', "Firmware Version", 0],
+        "equipment":  [10008,	1, 'UINT16', "Equipment Info", 0],        
+
+
+
+        "l1_current": [11010, 1, 'UINT16', "L1 Current", -1], // 	A	10
+        "l2_current": [11012, 1, 'UINT16', "L2 Current", -1],
+        "l3_current": [11014, 1, 'UINT16', "L3 Current", -1],
+
+        "temperature": [11032, 1, 'UINT16', "Temperature", -1], //℃	10
+
+        // 10105	1	Inverter Running Status	U16	N/A	1	0:wait, wait for on-grid
+        // 1:check, self-check
+        // 2:On Grid
+        // 3:fault
+        // 4:flash, firmware update
+        // 5.Off Grid
+
+        "status": [10105, 1, 'UINT16', "Status", 0],
+
+        // total solar
         "inputPower": [11028, 2, 'UINT32', "Input Power", 0], //	kW	1000
         // "outputPower": [35, 2, 'UINT32', "Output Power", -1],
 
@@ -55,6 +97,8 @@ export class Wattsonic extends Homey.Device {
         // "battCharge": [1011, 2, 'UINT32', "battery Charge", -1],
         "battvoltage":    [30254, 1, 'UINT16', "battery Voltage", -1],  // V	10
         "battery_mode":   [30256, 1, 'UINT16', "Battery mode",  0],
+
+        // total batt power
         "battery_power":  [30258, 2, 'INT32',  "Battery power", 0],
 
         "battsoc": [33000, 1, 'UINT16', "battery soc", -2],  // 	%	100
@@ -63,9 +107,13 @@ export class Wattsonic extends Homey.Device {
         "bmsstatus": [33002, 1, 'UINT16', "bms status", 0],
         "bmserror": [33016, 2, 'UINT32', "bms error", 0],
 
+
+
         "today_grid_import": [31001, 1, 'UINT16', "Today's Grid Import", -1], // kWh	10	
-        "total_grid_import": [31114, 2, 'UINT32', "Total Grid Import", -1],  // kWh	10	
         "today_grid_export": [31000, 1, 'UINT16', "Today's Grid Export", -1],
+
+        "total_grid_import": [31104, 2, 'UINT32', "Total Grid Import", -1],  // kWh	10	
+        // Total Energy injected to grid
         "total_grid_export": [31102, 2, 'UINT32', "Total Grid Export", -1],  // kWh	10
 
         "today_battery_output_energy": [31004, 1, 'UINT16', "Today's Battery Output Energy", -1], // kWh	10	
@@ -76,7 +124,8 @@ export class Wattsonic extends Homey.Device {
         "today_load": [31006, 1, 'UINT16', "Today's Load", -1],
         "total_load": [31114, 2, 'UINT32', "Total Load", -1],   //	kWh	10
 
-    };
+    };   
+
 
     processResult(result: Record<string, Measurement>) {
         if (result) {
@@ -86,6 +135,20 @@ export class Wattsonic extends Homey.Device {
                 console.log(k, result[k].value, result[k].scale, result[k].label)
             }
 
+            if (result['equipment'] && result['equipment'].value != 'xxx') {
+                let lowVal = Number(result['equipment'].value) & 0xFF;
+                let highval = (Number(result['equipment'].value) >> 8) & 0xFF;
+                console.log("equipment: " + highval + " " + lowVal );
+            }
+            if (result['SN'] && result['SN'].value != 'xxx') {
+                console.log("SN: " + result['SN'].value );
+            }
+            if (result['firmware'] && result['firmware'].value != 'xxx') {
+                console.log("firmware: " + result['firmware'].value );
+            }
+
+
+            
             // if (result['outputPower'] && result['outputPower'].value != 'xxx') {
             //     this.addCapability('measure_power');
             //     var outputPower = Number(result['outputPower'].value) * (Math.pow(10, Number(result['outputPower'].scale)));

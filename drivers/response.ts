@@ -113,7 +113,9 @@ export async function checkRegisterGrowatt(registers: Object, client: InstanceTy
     return result;
 }
 
-export async function checkRegisterWattsonic(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
+
+
+export async function checkHoldingRegisterWattsonic(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
     let result: Record<string, Measurement> = {};
 
     for (const [key, value] of Object.entries(registers)) {
@@ -132,7 +134,7 @@ export async function checkRegisterWattsonic(registers: Object, client: Instance
             let resultValue: string = 'xxx';
             switch (value[2]) {
                 case 'UINT16':
-                    resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
+                    resultValue = response.body.valuesAsBuffer.readUInt16BE().toString();
                     break;
                 case 'UINT32':
                     resultValue = response.body.valuesAsBuffer.readUInt32BE().toString();
