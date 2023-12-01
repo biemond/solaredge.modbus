@@ -11,8 +11,11 @@
   },
   "capabilities": [
     "measure_power",
+    "measure_power.gridoutput",    
     "measure_power.pv1input",
     "measure_power.pv2input",
+    "measure_power.batt_charge",
+    "measure_power.batt_discharge",    
     "measure_current.phase1",
     "measure_current.phase2",
     "measure_current.phase3",
@@ -26,7 +29,12 @@
     "meter_power.today_grid_import",
     "meter_power.today_grid_export",
     "meter_power.grid_import",
-    "meter_power.grid_export"             
+    "meter_power.grid_export",
+    "meter_power.today_batt_output",
+    "meter_power.today_batt_input",
+    "meter_power.battery_input",
+    "meter_power.battery_output",    
+    "batterystatus"                     
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -50,6 +58,27 @@
         "de": " PV-Strang 2 Eingang"
       }
     },
+    "measure_power.gridoutput": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid output",
+        "de": "Netzexport"
+      }
+    },    
+    "measure_power.batt_discharge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power discharge",
+        "de": "Batterieentladeleistung"
+      }
+    },
+    "measure_power.batt_charge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power charge",
+        "de": "Batterieladeleistung"
+      }
+    },    
     "measure_current.phase1": {
       "title": {
         "en": "AC Current phase1",
@@ -122,6 +151,28 @@
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
     },
+    "meter_power.battery_input": {
+      "title": {
+        "en": "Battery input",
+        "de": "Batterie input"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.battery_output": {
+      "title": {
+        "en": "Battery output",
+        "de": "Batterie output"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
     "meter_power.grid_import": {
       "title": {
         "en": "Grid Import",
@@ -143,7 +194,29 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    }           
+    },    
+    "meter_power.today_batt_output": {
+      "title": {
+        "en": "Battery Output Day Yield",
+        "de": "Tagesgesamtentladung der Batterie"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.today_batt_input": {
+      "title": {
+        "en": "Battery Input Day Yield",
+        "de": "Tagesgesamtladung der Batterie"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    }               
   },
   "platforms": [
     "local"

@@ -72,16 +72,9 @@ export class Wattsonic extends Homey.Device {
 
         // total solar
         "inputPower": [11028, 2, 'UINT32', "Input Power", 0], //	kW	1000
-        // "outputPower": [35, 2, 'UINT32', "Output Power", -1],
 
         "gridFrequency": [11015, 1, 'UINT16', "Grid Frequency", -2],  //Hz	100
-
-        // "gridVoltage": [38, 1, 'UINT16', "Grid Voltage", -1],
-        // "gridOutputCurrent": [39, 1, 'UINT16', "Grid Output Current", -1],
-        // "gridOutputPower": [40, 2, 'UINT32', "Grid Output Power", -1],
-        // "todayEnergy": [53, 2, 'UINT32', "Today Energy", -1],
-        // "totalEnergy": [55, 2, 'UINT32', "Total Energy", -1],
-
+        "gridOutputPower": [11000, 2, 'INT32', "Grid Output Power", -1],
         
         "pv1Voltage": [11038, 1, 'UINT16', "pv1 Voltage", -1], // V	10	
         "pv2Voltage": [11040, 1, 'UINT16', "pv2 Voltage", -1],
@@ -93,13 +86,13 @@ export class Wattsonic extends Homey.Device {
         "pvTotalEnergy": [11020, 2, 'UINT32', "Total PV Generation from Installation", -1], //kWh	10
 
         "error": [10112, 2, 'UINT32', "Error", 0],
- 
-        // "battDischarge": [1009, 2, 'UINT32', "battery Discharge", -1],
-        // "battCharge": [1011, 2, 'UINT32', "battery Charge", -1],
-        "battvoltage":    [30254, 1, 'UINT16', "battery Voltage", -1],  // V	10
-        "battery_mode":   [30256, 1, 'UINT16', "Battery mode",  0],
 
-        // total batt power
+        "battvoltage":    [30254, 1, 'UINT16', "battery Voltage", -1],  // V	10
+
+
+        // 	30256	1	Battery_Mode	U16	N/A	1	0:discharge;1:charge
+        "battery_mode":   [30256, 1, 'UINT16', "Battery mode",  0],
+        // total batt power 30258	2	Battery_P	I32	kW	1000	Battery Power
         "battery_power":  [30258, 2, 'INT32',  "Battery power", 0],
 
         "battsoc": [33000, 1, 'UINT16', "battery soc", -2],  // 	%	100
@@ -120,7 +113,7 @@ export class Wattsonic extends Homey.Device {
         "today_battery_output_energy": [31004, 1, 'UINT16', "Today's Battery Output Energy", -1], // kWh	10	
         "total_battery_output_energy": [31110, 2, 'UINT32', "Total Battery Output Energy", -1],
         "today_battery_input_energy":  [31003, 1, 'UINT16', "Today's Battery Input Energy", -1],
-        "total_battery_intput_energy": [31108, 2, 'UINT32', "Total Battery Input Energy", -1],  // kWh	10
+        "total_battery_input_energy":  [31108, 2, 'UINT32', "Total Battery Input Energy", -1],  // kWh	10
 
         "today_load": [31006, 1, 'UINT16', "Today's Load", -1],
         "total_load": [31114, 2, 'UINT32', "Total Load", -1],   //	kWh	10
@@ -156,14 +149,14 @@ export class Wattsonic extends Homey.Device {
             //     this.setCapabilityValue('measure_power', Math.round(outputPower));
             // }
 
-            // if (result['gridOutputPower'] && result['gridOutputPower'].value != 'xxx') {
-            //     this.addCapability('measure_power.gridoutput');
-            //     var gridOutputPower = Number(result['gridOutputPower'].value) * (Math.pow(10, Number(result['gridOutputPower'].scale)));
-            //     this.setCapabilityValue('measure_power.gridoutput', Math.round(gridOutputPower));
-            // }
+            if (result['gridOutputPower'] && result['gridOutputPower'].value != 'xxx') {
+                this.addCapability('measure_power.gridoutput');
+                var gridOutputPower = Number(result['gridOutputPower'].value) * (Math.pow(10, Number(result['gridOutputPower'].scale)));
+                this.setCapabilityValue('measure_power.gridoutput', Math.round(gridOutputPower));
+            }
 
             if (result['inputPower'] && result['inputPower'].value != 'xxx') {
-                this.addCapability('measure_power.input');
+                this.addCapability('measure_power');
                 var inputPower = Number(result['inputPower'].value) * (Math.pow(10, Number(result['inputPower'].scale)));
                 this.setCapabilityValue('measure_power', Math.round(inputPower));
             }
@@ -261,22 +254,34 @@ export class Wattsonic extends Homey.Device {
                 this.setCapabilityValue('batterysoh', soh);
             }
 
-            // if (result['battDischarge'] && result['battDischarge'].value != 'xxx' && this.hasCapability('measure_power.batt_discharge')) {
-            //     this.addCapability('measure_power.batt_discharge');
-            //     var discharge = Number(result['battDischarge'].value) * (Math.pow(10, Number(result['battDischarge'].scale)));
-            //     this.setCapabilityValue('measure_power.batt_discharge', discharge);
-            // }
-            // if (result['battCharge'] && result['battCharge'].value != 'xxx' && this.hasCapability('measure_power.batt_charge')) {
-            //     this.addCapability('measure_power.batt_charge');
-            //     var charge = Number(result['battCharge'].value) * (Math.pow(10, Number(result['battCharge'].scale)));
-            //     this.setCapabilityValue('measure_power.batt_charge', charge);
-            // }
+        // // 	30256	1	Battery_Mode	U16	N/A	1	0:discharge;1:charge
+        // "battery_mode":   [30256, 1, 'UINT16', "Battery mode",  0],
+        // // total batt power 30258	2	Battery_P	I32	kW	1000	Battery Power
+        // "battery_power":  [30258, 2, 'INT32',  "Battery power", 0],
 
-            // if (result['bmsstatus'] && result['bmsstatus'].value != 'xxx' && this.hasCapability('batterystatus')) {
-            //     this.addCapability('batterystatus');
-            //     var battstatus = Number(result['bmsstatus'].value);
-            //     this.setCapabilityValue('batterystatus', battstatus);
-            // }
+            if (result['battery_power'] && result['battery_power'].value != 'xxx' && this.hasCapability('measure_power.batt_discharge')) {
+                this.addCapability('measure_power.batt_charge');
+                this.addCapability('measure_power.batt_discharge');
+
+                var discharge = Number(result['battery_power'].value) * (Math.pow(10, Number(result['battery_power'].scale)));
+                var type = Number(result['battery_mode'].value)
+                if (type == 0) {
+                    this.setCapabilityValue('measure_power.batt_charge', 0);
+                    this.setCapabilityValue('measure_power.batt_discharge', discharge);
+                }
+                if (type == 1) {
+                    this.setCapabilityValue('measure_power.batt_charge', discharge);
+                    this.setCapabilityValue('measure_power.batt_discharge', 0);
+                }                
+                
+            }
+
+
+            if (result['bmsstatus'] && result['bmsstatus'].value != 'xxx' && this.hasCapability('batterystatus')) {
+                this.addCapability('batterystatus');
+                var battstatus = Number(result['bmsstatus'].value);
+                this.setCapabilityValue('batterystatus', battstatus);
+            }
 
 
 
@@ -315,17 +320,29 @@ export class Wattsonic extends Homey.Device {
                 this.setCapabilityValue('meter_power.grid_export', total_grid_export);
             }
 
-            // if (result['today_battery_output_energy'] && result['today_battery_output_energy'].value != 'xxx' && this.hasCapability('meter_power.today_batt_output')) {
-            //     this.addCapability('meter_power.today_batt_output');
-            //     var today_battery_output_energy = Number(result['today_battery_output_energy'].value) * (Math.pow(10, Number(result['today_battery_output_energy'].scale)));
-            //     this.setCapabilityValue('meter_power.today_batt_output', today_battery_output_energy);
-            // }
+            if (result['total_battery_input_energy'] && result['total_battery_input_energy'].value != 'xxx' && this.hasCapability('meter_power.battery_input')) {
+                this.addCapability('meter_power.battery_input');
+                var total_battery_input_energy = Number(result['total_battery_input_energy'].value) * (Math.pow(10, Number(result['total_battery_input_energy'].scale)));
+                this.setCapabilityValue('meter_power.battery_input', total_battery_input_energy);
+            }
 
-            // if (result['today_battery_input_energy'] && result['today_battery_input_energy'].value != 'xxx' && this.hasCapability('meter_power.today_batt_input')) {
-            //     this.addCapability('meter_power.today_batt_input');
-            //     var today_battery_input_energy = Number(result['today_battery_input_energy'].value) * (Math.pow(10, Number(result['today_battery_input_energy'].scale)));
-            //     this.setCapabilityValue('meter_power.today_batt_input', today_battery_input_energy);
-            // }
+            if (result['total_battery_output_energy'] && result['total_battery_output_energy'].value != 'xxx' && this.hasCapability('meter_power.battery_output')) {
+                this.addCapability('meter_power.battery_output');
+                var total_battery_output_energy = Number(result['total_battery_output_energy'].value) * (Math.pow(10, Number(result['total_battery_output_energy'].scale)));
+                this.setCapabilityValue('meter_power.battery_output', total_battery_output_energy);
+            }
+
+            if (result['today_battery_output_energy'] && result['today_battery_output_energy'].value != 'xxx' && this.hasCapability('meter_power.today_batt_output')) {
+                this.addCapability('meter_power.today_batt_output');
+                var today_battery_output_energy = Number(result['today_battery_output_energy'].value) * (Math.pow(10, Number(result['today_battery_output_energy'].scale)));
+                this.setCapabilityValue('meter_power.today_batt_output', today_battery_output_energy);
+            }
+
+            if (result['today_battery_input_energy'] && result['today_battery_input_energy'].value != 'xxx' && this.hasCapability('meter_power.today_batt_input')) {
+                this.addCapability('meter_power.today_batt_input');
+                var today_battery_input_energy = Number(result['today_battery_input_energy'].value) * (Math.pow(10, Number(result['today_battery_input_energy'].scale)));
+                this.setCapabilityValue('meter_power.today_batt_input', today_battery_input_energy);
+            }
 
             // try {
             //     if (result['today_load'] && result['today_load'].value != 'xxx' && this.hasCapability('meter_power.today_load')) {
