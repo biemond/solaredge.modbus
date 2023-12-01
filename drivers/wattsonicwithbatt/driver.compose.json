@@ -17,8 +17,16 @@
     "measure_current.phase2",
     "measure_current.phase3",
     "measure_temperature.invertor",
+    "measure_temperature.battery",    
     "meter_power",
-    "meter_power.daily"
+    "meter_power.daily",
+    "battery",
+    "measure_battery",
+    "batterysoh",
+    "meter_power.today_grid_import",
+    "meter_power.today_grid_export",
+    "meter_power.grid_import",
+    "meter_power.grid_export"             
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -68,6 +76,13 @@
       },
       "decimals": 2
     },
+    "measure_temperature.battery": {
+      "title": {
+        "en": "Battery temperature",
+        "de": "Batterietemperatur"
+      },
+      "decimals": 2
+    },    
     "meter_power": {
       "title": {
         "en": "Total Yield",
@@ -84,7 +99,51 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    }
+    },
+    "meter_power.today_grid_import": {
+      "title": {
+        "en": "Grid Import Day Yield",
+        "de": "Netztagesimport"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.today_grid_export": {
+      "title": {
+        "en": "Grid Export Day Yield",
+        "de": "Netztagesexport"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.grid_import": {
+      "title": {
+        "en": "Grid Import",
+        "de": "Netzimport"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.grid_export": {
+      "title": {
+        "en": "Grid Export",
+        "de": "Netztexport"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    }           
   },
   "platforms": [
     "local"

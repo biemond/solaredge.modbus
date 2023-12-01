@@ -82,6 +82,7 @@ export class Wattsonic extends Homey.Device {
         // "todayEnergy": [53, 2, 'UINT32', "Today Energy", -1],
         // "totalEnergy": [55, 2, 'UINT32', "Total Energy", -1],
 
+        
         "pv1Voltage": [11038, 1, 'UINT16', "pv1 Voltage", -1], // V	10	
         "pv2Voltage": [11040, 1, 'UINT16', "pv2 Voltage", -1],
         
@@ -102,7 +103,7 @@ export class Wattsonic extends Homey.Device {
         "battery_power":  [30258, 2, 'INT32',  "Battery power", 0],
 
         "battsoc": [33000, 1, 'UINT16', "battery soc", -2],  // 	%	100
-        "bmstemperature": [33003, 1, 'UINT16', "bms Temperature", -1],  //	℃10
+        "batttemperature": [33003, 1, 'UINT16', "bms Temperature", -1],  //	℃10
         "bmshealth": [33001, 1, 'UINT16', "bms soh", -2],  // %	100
         "bmsstatus": [33002, 1, 'UINT16', "bms status", 0],
         "bmserror": [33016, 2, 'UINT32', "bms error", 0],
@@ -240,25 +241,25 @@ export class Wattsonic extends Homey.Device {
             //     this.setCapabilityValue('measure_voltage.battery', battvoltage);
             // }
 
-            // if (result['batttemperature'] && result['batttemperature'].value != 'xxx' && this.hasCapability('measure_temperature.battery')) {
-            //     this.addCapability('measure_temperature.battery');
-            //     var temperature = Number(result['batttemperature'].value) * (Math.pow(10, Number(result['batttemperature'].scale)));
-            //     this.setCapabilityValue('measure_temperature.battery', temperature);
-            // }
+            if (result['batttemperature'] && result['batttemperature'].value != 'xxx' && this.hasCapability('measure_temperature.battery')) {
+                this.addCapability('measure_temperature.battery');
+                var temperature = Number(result['batttemperature'].value) * (Math.pow(10, Number(result['batttemperature'].scale)));
+                this.setCapabilityValue('measure_temperature.battery', temperature);
+            }
 
-            // if (result['battsoc'] && result['battsoc'].value != 'xxx' && this.hasCapability('measure_battery')) {
-            //     this.addCapability('battery');
-            //     this.addCapability('measure_battery');
-            //     var soc = Number(result['battsoc'].value) * (Math.pow(10, Number(result['battsoc'].scale)));
-            //     this.setCapabilityValue('battery', soc);
-            //     this.setCapabilityValue('measure_battery', soc);
-            // }
+            if (result['battsoc'] && result['battsoc'].value != 'xxx' && this.hasCapability('measure_battery')) {
+                this.addCapability('battery');
+                this.addCapability('measure_battery');
+                var soc = Number(result['battsoc'].value) * (Math.pow(10, Number(result['battsoc'].scale)));
+                this.setCapabilityValue('battery', soc);
+                this.setCapabilityValue('measure_battery', soc);
+            }
 
-            // if (result['bmshealth'] && result['bmshealth'].value != 'xxx' && this.hasCapability('batterysoh')) {
-            //     this.addCapability('batterysoh');
-            //     var soh = Number(result['bmshealth'].value) * (Math.pow(10, Number(result['bmshealth'].scale)));
-            //     this.setCapabilityValue('batterysoh', soh);
-            // }
+            if (result['bmshealth'] && result['bmshealth'].value != 'xxx' && this.hasCapability('batterysoh')) {
+                this.addCapability('batterysoh');
+                var soh = Number(result['bmshealth'].value) * (Math.pow(10, Number(result['bmshealth'].scale)));
+                this.setCapabilityValue('batterysoh', soh);
+            }
 
             // if (result['battDischarge'] && result['battDischarge'].value != 'xxx' && this.hasCapability('measure_power.batt_discharge')) {
             //     this.addCapability('measure_power.batt_discharge');
@@ -290,17 +291,29 @@ export class Wattsonic extends Homey.Device {
             //     console.log(err);
             // }
             
-            // if (result['today_grid_import'] && result['today_grid_import'].value != 'xxx' && this.hasCapability('meter_power.today_grid_import')) {
-            //     this.addCapability('meter_power.today_grid_import');
-            //     var today_grid_import = Number(result['today_grid_import'].value) * (Math.pow(10, Number(result['today_grid_import'].scale)));
-            //     this.setCapabilityValue('meter_power.today_grid_import', today_grid_import);
-            // }
+            if (result['today_grid_import'] && result['today_grid_import'].value != 'xxx' && this.hasCapability('meter_power.today_grid_import')) {
+                this.addCapability('meter_power.today_grid_import');
+                var today_grid_import = Number(result['today_grid_import'].value) * (Math.pow(10, Number(result['today_grid_import'].scale)));
+                this.setCapabilityValue('meter_power.today_grid_import', today_grid_import);
+            }
 
-            // if (result['today_grid_export'] && result['today_grid_export'].value != 'xxx' && this.hasCapability('meter_power.today_grid_export')) {
-            //     this.addCapability('meter_power.today_grid_export');
-            //     var today_grid_export = Number(result['today_grid_export'].value) * (Math.pow(10, Number(result['today_grid_export'].scale)));
-            //     this.setCapabilityValue('meter_power.today_grid_export', today_grid_export);
-            // }
+            if (result['today_grid_export'] && result['today_grid_export'].value != 'xxx' && this.hasCapability('meter_power.today_grid_export')) {
+                this.addCapability('meter_power.today_grid_export');
+                var today_grid_export = Number(result['today_grid_export'].value) * (Math.pow(10, Number(result['today_grid_export'].scale)));
+                this.setCapabilityValue('meter_power.today_grid_export', today_grid_export);
+            }
+
+            if (result['total_grid_import'] && result['total_grid_import'].value != 'xxx' && this.hasCapability('meter_power.grid_import')) {
+                this.addCapability('meter_power.grid_import');
+                var total_grid_import = Number(result['total_grid_import'].value) * (Math.pow(10, Number(result['total_grid_import'].scale)));
+                this.setCapabilityValue('meter_power.grid_import', total_grid_import);
+            }
+
+            if (result['total_grid_export'] && result['total_grid_export'].value != 'xxx' && this.hasCapability('meter_power.grid_export')) {
+                this.addCapability('meter_power.grid_export');
+                var total_grid_export = Number(result['total_grid_export'].value) * (Math.pow(10, Number(result['total_grid_export'].scale)));
+                this.setCapabilityValue('meter_power.grid_export', total_grid_export);
+            }
 
             // if (result['today_battery_output_energy'] && result['today_battery_output_energy'].value != 'xxx' && this.hasCapability('meter_power.today_batt_output')) {
             //     this.addCapability('meter_power.today_batt_output');

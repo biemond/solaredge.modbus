@@ -47,10 +47,13 @@ socket.on('connect', () => {
         // "grid_inject_meter":        [11002, 2, 'UINT32', "Total Grid-Injection Energy on Meter"],
         // "purchase_gird_meter":      [11004, 2, 'UINT32', "Total Purchasing Energy from Grid on Meter"],
 
-        // "phasea_power":             [10994, 2, 'INT32', "Phase A power"],
-        // "phaseb_power":             [10996, 2, 'INT32', "Phase B power"],
-        // "phasec_power":             [10998, 2, 'INT32', "Phase C power"],
+        "phasea_power":             [10994, 2, 'INT32', "Phase A power"],
+        "phaseb_power":             [10996, 2, 'INT32', "Phase B power"],
+        "phasec_power":             [10998, 2, 'INT32', "Phase C power"],
 
+        // "phasea_power_meter":             [25105, 2, 'INT32', "Phase A power_meter"],
+        // "phaseb_power_meter":             [25107, 2, 'INT32', "Phase B power_meter"],
+        // "phasec_power_meter":             [25109, 2, 'INT32', "Phase C power_meter"],
 
         // "phasea_current":           [11010, 1, 'UINT16', "Phase A Current"],
         // "phaseb_current":           [11012, 1, 'UINT16', "Phase B Current"],
@@ -99,9 +102,10 @@ socket.on('connect', () => {
         "error2": [10114, 2, 'UINT32', "Error2"],
         "error3": [10120, 2, 'UINT32', "Error3"],        
 
+        "battvoltage": [53521, 1, 'UINT16', "BMS battery Voltage", -1],
 
         // "BMSStatus":           [33002, 1, 'UINT16', "BMS Status"],
-        // "BMSPackTemperature":  [33003, 1, 'UINT16', "BMS Pack Temperature"],
+        "BMSPackTemperature":  [33003, 1, 'UINT16', "BMS Pack Temperature"],
 
         // "MaxCellVoltage":      [33013, 1, 'UINT16', "Max Cell Voltage"],
         // "MinCellVoltage":      [33015, 1, 'UINT16', "Min Cell Voltage"],
@@ -117,27 +121,27 @@ socket.on('connect', () => {
 
         "TotalACPower":  [50203, 1, 'INT16', "Total AC Power Setting"],  
 
-        // 50210	1	Priority Power Output Setting	U16	NA	1	0：PV Output Priority 1：Battery Output Priority
-        "PriorityPowerOutput":  [50210, 1, 'UINT16', "Priority Power Output Setting"], 
+        // // 50210	1	Priority Power Output Setting	U16	NA	1	0：PV Output Priority 1：Battery Output Priority
+        // "PriorityPowerOutput":  [50210, 1, 'UINT16', "Priority Power Output Setting"], 
 
-        "scheduledChargeDischarge":  [53006, 1, 'BITS', "Scheduled Charge & Discharge"],  
-        // 53006	1	Scheduled Charge&Discharge	U16	N/A	1	bit0- bit5 stands for period1-period6,
-        // bit7-bit15 Reserved;
-        // 0: disable
-        // 1: enable
+        // "scheduledChargeDischarge":  [53006, 1, 'BITS', "Scheduled Charge & Discharge"],  
+        // // 53006	1	Scheduled Charge&Discharge	U16	N/A	1	bit0- bit5 stands for period1-period6,
+        // // bit7-bit15 Reserved;
+        // // 0: disable
+        // // 1: enable
 
-        "period1Charge/Discharge":  [53007, 1, 'UINT16', "Period 1 Charge/Discharge Setting"],  
-        // 35	53007	1	Charge/Discharge Setting	U16	N/A	1	Period1:
-        // 0:NONE
-        // 1:charge
-        // 2:discharge        
+        // "period1Charge/Discharge":  [53007, 1, 'UINT16', "Period 1 Charge/Discharge Setting"],  
+        // // 35	53007	1	Charge/Discharge Setting	U16	N/A	1	Period1:
+        // // 0:NONE
+        // // 1:charge
+        // // 2:discharge        
 
-        "period1StartTime":  [53012, 1, 'BYTE', "Period 1 Start Time"],  
-        // // 53012	1	Start Time	U16	N/A	1	Period1:
-        // // High 8bits(Hour):[0,23]
-        // // Low 8bits(Mins):[0,59]
+        // "period1StartTime":  [53012, 1, 'BYTE', "Period 1 Start Time"],  
+        // // // 53012	1	Start Time	U16	N/A	1	Period1:
+        // // // High 8bits(Hour):[0,23]
+        // // // Low 8bits(Mins):[0,59]
 
-        "period2StartTime":  [53019, 1, 'BYTE', "Period 1 Start Time"],  
+        // "period2StartTime":  [53019, 1, 'BYTE', "Period 1 Start Time"],  
       
 
 
