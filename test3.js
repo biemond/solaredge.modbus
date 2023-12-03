@@ -102,8 +102,6 @@ socket.on('connect', () => {
         "error2": [10114, 2, 'UINT32', "Error2"],
         "error3": [10120, 2, 'UINT32', "Error3"],        
 
-        "battvoltage": [53521, 1, 'UINT16', "BMS battery Voltage", -1],
-
         // "BMSStatus":           [33002, 1, 'UINT16', "BMS Status"],
         "BMSPackTemperature":  [33003, 1, 'UINT16', "BMS Pack Temperature"],
 
@@ -113,35 +111,52 @@ socket.on('connect', () => {
         // "BMSERRORCODE": [33016, 2, 'UINT32', "BMS ERROR CODE"],
         // "BMSWARNCODE":  [33018, 2, 'UINT32', "BMS WARN CODE"],
 
+
+
         // "BMSERRORCODE2": [53509, 2, 'UINT32', "BMS ERROR CODE 2"],
         // "BMSPROTECTIONCODE2": [53509, 2, 'UINT32', "BMS Protection CODE 2"],
         // "BMSALARMCODE":  [53513, 2, 'UINT32', "BMS ALARM CODE"],        
 
         // "BMScontrol":  [53508, 1, 'BYTE', "BMS Control"],        
 
-        "TotalACPower":  [50203, 1, 'INT16', "Total AC Power Setting"],  
+        // "TotalACPower":  [50203, 1, 'INT16', "Total AC Power Setting"],  
 
-        // // 50210	1	Priority Power Output Setting	U16	NA	1	0：PV Output Priority 1：Battery Output Priority
-        // "PriorityPowerOutput":  [50210, 1, 'UINT16', "Priority Power Output Setting"], 
+        "HybridInverterWorkingMode":  [50000, 1, 'BYTE', "Hybrid Inverter Working Mode Setting"],  
 
-        // "scheduledChargeDischarge":  [53006, 1, 'BITS', "Scheduled Charge & Discharge"],  
+        "Battery Power Setting":  [50207, 1, 'INT16', "Battery Power Setting"], 
+        //	50207	1	Battery Power Setting	I16	kW	100	
+         "Max. AC Power Limit Setting":  [50207, 1, 'INT16', "Max. AC Power Limit Setting"], 
+        //	50208	1	Max. AC Power Limit Setting	I16	kW	100	
+        "Min. AC Power Limit Setting":  [50209, 1, 'INT16', "Min. AC Power Limit Setting"], 
+        //	50209	1	Min. AC Power Limit Setting	I16	kW	100	
+        "PriorityPowerOutput":  [50210, 1, 'UINT16', "Priority Power Output Setting"], 
+        //	50210	1	Priority Power Output Setting	U16	NA	1	0：PV Output Priority 1：Battery Output Priority
+        // "PV Power Setting":  [50211, 1, 'UINT16', "PV Power Setting"], 
+        //	50211	1	PV Power Setting	U16	kW	100	
+
+
+
+        "scheduledChargeDischarge":  [53006, 1, 'BITS', "Scheduled Charge & Discharge"],  
         // // 53006	1	Scheduled Charge&Discharge	U16	N/A	1	bit0- bit5 stands for period1-period6,
         // // bit7-bit15 Reserved;
         // // 0: disable
         // // 1: enable
 
-        // "period1Charge/Discharge":  [53007, 1, 'UINT16', "Period 1 Charge/Discharge Setting"],  
+        "period1Charge/Discharge":  [53007, 1, 'UINT16', "Period 1 Charge/Discharge Setting"],  
         // // 35	53007	1	Charge/Discharge Setting	U16	N/A	1	Period1:
         // // 0:NONE
         // // 1:charge
         // // 2:discharge        
 
-        // "period1StartTime":  [53012, 1, 'BYTE', "Period 1 Start Time"],  
+        "Battery Charge By":  [53008, 1, 'UINT16', "Battery Charge By"],  
+
+
+        "period1StartTime":  [53012, 1, 'BYTE', "Period 1 Start Time"],  
         // // // 53012	1	Start Time	U16	N/A	1	Period1:
         // // // High 8bits(Hour):[0,23]
         // // // Low 8bits(Mins):[0,59]
 
-        // "period2StartTime":  [53019, 1, 'BYTE', "Period 1 Start Time"],  
+        // "period6StartTime":  [53047, 1, 'BYTE', "Period 2 Start Time"],  
       
 
 
@@ -198,6 +213,8 @@ socket.on('connect', () => {
             console.log(err);
         });
     }
+
+
     delay(function(){
         socket.end();
     }, 20000 );

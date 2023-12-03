@@ -33,8 +33,10 @@
     "meter_power.today_batt_output",
     "meter_power.today_batt_input",
     "meter_power.battery_input",
-    "meter_power.battery_output",    
-    "batterystatus"                     
+    "meter_power.battery_output",
+    "meter_power.today_load",    
+    "batterystatus",
+    "hybridinvertermode"                     
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -216,7 +218,18 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    }               
+    },
+    "meter_power.today_load": {
+      "title": {
+        "en": "Load Day Yield",
+        "de": "Tagesgesamtverbrauch"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    }                   
   },
   "platforms": [
     "local"

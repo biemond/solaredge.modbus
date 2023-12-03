@@ -118,6 +118,8 @@ export class Wattsonic extends Homey.Device {
         "today_load": [31006, 1, 'UINT16', "Today's Load", -1],
         "total_load": [31114, 2, 'UINT32', "Total Load", -1],   //	kWh	10
 
+        "HybridInverterWorkingMode":  [50000, 1, 'UINT16', "Hybrid Inverter Working Mode Setting",0]  
+
     };   
 
 
@@ -344,18 +346,19 @@ export class Wattsonic extends Homey.Device {
                 this.setCapabilityValue('meter_power.today_batt_input', today_battery_input_energy);
             }
 
-            // try {
-            //     if (result['today_load'] && result['today_load'].value != 'xxx' && this.hasCapability('meter_power.today_load')) {
-            //         this.addCapability('meter_power.today_load');
-            //         var today_load = Number(result['today_load'].value) * (Math.pow(10, Number(result['today_load'].scale)));
-            //         this.setCapabilityValue('meter_power.today_load', today_load);
-            //     }
-            // } catch (err) {
-            //     console.log("error with key: today_load");
-            //     console.log(err);
-            // }
+            if (result['today_load'] && result['today_load'].value != 'xxx' && this.hasCapability('meter_power.today_load')) {
+                this.addCapability('meter_power.today_load');
+                var today_load = Number(result['today_load'].value) * (Math.pow(10, Number(result['today_load'].scale)));
+                this.setCapabilityValue('meter_power.today_load', today_load);
+            }
 
-
+            if (result['HybridInverterWorkingMode'] && result['HybridInverterWorkingMode'].value != 'xxx' && this.hasCapability('hybridinvertermode')) {
+                this.addCapability('hybridinvertermode');
+                var HybridInverterWorking = Number(result['HybridInverterWorkingMode'].value );
+                let lowVal = HybridInverterWorking & 0xFF;
+                let highval = (HybridInverterWorking >> 8) & 0xFF;
+                this.setCapabilityValue('hybridinvertermode', highval.toString() + lowVal.toString());
+            }
             
         }
     }
