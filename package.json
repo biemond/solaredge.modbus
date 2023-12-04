@@ -15,7 +15,6 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@transmute/compressable-bitstring": "^0.7.0-unstable.81",
     "jsmodbus": "^4.0.6"
   }
 }

@@ -1,8 +1,6 @@
 console.log('-------------------')
 
 
-
-const {Bitstring} = require( '@transmute/compressable-bitstring');
 const modbus = require('jsmodbus');
 const net = require('net');
 const socket = new net.Socket();
@@ -182,14 +180,8 @@ socket.on('connect', () => {
                 var value2 = resp.response._body._valuesAsBuffer.readUInt16BE();
                 let lowVal = value2 & 0xFF;
                 let highval = (value2 >> 8) & 0xFF;
-                // const bitstring = new Bitstring({ length: 8 });
-                // bitstring.set(4, true);
-                const buffer = Uint8Array.from([lowVal]);
-                const bitstring = new Bitstring({buffer});
-
-                // const buffer = Uint8Array.from([255]);
-                // const Bitstring = new Bitstring(value2);
-                console.log(value[3] + ": "+ lowVal + " " + bitstring.get(0) +  bitstring.get(3) +  bitstring.get(4));
+  
+                console.log(value[3] + ": "+ lowVal );
             } else if  ( value[2] == 'UINT32') {    
                 console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readUInt32BE());
             } else if  ( value[2] == 'ACC32') {

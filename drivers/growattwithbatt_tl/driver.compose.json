@@ -46,8 +46,10 @@
     "meter_power.today_load",
     "batterymaxsoc",
     "batteryminsoc",
-    "gridfirst1",
-    "battfirst1",
+    "period1",
+    "period2",
+    "period3",
+    "period4",    
     "battacchargeswitch"
   ],
   "capabilitiesOptions": {

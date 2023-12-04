@@ -40,9 +40,14 @@ export class Growatt extends Homey.Device {
 
         "acchargeswitch": [3049, 1, 'UINT16', "Batt AC charge switch", 0],
 
-
-        // "prioritychange": [1044, 1, 'UINT16', "Priority", 0],
-         
+        "period1start": [3038, 1, 'UINT16', "period1start", 0],
+        "period1stop":  [3039, 1, 'UINT16', "period1stop", 0],
+        "period2start": [3040, 1, 'UINT16', "period2start", 0],
+        "period2stop":  [3041, 1, 'UINT16', "period2stop", 0],
+        "period3start": [3042, 1, 'UINT16', "period3start", 0],
+        "period3stop":  [3043, 1, 'UINT16', "period3stop", 0],
+        "period4start": [3044, 1, 'UINT16', "period4start", 0],
+        "period4stop":  [3045, 1, 'UINT16', "period4stop", 0],                         
         // "gridfirststarttime1": [1080, 1, 'UINT16', "Grid First Start Time", 0],
         // "gridfirststoptime1": [1081, 1, 'UINT16', "Grid First Stop Time", 0],
         // "gridfirststopswitch1": [1082, 1, 'UINT16', "Grid First Stop Switch 1", 0],
@@ -546,46 +551,219 @@ export class Growatt extends Homey.Device {
                     useGrouping: false
                 }) + ' state: ' + value3);
             }
-            // if (result['loadfirststarttime1'] && result['loadfirststarttime1'].value != 'xxx' && this.hasCapability('loadfirst1')) {
-            //     var value = Number(result['loadfirststarttime1'].value);
-            //     let lowVal = value & 0xFF;
-            //     let highval = (value >> 8) & 0xFF;
-            //     // console.log('loadfirststarttime1: hour ' + highval + ' min ' + lowVal );
-            //     var value2 = Number(result['loadfirststoptime1'].value);
-            //     let lowVal2 = value2 & 0xFF;
-            //     let highval2 = (value2 >> 8) & 0xFF;
-            //     // console.log('loadfirststoptime1: hour ' + highval2 + ' min ' + lowVal2 );
-            //     var value3 = result['loadfirststopswitch1'].value;
-            //     // console.log('loadfirststopswitch1: ' + value3);
-            //     console.log('loadfirst1 from: ' + highval.toLocaleString('en-US', {
-            //         minimumIntegerDigits: 2,
-            //         useGrouping: false
-            //     }) + ':' + lowVal.toLocaleString('en-US', {
-            //         minimumIntegerDigits: 2,
-            //         useGrouping: false
-            //     }) + ' ~ ' + highval2.toLocaleString('en-US', {
-            //         minimumIntegerDigits: 2,
-            //         useGrouping: false
-            //     }) + ':' + lowVal2.toLocaleString('en-US', {
-            //         minimumIntegerDigits: 2,
-            //         useGrouping: false
-            //     }) + ' state: ' + value3);
-            //     this.addCapability('loadfirst1');
-            //     this.setCapabilityValue('loadfirst1', highval.toLocaleString('en-US', {
-            //         minimumIntegerDigits: 2,
-            //         useGrouping: false
-            //     }) + ':' + lowVal.toLocaleString('en-US', {
-            //         minimumIntegerDigits: 2,
-            //         useGrouping: false
-            //     }) + ' ~ ' + highval2.toLocaleString('en-US', {
-            //         minimumIntegerDigits: 2,
-            //         useGrouping: false
-            //     }) + ':' + lowVal2.toLocaleString('en-US', {
-            //         minimumIntegerDigits: 2,
-            //         useGrouping: false
-            //     }) + ' state: ' + value3);                
-            // }
 
+
+            if (result['period1start'] && result['period1start'].value != 'xxx' && this.hasCapability('period1')) {
+                var value = Number(result['period1start'].value);
+                let lowVal = value & 0xFF;
+                let highval = (value >> 8) & 0xFF;
+
+                let bit0 = (highval & (1<<0)); 
+                let bit1 = (highval & (1<<1));                                 
+                let bit2 = (highval & (1<<2)); 
+                let bit3 = (highval & (1<<3)); 
+                let bit4 = (highval & (1<<4));
+                let starthour = bit0 + bit1 + bit2 + bit3 + bit4; 
+
+                let bit5 = (highval & (1<<5)); 
+                let bit6 = (highval & (1<<6));
+                let priorityPeriod1 = "";
+                if ((bit5 + bit6) == 0) {
+                    priorityPeriod1 = "load";
+                } else if ((bit5 + bit6) == 1) {
+                    priorityPeriod1 = "battery";
+                } else {
+                    priorityPeriod1 = "grid";
+                }                              
+                
+                let enabledPeriod1 = false;
+                let bit7 = (highval & (1<<7)); 
+                if (bit7 == 128) {
+                    enabledPeriod1 = true;
+                }
+
+                console.log('period1start: hour ' + starthour + ' min ' + lowVal );
+
+                var value2 = Number(result['period1stop'].value);
+                let lowVal2 = value2 & 0xFF;
+                let highval2 = (value2 >> 8) & 0xFF;
+                console.log('period1stop: hour ' + highval2 + ' min ' + lowVal2 );
+
+                this.addCapability('period1');
+                this.setCapabilityValue('period1', starthour.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ':' + lowVal.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ' ~ ' + highval2.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ':' + lowVal2.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ' state: ' + enabledPeriod1 + ' priority: ' + priorityPeriod1);
+            }
+
+
+            if (result['period2start'] && result['period2start'].value != 'xxx' && this.hasCapability('period2')) {
+                var value = Number(result['period2start'].value);
+                let lowVal = value & 0xFF;
+                let highval = (value >> 8) & 0xFF;
+
+                let bit0 = (highval & (1<<0)); 
+                let bit1 = (highval & (1<<1));                                 
+                let bit2 = (highval & (1<<2)); 
+                let bit3 = (highval & (1<<3)); 
+                let bit4 = (highval & (1<<4));
+                let starthour = bit0 + bit1 + bit2 + bit3 + bit4; 
+
+                let bit5 = (highval & (1<<5)); 
+                let bit6 = (highval & (1<<6));
+                let priorityperiod2 = "";
+                if ((bit5 + bit6) == 0) {
+                    priorityperiod2 = "load";
+                } else if ((bit5 + bit6) == 1) {
+                    priorityperiod2 = "battery";
+                } else {
+                    priorityperiod2 = "grid";
+                }                              
+                
+                let enabledperiod2 = false;
+                let bit7 = (highval & (1<<7)); 
+                if (bit7 == 128) {
+                    enabledperiod2 = true;
+                }
+
+                console.log('period2start: hour ' + starthour + ' min ' + lowVal );
+
+                var value2 = Number(result['period2stop'].value);
+                let lowVal2 = value2 & 0xFF;
+                let highval2 = (value2 >> 8) & 0xFF;
+                console.log('period2stop: hour ' + highval2 + ' min ' + lowVal2 );
+
+                this.addCapability('period2');
+                this.setCapabilityValue('period2', starthour.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ':' + lowVal.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ' ~ ' + highval2.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ':' + lowVal2.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ' state: ' + enabledperiod2 + ' priority: ' + priorityperiod2);
+            }
+
+            if (result['period3start'] && result['period3start'].value != 'xxx' && this.hasCapability('period3')) {
+                var value = Number(result['period3start'].value);
+                let lowVal = value & 0xFF;
+                let highval = (value >> 8) & 0xFF;
+
+                let bit0 = (highval & (1<<0)); 
+                let bit1 = (highval & (1<<1));                                 
+                let bit2 = (highval & (1<<2)); 
+                let bit3 = (highval & (1<<3)); 
+                let bit4 = (highval & (1<<4));
+                let starthour = bit0 + bit1 + bit2 + bit3 + bit4; 
+
+                let bit5 = (highval & (1<<5)); 
+                let bit6 = (highval & (1<<6));
+                let priorityperiod3 = "";
+                if ((bit5 + bit6) == 0) {
+                    priorityperiod3 = "load";
+                } else if ((bit5 + bit6) == 1) {
+                    priorityperiod3 = "battery";
+                } else {
+                    priorityperiod3 = "grid";
+                }                              
+                
+                let enabledperiod3 = false;
+                let bit7 = (highval & (1<<7)); 
+                if (bit7 == 128) {
+                    enabledperiod3 = true;
+                }
+
+                console.log('period3start: hour ' + starthour + ' min ' + lowVal );
+
+                var value2 = Number(result['period3stop'].value);
+                let lowVal2 = value2 & 0xFF;
+                let highval2 = (value2 >> 8) & 0xFF;
+                console.log('period3stop: hour ' + highval2 + ' min ' + lowVal2 );
+
+                this.addCapability('period3');
+                this.setCapabilityValue('period3', starthour.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ':' + lowVal.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ' ~ ' + highval2.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ':' + lowVal2.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ' state: ' + enabledperiod3 + ' priority: ' + priorityperiod3);
+            }
+
+            if (result['period4start'] && result['period4start'].value != 'xxx' && this.hasCapability('period4')) {
+                var value = Number(result['period4start'].value);
+                let lowVal = value & 0xFF;
+                let highval = (value >> 8) & 0xFF;
+
+                let bit0 = (highval & (1<<0)); 
+                let bit1 = (highval & (1<<1));                                 
+                let bit2 = (highval & (1<<2)); 
+                let bit3 = (highval & (1<<3)); 
+                let bit4 = (highval & (1<<4));
+                let starthour = bit0 + bit1 + bit2 + bit3 + bit4; 
+
+                let bit5 = (highval & (1<<5)); 
+                let bit6 = (highval & (1<<6));
+                let priorityperiod4 = "";
+                if ((bit5 + bit6) == 0) {
+                    priorityperiod4 = "load";
+                } else if ((bit5 + bit6) == 1) {
+                    priorityperiod4 = "battery";
+                } else {
+                    priorityperiod4 = "grid";
+                }                              
+                
+                let enabledperiod4 = false;
+                let bit7 = (highval & (1<<7)); 
+                if (bit7 == 128) {
+                    enabledperiod4 = true;
+                }
+
+                console.log('period4start: hour ' + starthour + ' min ' + lowVal );
+
+                var value2 = Number(result['period4stop'].value);
+                let lowVal2 = value2 & 0xFF;
+                let highval2 = (value2 >> 8) & 0xFF;
+                console.log('period4stop: hour ' + highval2 + ' min ' + lowVal2 );
+
+                this.addCapability('period4');
+                this.setCapabilityValue('period4', starthour.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ':' + lowVal.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ' ~ ' + highval2.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ':' + lowVal2.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                }) + ' state: ' + enabledperiod4 + ' priority: ' + priorityperiod4);
+            }
         }
+
+        
+
     }
 }

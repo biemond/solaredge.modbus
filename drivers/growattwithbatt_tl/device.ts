@@ -55,6 +55,7 @@ class MyGrowattTLBattery extends Growatt {
       await this.updateControl('battacchargeswitch', Number(args.mode));
     });
 
+
     // let battfirsttime1Action = this.homey.flow.getActionCard('battfirsttime1');
     // battfirsttime1Action.registerRunListener(async (args, state) => {
     //   await this.updateControlProfile('battfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
@@ -78,6 +79,19 @@ class MyGrowattTLBattery extends Growatt {
       this.updateControl('exportlimitpowerrate', value);
       return value;
     });
+
+    if (this.hasCapability('period1') === false) {
+      await this.addCapability('period1');
+    }
+    if (this.hasCapability('period2') === false) {
+      await this.addCapability('period2');
+    }
+    if (this.hasCapability('period3') === false) {
+      await this.addCapability('period3');
+    }
+    if (this.hasCapability('period4') === false) {
+      await this.addCapability('period4');
+    }
 
   }
 

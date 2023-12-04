@@ -1,14 +1,12 @@
 console.log('-------------------')
 
 
-
-const {Bitstring} = require( '@transmute/compressable-bitstring');
 const modbus = require('jsmodbus');
 const net = require('net');
 const socket = new net.Socket();
 
 let options = {
-    'host': '10.10.100.122',
+    'host': '192.168.5.201',
     'port': 502,
     'unitId': 1,
     'timeout': 500,
@@ -44,6 +42,8 @@ socket.on('connect', () => {
         "gridfirststopsoc": [3037, 1, 'UINT16', "GridFirst stop SOC", 0],
         "batfirststopsoc": [3048, 1, 'UINT16', "BatFirst stop SOC", 0],
 
+        "period1start": [3038, 1, 'BITS', "period1start", 0],
+        "period1stop": [3039, 1, 'BITS', "period1stop", 0]
     }    
 
 
@@ -76,17 +76,29 @@ socket.on('connect', () => {
                 console.log(value[3] + ": " + highval + " " + lowVal );
             } else if ( value[2] == 'BITS') {
 
-                var value2 = resp.response._body._valuesAsBuffer.readUInt16BE();
+                var value2 = Number(resp.response._body._valuesAsArray[0].toString());
                 let lowVal = value2 & 0xFF;
                 let highval = (value2 >> 8) & 0xFF;
-                // const bitstring = new Bitstring({ length: 8 });
-                // bitstring.set(4, true);
-                const buffer = Uint8Array.from([lowVal]);
-                const bitstring = new Bitstring({buffer});
+                let bit0 = (highval & (1<<0)); 
+                let bit1 = (highval & (1<<1));                                 
+                let bit2 = (highval & (1<<2)); 
+                let bit3 = (highval & (1<<3)); 
+                let bit4 = (highval & (1<<4));                                 
+                let bit5 = (highval & (1<<5)); 
+                let bit6 = (highval & (1<<6));                                 
+                let bit7 = (highval & (1<<7)); 
 
-                // const buffer = Uint8Array.from([255]);
-                // const Bitstring = new Bitstring(value2);
-                console.log(value[3] + ": "+ lowVal + " " + bitstring.get(0) +  bitstring.get(3) +  bitstring.get(4));
+                console.log(value[3] + ": "+ lowVal );
+                console.log(value[3] + ": "+ highval);
+                console.log('bit0 ' + bit0 );
+                console.log('bit1 ' + bit1 );
+                console.log('bit2 ' + bit2 );
+                console.log('bit3 ' + bit3 );
+                console.log('bit4 ' + bit4 );
+                console.log('bit5 ' + bit5 );
+                console.log('bit6 ' + bit6 );
+                console.log('bit7 ' + bit7 );
+
             } else if  ( value[2] == 'UINT32') {    
                 resultValue = (resp.response._body._valuesAsArray[0]  << 16 | resp.response._body._valuesAsArray[1]).toString();
                 console.log(value[3] + ": " + resultValue);
