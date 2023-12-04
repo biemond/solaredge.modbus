@@ -99,6 +99,16 @@ socket.on('connect', () => {
                 console.log('bit6 ' + bit6 );
                 console.log('bit7 ' + bit7 );
 
+                let priorityPeriod1 = "";
+                if ((bit5 + bit6) == 0) {
+                    priorityPeriod1 = "load";
+                } else if ((bit5 + bit6) == 32) {
+                    priorityPeriod1 = "battery";
+                } else {
+                    priorityPeriod1 = "grid";
+                }
+                console.log('priorityPeriod1 ' + priorityPeriod1 );   
+
             } else if  ( value[2] == 'UINT32') {    
                 resultValue = (resp.response._body._valuesAsArray[0]  << 16 | resp.response._body._valuesAsArray[1]).toString();
                 console.log(value[3] + ": " + resultValue);

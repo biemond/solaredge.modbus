@@ -357,6 +357,9 @@ export class Wattsonic extends Homey.Device {
                 var HybridInverterWorking = Number(result['HybridInverterWorkingMode'].value );
                 let lowVal = HybridInverterWorking & 0xFF;
                 let highval = (HybridInverterWorking >> 8) & 0xFF;
+                if ( highval == 2 ) {
+                    lowVal = 0;
+                }
                 this.setCapabilityValue('hybridinvertermode', highval.toString() + lowVal.toString());
             }
             

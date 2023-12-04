@@ -570,7 +570,7 @@ export class Growatt extends Homey.Device {
                 let priorityPeriod1 = "";
                 if ((bit5 + bit6) == 0) {
                     priorityPeriod1 = "load";
-                } else if ((bit5 + bit6) == 1) {
+                } else if ((bit5 + bit6) == 32) {
                     priorityPeriod1 = "battery";
                 } else {
                     priorityPeriod1 = "grid";
@@ -623,7 +623,7 @@ export class Growatt extends Homey.Device {
                 let priorityperiod2 = "";
                 if ((bit5 + bit6) == 0) {
                     priorityperiod2 = "load";
-                } else if ((bit5 + bit6) == 1) {
+                } else if ((bit5 + bit6) == 32) {
                     priorityperiod2 = "battery";
                 } else {
                     priorityperiod2 = "grid";
@@ -675,7 +675,7 @@ export class Growatt extends Homey.Device {
                 let priorityperiod3 = "";
                 if ((bit5 + bit6) == 0) {
                     priorityperiod3 = "load";
-                } else if ((bit5 + bit6) == 1) {
+                } else if ((bit5 + bit6) == 32) {
                     priorityperiod3 = "battery";
                 } else {
                     priorityperiod3 = "grid";
@@ -727,7 +727,7 @@ export class Growatt extends Homey.Device {
                 let priorityperiod4 = "";
                 if ((bit5 + bit6) == 0) {
                     priorityperiod4 = "load";
-                } else if ((bit5 + bit6) == 1) {
+                } else if ((bit5 + bit6) == 32) {
                     priorityperiod4 = "battery";
                 } else {
                     priorityperiod4 = "grid";

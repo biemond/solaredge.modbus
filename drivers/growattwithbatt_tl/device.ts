@@ -92,7 +92,12 @@ class MyGrowattTLBattery extends Growatt {
     if (this.hasCapability('period4') === false) {
       await this.addCapability('period4');
     }
-
+    if (this.hasCapability('gridfirst1') === true) {
+      await this.removeCapability('gridfirst1');
+    }
+    if (this.hasCapability('battfirst1') === true) {
+      await this.removeCapability('battfirst1');
+    }    
   }
 
   /**
