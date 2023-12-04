@@ -80,7 +80,7 @@ class MyWattsonicDevice extends Wattsonic {
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 500);
+    let client = new Modbus.client.TCP(socket, unitID, 1000);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 

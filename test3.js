@@ -14,7 +14,7 @@ let options = {
     'timeout': 500,
     'autoReconnect': true,
     'reconnectTimeout': 62,
-    'logLabel' : 'solaredge Inverter',
+    'logLabel' : 'wattsonic Inverter',
     'logLevel': 'error',
     'logEnabled': true
 }

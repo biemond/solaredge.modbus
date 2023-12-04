@@ -29,6 +29,17 @@ class MyWattsonicBatteryDevice extends Wattsonic {
       return value;
     });    
 
+    let controlAction = this.homey.flow.getActionCard('hybridinvertermode');
+    controlAction.registerRunListener(async (args, state) => {
+      await this.updateControl('hybridinvertermode', args.mode);
+    });
+
+    let batterylevelStatus = this.homey.flow.getConditionCard("batterylevelWattsonic");
+    batterylevelStatus.registerRunListener(async (args, state) => {
+      let result = (await this.getCapabilityValue('measure_battery') >= args.charged);
+      return Promise.resolve(result);
+    })
+
   }
 
   /**
@@ -142,7 +153,7 @@ class MyWattsonicBatteryDevice extends Wattsonic {
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 500);
+    let client = new Modbus.client.TCP(socket, unitID, 1000);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
