@@ -7,5 +7,6 @@
     "getable": true,
     "setable": false,
     "uiComponent": "sensor",
-    "uiQuickAction": false
+    "uiQuickAction": false,
+    "icon": "/assets/clock.svg"
 }

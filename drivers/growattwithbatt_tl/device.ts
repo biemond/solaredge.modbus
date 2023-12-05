@@ -55,19 +55,25 @@ class MyGrowattTLBattery extends Growatt {
       await this.updateControl('battacchargeswitch', Number(args.mode));
     });
 
+    let period1Action = this.homey.flow.getActionCard('period1');
+    period1Action.registerRunListener(async (args, state) => {
+      await this.updateControlProfile('period1', Number(args.hourstart), Number(args.minstart), Number(args.hourstop), Number(args.minstop), Number(args.priority), Number(args.active));
+    });
 
-    // let battfirsttime1Action = this.homey.flow.getActionCard('battfirsttime1');
-    // battfirsttime1Action.registerRunListener(async (args, state) => {
-    //   await this.updateControlProfile('battfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
-    // });
-    // let gridfirsttime1Action = this.homey.flow.getActionCard('gridfirsttime1');
-    // gridfirsttime1Action.registerRunListener(async (args, state) => {
-    //   await this.updateControlProfile('gridfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
-    // });
-    // let loadfirsttime1Action = this.homey.flow.getActionCard('loadfirsttime1');
-    // loadfirsttime1Action.registerRunListener(async (args, state) => {
-    //   await this.updateControlProfile('loadfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
-    // });    
+    let period2Action = this.homey.flow.getActionCard('period2');
+    period2Action.registerRunListener(async (args, state) => {
+      await this.updateControlProfile('period2', Number(args.hourstart), Number(args.minstart), Number(args.hourstop), Number(args.minstop), Number(args.priority), Number(args.active));
+    });
+
+    let period3Action = this.homey.flow.getActionCard('period3');
+    period3Action.registerRunListener(async (args, state) => {
+      await this.updateControlProfile('period3', Number(args.hourstart), Number(args.minstart), Number(args.hourstop), Number(args.minstop), Number(args.priority), Number(args.active));
+    });
+    
+    let period4Action = this.homey.flow.getActionCard('period4');
+    period4Action.registerRunListener(async (args, state) => {
+      await this.updateControlProfile('period4', Number(args.hourstart), Number(args.minstart), Number(args.hourstop), Number(args.minstop), Number(args.priority), Number(args.active));
+    });
 
 
     // homey menu / device actions
@@ -245,7 +251,7 @@ class MyGrowattTLBattery extends Growatt {
     })
   }
 
-  async updateControlProfile(type: string, hourstart: number, minstart: number, hourstop: number, minstop: number, enabled: string) {
+  async updateControlProfile(type: string, hourstart: number, minstart: number, hourstop: number, minstop: number, priority: number, enabled: number) {
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
     let client = new Modbus.client.TCP(socket, unitID, 1000);
@@ -270,52 +276,32 @@ class MyGrowattTLBattery extends Growatt {
       let startRegister = 0;
       let stopRegister = 0;
       let enabledRegister = 0;
-      if (type == 'battfirsttime1') {
-        // "battfirststarttime1": [1100, 1, 'UINT16', "Battery First Start Time", 0],
-        // "battfirststoptime1": [1101, 1, 'UINT16', "Battery First Stop Time", 0],
-        // "battfirststopswitch1": [1102, 1, 'UINT16', "Battery First Stop Switch 1", 0],
-        startRegister = 1100
-        stopRegister = 1101
-        enabledRegister = 1102
+      if (type == 'period1') {
+        startRegister = 3038
+        stopRegister = 3039
       }
 
-      if (type == 'gridfirsttime1') {
-        // "gridfirststarttime1": [1080, 1, 'UINT16', "Grid First Start Time", 0],
-        // "gridfirststoptime1": [1081, 1, 'UINT16', "Grid First Stop Time", 0],
-        // "gridfirststopswitch1": [1082, 1, 'UINT16', "Grid First Stop Switch 1", 0],
-        startRegister = 1080
-        stopRegister = 1081
-        enabledRegister = 1082
+      if (type == 'period2') {
+        startRegister = 3040
+        stopRegister = 3041
       }
 
-      if (type == 'loadfirsttime1') {
-        // "loadfirststarttime1": [1110, 1, 'UINT16', "Load First Start Time", 0],
-        // "loadfirststoptime1": [1111, 1, 'UINT16', "Load First Stop Time", 0],
-        // "loadfirststopswitch1": [1112, 1, 'UINT16', "Load First Stop Switch 1", 0]
-        startRegister = 1110
-        stopRegister = 1111
-        enabledRegister = 1112
-      }      
-      if ( hourstart == 0 && minstart == 0 ) {
-        minstart = 1;
-      }
-      let start  =  (hourstart * 256) + minstart;
+      if (type == 'period3') {
+        startRegister = 3042
+        stopRegister = 3043
+      } 
+
+      if (type == 'period4') {
+        startRegister = 3044
+        stopRegister = 3045
+      } 
+ 
+      let start  =  ((hourstart + priority + enabled ) * 256) + minstart;
       const startRes = await client.writeSingleRegister(startRegister, start);
       console.log('start', startRes);
       let stop  =  (hourstop * 256) + minstop;   
       const stopRes = await client.writeSingleRegister(stopRegister, stop);
       console.log('stop', stopRes);             
-      // 0 – Disabled
-      // 1 – Enabled
-      if (enabled == "1") {
-        const enabledRes = await client.writeSingleRegister(enabledRegister, Number(1));
-        console.log('timeenabled', enabledRes);
-      } else if (enabled == "0") {
-        const enabledRes = await client.writeSingleRegister(enabledRegister, Number(0));
-        console.log('timeenabled', enabledRes);
-      } else {
-        console.log('timeenabled unknown value: ' + enabled);
-      }
 
       console.log('disconnect');
       client.socket.end();

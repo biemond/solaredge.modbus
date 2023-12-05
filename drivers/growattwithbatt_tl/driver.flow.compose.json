@@ -1,4 +1,436 @@
 {
   "actions": [
+    {
+      "id": "period1",
+      "title": {
+        "en": "Time slot 1:",
+        "de": "Zeitfenster 1:"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "hourstart",
+          "title": {
+            "en": "Hour",
+            "de": "Stunde"
+          },
+          "min": 0,
+          "max": 23,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": ":"
+        },
+        {
+          "type": "range",
+          "name": "minstart",
+          "title": {
+            "en": "Minute",
+            "de": "Minute"
+          },
+          "min": 0,
+          "max": 59,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": " ~ "
+        },
+        {
+          "type": "range",
+          "name": "hourstop",
+          "title": {
+            "en": "Hour",
+            "de": "Stunde"
+          },
+          "min": 0,
+          "max": 23,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": ":"
+        },
+        {
+          "type": "range",
+          "name": "minstop",
+          "title": {
+            "en": "Minute",
+            "de": "Minute"
+          },
+          "min": 0,
+          "max": 59,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": " state: "
+        },
+        {
+          "name": "priority",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Load",
+                "de": "Last"
+              }
+            },
+            {
+              "id": "32",
+              "title": {
+                "en": "Battery",
+                "de": "Batterie"
+              }
+            },
+            {
+              "id": "64",
+              "title": {
+                "en": "Grid",
+                "de": "Netz"
+              }
+            }            
+          ]
+        },                
+        {
+          "name": "active",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Disabled",
+                "de": "Deaktiviert"
+              }
+            },
+            {
+              "id": "128",
+              "title": {
+                "en": "Enabled",
+                "de": "Aktiviert"
+              }
+            }
+          ]
+        }        
+      ]
+    },
+    {
+      "id": "period2",
+      "title": {
+        "en": "Time slot 2:",
+        "de": "Zeitfenster 2:"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "hourstart",
+          "title": {
+            "en": "Hour",
+            "de": "Stunde"
+          },
+          "min": 0,
+          "max": 23,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": ":"
+        },
+        {
+          "type": "range",
+          "name": "minstart",
+          "title": {
+            "en": "Minute",
+            "de": "Minute"
+          },
+          "min": 0,
+          "max": 59,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": " ~ "
+        },
+        {
+          "type": "range",
+          "name": "hourstop",
+          "title": {
+            "en": "Hour",
+            "de": "Stunde"
+          },
+          "min": 0,
+          "max": 23,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": ":"
+        },
+        {
+          "type": "range",
+          "name": "minstop",
+          "title": {
+            "en": "Minute",
+            "de": "Minute"
+          },
+          "min": 0,
+          "max": 59,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": " state: "
+        },
+        {
+          "name": "priority",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Load",
+                "de": "Last"
+              }
+            },
+            {
+              "id": "32",
+              "title": {
+                "en": "Battery",
+                "de": "Batterie"
+              }
+            },
+            {
+              "id": "64",
+              "title": {
+                "en": "Grid",
+                "de": "Netz"
+              }
+            }            
+          ]
+        },                
+        {
+          "name": "active",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Disabled",
+                "de": "Deaktiviert"
+              }
+            },
+            {
+              "id": "128",
+              "title": {
+                "en": "Enabled",
+                "de": "Aktiviert"
+              }
+            }
+          ]
+        }        
+      ]
+    },
+    {
+      "id": "period3",
+      "title": {
+        "en": "Time slot 3:",
+        "de": "Zeitfenster 3:"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "hourstart",
+          "title": {
+            "en": "Hour",
+            "de": "Stunde"
+          },
+          "min": 0,
+          "max": 23,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": ":"
+        },
+        {
+          "type": "range",
+          "name": "minstart",
+          "title": {
+            "en": "Minute",
+            "de": "Minute"
+          },
+          "min": 0,
+          "max": 59,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": " ~ "
+        },
+        {
+          "type": "range",
+          "name": "hourstop",
+          "title": {
+            "en": "Hour",
+            "de": "Stunde"
+          },
+          "min": 0,
+          "max": 23,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": ":"
+        },
+        {
+          "type": "range",
+          "name": "minstop",
+          "title": {
+            "en": "Minute",
+            "de": "Minute"
+          },
+          "min": 0,
+          "max": 59,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": " state: "
+        },
+        {
+          "name": "priority",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Load",
+                "de": "Last"
+              }
+            },
+            {
+              "id": "32",
+              "title": {
+                "en": "Battery",
+                "de": "Batterie"
+              }
+            },
+            {
+              "id": "64",
+              "title": {
+                "en": "Grid",
+                "de": "Netz"
+              }
+            }            
+          ]
+        },                
+        {
+          "name": "active",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Disabled",
+                "de": "Deaktiviert"
+              }
+            },
+            {
+              "id": "128",
+              "title": {
+                "en": "Enabled",
+                "de": "Aktiviert"
+              }
+            }
+          ]
+        }        
+      ]
+    },
+    {
+      "id": "period4",
+      "title": {
+        "en": "Time slot 4:",
+        "de": "Zeitfenster 4:"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "hourstart",
+          "title": {
+            "en": "Hour",
+            "de": "Stunde"
+          },
+          "min": 0,
+          "max": 23,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": ":"
+        },
+        {
+          "type": "range",
+          "name": "minstart",
+          "title": {
+            "en": "Minute",
+            "de": "Minute"
+          },
+          "min": 0,
+          "max": 59,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": " ~ "
+        },
+        {
+          "type": "range",
+          "name": "hourstop",
+          "title": {
+            "en": "Hour",
+            "de": "Stunde"
+          },
+          "min": 0,
+          "max": 23,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": ":"
+        },
+        {
+          "type": "range",
+          "name": "minstop",
+          "title": {
+            "en": "Minute",
+            "de": "Minute"
+          },
+          "min": 0,
+          "max": 59,
+          "step": 1,
+          "labelDecimals": 0,
+          "label": " state: "
+        },
+        {
+          "name": "priority",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Load",
+                "de": "Last"
+              }
+            },
+            {
+              "id": "32",
+              "title": {
+                "en": "Battery",
+                "de": "Batterie"
+              }
+            },
+            {
+              "id": "64",
+              "title": {
+                "en": "Grid",
+                "de": "Netz"
+              }
+            }            
+          ]
+        },                
+        {
+          "name": "active",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Disabled",
+                "de": "Deaktiviert"
+              }
+            },
+            {
+              "id": "128",
+              "title": {
+                "en": "Enabled",
+                "de": "Aktiviert"
+              }
+            }
+          ]
+        }        
+      ]
+    }                            
   ]
 }
