@@ -523,7 +523,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
       client.socket.end();
       socket.end();
       const finalRes = { ...checkRegisterRes, ...checkMeterRes, ...checkBatteryRes }
-      this.processResult(finalRes)
+      this.processResult(finalRes, this.getSetting('maxpeakpower'));
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
       let seconds = Math.floor(timeDiff / 1000);

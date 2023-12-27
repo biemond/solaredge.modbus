@@ -247,7 +247,7 @@ export class Solaredge extends Homey.Device {
         return false;
     }
 
-    processResult(result: Record<string, Measurement>) {
+    processResult(result: Record<string, Measurement>, maxpeakpower: number) {
         if (result) {
 
             // result
@@ -258,11 +258,12 @@ export class Solaredge extends Homey.Device {
             if ( this.validResultRecord(result['power_ac']) ) {
                 this.addCapability('measure_power');
                 var acpower = Number(result['power_ac'].value) * (Math.pow(10, Number(result['power_ac'].scale)));
-                // console.log( Number(result['power_ac'].value));
-                // console.log( Math.pow(10, Number(result['power_ac'].scale)));
-                // console.log( acpower );
-
-                this.setCapabilityValue('measure_power', Math.round(acpower));
+                if (maxpeakpower > 0 && acpower > maxpeakpower ) {
+                    // skip
+                    console.log("skip measure_power, max: "+ maxpeakpower + " power: " + acpower);
+                } else {
+                    this.setCapabilityValue('measure_power', Math.round(acpower)); 
+                }
             }
 
             if (this.validResultRecord(result['current'])) {

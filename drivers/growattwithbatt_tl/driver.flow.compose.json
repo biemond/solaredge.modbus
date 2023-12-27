@@ -57,11 +57,12 @@
           "max": 59,
           "step": 1,
           "labelDecimals": 0,
-          "label": " state: "
+          "label": " priority: "
         },
         {
           "name": "priority",
           "type": "dropdown",
+          "label": " state: ",
           "values": [
             {
               "id": "0",
@@ -165,11 +166,12 @@
           "max": 59,
           "step": 1,
           "labelDecimals": 0,
-          "label": " state: "
+          "label": " priority: "
         },
         {
           "name": "priority",
           "type": "dropdown",
+          "label": " state: ",
           "values": [
             {
               "id": "0",
@@ -273,11 +275,12 @@
           "max": 59,
           "step": 1,
           "labelDecimals": 0,
-          "label": " state: "
+          "label": " priority: "
         },
         {
           "name": "priority",
           "type": "dropdown",
+          "label": " state: ",
           "values": [
             {
               "id": "0",
@@ -381,11 +384,12 @@
           "max": 59,
           "step": 1,
           "labelDecimals": 0,
-          "label": " state: "
+          "label": " priority: "
         },
         {
           "name": "priority",
           "type": "dropdown",
+          "label": " state: ",
           "values": [
             {
               "id": "0",

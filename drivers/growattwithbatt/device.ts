@@ -385,7 +385,7 @@ class MyGrowattBattery extends Growatt {
       client.socket.end();
       socket.end();
       const finalRes = {...checkRegisterRes, ...checkHoldingRegisterRes}
-      this.processResult(finalRes)
+      this.processResult(finalRes, this.getSetting('maxpeakpower'));
     });    
 
     socket.on('close', () => {

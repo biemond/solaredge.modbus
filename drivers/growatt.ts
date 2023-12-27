@@ -216,7 +216,7 @@ export class Growatt extends Homey.Device {
 
     };    
 
-    processResult(result: Record<string, Measurement>) {
+    processResult(result: Record<string, Measurement>, maxpeakpower: number) {
         if (result) {
 
             // result
@@ -227,7 +227,13 @@ export class Growatt extends Homey.Device {
             if (result['outputPower'] && result['outputPower'].value != 'xxx') {
                 this.addCapability('measure_power');
                 var outputPower = Number(result['outputPower'].value) * (Math.pow(10, Number(result['outputPower'].scale)));
-                this.setCapabilityValue('measure_power', Math.round(outputPower));
+                
+                if (maxpeakpower > 0 && outputPower > maxpeakpower ) {
+                    // skip
+                    console.log("skip measure_power, max: "+ maxpeakpower + " power: " + outputPower);
+                } else {
+                    this.setCapabilityValue('measure_power', Math.round(outputPower));
+                }
             }
 
             if (result['gridOutputPower'] && result['gridOutputPower'].value != 'xxx') {

@@ -88,5 +88,8 @@
   },
   "3.0.60": {
     "en": "Adding wattsonic, growatt tl battery flows"
-  }                              
+  },
+  "3.0.61": {
+    "en": "Skip unrealistic values"
+  }                                  
 }
