@@ -4,10 +4,10 @@ import {Solaredge}     from '../solaredge';
 import {checkRegister} from '../response';
 import Homey, { Device } from 'homey';
 
-const RETRY_INTERVAL = 28 * 1000; 
+const DEFAULT_RETRY_INTERVAL = 28;
 
 class MySolaredgeDevice extends Solaredge {
-  timer!: NodeJS.Timer;  
+  timer!: NodeJS.Timer;
   /**
    * onInit is called when the device is initialized.
    */
@@ -19,11 +19,17 @@ class MySolaredgeDevice extends Solaredge {
     this.log("device name " + this.getName());
 
     this.pollInvertor();
+    let settings = this.getSettings();
+
+    if (settings.pollinginterval === undefined) {
+      this.setSettings({ pollinginterval: DEFAULT_RETRY_INTERVAL });
+      settings.pollinginterval = 28;
+    }
 
     this.timer = this.homey.setInterval(() => {
       // poll device state from inverter
       this.pollInvertor();
-    }, RETRY_INTERVAL);
+    }, settings.pollinginterval * 1000);
 
     // homey menu / device actions
     this.registerCapabilityListener('activepowerlimit', async (value) => {
@@ -93,8 +99,26 @@ class MySolaredgeDevice extends Solaredge {
    * @param {string[]} event.changedKeys An array of keys changed since the previous version
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
-  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string|void> {
+  async onSettings({
+    oldSettings,
+    newSettings,
+    changedKeys,
+  }: {
+    oldSettings: { [key: string]: boolean | string | number | undefined | null };
+    newSettings: { [key: string]: boolean | string | number | undefined | null };
+    changedKeys: string[];
+  }): Promise<string | void> {
     this.log('MySolaredgeDevice settings where changed');
+
+    if (changedKeys.indexOf('pollinginterval') > -1) {
+      console.log('Changing the "pollinginterval" settings from', oldSettings.pollinginterval, 'to', newSettings.pollinginterval);
+
+      this.homey.clearInterval(this.timer);
+      this.timer = this.homey.setInterval(() => {
+        // poll device state from inverter
+        this.pollInvertor();
+      }, Number(newSettings.pollinginterval) * 1000);
+    }
   }
 
   /**
@@ -127,7 +151,7 @@ class MySolaredgeDevice extends Solaredge {
       'host': device.getSetting('address'),
       'port': device.getSetting('port'),
       'unitId': device.getSetting('id'),
-      'timeout': 15,
+      'timeout': device.getSetting('pollinginterval') - 1,
       'autoReconnect': false,
       'logLabel': 'solaredge Inverter',
       'logLevel': 'error',
@@ -258,7 +282,7 @@ class MySolaredgeDevice extends Solaredge {
       'host': this.getSetting('address'),
       'port': this.getSetting('port'),
       'unitId': this.getSetting('id'),
-      'timeout': 15,
+      'timeout': this.getSetting('pollinginterval') - 1,
       'autoReconnect': false,
       'logLabel' : 'solaredge Inverter',
       'logLevel': 'error',
