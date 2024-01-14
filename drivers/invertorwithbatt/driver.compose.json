@@ -51,7 +51,8 @@
     "activepowerlimit",
     "limitcontrolmode",
     "exportcontrollimitmode",
-    "exportcontrolsitelimit"
+    "exportcontrolsitelimit",
+    "storageacchargepolicy"
   ],
   "capabilitiesOptions": {
     "measure_power": {

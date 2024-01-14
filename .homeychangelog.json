@@ -89,7 +89,7 @@
   "3.0.60": {
     "en": "Adding wattsonic, growatt tl battery flows"
   },
-  "3.0.61": {
-    "en": "Skip unrealistic values"
+  "3.0.62": {
+    "en": "Skip unrealistic values, plus adding Storage AC Charge Policy for Solaredge storedge"
   }                                  
 }

@@ -578,6 +578,12 @@ export class Solaredge extends Homey.Device {
                     this.setCapabilityValue('storagecontrolmode', storagecontrolmode);
                 }
 
+                if (this.validResultRecord(result['storage_accharge_policy'])) { 
+                    this.addCapability('storageacchargepolicy');
+                    var storageacchargepolicy = result['storage_accharge_policy'].value;
+                    this.setCapabilityValue('storageacchargepolicy', storageacchargepolicy);
+                }
+
                 if (this.validResultRecord(result['remote_control_command_mode'])) { 
                     this.addCapability('storagedefaultmode');
                     var storagedefaultmode = result['remote_control_command_mode'].value;

@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.61",
+  "version": "3.0.62",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -3730,7 +3730,8 @@
         "activepowerlimit",
         "limitcontrolmode",
         "exportcontrollimitmode",
-        "exportcontrolsitelimit"
+        "exportcontrolsitelimit",
+        "storageacchargepolicy"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -5257,6 +5258,47 @@
       "decimals": 0,
       "min": 0,
       "max": 100
+    },
+    "storageacchargepolicy": {
+      "type": "enum",
+      "title": {
+        "en": "Storage AC Charge Policy",
+        "de": "Speicher AC Aufladung Regel"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Disabled",
+            "de": "Deaktiviert"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Always allowed",
+            "de": "Immer erlaubt"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Fixed Energy Limit",
+            "de": "Festes Energielimit"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Percent of Production",
+            "de": "Prozent der Produktion"
+          }
+        }
+      ]
     },
     "storagecontrolmode": {
       "type": "enum",
