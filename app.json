@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.62",
+  "version": "3.0.64",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -5263,7 +5263,7 @@
       "type": "enum",
       "title": {
         "en": "Storage AC Charge Policy",
-        "de": "Speicher AC Aufladung Regel"
+        "de": "Speicher-AC-Laderegelung"
       },
       "getable": true,
       "setable": true,

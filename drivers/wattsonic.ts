@@ -157,11 +157,6 @@ export class Wattsonic extends Homey.Device {
                 this.setCapabilityValue('measure_power.gridoutput', Math.round(gridOutputPower));
             }
 
-            if (result['inputPower'] && result['inputPower'].value != 'xxx') {
-                this.addCapability('measure_power');
-                var inputPower = Number(result['inputPower'].value) * (Math.pow(10, Number(result['inputPower'].scale)));
-                this.setCapabilityValue('measure_power', Math.round(inputPower));
-            }
 
             if (result['pv1InputPower'] && result['pv1InputPower'].value != 'xxx') {
                 this.addCapability('measure_power.pv1input');
@@ -266,16 +261,21 @@ export class Wattsonic extends Homey.Device {
                 this.addCapability('measure_power.batt_discharge');
 
                 var discharge = Number(result['battery_power'].value) * (Math.pow(10, Number(result['battery_power'].scale)));
-                var type = Number(result['battery_mode'].value)
+                var type = Number(result['battery_mode'].value);
+
+                this.addCapability('measure_power');
+                var inputPower = Number(result['inputPower'].value) * (Math.pow(10, Number(result['inputPower'].scale)));
+
                 if (type == 0) {
                     this.setCapabilityValue('measure_power.batt_charge', 0);
                     this.setCapabilityValue('measure_power.batt_discharge', discharge);
+                    this.setCapabilityValue('measure_power', Math.round(inputPower + discharge));
                 }
                 if (type == 1) {
                     this.setCapabilityValue('measure_power.batt_charge', discharge);
                     this.setCapabilityValue('measure_power.batt_discharge', 0);
-                }                
-                
+                    this.setCapabilityValue('measure_power', Math.round(inputPower - discharge));
+                }        
             }
 
 

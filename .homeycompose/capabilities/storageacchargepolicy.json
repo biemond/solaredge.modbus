@@ -2,7 +2,7 @@
     "type": "enum",
     "title": {
         "en": "Storage AC Charge Policy",
-		"de": "Speicher AC Aufladung Regel"
+		"de": "Speicher-AC-Laderegelung"
     },
     "getable": true,
     "setable": true,
