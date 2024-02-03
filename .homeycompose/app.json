@@ -1,6 +1,6 @@
 {
   "id": "solaredge.modbus",
-  "version": "3.0.64",
+  "version": "3.0.66",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -28,7 +28,8 @@
       "sunways",
       "solinteg",
       "A-Tronix",
-      "St-ems"
+      "St-ems",
+      "sungrow"
     ],
     "nl": [
       "solaredge",
@@ -42,7 +43,8 @@
       "sunways",
       "solinteg",
       "A-Tronix",
-      "St-ems"
+      "St-ems",
+      "sungrow"
     ],
     "de": [
       "solaredge",
@@ -54,7 +56,8 @@
       "sunways",
       "solinteg",
       "A-Tronix",
-      "St-ems"      
+      "St-ems",
+      "sungrow"      
     ]
   },
   "bugs": {

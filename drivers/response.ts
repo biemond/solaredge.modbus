@@ -222,6 +222,60 @@ export async function checkHoldingRegisterGrowatt(registers: Object, client: Ins
     return result;
 }
 
+export async function checkRegisterSungrow(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
+    let result: Record<string, Measurement> = {};
+
+    for (const [key, value] of Object.entries(registers)) {
+        try {
+
+            const res = client.readInputRegisters(value[0], value[1])
+            const actualRes = await res;
+            // const metrics = actualRes.metrics;
+            // const request = actualRes.request;
+            const response = actualRes.response;
+            const measurement: Measurement = {
+                value: 'xxx',
+                scale: value[4],
+                label: value[3],
+            };
+            let resultValue: string = 'xxx';
+            switch (value[2]) {
+                case 'UINT16':
+                    resultValue = response.body.valuesAsBuffer.readUInt16BE().toString();
+                    break;
+                case 'UINT32':
+                    resultValue = (response.body.valuesAsArray[1]  << 16 | response.body.valuesAsArray[0]).toString();
+                    break;
+                case 'STRING':
+                    resultValue = response.body.valuesAsBuffer.toString();
+                    break;
+                case 'INT16':
+                    resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
+                    break;
+                case 'INT32':
+                    resultValue = ((response.body.valuesAsArray[1]  << 16 | response.body.valuesAsArray[0]) | 0 ).toString();
+                    break;
+                default:
+                    console.log(key + ": type not found " + value[2]);
+                    break;
+            }
+
+            if (resultValue) {
+                measurement.value = resultValue;
+            }
+            result[key] = measurement;
+
+        } catch (err) {
+            console.log("error with key: " + key);
+            // console.log(err);
+        }
+    }
+
+    console.log('checkRegister result');
+    return result;
+}
+
+
 export async function checkMeter(meter_dids: Object, meter_registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
     let result: Record<string, Measurement> = {};
     for (const [key, value] of Object.entries(meter_dids)) {

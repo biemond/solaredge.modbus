@@ -1,7 +1,7 @@
 {
   "name": {
-    "en": "Wattsonic + Battery",
-    "de": "Wattsonic mit Batterie"
+    "en": "Sungrow Hybrid + Battery",
+    "de": "Sungrow Hybrid mit Batterie"
   },
   "class": "solarpanel",
   "energy": {
@@ -11,32 +11,27 @@
   },
   "capabilities": [
     "measure_power",
-    "measure_power.gridoutput",    
-    "measure_power.pv1input",
-    "measure_power.pv2input",
-    "measure_power.batt_charge",
-    "measure_power.batt_discharge",    
-    "measure_current.phase1",
-    "measure_current.phase2",
-    "measure_current.phase3",
     "measure_temperature.invertor",
-    "measure_temperature.battery",    
+    "measure_temperature.battery",
+    "measure_power.grid_import",
+    "measure_power.grid_export",
+    "measure_power.load",
+    "measure_power.battery",          
     "meter_power",
     "meter_power.daily",
     "battery",
     "measure_battery",
     "batterysoh",
+    "batterystatus",
+    "activepowerlimit",
     "meter_power.today_grid_import",
     "meter_power.today_grid_export",
     "meter_power.grid_import",
-    "meter_power.grid_export",
+    "meter_power.grid_export",    
     "meter_power.today_batt_output",
-    "meter_power.today_batt_input",
-    "meter_power.battery_input",
     "meter_power.battery_output",
-    "meter_power.today_load",    
-    "batterystatus",
-    "hybridinvertermode"                     
+    "meter_power.today_batt_input",
+    "meter_power.battery_input"        
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -46,59 +41,13 @@
         "de": "Solarleistung"
       }
     },
-    "measure_power.pv1input": {
+    "measure_power.battery": {
       "decimals": 0,
       "title": {
-        "en": "PV1 input",
-        "de": "PV-Strang 1 Eingang"
-      }
-    },
-    "measure_power.pv2input": {
-      "decimals": 0,
-      "title": {
-        "en": "PV2 input",
-        "de": "PV-Strang 2 Eingang"
-      }
-    },
-    "measure_power.gridoutput": {
-      "decimals": 0,
-      "title": {
-        "en": "Grid output",
-        "de": "Netzexport"
+        "en": "Battery Power",
+        "de": "Batterieleistung"
       }
     },    
-    "measure_power.batt_discharge": {
-      "decimals": 0,
-      "title": {
-        "en": "Battery Power discharge",
-        "de": "Batterieentladeleistung"
-      }
-    },
-    "measure_power.batt_charge": {
-      "decimals": 0,
-      "title": {
-        "en": "Battery Power charge",
-        "de": "Batterieladeleistung"
-      }
-    },    
-    "measure_current.phase1": {
-      "title": {
-        "en": "AC Current phase1",
-        "de": "AC-Strom Phase 1"
-      }
-    },
-    "measure_current.phase2": {
-      "title": {
-        "en": "AC Current phase2",
-        "de": "AC-Strom Phase 2"
-      }
-    },
-    "measure_current.phase3": {
-      "title": {
-        "en": "AC Current phase3",
-        "de": "AC-Strom Phase 3"
-      }
-    },
     "measure_temperature.invertor": {
       "title": {
         "en": "Heatsink temperature",
@@ -131,27 +80,23 @@
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
     },
-    "meter_power.today_grid_import": {
+    "measure_power.grid_import": {
       "title": {
-        "en": "Grid Import Day Yield",
-        "de": "Netztagesimport"
-      },
-      "units": {
-        "en": "kWh"
-      },
-      "decimals": 1,
-      "icon": "/assets/total_yield.svg"
+        "en": "Grid Import",
+        "de": "Netzimport"
+      }
     },
-    "meter_power.today_grid_export": {
+    "measure_power.grid_export": {
       "title": {
-        "en": "Grid Export Day Yield",
-        "de": "Netztagesexport"
-      },
-      "units": {
-        "en": "kWh"
-      },
-      "decimals": 1,
-      "icon": "/assets/total_yield.svg"
+        "en": "Grid Export",
+        "de": "Netztexport"
+      }
+    },
+    "measure_power.load": {
+      "title": {
+        "en": "Load Yield",
+        "de": "Verbrauch"
+      }
     },
     "meter_power.battery_input": {
       "title": {
@@ -163,7 +108,7 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    },
+    },    
     "meter_power.battery_output": {
       "title": {
         "en": "Battery output",
@@ -175,28 +120,6 @@
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
     },
-    "meter_power.grid_import": {
-      "title": {
-        "en": "Grid Import",
-        "de": "Netzimport"
-      },
-      "units": {
-        "en": "kWh"
-      },
-      "decimals": 1,
-      "icon": "/assets/total_yield.svg"
-    },
-    "meter_power.grid_export": {
-      "title": {
-        "en": "Grid Export",
-        "de": "Netztexport"
-      },
-      "units": {
-        "en": "kWh"
-      },
-      "decimals": 1,
-      "icon": "/assets/total_yield.svg"
-    },    
     "meter_power.today_batt_output": {
       "title": {
         "en": "Battery Output Day Yield",
@@ -218,18 +141,7 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    },
-    "meter_power.today_load": {
-      "title": {
-        "en": "Load Day Yield",
-        "de": "Tagesgesamtverbrauch"
-      },
-      "units": {
-        "en": "kWh"
-      },
-      "decimals": 1,
-      "icon": "/assets/total_yield.svg"
-    }                   
+    }                      
   },
   "platforms": [
     "local"
