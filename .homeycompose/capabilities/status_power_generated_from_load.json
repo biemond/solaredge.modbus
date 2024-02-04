@@ -1,0 +1,7 @@
+{
+    "type": "boolean",
+    "title": { "en": "Power generated from Load" },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "toggle"
+  }

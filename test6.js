@@ -51,8 +51,8 @@ socket.on('connect', () => {
         "Load power":  [13007, 2, 'INT32', "Load power", 0],
         "Export power":  [13009, 2, 'INT32', "Export power", 0],
 
-        "Reactive power":  [5032, 2, 'INT32', "Reactive power", 0],
-        "Meter Reactive power":  [5600, 2, 'INT32', "Meter Reactive power", 0],
+        // "Reactive power":  [5032, 2, 'INT32', "Reactive power", 0],
+        // "Meter Reactive power":  [5600, 2, 'INT32', "Meter Reactive power", 0],
 
 
 
@@ -68,27 +68,32 @@ socket.on('connect', () => {
 
 
 
-        "DailyexportpowerfromPV":  [13004, 1, 'UINT16', "Daily export power from PV", -1],
-        "TotalexportpowerfromPV":  [13005, 2, 'UINT32', "Total export power from PV", -1],
+        // "DailyexportpowerfromPV":  [13004, 1, 'UINT16', "Daily export power from PV", -1],
+        // "TotalexportpowerfromPV":  [13005, 2, 'UINT32', "Total export power from PV", -1],
 
 
 
 
         "temperature":  [5007, 1, 'UINT16', "temperature",-1],
 
-        "MPPT 1 Voltage":  [5010, 1, 'UINT16', "MPPT 1 Voltage",-1],
-        "MPPT 2 Voltage":  [5012, 1, 'UINT16', "MPPT 2 Voltage",-1],
-        "MPPT 1 Current":  [5011, 1, 'UINT16', "MPPT 1 Current",-1],
-        "MPPT 2 Current":  [5013, 1, 'UINT16', "MPPT 2 Current",-1],
+        // "MPPT 1 Voltage":  [5010, 1, 'UINT16', "MPPT 1 Voltage",-1],
+        // "MPPT 2 Voltage":  [5012, 1, 'UINT16', "MPPT 2 Voltage",-1],
+        // "MPPT 1 Current":  [5011, 1, 'UINT16', "MPPT 1 Current",-1],
+        // "MPPT 2 Current":  [5013, 1, 'UINT16', "MPPT 2 Current",-1],
 
 
 
 
         "A-Blinevoltage":  [5018, 1, 'UINT16', "A-B line voltage",-1],
         "B-Clinevoltage":  [5019, 1, 'UINT16', "B-C line voltage",-1],
-        "C-Alinevoltage":  [5020, 1, 'UINT16', "C-A line voltage",-1],    
+        "C-Alinevoltage":  [5020, 1, 'UINT16', "C-A line voltage",-1],   
         
-        "Gridfrequency":  [5035, 1, 'UINT16', "Grid frequency",-1], 
+        
+        "A-current":  [13030, 1, 'INT16', "Phase A current",-1],
+        "B-current":  [13031, 1, 'INT16', "Phase B current",-1],
+        "C-current":  [13032, 1, 'INT16', "Phase C current",-1],   
+        
+        // "Gridfrequency":  [5035, 1, 'UINT16', "Grid frequency",-1], 
 
         // "Workstate":  [5037, 1, 'UINT16', "Work state",0],
         // DEVICE_WORK_STATE_1_CODES = {

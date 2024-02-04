@@ -1,0 +1,7 @@
+{
+    "type": "boolean",
+    "title": { "en": "Load is active" },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "toggle"
+  }

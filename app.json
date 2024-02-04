@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.66",
+  "version": "3.0.67",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -4020,7 +4020,6 @@
         "battery",
         "measure_battery",
         "batterysoh",
-        "batterystatus",
         "activepowerlimit",
         "meter_power.today_grid_import",
         "meter_power.today_grid_export",
@@ -4029,7 +4028,14 @@
         "meter_power.today_batt_output",
         "meter_power.battery_output",
         "meter_power.today_batt_input",
-        "meter_power.battery_input"
+        "meter_power.battery_input",
+        "status_power_generated_from_pv",
+        "status_charging",
+        "status_discharging",
+        "status_load_is_active",
+        "status_exporting_power_to_grid",
+        "status_importing_power_from_grid",
+        "status_power_generated_from_load"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -4095,6 +4101,50 @@
             "en": "Load Yield",
             "de": "Verbrauch"
           }
+        },
+        "meter_power.today_grid_import": {
+          "title": {
+            "en": "Grid Import Day Yield",
+            "de": "Netztagesimport"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.today_grid_export": {
+          "title": {
+            "en": "Grid Export Day Yield",
+            "de": "Netztagesexport"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.grid_import": {
+          "title": {
+            "en": "Grid Import",
+            "de": "Netzimport"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.grid_export": {
+          "title": {
+            "en": "Grid Export",
+            "de": "Netztexport"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
         },
         "meter_power.battery_input": {
           "title": {
@@ -5468,6 +5518,69 @@
       "decimals": 0,
       "min": 0,
       "max": 100
+    },
+    "status_charging": {
+      "type": "boolean",
+      "title": {
+        "en": "Charging"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "toggle"
+    },
+    "status_discharging": {
+      "type": "boolean",
+      "title": {
+        "en": "Discharging"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "toggle"
+    },
+    "status_exporting_power_to_grid": {
+      "type": "boolean",
+      "title": {
+        "en": "Power feed-in the grid"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "toggle"
+    },
+    "status_importing_power_from_grid": {
+      "type": "boolean",
+      "title": {
+        "en": "Importing power from grid"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "toggle"
+    },
+    "status_load_is_active": {
+      "type": "boolean",
+      "title": {
+        "en": "Load is active"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "toggle"
+    },
+    "status_power_generated_from_load": {
+      "type": "boolean",
+      "title": {
+        "en": "Power generated from Load"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "toggle"
+    },
+    "status_power_generated_from_pv": {
+      "type": "boolean",
+      "title": {
+        "en": "Power generated from PV"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "toggle"
     },
     "storageacchargepolicy": {
       "type": "enum",

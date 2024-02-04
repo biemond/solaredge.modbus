@@ -24,12 +24,12 @@ export class Sungrow extends Homey.Device {
         "pvTodayEnergy":            [13001, 1, 'UINT16', "Daily PV Generation", -1],
 
         // "TotalOutputEnergy":        [5003, 2, 'UINT32', "Total Output Energy pv & battery discharge", 0],
-        "pvTotalEnergy":            [13002, 2, 'UINT32', "Total PV Generation", 0],
+        "pvTotalEnergy":            [13002, 2, 'UINT32', "Total PV Generation", -1],
 
         "temperature":              [5007, 1, 'INT16', "temperature",-1],
 
-        "battsoc":                  [13022, 1, 'UINT16', "battery_level",0],
-        "bmshealth":                [13023, 1, 'UINT16', "battery_state_of_health",0],
+        "battsoc":                  [13022, 1, 'UINT16', "battery_level",-1],
+        "bmshealth":                [13023, 1, 'UINT16', "battery_state_of_health",-1],
         "batttemperature":          [13024, 1, 'INT16', "battery_temperature",-1],
 
         "today_battery_output_energy":  [13025, 1, 'UINT16', "Daily battery discharge energy",-1],
@@ -42,6 +42,9 @@ export class Sungrow extends Homey.Device {
 
         "total_grid_import":  [13044, 1, 'UINT16', "Daily export energy",-1],
         "total_grid_export":  [13045, 2, 'UINT32', "Total export energy",-1],
+
+
+        "Runningstate":  [13000, 1, 'UINT16', "Running state",0],
 
     };
 
@@ -135,7 +138,7 @@ export class Sungrow extends Homey.Device {
                     this.setCapabilityValue('measure_power.grid_import', 0);
                 } else {
                     this.setCapabilityValue('measure_power.grid_export', 0);
-                    this.setCapabilityValue('measure_power.grid_import', exportpower); 
+                    this.setCapabilityValue('measure_power.grid_import', -1 * exportpower); 
                 }
             }
 
@@ -187,7 +190,71 @@ export class Sungrow extends Homey.Device {
                 this.setCapabilityValue('meter_power.grid_export', total_grid_export);
             }            
 
+            if (result['Runningstate'] && result['Runningstate'].value != 'xxx' ) {
+                this.addCapability('status_power_generated_from_pv');
+                this.addCapability('status_charging');
+                this.addCapability('status_discharging');
+                this.addCapability('status_load_is_active');
+                this.addCapability('status_exporting_power_to_grid');
+                this.addCapability('status_importing_power_from_grid');
+                this.addCapability('status_power_generated_from_load');                
 
+                var Runningstate = Number(result['Runningstate'].value);
+                let lowVal = Runningstate & 0xFF;
+                let highval = (Runningstate >> 8) & 0xFF;
+                let bit0 = (lowVal & (1<<0)); 
+                let bit1 = (lowVal & (1<<1));                                 
+                let bit2 = (lowVal & (1<<2)); 
+                let bit3 = (lowVal & (1<<3)); 
+                let bit4 = (lowVal & (1<<4));                                 
+                let bit5 = (lowVal & (1<<5)); 
+                let bit7 = (lowVal & (1<<7)); 
+
+                console.log("Runningstate: " + lowVal);
+                console.log("Runningstate: " + highval);
+                console.log('bit0 ' + bit0 );
+                if (bit0 == 1) {
+                   this.setCapabilityValue('status_power_generated_from_pv', true);
+                } else {
+                   this.setCapabilityValue('status_power_generated_from_pv', false);
+                }
+                console.log('bit1 ' + bit1 );
+                if (bit1 == 2) {
+                    this.setCapabilityValue('status_charging', true);
+                 } else {
+                    this.setCapabilityValue('status_charging', false);
+                }                
+                console.log('bit2 ' + bit2 );
+                if (bit2 == 4) {
+                    this.setCapabilityValue('status_discharging', true);
+                 } else {
+                    this.setCapabilityValue('status_discharging', false);
+                }               
+                console.log('bit3 ' + bit3 );
+                if (bit3 == 8) {
+                    this.setCapabilityValue('status_load_is_active', true);
+                 } else {
+                    this.setCapabilityValue('status_load_is_active', false);
+                }        
+                console.log('bit4 ' + bit4 );
+                if (bit4 == 16) {
+                    this.setCapabilityValue('status_exporting_power_to_grid', true);
+                 } else {
+                    this.setCapabilityValue('status_exporting_power_to_grid', false);
+                }        
+                console.log('bit5 ' + bit5 );
+                if (bit5 == 32) {
+                    this.setCapabilityValue('status_importing_power_from_grid', true);
+                 } else {
+                    this.setCapabilityValue('status_importing_power_from_grid', false);
+                }        
+                console.log('bit7 ' + bit7 );
+                if (bit7 == 128) {
+                    this.setCapabilityValue('status_power_generated_from_load', true);
+                 } else {
+                    this.setCapabilityValue('status_power_generated_from_load', false);
+                }        
+            }
         }
     }
 }
