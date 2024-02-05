@@ -49,11 +49,15 @@ export class Sungrow extends Homey.Device {
     };
 
 
-    holdingRegistersBattery: Object = {
+    holdingRegisters: Object = {
 
-
-
-
+        "emsmodeselection":         [13049, 1, 'UINT16', "EMS mode 0: Self-consumption mode, 2: Forced mode (charge/discharge/stop), 3: External EMS mode | ", 0],
+        "charge_discharge_command": [13050, 1, 'UINT16', "Charge/discharge command 170: Charge, 187: Discharge, 204: Stop | ", 0],
+        "charge_discharge_power":   [13051, 1, 'UINT16', "Charge/discharge power", 0],
+        "max_soc ":                 [13057, 1, 'UINT16', "Max SOC ", -1],
+        "min_soc":                  [13058, 1, 'UINT16', "Min SOC", -1],
+        "export_power":             [13073, 1, 'UINT16', "Export power", 0],
+        "export_power_enabled":     [13086, 1, 'UINT16', "Export power limitation 170: Enable, 85: Disable | ", 0],
 
     };   
 
@@ -255,6 +259,54 @@ export class Sungrow extends Homey.Device {
                     this.setCapabilityValue('status_power_generated_from_load', false);
                 }        
             }
+    
+            if (result['emsmodeselection'] && result['emsmodeselection'].value != 'xxx' && this.hasCapability('emsmodeselection')) {
+                this.addCapability('emsmodeselection');
+                var emsmodeselection = result['emsmodeselection'].value;
+                this.setCapabilityValue('emsmodeselection', emsmodeselection);
+            } 
+
+            // "export_power_enabled":     [13086, 1, 'UINT16', "Export power limitation 170: Enable, 85: Disable | ", 0],
+            if (result['export_power_enabled'] && result['export_power_enabled'].value != 'xxx' && this.hasCapability('exportlimitenabled')) {
+                this.addCapability('exportlimitenabled');
+                var export_power_enabled = Number(result['export_power_enabled'].value) * (Math.pow(10, Number(result['export_power_enabled'].scale)));
+                if (export_power_enabled == 170) {
+                    this.setCapabilityValue('exportlimitenabled', "1");
+                } else {
+                    this.setCapabilityValue('exportlimitenabled', "0");
+                }
+            } 
+
+            if (result['export_power'] && result['export_power'].value != 'xxx' && this.hasCapability('exportcontrolsitelimit')) {
+                this.addCapability('exportcontrolsitelimit');
+                var export_power = Number(result['export_power'].value) * (Math.pow(10, Number(result['export_power'].scale)));
+                this.setCapabilityValue('exportcontrolsitelimit', export_power);
+            }  
+
+            if (result['charge_discharge_command'] && result['charge_discharge_command'].value != 'xxx' && this.hasCapability('chargedischargecommand')) {
+                this.addCapability('chargedischargecommand');
+                var charge_discharge_command = result['charge_discharge_command'].value;
+                this.setCapabilityValue('chargedischargecommand', charge_discharge_command);
+            }  
+
+            if (result['charge_discharge_power'] && result['charge_discharge_power'].value != 'xxx' && this.hasCapability('charge_discharge_power')) {
+                this.addCapability('charge_discharge_power');
+                var charge_discharge_power = Number(result['charge_discharge_power'].value) * (Math.pow(10, Number(result['charge_discharge_power'].scale)));
+                this.setCapabilityValue('charge_discharge_power', charge_discharge_power);
+            }  
+
+            if (result['max_soc'] && result['max_soc'].value != 'xxx' && this.hasCapability('charge_discharge_power')) {
+                this.addCapability('batterymaxsoc');
+                var max_soc = Number(result['max_soc'].value) * (Math.pow(10, Number(result['max_soc'].scale)));
+                this.setCapabilityValue('batterymaxsoc', max_soc);
+            }
+
+            if (result['min_soc'] && result['min_soc'].value != 'xxx' && this.hasCapability('batteryminsoc')) {
+                this.addCapability('batteryminsoc');
+                var min_soc = Number(result['min_soc'].value) * (Math.pow(10, Number(result['min_soc'].scale)));
+                this.setCapabilityValue('batteryminsoc', min_soc);
+            }              
+
         }
     }
 }

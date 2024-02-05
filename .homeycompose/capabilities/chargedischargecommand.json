@@ -1,0 +1,30 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Charge/discharge command"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "picker",
+    "uiQuickAction": false,
+    "values": [
+        {
+            "id": "170",
+            "title": {
+                "en": "Charge"
+            }
+        },
+        {
+            "id": "187",
+            "title": {
+                "en": "Discharge"
+            }
+        },
+        {
+            "id": "204",
+            "title": {
+                "en": "Stop"
+            }
+        }                                   
+    ]
+}

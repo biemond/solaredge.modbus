@@ -37,7 +37,14 @@
     "status_load_is_active",
     "status_exporting_power_to_grid",
     "status_importing_power_from_grid",
-    "status_power_generated_from_load"       
+    "status_power_generated_from_load",
+    "exportlimitenabled",
+    "exportcontrolsitelimit",
+    "emsmodeselection",
+    "chargedischargecommand",
+    "charge_discharge_power",
+    "batteryminsoc",
+    "batterymaxsoc"           
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -191,7 +198,21 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    }                      
+    },
+    "exportcontrolsitelimit": {
+      "title": {
+        "en": "Export Limit power",
+        "de": "Standortbeschränkung der Exportkontrolle"
+      }     
+    },
+    "batteryminsoc": {
+      "min": 0,
+      "max": 50
+    },
+    "batterymaxsoc": {
+      "min": 70,
+      "max": 100
+    }
   },
   "platforms": [
     "local"

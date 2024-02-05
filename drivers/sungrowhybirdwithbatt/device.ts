@@ -1,6 +1,6 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import {checkRegisterSungrow} from '../response';
+import {checkRegisterSungrow, checkHoldingRegisterSungrow} from '../response';
 import { Sungrow } from '../sungrow';
 
 const RETRY_INTERVAL = 28 * 1000; 
@@ -87,10 +87,11 @@ class MyWSungrowDevice extends Sungrow {
       console.log(modbusOptions);
 
       const checkRegisterRes = await checkRegisterSungrow(this.inputRegisters, client);
+      const checkHoldingRegisterRes = await checkHoldingRegisterSungrow(this.holdingRegisters, client);      
       console.log('disconnect'); 
       client.socket.end();
       socket.end();
-      const finalRes = {...checkRegisterRes}
+      const finalRes = {...checkRegisterRes, ...checkHoldingRegisterRes}
       this.processResult(finalRes)
     });    
 

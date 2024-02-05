@@ -1,0 +1,15 @@
+{
+    "type": "number",
+    "title": {
+      "en": "charge or discharge power"
+    },
+    "getable": true,
+    "setable": false,
+    "decimals": 0,
+    "uiComponent": "sensor",
+    "insights": true,
+    "units": {
+      "en": "W",
+      "nl": "W"
+    }
+}
