@@ -1,0 +1,26 @@
+{
+    "triggers": [
+        {
+            "id": "measure_power_load_changed",
+            "title": {
+              "en": "Load Yield changed",
+              "nl": "Load is veranderd",
+              "de": "Verbrauch hat sich geändert"
+            },
+            "tokens": [
+              {
+                "name": "measure_power.load",
+                "title": {
+                  "en": "Power",
+                  "nl": "Vermogen",
+                        "de": "Leistung"
+                },
+                "type": "number",
+                "example": 100
+              }
+            ]
+          }        
+    ],
+    "conditions": [],
+    "actions": []
+}

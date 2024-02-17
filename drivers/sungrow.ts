@@ -91,6 +91,14 @@ export class Sungrow extends Homey.Device {
             if (result['pvTodayEnergy'] && result['pvTodayEnergy'].value != 'xxx') {
                 this.addCapability('meter_power.pvTodayEnergy');
                 var pvTodayEnergy = Number(result['pvTodayEnergy'].value) * (Math.pow(10, Number(result['pvTodayEnergy'].scale)));
+
+                if (this.getCapabilityValue('meter_power.daily') != pvTodayEnergy) {
+                    let tokens = {
+                        "meter_power.daily": pvTodayEnergy
+                    };
+                    this.homey.flow.getDeviceTriggerCard('meter_power_day_changed').trigger(this,tokens);
+                }
+
                 this.setCapabilityValue('meter_power.daily', pvTodayEnergy);
             }
 
@@ -103,6 +111,13 @@ export class Sungrow extends Homey.Device {
             if (result['temperature'] && result['temperature'].value != 'xxx') {
                 this.addCapability('measure_temperature.invertor');
                 var temperature = Number(result['temperature'].value) * (Math.pow(10, Number(result['temperature'].scale)));
+
+                if (this.getCapabilityValue('measure_temperature.invertor') != temperature) {
+                    let tokens = {
+                        "measure_temperature.invertor": temperature
+                    };
+                    this.homey.flow.getDeviceTriggerCard('measure_temperature_inverter_changed').trigger(this,tokens);
+                }
                 this.setCapabilityValue('measure_temperature.invertor', temperature);
             }
 
@@ -128,8 +143,11 @@ export class Sungrow extends Homey.Device {
 
             if (result['loadpower'] && result['loadpower'].value != 'xxx' && this.hasCapability('measure_power.load')) {
                 this.addCapability('measure_power.load');
-                var soc = Number(result['loadpower'].value) * (Math.pow(10, Number(result['loadpower'].scale)));
-                this.setCapabilityValue('measure_power.load', soc);
+                var load = Number(result['loadpower'].value) * (Math.pow(10, Number(result['loadpower'].scale)));
+                if (this.getCapabilityValue('measure_power.load') != load) {
+                    this.homey.flow.getDeviceTriggerCard('measure_power_load_changed').trigger(this,{ 'measure_power.load' : load }, {});
+                }
+                this.setCapabilityValue('measure_power.load', load);
             }
 
             if (result['exportpower'] && result['exportpower'].value != 'xxx' && this.hasCapability('measure_power.grid_import')) {
