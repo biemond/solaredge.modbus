@@ -88,6 +88,18 @@
               "title": {
                 "en": "External EMS mode"
               }
+            },
+            {
+              "id": "4",
+              "title": {
+                "en": "VPP"
+              }
+            },
+            {
+              "id": "8",
+              "title": {
+                "en": "MicroGrid"
+              }
             }
           ]
         }
