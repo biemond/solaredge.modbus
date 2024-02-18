@@ -161,7 +161,7 @@ export class Sungrow extends Homey.Device {
                         this.homey.flow.getDeviceTriggerCard('measure_power_grid_export_changed').trigger(this,{ 'measure_power.grid_export' : exportpower }, {});
                     }
                     if (this.getCapabilityValue('measure_power_grid_import') != 0) {
-                        this.homey.flow.getDeviceTriggerCard('measure_power_grid_import_changed').trigger(this,{ 'measure_power_grid_import' : 0 }, {});
+                        this.homey.flow.getDeviceTriggerCard('measure_power_grid_import_changed').trigger(this,{ 'measure_power.grid_import' : 0 }, {});
                     }
                     this.setCapabilityValue('measure_power.grid_export', exportpower);
                     this.setCapabilityValue('measure_power.grid_import', 0);
@@ -169,8 +169,8 @@ export class Sungrow extends Homey.Device {
                     if (this.getCapabilityValue('measure_power.grid_export') != 0) {
                         this.homey.flow.getDeviceTriggerCard('measure_power_grid_export_changed').trigger(this,{ 'measure_power.grid_export' : 0 }, {});
                     }
-                    if (this.getCapabilityValue('measure_power_grid_import') != (-1 * exportpower)) {
-                        this.homey.flow.getDeviceTriggerCard('measure_power_grid_import_changed').trigger(this,{ 'measure_power_grid_import' :  -1 * exportpower }, {});
+                    if (this.getCapabilityValue('measure_power.grid_import') != (-1 * exportpower)) {
+                        this.homey.flow.getDeviceTriggerCard('measure_power_grid_import_changed').trigger(this,{ 'measure_power.grid_import' :  -1 * exportpower }, {});
                     }                    
                     this.setCapabilityValue('measure_power.grid_export', 0);
                     this.setCapabilityValue('measure_power.grid_import', -1 * exportpower); 
