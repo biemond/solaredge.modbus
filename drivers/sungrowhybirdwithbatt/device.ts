@@ -23,6 +23,66 @@ class MyWSungrowDevice extends Sungrow {
       // poll device state from inverter
       this.pollInvertor();
     }, RETRY_INTERVAL);
+
+    // flow action 
+    let exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
+    exportEnabledAction.registerRunListener(async (args, state) => {
+      await this.updateControl('emsmodeselection', Number(args.mode));
+    });
+
+    // homey menu / device actions
+    this.registerCapabilityListener('exportlimitenabled', async (value) => {
+      this.updateControl('emsmodeselection', Number(value));
+      return value;
+    });
+
+  }
+
+  async updateControl(type: string, value: number) {
+    let socket = new net.Socket();
+    var unitID = this.getSetting('id');
+    let client = new Modbus.client.TCP(socket, unitID); 
+
+    let modbusOptions = {
+      'host': this.getSetting('address'),
+      'port': this.getSetting('port'),
+      'unitId': this.getSetting('id'),
+      'timeout': 22,
+      'autoReconnect': false,
+      'logLabel' : 'sungrow Inverter',
+      'logLevel': 'error',
+      'logEnabled': true
+    }    
+
+    socket.setKeepAlive(false); 
+    socket.connect(modbusOptions);
+    console.log(modbusOptions);
+    
+    socket.on('connect', async () => {
+      console.log('Connected ...');
+
+      if (type == 'emsmodeselection') {
+        // 0 – Self-consumption mode
+        // 2 – Forced mode (charge/discharge/stop)
+        // 3 - External EMS mode
+        const emsmodeselectionRes = await client.writeSingleRegister(13049, value);
+        console.log('emsmodeselection', emsmodeselectionRes);
+      }
+
+      console.log('disconnect');
+      client.socket.end();
+      socket.end();
+    })
+
+    socket.on('close', () => {
+      console.log('Client closed');
+    }); 
+
+    socket.on('error', (err) => {
+      console.log(err);
+      socket.end();
+      setTimeout(() => socket.connect(modbusOptions), 4000);
+    })
   }
 
   /**

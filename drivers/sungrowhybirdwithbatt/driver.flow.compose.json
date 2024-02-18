@@ -1,26 +1,97 @@
 {
-    "triggers": [
+  "triggers": [
+    {
+      "id": "measure_power_load_changed",
+      "title": {
+        "en": "Load Yield changed",
+        "nl": "Load is veranderd",
+        "de": "Verbrauch hat sich geändert"
+      },
+      "tokens": [
         {
-            "id": "measure_power_load_changed",
-            "title": {
-              "en": "Load Yield changed",
-              "nl": "Load is veranderd",
-              "de": "Verbrauch hat sich geändert"
-            },
-            "tokens": [
-              {
-                "name": "measure_power.load",
-                "title": {
-                  "en": "Power",
-                  "nl": "Vermogen",
-                        "de": "Leistung"
-                },
-                "type": "number",
-                "example": 100
+          "name": "measure_power.load",
+          "title": {
+            "en": "Power",
+            "nl": "Vermogen",
+            "de": "Leistung"
+          },
+          "type": "number",
+          "example": 100
+        }
+      ]
+    },
+    {
+      "id": "measure_power_grid_import_changed",
+      "title": {
+        "en": "Grid Import changed",
+        "de": "Netzimport hat sich geändert"
+      },
+      "tokens": [
+        {
+          "name": "measure_power.grid_import",
+          "title": {
+            "en": "Power",
+            "nl": "Vermogen",
+            "de": "Leistung"
+          },
+          "type": "number",
+          "example": 100
+        }
+      ]
+    },
+    {
+      "id": "measure_power_grid_export_changed",
+      "title": {
+        "en": "Grid Export changed",
+        "de": "Netztexport hat sich geändert"
+      },
+      "tokens": [
+        {
+          "name": "measure_power.grid_export",
+          "title": {
+            "en": "Power",
+            "nl": "Vermogen",
+            "de": "Leistung"
+          },
+          "type": "number",
+          "example": 100
+        }
+      ]
+    }
+  ],
+  "conditions": [],
+  "actions": [
+    {
+      "id": "emsmodeselection",
+      "title": {
+        "en": "Hybrid Inverter Working Mode"
+      },
+      "args": [
+        {
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Self-consumption mode"
               }
-            ]
-          }        
-    ],
-    "conditions": [],
-    "actions": []
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Forced mode (charge/discharge/stop)"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "External EMS mode"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
