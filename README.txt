@@ -12,3 +12,4 @@ Following devices are supported
 - Solaredge StorEdge devices (DC connected battery storage)
 - Growatt - SPA, SPH or TL-X XXX Hybrid Inverter and others in the same range using local Modbus TCP, follow this doc https://www.dropbox.com/s/584915enkxc508u/Setup%20Growatt.pdf?dl=0
 - Wattsonic gen3 inverter and their clones (sunways, solinteg, A-Tronix, St-ems). following this blog Wattsonic Hybrid Inverter Gen3 Modbus RTU Protocol https://smarthome.exposed/wattsonic-hybrid-inverter-gen3-modbus-rtu-protocol/
+- Sungrow Hybrid with battery
