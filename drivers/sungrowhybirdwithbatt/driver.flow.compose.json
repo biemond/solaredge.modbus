@@ -104,6 +104,75 @@
           ]
         }
       ]
+    },
+    {
+      "id": "export",
+      "title": {
+        "en": "Set export limit",
+        "de": "Exportbeschränkung"
+      },
+      "args": [
+        {
+          "name": "limitation",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "85",
+              "title": {
+                "en": "Disabled",
+                "de": "Deaktiviert"
+              }
+            },
+            {
+              "id": "170",
+              "title": {
+                "en": "Enabled",
+                "de": "Aktiviert"
+              }
+            }
+          ]
+        },
+        {
+          "name": "power",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "id": "charge",
+      "title": {
+        "en": "Charge/discharge"
+      },
+      "args": [
+        {
+          "name": "command",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "170",
+              "title": {
+                "en": "Charge"
+              }
+            },
+            {
+              "id": "187",
+              "title": {
+                "en": "Discharge"
+              }
+            },
+            {
+              "id": "204",
+              "title": {
+                "en": "Stop"
+              }
+            }
+          ]
+        },
+        {
+          "name": "power",
+          "type": "number"
+        }
+      ]
     }
   ]
 }

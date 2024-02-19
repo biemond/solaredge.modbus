@@ -25,13 +25,23 @@ class MyWSungrowDevice extends Sungrow {
     }, RETRY_INTERVAL);
 
     // flow action 
-    let exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
-    exportEnabledAction.registerRunListener(async (args, state) => {
+    let emsmodedAction = this.homey.flow.getActionCard('emsmodeselection');
+    emsmodedAction.registerRunListener(async (args, state) => {
       await this.updateControl('emsmodeselection', Number(args.mode));
     });
 
+    let exportEnabledAction = this.homey.flow.getActionCard('export');
+    exportEnabledAction.registerRunListener(async (args, state) => {
+      await this.updateControl2('export', Number(args.limitation), Number(args.power));
+    });
+
+    let chargeAction = this.homey.flow.getActionCard('charge');
+    chargeAction.registerRunListener(async (args, state) => {
+      await this.updateControl2('charge', Number(args.command), Number(args.power));
+    });    
+
     // homey menu / device actions
-    this.registerCapabilityListener('exportlimitenabled', async (value) => {
+    this.registerCapabilityListener('emsmodeselection', async (value) => {
       this.updateControl('emsmodeselection', Number(value));
       return value;
     });
@@ -67,6 +77,61 @@ class MyWSungrowDevice extends Sungrow {
         // 3 - External EMS mode
         const emsmodeselectionRes = await client.writeSingleRegister(13049, value);
         console.log('emsmodeselection', emsmodeselectionRes);
+      }
+
+      console.log('disconnect');
+      client.socket.end();
+      socket.end();
+    })
+
+    socket.on('close', () => {
+      console.log('Client closed');
+    }); 
+
+    socket.on('error', (err) => {
+      console.log(err);
+      socket.end();
+      setTimeout(() => socket.connect(modbusOptions), 4000);
+    })
+  }
+
+  async updateControl2(type: string, command: number, value: number) {
+    let socket = new net.Socket();
+    var unitID = this.getSetting('id');
+    let client = new Modbus.client.TCP(socket, unitID); 
+
+    let modbusOptions = {
+      'host': this.getSetting('address'),
+      'port': this.getSetting('port'),
+      'unitId': this.getSetting('id'),
+      'timeout': 22,
+      'autoReconnect': false,
+      'logLabel' : 'sungrow Inverter',
+      'logLevel': 'error',
+      'logEnabled': true
+    }    
+
+    socket.setKeepAlive(false); 
+    socket.connect(modbusOptions);
+    console.log(modbusOptions);
+    
+    socket.on('connect', async () => {
+      console.log('Connected ...');
+
+      if (type == 'export') {
+        const exportLimitationRes = await client.writeSingleRegister(13086, command);
+        console.log('exportLimitation', exportLimitationRes);
+
+        const exportPowerRes = await client.writeSingleRegister(13073, value);
+        console.log('exportPower', exportPowerRes);
+      }
+
+      if (type == 'charge') {
+        const chargeCommandRes = await client.writeSingleRegister(13050, command);
+        console.log('chargeCommand', chargeCommandRes);
+
+        const chargePowerRes = await client.writeSingleRegister(13051, value);
+        console.log('chargePower', chargePowerRes);
       }
 
       console.log('disconnect');
