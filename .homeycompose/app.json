@@ -11,8 +11,8 @@
     "en": "SolarEdge + Growatt TCP modbus"
   },
   "description": {
-    "en": "Monitor SolarEdge, Growatt and Wattsonic compatiable inverters over TCP modbus protocol",
-    "de": "Überwache SolarEdge- , Growatt- Wattsonic-Wechselrichter über das TCP-Modbus-Protokoll"
+    "en": "Monitor SolarEdge, Growatt, Wattsonic and Sungrow compatible inverters over TCP modbus protocol",
+    "de": "Überwache SolarEdge-, Growatt-, Wattsonic-, Sungrow-Wechselrichter über das TCP-Modbus-Protokoll"
   },
   "category": [
     "energy"
