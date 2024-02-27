@@ -272,9 +272,9 @@ export class Wattsonic extends Homey.Device {
                     this.setCapabilityValue('measure_power', Math.round(inputPower + discharge));
                 }
                 if (type == 1) {
-                    this.setCapabilityValue('measure_power.batt_charge', discharge);
+                    this.setCapabilityValue('measure_power.batt_charge', ( -1 * discharge));
                     this.setCapabilityValue('measure_power.batt_discharge', 0);
-                    this.setCapabilityValue('measure_power', Math.round(inputPower - discharge));
+                    this.setCapabilityValue('measure_power', Math.round(inputPower - ( -1 * discharge)));
                 }        
             }
 
