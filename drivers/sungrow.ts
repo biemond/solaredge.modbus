@@ -38,9 +38,9 @@ export class Sungrow extends Homey.Device {
         "total_battery_input_energy":   [13040, 2, 'UINT32', "Total battery charge energy",-1],
 
         "today_grid_import":  [13035, 1, 'UINT16', "Daily import energy",-1],
-        "today_grid_export":  [13036, 2, 'UINT32', "Total import energy",-1],
+        "total_grid_import":  [13036, 2, 'UINT32', "Total import energy",-1],
 
-        "total_grid_import":  [13044, 1, 'UINT16', "Daily export energy",-1],
+        "today_grid_export":  [13044, 1, 'UINT16', "Daily export energy",-1],
         "total_grid_export":  [13045, 2, 'UINT32', "Total export energy",-1],
 
 
