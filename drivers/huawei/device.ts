@@ -3,7 +3,7 @@ import net from 'net';
 import {checkHoldingRegisterHuawei} from '../response';
 import { Huawei } from '../huawei';
 
-const RETRY_INTERVAL = 28 * 1000; 
+const RETRY_INTERVAL = 55 * 1000; 
 
 class MyHuaweiDevice extends Huawei {
   timer!: NodeJS.Timer;  
@@ -75,7 +75,7 @@ class MyHuaweiDevice extends Huawei {
       'host': this.getSetting('address'),
       'port': this.getSetting('port'),
       'unitId': this.getSetting('id'),
-      'timeout': 22,
+      'timeout': 50,
       'autoReconnect': false,
       'logLabel' : 'huawei Inverter',
       'logLevel': 'error',
@@ -84,7 +84,7 @@ class MyHuaweiDevice extends Huawei {
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 1000);
+    let client = new Modbus.client.TCP(socket, unitID, 2500);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
@@ -92,7 +92,7 @@ class MyHuaweiDevice extends Huawei {
       console.log('Connected ...');
       console.log(modbusOptions);
 
-      await this.delay(3000);
+      await this.delay(2000);
 
       const checkRegisterRes = await checkHoldingRegisterHuawei(this.holdingRegisters, client);
       console.log('disconnect'); 

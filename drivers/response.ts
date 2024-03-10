@@ -176,10 +176,15 @@ export async function checkHoldingRegisterWattsonic(registers: Object, client: I
     return result;
 }
 
+function delay(ms: any) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export async function checkHoldingRegisterHuawei(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
     let result: Record<string, Measurement> = {};
 
     for (const [key, value] of Object.entries(registers)) {
+        await delay(500);
         try {
 
             const res = client.readHoldingRegisters(value[0], value[1])
