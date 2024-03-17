@@ -84,22 +84,29 @@ class MyHuaweiDevice extends Huawei {
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 2500);
+    let client = new Modbus.client.TCP(socket, unitID, 3500);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
     socket.on('connect', async () => {
       console.log('Connected ...');
       console.log(modbusOptions);
-
+      const startTime = new Date();
       await this.delay(2000);
 
       const checkRegisterRes = await checkHoldingRegisterHuawei(this.holdingRegisters, client);
+      const checkBatteryRes = await checkHoldingRegisterHuawei(this.holdingRegistersBattery, client);
+      const checkMetersRes = await checkHoldingRegisterHuawei(this.holdingRegistersMeters, client);
+
       console.log('disconnect'); 
       client.socket.end();
       socket.end();
-      const finalRes = {...checkRegisterRes}
+      const finalRes = { ...checkRegisterRes, ...checkBatteryRes, ...checkMetersRes }
       this.processResult(finalRes)
+      const endTime = new Date();
+      const timeDiff = endTime.getTime() - startTime.getTime();
+      let seconds = Math.floor(timeDiff / 1000);
+      console.log("total time: " +seconds + " seconds");
     });    
 
     socket.on('close', () => {

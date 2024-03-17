@@ -65,13 +65,79 @@ export class Huawei extends Homey.Device {
         "PV2voltage": [32018, 1, 'INT16', "PV2 voltage", -1], 
         // PV2 current	RO	I16	A	100	32019
         "PV2current": [32019, 1, 'INT16', "PV2 current", -2], 
-
     };
 
+    holdingRegistersMeters: Object = {
+
+        // rn.GRID_A_VOLTAGE: I32Register("V", 10, 37101, 2),
+        "GRID_A_VOLTAGE": [37101, 2, 'INT32', "GRID PHASE_A_VOLTAGE", -1],    
+        // rn.GRID_B_VOLTAGE: I32Register("V", 10, 37103, 2),
+        "GRID_B_VOLTAGE": [37105, 2, 'INT32', "GRID PHASE_B_VOLTAGE", -1],    
+        // rn.GRID_C_VOLTAGE: I32Register("V", 10, 37105, 2),
+        "GRID_C_VOLTAGE": [37105, 2, 'INT32', "GRID PHASE_C_VOLTAGE", -1], 
+
+        // rn.ACTIVE_GRID_A_CURRENT: I32Register("I", 100, 37107, 2),
+        "GRID_PHASE_A_CURRENT": [37107, 2, 'INT32', "GRID PHASE_A_CURRENT", -2],   
+        // rn.ACTIVE_GRID_B_CURRENT: I32Register("I", 100, 37109, 2),
+        "GRID_PHASE_B_CURRENT": [37109, 2, 'INT32', "GRID PHASE_B_CURRENT", -2],   
+        // rn.ACTIVE_GRID_C_CURRENT: I32Register("I", 100, 37111, 2),
+        "GRID_PHASE_C_CURRENT": [37111, 2, 'INT32', "GRID PHASE_C_CURRENT", -2],  
+
+        // rn.POWER_METER_ACTIVE_POWER: I32Register("W", 1, 37113, 2),
+        "POWER_METER_ACTIVE_POWERT": [37113, 2, 'INT32', "POWER METER_ACTIVE_POWER", 0],  
+
+        // rn.GRID_EXPORTED_ENERGY: I32AbsoluteValueRegister("kWh", 100, 37119, 2),
+        "GRID_EXPORTED_ENERGY": [37119, 2, 'INT32', "GRID_EXPORTED_ENERGY", -2],  
+        // rn.GRID_ACCUMULATED_ENERGY: I32Register("kWh", 100, 37121, 2),
+        "GRID_ACCUMULATED_ENERGY": [37121, 2, 'INT32', "GRID_ACCUMULATED_ENERGY", -2],  
+
+        // rn.ACTIVE_GRID_A_POWER: I32Register("W", 1, 37132, 2),
+        "ACTIVE_GRID_A_POWER": [37132, 2, 'INT32', "ACTIVE_GRID_A_POWER", 0],  
+        // rn.ACTIVE_GRID_B_POWER: I32Register("W", 1, 37134, 2),
+        "ACTIVE_GRID_B_POWER": [37134, 2, 'INT32', "ACTIVE_GRID_B_POWER", 0],  
+        // rn.ACTIVE_GRID_C_POWER: I32Register("W", 1, 37136, 2),
+        "ACTIVE_GRID_C_POWER": [37136, 2, 'INT32', "ACTIVE_GRID_C_POWER", 0],  
+
+    }
 
     holdingRegistersBattery: Object = {
+        "STORAGE_RUNNING_STATUS": [37762, 1, 'UINT16', "RUNNING STATUS", 0],
+        "STORAGE_CHARGE_DISCHARGE_POWER": [37765, 2, 'INT32', "CHARGE_DISCHARGE POWER", 0],   
+        "STORAGE_STATE_OF_CAPACITY": [37760, 1, 'UINT16', "RUNNING STATUS", -1],
 
- 
+        "STORAGE_CURRENT_DAY_CHARGE_CAPACITY": [37784, 2, 'UINT32', "CURRENT_DAY_CHARGE_CAPACITY", -2],
+        "STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY": [37786, 2, 'UINT32', "CURRENT_DAY_DISCHARGE_CAPACITY", -2],
+
+        "STORAGE_TOTAL_CHARGE": [37780, 2, 'UINT32', "TOTAL_CHARGE", -2],
+        "STORAGE_TOTAL_DISCHARGE": [37782, 2, 'UINT32', "TOTAL_DISCHARGE", -2],        
+
+        "STORAGE_MAXIMUM_CHARGE_POWER": [37046, 2, 'UINT32', "STORAGE_MAXIMUM_CHARGE_POWER", 0],    
+        "STORAGE_MAXIMUM_DISCHARGE_POWER": [37048, 2, 'UINT32', "STORAGE_MAXIMUM_DISCHARGE_POWER", 0],    
+        "STORAGE_RATED_CAPACITY": [37758, 2, 'UINT32', "STORAGE_RATED_CAPACITY", 0],    
+
+        // "STORAGE_1_RUNNING_STATUS": [37000, 1, 'UINT16', "BATT RUNNING STATUS", 0],
+        // "STORAGE_1_CHARGE_DISCHARGE_POWER": [37001, 2, 'INT32', "BATT CHARGE_DISCHARGE POWER", 0],   
+        // "STORAGE_1_STATE_OF_CAPACITY": [37004, 1, 'UINT16', "BATT RUNNING STATUS", -1],
+
+        // "STORAGE_1_CURRENT_DAY_CHARGE_CAPACITY": [37015, 2, 'UINT32', "BATT CURRENT_DAY_CHARGE_CAPACITY", -2],
+        // "STORAGE_1_CURRENT_DAY_DISCHARGE_CAPACITY": [37017, 2, 'UINT32', "BATT CURRENT_DAY_DISCHARGE_CAPACITY", -2],
+
+        // "STORAGE_1_BATTERY_TEMPERATURE": [37022, 1, 'UINT16', "BATT BATTERY_TEMPERATURE", -1],
+
+        // "STORAGE_1_TOTAL_CHARGE": [37066, 2, 'UINT32', "BATT TOTAL_CHARGE", -2],
+        // "STORAGE_1_TOTAL_DISCHARGE": [37068, 2, 'UINT32', "BATT TOTAL_DISCHARGE", -2],
+
+        // "STORAGE_2_RUNNING_STATUS": [37741, 1, 'UINT16', "BATT RUNNING STATUS", 0],
+        // "STORAGE_2_CHARGE_DISCHARGE_POWER": [37743, 2, 'INT32', "BATT CHARGE_DISCHARGE POWER", 0],   
+        // "STORAGE_2_STATE_OF_CAPACITY": [37738, 1, 'UINT16', "BATT RUNNING STATUS", -1],
+
+        // "STORAGE_2_CURRENT_DAY_CHARGE_CAPACITY": [37746, 2, 'UINT32', "BATT CURRENT_DAY_CHARGE_CAPACITY", -2],
+        // "STORAGE_2_CURRENT_DAY_DISCHARGE_CAPACITY": [37748, 2, 'UINT32', "BATT CURRENT_DAY_DISCHARGE_CAPACITY", -2],
+
+        // "STORAGE_2_BATTERY_TEMPERATURE": [37752, 1, 'UINT16', "BATT BATTERY_TEMPERATURE", -1],
+
+        // "STORAGE_2_TOTAL_CHARGE": [37753, 2, 'UINT32', "BATT TOTAL_CHARGE", -2],
+        // "STORAGE_2_TOTAL_DISCHARGE": [37755, 2, 'UINT32', "BATT TOTAL_DISCHARGE", -2],
 
     };   
 
@@ -179,10 +245,45 @@ export class Huawei extends Homey.Device {
                 this.setCapabilityValue('measure_power.active_power', ACTIVE_POWER);
             }
 
+
+            let DEVICE_STATUS_DEFINITIONS: { [key: string]: string } = {
+                "0": "Standby: initializing",
+                "1": "Standby: detecting insulation resistance",
+                "2": "Standby: detecting irradiation",
+                "3": "Standby: grid detecting",
+                "256": "Starting",
+                "512": "On-grid",
+                "513": "Grid Connection: power limited",
+                "514": "Grid Connection: self-derating",
+                "515": "Off-grid mode: running",
+                "768": "Shutdown: fault",
+                "769": "Shutdown: command",
+                "770": "Shutdown: OVGR",
+                "771": "Shutdown: communication disconnected",
+                "772": "Shutdown: power limited",
+                "773": "Shutdown: manual startup required",
+                "774": "Shutdown: DC switches disconnected",
+                "775": "Shutdown: rapid cutoff",
+                "776": "Shutdown: input underpowered",
+                "1025": "Grid scheduling: cosphi-P curve",
+                "1026": "Grid scheduling: Q-U curve",
+                "1027": "Grid scheduling: PF-U curve",
+                "1028": "Grid scheduling: dry contact",
+                "1029": "Grid scheduling: Q-P curve",
+                "1280": "Spot-check ready",
+                "1281": "Spot-checking",
+                "1536": "Inspecting",
+                "1792": "AFCI self check",
+                "2048": "I-V scanning",
+                "2304": "DC input detection",
+                "2560": "Running: off-grid charging",
+                "40960": "Standby: no irradiation",
+            }
+
             if (result['DEVICE_STATUS'] && result['DEVICE_STATUS'].value != 'xxx' ) {
                 this.addCapability('huawei_status');
-                var huawei_status = Number(result['DEVICE_STATUS'].value);
-                this.setCapabilityValue('huawei_status', huawei_status);
+                var huawei_status = result['DEVICE_STATUS'].value;
+                this.setCapabilityValue('huawei_status',  DEVICE_STATUS_DEFINITIONS[huawei_status] );
             }
         }
     }
