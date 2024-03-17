@@ -25,7 +25,11 @@
     "measure_voltage.pv2",
     "measure_current.pv1",
     "measure_current.pv2",
-    "huawei_status"            
+    "huawei_status",
+    "battery",
+    "measure_battery",
+    "measure_power.batt_charge",
+    "measure_power.batt_discharge"                    
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -132,7 +136,21 @@
 	    	"de": "Status des Wechselrichters"
       },
       "icon": "/assets/operational_status.svg"   
-    }                      
+    },
+    "measure_power.batt_discharge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power discharge",
+        "de": "Batterieentladeleistung"
+      }
+    },
+    "measure_power.batt_charge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power charge",
+        "de": "Batterieladeleistung"
+      }
+    }                          
   },
   "platforms": [
     "local"

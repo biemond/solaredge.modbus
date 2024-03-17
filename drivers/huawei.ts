@@ -101,7 +101,7 @@ export class Huawei extends Homey.Device {
     }
 
     holdingRegistersBattery: Object = {
-        "STORAGE_RUNNING_STATUS": [37762, 1, 'UINT16', "RUNNING STATUS", 0],
+        // "STORAGE_RUNNING_STATUS": [37762, 1, 'UINT16', "RUNNING STATUS", 0],
         "STORAGE_CHARGE_DISCHARGE_POWER": [37765, 2, 'INT32', "CHARGE_DISCHARGE POWER", 0],   
         "STORAGE_STATE_OF_CAPACITY": [37760, 1, 'UINT16', "RUNNING STATUS", -1],
 
@@ -285,6 +285,47 @@ export class Huawei extends Homey.Device {
                 this.setCapabilityValue('huawei_status',  DEVICE_STATUS_DEFINITIONS[huawei_status] );
                 console.log('inverter status ' + DEVICE_STATUS_DEFINITIONS[huawei_status]);
             }
+
+
+            // "STORAGE_STATE_OF_CAPACITY": [37760, 1, 'UINT16', "RUNNING STATUS", -1],
+            if (result['STORAGE_STATE_OF_CAPACITY'] && result['STORAGE_STATE_OF_CAPACITY'].value != 'xxx' && this.hasCapability('measure_battery')) {
+                this.addCapability('battery');
+                this.addCapability('measure_battery');
+                var soc = Number(result['STORAGE_STATE_OF_CAPACITY'].value) * (Math.pow(10, Number(result['STORAGE_STATE_OF_CAPACITY'].scale)));
+                this.setCapabilityValue('battery', soc);
+                this.setCapabilityValue('measure_battery', soc);
+            }
+
+            // "STORAGE_CHARGE_DISCHARGE_POWER": [37765, 2, 'INT32', "CHARGE_DISCHARGE POWER", 0],   
+            if (result['STORAGE_CHARGE_DISCHARGE_POWER'] && result['STORAGE_CHARGE_DISCHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.batt_discharge')) {
+                this.addCapability('measure_power.batt_discharge');
+                var discharge = Number(result['STORAGE_CHARGE_DISCHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_CHARGE_DISCHARGE_POWER'].scale)));
+                if (discharge < 0 ){
+                  this.setCapabilityValue('measure_power.batt_discharge', discharge);
+                } else {
+                  this.setCapabilityValue('measure_power.batt_discharge', 0);
+                }
+            }
+            if (result['STORAGE_CHARGE_DISCHARGE_POWER'] && result['STORAGE_CHARGE_DISCHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.batt_charge')) {
+                this.addCapability('measure_power.batt_charge');
+                var charge = Number(result['STORAGE_CHARGE_DISCHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_CHARGE_DISCHARGE_POWER'].scale)));
+                if (charge > 0 ){
+                    this.setCapabilityValue('measure_power.batt_charge', charge);
+                } else {
+                    this.setCapabilityValue('measure_power.batt_charge', 0);
+                }
+            }
+
+
+
+
+
+            // OFFLINE = 0
+            // STANDBY = 1
+            // RUNNING = 2
+            // FAULT = 3
+            // SLEEP_MODE = 4
+
         }
     }
 }
