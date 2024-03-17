@@ -1,0 +1,197 @@
+{
+  "name": {
+    "en": "Huawei Inverter + Battery",
+    "de": "Huawei Wechselrichter mit Batterie"
+  },
+  "class": "solarpanel",
+  "energy": {
+    "batteries": [
+      "OTHER"
+    ]
+  },
+  "capabilities": [
+    "measure_power",
+    "measure_power.active_power",    
+    "measure_current.grid_phase1",
+    "measure_current.grid_phase2",
+    "measure_current.grid_phase3",
+    "measure_voltage.grid_phase1",
+    "measure_voltage.grid_phase2",
+    "measure_voltage.grid_phase3",
+    "measure_temperature.invertor",
+    "meter_power",
+    "meter_power.daily",
+    "measure_voltage.pv1",
+    "measure_voltage.pv2",
+    "measure_current.pv1",
+    "measure_current.pv2",
+    "huawei_status"            
+  ],
+  "capabilitiesOptions": {
+    "measure_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar Power",
+        "de": "Solarleistung"
+      }
+    },
+    "measure_power.active_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Active Power"
+      }
+    },
+    "measure_current.grid_phase1": {
+      "title": {
+        "en": "AC Current grid phase1",
+        "de": "AC-Strom grid Phase 1"
+      }
+    },
+    "measure_current.grid_phase2": {
+      "title": {
+        "en": "AC Current grid phase2",
+        "de": "AC-Strom grid Phase 2"
+      }
+    },
+    "measure_current.grid_phase3": {
+      "title": {
+        "en": "AC Current grid phase3",
+        "de": "AC-Strom grid Phase 3"
+      }
+    },
+    "measure_current.pv1": {
+      "title": {
+        "en": "AC Current pv1",
+        "de": "AC-Strom pv1"
+      }
+    },
+    "measure_current.pv2": {
+      "title": {
+        "en": "AC Current pv2",
+        "de": "AC-Strom pv2"
+      }
+    },    
+    "measure_voltage.grid_phase1": {
+      "title": {
+        "en": "Voltage grid_phase1",
+        "de": "Spannung grid Phase 1"
+      }
+    },
+    "measure_voltage.grid_phase2": {
+      "title": {
+        "en": "Voltage grid phase2",
+        "de": "Spannung grid Phase 2"
+      }
+    },
+    "measure_voltage.grid_phase3": {
+      "title": {
+        "en": "Voltage grid phase3",
+        "de": "Spannung grid Phase 3"
+      }
+    },
+    "measure_voltage.pv1": {
+      "title": {
+        "en": "Voltage pv1",
+        "de": "Spannung pv1"
+      }
+    },
+    "measure_voltage.pv2": {
+      "title": {
+        "en": "Voltage pv2",
+        "de": "Spannung pv2"
+      }
+    },    
+    "measure_temperature.invertor": {
+      "title": {
+        "en": "Heatsink temperature",
+        "nl": "Heatsink temperatuur",
+        "de": "Kühlkörpertemperatur"
+      },
+      "decimals": 2
+    },
+    "meter_power": {
+      "title": {
+        "en": "Total Yield",
+        "nl": "Totale opbrengst",
+        "de": "Gesamtertrag"
+      },
+      "decimals": 2
+    },
+    "meter_power.daily": {
+      "title": {
+        "en": "Total Day Yield",
+        "nl": "Totale dag opbrengst",
+        "de": "Tagesgesamtertrag"
+      },
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },
+    "huawei_status": {
+      "title": {
+        "en": "Inverter status",
+	    	"de": "Status des Wechselrichters"
+      },
+      "icon": "/assets/operational_status.svg"   
+    }                      
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
+  "pair": [
+    {
+      "id": "start"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Inverter settings",
+        "de": "Wechselrichtereinstellungen"
+      },
+      "children": [
+        {
+          "id": "address",
+          "type": "text",
+          "value": "0.0.0.0",
+          "label": {
+            "en": "IP Address",
+            "de": "IP-Adresse"
+          }
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "value": 1502,
+          "step": 1,
+          "label": {
+            "en": "Port",
+            "de": "Port"
+          }
+        },
+        {
+          "id": "id",
+          "type": "number",
+          "value": 1,
+          "step": 1,
+          "attr": {
+            "min": 0,
+            "max": 50
+          },
+          "label": {
+            "en": "Inverter ID",
+            "nl": "Inverter ID",
+            "de": "Wechselrichter-ID"
+          }
+        }
+      ]
+    }
+  ]
+}

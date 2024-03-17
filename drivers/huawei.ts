@@ -12,7 +12,7 @@ export class Huawei extends Homey.Device {
 
        
         // rn.RATED_POWER: U32Register("W", 1, 30073, 2),
-        "ratedPower": [30073, 2, 'UINT32', "Rated Power", 0],
+        // "ratedPower": [30073, 2, 'UINT32', "Rated Power", 0],
 
         // // total solar
         "inputPower": [32064, 2, 'INT32', "Input Power", 0], //	kW	1000
@@ -36,12 +36,12 @@ export class Huawei extends Homey.Device {
         // rn.ACCUMULATED_YIELD_ENERGY: U32Register("kWh", 100, 32106, 2),
         "ACCUMULATED_YIELD_ENERGY": [32106, 2, 'UINT32', "ACCUMULATED YIELD ENERGY", -2],  
         // rn.DAY_ACTIVE_POWER_PEAK: I32Register("W", 1, 32078, 2),
-        "DAY_ACTIVE_POWER_PEAK": [32078, 2, 'INT32', "DAY_ACTIVE_POWER_PEAK", 0],   
+        // "DAY_ACTIVE_POWER_PEAK": [32078, 2, 'INT32', "DAY_ACTIVE_POWER_PEAK", 0],   
  
         // rn.ACTIVE_POWER: I32Register("W", 1, 32080, 2),
         "ACTIVE_POWER": [32080, 2, 'INT32', "ACTIVE_POWER", 0],   
         // rn.GRID_FREQUENCY: U16Register("Hz", 100, 32085, 1),
-        "GRID_FREQUENCY": [32085, 1, 'UINT16', "GRID_FREQUENCY", -2], 
+        // "GRID_FREQUENCY": [32085, 1, 'UINT16', "GRID_FREQUENCY", -2], 
         // rn.INTERNAL_TEMPERATURE: I16Register("°C", 10, 32087, 1),
         "INTERNAL_TEMPERATURE": [32087, 1, 'INT16', "INTERNAL_TEMPERATURE", -1], 
 
@@ -53,10 +53,10 @@ export class Huawei extends Homey.Device {
         // rn.MODEL_NAME: StringRegister(30000, 15),
         "modelName": [30000, 15, 'STRING', "Model Name", 0],
         // rn.MODEL_ID: U16Register(None, 1, 30070, 1),
-        "modelId": [30070, 1, 'UINT16', "Model ID", 0], 
+        // "modelId": [30070, 1, 'UINT16', "Model ID", 0], 
 
         // "Number of PV strings"	RO	U16	N/A	1	30071	1
-        "TotalPVstrings": [30071, 1, 'UINT16', "Number of PV strings", 0], 
+        // "TotalPVstrings": [30071, 1, 'UINT16', "Number of PV strings", 0], 
         // PV1 voltage	RO	I16	V	10	32016
         "PV1voltage": [32016, 1, 'INT16', "PV1 voltage", -1], 
         // PV1 current	RO	I16	A	100	32017
@@ -151,17 +151,17 @@ export class Huawei extends Homey.Device {
             }
   
 
-            if (result['PHASE_A_CURRENT'] && result['PHASE_A_CURRENT'].value != '-1' && result['PHASE_A_CURRENT'].value != 'xxx') {
+            if (result['PHASE_A_CURRENT'] && result['PHASE_A_CURRENT'].value != '-1' && result['PHASE_A_CURRENT'].value != 'xxx'  && this.hasCapability('measure_current.phase1')) {
                 this.addCapability('measure_current.phase1');
                 var currenteac1 = Number(result['PHASE_A_CURRENT'].value) * (Math.pow(10, Number(result['PHASE_A_CURRENT'].scale)));
                 this.setCapabilityValue('measure_current.phase1', currenteac1);
             }
-            if (result['PHASE_B_CURRENT'] && result['PHASE_B_CURRENT'].value != '-1' && result['PHASE_B_CURRENT'].value != 'xxx') {
+            if (result['PHASE_B_CURRENT'] && result['PHASE_B_CURRENT'].value != '-1' && result['PHASE_B_CURRENT'].value != 'xxx' && this.hasCapability('measure_current.phase2')) {
                 this.addCapability('measure_current.phase2');
                 var currenteac2 = Number(result['PHASE_B_CURRENT'].value) * (Math.pow(10, Number(result['PHASE_B_CURRENT'].scale)));
                 this.setCapabilityValue('measure_current.phase2', currenteac2);
             }
-            if (result['PHASE_C_CURRENT'] && result['PHASE_C_CURRENT'].value != '-1' && result['PHASE_C_CURRENT'].value != 'xxx') {
+            if (result['PHASE_C_CURRENT'] && result['PHASE_C_CURRENT'].value != '-1' && result['PHASE_C_CURRENT'].value != 'xxx' && this.hasCapability('measure_current.phase3')) {
                 this.addCapability('measure_current.phase3');
                 var currenteac3 = Number(result['PHASE_C_CURRENT'].value) * (Math.pow(10, Number(result['PHASE_C_CURRENT'].scale)));
                 this.setCapabilityValue('measure_current.phase3', currenteac3);
@@ -197,25 +197,25 @@ export class Huawei extends Homey.Device {
             }
 
 
-            if (result['GRID_VOLTAGE'] && result['GRID_VOLTAGE'].value != 'xxx') {
+            if (result['GRID_VOLTAGE'] && result['GRID_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage')) {
                 this.addCapability('measure_voltage');
                 var GRID_VOLTAGE = Number(result['GRID_VOLTAGE'].value) * (Math.pow(10, Number(result['GRID_VOLTAGE'].scale)));
                 this.setCapabilityValue('measure_voltage', GRID_VOLTAGE);
             }
 
-            if (result['PHASE_A_VOLTAGE'] && result['PHASE_A_VOLTAGE'].value != 'xxx') {
+            if (result['PHASE_A_VOLTAGE'] && result['PHASE_A_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.phase1')) {
                 this.addCapability('measure_voltage.phase1');
                 var PHASE_A_VOLTAGE = Number(result['PHASE_A_VOLTAGE'].value) * (Math.pow(10, Number(result['PHASE_A_VOLTAGE'].scale)));
                 this.setCapabilityValue('measure_voltage.phase1', PHASE_A_VOLTAGE);
             }
 
-            if (result['PHASE_B_VOLTAGE'] && result['PHASE_B_VOLTAGE'].value != 'xxx') {
+            if (result['PHASE_B_VOLTAGE'] && result['PHASE_B_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.phase2')) {
                 this.addCapability('measure_voltage.phase2');
                 var PHASE_B_VOLTAGE = Number(result['PHASE_B_VOLTAGE'].value) * (Math.pow(10, Number(result['PHASE_B_VOLTAGE'].scale)));
                 this.setCapabilityValue('measure_voltage.phase2', PHASE_B_VOLTAGE);
             }
 
-            if (result['PHASE_C_VOLTAGE'] && result['PHASE_C_VOLTAGE'].value != 'xxx') {
+            if (result['PHASE_C_VOLTAGE'] && result['PHASE_C_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.phase3')) {
                 this.addCapability('measure_voltage.phase3');
                 var PHASE_C_VOLTAGE = Number(result['PHASE_C_VOLTAGE'].value) * (Math.pow(10, Number(result['PHASE_C_VOLTAGE'].scale)));
                 this.setCapabilityValue('measure_voltage.phase3', PHASE_C_VOLTAGE);
@@ -244,7 +244,6 @@ export class Huawei extends Homey.Device {
                 var ACTIVE_POWER = Number(result['ACTIVE_POWER'].value) * (Math.pow(10, Number(result['ACTIVE_POWER'].scale)));
                 this.setCapabilityValue('measure_power.active_power', ACTIVE_POWER);
             }
-
 
             let DEVICE_STATUS_DEFINITIONS: { [key: string]: string } = {
                 "0": "Standby: initializing",
@@ -284,6 +283,7 @@ export class Huawei extends Homey.Device {
                 this.addCapability('huawei_status');
                 var huawei_status = result['DEVICE_STATUS'].value;
                 this.setCapabilityValue('huawei_status',  DEVICE_STATUS_DEFINITIONS[huawei_status] );
+                console.log('inverter status ' + DEVICE_STATUS_DEFINITIONS[huawei_status]);
             }
         }
     }

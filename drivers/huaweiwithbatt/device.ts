@@ -3,9 +3,9 @@ import net from 'net';
 import {checkHoldingRegisterHuawei} from '../response';
 import { Huawei } from '../huawei';
 
-const RETRY_INTERVAL = 55 * 1000; 
+const RETRY_INTERVAL = 75 * 1000; 
 
-class MyHuaweiDevice extends Huawei {
+class MyHuaweiDeviceBattery extends Huawei {
   timer!: NodeJS.Timer;  
   /**
    * onInit is called when the device is initialized.
@@ -31,7 +31,7 @@ class MyHuaweiDevice extends Huawei {
    * onAdded is called when the user adds the device, called just after pairing.
    */
   async onAdded() {
-    this.log('MyHuaweiDevice has been added');
+    this.log('MyHuaweiDeviceBattery has been added');
   }
 
   /**
@@ -43,7 +43,7 @@ class MyHuaweiDevice extends Huawei {
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
   async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string|void> {
-    this.log('MyHuaweiDevice settings where changed');
+    this.log('MyHuaweiDeviceBattery settings where changed');
   }
 
   /**
@@ -52,14 +52,14 @@ class MyHuaweiDevice extends Huawei {
    * @param {string} name The new name
    */
   async onRenamed(name: string) {
-    this.log('MyHuaweiDevice was renamed');
+    this.log('MyHuaweiDeviceBattery was renamed');
   }
 
   /**
    * onDeleted is called when the user deleted the device.
    */
   async onDeleted() {
-    this.log('MyHuaweiDevice has been deleted');
+    this.log('MyHuaweiDeviceBattery has been deleted');
     this.homey.clearInterval(this.timer);
   }
   
@@ -75,9 +75,9 @@ class MyHuaweiDevice extends Huawei {
       'host': this.getSetting('address'),
       'port': this.getSetting('port'),
       'unitId': this.getSetting('id'),
-      'timeout': 50,
+      'timeout': 70,
       'autoReconnect': false,
-      'logLabel' : 'huawei Inverter',
+      'logLabel' : 'huawei Inverter Battery',
       'logLevel': 'error',
       'logEnabled': true
     }    
@@ -95,11 +95,13 @@ class MyHuaweiDevice extends Huawei {
       await this.delay(2000);
 
       const checkRegisterRes = await checkHoldingRegisterHuawei(this.holdingRegisters, client);
+      const checkBatteryRes = await checkHoldingRegisterHuawei(this.holdingRegistersBattery, client);
+      const checkMetersRes = await checkHoldingRegisterHuawei(this.holdingRegistersMeters, client);
 
       console.log('disconnect'); 
       client.socket.end();
       socket.end();
-      const finalRes = { ...checkRegisterRes }
+      const finalRes = { ...checkRegisterRes, ...checkBatteryRes, ...checkMetersRes }
       this.processResult(finalRes)
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
@@ -125,4 +127,4 @@ class MyHuaweiDevice extends Huawei {
   }
 }
 
-module.exports = MyHuaweiDevice;
+module.exports = MyHuaweiDeviceBattery;
