@@ -84,7 +84,7 @@ export class Huawei extends Homey.Device {
         "GRID_PHASE_C_CURRENT": [37111, 2, 'INT32', "GRID PHASE_C_CURRENT", -2],  
 
         // rn.POWER_METER_ACTIVE_POWER: I32Register("W", 1, 37113, 2),
-        "POWER_METER_ACTIVE_POWERT": [37113, 2, 'INT32', "POWER METER_ACTIVE_POWER", 0],  
+        "POWER_METER_ACTIVE_POWER": [37113, 2, 'INT32', "POWER METER_ACTIVE_POWER", 0],  
 
         // rn.GRID_EXPORTED_ENERGY: I32AbsoluteValueRegister("kWh", 100, 37119, 2),
         "GRID_EXPORTED_ENERGY": [37119, 2, 'INT32', "GRID_EXPORTED_ENERGY", -2],  
@@ -167,6 +167,22 @@ export class Huawei extends Homey.Device {
                 this.setCapabilityValue('measure_current.phase3', currenteac3);
             }
 
+            if (result['GRID_PHASE_A_CURRENT'] && result['GRID_PHASE_A_CURRENT'].value != '-1' && result['GRID_PHASE_A_CURRENT'].value != 'xxx'  && this.hasCapability('measure_current.grid_phase1')) {
+                this.addCapability('measure_current.grid_phase1');
+                var currenteac1 = Number(result['GRID_PHASE_A_CURRENT'].value) * (Math.pow(10, Number(result['GRID_PHASE_A_CURRENT'].scale)));
+                this.setCapabilityValue('measure_current.grid_phase1', currenteac1);
+            }
+            if (result['GRID_PHASE_B_CURRENT'] && result['GRID_PHASE_B_CURRENT'].value != '-1' && result['GRID_PHASE_B_CURRENT'].value != 'xxx' && this.hasCapability('measure_current.grid_phase2')) {
+                this.addCapability('measure_current.grid_phase2');
+                var currenteac2 = Number(result['GRID_PHASE_B_CURRENT'].value) * (Math.pow(10, Number(result['GRID_PHASE_B_CURRENT'].scale)));
+                this.setCapabilityValue('measure_current.grid_phase2', currenteac2);
+            }
+            if (result['GRID_PHASE_C_CURRENT'] && result['GRID_PHASE_C_CURRENT'].value != '-1' && result['GRID_PHASE_C_CURRENT'].value != 'xxx' && this.hasCapability('measure_current.grid_phase3')) {
+                this.addCapability('measure_current.grid_phase3');
+                var currenteac3 = Number(result['GRID_PHASE_C_CURRENT'].value) * (Math.pow(10, Number(result['GRID_PHASE_C_CURRENT'].scale)));
+                this.setCapabilityValue('measure_current.grid_phase3', currenteac3);
+            }
+
             if (result['PV1current'] && result['PV1current'].value != '-1' && result['PV1current'].value != 'xxx') {
                 this.addCapability('measure_current.pv1');
                 var currentepv1 = Number(result['PV1current'].value) * (Math.pow(10, Number(result['PV1current'].scale)));
@@ -202,6 +218,24 @@ export class Huawei extends Homey.Device {
                 var GRID_VOLTAGE = Number(result['GRID_VOLTAGE'].value) * (Math.pow(10, Number(result['GRID_VOLTAGE'].scale)));
                 this.setCapabilityValue('measure_voltage', GRID_VOLTAGE);
             }
+
+            if (result['GRID_A_VOLTAGE'] && result['GRID_A_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.grid_phase1')) {
+                this.addCapability('measure_voltage.grid_phase1');
+                var GRID_A_VOLTAGE = Number(result['GRID_A_VOLTAGE'].value) * (Math.pow(10, Number(result['GRID_A_VOLTAGE'].scale)));
+                this.setCapabilityValue('measure_voltage.grid_phase1', GRID_A_VOLTAGE);
+            }
+
+            if (result['GRID_B_VOLTAGE'] && result['GRID_B_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.grid_phase2')) {
+                this.addCapability('measure_voltage.grid_phase2');
+                var GRID_B_VOLTAGE = Number(result['GRID_B_VOLTAGE'].value) * (Math.pow(10, Number(result['GRID_B_VOLTAGE'].scale)));
+                this.setCapabilityValue('measure_voltage.grid_phase2', GRID_B_VOLTAGE);
+            }
+
+            if (result['GRID_C_VOLTAGE'] && result['GRID_C_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.grid_phase3')) {
+                this.addCapability('measure_voltage.grid_phase3');
+                var GRID_C_VOLTAGE = Number(result['GRID_C_VOLTAGE'].value) * (Math.pow(10, Number(result['GRID_C_VOLTAGE'].scale)));
+                this.setCapabilityValue('measure_voltage.grid_phase3', GRID_C_VOLTAGE);
+            }        
 
             if (result['PHASE_A_VOLTAGE'] && result['PHASE_A_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.phase1')) {
                 this.addCapability('measure_voltage.phase1');
@@ -301,7 +335,7 @@ export class Huawei extends Homey.Device {
                 this.addCapability('measure_power.batt_discharge');
                 var discharge = Number(result['STORAGE_CHARGE_DISCHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_CHARGE_DISCHARGE_POWER'].scale)));
                 if (discharge < 0 ){
-                  this.setCapabilityValue('measure_power.batt_discharge', discharge);
+                  this.setCapabilityValue('measure_power.batt_discharge', -1 * discharge);
                 } else {
                   this.setCapabilityValue('measure_power.batt_discharge', 0);
                 }
@@ -317,14 +351,41 @@ export class Huawei extends Homey.Device {
             }
 
 
+            if (result['ACTIVE_GRID_A_POWER'] && result['ACTIVE_GRID_A_POWER'].value != 'xxx' && this.hasCapability('measure_power.grid_phase1')) {
+                this.addCapability('measure_power.grid_phase1');
+                var ACTIVE_GRID_A_POWER = Number(result['ACTIVE_GRID_A_POWER'].value) * (Math.pow(10, Number(result['ACTIVE_GRID_A_POWER'].scale)));
+                this.setCapabilityValue('measure_power.grid_phase1', ACTIVE_GRID_A_POWER);
+            }
 
+            if (result['ACTIVE_GRID_B_POWER'] && result['ACTIVE_GRID_B_POWER'].value != 'xxx' && this.hasCapability('measure_power.grid_phase2')) {
+                this.addCapability('measure_power.grid_phase2');
+                var ACTIVE_GRID_B_POWER = Number(result['ACTIVE_GRID_B_POWER'].value) * (Math.pow(10, Number(result['ACTIVE_GRID_B_POWER'].scale)));
+                this.setCapabilityValue('measure_power.grid_phase2', ACTIVE_GRID_B_POWER);
+            }
 
+            if (result['ACTIVE_GRID_C_POWER'] && result['ACTIVE_GRID_C_POWER'].value != 'xxx' && this.hasCapability('measure_power.grid_phase3')) {
+                this.addCapability('measure_power.grid_phase3');
+                var ACTIVE_GRID_C_POWER = Number(result['ACTIVE_GRID_C_POWER'].value) * (Math.pow(10, Number(result['ACTIVE_GRID_C_POWER'].scale)));
+                this.setCapabilityValue('measure_power.grid_phase3', ACTIVE_GRID_C_POWER);
+            }            
 
-            // OFFLINE = 0
-            // STANDBY = 1
-            // RUNNING = 2
-            // FAULT = 3
-            // SLEEP_MODE = 4
+            if (result['POWER_METER_ACTIVE_POWER'] && result['POWER_METER_ACTIVE_POWER'].value != 'xxx' && this.hasCapability('measure_power.grid_active_power')) {
+                this.addCapability('measure_power.grid_active_power');
+                var POWER_METER_ACTIVE_POWER = Number(result['POWER_METER_ACTIVE_POWER'].value) * (Math.pow(10, Number(result['POWER_METER_ACTIVE_POWER'].scale)));
+                this.setCapabilityValue('measure_power.grid_active_power', POWER_METER_ACTIVE_POWER);
+            }
+
+            if (result['GRID_EXPORTED_ENERGY'] && result['GRID_EXPORTED_ENERGY'].value != 'xxx' && this.hasCapability('meter_power.grid_import')) {
+                this.addCapability('meter_power.grid_import');
+                var GRID_EXPORTED_ENERGY = Number(result['GRID_EXPORTED_ENERGY'].value) * (Math.pow(10, Number(result['GRID_EXPORTED_ENERGY'].scale)));
+                this.setCapabilityValue('meter_power.grid_import', GRID_EXPORTED_ENERGY);
+            }
+
+            if (result['GRID_ACCUMULATED_ENERGY'] && result['GRID_ACCUMULATED_ENERGY'].value != 'xxx' && this.hasCapability('meter_power.grid_export')) {
+                this.addCapability('meter_power.grid_export');
+                var GRID_ACCUMULATED_ENERGY = Number(result['GRID_ACCUMULATED_ENERGY'].value) * (Math.pow(10, Number(result['GRID_ACCUMULATED_ENERGY'].scale)));
+                this.setCapabilityValue('meter_power.grid_export', GRID_ACCUMULATED_ENERGY);
+            } 
 
         }
     }

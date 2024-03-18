@@ -11,7 +11,8 @@
   },
   "capabilities": [
     "measure_power",
-    "measure_power.active_power",    
+    "measure_power.active_power",
+    "battery",    
     "measure_current.grid_phase1",
     "measure_current.grid_phase2",
     "measure_current.grid_phase3",
@@ -26,10 +27,15 @@
     "measure_current.pv1",
     "measure_current.pv2",
     "huawei_status",
-    "battery",
     "measure_battery",
     "measure_power.batt_charge",
-    "measure_power.batt_discharge"                    
+    "measure_power.batt_discharge",
+    "measure_power.grid_phase1",
+    "measure_power.grid_phase2",
+    "measure_power.grid_phase3",
+    "measure_power.grid_active_power",
+    "meter_power.grid_import",
+    "meter_power.grid_export"                                      
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -150,7 +156,53 @@
         "en": "Battery Power charge",
         "de": "Batterieladeleistung"
       }
-    }                          
+    },
+    "measure_power.grid_phase1": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid Power Phase 1"
+      }
+    },
+    "measure_power.grid_phase2": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid Power Phase 2"
+      }
+    },
+    "measure_power.grid_phase3": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid Power Phase 3"
+      }
+    },
+    "measure_power.grid_active_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid Active Power"
+      }
+    },
+    "meter_power.grid_import": {
+      "title": {
+        "en": "Grid Import Yield",
+        "de": "Netzimport"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.grid_export": {
+      "title": {
+        "en": "Grid Export Yield",
+        "de": "Netzexport"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    }                                                
   },
   "platforms": [
     "local"
