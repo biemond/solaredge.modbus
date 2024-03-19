@@ -25,6 +25,16 @@ class MyHuaweiDeviceBattery extends Huawei {
     }, RETRY_INTERVAL);
  
 
+    // homey menu / device actions
+    this.registerCapabilityListener('storage_excess_pv_energy_use_in_tou', async (value) => {
+      this.updateControl('storage_excess_pv_energy_use_in_tou', Number(value));
+      return value;
+    });
+    this.registerCapabilityListener('storage_force_charge_discharge', async (value) => {
+      this.updateControl('storage_force_charge_discharge', Number(value));
+      return value;
+    });
+
   }
 
   /**
@@ -63,6 +73,57 @@ class MyHuaweiDeviceBattery extends Huawei {
     this.homey.clearInterval(this.timer);
   }
   
+  async updateControl(type: string, value: number) {
+    let socket = new net.Socket();
+    var unitID = this.getSetting('id');
+    let client = new Modbus.client.TCP(socket, unitID); 
+
+    let modbusOptions = {
+      'host': this.getSetting('address'),
+      'port': this.getSetting('port'),
+      'unitId': this.getSetting('id'),
+      'timeout': 45,
+      'autoReconnect': false,
+      'logLabel': 'huawei Inverter Battery',
+      'logLevel': 'error',
+      'logEnabled': true
+    }
+
+    socket.setKeepAlive(false); 
+    socket.connect(modbusOptions);
+    console.log(modbusOptions);
+    
+    socket.on('connect', async () => {
+      console.log('Connected ...');
+
+      if (type == 'storage_excess_pv_energy_use_in_tou') {
+        const storage_excess_pvRes = await client.writeSingleRegister(47299, value);
+        console.log('storage_excess_pv_energy_use_in_tou', storage_excess_pvRes);
+      }
+ 
+      if (type == 'storage_force_charge_discharge') {
+        const storage_forceRes = await client.writeSingleRegister(47100, value);
+        console.log('storage_force_charge_discharge', storage_forceRes);
+      }     
+
+      console.log('disconnect');
+      client.socket.end();
+      socket.end();
+    })
+
+    socket.on('close', () => {
+      console.log('Client closed');
+    }); 
+
+    socket.on('error', (err) => {
+      console.log(err);
+      socket.end();
+      setTimeout(() => socket.connect(modbusOptions), 4000);
+    })
+  }
+
+
+
   delay(ms: any) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }

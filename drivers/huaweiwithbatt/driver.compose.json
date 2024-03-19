@@ -35,7 +35,11 @@
     "measure_power.grid_phase3",
     "measure_power.grid_active_power",
     "meter_power.grid_import",
-    "meter_power.grid_export"                                      
+    "meter_power.grid_export",
+    "meter_power.today_batt_output",
+    "meter_power.today_batt_input",
+    "storage_excess_pv_energy_use_in_tou",
+    "storage_force_charge_discharge"                                          
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -202,7 +206,29 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    }                                                
+    },
+    "meter_power.today_batt_output": {
+      "title": {
+        "en": "Battery Output Day Yield",
+        "de": "Tagesgesamtentladung der Batterie"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.today_batt_input": {
+      "title": {
+        "en": "Battery Input Day Yield",
+        "de": "Tagesgesamtladung der Batterie"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    }                                                    
   },
   "platforms": [
     "local"

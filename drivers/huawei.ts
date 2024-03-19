@@ -115,29 +115,64 @@ export class Huawei extends Homey.Device {
         "STORAGE_MAXIMUM_DISCHARGE_POWER": [37048, 2, 'UINT32', "STORAGE_MAXIMUM_DISCHARGE_POWER", 0],    
         "STORAGE_RATED_CAPACITY": [37758, 2, 'UINT32', "STORAGE_RATED_CAPACITY", 0],    
 
-        // "STORAGE_1_RUNNING_STATUS": [37000, 1, 'UINT16', "BATT RUNNING STATUS", 0],
-        // "STORAGE_1_CHARGE_DISCHARGE_POWER": [37001, 2, 'INT32', "BATT CHARGE_DISCHARGE POWER", 0],   
-        // "STORAGE_1_STATE_OF_CAPACITY": [37004, 1, 'UINT16', "BATT RUNNING STATUS", -1],
+        "ACTIVE_POWER_CONTROL_MODE": [47415, 1, 'UINT16', "ACTIVE_POWER_CONTROL_MODE", 0],        
+        //         rn.ACTIVE_POWER_CONTROL_MODE: U16Register(rv.ActivePowerControlMode, 1, 47415, 1, writeable=True),
 
-        // "STORAGE_1_CURRENT_DAY_CHARGE_CAPACITY": [37015, 2, 'UINT32', "BATT CURRENT_DAY_CHARGE_CAPACITY", -2],
-        // "STORAGE_1_CURRENT_DAY_DISCHARGE_CAPACITY": [37017, 2, 'UINT32', "BATT CURRENT_DAY_DISCHARGE_CAPACITY", -2],
+        //         """Active Power Control Mode."""
 
-        // "STORAGE_1_BATTERY_TEMPERATURE": [37022, 1, 'UINT16', "BATT BATTERY_TEMPERATURE", -1],
+        //         UNLIMITED = 0  # default mode
+        //         DI_ACTIVE_SCHEDULING = 1
+        //         ZERO_POWER_GRID_CONNECTION = 5
+        //         POWER_LIMITED_GRID_CONNECTION_WATT = 6
+        //         POWER_LIMITED_GRID_CONNECTION_PERCENT = 7
 
-        // "STORAGE_1_TOTAL_CHARGE": [37066, 2, 'UINT32', "BATT TOTAL_CHARGE", -2],
-        // "STORAGE_1_TOTAL_DISCHARGE": [37068, 2, 'UINT32', "BATT TOTAL_DISCHARGE", -2],
+        "REMOTE_CHARGE_DISCHARGE_CONTROL_MODE": [47589, 1, 'INT16', "REMOTE_CHARGE_DISCHARGE_CONTROL_MODE", 0],     
+        // rn.REMOTE_CHARGE_DISCHARGE_CONTROL_MODE: I16Register(
+        // rv.RemoteChargeDischargeControlMode, 1, 47589, 1, writeable=True
+        // ),
 
-        // "STORAGE_2_RUNNING_STATUS": [37741, 1, 'UINT16', "BATT RUNNING STATUS", 0],
-        // "STORAGE_2_CHARGE_DISCHARGE_POWER": [37743, 2, 'INT32', "BATT CHARGE_DISCHARGE POWER", 0],   
-        // "STORAGE_2_STATE_OF_CAPACITY": [37738, 1, 'UINT16', "BATT RUNNING STATUS", -1],
+        //         """Remote Charge/Discharge Control Mode"""
 
-        // "STORAGE_2_CURRENT_DAY_CHARGE_CAPACITY": [37746, 2, 'UINT32', "BATT CURRENT_DAY_CHARGE_CAPACITY", -2],
-        // "STORAGE_2_CURRENT_DAY_DISCHARGE_CAPACITY": [37748, 2, 'UINT32', "BATT CURRENT_DAY_DISCHARGE_CAPACITY", -2],
+        //         LOCAL_CONTROL = 0
+        //         REMOTE_CONTROL_MAXIMUM_SELF_CONSUMPTION = 1
+        //         REMOTE_CONTROL_FULLY_FED_TO_GRID = 2
+        //         REMOTE_CONTROL_TOU = 3
+        //         REMOTE_CONTROL_AI_CONTROL = 4
 
-        // "STORAGE_2_BATTERY_TEMPERATURE": [37752, 1, 'UINT16', "BATT BATTERY_TEMPERATURE", -1],
+        "STORAGE_FORCIBLE_CHARGE_DISCHARGE_SOC": [47101, 1, 'UINT16', "STORAGE_FORCIBLE_CHARGE_DISCHARGE_SOC", -1],   
+        // rn.STORAGE_FORCIBLE_CHARGE_DISCHARGE_SOC: U16Register("%", 10, 47101, 1, writeable=True),
 
-        // "STORAGE_2_TOTAL_CHARGE": [37753, 2, 'UINT32', "BATT TOTAL_CHARGE", -2],
-        // "STORAGE_2_TOTAL_DISCHARGE": [37755, 2, 'UINT32', "BATT TOTAL_DISCHARGE", -2],
+        "STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE": [47100, 1, 'UINT16', "STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE", 0],   
+        // rn.STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE: U16Register(
+        // rv.StorageForcibleChargeDischarge, 1, 47100, 1, writeable=True
+        // ),
+
+        //         """Storage Product Model."""
+
+        //         STOP = 0
+        //         CHARGE = 1
+        //         DISCHARGE = 2
+
+        "STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU": [47299, 1, 'UINT16', "STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU", 0],   
+        // rn.STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU: U16Register(rv.StorageExcessPvEnergyUseInTOU, 1, 47299, 1, writeable=True),
+        //         """Storage Excess PV Energy use in Time-of-Use."""
+
+        //         FED_TO_GRID = 0
+        //         CHARGE = 1
+
+
+        "STORAGE_WORKING_MODE_SETTINGS": [47086, 1, 'UINT16', "STORAGE_WORKING_MODE_SETTINGS", 0],   
+        // rn.STORAGE_WORKING_MODE_SETTINGS: U16Register(rv.StorageWorkingModesC, 1, 47086, 1, writeable=True),
+        //         """Working mode of the Connected Energy Storage."""
+
+        //         ADAPTIVE = 0
+        //         FIXED_CHARGE_DISCHARGE = 1
+        //         MAXIMISE_SELF_CONSUMPTION = 2
+        //         TIME_OF_USE_LG = 3
+        //         FULLY_FED_TO_GRID = 4
+        //         TIME_OF_USE_LUNA2000 = 5
+
+
 
     };   
 
@@ -386,6 +421,19 @@ export class Huawei extends Homey.Device {
                 var GRID_ACCUMULATED_ENERGY = Number(result['GRID_ACCUMULATED_ENERGY'].value) * (Math.pow(10, Number(result['GRID_ACCUMULATED_ENERGY'].scale)));
                 this.setCapabilityValue('meter_power.grid_export', GRID_ACCUMULATED_ENERGY);
             } 
+
+            if (result['STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY'] && result['STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY'].value != 'xxx' && this.hasCapability('meter_power.today_batt_output')) {
+                this.addCapability('meter_power.today_batt_output');
+                var STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY = Number(result['STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY'].value) * (Math.pow(10, Number(result['STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY'].scale)));
+                this.setCapabilityValue('meter_power.today_batt_output', STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY);
+            }
+
+            if (result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'] && result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'].value != 'xxx' && this.hasCapability('meter_power.today_batt_input')) {
+                this.addCapability('meter_power.today_batt_input');
+                var STORAGE_CURRENT_DAY_CHARGE_CAPACITY = Number(result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'].value) * (Math.pow(10, Number(result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'].scale)));
+                this.setCapabilityValue('meter_power.today_batt_input', STORAGE_CURRENT_DAY_CHARGE_CAPACITY);
+            } 
+
 
         }
     }
