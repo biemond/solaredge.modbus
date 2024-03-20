@@ -34,6 +34,20 @@ class MyHuaweiDeviceBattery extends Huawei {
       this.updateControl('storage_force_charge_discharge', Number(value));
       return value;
     });
+    this.registerCapabilityListener('activepower_controlmode', async (value) => {
+      this.updateControl('activepower_controlmode', Number(value));
+      return value;
+    });
+    this.registerCapabilityListener('remote_charge_discharge_control_mode', async (value) => {
+      this.updateControl('remote_charge_discharge_control_mode', Number(value));
+      return value;
+    });
+    
+    this.registerCapabilityListener('storage_working_mode_settings', async (value) => {
+      this.updateControl('storage_working_mode_settings', Number(value));
+      return value;
+    });    
+
 
   }
 
@@ -105,6 +119,21 @@ class MyHuaweiDeviceBattery extends Huawei {
         const storage_forceRes = await client.writeSingleRegister(47100, value);
         console.log('storage_force_charge_discharge', storage_forceRes);
       }     
+
+      if (type == 'activepower_controlmode') {
+        const activepowerRes = await client.writeSingleRegister(47415, value);
+        console.log('activepower_controlmode', activepowerRes);
+      }  
+
+      if (type == 'remote_charge_discharge_control_mode') {
+        const controlmodeRes = await client.writeSingleRegister(47589, value);
+        console.log('remote_charge_discharge_control_mode', controlmodeRes);
+      } 
+      
+      if (type == 'storage_working_mode_settings') {
+        const storageworkingmodesettingsRes = await client.writeSingleRegister(47086, value);
+        console.log('storage_working_mode_settings', storageworkingmodesettingsRes);
+      } 
 
       console.log('disconnect');
       client.socket.end();

@@ -435,6 +435,41 @@ export class Huawei extends Homey.Device {
             } 
 
 
+            if (result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'] && result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'].value != 'xxx' && this.hasCapability('meter_power.today_batt_input')) {
+                this.addCapability('meter_power.today_batt_input');
+                var STORAGE_CURRENT_DAY_CHARGE_CAPACITY = Number(result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'].value) * (Math.pow(10, Number(result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'].scale)));
+                this.setCapabilityValue('meter_power.today_batt_input', STORAGE_CURRENT_DAY_CHARGE_CAPACITY);
+            } 
+
+            if (result['ACTIVE_POWER_CONTROL_MODE'] && result['ACTIVE_POWER_CONTROL_MODE'].value != 'xxx' && this.hasCapability('activepower_controlmode')) {
+                this.addCapability('activepower_controlmode');
+                var ACTIVE_POWER_CONTROL_MODE = result['ACTIVE_POWER_CONTROL_MODE'].value;
+                this.setCapabilityValue('activepower_controlmode', ACTIVE_POWER_CONTROL_MODE);
+            } 
+
+            if (result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'] && result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value != 'xxx' && this.hasCapability('storage_force_charge_discharge')) {
+                this.addCapability('storage_force_charge_discharge');
+                var STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE = result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value;
+                this.setCapabilityValue('storage_force_charge_discharge', STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE);
+            }             
+
+            if (result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'] && result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value != 'xxx' && this.hasCapability('storage_excess_pv_energy_use_in_tou')) {
+                this.addCapability('storage_excess_pv_energy_use_in_tou');
+                var STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU = result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value;
+                this.setCapabilityValue('storage_excess_pv_energy_use_in_tou', STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU);
+            }   
+
+            if (result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'] && result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value != 'xxx' && this.hasCapability('remote_charge_discharge_control_mode')) {
+                this.addCapability('remote_charge_discharge_control_mode');
+                var REMOTE_CHARGE_DISCHARGE_CONTROL_MODE = result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value;
+                this.setCapabilityValue('remote_charge_discharge_control_mode', REMOTE_CHARGE_DISCHARGE_CONTROL_MODE);
+            }   
+
+            if (result['STORAGE_WORKING_MODE_SETTINGS'] && result['STORAGE_WORKING_MODE_SETTINGS'].value != 'xxx' && this.hasCapability('storage_working_mode_settings')) {
+                this.addCapability('remote_charge_discharge_control_mode');
+                var STORAGE_WORKING_MODE_SETTINGS = result['STORAGE_WORKING_MODE_SETTINGS'].value;
+                this.setCapabilityValue('storage_working_mode_settings', STORAGE_WORKING_MODE_SETTINGS);
+            }   
         }
     }
 }

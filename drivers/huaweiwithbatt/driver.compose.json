@@ -39,7 +39,10 @@
     "meter_power.today_batt_output",
     "meter_power.today_batt_input",
     "storage_excess_pv_energy_use_in_tou",
-    "storage_force_charge_discharge"                                          
+    "storage_force_charge_discharge",
+    "activepower_controlmode",
+    "remote_charge_discharge_control_mode",
+    "storage_working_mode_settings"                                          
   ],
   "capabilitiesOptions": {
     "measure_power": {

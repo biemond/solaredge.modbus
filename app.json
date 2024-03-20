@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.96",
+  "version": "3.0.97",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -3942,7 +3942,10 @@
         "meter_power.today_batt_output",
         "meter_power.today_batt_input",
         "storage_excess_pv_energy_use_in_tou",
-        "storage_force_charge_discharge"
+        "storage_force_charge_discharge",
+        "activepower_controlmode",
+        "remote_charge_discharge_control_mode",
+        "storage_working_mode_settings"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -5430,6 +5433,48 @@
     }
   ],
   "capabilities": {
+    "activepower_controlmode": {
+      "type": "enum",
+      "title": {
+        "en": "Active power control mode"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Unlimited"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "DI Active scheduling"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Zero power grid connectionn"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "Power limited grid connection W"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "Power limited grid connection %"
+          }
+        }
+      ]
+    },
     "activepowerlimit": {
       "type": "number",
       "title": {
@@ -6344,6 +6389,48 @@
       "min": 0,
       "max": 100
     },
+    "remote_charge_discharge_control_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Remote charge/discharge control mode"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Local control"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Maximum self consumption"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "fully fed to grid"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "TOU"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "AI control"
+          }
+        }
+      ]
+    },
     "status_charging": {
       "type": "boolean",
       "title": {
@@ -6457,6 +6544,54 @@
           "id": "2",
           "title": {
             "en": "Discharge"
+          }
+        }
+      ]
+    },
+    "storage_working_mode_settings": {
+      "type": "enum",
+      "title": {
+        "en": "Storage working mode setting"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Adaptive"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Fixed charge/discharge"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Maximum self consumption"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Time of use LG"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Fully fed to grid"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Time of use LUNA2000"
           }
         }
       ]

@@ -1,0 +1,42 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Active power control mode"
+    },
+    "getable": true,
+    "setable": true,
+    "uiComponent": "picker",
+    "uiQuickAction": false,
+    "values": [
+        {
+            "id": "0",
+            "title": {
+                "en": "Unlimited"
+            }
+        },
+        {
+            "id": "1",
+            "title": {
+                "en": "DI Active scheduling"
+            }
+        },
+        {
+            "id": "5",
+            "title": {
+                "en": "Zero power grid connectionn"
+            }
+        },
+        {
+            "id": "6",
+            "title": {
+                "en": "Power limited grid connection W"
+            }
+        },
+        {
+            "id": "7",
+            "title": {
+                "en": "Power limited grid connection %"
+            }
+        }                                   
+    ]
+}
