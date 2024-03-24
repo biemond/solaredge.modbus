@@ -42,7 +42,9 @@
     "storage_force_charge_discharge",
     "activepower_controlmode",
     "remote_charge_discharge_control_mode",
-    "storage_working_mode_settings"                                          
+    "storage_working_mode_settings",
+    "measure_power.chargesetting",
+    "measure_power.dischargesetting"                                              
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -231,7 +233,19 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    }                                                    
+    },
+    "measure_power.chargesetting": {
+      "title": {
+        "en": "Charge setting",
+        "de": "Maximale Ladeleistung"
+      }
+    },
+    "measure_power.dischargesetting": {
+      "title": {
+        "en": "Discharge setting",
+        "de": "Maximale Entladeleistung"
+      }
+    }                                                        
   },
   "platforms": [
     "local"

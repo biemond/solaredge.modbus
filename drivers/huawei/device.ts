@@ -3,7 +3,7 @@ import net from 'net';
 import {checkHoldingRegisterHuawei} from '../response';
 import { Huawei } from '../huawei';
 
-const RETRY_INTERVAL = 55 * 1000; 
+const RETRY_INTERVAL = 32 * 1000; 
 
 class MyHuaweiDevice extends Huawei {
   timer!: NodeJS.Timer;  

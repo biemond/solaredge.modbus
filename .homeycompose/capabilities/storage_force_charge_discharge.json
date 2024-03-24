@@ -4,8 +4,8 @@
         "en": "Storage forcible charge/discharge"
     },
     "getable": true,
-    "setable": true,
-    "uiComponent": "picker",
+    "setable": false,
+    "uiComponent": "sensor",
     "uiQuickAction": false,
     "values": [
         {

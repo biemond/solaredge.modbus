@@ -470,6 +470,18 @@ export class Huawei extends Homey.Device {
                 var STORAGE_WORKING_MODE_SETTINGS = result['STORAGE_WORKING_MODE_SETTINGS'].value;
                 this.setCapabilityValue('storage_working_mode_settings', STORAGE_WORKING_MODE_SETTINGS);
             }   
+
+            if (result['STORAGE_MAXIMUM_CHARGE_POWER'] && result['STORAGE_MAXIMUM_CHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.chargesetting')) {
+                this.addCapability('remote_charge_discharge_control_mode');
+                var STORAGE_MAXIMUM_CHARGE_POWER = Number(result['STORAGE_MAXIMUM_CHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_MAXIMUM_CHARGE_POWER'].scale)));
+                this.setCapabilityValue('measure_power.chargesetting', STORAGE_MAXIMUM_CHARGE_POWER);
+            }   
+
+            if (result['STORAGE_MAXIMUM_DISCHARGE_POWER'] && result['STORAGE_MAXIMUM_DISCHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.dischargesetting')) {
+                this.addCapability('remote_charge_discharge_control_mode');
+                var STORAGE_MAXIMUM_DISCHARGE_POWER = Number(result['STORAGE_MAXIMUM_DISCHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_MAXIMUM_DISCHARGE_POWER'].scale)));
+                this.setCapabilityValue('measure_power.dischargesetting', STORAGE_MAXIMUM_DISCHARGE_POWER);
+            }               
         }
     }
 }
