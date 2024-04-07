@@ -1,6 +1,6 @@
 {
   "id": "solaredge.modbus",
-  "version": "3.0.98",
+  "version": "3.0.99",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -11,8 +11,8 @@
     "en": "SolarEdge + Growatt TCP modbus"
   },
   "description": {
-    "en": "Monitor SolarEdge, Growatt, Wattsonic, Huawei and Sungrow compatible inverters over TCP modbus protocol",
-    "de": "Überwache SolarEdge-, Growatt-, Wattsonic-.,Huawei-, Sungrow-Wechselrichter über das TCP-Modbus-Protokoll"
+    "en": "Monitor various inverters over TCP modbus protocol",
+    "de": "Überwache verschieden Wechselrichter über das TCP-Modbus-Protokoll"
   },
   "category": [
     "energy"
@@ -30,7 +30,8 @@
       "A-Tronix",
       "St-ems",
       "sungrow",
-      "huawei"
+      "huawei",
+      "solax"
     ],
     "nl": [
       "solaredge",
@@ -46,7 +47,8 @@
       "A-Tronix",
       "St-ems",
       "sungrow",
-      "huawei"
+      "huawei",
+      "solax"
     ],
     "de": [
       "solaredge",
@@ -60,7 +62,8 @@
       "A-Tronix",
       "St-ems",
       "sungrow",
-      "huawei"      
+      "huawei",
+      "solax"   
     ]
   },
   "bugs": {

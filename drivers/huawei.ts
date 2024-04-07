@@ -50,6 +50,20 @@ export class Huawei extends Homey.Device {
         // rn.DAILY_YIELD_ENERGY: U32Register("kWh", 100, 32114, 2),
         "DAILY_YIELD_ENERGY": [32114, 2, 'UINT32', "DAILY_YIELD_ENERGY", -2], 
 
+        // Electricity generated in current month
+        // U 32
+        // kWh
+        // 100
+        // 32116
+        // 2
+
+        // Electricity generated in the current year
+        // U 32
+        // kWh
+        // 100
+        // 32118
+        // 2
+
         // rn.MODEL_NAME: StringRegister(30000, 15),
         "modelName": [30000, 15, 'STRING', "Model Name", 0],
         // rn.MODEL_ID: U16Register(None, 1, 30070, 1),
