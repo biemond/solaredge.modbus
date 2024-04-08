@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.99",
+  "version": "3.0.100",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -4742,8 +4742,26 @@
         "measure_power.battery",
         "measure_power.pv1input",
         "measure_power.pv2input",
+        "measure_power.gridoutput",
         "measure_current.batt_charge",
-        "measure_voltage.batt_charge"
+        "measure_voltage.batt_charge",
+        "meter_power.today_batt_output",
+        "meter_power.today_batt_input",
+        "meter_power.export",
+        "meter_power.import",
+        "meter_power.export_daily",
+        "meter_power.import_daily",
+        "meter_power",
+        "meter_power.daily",
+        "measure_current.meter_phase1",
+        "measure_current.meter_phase2",
+        "measure_current.meter_phase3",
+        "measure_voltage.meter_phase1",
+        "measure_voltage.meter_phase2",
+        "measure_voltage.meter_phase3",
+        "measure_power.meter_phase1",
+        "measure_power.meter_phase2",
+        "measure_power.meter_phase3"
       ],
       "capabilitiesOptions": {
         "measure_current.batt_charge": {
@@ -4759,8 +4777,8 @@
         "measure_power": {
           "decimals": 0,
           "title": {
-            "en": "Solar Power",
-            "de": "Solarleistung"
+            "en": "Solar + Batt Power",
+            "de": "Solar- und Batterie-Leistung"
           }
         },
         "measure_power.battery": {
@@ -4790,6 +4808,142 @@
           "title": {
             "en": "PV2 input",
             "de": "PV-Strang 2 Eingang"
+          }
+        },
+        "measure_power.gridoutput": {
+          "decimals": 0,
+          "title": {
+            "en": "Grid in/output",
+            "de": "Netz im/export"
+          }
+        },
+        "meter_power.today_batt_output": {
+          "title": {
+            "en": "Battery Output Day Yield",
+            "de": "Tagesgesamtentladung der Batterie"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.today_batt_input": {
+          "title": {
+            "en": "Battery Input Day Yield",
+            "de": "Tagesgesamtladung der Batterie"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.import": {
+          "title": {
+            "en": "Total Import",
+            "nl": "Totale Import",
+            "de": "Gesamtimport"
+          },
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.export": {
+          "title": {
+            "en": "Total Export",
+            "nl": "Totale Export",
+            "de": "Gesamtexport"
+          },
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.import_daily": {
+          "title": {
+            "en": "Total Day Import",
+            "nl": "Totale Dag Import",
+            "de": "Gesamttagesimport"
+          },
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.export_daily": {
+          "title": {
+            "en": "Total Day Export",
+            "nl": "Totale Dag Export",
+            "de": "Gesamttagesexport"
+          },
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power": {
+          "title": {
+            "en": "Total Yield",
+            "nl": "Totale opbrengst",
+            "de": "Gesamtertrag"
+          },
+          "decimals": 2
+        },
+        "meter_power.daily": {
+          "title": {
+            "en": "Total Day Yield",
+            "nl": "Totale dag opbrengst",
+            "de": "Tagesgesamtertrag"
+          },
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
+        },
+        "measure_voltage.meter_phase1": {
+          "title": {
+            "en": "Meter Voltage phase1",
+            "de": "Zähler Spannung Phase 1"
+          }
+        },
+        "measure_voltage.meter_phase2": {
+          "title": {
+            "en": "Meter Voltage phase2",
+            "de": "Zähler Spannung Phase 2"
+          }
+        },
+        "measure_voltage.meter_phase3": {
+          "title": {
+            "en": "Meter Voltage phase3",
+            "de": "Zähler Spannung Phase 3"
+          }
+        },
+        "measure_current.meter_phase1": {
+          "title": {
+            "en": "Meter AC Current phase1",
+            "de": "Zähler AC-Strom Phase 1"
+          }
+        },
+        "measure_current.meter_phase2": {
+          "title": {
+            "en": "Meter AC Current phase2",
+            "de": "Zähler AC-Strom Phase 2"
+          }
+        },
+        "measure_current.meter_phase3": {
+          "title": {
+            "en": "Meter AC Current phase3",
+            "de": "Zähler AC-Strom Phase 3"
+          }
+        },
+        "measure_power.meter_phase1": {
+          "title": {
+            "en": "Meter power phase1",
+            "de": "Zähler power Phase 1"
+          }
+        },
+        "measure_power.meter_phase2": {
+          "title": {
+            "en": "Meter power phase2",
+            "de": "Zähler power Phase 2"
+          }
+        },
+        "measure_power.meter_phase3": {
+          "title": {
+            "en": "Meter power phase3",
+            "de": "Zähler power Phase 3"
           }
         }
       },
