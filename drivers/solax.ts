@@ -94,19 +94,19 @@ export class Solax extends Homey.Device {
         // 0x006B GridCurrent_R(X3) R GridCurrent_R 0.1A int16 1
         "GridCurrent_R(X3)":        [0x006B, 1, 'INT16', "GridCurrent_R(X3)", -1],
         // 0x006C GridPower_R(X3) R GridPower_R 1W int16 1
-        "GridPower_R(X3)":          [0x006C, 1, 'INT16', "GridPower_R(X3)"],
+        "GridPower_R(X3)":          [0x006C, 1, 'INT16', "GridPower_R(X3)", 0],
         // 0x006E GridVoltage_S(X3) R GridVoltage_S 0.1V uint16 1
         "GridVoltage_S(X3)":        [0x006E, 1, 'UINT16', "GridVoltage_S(X3)", -1],
         // 0x006F GridCurrent_S(X3) R GridCurrent_S 0.1A int16 1
         "GridCurrent_S(X3)":        [0x006F, 1, 'INT16', "GridCurrent_S(X3)", -1],
         // 0x0070 GridPower_S(X3) R GridPower_S 1W int16 1
-        "GridPower_S(X3)":          [0x0070, 1, 'INT16', "GridPower_S(X3)"],
+        "GridPower_S(X3)":          [0x0070, 1, 'INT16', "GridPower_S(X3)", 0],
         // 0x0072 GridVoltage_T(X3) R GridVoltage_T 0.1V uint16 1
         "GridVoltage_T(X3)":        [0x0072, 1, 'UINT16', "GridVoltage_T(X3)", -1],
         // 0x0073 GridCurrent_T(X3) R GridCurrent_T 0.1A int16 1
         "GridCurrent_T(X3)":        [0x0073, 1, 'INT16', "GridCurrent_T(X3)", -1],
         // 0x0074 GridPower_T(X3) R GridPower_T 1W int16 1
-        "GridPower_T(X3)":          [0x0074, 1, 'INT16', "GridPower_T(X3)"],
+        "GridPower_T(X3)":          [0x0074, 1, 'INT16', "GridPower_T(X3)", 0],
 
         // // 0x0082
         // // ~0x0083
@@ -241,14 +241,14 @@ export class Solax extends Homey.Device {
                 this.setCapabilityValue('measure_power.battery', Math.round(dcPower));
             }
             if (result['BatVoltage_Charge1'] && result['BatVoltage_Charge1'].value != 'xxx') {
-                this.addCapability('measure_current.batt_charge');
+                this.addCapability('measure_voltage.batt_charge');
                 var dcPower = Number(result['BatVoltage_Charge1'].value) * (Math.pow(10, Number(result['BatVoltage_Charge1'].scale)));
-                this.setCapabilityValue('measure_current.batt_charge', Math.round(dcPower));
+                this.setCapabilityValue('measure_voltage.batt_charge', Math.round(dcPower));
             }
             if (result['BatCurrent_Charge1'] && result['BatCurrent_Charge1'].value != 'xxx') {
-                this.addCapability('measure_voltage.batt_charge');
+                this.addCapability('measure_current.batt_charge');
                 var dcPower = Number(result['BatCurrent_Charge1'].value) * (Math.pow(10, Number(result['BatCurrent_Charge1'].scale)));
-                this.setCapabilityValue('measure_voltage.batt_charge', Math.round(dcPower));
+                this.setCapabilityValue('measure_current.batt_charge', Math.round(dcPower));
             }            
 
             if (result['Powerdc1'] && result['Powerdc1'].value != 'xxx') {
