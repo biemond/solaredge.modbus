@@ -45,7 +45,8 @@
     "measure_voltage.batt_charge": {
       "title": {
         "en": "Battery charge voltage"
-      }
+      },
+      "decimals": 1      
     },       
     "measure_power": {
       "decimals": 0,

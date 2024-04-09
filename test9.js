@@ -9,16 +9,16 @@ let options = {
     'host': '192.168.42.79',
     'port': 502,
     'unitId': 1,
-    'timeout': 62,
-    'autoReconnect': true,
-    'reconnectTimeout': 62,
+    'timeout': 26,
+    'autoReconnect': false,
+    'reconnectTimeout': 26,
     'logLabel' : 'solax Inverter',
     'logLevel': 'error',
     'logEnabled': true
 }
 
-let client = new modbus.client.TCP(socket)
-
+let client = new modbus.client.TCP(socket, 1, 1500);
+socket.setKeepAlive(false); 
 socket.connect(options);
 
 socket.on('connect', () => {
@@ -103,6 +103,25 @@ socket.on('connect', () => {
         // 1W int32 2
         "feedin_power":          [0x0046, 2, 'INT32', "Feedin power is obtained from Meter or CT"],
 
+
+        // ~0x0099
+        // feedin_energy_today
+        // R
+        // energy to the grid
+        // (meter)
+        // (0x98:LSB,0x99:MSB)
+        // 0.01kWh uint32
+        // 2
+        "feedin_energy_today":  [0x0098, 2, 'UINT32', "energy today to the grid"],
+        // ~0x009B
+        // consum_energy_today
+        // R
+        // energy form the grid
+        // (meter)
+        // (0x9A:LSB,0x9B:MSB)
+        // 0.01kWh uint16
+        "consum_energy_today":  [0x009A, 2, 'UINT32', "energy today from the grid"],
+
         // 0x0048
         // feedin_energy_total(meter) R
         // energy to the grid
@@ -114,7 +133,9 @@ socket.on('connect', () => {
         // energy form the grid
         // (0x4A:LSB,0x4B:MSB)
         // 0.01kWh uint32 2
-        "consum_energy_total":  [0x004A, 2, 'UINT32', "consum_energy_total"],
+        "consum_energy_total":  [0x004A, 2, 'UINT32', "energy form the grid"],
+
+
 
 
         // 0x0050 Etoday_togrid R
@@ -215,23 +236,7 @@ socket.on('connect', () => {
         // 1
         "SolarEnergyToday":        [0x0096, 1, 'UINT16', "SolarEnergyToday"],
 
-        // ~0x0099
-        // feedin_energy_today
-        // R
-        // energy to the grid
-        // (meter)
-        // (0x98:LSB,0x99:MSB)
-        // 0.01kWh uint32
-        // 2
-        "feedin_energy_today":  [0x0098, 2, 'UINT32', "energy to the grid"],
-        // ~0x009B
-        // consum_energy_today
-        // R
-        // energy form the grid
-        // (meter)
-        // (0x9A:LSB,0x9B:MSB)
-        // 0.01kWh uint16
-        "consum_energy_today":  [0x009A, 1, 'UINT16', "energy from the grid"],
+
         // 2
         // 0x00BE BMS_UserSOC R BMS_UserSOC 1% Uint16 1
         "BMS_UserSOC":        [0x00BE, 1, 'UINT16', "BMS_UserSOC"],
@@ -276,6 +281,7 @@ socket.on('connect', () => {
     for (const [key, value] of Object.entries(registers)) {
         // console.log(key, value);
         // start normale poll
+
         client.readHoldingRegisters(value[0],value[1])
         .then(function(resp) {
             // console.log(resp.response._body);
@@ -286,9 +292,9 @@ socket.on('connect', () => {
             } else if ( value[2] == 'INT16' || value[2] == 'SCALE') {
                 console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readInt16BE());
             } else if  ( value[2] == 'UINT32') {    
-                console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readUInt32BE());
+                console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readUInt32LE());
             } else if ( value[2] == 'INT32') {
-                console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readInt32BE());
+                console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readInt32LE());
             } else {
                 console.log(key + ": type not found " + value[2]);
             }  
@@ -312,9 +318,9 @@ socket.on('connect', () => {
             } else if ( value[2] == 'INT16' || value[2] == 'SCALE') {
                 console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readInt16BE());
             } else if  ( value[2] == 'UINT32') {    
-                console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readUInt32BE());
+                console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readUInt32LE());
             } else if ( value[2] == 'INT32') {
-                console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readInt32BE());
+                console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readInt32LE());
             } else {
                 console.log(key + ": type not found " + value[2]);
             }  
@@ -326,7 +332,7 @@ socket.on('connect', () => {
 
     delay(function(){
         socket.end();
-    }, 12000 );
+    }, 16000 );
 
 })
 

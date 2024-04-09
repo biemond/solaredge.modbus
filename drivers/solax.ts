@@ -71,7 +71,7 @@ export class Solax extends Homey.Device {
         // (meter)
         // (0x9A:LSB,0x9B:MSB)
         // 0.01kWh uint16
-        "consum_energy_today":  [0x009A, 1, 'UINT16', "energy from the grid today", -2],
+        "consum_energy_today":  [0x009A, 1, 'UINT32', "energy from the grid today", -2],
 
 
         // 0x0050 Etoday_togrid R
@@ -86,7 +86,6 @@ export class Solax extends Homey.Device {
         // (Inverter AC Port)
         // (0x52:LSB,0x53:MSB)
         // 0.1kWh uint32 2
-
         "Etotal_togrid":  [0x0052, 2, 'UINT32', "Total Energy (Inverter AC Port)", -1],
 
         // 0x006A GridVoltage_R(X3) R GridVoltage_R 0.1V uint16 1

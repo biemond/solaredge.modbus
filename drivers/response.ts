@@ -135,7 +135,7 @@ export async function checkinputRegisterSolax(registers: Object, client: Instanc
                     resultValue = response.body.valuesAsBuffer.readUInt16BE().toString();
                     break;
                 case 'UINT32':
-                    resultValue = response.body.valuesAsBuffer.readUInt32BE().toString();
+                    resultValue = response.body.valuesAsBuffer.readUInt32LE().toString();
                     break;
                 case 'STRING':
                     resultValue = response.body.valuesAsBuffer.toString();
@@ -144,7 +144,7 @@ export async function checkinputRegisterSolax(registers: Object, client: Instanc
                     resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
                     break;
                 case 'INT32':
-                    resultValue = response.body.valuesAsBuffer.readInt32BE().toString();
+                    resultValue = response.body.valuesAsBuffer.readInt32LE().toString();
                     break;
                 default:
                     console.log(key + ": type not found " + value[2]);

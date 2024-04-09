@@ -3,7 +3,7 @@ import net from 'net';
 import {checkinputRegisterSolax} from '../response';
 import { Solax } from '../solax';
 
-const RETRY_INTERVAL = 20 * 1000; 
+const RETRY_INTERVAL = 30 * 1000; 
 
 class MySolaxDevice extends Solax {
   timer!: NodeJS.Timer;  
@@ -71,7 +71,7 @@ class MySolaxDevice extends Solax {
       'host': this.getSetting('address'),
       'port': this.getSetting('port'),
       'unitId': this.getSetting('id'),
-      'timeout': 22,
+      'timeout': 29,
       'autoReconnect': false,
       'logLabel' : 'solax Inverter',
       'logLevel': 'error',
@@ -80,7 +80,7 @@ class MySolaxDevice extends Solax {
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 1000);
+    let client = new Modbus.client.TCP(socket, unitID, 2000);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
