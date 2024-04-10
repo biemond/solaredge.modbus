@@ -62,6 +62,13 @@ socket.on('connect', () => {
         // 0x0092 absorpt_voltage R Lead-acid battery absorpt_voltage 0.1V uint16 1
         "absorpt_voltage":        [0x0092, 1, 'UINT16', "absorpt_voltage"],
 
+        // 0x00B6 Export control user limit R Export_control user limit 1W uint16 1
+        "Export_control_user_limit":        [0x00B6, 1, 'UINT16', "Export control user limit"],
+        // 0x00F0 HardExportPower R HardExportPower
+        // 1W(X1)
+        // 10W(X3)
+        // uint16 1
+        "HardExportPower":        [0x00F0, 1, 'UINT16', "HardExportPower"],
     }    
 
     inputRegisters = {
@@ -69,6 +76,15 @@ socket.on('connect', () => {
         "GridVoltage":              [0x0000, 1, 'UINT16', "Inverter Voltage"],
         "GridCurrent":              [0x0001, 1, 'INT16', "Inverter Current"],
         "GridPower":                [0x0002, 1, 'INT16', "Inverter Power"],
+
+
+        // def value_function_house_load(initval, descr, datadict):
+        // return ( datadict.get('inverter_load', 0) - datadict.get('measured_power', 0) )
+        // name = "Inverter Power",
+        // register = 0x2,
+        // name = "Measured Power",
+        // register = 0x46,
+
 
         // 0x0007 GridFrequency(X1) R GridFrequency 0.01Hz uint16 1
 
@@ -319,8 +335,12 @@ socket.on('connect', () => {
                 console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readInt16BE());
             } else if  ( value[2] == 'UINT32') {    
                 console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readUInt32LE());
+                console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readUInt32BE());
+                console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readUint32LE());
+                console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readUint32BE());                
             } else if ( value[2] == 'INT32') {
                 console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readInt32LE());
+                console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readInt32BE());
             } else {
                 console.log(key + ": type not found " + value[2]);
             }  

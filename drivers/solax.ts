@@ -174,9 +174,9 @@ export class Solax extends Homey.Device {
 
         // // 2
         // // 0x00BE BMS_UserSOC R BMS_UserSOC 1% Uint16 1
-        // "BMS_UserSOC":        [0x00BE, 1, 'UINT16', "BMS_UserSOC"],
+        "BMS_UserSOC":        [0x00BE, 1, 'UINT16', "BMS_UserSOC", 0],
         // // 0x00BF BMS_UserSOH R BMS_UserSOH 1% Uint16 1
-        // "BMS_UserSOH":        [0x00BF, 1, 'UINT16', "BMS_UserSOH"],
+        "BMS_UserSOH":        [0x00BF, 1, 'UINT16', "BMS_UserSOH", 0],
         // // 0x0102
         // // ActivePowerTarget R ActivePowerTarget 1W int32 2
         // "ActivePowerTarget":  [0x0102, 2, 'INT32', "ActivePowerTarget"],
@@ -233,6 +233,18 @@ export class Solax extends Homey.Device {
                 this.setCapabilityValue('measure_power', Math.round(dcPower));
             }
 
+            // def value_function_house_load(initval, descr, datadict):
+            // return ( datadict.get('inverter_load', 0) - datadict.get('measured_power', 0) )
+            // name = "Inverter Power",
+            // register = 0x2,
+            // name = "Measured Power",
+            // register = 0x46,
+            if (result['GridPower'] && result['GridPower'].value != 'xxx' && result['feedin_power'] && result['feedin_power'].value != 'xxx') {
+                this.addCapability('measure_power.load');
+                var dcPower = Number(result['GridPower'].value) * (Math.pow(10, Number(result['GridPower'].scale)));
+                var feedin_power = Number(result['feedin_power'].value) * (Math.pow(10, Number(result['feedin_power'].scale)));
+                this.setCapabilityValue('measure_power.load', Math.round(dcPower - feedin_power));
+            }
 
             if (result['Batpower_Charge1'] && result['Batpower_Charge1'].value != 'xxx') {
                 this.addCapability('measure_power.battery');
@@ -242,12 +254,12 @@ export class Solax extends Homey.Device {
             if (result['BatVoltage_Charge1'] && result['BatVoltage_Charge1'].value != 'xxx') {
                 this.addCapability('measure_voltage.batt_charge');
                 var dcPower = Number(result['BatVoltage_Charge1'].value) * (Math.pow(10, Number(result['BatVoltage_Charge1'].scale)));
-                this.setCapabilityValue('measure_voltage.batt_charge', Math.round(dcPower));
+                this.setCapabilityValue('measure_voltage.batt_charge', dcPower);
             }
             if (result['BatCurrent_Charge1'] && result['BatCurrent_Charge1'].value != 'xxx') {
                 this.addCapability('measure_current.batt_charge');
                 var dcPower = Number(result['BatCurrent_Charge1'].value) * (Math.pow(10, Number(result['BatCurrent_Charge1'].scale)));
-                this.setCapabilityValue('measure_current.batt_charge', Math.round(dcPower));
+                this.setCapabilityValue('measure_current.batt_charge', dcPower);
             }            
 
             if (result['Powerdc1'] && result['Powerdc1'].value != 'xxx') {
@@ -259,11 +271,19 @@ export class Solax extends Homey.Device {
                 this.addCapability('measure_power.pv2input');
                 var dcPower = Number(result['Powerdc2'].value) * (Math.pow(10, Number(result['Powerdc2'].scale)));
                 this.setCapabilityValue('measure_power.pv2input', Math.round(dcPower));
-            }            
+            }  
+
+            if (result['Powerdc2'] && result['Powerdc2'].value != 'xxx' && result['Powerdc1'] && result['Powerdc1'].value != 'xxx') {
+                this.addCapability('measure_power.pvinput');
+                var dcPower1 = Number(result['Powerdc1'].value) * (Math.pow(10, Number(result['Powerdc1'].scale)));
+                var dcPower2 = Number(result['Powerdc2'].value) * (Math.pow(10, Number(result['Powerdc2'].scale)));
+                this.setCapabilityValue('measure_power.pvinput', Math.round(dcPower1 + dcPower2));
+            }  
+
             if (result['Temperature'] && result['Temperature'].value != 'xxx') {
                 this.addCapability('measure_temperature.invertor');
                 var dcPower = Number(result['Temperature'].value) * (Math.pow(10, Number(result['Temperature'].scale)));
-                this.setCapabilityValue('measure_temperature.invertor', Math.round(dcPower));
+                this.setCapabilityValue('measure_temperature.invertor', dcPower);
             }     
 
             if (result['OutputEnergy_Charge_today'] && result['OutputEnergy_Charge_today'].value != 'xxx') {
@@ -286,73 +306,73 @@ export class Solax extends Homey.Device {
             if (result['feedin_energy_total'] && result['feedin_energy_total'].value != 'xxx') {
                 this.addCapability('meter_power.export');
                 var dcPower = Number(result['feedin_energy_total'].value) * (Math.pow(10, Number(result['feedin_energy_total'].scale)));
-                this.setCapabilityValue('meter_power.export', Math.round(dcPower));
+                this.setCapabilityValue('meter_power.export', dcPower);
             }  
 
             if (result['consum_energy_total'] && result['consum_energy_total'].value != 'xxx') {
                 this.addCapability('meter_power.import');
                 var dcPower = Number(result['consum_energy_total'].value) * (Math.pow(10, Number(result['consum_energy_total'].scale)));
-                this.setCapabilityValue('meter_power.import', Math.round(dcPower));
+                this.setCapabilityValue('meter_power.import', dcPower);
             }  
 
             if (result['feedin_energy_today'] && result['feedin_energy_today'].value != 'xxx') {
                 this.addCapability('meter_power.export_daily');
                 var dcPower = Number(result['feedin_energy_today'].value) * (Math.pow(10, Number(result['feedin_energy_today'].scale)));
-                this.setCapabilityValue('meter_power.export_daily', Math.round(dcPower));
+                this.setCapabilityValue('meter_power.export_daily',dcPower);
             }  
 
             if (result['consum_energy_today'] && result['consum_energy_today'].value != 'xxx') {
                 this.addCapability('meter_power.import_daily');
                 var dcPower = Number(result['consum_energy_today'].value) * (Math.pow(10, Number(result['consum_energy_today'].scale)));
-                this.setCapabilityValue('meter_power.import_daily', Math.round(dcPower));
+                this.setCapabilityValue('meter_power.import_daily', dcPower);
             }  
 
             if (result['Etoday_togrid'] && result['Etoday_togrid'].value != 'xxx') {
                 this.addCapability('meter_power.daily');
                 var dcPower = Number(result['Etoday_togrid'].value) * (Math.pow(10, Number(result['Etoday_togrid'].scale)));
-                this.setCapabilityValue('meter_power.daily', Math.round(dcPower));
+                this.setCapabilityValue('meter_power.daily', dcPower);
             }  
 
             if (result['Etotal_togrid'] && result['Etotal_togrid'].value != 'xxx') {
                 this.addCapability('meter_power');
                 var dcPower = Number(result['Etotal_togrid'].value) * (Math.pow(10, Number(result['Etotal_togrid'].scale)));
-                this.setCapabilityValue('meter_power', Math.round(dcPower));
+                this.setCapabilityValue('meter_power', dcPower);
             }  
 
             if (result['GridCurrent_R(X3)'] && result['GridCurrent_R(X3)'].value != 'xxx') {
                 this.addCapability('measure_current.meter_phase1');
                 var dcPower = Number(result['GridCurrent_R(X3)'].value) * (Math.pow(10, Number(result['GridCurrent_R(X3)'].scale)));
-                this.setCapabilityValue('measure_current.meter_phase1', Math.round(dcPower));
+                this.setCapabilityValue('measure_current.meter_phase1', dcPower);
             }  
 
             if (result['GridCurrent_S(X3)'] && result['GridCurrent_S(X3)'].value != 'xxx') {
                 this.addCapability('measure_current.meter_phase2');
                 var dcPower = Number(result['GridCurrent_S(X3)'].value) * (Math.pow(10, Number(result['GridCurrent_S(X3)'].scale)));
-                this.setCapabilityValue('measure_current.meter_phase2', Math.round(dcPower));
+                this.setCapabilityValue('measure_current.meter_phase2', dcPower);
             }  
 
             if (result['GridCurrent_T(X3)'] && result['GridCurrent_T(X3)'].value != 'xxx') {
                 this.addCapability('measure_current.meter_phase3');
                 var dcPower = Number(result['GridCurrent_T(X3)'].value) * (Math.pow(10, Number(result['GridCurrent_T(X3)'].scale)));
-                this.setCapabilityValue('measure_current.meter_phase3', Math.round(dcPower));
+                this.setCapabilityValue('measure_current.meter_phase3', dcPower);
             }  
 
             if (result['GridVoltage_R(X3)'] && result['GridVoltage_R(X3)'].value != 'xxx') {
                 this.addCapability('measure_voltage.meter_phase1');
                 var dcPower = Number(result['GridVoltage_R(X3)'].value) * (Math.pow(10, Number(result['GridVoltage_R(X3)'].scale)));
-                this.setCapabilityValue('measure_voltage.meter_phase1', Math.round(dcPower));
+                this.setCapabilityValue('measure_voltage.meter_phase1', dcPower);
             }  
 
             if (result['GridVoltage_S(X3)'] && result['GridVoltage_S(X3)'].value != 'xxx') {
                 this.addCapability('measure_voltage.meter_phase2');
                 var dcPower = Number(result['GridVoltage_S(X3)'].value) * (Math.pow(10, Number(result['GridVoltage_S(X3)'].scale)));
-                this.setCapabilityValue('measure_voltage.meter_phase2', Math.round(dcPower));
+                this.setCapabilityValue('measure_voltage.meter_phase2', dcPower);
             }  
 
             if (result['GridVoltage_T(X3)'] && result['GridVoltage_T(X3)'].value != 'xxx') {
                 this.addCapability('measure_voltage.meter_phase3');
                 var dcPower = Number(result['GridVoltage_T(X3)'].value) * (Math.pow(10, Number(result['GridVoltage_T(X3)'].scale)));
-                this.setCapabilityValue('measure_voltage.meter_phase3', Math.round(dcPower));
+                this.setCapabilityValue('measure_voltage.meter_phase3', dcPower);
             }  
 
 
@@ -374,11 +394,21 @@ export class Solax extends Homey.Device {
                 this.setCapabilityValue('measure_power.meter_phase3', Math.round(dcPower));
             }  
 
-
-// EchargeToday: 1
-// EchargeTotal: 9043968
-// SolarEnergyTotal: 739246080
-// SolarEnergyToday: 104
+            // "BMS_UserSOC":        [0x00BE, 1, 'UINT16', "BMS_UserSOC", 0],
+            // "BMS_UserSOH":        [0x00BF, 1, 'UINT16', "BMS_UserSOH", 0],
+            if (result['BMS_UserSOC'] && result['BMS_UserSOC'].value != 'xxx') {
+                this.addCapability('battery');
+                this.addCapability('measure_battery');
+                var battery = Number(result['BMS_UserSOC'].value);
+                if ( battery > 0 ) {
+                    this.setCapabilityValue('battery', battery);
+                    this.setCapabilityValue('measure_battery', battery);
+                }
+            }
+            if (result['BMS_UserSOH'] && result['BMS_UserSOH'].value != 'xxx') {
+                var health = Number(result['BMS_UserSOH'].value);
+                this.setCapabilityValue('batterysoh', health);
+            }
 
         }
     }

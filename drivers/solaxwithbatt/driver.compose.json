@@ -13,9 +13,11 @@
     "measure_power",
     "measure_temperature.invertor",
     "measure_power.battery",
+    "measure_power.pvinput",
     "measure_power.pv1input",
     "measure_power.pv2input",
     "measure_power.gridoutput",
+    "measure_power.load",
     "measure_current.batt_charge",
     "measure_voltage.batt_charge",
     "meter_power.today_batt_output",
@@ -34,7 +36,10 @@
     "measure_voltage.meter_phase3",
     "measure_power.meter_phase1",
     "measure_power.meter_phase2",
-    "measure_power.meter_phase3"                     
+    "measure_power.meter_phase3",
+    "battery",
+    "batterysoh",
+    "measure_battery"                             
   ],
   "capabilitiesOptions": {
     "measure_current.batt_charge": {
@@ -69,6 +74,19 @@
         "de": "Kühlkörpertemperatur"
       },
       "decimals": 2
+    },
+    "measure_power.load": {
+      "decimals": 0,
+      "title": {
+        "en": "House Load Power"
+      }
+    },    
+    "measure_power.pvinput": {
+      "decimals": 0,
+      "title": {
+        "en": "PV input",
+        "de": "PV Eingang"
+      }
     },
     "measure_power.pv1input": {
       "decimals": 0,
