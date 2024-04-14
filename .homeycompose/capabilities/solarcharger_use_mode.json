@@ -1,0 +1,36 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Use mode"
+    },
+    "getable": true,
+    "setable": true,
+    "uiComponent": "picker",
+    "uiQuickAction": false,
+    "values": [
+        {
+            "id": "0",
+            "title": {
+                "en": "Self use mode"
+            }
+        },
+        {
+            "id": "1",
+            "title": {
+                "en": "Feedin Priority"
+            }
+        },
+        {
+            "id": "2",
+            "title": {
+                "en": "Back up mode"
+            }
+        },
+        {
+            "id": "3",
+            "title": {
+                "en": "Manual mode"
+            }
+        }                           
+    ]
+}

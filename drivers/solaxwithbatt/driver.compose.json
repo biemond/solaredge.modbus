@@ -39,7 +39,9 @@
     "measure_power.meter_phase3",
     "battery",
     "batterysoh",
-    "measure_battery"                             
+    "measure_battery",
+    "storage_force_charge_discharge2",
+    "solarcharger_use_mode"      
   ],
   "capabilitiesOptions": {
     "measure_current.batt_charge": {

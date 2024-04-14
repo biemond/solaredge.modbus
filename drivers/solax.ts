@@ -215,6 +215,53 @@ export class Solax extends Homey.Device {
 
     holdingRegisters: Object = {
 
+        // SolarChargerUseMode:
+        // 0:Self use mode
+        // 1: Feedin Priority
+        // 2:Back up mode
+        // 3:Manual mode
+        "SolarChargerUseMode":       [0x008B, 1, 'UINT16', "SolarChargerUseMode", 0],
+
+        // 0:Stop charge&discharge
+        // 1:Force charge
+        // 2:Force discharge
+        "ManualMode":                [0x008C, 1, 'UINT16', "Manual mode", 0],
+
+
+        "PowerLimitsPercent":        [0x0025, 1, 'UINT16', "output power limits precent 0~100", 0],
+        "FeedinOnPower":             [0x0123, 1, 'UINT16', "Grid connected pull in power point",0],
+        // 0x008D wBattery1_Type R 0：Lead Acid 1：Lithium 1 uint16 1
+        "wBattery1_Type":             [0x008D, 1, 'UINT16', "Battery1 Type", 0],
+
+        // 0x008E Charge_floatVolt R Lead-acid battery charge_float voltage 0.1V
+        "Charge_floatVolt":        [0x008E, 1, 'UINT16', "Charge_floatVolt", 0],
+        // 0x008F Battery_DischargeCutVoltage R Lead-acid battery discharge cut-off
+        "BusBattery_DischargeCutVoltageVolt":        [0x008F, 1, 'UINT16', "Battery_DischargeCutVoltage", 0],
+
+
+        // 0x0090 Battery_ChargeMaxCurrent R
+        // Lead-acid battery charge
+        // maximum current
+        // 0.1A uint16 1
+        "Battery_ChargeMaxCurrent":        [0x0090, 1, 'UINT16', "Battery_ChargeMaxCurrent", 0],
+
+        // 0x0091 Battery_DischargeMaxCurrent R
+        // Lead-acid battery discharge
+        // maximum Current
+        // 0.1A uint16 1
+        "Battery_DischargeMaxCurrent":        [0x0091, 1, 'UINT16', "Battery_DischargeMaxCurrent", 0],
+
+        // 0x0092 absorpt_voltage R Lead-acid battery absorpt_voltage 0.1V uint16 1
+        "absorpt_voltage":        [0x0092, 1, 'UINT16', "absorpt_voltage", 0],
+
+        // 0x00B6 Export control user limit R Export_control user limit 1W uint16 1
+        "Export_control_user_limit":        [0x00B6, 1, 'UINT16', "Export control user limit", 0],
+        // 0x00F0 HardExportPower R HardExportPower
+        // 1W(X1)
+        // 10W(X3)
+        // uint16 1
+        "HardExportPower":        [0x00F0, 1, 'UINT16', "HardExportPower", 0],
+
 
     };   
 
@@ -406,10 +453,23 @@ export class Solax extends Homey.Device {
                 }
             }
             if (result['BMS_UserSOH'] && result['BMS_UserSOH'].value != 'xxx') {
+                this.addCapability('batterysoh');
                 var health = Number(result['BMS_UserSOH'].value);
                 this.setCapabilityValue('batterysoh', health);
             }
 
+            if (result['SolarChargerUseMode'] && result['SolarChargerUseMode'].value != 'xxx') {
+                this.addCapability('solarcharger_use_mode');
+                var storage = result['SolarChargerUseMode'].value;
+                this.setCapabilityValue('solarcharger_use_mode', storage);
+            }
+
+            if (result['ManualMode'] && result['ManualMode'].value != 'xxx') {
+                this.addCapability('storage_force_charge_discharge2');
+                var mode = result['ManualMode'].value;
+                this.setCapabilityValue('storage_force_charge_discharge2', mode);
+            }            
+            
         }
     }
 }

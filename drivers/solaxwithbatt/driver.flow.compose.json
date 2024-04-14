@@ -1,0 +1,75 @@
+{
+  "actions": [
+    {
+      "id": "solarcharger_use_mode",
+      "title": {
+        "en": "Use mode"
+      },
+      "args": [
+        {
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Self use mode"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Feedin Priority"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Back up mode"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "Manual mode"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "storage_force_charge_discharge",
+      "title": {
+        "en": "Set Storage Charge/Discharge Mode to",
+        "de": "Setze Speicher-Lade/Entlade-Modus auf"
+      },
+      "args": [
+        {
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Stop"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Charge"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Discharge"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
