@@ -1,0 +1,44 @@
+console.log('-------------------')
+
+
+const modbus = require('jsmodbus');
+const net = require('net');
+const socket = new net.Socket();
+
+let options = {
+    'host': '192.168.42.79',
+    'port': 502,
+    'unitId': 1,
+    'timeout': 26,
+    'autoReconnect': false,
+    'reconnectTimeout': 26,
+    'logLabel' : 'solax Inverter',
+    'logLevel': 'error',
+    'logEnabled': true
+}
+
+let client = new modbus.client.TCP(socket, 1, 1500);
+socket.setKeepAlive(false); 
+socket.connect(options);
+
+socket.on('connect', async () => {
+  console.log('Connected ...');
+
+  const solarcharger_use_modeRes = await client.writeSingleRegister(0x001F, 0);
+  console.log('solarcharger_use_mode', solarcharger_use_modeRes);
+
+  console.log('disconnect');
+  client.socket.end();
+  socket.end();
+})
+
+socket.on('close', () => {
+  console.log('Client closed');
+}); 
+
+socket.on('error', (err) => {
+  console.log(err);
+  socket.end();
+  setTimeout(() => socket.connect(modbusOptions), 4000);
+})
+

@@ -112,12 +112,12 @@ class MySolaxDevice extends Solax {
       console.log('Connected ...');
 
       if (type == 'solarcharger_use_mode') {
-        const solarcharger_use_modeRes = await client.writeSingleRegister(0x008B, value);
+        const solarcharger_use_modeRes = await client.writeSingleRegister(0x001F, value);
         console.log('solarcharger_use_mode', solarcharger_use_modeRes);
       }
  
       if (type == 'storage_force_charge_discharge') {
-        const storage_forceRes = await client.writeSingleRegister(0x008C, value);
+        const storage_forceRes = await client.writeSingleRegister(0x0020, value);
         console.log('storage_force_charge_discharge', storage_forceRes);
       }     
 
