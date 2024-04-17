@@ -3,7 +3,7 @@ import net from 'net';
 import {checkHoldingRegisterHuawei} from '../response';
 import { Huawei } from '../huawei';
 
-const RETRY_INTERVAL = 70 * 1000; 
+const RETRY_INTERVAL = 120 * 1000; 
 
 class MyHuaweiDeviceBattery extends Huawei {
   timer!: NodeJS.Timer;  
@@ -90,8 +90,7 @@ class MyHuaweiDeviceBattery extends Huawei {
   async updateControl(type: string, value: number) {
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 3500);
-    
+    let client = new Modbus.client.TCP(socket, unitID, 5500);
 
     let modbusOptions = {
       'host': this.getSetting('address'),
@@ -166,7 +165,7 @@ class MyHuaweiDeviceBattery extends Huawei {
       'host': this.getSetting('address'),
       'port': this.getSetting('port'),
       'unitId': this.getSetting('id'),
-      'timeout': 70,
+      'timeout': 115,
       'autoReconnect': false,
       'logLabel' : 'huawei Inverter Battery',
       'logLevel': 'error',
@@ -175,7 +174,7 @@ class MyHuaweiDeviceBattery extends Huawei {
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 3500);
+    let client = new Modbus.client.TCP(socket, unitID, 5500);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 

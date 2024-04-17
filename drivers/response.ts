@@ -280,7 +280,7 @@ export async function checkHoldingRegisterHuawei(registers: Object, client: Inst
                     console.log(key + ": type not found " + value[2]);
                     break;
             }
-            if (resultValue) {
+            if (resultValue && resultValue !== undefined) {
                 measurement.value = resultValue;
             }
             result[key] = measurement;

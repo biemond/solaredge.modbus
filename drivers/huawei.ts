@@ -362,13 +362,12 @@ export class Huawei extends Homey.Device {
                 "40960": "Standby: no irradiation",
             }
 
-            if (result['DEVICE_STATUS'] && result['DEVICE_STATUS'].value != 'xxx' ) {
+            if (result['DEVICE_STATUS'] && result['DEVICE_STATUS'].value !== undefined && result['DEVICE_STATUS'].value  && result['DEVICE_STATUS'].value != 'xxx' ) {
                 this.addCapability('huawei_status');
                 var huawei_status = result['DEVICE_STATUS'].value;
                 this.setCapabilityValue('huawei_status',  DEVICE_STATUS_DEFINITIONS[huawei_status] );
                 console.log('inverter status ' + DEVICE_STATUS_DEFINITIONS[huawei_status]);
             }
-
 
             // "STORAGE_STATE_OF_CAPACITY": [37760, 1, 'UINT16', "RUNNING STATUS", -1],
             if (result['STORAGE_STATE_OF_CAPACITY'] && result['STORAGE_STATE_OF_CAPACITY'].value != 'xxx' && this.hasCapability('measure_battery')) {
