@@ -46,6 +46,28 @@ class MySolaxDevice extends Solax {
       await this.updateControl('storage_force_charge_discharge', Number(args.mode), args.device);
     });
 
+    let controlFeedinOnPowerAction = this.homey.flow.getActionCard('FeedinOnPower');
+    controlFeedinOnPowerAction.registerRunListener(async (args, state) => {
+      await this.updateControl('FeedinOnPower', Number(args.power), args.device);
+    });
+
+    let customCHardExportPowerAction = this.homey.flow.getActionCard('HardExportPower');
+    customCHardExportPowerAction.registerRunListener(async (args, state) => {
+      await this.updateControl('HardExportPower', Number(args.power), args.device);
+    });
+
+    let changedUsemode = this.homey.flow.getConditionCard("changedsolarcharger_use_mode");
+    changedUsemode.registerRunListener(async (args, state) => {
+      let result = (await this.getCapabilityValue('solarcharger_use_mode') == args.argument_main);
+      return Promise.resolve(result);
+    })
+
+    let changedstorage_force_charge_discharge = this.homey.flow.getConditionCard("changedstorage_force_charge_discharge");
+    changedstorage_force_charge_discharge.registerRunListener(async (args, state) => {
+      let result = (await this.getCapabilityValue('storage_force_charge_discharge2') == args.argument_main);
+      return Promise.resolve(result);
+    })
+
   }
 
   /**
@@ -120,6 +142,20 @@ class MySolaxDevice extends Solax {
         const storage_forceRes = await client.writeSingleRegister(0x0020, value);
         console.log('storage_force_charge_discharge', storage_forceRes);
       }     
+
+      // 0x00B7 FeedinOnPower W 0~8000 1W uint16
+      if (type == 'FeedinOnPower') {
+        const FeedinOnPowerRes = await client.writeSingleRegister(0x00B7, value);
+        console.log('FeedinOnPower', FeedinOnPowerRes);
+      }
+ 
+      // 0x00D6 HardExportPower W 0~15000 1W(X1)
+      // 10W(X3)
+      // uint16
+      if (type == 'HardExportPower') {
+        const HardExportPowerRes = await client.writeSingleRegister(0x00D6, value);
+        console.log('HardExportPower', HardExportPowerRes);
+      }   
 
       console.log('disconnect');
       client.socket.end();

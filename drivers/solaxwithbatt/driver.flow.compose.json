@@ -1,5 +1,131 @@
 {
+  "conditions": [
+    {
+      "id": "changedsolarcharger_use_mode",
+      "title": {
+        "en": "Use mode is"
+      },
+      "titleFormatted": {
+        "en": "Use Mode is [[argument_main]]"
+      },
+      "hint": {
+        "en": "Use Mode"
+      },
+      "args": [
+        {
+          "name": "argument_main",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Self use mode"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Feedin Priority"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Back up mode"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "Manual mode"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "changedstorage_force_charge_discharge",
+      "title": {
+        "en": "Storage Charge/Discharge mode is"
+      },
+      "titleFormatted": {
+        "en": "Storage Charge/Discharge mode is [[argument_main]]"
+      },
+      "hint": {
+        "en": "Storage Charge/Discharge mode"
+      },
+      "args": [
+        {
+          "name": "argument_main",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Stop"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Charge"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Discharge"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "actions": [
+    {
+      "id": "FeedinOnPower",
+      "title": {
+        "en": "Set Feedin Power to"
+      },
+      "args": [
+        {
+          "type": "number",
+          "name": "power",
+          "title": {
+            "en": "Power"
+          },
+          "min": 0,
+          "max": 8000,
+          "step": 1,
+          "placeholder": {
+            "en": "In Watt"
+          }
+        }
+      ]
+    },
+    {
+      "id": "HardExportPower",
+      "title": {
+        "en": "Set Hard Export Power to"
+      },
+      "args": [
+        {
+          "type": "number",
+          "name": "power",
+          "title": {
+            "en": "Power"
+          },
+          "min": 0,
+          "max": 15000,
+          "step": 1,
+          "placeholder": {
+            "en": "In Watt"
+          }
+        }
+      ]
+    },
     {
       "id": "solarcharger_use_mode",
       "title": {

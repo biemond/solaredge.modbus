@@ -263,6 +263,8 @@ export class Solax extends Homey.Device {
         "HardExportPower":        [0x00F0, 1, 'UINT16', "HardExportPower", 0],
 
 
+ 
+
     };   
 
 
