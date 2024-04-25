@@ -1,6 +1,6 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import {checkinputRegisterSolax} from '../response';
+import {checkinputRegisterSolax, checkholdingRegisterSolax} from '../response';
 import { Solax } from '../solax';
 import Homey, { Device } from 'homey';
 
@@ -58,12 +58,18 @@ class MySolaxDevice extends Solax {
 
     let changedUsemode = this.homey.flow.getConditionCard("changedsolarcharger_use_mode");
     changedUsemode.registerRunListener(async (args, state) => {
+
+      this.log('changedsolarcharger_use_mode  solarcharger_use_mode ' + this.getCapabilityValue('solarcharger_use_mode'));
+      this.log('changedsolarcharger_use_mode  argument_main ' + args.argument_main);
       let result = (await this.getCapabilityValue('solarcharger_use_mode') == args.argument_main);
       return Promise.resolve(result);
     })
 
     let changedstorage_force_charge_discharge = this.homey.flow.getConditionCard("changedstorage_force_charge_discharge");
     changedstorage_force_charge_discharge.registerRunListener(async (args, state) => {
+
+      this.log('changedstorage_force_charge_discharge  storage_force_charge_discharge2 ' + this.getCapabilityValue('storage_force_charge_discharge2'));
+      this.log('changedstorage_force_charge_discharge  argument_main ' + args.argument_main);
       let result = (await this.getCapabilityValue('storage_force_charge_discharge2') == args.argument_main);
       return Promise.resolve(result);
     })
@@ -202,7 +208,7 @@ class MySolaxDevice extends Solax {
       console.log(modbusOptions);
 
       const checkRegisterRes = await checkinputRegisterSolax(this.inputRegisters, client);
-      const checkRegisterHoldingRes = await checkinputRegisterSolax(this.holdingRegisters, client);
+      const checkRegisterHoldingRes = await checkholdingRegisterSolax(this.holdingRegisters, client);
       console.log('disconnect'); 
       client.socket.end();
       socket.end();

@@ -71,7 +71,7 @@ export class Solax extends Homey.Device {
         // (meter)
         // (0x9A:LSB,0x9B:MSB)
         // 0.01kWh uint16
-        "consum_energy_today":  [0x009A, 1, 'UINT32', "energy from the grid today", -2],
+        "consum_energy_today":  [0x009A, 2, 'UINT32', "energy from the grid today", -2],
 
 
         // 0x0050 Etoday_togrid R
@@ -222,6 +222,7 @@ export class Solax extends Homey.Device {
         // 3:Manual mode
         "SolarChargerUseMode":       [0x008B, 1, 'UINT16', "SolarChargerUseMode", 0],
 
+ 
         // 0:Stop charge&discharge
         // 1:Force charge
         // 2:Force discharge
@@ -459,12 +460,21 @@ export class Solax extends Homey.Device {
                 var health = Number(result['BMS_UserSOH'].value);
                 this.setCapabilityValue('batterysoh', health);
             }
+            // SolarChargerUseMode 0 0 SolarChargerUseMode
+            // ManualMode 0 0 Manual mode
+            // "SolarChargerUseMode":       [0x008B, 1, 'UINT16', "SolarChargerUseMode", 0],
+
+            // "SolarChargerUseMode":       [0x008B, 1, 'UINT16', "SolarChargerUseMode"],
+            // if ( value[2] == 'UINT16') {
+            //     console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readUInt16BE());
 
             if (result['SolarChargerUseMode'] && result['SolarChargerUseMode'].value != 'xxx') {
                 this.addCapability('solarcharger_use_mode');
                 var storage = result['SolarChargerUseMode'].value;
                 this.setCapabilityValue('solarcharger_use_mode', storage);
             }
+
+            // solarcharger_use_mode
 
             if (result['ManualMode'] && result['ManualMode'].value != 'xxx') {
                 this.addCapability('storage_force_charge_discharge2');

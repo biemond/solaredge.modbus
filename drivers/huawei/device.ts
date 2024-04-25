@@ -92,7 +92,7 @@ class MyHuaweiDevice extends Huawei {
       console.log('Connected ...');
       console.log(modbusOptions);
       const startTime = new Date();
-      await this.delay(2000);
+      await this.delay(5000);
 
       const checkRegisterRes = await checkHoldingRegisterHuawei(this.holdingRegisters, client);
 

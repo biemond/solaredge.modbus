@@ -2,6 +2,10 @@
     "pair": {
       "title": "Add Solaredge Inverter",
       "title_growatt": "Add Growatt Inverter",
+      "title_wattsonic": "Add Wattsonic Inverter",
+      "title_solax": "Add SOLAX Inverter",
+      "title_sungrow": "Add Sungrow Inverter",
+      "title_huawei": "Add Huawei Inverter",                 
       "nosettings": "Please fill in all the required fields.",
       "intro": "Enter the IP address and port of your inverter and set the polling frequency.",
       "address": "IP Address",
