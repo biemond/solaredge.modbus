@@ -53,7 +53,7 @@ export async function checkRegister(registers: Object, client: InstanceType<type
                     console.log(key + ": type not found " + value[2]);
                     break;
             }
-            if (resultValue) {
+            if (resultValue && resultValue !== undefined) {
                 measurement.value = resultValue;
             }
             result[key] = measurement;
@@ -98,7 +98,7 @@ export async function checkRegisterGrowatt(registers: Object, client: InstanceTy
                     console.log(key + ": type not found " + value[2]);
                     break;
             }
-            if (resultValue) {
+            if (resultValue && resultValue !== undefined) {
                 measurement.value = resultValue;
             }
             result[key] = measurement;
@@ -135,7 +135,8 @@ export async function checkholdingRegisterSolax(registers: Object, client: Insta
                     resultValue = response.body.valuesAsBuffer.readUInt16BE().toString();
                     break;
                 case 'UINT32':
-                    resultValue = response.body.valuesAsBuffer.readUInt32LE().toString();
+                    resultValue = (response.body.valuesAsArray[1]  << 16 | response.body.valuesAsArray[0]).toString();
+                    // resultValue = response.body.valuesAsBuffer.readUInt32LE().toString();
                     break;
                 case 'STRING':
                     resultValue = response.body.valuesAsBuffer.toString();
@@ -144,13 +145,14 @@ export async function checkholdingRegisterSolax(registers: Object, client: Insta
                     resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
                     break;
                 case 'INT32':
-                    resultValue = response.body.valuesAsBuffer.readInt32LE().toString();
+                    resultValue = ((response.body.valuesAsArray[1]  << 16 | response.body.valuesAsArray[0]) | 0 ).toString();
+                    // resultValue = response.body.valuesAsBuffer.readInt32LE().toString();
                     break;
                 default:
                     console.log(key + ": type not found " + value[2]);
                     break;
             }
-            if (resultValue) {
+            if (resultValue && resultValue !== undefined) {
                 measurement.value = resultValue;
             }
             result[key] = measurement;
@@ -187,7 +189,8 @@ export async function checkinputRegisterSolax(registers: Object, client: Instanc
                     resultValue = response.body.valuesAsBuffer.readUInt16BE().toString();
                     break;
                 case 'UINT32':
-                    resultValue = response.body.valuesAsBuffer.readUInt32LE().toString();
+                    resultValue = (response.body.valuesAsArray[1]  << 16 | response.body.valuesAsArray[0]).toString();
+                    // resultValue = response.body.valuesAsBuffer.readUInt32LE().toString();
                     break;
                 case 'STRING':
                     resultValue = response.body.valuesAsBuffer.toString();
@@ -196,13 +199,14 @@ export async function checkinputRegisterSolax(registers: Object, client: Instanc
                     resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
                     break;
                 case 'INT32':
-                    resultValue = response.body.valuesAsBuffer.readInt32LE().toString();
+                    resultValue = ((response.body.valuesAsArray[1]  << 16 | response.body.valuesAsArray[0]) | 0 ).toString();
+                    // resultValue = response.body.valuesAsBuffer.readInt32LE().toString();
                     break;
                 default:
                     console.log(key + ": type not found " + value[2]);
                     break;
             }
-            if (resultValue) {
+            if (resultValue && resultValue !== undefined) {
                 measurement.value = resultValue;
             }
             result[key] = measurement;
@@ -263,7 +267,7 @@ export async function checkHoldingRegisterWattsonic(registers: Object, client: I
                     console.log(key + ": type not found " + value[2]);
                     break;
             }
-            if (resultValue) {
+            if (resultValue && resultValue !== undefined) {
                 measurement.value = resultValue;
             }
             result[key] = measurement;
@@ -378,7 +382,7 @@ export async function checkHoldingRegisterGrowatt(registers: Object, client: Ins
                     console.log(key + ": type not found " + value[2]);
                     break;
             }
-            if (resultValue) {
+            if (resultValue && resultValue !== undefined) {
                 measurement.value = resultValue;
             }
             result[key] = measurement;
@@ -431,7 +435,7 @@ export async function checkRegisterSungrow(registers: Object, client: InstanceTy
                     break;
             }
 
-            if (resultValue) {
+            if (resultValue && resultValue !== undefined) {
                 measurement.value = resultValue;
             }
             result[key] = measurement;
@@ -484,7 +488,7 @@ export async function checkHoldingRegisterSungrow(registers: Object, client: Ins
                     break;
             }
 
-            if (resultValue) {
+            if (resultValue && resultValue !== undefined) {
                 measurement.value = resultValue;
             }
             result[key] = measurement;
