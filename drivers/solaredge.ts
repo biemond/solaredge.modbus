@@ -388,6 +388,8 @@ export class Solaredge extends Homey.Device {
                     var mode = '0';
                     if ( result['export_control_mode'].value == '1' ) {
                         mode = '1';
+                    } else if ( result['export_control_mode'].value == '4' ) {
+                        mode = '2';                        
                     } else if ( result['export_control_mode'].value == '2049' ) {
                         mode = '11';
                     }

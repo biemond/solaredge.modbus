@@ -199,7 +199,7 @@ export class Growatt extends Homey.Device {
         "bmserror": [3202, 1, 'UINT16', "bms error", 0],
 
         "totalhouseload": [3045, 2, 'UINT32', "Total house Load", -1],
-        "priority": [118, 1, 'UINT16', "priority", 0],
+        "priority": [3144, 1, 'UINT16', "priority", 0],
 
         "today_grid_import": [3067, 2, 'UINT32', "Today's Grid Import", -1],
         "total_grid_import": [3069, 2, 'UINT32', "Total Grid Import", -1],

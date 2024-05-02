@@ -104,7 +104,7 @@ socket.on('connect', () => {
                     priorityPeriod1 = "load";
                 } else if ((bit5 + bit6) == 32) {
                     priorityPeriod1 = "battery";
-                } else {
+                } else if ((bit5 + bit6) == 64) {
                     priorityPeriod1 = "grid";
                 }
                 console.log('priorityPeriod1 ' + priorityPeriod1 );   

@@ -106,9 +106,9 @@
       ]
     },
     {
-      "id": "HardExportPower",
+      "id": "ExportcontrolUserLimit",
       "title": {
-        "en": "Set Hard Export Power to"
+        "en": "Set User Export Power to"
       },
       "args": [
         {
@@ -118,7 +118,7 @@
             "en": "Power"
           },
           "min": 0,
-          "max": 15000,
+          "max": 60000,
           "step": 1,
           "placeholder": {
             "en": "In Watt"

@@ -51,9 +51,9 @@ class MySolaxDevice extends Solax {
       await this.updateControl('FeedinOnPower', Number(args.power), args.device);
     });
 
-    let customCHardExportPowerAction = this.homey.flow.getActionCard('HardExportPower');
+    let customCHardExportPowerAction = this.homey.flow.getActionCard('ExportcontrolUserLimit');
     customCHardExportPowerAction.registerRunListener(async (args, state) => {
-      await this.updateControl('HardExportPower', Number(args.power), args.device);
+      await this.updateControl('ExportcontrolUserLimit', Number(args.power), args.device);
     });
 
     let changedUsemode = this.homey.flow.getConditionCard("changedsolarcharger_use_mode");
@@ -155,12 +155,14 @@ class MySolaxDevice extends Solax {
         console.log('FeedinOnPower', FeedinOnPowerRes);
       }
  
-      // 0x00D6 HardExportPower W 0~15000 1W(X1)
-      // 10W(X3)
-      // uint16
-      if (type == 'HardExportPower') {
-        const HardExportPowerRes = await client.writeSingleRegister(0x00D6, value);
-        console.log('HardExportPower', HardExportPowerRes);
+
+      // 0x0042 ExportcontrolUserLimit W
+      // Export control User_Limit
+      // (0~60000)
+      // 1W uint16
+      if (type == 'ExportcontrolUserLimit') {
+        const ExportcontrolUserLimitRes = await client.writeSingleRegister(0x0042, value);
+        console.log('ExportcontrolUserLimit', ExportcontrolUserLimitRes);
       }   
 
       console.log('disconnect');

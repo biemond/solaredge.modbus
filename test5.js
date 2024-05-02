@@ -9,10 +9,12 @@ console.log('-------------------')
                 let enabled = 128
                 let disable = 0
 
-                var value2 =  (87 * 256) + 0;
-                var value3 = (23 * 256) + 59;
+                var value2 =  40960 ;// ((23+64+128) * 256) + 12;
+                // var value3 = (23 * 256) + 59;
 
                 let lowVal = value2 & 0xFF;
+
+
                 let highval = (value2 >> 8) & 0xFF;
                 let bit0 = (highval & (1<<0)); 
                 let bit1 = (highval & (1<<1));                                 
@@ -39,30 +41,30 @@ console.log('-------------------')
                     priorityPeriod1 = "load";
                 } else if ((bit5 + bit6) == 32) {
                     priorityPeriod1 = "battery";
-                } else {
+                } else if ((bit5 + bit6) == 64) {
                     priorityPeriod1 = "grid";
                 }
                 console.log('priorityPeriod1 ' + priorityPeriod1 );   
 
 
-                let lowVal2 = value3 & 0xFF;
-                let highval2 = (value3 >> 8) & 0xFF;
-                let bit20 = (highval2 & (1<<0)); 
-                let bit21 = (highval2 & (1<<1));                                 
-                let bit22 = (highval2 & (1<<2)); 
-                let bit23 = (highval2 & (1<<3)); 
-                let bit24 = (highval2 & (1<<4));                                 
-                let bit25 = (highval2 & (1<<5)); 
-                let bit26 = (highval2 & (1<<6));                                 
-                let bit27 = (highval2 & (1<<7)); 
+                // let lowVal2 = value3 & 0xFF;
+                // let highval2 = (value3 >> 8) & 0xFF;
+                // let bit20 = (highval2 & (1<<0)); 
+                // let bit21 = (highval2 & (1<<1));                                 
+                // let bit22 = (highval2 & (1<<2)); 
+                // let bit23 = (highval2 & (1<<3)); 
+                // let bit24 = (highval2 & (1<<4));                                 
+                // let bit25 = (highval2 & (1<<5)); 
+                // let bit26 = (highval2 & (1<<6));                                 
+                // let bit27 = (highval2 & (1<<7)); 
 
-                console.log("low: "+ lowVal2 );
-                console.log("high: "+ highval2);
-                console.log('bit0 ' + bit20 );
-                console.log('bit1 ' + bit21 );
-                console.log('bit2 ' + bit22 );
-                console.log('bit3 ' + bit23 );
-                console.log('bit4 ' + bit24 );
-                console.log('bit5 ' + bit25 );
-                console.log('bit6 ' + bit26 );
-                console.log('bit7 ' + bit27 );
+                // console.log("low: "+ lowVal2 );
+                // console.log("high: "+ highval2);
+                // console.log('bit0 ' + bit20 );
+                // console.log('bit1 ' + bit21 );
+                // console.log('bit2 ' + bit22 );
+                // console.log('bit3 ' + bit23 );
+                // console.log('bit4 ' + bit24 );
+                // console.log('bit5 ' + bit25 );
+                // console.log('bit6 ' + bit26 );
+                // console.log('bit7 ' + bit27 );

@@ -351,6 +351,12 @@ class MySolaredgeBatteryDevice extends Solaredge {
           // 3000
           const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [ 32768, 17723]);
           console.log('limitcontrolwatt', limitcontrolWattRes);
+        } else if (value == 2) {
+          const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(4));
+          console.log('limitcontrolmode', limitcontrolmodeeRes);
+          // 500
+          const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [0, 17402]);
+          console.log('limitcontrolwatt', limitcontrolWattRes);          
         } else if (value == 11) {
           const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(2049));
           console.log('limitcontrolmode', limitcontrolmodeeRes);

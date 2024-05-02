@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.112",
+  "version": "3.0.115",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -1713,6 +1713,13 @@
                 }
               },
               {
+                "id": "2",
+                "title": {
+                  "en": "Production Limitation",
+                  "de": "Production beschränkung"
+                }
+              },
+              {
                 "id": "11",
                 "title": {
                   "en": "Import Control",
@@ -2734,9 +2741,9 @@
         ]
       },
       {
-        "id": "HardExportPower",
+        "id": "ExportcontrolUserLimit",
         "title": {
-          "en": "Set Hard Export Power to"
+          "en": "Set User Export Power to"
         },
         "args": [
           {
@@ -2751,7 +2758,7 @@
               "en": "Power"
             },
             "min": 0,
-            "max": 15000,
+            "max": 60000,
             "step": 1,
             "placeholder": {
               "en": "In Watt"
@@ -6668,6 +6675,13 @@
           "title": {
             "en": "Export Control",
             "de": "Exportbeschränkung"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Production Limitation",
+            "de": "Production beschränkung"
           }
         },
         {
