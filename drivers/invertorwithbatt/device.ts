@@ -178,7 +178,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
     }
     if (this.hasCapability('measure_voltage.meter_phase3') === false) {
       await this.addCapability('measure_voltage.meter_phase3');
-    }          
+    }
   }
 
   /**
@@ -246,89 +246,24 @@ class MySolaredgeBatteryDevice extends Solaredge {
       
       console.log('Connected ...');
       if (type == 'chargelimit') {
-        var chargehex1 = 16384;
-        var chargehex2 = 17820;
-        //chargepower
-        if (value == 0) {
-          chargehex1 =  0;
-          chargehex2 =  0;
-        } else if (value == 500) {
-          chargehex1 =  0;
-          chargehex2 =  17402;
-        } else if (value == 1000) {
-          chargehex1 =  0;
-          chargehex2 =  17530;
-        }  else if (value == 1500) {
-          chargehex1 =  32768;
-          chargehex2 =  17595;
-        } else if (value == 2000) {
-          chargehex1 = 0;
-          chargehex2 = 17658;
-        } else if (value == 2500) {
-          chargehex1 =  16384;
-          chargehex2 =  17692;
-        } else if (value == 3000) {
-          chargehex1 =  32768;
-          chargehex2 =  17723;
-        } else if (value == 4000) {
-          chargehex1 =  0;
-          chargehex2 =  17786;
-        } else if (value == 5000) {
-          chargehex1 =  16384;
-          chargehex2 =  17820;
-        } else if (value == 6600) {
-          chargehex1 =  16384;
-          chargehex2 =  17870;
-        }
-        const chargeRes = await client.writeMultipleRegisters(0xe00e, [chargehex1, chargehex2]);
+        let buffer;
+        buffer = Buffer.allocUnsafe(4);
+        buffer.writeFloatBE(value);
+        buffer.swap32().swap16();
+        let bytes = buffer.toString('hex').toUpperCase().replace(/(.{2})/g,"$1 ").trimEnd(); 
+        console.log("Write register: Bytes: " + bytes);
+        const chargeRes = await client.writeMultipleRegisters(0xe00e, buffer);
         console.log('charge', chargeRes);
       }
       
       if (type == 'dischargelimit') {
-        var dischargehex1 = 16384;
-        var dischargehex2 = 17820;
-        //dischargepower
-        if (value == 0) {
-          chargehex1 =  0;
-          chargehex2 =  0;
-        } else if (value == 10) {
-          dischargehex1 =  0;
-          dischargehex2 =  16672;        
-        } else if (value == 50) {
-          dischargehex1 =  0;
-          dischargehex2 =  16968;
-        } else if (value == 100) {
-          dischargehex1 =  0;
-          dischargehex2 =  17096;
-        } else if (value == 500) {
-          dischargehex1 =  0;
-          dischargehex2 =  17402;
-        } else if (value == 1000) {
-          dischargehex1 =  0;
-          dischargehex2 =  17530;
-        }  else if (value == 1500) {
-          dischargehex1 =  32768;
-          dischargehex2 =  17595;
-        } else if (value == 2000) {
-          dischargehex1 = 0;
-          dischargehex2 = 17658;
-        } else if (value == 2500) {
-          dischargehex1 =  16384;
-          dischargehex2 =  17692;
-        } else if (value == 3000) {
-          dischargehex1 =  32768;
-          dischargehex2 =  17723;
-        } else if (value == 4000) {
-          dischargehex1 =  0;
-          dischargehex2 =  17786;
-        } else if (value == 5000) {
-          dischargehex1 =  16384;
-          dischargehex2 =  17820;
-        } else if (value == 6600) {
-          dischargehex1 =  16384;
-          dischargehex2 =  17870;
-        }
-        const dischargeRes = await client.writeMultipleRegisters(0xe010, [dischargehex1, dischargehex2]);
+        let buffer;
+        buffer = Buffer.allocUnsafe(4);
+        buffer.writeFloatBE(value);
+        buffer.swap32().swap16();
+        let bytes = buffer.toString('hex').toUpperCase().replace(/(.{2})/g,"$1 ").trimEnd(); 
+        console.log("Write register: Bytes: " + bytes);
+        const dischargeRes = await client.writeMultipleRegisters(0xe010, buffer);
         console.log('discharge', dischargeRes);        
       }
 
@@ -370,79 +305,15 @@ class MySolaredgeBatteryDevice extends Solaredge {
       }
 
       if (type == 'exportlimit') {
-      // https://babbage.cs.qc.cuny.edu/ieee-754.old/Decimal.html
-      // https://www.rapidtables.com/convert/number/hex-to-decimal.html        
-        var dischargehex1 = 16384;
-        var dischargehex2 = 17820;
-
-        if (value == 0) {
-          dischargehex1 =  0;
-          dischargehex2 =  0;        
-        } else if (value == 50) {
-          dischargehex1 =  0;
-          dischargehex2 =  16968;
-        } else if (value == 100) {
-          dischargehex1 =  0;
-          dischargehex2 =  17096;
-        } else if (value == 150) {
-          dischargehex1 =  0;
-          dischargehex2 =  17174;
-        }  else if (value == 200) {
-          dischargehex1 =  0;
-          dischargehex2 =  17224;
-        } else if (value == 300) {
-          dischargehex1 = 0;
-          dischargehex2 = 17302;
-        } else if (value == 400) {
-          dischargehex1 =  0;
-          dischargehex2 =  17352;
-        } else if (value == 500) {
-          dischargehex1 =  0;
-          dischargehex2 =  17402;
-        } else if (value == 1000) {
-          dischargehex1 =  0;
-          dischargehex2 =  17530;
-        } else if (value == 1500) {
-          dischargehex1 =  32768;
-          dischargehex2 =  17595;
-        } else if (value == 2000) {
-          dischargehex1 = 0;
-          dischargehex2 = 17658;
-        } else if (value == 2500) {
-          dischargehex1 =  16384;
-          dischargehex2 =  17692;
-        } else if (value == 3000) {
-          dischargehex1 =  32768;
-          dischargehex2 =  17723;
-        } else if (value == 4000) {
-          dischargehex1 =  0;
-          dischargehex2 =  17786;
-        } else if (value == 5000) {
-          dischargehex1 =  16384;
-          dischargehex2 =  17820;
-        } else if (value == 6600) {
-          dischargehex1 =  16384;
-          dischargehex2 =  17870;
-        } else if (value == 8000) {
-          dischargehex1 =  0;
-          dischargehex2 =  17914;
-        } else if (value == 10000) {
-          dischargehex1 =  16384;
-          dischargehex2 =  17948;
-        } else if (value == 12000) {
-          dischargehex1 =  32768;
-          dischargehex2 =  17979;
-        } else if (value == 15000) {
-          dischargehex1 =  24576;
-          dischargehex2 =  18026;
-        } else if (value == 20000) {
-          dischargehex1 =  16384;
-          dischargehex2 =  18076;
-        } else if (value == 25000) {
-          dischargehex1 =  20480;
-          dischargehex2 =  18115;
-        }      
-        const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [dischargehex1, dischargehex2]);
+        // https://babbage.cs.qc.cuny.edu/ieee-754.old/Decimal.html
+        // https://www.rapidtables.com/convert/number/hex-to-decimal.html
+        let buffer;
+        buffer = Buffer.allocUnsafe(4);
+        buffer.writeFloatBE(value);
+        buffer.swap32().swap16();
+        let bytes = buffer.toString('hex').toUpperCase().replace(/(.{2})/g,"$1 ").trimEnd(); 
+        console.log("Write register: Bytes: " + bytes);
+        const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, buffer);
         console.log('limitcontrolwatt', limitcontrolWattRes);        
       }
 
