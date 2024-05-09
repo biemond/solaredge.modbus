@@ -27,8 +27,6 @@ export class Solax extends Homey.Device {
 
         // // 0x0018 TemperatureBat R TemperatureBat 1℃ int16
         // "TemperatureBat":          [0x0018, 1, 'INT16', "TemperatureBat"],
-        // // 0x001C Battery Capacity R Battery capacity 1% uint16 1
-        // "BatteryCapacity":         [0x001C, 1, 'UINT16', "Battery Capacity"],
         // // 0x0020 OutputEnergy_Charge_today R OutputEnergy_Charge_today 0.1kWh uint16 1
         "OutputEnergy_Charge_today": [0x0020, 1, 'UINT16', "Battery Output Energy Today", -1],
         // // 0x0023 InputEnergy_Charge_today R InputEnergy_Charge_today 0.1kWh uint16 1
@@ -180,6 +178,25 @@ export class Solax extends Homey.Device {
         // // 0x0102
         // // ActivePowerTarget R ActivePowerTarget 1W int32 2
         // "ActivePowerTarget":  [0x0102, 2, 'INT32', "ActivePowerTarget"],
+
+        // 0x001C Battery Capacity R Battery capacity 1% uint16 1
+        "BatteryCapacity":         [0x001C, 1, 'UINT16', "Battery Capacity", 0],
+
+        // 0x0026    BMS_BatteryCapacity R BMS_BatteryCapacity Wh uint16 1
+        "BMS_BatteryCapacity":         [0x0026, 1, 'UINT16', "BMS Battery Capacity", 0 ],
+
+        // 0x0116
+        // ChargeableElectricCapacity R
+        // ChargeableElectricCapacity
+        // (0x116:LSB,0x117:MSB)
+        // 1Wh uint32 2
+        "ChargeableElectricCapacity":  [0x0116, 2, 'UINT32', "ChargeableElectricCapacity", 0],
+        // 0x0118
+        // DischargeableElectricCapacity R
+        // DischargeableElectricCapacity
+        // (0x118:LSB,0x119:MSB)
+        // 1Wh uint32 2
+        "DischargeableElectricCapacity":  [0x0118, 2, 'UINT32', "DischargeableElectricCapacity", 0],
 
         // // 0x0114
         // // Charge_Discharg_Power R
@@ -446,10 +463,10 @@ export class Solax extends Homey.Device {
 
             // "BMS_UserSOC":        [0x00BE, 1, 'UINT16', "BMS_UserSOC", 0],
             // "BMS_UserSOH":        [0x00BF, 1, 'UINT16', "BMS_UserSOH", 0],
-            if (result['BMS_UserSOC'] && result['BMS_UserSOC'].value != 'xxx') {
+            if (result['BatteryCapacity'] && result['BatteryCapacity'].value != 'xxx') {
                 this.addCapability('battery');
                 this.addCapability('measure_battery');
-                var battery = Number(result['BMS_UserSOC'].value);
+                var battery = Number(result['BatteryCapacity'].value);
                 if ( battery > 0 ) {
                     this.setCapabilityValue('battery', battery);
                     this.setCapabilityValue('measure_battery', battery);

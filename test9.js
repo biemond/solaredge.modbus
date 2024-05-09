@@ -1,6 +1,7 @@
 console.log('-------------------')
 
 
+
 const modbus = require('jsmodbus');
 const net = require('net');
 const socket = new net.Socket();

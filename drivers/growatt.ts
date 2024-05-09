@@ -334,6 +334,9 @@ export class Growatt extends Homey.Device {
             if (result['batttemperature'] && result['batttemperature'].value != 'xxx' && this.hasCapability('measure_temperature.battery')) {
                 this.addCapability('measure_temperature.battery');
                 var temperature = Number(result['batttemperature'].value) * (Math.pow(10, Number(result['batttemperature'].scale)));
+                if ( temperature < 6 ) {
+                    temperature = temperature * 10;
+                }
                 this.setCapabilityValue('measure_temperature.battery', temperature);
             }
 
