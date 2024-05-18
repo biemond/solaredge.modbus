@@ -4635,6 +4635,18 @@
                 "nl": "Inverter ID",
                 "de": "Wechselrichter-ID"
               }
+            },
+            {
+              "id": "pollinginterval",
+              "type": "number",
+              "value": 28,
+              "min": 5,
+              "units": {
+                "en": "seconds"
+              },
+              "label": {
+                "en": "Polling interval"
+              }
             }
           ]
         }
