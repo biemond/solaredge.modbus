@@ -23,7 +23,8 @@
     "invertorstatus",
     "meter_power",
     "meter_power.daily",
-    "activepowerlimit"
+    "activepowerlimit",
+    "powerreduce"
   ],
   "capabilitiesOptions": {
     "measure_power": {

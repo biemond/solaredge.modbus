@@ -7,7 +7,7 @@ const net = require('net');
 const socket = new net.Socket();
 
 let options = {
-    'host': '192.168.2.66',
+    'host': '192.168.2.65',
     'port': 502,
     'unitId': 2,
     'timeout': 26,

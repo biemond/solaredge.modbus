@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Power reduce limit"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "uiComponent": "sensor",
+  "units": {
+    "en": "%"
+  },
+  "decimals": 0,
+  "min": 0,
+  "max": 100        
+}

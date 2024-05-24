@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.120",
+  "version": "3.0.122",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -2406,6 +2406,31 @@
         ]
       },
       {
+        "id": "powerreduce",
+        "title": {
+          "en": "Set Power reduce Limit to"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertor"
+          },
+          {
+            "type": "range",
+            "name": "value",
+            "title": {
+              "en": "percentage",
+              "de": "Prozent"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
         "id": "storagecontrolmode",
         "title": {
           "en": "Set Storage Control Mode to",
@@ -4474,7 +4499,8 @@
         "invertorstatus",
         "meter_power",
         "meter_power.daily",
-        "activepowerlimit"
+        "activepowerlimit",
+        "powerreduce"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -6005,8 +6031,8 @@
         "en": "Active power control mode"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "picker",
       "uiQuickAction": false,
       "values": [
         {
@@ -6909,6 +6935,22 @@
       "uiQuickAction": false,
       "icon": "/assets/clock.svg"
     },
+    "powerreduce": {
+      "type": "number",
+      "title": {
+        "en": "Power reduce limit"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "uiComponent": "sensor",
+      "units": {
+        "en": "%"
+      },
+      "decimals": 0,
+      "min": 0,
+      "max": 100
+    },
     "priority": {
       "type": "enum",
       "title": {
@@ -6968,8 +7010,8 @@
         "en": "Remote charge/discharge control mode"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "picker",
       "uiQuickAction": false,
       "values": [
         {
@@ -7109,8 +7151,8 @@
         "en": "Storage excess pv"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "picker",
       "uiQuickAction": false,
       "values": [
         {
@@ -7133,8 +7175,8 @@
         "en": "Storage forcible charge/discharge"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "picker",
       "uiQuickAction": false,
       "values": [
         {
@@ -7193,8 +7235,8 @@
         "en": "Storage working mode setting"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "picker",
       "uiQuickAction": false,
       "values": [
         {

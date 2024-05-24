@@ -382,6 +382,13 @@ export class Solaredge extends Homey.Device {
                 this.setCapabilityValue('activepowerlimit', power_limit);
             }
 
+            if (this.validResultRecord(result['powerreduce']) && this.hasCapability('powerreduce')) {
+                this.addCapability('powerreduce');
+                var power_limit = Number(result['powerreduce'].value);
+                this.setCapabilityValue('powerreduce', power_limit);
+            }
+            
+
             if (this.validResultRecord(result['export_control_mode'])) {
                 if (this.hasCapability('limitcontrolmode')) {
                     this.addCapability('limitcontrolmode');

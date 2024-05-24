@@ -20,5 +20,25 @@
         }
     ],
     "actions": [
+        {
+            "id": "powerreduce",
+            "title": {
+                "en": "Set Power reduce Limit to"
+            },
+            "args": [
+                {
+                    "type": "range",
+                    "name": "value",
+                    "title": {
+                        "en": "percentage",
+                        "de": "Prozent"
+                    },
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "labelDecimals": 0
+                }
+            ]
+        }        
     ]
 }

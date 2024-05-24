@@ -55,6 +55,16 @@ class MySolaredgeDevice extends Solaredge {
     });       
     
 
+    let controlpowerreduce = this.homey.flow.getActionCard('powerreduce');
+    controlpowerreduce.registerRunListener(async (args, state) => {
+      // let name = this.getData().id;
+      // this.log("device name id " + name );
+      // this.log("device name " + this.getName());
+      this.log(args.device.getName()); 
+      this.log(args.device.getSettings());            
+      await this.updateControl('powerreduce', Number(args.value), args.device);
+    }); 
+
     // flow conditions
     let changedStatus = this.homey.flow.getConditionCard("changedStatus");
     changedStatus.registerRunListener(async (args, state) => {
@@ -87,6 +97,11 @@ class MySolaredgeDevice extends Solaredge {
     if (this.hasCapability('measure_voltage.phase3n') === false) {
       await this.addCapability('measure_voltage.phase3n');
     } 
+
+    if (this.hasCapability('powerreduce') === false) {
+      await this.addCapability('powerreduce');
+    } 
+    
 
   }
 
@@ -178,6 +193,18 @@ class MySolaredgeDevice extends Solaredge {
         const activepowerlimitRes = await client.writeSingleRegister(0xf001, Number(value));
         console.log('activepowerlimit', activepowerlimitRes);        
       }
+
+      if (type == 'powerreduce') {
+        let buffer;
+        buffer = Buffer.allocUnsafe(4);
+        buffer.writeFloatBE(value);
+        buffer.swap32().swap16();
+        let bytes = buffer.toString('hex').toUpperCase().replace(/(.{2})/g,"$1 ").trimEnd(); 
+        console.log("Write register: Bytes: " + bytes);
+        const powerreduceRes = await client.writeMultipleRegisters(0xf140,buffer);
+        console.log('powerreduce', powerreduceRes);        
+      }
+      
 
       if (type == 'limitcontrolmode') {
         // 0 – Disabled

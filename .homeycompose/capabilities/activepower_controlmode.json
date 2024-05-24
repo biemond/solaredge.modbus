@@ -4,8 +4,8 @@
         "en": "Active power control mode"
     },
     "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
+    "setable": true,
+    "uiComponent": "picker",
     "uiQuickAction": false,
     "values": [
         {
