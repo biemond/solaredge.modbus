@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.122",
+  "version": "3.0.124",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -3331,6 +3331,8 @@
         "exportlimitpowerrate",
         "priority",
         "measure_power.houseload",
+        "measure_power.import",
+        "measure_power.export",
         "meter_power.today_grid_import",
         "meter_power.today_grid_export",
         "meter_power.today_batt_output",
@@ -3481,6 +3483,18 @@
           "title": {
             "en": "House load",
             "de": "Hauslast"
+          }
+        },
+        "measure_power.import": {
+          "decimals": 1,
+          "title": {
+            "en": "Meter import"
+          }
+        },
+        "measure_power.export": {
+          "decimals": 1,
+          "title": {
+            "en": "Meter export"
           }
         },
         "measure_voltage.meter": {

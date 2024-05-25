@@ -117,6 +117,13 @@ class MyGrowattBattery extends Growatt {
     if (this.hasCapability('battacchargeswitch') === false) {
       await this.addCapability('battacchargeswitch');
     }
+    if (this.hasCapability('measure_power.import') === false) {
+      await this.addCapability('measure_power.import');
+    }
+    if (this.hasCapability('measure_power.export') === false) {
+      await this.addCapability('measure_power.export');
+    }
+
   }
 
   /**

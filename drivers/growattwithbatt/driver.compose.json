@@ -39,6 +39,8 @@
     "exportlimitpowerrate",
     "priority",
     "measure_power.houseload",
+    "measure_power.import",
+    "measure_power.export",          
     "meter_power.today_grid_import",
     "meter_power.today_grid_export",
     "meter_power.today_batt_output",
@@ -191,6 +193,18 @@
         "de": "Hauslast"
       }
     },
+    "measure_power.import": {
+      "decimals": 1,
+      "title": {
+        "en": "Imported from grid"
+      }
+    },
+    "measure_power.export": {
+      "decimals": 1,
+      "title": {
+        "en": "Exported to grid"
+      }
+    },        
     "measure_voltage.meter": {
       "title": {
         "en": "Meter AC Voltage",
