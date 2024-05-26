@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.124",
+  "version": "3.0.126",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -3488,13 +3488,13 @@
         "measure_power.import": {
           "decimals": 1,
           "title": {
-            "en": "Meter import"
+            "en": "Imported from grid"
           }
         },
         "measure_power.export": {
           "decimals": 1,
           "title": {
-            "en": "Meter export"
+            "en": "Exported to grid"
           }
         },
         "measure_voltage.meter": {
@@ -4711,6 +4711,8 @@
         "measure_power.export",
         "measure_power.batt_charge",
         "measure_power.batt_discharge",
+        "measure_power.batt_charge2",
+        "measure_power.batt_discharge2",
         "measure_power.chargesetting",
         "measure_power.dischargesetting",
         "measure_current",
@@ -4730,18 +4732,24 @@
         "measure_voltage.meter_phase3",
         "measure_temperature.invertor",
         "measure_temperature.battery",
+        "measure_temperature.battery2",
         "meter_power",
         "meter_power.daily",
         "meter_power.export",
         "meter_power.import",
         "battery",
         "batterysoh",
+        "battery2",
+        "batterysoh2",
         "storagecontrolmode",
         "storagedefaultmode",
         "invertorstatus",
         "battstatus",
         "batterycap",
         "batterymaxcap",
+        "battstatus2",
+        "batterycap2",
+        "batterymaxcap2",
         "ownconsumption",
         "activepowerlimit",
         "limitcontrolmode",
@@ -4811,6 +4819,20 @@
           "title": {
             "en": "Battery Power charge",
             "de": "Batterieladeleistung"
+          }
+        },
+        "measure_power.batt_discharge2": {
+          "decimals": 0,
+          "title": {
+            "en": "Battery 2 Power discharge",
+            "de": "Batterieentladeleistung 2"
+          }
+        },
+        "measure_power.batt_charge2": {
+          "decimals": 0,
+          "title": {
+            "en": "Battery 2 Power charge",
+            "de": "Batterieladeleistung 2"
           }
         },
         "measure_power.import": {
@@ -4887,6 +4909,13 @@
           "title": {
             "en": "Battery avg temperature",
             "de": "Durchschnittliche Batterietemperatur"
+          },
+          "decimals": 2
+        },
+        "measure_temperature.battery2": {
+          "title": {
+            "en": "Battery 2 avg temperature",
+            "de": "Durchschnittliche Batterie 2 temperatur"
           },
           "decimals": 2
         },
@@ -6150,11 +6179,52 @@
       "setable": false,
       "uiComponent": "sensor"
     },
+    "battery2": {
+      "type": "number",
+      "title": {
+        "en": "Battery 2",
+        "nl": "Accuniveau 2",
+        "de": "Batteriestand 2"
+      },
+      "insights": false,
+      "icon": "/assets/battery.svg",
+      "units": {
+        "en": "%"
+      },
+      "min": 0,
+      "max": 100,
+      "desc": {
+        "en": "Battery charge in percentage (%)",
+        "nl": "Accuniveau in procenten (%)",
+        "de": "Batteriestand in Prozent (%)"
+      },
+      "chartType": "spline",
+      "decimals": 2,
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
+    },
     "batterycap": {
       "type": "number",
       "title": {
         "en": "Battery Capacity",
         "de": "Batteriekapazität"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "decimals": 1,
+      "uiComponent": "sensor",
+      "icon": "/assets/battery_capacity.svg",
+      "units": {
+        "en": "kWh"
+      }
+    },
+    "batterycap2": {
+      "type": "number",
+      "title": {
+        "en": "Battery 2 Capacity",
+        "de": "Batteriekapazität 2"
       },
       "getable": true,
       "setable": false,
@@ -6184,6 +6254,22 @@
       "title": {
         "en": "Battery Max capacity",
         "de": "Maximale Batteriekapazität"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "decimals": 1,
+      "uiComponent": "sensor",
+      "icon": "/assets/battery_capacity.svg",
+      "units": {
+        "en": "kWh"
+      }
+    },
+    "batterymaxcap2": {
+      "type": "number",
+      "title": {
+        "en": "Battery 2 Max capacity",
+        "de": "Maximale Batteriekapazität 2"
       },
       "getable": true,
       "setable": false,
@@ -6251,6 +6337,24 @@
         "nl": "%"
       }
     },
+    "batterysoh2": {
+      "type": "number",
+      "title": {
+        "en": "Battery 2 Health",
+        "nl": "Batterij 2 SoH",
+        "de": "Batteriezustand 2"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "decimals": 1,
+      "uiComponent": "sensor",
+      "icon": "/assets/battery.svg",
+      "units": {
+        "en": "%",
+        "nl": "%"
+      }
+    },
     "batterystatus": {
       "type": "number",
       "title": {
@@ -6281,6 +6385,83 @@
       "title": {
         "en": "Battery status",
         "de": "Batteriestatus"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "icon": "/assets/operational_status.svg",
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off",
+            "de": "Aus"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Standby",
+            "de": "Bereitschaft"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Init",
+            "de": "Initialisierung"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Charge",
+            "de": "Ladung"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Discharge",
+            "de": "Entladung"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Fault",
+            "de": "Störung"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "Idle",
+            "de": "Leerlauf"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "Idle",
+            "de": "Leerlauf"
+          }
+        },
+        {
+          "id": "10",
+          "title": {
+            "en": "Unknown",
+            "de": "Unbekannt"
+          }
+        }
+      ]
+    },
+    "battstatus2": {
+      "type": "enum",
+      "title": {
+        "en": "Battery 2 status",
+        "de": "Batteriestatus 2"
       },
       "getable": true,
       "setable": false,

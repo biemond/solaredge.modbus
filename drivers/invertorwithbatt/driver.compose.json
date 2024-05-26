@@ -16,6 +16,8 @@
     "measure_power.export",
     "measure_power.batt_charge",
     "measure_power.batt_discharge",
+    "measure_power.batt_charge2",
+    "measure_power.batt_discharge2",    
     "measure_power.chargesetting",
     "measure_power.dischargesetting",
     "measure_current",
@@ -35,18 +37,24 @@
     "measure_voltage.meter_phase3",
     "measure_temperature.invertor",
     "measure_temperature.battery",
+    "measure_temperature.battery2",    
     "meter_power",
     "meter_power.daily",
     "meter_power.export",
     "meter_power.import",
     "battery",
     "batterysoh",
+    "battery2",
+    "batterysoh2",    
     "storagecontrolmode",
     "storagedefaultmode",
     "invertorstatus",
     "battstatus",
     "batterycap",
     "batterymaxcap",
+    "battstatus2",
+    "batterycap2",
+    "batterymaxcap2",    
     "ownconsumption",
     "activepowerlimit",
     "limitcontrolmode",
@@ -118,6 +126,20 @@
         "de": "Batterieladeleistung"
       }
     },
+    "measure_power.batt_discharge2": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery 2 Power discharge",
+        "de": "Batterieentladeleistung 2"
+      }
+    },
+    "measure_power.batt_charge2": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery 2 Power charge",
+        "de": "Batterieladeleistung 2"
+      }
+    },    
     "measure_power.import": {
       "decimals": 0,
       "title": {
@@ -195,6 +217,13 @@
       },
       "decimals": 2
     },
+    "measure_temperature.battery2": {
+      "title": {
+        "en": "Battery 2 avg temperature",
+        "de": "Durchschnittliche Batterie 2 temperatur"
+      },
+      "decimals": 2
+    },    
     "measure_power.chargesetting": {
       "title": {
         "en": "Charge setting",
