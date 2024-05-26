@@ -552,11 +552,23 @@ export class Solaredge extends Homey.Device {
                 this.addCapability('measure_battery');
                 var battery = Number(Number.parseFloat(result['batt1-soe'].value).toFixed(2));
                 if ( battery > 0 ) {
-                    if (this.getCapabilityValue('battery') != battery) {
-                        this.homey.flow.getDeviceTriggerCard('changedBattery').trigger(this, { charge: battery }, {});
+                    if (this.validResultRecord(result['batt2-soe'])) {
+                        console.log('2 batteries');
+                        var battery2 = Number(Number.parseFloat(result['batt2-soe'].value).toFixed(2));
+                        var bothBattery = ( battery + battery2 ) / 2;
+                        if (this.getCapabilityValue('battery') != bothBattery) {
+                            this.homey.flow.getDeviceTriggerCard('changedBattery').trigger(this, { charge: bothBattery }, {});
+                        }
+                        this.setCapabilityValue('battery', battery);
+                        this.setCapabilityValue('measure_battery', bothBattery);
+                    } else {
+                        console.log('single batteries');
+                        if (this.getCapabilityValue('battery') != battery) {
+                            this.homey.flow.getDeviceTriggerCard('changedBattery').trigger(this, { charge: battery }, {});
+                        }
+                        this.setCapabilityValue('battery', battery);
+                        this.setCapabilityValue('measure_battery', battery);
                     }
-                    this.setCapabilityValue('battery', battery);
-                    this.setCapabilityValue('measure_battery', battery);
                 }
             }
 
