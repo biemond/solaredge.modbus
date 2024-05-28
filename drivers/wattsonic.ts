@@ -38,8 +38,8 @@ export class Wattsonic extends Homey.Device {
         "pv2Voltage": [11040, 1, 'UINT16', "pv2 Voltage", -1],
         
         "pvEnergyTotal": [11028, 2, 'UINT32', "PV Input Total Power", -1],  //	kW	1000
-        "pv1InputPower": [11062, 2, 'UINT32', "PV1 Input Power", -1],  //	kW	1000
-        "pv2InputPower": [11064, 2, 'UINT32', "PV2 Input Power", -1],
+        "pv1InputPower": [11062, 2, 'UINT32', "PV1 Input Power", 0],  //	kW	1000
+        "pv2InputPower": [11064, 2, 'UINT32', "PV2 Input Power", 0],
         "pvTodayEnergy": [11018, 2, 'UINT32', "Total PV Generation on that day", -1], // kWh	10
         "pvTotalEnergy": [11020, 2, 'UINT32', "Total PV Generation from Installation", -1], //kWh	10
 
@@ -74,14 +74,14 @@ export class Wattsonic extends Homey.Device {
         "inputPower": [11028, 2, 'UINT32', "Input Power", 0], //	kW	1000
 
         "gridFrequency": [11015, 1, 'UINT16', "Grid Frequency", -2],  //Hz	100
-        "gridOutputPower": [11000, 2, 'INT32', "Grid Output Power", -1],
+        "gridOutputPower": [11000, 2, 'INT32', "Grid Output Power", 0],
         
         "pv1Voltage": [11038, 1, 'UINT16', "pv1 Voltage", -1], // V	10	
         "pv2Voltage": [11040, 1, 'UINT16', "pv2 Voltage", -1],
         
         "pvEnergyTotal": [11028, 2, 'UINT32', "PV Input Total Power", -1],  //	kW	1000
-        "pv1InputPower": [11062, 2, 'UINT32', "PV1 Input Power", -1],  //	kW	1000
-        "pv2InputPower": [11064, 2, 'UINT32', "PV2 Input Power", -1],
+        "pv1InputPower": [11062, 2, 'UINT32', "PV1 Input Power", 0],  //	kW	1000
+        "pv2InputPower": [11064, 2, 'UINT32', "PV2 Input Power", 0],
         "pvTodayEnergy": [11018, 2, 'UINT32', "Total PV Generation on that day", -1], // kWh	10
         "pvTotalEnergy": [11020, 2, 'UINT32', "Total PV Generation from Installation", -1], //kWh	10
 
