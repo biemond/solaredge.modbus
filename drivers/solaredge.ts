@@ -538,7 +538,7 @@ export class Solaredge extends Homey.Device {
                 this.addCapability('measure_power.batt_charge');
                 this.addCapability('measure_power.batt_discharge');
                 var battpower = Number(result['batt1-instantaneous_power'].value);
-                if (battpower > 0) {
+                if (battpower > 0 || battpower == 0) {
                     this.setCapabilityValue('measure_power.batt_charge', battpower);
                     this.setCapabilityValue('measure_power.batt_discharge', 0);
                 } else {
@@ -581,7 +581,7 @@ export class Solaredge extends Homey.Device {
                 this.addCapability('measure_power.batt_charge2');
                 this.addCapability('measure_power.batt_discharge2');
                 var battpower = Number(result['batt2-instantaneous_power'].value);
-                if (battpower > 0) {
+                if (battpower > 0 || battpower == 0 ) {
                     this.setCapabilityValue('measure_power.batt_charge2', battpower);
                     this.setCapabilityValue('measure_power.batt_discharge2', 0);
                 } else {
@@ -599,6 +599,7 @@ export class Solaredge extends Homey.Device {
             }
 
             if (this.validResultRecord(result['batt2-soh'])) { 
+                this.addCapability('batterysoh2');
                 var health = Number(result['batt2-soh'].value);
                 this.setCapabilityValue('batterysoh2', health);
             }
