@@ -1,15 +1,13 @@
 console.log('-------------------')
 
-
-
 const modbus = require('jsmodbus');
 const net = require('net');
 const socket = new net.Socket();
 
 let options = {
-    'host': '192.168.2.65',
+    'host': '192.168.178.180',
     'port': 502,
-    'unitId': 2,
+    'unitId': 1,
     'timeout': 26,
     'autoReconnect': false,
     'reconnectTimeout': 26,
@@ -24,6 +22,8 @@ socket.connect(options);
 
 socket.on('connect', () => {
 
+    // const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+
     var delay = ( function() {
         var timer = 0;
         return function(callback, ms) {
@@ -32,7 +32,7 @@ socket.on('connect', () => {
         };
     })();
 
-    delay(5000);
+    delay(() => (5000));
     console.log('Connected ...');
 
     registers = {
@@ -70,7 +70,8 @@ socket.on('connect', () => {
 
 
     for (const [key, value] of Object.entries(registers)) {
-        delay(250);
+        delay(() => (750));
+        // delay(250);
         // console.log(key, value);
         // start normale poll
         client.readHoldingRegisters(value[0],value[1])
