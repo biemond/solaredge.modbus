@@ -352,7 +352,11 @@ export class Solaredge extends Homey.Device {
                             };
                             this.homey.flow.getDeviceTriggerCard('meter_power_day_changed').trigger(this,tokens);
                         }
-                        this.setCapabilityValue('meter_power.daily', daily_power);
+                        if (daily_power > 0 )  {
+                           this.setCapabilityValue('meter_power.daily', daily_power);
+                        } else {
+                           this.setCapabilityValue('meter_power.daily', 0);
+                        }
                     }
                 }
             }
