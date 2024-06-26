@@ -1,6 +1,6 @@
 {
   "id": "solaredge.modbus",
-  "version": "3.0.132",
+  "version": "3.0.141",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -31,7 +31,8 @@
       "St-ems",
       "sungrow",
       "huawei",
-      "solax"
+      "solax",
+      "kostal"
     ],
     "nl": [
       "solaredge",
@@ -48,7 +49,8 @@
       "St-ems",
       "sungrow",
       "huawei",
-      "solax"
+      "solax",
+      "kostal"      
     ],
     "de": [
       "solaredge",
@@ -63,7 +65,8 @@
       "St-ems",
       "sungrow",
       "huawei",
-      "solax"   
+      "solax",
+      "kostal"         
     ]
   },
   "bugs": {

@@ -1,4 +1,4 @@
-Homey app to receive realtime data from your SolarEdge, Growatt, Sungrow, Huawei, Solax & Wattsonic solar installation using local Modbus TCP
+Homey app to receive realtime data from your SolarEdge, Growatt, Sungrow, Huawei, Kostal, Solax & Wattsonic solar installation using local Modbus TCP
 
 Purpose
 The difference of this app and the already existing solar panels app is that this app reads the data directly from the inverter.
@@ -15,3 +15,4 @@ Following devices are supported
 - Sungrow Hybrid with battery
 - Huawei Hybrid with battery
 - Solax with battery
+- Kostal with battery

@@ -1,0 +1,257 @@
+{
+  "name": {
+    "en": "Kostal Inverter",
+    "de": "Kostal Wechselrichter"
+  },
+  "class": "solarpanel",
+  "energy": {
+    "batteries": [
+      "OTHER"
+    ]
+  },
+  "capabilities": [
+    "measure_power",
+    "measure_power.meter",
+    "measure_power.pv1input",
+    "measure_power.pv2input",
+    "measure_power.pv3input",
+    "measure_power.houseloadfrompv",
+    "measure_power.houseloadfrombatt",
+    "measure_power.houseloadfromgrid",          
+    "measure_temperature.battery",
+    "meter_power",
+    "meter_power.daily",
+    "meter_power.houseload",    
+    "battery",
+    "measure_battery",
+    "batterycycles",
+    "measure_voltage.battery",
+    "measure_power.batt_charge_discharge",
+    "measure_current.meter_phase1",
+    "measure_current.meter_phase2",
+    "measure_current.meter_phase3",
+    "measure_voltage.meter_phase1",
+    "measure_voltage.meter_phase2",
+    "measure_voltage.meter_phase3"                              
+  ],
+  "capabilitiesOptions": {
+    "measure_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar Power",
+        "de": "Solarleistung"
+      }
+    },
+    "measure_power.meter": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid in/output",
+        "de": "Netz im/export"
+      }
+    },    
+    "measure_power.pv1input": {
+      "decimals": 0,
+      "title": {
+        "en": "PV1 input",
+        "de": "PV1 Eingang"
+      }
+    },
+    "measure_power.pv2input": {
+      "decimals": 0,
+      "title": {
+        "en": "PV2 input",
+        "de": "PV2 Eingang"
+      }
+    },
+    "measure_power.pv3input": {
+      "decimals": 0,
+      "title": {
+        "en": "PV3 input",
+        "de": "PV3 Eingang"
+      }
+    },
+    "measure_temperature.battery": {
+      "title": {
+        "en": "Battery temperature",
+        "de": "Batterietemperatur"
+      },
+      "decimals": 2
+    },
+    "meter_power": {
+      "title": {
+        "en": "Total Yield",
+        "nl": "Totale opbrengst",
+        "de": "Gesamtertrag"
+      },
+      "units": { "en": "kWh" },
+      "decimals": 0
+    },
+    "meter_power.daily": {
+      "title": {
+        "en": "Total Day Yield",
+        "nl": "Totale dag opbrengst",
+        "de": "Tagesgesamtertrag"
+      },
+      "units": { "en": "kWh" },
+      "decimals": 0,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.houseload": {
+      "title": {
+        "en": "Total houseload Yield",
+        "nl": "Totale consumption opbrengst"
+      },
+      "units": { "en": "kWh" },
+      "decimals": 0,
+      "icon": "/assets/total_yield.svg"
+    },    
+    "measure_power.houseloadfrompv": {
+      "decimals": 0,
+      "title": {
+        "en": "House load from PV",
+        "de": "Hauslast von PV"
+      }
+    },
+    "measure_power.houseloadfrombatt": {
+      "decimals": 0,
+      "title": {
+        "en": "House load from batt",
+        "de": "Hauslast von batt"
+      }
+    },
+    "measure_power.houseloadfromgrid": {
+      "decimals": 0,
+      "title": {
+        "en": "House load from Grid",
+        "de": "Hauslast von netz"
+      }
+    },
+    "measure_voltage.battery": {
+      "title": {
+        "en": "Battery Voltage",
+        "de": "Batteriespannung"
+      }
+    },
+    "measure_power.batt_charge_discharge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power charge/discharge",
+        "de": "Batterie lade/entladung"
+      }
+    },
+    "measure_voltage.meter_phase1": {
+      "title": {
+        "en": "Meter Voltage p1",
+        "de": "Zähler Spannung P1"
+      }
+    },
+    "measure_voltage.meter_phase2": {
+      "title": {
+        "en": "Meter Voltage p2",
+        "de": "Zähler Spannung P2"
+      }
+    },
+    "measure_voltage.meter_phase3": {
+      "title": {
+        "en": "Meter Voltage phase3",
+        "de": "Zähler Spannung P3"
+      }
+    },
+    "measure_current.meter_phase1": {
+      "title": {
+        "en": "Meter AC Current p1",
+        "de": "Zähler AC-Strom P1"
+      }
+    },
+    "measure_current.meter_phase2": {
+      "title": {
+        "en": "Meter AC Current p2",
+        "de": "Zähler AC-Strom P2"
+      }
+    },
+    "measure_current.meter_phase3": {
+      "title": {
+        "en": "Meter AC Current p3",
+        "de": "Zähler AC-Strom P3"
+      }
+    },
+    "measure_power.meter_phase1": {
+      "title": {
+        "en": "Meter AC power p1",
+        "de": "Zähler AC power P1"
+      }
+    },
+    "measure_power.meter_phase2": {
+      "title": {
+        "en": "Meter AC power p2",
+        "de": "Zähler AC power P2"
+      }
+    },
+    "measure_power.meter_phase3": {
+      "title": {
+        "en": "Meter AC power p3",
+        "de": "Zähler AC power P3"
+      }
+    }                                                                    
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
+  "pair": [
+    {
+      "id": "start"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Inverter settings",
+        "de": "Wechselrichtereinstellungen"
+      },
+      "children": [
+        {
+          "id": "address",
+          "type": "text",
+          "value": "0.0.0.0",
+          "label": {
+            "en": "IP Address",
+            "de": "IP-Adresse"
+          }
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "value": 1502,
+          "step": 1,
+          "label": {
+            "en": "Port",
+            "de": "Port"
+          }
+        },
+        {
+          "id": "id",
+          "type": "number",
+          "value": 1,
+          "step": 1,
+          "attr": {
+            "min": 0,
+            "max": 99
+          },
+          "label": {
+            "en": "Inverter ID",
+            "nl": "Inverter ID",
+            "de": "Wechselrichter-ID"
+          }
+        }
+      ]
+    }
+  ]
+}
