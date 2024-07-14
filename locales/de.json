@@ -1,0 +1,24 @@
+{
+    "pair": {
+      "title": "Kostal Wechselrichter hinzufügen",
+      "title_growatt": "Growatt Wechselrichter hinzufügen",
+      "title_wattsonic": "Wattsonic Wechselrichter hinzufügen",
+      "title_solax": "SOLAX Wechselrichter hinzufügen",
+      "title_sungrow": "Sungrow Wechselrichter hinzufügen",
+      "title_huawei": "Huawei Wechselrichter hinzufügen",
+      "title_kostal": "Kostal Wechselrichter hinzufügen",
+      "nosettings": "Bitte füllen Sie alle erforderlichen Felder aus.",
+      "intro": "Geben Sie die IP-Adresse und den Port Ihres Wechselrichters ein und legen Sie die Abfragefrequenz fest.",
+      "address": "IP-Adresse",
+      "port": "Port",
+      "polling": "Abfragefrequenz",
+      "deviceid": "Geräte-ID",
+      "connect": "Verbinden"
+    },
+    "Unreachable": "Unerreichbar",
+    "Off": "Aus",
+    "BatteryStandby": "Batterie Standby",
+    "Charge": "Batterie lädt",
+    "Discharge": "Batterie entlädt",
+    "NA": "Information nicht verfügbar"
+  }

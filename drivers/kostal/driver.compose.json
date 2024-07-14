@@ -46,7 +46,7 @@
       "decimals": 0,
       "title": {
         "en": "Grid in/output",
-        "de": "Netz im/export"
+        "de": "Netz Im/Export"
       }
     },    
     "measure_power.pv1input": {
@@ -99,12 +99,13 @@
     "meter_power.houseload": {
       "title": {
         "en": "Total houseload Yield",
-        "nl": "Totale consumption opbrengst"
+        "nl": "Totale consumption opbrengst",
+        "de": "Gesamter Hausverbrauch"
       },
       "units": { "en": "kWh" },
       "decimals": 0,
       "icon": "/assets/total_yield.svg"
-    },    
+    },        
     "measure_power.houseloadfrompv": {
       "decimals": 0,
       "title": {
@@ -116,7 +117,7 @@
       "decimals": 0,
       "title": {
         "en": "House load from batt",
-        "de": "Hauslast von batt"
+        "de": "Hauslast von Batterie"
       }
     },
     "measure_power.houseloadfromgrid": {
@@ -136,7 +137,7 @@
       "decimals": 0,
       "title": {
         "en": "Battery Power charge/discharge",
-        "de": "Batterie lade/entladung"
+        "de": "Batterie Lade/Entladung"
       }
     },
     "measure_voltage.meter_phase1": {

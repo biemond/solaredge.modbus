@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.141",
+  "version": "3.0.144",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -1619,6 +1619,24 @@
                 "id": "25000",
                 "label": {
                   "en": "25000W"
+                }
+              },
+              {
+                "id": "30000",
+                "label": {
+                  "en": "30000W"
+                }
+              },
+              {
+                "id": "40000",
+                "label": {
+                  "en": "40000W"
+                }
+              },
+              {
+                "id": "50000",
+                "label": {
+                  "en": "50000W"
                 }
               }
             ]
@@ -5092,7 +5110,7 @@
           "decimals": 0,
           "title": {
             "en": "Grid in/output",
-            "de": "Netz im/export"
+            "de": "Netz Im/Export"
           }
         },
         "measure_power.pv1input": {
@@ -5149,7 +5167,8 @@
         "meter_power.houseload": {
           "title": {
             "en": "Total houseload Yield",
-            "nl": "Totale consumption opbrengst"
+            "nl": "Totale consumption opbrengst",
+            "de": "Gesamter Hausverbrauch"
           },
           "units": {
             "en": "kWh"
@@ -5168,7 +5187,7 @@
           "decimals": 0,
           "title": {
             "en": "House load from batt",
-            "de": "Hauslast von batt"
+            "de": "Hauslast von Batterie"
           }
         },
         "measure_power.houseloadfromgrid": {
@@ -5188,7 +5207,7 @@
           "decimals": 0,
           "title": {
             "en": "Battery Power charge/discharge",
-            "de": "Batterie lade/entladung"
+            "de": "Batterie Lade/Entladung"
           }
         },
         "measure_voltage.meter_phase1": {

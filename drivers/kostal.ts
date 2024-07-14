@@ -113,7 +113,6 @@ export class Kostal extends Homey.Device {
                 var dcPower = Number(result['Totalactivepower'].value) * (Math.pow(10, Number(result['Totalactivepower'].scale)));
                 this.setCapabilityValue('measure_power.meter', Math.round(dcPower));
             }
-            
 
             if (result['PowerDC1'] && result['PowerDC1'].value != 'xxx') {
                 this.addCapability('measure_power.pv1input');
@@ -138,11 +137,13 @@ export class Kostal extends Homey.Device {
                 var power = Number(result['homeownconsumptionfrompv'].value) * (Math.pow(10, Number(result['homeownconsumptionfrompv'].scale)));
                 this.setCapabilityValue('measure_power.houseloadfrompv', Math.round(power));
             }
+
             if (result['homeownconsumptionfrombatt'] && result['homeownconsumptionfrombatt'].value != 'xxx') {
                 this.addCapability('measure_power.houseloadfrombatt');
                 var power = Number(result['homeownconsumptionfrombatt'].value) * (Math.pow(10, Number(result['homeownconsumptionfrombatt'].scale)));
                 this.setCapabilityValue('measure_power.houseloadfrombatt', Math.round(power));
             }
+
             if (result['houseloadfromgrid'] && result['houseloadfromgrid'].value != 'xxx') {
                 this.addCapability('measure_power.houseloadfromgrid');
                 var power = Number(result['houseloadfromgrid'].value) * (Math.pow(10, Number(result['houseloadfromgrid'].scale)));
@@ -150,13 +151,13 @@ export class Kostal extends Homey.Device {
             }
 
 
-            if (result['batterytemperature'] && result['batterytemperature'].value != 'xxx' && this.hasCapability('measure_temperature.battery')) {
+            if (result['batterytemperature'] && result['batterytemperature'].value != 'xxx' ) {
                 this.addCapability('measure_temperature.battery');
                 var temperature = Number(result['batterytemperature'].value) * (Math.pow(10, Number(result['batterytemperature'].scale)));
                 this.setCapabilityValue('measure_temperature.battery', temperature);
             }
 
-            if (result['batterysoc'] && result['batterysoc'].value != 'xxx' && this.hasCapability('measure_battery')) {
+            if (result['batterysoc'] && result['batterysoc'].value != 'xxx') {
                 this.addCapability('battery');
                 this.addCapability('measure_battery');
                 var soc = Number(result['batterysoc'].value) * (Math.pow(10, Number(result['batterysoc'].scale)));
@@ -164,7 +165,7 @@ export class Kostal extends Homey.Device {
                 this.setCapabilityValue('measure_battery', soc);
             }
 
-            if (result['batterycycles'] && result['batterycycles'].value != 'xxx' && this.hasCapability('batterycycles')) {
+            if (result['batterycycles'] && result['batterycycles'].value != 'xxx' ) {
                 this.addCapability('batterycycles');
                 var batterycycles = Number(result['batterycycles'].value) * (Math.pow(10, Number(result['batterycycles'].scale)));
                 this.setCapabilityValue('batterycycles', batterycycles);
@@ -172,20 +173,19 @@ export class Kostal extends Homey.Device {
 
             if (result['totalyield'] && result['totalyield'].value != 'xxx') {
                 this.addCapability('meter_power');
-                var totalyield = Number(result['totalyield'].value) * (Math.pow(10, Number(result['totalyield'].scale)));
+                var totalyield = Number(result['totalyield'].value) / 1000;
                 this.setCapabilityValue('meter_power', totalyield);
             }
 
             if (result['Dailyyield'] && result['Dailyyield'].value != 'xxx') {
                 this.addCapability('meter_power.daily');
-                var Dailyyield = Number(result['Dailyyield'].value) * (Math.pow(10, Number(result['Dailyyield'].scale)));
+                var Dailyyield = Number(result['Dailyyield'].value) / 1000 ;
                 this.setCapabilityValue('meter_power.daily', Dailyyield);
             }
-            
   
             if (result['totalhomeconsumption'] && result['totalhomeconsumption'].value != 'xxx') {
                 this.addCapability('meter_power.houseload');
-                var totalhomeconsumption = Number(result['totalhomeconsumption'].value) * (Math.pow(10, Number(result['totalhomeconsumption'].scale)));
+                var totalhomeconsumption = Number(result['totalhomeconsumption'].value) / 1000;
                 this.setCapabilityValue('meter_power.houseload', totalhomeconsumption);
             }
             
@@ -195,7 +195,7 @@ export class Kostal extends Homey.Device {
                 this.setCapabilityValue( "measure_voltage.battery", batteryvoltage);
             } 
 
-            if (result['Actualbatterychargedischargepower'] && result['Actualbatterychargedischargepower'].value != 'xxx' && this.hasCapability('measure_power.batt_charge_discharge')) {
+            if (result['Actualbatterychargedischargepower'] && result['Actualbatterychargedischargepower'].value != 'xxx' ) {
                 this.addCapability('measure_power.batt_charge_discharge');
                 var charge = Number(result['Actualbatterychargedischargepower'].value) * (Math.pow(10, Number(result['Actualbatterychargedischargepower'].scale)));
                 this.setCapabilityValue('measure_power.batt_charge_discharge', charge);
@@ -222,13 +222,11 @@ export class Kostal extends Homey.Device {
                 var voltageeac1 = Number(result['Voltagephase1'].value) * (Math.pow(10,  Number(result['Voltagephase1'].scale)));
                 this.setCapabilityValue('measure_voltage.meter_phase1', voltageeac1);
             }
-
             if (result['Voltagephase2'] && result['Voltagephase2'].value != 'xxx') {
                 this.addCapability('measure_voltage.meter_phase2');
                 var voltageeac2 = Number(result['Voltagephase2'].value) * (Math.pow(10,  Number(result['Voltagephase2'].scale)));
                 this.setCapabilityValue('measure_voltage.meter_phase2', voltageeac2);
             }
-
             if (result['Voltagephase3'] && result['Voltagephase3'].value != 'xxx') {
                 this.addCapability('measure_voltage.meter_phase3');
                 var voltageeac3 = Number(result['Voltagephase3'].value) * (Math.pow(10,  Number(result['Voltagephase3'].scale)));
