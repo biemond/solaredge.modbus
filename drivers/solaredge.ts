@@ -514,16 +514,21 @@ export class Solaredge extends Homey.Device {
             }
 
 
-            if (this.validResultRecord(result['meter1-power']) && this.validResultRecord(result['power_ac']) ) {
+            if (this.validResultRecord(result['meter1-power']) && this.validResultRecord(result['meter1-power']) ) {
                 this.addCapability('measure_power.import');
                 this.addCapability('measure_power.export');
                 this.addCapability('ownconsumption');
                 var acpower = Number(result['power_ac'].value) * (Math.pow(10, Number(result['power_ac'].scale)));
                 var meterpower = Number(result['meter1-power'].value) * (Math.pow(10, Number(result['meter1-power'].scale)));
+                console.log('acpower: ' + acpower );
+                console.log('meterpower: ' + meterpower );
                 if (meterpower > 0) {
                     this.setCapabilityValue('measure_power.export', meterpower);
                     this.setCapabilityValue('measure_power.import', 0);
                     this.setCapabilityValue('ownconsumption', acpower - meterpower);
+                    console.log('export: ' + meterpower );
+                    console.log('import: ' + 0 );
+                    console.log('ownconsumption: ' + (acpower - meterpower) );
                     this.homey.flow.getDeviceTriggerCard('changedExportPower').trigger(this,{ 'measure_power.export' : meterpower }, {});
                     this.homey.flow.getDeviceTriggerCard('changedImportPower').trigger(this,{ 'measure_power.import' : 0 }, {});
                     this.homey.flow.getDeviceTriggerCard('changedConsumption').trigger(this,{ 'ownconsumption' : acpower - meterpower }, {});
@@ -531,6 +536,9 @@ export class Solaredge extends Homey.Device {
                     this.setCapabilityValue('measure_power.export', 0);
                     this.setCapabilityValue('measure_power.import', -1 * meterpower);
                     this.setCapabilityValue('ownconsumption', acpower + (-1 * meterpower));
+                    console.log('export: ' + 0 );
+                    console.log('import: ' + (-1 * meterpower) );
+                    console.log('ownconsumption: ' + (acpower + (-1 * meterpower)) );
                     this.homey.flow.getDeviceTriggerCard('changedExportPower').trigger(this,{ 'measure_power.export' : 0 }, {});
                     this.homey.flow.getDeviceTriggerCard('changedImportPower').trigger(this,{ 'measure_power.import' : -1 * meterpower }, {});
                     this.homey.flow.getDeviceTriggerCard('changedConsumption').trigger(this,{ 'ownconsumption' : acpower + (-1 * meterpower) }, {});
@@ -572,6 +580,32 @@ export class Solaredge extends Homey.Device {
                         }
                         this.setCapabilityValue('battery', battery);
                         this.setCapabilityValue('measure_battery', battery);
+
+                        if (this.hasCapability('measure_power.batt_charge2') === true) {
+                            this.removeCapability('measure_power.batt_charge2');
+                        }
+                        if (this.hasCapability('measure_power.batt_discharge2') === true) {
+                            this.removeCapability('measure_power.batt_discharge2');
+                        }
+                        if (this.hasCapability('measure_temperature.battery2') === true) {
+                            this.removeCapability('measure_temperature.battery2');
+                        }
+                        if (this.hasCapability('battery2') === true) {
+                            this.removeCapability('battery2');
+                        }
+                        if (this.hasCapability('batterysoh2') === true) {                     
+                            this.removeCapability('batterysoh2');
+                        } 
+                        if (this.hasCapability('battstatus2') === true) {                    
+                            this.removeCapability('battstatus2'); 
+                        }
+                        if (this.hasCapability('batterycap2') === true) {                    
+                            this.removeCapability('batterycap2'); 
+                        }
+                        if (this.hasCapability('batterymaxcap2') === true) {                    
+                            this.removeCapability('batterymaxcap2');
+                        }
+                                             
                     }
                 }
             }
