@@ -68,13 +68,13 @@ class MySolaredgeDevice extends Solaredge {
     // flow conditions
     let changedStatus = this.homey.flow.getConditionCard("changedStatus");
     changedStatus.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('invertorstatus') == args.argument_main);
+      let result = (await args.device.getCapabilityValue('invertorstatus') == args.argument_main);
       return Promise.resolve(result);
     })  
 
     let solarcharge = this.homey.flow.getConditionCard("solarcharge");
     solarcharge.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('measure_power') >= args.charging);
+      let result = (await args.device.getCapabilityValue('measure_power') >= args.charging);
       return Promise.resolve(result);
     })
 

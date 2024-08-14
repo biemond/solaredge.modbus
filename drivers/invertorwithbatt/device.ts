@@ -103,61 +103,62 @@ class MySolaredgeBatteryDevice extends Solaredge {
     // flow conditions
     let changedStatus = this.homey.flow.getConditionCard("changedStatus");
     changedStatus.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('invertorstatus') == args.argument_main);
+      let result = (await args.device.getCapabilityValue('invertorstatus') == args.argument_main);
       return Promise.resolve(result);
     })
 
     let changedBatteryStatus = this.homey.flow.getConditionCard("changedBatteryStatus");
     changedBatteryStatus.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('battstatus') == args.argument_main);
+      let result = (await args.device.getCapabilityValue('battstatus') == args.argument_main);
       return Promise.resolve(result);
     })
 
     let changedStoragedefaultmode = this.homey.flow.getConditionCard("changedStoragedefaultmode");
     changedStoragedefaultmode.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('storagedefaultmode') == args.argument_main);
+      let result = (await args.device.getCapabilityValue('storagedefaultmode') == args.argument_main);
       return Promise.resolve(result);
     })
 
     let changedStoragecontrolmode = this.homey.flow.getConditionCard("changedStoragecontrolmode");
     changedStoragecontrolmode.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('storagecontrolmode') == args.argument_main);
+      let result = (await args.device.getCapabilityValue('storagecontrolmode') == args.argument_main);
       return Promise.resolve(result);
     })
 
     let batterylevelStatus = this.homey.flow.getConditionCard("batterylevel");
     batterylevelStatus.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('measure_battery') >= args.charged);
+      let result = (await args.device.getCapabilityValue('measure_battery') >= args.charged);
+      this.log("batterylevel " + args.device.getCapabilityValue('measure_battery' ) + " args " +  args.charged );
       return Promise.resolve(result);
     })
 
     let batterychargeStatus = this.homey.flow.getConditionCard("batterycharge");
     batterychargeStatus.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('measure_power.batt_charge') >= args.charging);
+      let result = (await args.device.getCapabilityValue('measure_power.batt_charge') >= args.charging);
       return Promise.resolve(result);
     })
 
     let batterydischargeStatus = this.homey.flow.getConditionCard("batterydischarge");
     batterydischargeStatus.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('measure_power.batt_discharge') >= args.discharging);
+      let result = (await args.device.getCapabilityValue('measure_power.batt_discharge') >= args.discharging);
       return Promise.resolve(result);
     })
 
     let solarbattchargeStatus = this.homey.flow.getConditionCard("solarbattcharge");
     solarbattchargeStatus.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('measure_power') >= args.charging);
+      let result = (await args.device.getCapabilityValue('measure_power') >= args.charging);
       return Promise.resolve(result);
     })
 
     let gridimportStatus = this.homey.flow.getConditionCard("gridimport");
     gridimportStatus.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('measure_power.import') >= args.import);
+      let result = (await args.device.getCapabilityValue('measure_power.import') >= args.import);
       return Promise.resolve(result);
     })
 
     let gridexportStatus = this.homey.flow.getConditionCard("gridexport");
     gridexportStatus.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('measure_power.export') >= args.export);
+      let result = (await args.device.getCapabilityValue('measure_power.export') >= args.export);
       return Promise.resolve(result);
     })
 

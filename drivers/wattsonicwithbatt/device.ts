@@ -36,7 +36,7 @@ class MyWattsonicBatteryDevice extends Wattsonic {
 
     let batterylevelStatus = this.homey.flow.getConditionCard("batterylevelWattsonic");
     batterylevelStatus.registerRunListener(async (args, state) => {
-      let result = (await this.getCapabilityValue('measure_battery') >= args.charged);
+      let result = (await args.device.getCapabilityValue('measure_battery') >= args.charged);
       return Promise.resolve(result);
     })
 

@@ -59,18 +59,18 @@ class MySolaxDevice extends Solax {
     let changedUsemode = this.homey.flow.getConditionCard("changedsolarcharger_use_mode");
     changedUsemode.registerRunListener(async (args, state) => {
 
-      this.log('changedsolarcharger_use_mode  solarcharger_use_mode ' + this.getCapabilityValue('solarcharger_use_mode'));
+      this.log('changedsolarcharger_use_mode  solarcharger_use_mode ' + args.device.getCapabilityValue('solarcharger_use_mode'));
       this.log('changedsolarcharger_use_mode  argument_main ' + args.argument_main);
-      let result = (await this.getCapabilityValue('solarcharger_use_mode') == args.argument_main);
+      let result = (await args.device.getCapabilityValue('solarcharger_use_mode') == args.argument_main);
       return Promise.resolve(result);
     })
 
     let changedstorage_force_charge_discharge = this.homey.flow.getConditionCard("changedstorage_force_charge_discharge");
     changedstorage_force_charge_discharge.registerRunListener(async (args, state) => {
 
-      this.log('changedstorage_force_charge_discharge  storage_force_charge_discharge2 ' + this.getCapabilityValue('storage_force_charge_discharge2'));
+      this.log('changedstorage_force_charge_discharge  storage_force_charge_discharge2 ' + args.device.getCapabilityValue('storage_force_charge_discharge2'));
       this.log('changedstorage_force_charge_discharge  argument_main ' + args.argument_main);
-      let result = (await this.getCapabilityValue('storage_force_charge_discharge2') == args.argument_main);
+      let result = (await args.device.getCapabilityValue('storage_force_charge_discharge2') == args.argument_main);
       return Promise.resolve(result);
     })
 
