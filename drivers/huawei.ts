@@ -190,6 +190,135 @@ export class Huawei extends Homey.Device {
 
     };   
 
+    holdingEmmaRegisters: Object = {
+
+        // "offering_name": [30000, 16, 'STRING', "Offering Name", 0],
+        // "sn": [30015, 10, 'STRING', "sn", 0],
+        "software_version": [30035, 15, 'STRING', "software version", 0],
+
+        // Model  RO STR N/A N/A 30222 20
+        "model": [30222, 20, 'STRING', "Model Name", 0],
+        // Energy charged today RO U32 kWh 100 30306  2
+        "energy_charged_today": [30306, 2, 'UINT32', "Energy charged today", -2],  
+        "energy_discharged_today": [30312, 2, 'UINT32', "Energy discharged today", -2],  
+        "consumption_today": [30324, 2, 'UINT32', "Consumption today", -2],  
+        "feedin_to_grid_today": [30330, 2, 'UINT32', "Feed-in to grid today", -2],  
+
+        "supply_from_grid_today": [30336, 2, 'UINT32', "Supply from grid today", -2],  
+        "inverter_energy_yield_today": [30342, 2, 'UINT32', "Inverter energy yield today", -2],  
+
+        "pv_yield_today": [30346, 2, 'UINT32', "PV yield today", -2],  
+        "total_pv_energy_yield": [30348, 4, 'UINT64', "Total PV energy yield", -2],  
+
+        "pv_output_power": [30354, 2, 'UINT32', "PV output power", 0],  
+        "load_power": [30356, 2, 'UINT32', "Load power", 0],  
+        "feedin_power": [30358, 2, 'UINT32', "Feed-in power", 0],  
+        "battery_charge_discharge_power": [30360, 2, 'INT32', "Battery charge/ discharge power", 0],
+        "inverter_rated_power": [30362, 2, 'UINT32', "Inverter rated power", 0],
+        "inverter_active_power": [30364, 2, 'INT32', "Inverter active power", 0],
+
+        // SOC RO U16 % 100  30368  1
+        "soc": [30368, 1, 'UINT16', "soc", -2],  
+
+        // Yield this month  RO U32 kWh 100 30380 2
+        "yield_this_month": [30380, 2, 'UINT32', "Yield this month", -2], 
+
+
+        // Local time RO U32 31003 2
+        "time": [31003, 2, 'UINT32', "local time", 0], 
+
+        // Battery control ESS control mode RW ENUM16 40000 1
+        // 1: reserved
+        // 2: maximum self-consumption
+        // 3: reserved
+        // 4: fully fed to grid
+        // 5: time of use
+        // 6: Third- party dispatch
+        "battery_control": [40000, 1, 'INT16', "Battery control ESS control mode", 0], 
+        "preferred_use_of_surplus_PV": [40001, 1, 'INT16', "[Time of Use mode] Preferred use of surplus PV power", 0], 
+        "maximum_power_for_charging_from_grid": [40002, 2, 'UINT32', "[Time of Use mode] Maximum power for charging batteries from grid", -3], 
+        "power_control_mode_at_grid": [40100, 1, 'INT16', "Power control mode at grid connection", 0], 
+        "limitation_mode": [40101, 1, 'INT16', "Limitation mode", 0], 
+        "maximum_grid_feedin_power": [40107, 2, 'INT32', "Maximum grid feed-in power (kW)", -3], 
+        "maximum_grid_feedin_power_procent": [40109, 1, 'UINT16', "Maximum grid feed-in power (%)", -1],  
+
+        "phase_a_voltage": [31639, 2, 'UINT32', "Phase A voltage", -2], 
+        "phase_b_voltage": [31641, 2, 'UINT32', "Phase B voltage", -2], 
+        "phase_c_voltage": [31643, 2, 'UINT32', "Phase C voltage", -2], 
+        "phase_a_current": [31651, 2, 'INT32', "Phase A current", -1], 
+        "phase_b_current": [31653, 2, 'INT32', "Phase B current", -1], 
+        "phase_c_current": [31655, 2, 'INT32', "Phase C current", -1], 
+        "phase_a_power": [31663, 2, 'INT32', "Phase A power", -3], 
+        "phase_b_power": [31665, 2, 'INT32', "Phase B power", -3], 
+        "phase_c_power": [31667, 2, 'INT32', "Phase C power", -3], 
+    }
+
+
+    processEmmaResult(result: Record<string, Measurement>) {
+        if (result) {
+
+            // result
+            for (let k in result) {
+                console.log(k, result[k].value, result[k].scale, result[k].label)
+            }
+ 
+            if (result['phase_a_current'] && result['phase_a_current'].value != '-1' && result['phase_a_current'].value != 'xxx'  && this.hasCapability('measure_current.phase1')) {
+                this.addCapability('measure_current.phase1');
+                var currenteac1 = Number(result['phase_a_current'].value) * (Math.pow(10, Number(result['phase_a_current'].scale)));
+                this.setCapabilityValue('measure_current.phase1', currenteac1);
+            }
+            if (result['phase_b_current'] && result['phase_b_current'].value != '-1' && result['phase_b_current'].value != 'xxx' && this.hasCapability('measure_current.phase2')) {
+                this.addCapability('measure_current.phase2');
+                var currenteac2 = Number(result['phase_b_current'].value) * (Math.pow(10, Number(result['phase_b_current'].scale)));
+                this.setCapabilityValue('measure_current.phase2', currenteac2);
+            }
+            if (result['phase_c_current'] && result['phase_c_current'].value != '-1' && result['phase_c_current'].value != 'xxx' && this.hasCapability('measure_current.phase3')) {
+                this.addCapability('measure_current.phase3');
+                var currenteac3 = Number(result['phase_c_current'].value) * (Math.pow(10, Number(result['phase_c_current'].scale)));
+                this.setCapabilityValue('measure_current.phase3', currenteac3);
+            }
+ 
+            if (result['inverter_active_power'] && result['inverter_active_power'].value != 'xxx' ) {
+                this.addCapability('measure_power');
+                var inverter_active_power = Number(result['inverter_active_power'].value) * (Math.pow(10, Number(result['inverter_active_power'].scale)));
+                this.setCapabilityValue('measure_power', inverter_active_power);
+            }
+
+            if (result['pv_output_power'] && result['pv_output_power'].value != 'xxx' ) {
+                this.addCapability('measure_power.input');
+                var pv_output_power = Number(result['pv_output_power'].value) * (Math.pow(10, Number(result['pv_output_power'].scale)));
+                this.setCapabilityValue('measure_power.input', pv_output_power);
+            }
+
+            if (result['load_power'] && result['load_power'].value != 'xxx' ) {
+                this.addCapability('measure_power.houseload');
+                var load_power = Number(result['load_power'].value) * (Math.pow(10, Number(result['load_power'].scale)));
+                this.setCapabilityValue('measure_power.houseload', load_power);
+            }
+
+            if (result['feedin_power'] && result['feedin_power'].value != 'xxx' ) {
+                this.addCapability('measure_power.feedin');
+                var feedin_power = Number(result['feedin_power'].value) * (Math.pow(10, Number(result['feedin_power'].scale)));
+                this.setCapabilityValue('measure_power.feedin', feedin_power);
+            }
+
+            if (result['battery_charge_discharge_power'] && result['battery_charge_discharge_power'].value != 'xxx' ) {
+                this.addCapability('measure_power.batt_charge');
+                var battery_charge_discharge_power = Number(result['battery_charge_discharge_power'].value) * (Math.pow(10, Number(result['battery_charge_discharge_power'].scale)));
+                this.setCapabilityValue('measure_power.batt_charge', battery_charge_discharge_power);
+            }
+
+            if (result['soc'] && result['soc'].value != 'xxx' && this.hasCapability('measure_battery')) {
+                this.addCapability('batterysoh');
+                this.addCapability('measure_battery');
+                var soc = Number(result['soc'].value) * (Math.pow(10, Number(result['soc'].scale)));
+                this.setCapabilityValue('batterysoh', soc);
+                this.setCapabilityValue('measure_battery', soc);
+            }
+
+        }
+    }        
+
 
     processResult(result: Record<string, Measurement>) {
         if (result) {

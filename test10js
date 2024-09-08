@@ -6,9 +6,9 @@ const net = require('net');
 const socket = new net.Socket();
 
 let options = {
-    'host': '192.168.42.79',
+    'host': '192.168.0.59',
     'port': 502,
-    'unitId': 1,
+    'unitId': 0,
     'timeout': 26,
     'autoReconnect': false,
     'reconnectTimeout': 26,
@@ -17,15 +17,15 @@ let options = {
     'logEnabled': true
 }
 
-let client = new modbus.client.TCP(socket, 1, 1500);
+let client = new modbus.client.TCP(socket, 0, 1500);
 socket.setKeepAlive(false); 
 socket.connect(options);
 
 socket.on('connect', async () => {
   console.log('Connected ...');
 
-  const solarcharger_use_modeRes = await client.writeSingleRegister(0x001F, 0);
-  console.log('solarcharger_use_mode', solarcharger_use_modeRes);
+  const battery_control_modeRes = await client.writeSingleRegister(40000, 2);
+  console.log('battery_control', battery_control_modeRes);
 
   console.log('disconnect');
   client.socket.end();

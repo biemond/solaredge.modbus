@@ -1,0 +1,139 @@
+{
+  "name": {
+    "en": "Huawei Emma Inverter",
+    "de": "Huawei Emma Wechselrichter"
+  },
+  "class": "solarpanel",
+  "energy": {
+    "batteries": [
+      "OTHER"
+    ]
+  },
+  "capabilities": [
+    "measure_power",
+    "measure_power.houseload",
+    "measure_power.feedin",
+    "measure_power.batt_charge",
+    "measure_power.input",    
+    "measure_battery",
+    "batterysoh",        
+    "measure_current.phase1",
+    "measure_current.phase2",
+    "measure_current.phase3"    
+  ],
+  "capabilitiesOptions": {
+    "measure_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Inverter Power",
+        "de": "Wechselrichter leistung"
+      }
+    },
+    "measure_power.input": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar input",
+        "de": "Solarer Eingang"
+      }
+    },
+    "measure_power.feedin": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid input",
+        "de": "Netzimport"
+      }
+    },
+    "measure_power.batt_charge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power (dis)charge",
+        "de": "Batterie (ent)ladeleistung"
+      }
+    }, 
+    "measure_power.houseload": {
+      "decimals": 1,
+      "title": {
+        "en": "House load",
+        "de": "Hauslast"
+      }
+    },               
+    "measure_current.phase1": {
+      "title": {
+        "en": "AC Current phase1",
+        "de": "AC-Stromm Phase 1"
+      }
+    },
+    "measure_current.phase2": {
+      "title": {
+        "en": "AC Current phase2",
+        "de": "AC-Strom Phase 2"
+      }
+    },
+    "measure_current.phase3": {
+      "title": {
+        "en": "AC Current phase3",
+        "de": "AC-Strom Phase 3"
+      }
+    }                  
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
+  "pair": [
+    {
+      "id": "start"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Inverter settings",
+        "de": "Wechselrichtereinstellungen"
+      },
+      "children": [
+        {
+          "id": "address",
+          "type": "text",
+          "value": "0.0.0.0",
+          "label": {
+            "en": "IP Address",
+            "de": "IP-Adresse"
+          }
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "value": 1502,
+          "step": 1,
+          "label": {
+            "en": "Port",
+            "de": "Port"
+          }
+        },
+        {
+          "id": "id",
+          "type": "number",
+          "value": 1,
+          "step": 1,
+          "attr": {
+            "min": 0,
+            "max": 50
+          },
+          "label": {
+            "en": "Inverter ID",
+            "nl": "Inverter ID",
+            "de": "Wechselrichter-ID"
+          }
+        }
+      ]
+    }
+  ]
+}
