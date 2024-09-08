@@ -1,7 +1,7 @@
 {
   "name": {
-    "en": "Huawei Emma Inverter",
-    "de": "Huawei Emma Wechselrichter"
+    "en": "Huawei EMMA",
+    "de": "Huawei EMMA"
   },
   "class": "solarpanel",
   "energy": {
@@ -26,28 +26,28 @@
       "decimals": 0,
       "title": {
         "en": "Inverter Power",
-        "de": "Wechselrichter leistung"
+        "de": "Wechselrichterleistung"
       }
     },
     "measure_power.input": {
       "decimals": 0,
       "title": {
         "en": "Solar input",
-        "de": "Solarer Eingang"
+        "de": "PV-Leistung"
       }
     },
     "measure_power.feedin": {
       "decimals": 0,
       "title": {
         "en": "Grid input",
-        "de": "Netzimport"
+        "de": "Netzbezug"
       }
     },
     "measure_power.batt_charge": {
       "decimals": 0,
       "title": {
         "en": "Battery Power (dis)charge",
-        "de": "Batterie (ent)ladeleistung"
+        "de": "Batterie(ent)ladeleistung"
       }
     }, 
     "measure_power.houseload": {
@@ -60,7 +60,7 @@
     "measure_current.phase1": {
       "title": {
         "en": "AC Current phase1",
-        "de": "AC-Stromm Phase 1"
+        "de": "AC-Strom Phase 1"
       }
     },
     "measure_current.phase2": {
@@ -121,7 +121,7 @@
         {
           "id": "id",
           "type": "number",
-          "value": 1,
+          "value": 0,
           "step": 1,
           "attr": {
             "min": 0,
