@@ -1,0 +1,36 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Power control mode at grid"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "uiQuickAction": false,
+    "values": [
+        {
+            "id": "0",
+            "title": {
+                "en": "Unlimited"
+            }
+        },
+        {
+            "id": "5",
+            "title": {
+                "en": "grid connected with 0 power"
+            }
+        },
+        {
+            "id": "6",
+            "title": {
+                "en": "limited feed-in (kW)"
+            }
+        },
+        {
+            "id": "7",
+            "title": {
+                "en": "power-limited grid connected (%)"
+            }
+        }                
+    ]
+}

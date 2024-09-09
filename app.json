@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.149",
+  "version": "3.0.151",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -4302,7 +4302,7 @@
         },
         "measure_voltage.grid_phase1": {
           "title": {
-            "en": "Voltage grid_phase1",
+            "en": "Voltage grid phase1",
             "de": "Spannung grid Phase 1"
           }
         },
@@ -4521,8 +4521,8 @@
     },
     {
       "name": {
-        "en": "Huawei Emma Inverter",
-        "de": "Huawei Emma Wechselrichter"
+        "en": "Huawei EMMA",
+        "de": "Huawei EMMA"
       },
       "class": "solarpanel",
       "energy": {
@@ -4537,38 +4537,46 @@
         "measure_power.batt_charge",
         "measure_power.input",
         "measure_battery",
-        "batterysoh",
+        "meter_power",
+        "meter_power.daily",
+        "meter_power.grid_import",
+        "meter_power.grid_export",
         "measure_current.phase1",
         "measure_current.phase2",
-        "measure_current.phase3"
+        "measure_current.phase3",
+        "measure_voltage.phase1",
+        "measure_voltage.phase2",
+        "measure_voltage.phase3",
+        "battery_control",
+        "power_control_mode_at_grid"
       ],
       "capabilitiesOptions": {
         "measure_power": {
           "decimals": 0,
           "title": {
             "en": "Inverter Power",
-            "de": "Wechselrichter leistung"
+            "de": "Wechselrichterleistung"
           }
         },
         "measure_power.input": {
           "decimals": 0,
           "title": {
             "en": "Solar input",
-            "de": "Solarer Eingang"
+            "de": "PV-Leistung"
           }
         },
         "measure_power.feedin": {
           "decimals": 0,
           "title": {
             "en": "Grid input",
-            "de": "Netzimport"
+            "de": "Netzbezug"
           }
         },
         "measure_power.batt_charge": {
           "decimals": 0,
           "title": {
             "en": "Battery Power (dis)charge",
-            "de": "Batterie (ent)ladeleistung"
+            "de": "Batterie(ent)ladeleistung"
           }
         },
         "measure_power.houseload": {
@@ -4578,10 +4586,49 @@
             "de": "Hauslast"
           }
         },
+        "meter_power": {
+          "title": {
+            "en": "Total Yield",
+            "nl": "Totale opbrengst",
+            "de": "Gesamtertrag"
+          },
+          "decimals": 2
+        },
+        "meter_power.daily": {
+          "title": {
+            "en": "Total Day Yield",
+            "nl": "Totale dag opbrengst",
+            "de": "Tagesgesamtertrag"
+          },
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.grid_import": {
+          "title": {
+            "en": "Grid Import Yield",
+            "de": "Netzimport"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.grid_export": {
+          "title": {
+            "en": "Grid Export Yield",
+            "de": "Netzexport"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
         "measure_current.phase1": {
           "title": {
             "en": "AC Current phase1",
-            "de": "AC-Stromm Phase 1"
+            "de": "AC-Strom Phase 1"
           }
         },
         "measure_current.phase2": {
@@ -4594,6 +4641,24 @@
           "title": {
             "en": "AC Current phase3",
             "de": "AC-Strom Phase 3"
+          }
+        },
+        "measure_voltage.phase1": {
+          "title": {
+            "en": "Voltage phase1",
+            "de": "Spannung Phase 1"
+          }
+        },
+        "measure_voltage.phase2": {
+          "title": {
+            "en": "Voltage phase2",
+            "de": "Spannung Phase 2"
+          }
+        },
+        "measure_voltage.phase3": {
+          "title": {
+            "en": "Voltage phase3",
+            "de": "Spannung Phase 3"
           }
         }
       },
@@ -4642,7 +4707,7 @@
             {
               "id": "id",
               "type": "number",
-              "value": 1,
+              "value": 0,
               "step": 1,
               "attr": {
                 "min": 0,
@@ -6608,6 +6673,46 @@
       "setable": false,
       "uiComponent": "sensor"
     },
+    "battery_control": {
+      "type": "enum",
+      "title": {
+        "en": "Battery Control",
+        "de": "Batterie kontroll"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "2",
+          "title": {
+            "en": "Maximize Self Consumption",
+            "de": "Maximiere Eigenverbrauch"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Time of Use",
+            "de": "Nutzungszeit"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "fully fed to grid"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "Remote Control",
+            "de": "Ferngesteuert"
+          }
+        }
+      ]
+    },
     "battery2": {
       "type": "number",
       "title": {
@@ -7558,6 +7663,42 @@
       "uiComponent": "sensor",
       "uiQuickAction": false,
       "icon": "/assets/clock.svg"
+    },
+    "power_control_mode_at_grid": {
+      "type": "enum",
+      "title": {
+        "en": "Power control mode at grid"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Unlimited"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "grid connected with 0 power"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "limited feed-in (kW)"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "power-limited grid connected (%)"
+          }
+        }
+      ]
     },
     "powerreduce": {
       "type": "number",

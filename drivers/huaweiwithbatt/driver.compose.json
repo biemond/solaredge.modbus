@@ -92,7 +92,7 @@
     },    
     "measure_voltage.grid_phase1": {
       "title": {
-        "en": "Voltage grid_phase1",
+        "en": "Voltage grid phase1",
         "de": "Spannung grid Phase 1"
       }
     },

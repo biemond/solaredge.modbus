@@ -3,7 +3,7 @@ import net from 'net';
 import {checkRegisterSungrow, checkHoldingRegisterSungrow} from '../response';
 import { Sungrow } from '../sungrow';
 
-const RETRY_INTERVAL = 28 * 1000; 
+const RETRY_INTERVAL = 35 * 1000; 
 
 class MyWSungrowDevice extends Sungrow {
   timer!: NodeJS.Timer;  
@@ -51,7 +51,7 @@ class MyWSungrowDevice extends Sungrow {
   async updateControl(type: string, value: number) {
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID); 
+    let client = new Modbus.client.TCP(socket, unitID, 2000);
 
     let modbusOptions = {
       'host': this.getSetting('address'),
@@ -98,7 +98,7 @@ class MyWSungrowDevice extends Sungrow {
   async updateControl2(type: string, command: number, value: number) {
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID); 
+    let client = new Modbus.client.TCP(socket, unitID, 2000);
 
     let modbusOptions = {
       'host': this.getSetting('address'),
@@ -194,7 +194,7 @@ class MyWSungrowDevice extends Sungrow {
       'host': this.getSetting('address'),
       'port': this.getSetting('port'),
       'unitId': this.getSetting('id'),
-      'timeout': 22,
+      'timeout': 30,
       'autoReconnect': false,
       'logLabel' : 'sungrow Inverter',
       'logLevel': 'error',
@@ -203,7 +203,7 @@ class MyWSungrowDevice extends Sungrow {
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 1000);
+    let client = new Modbus.client.TCP(socket, unitID, 2500);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 

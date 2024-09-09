@@ -206,8 +206,8 @@ export class Huawei extends Homey.Device {
 
         "supply_from_grid_today": [30336, 2, 'UINT32', "Supply from grid today", -2],  
         "inverter_energy_yield_today": [30342, 2, 'UINT32', "Inverter energy yield today", -2],  
-
         "pv_yield_today": [30346, 2, 'UINT32', "PV yield today", -2],  
+
         "total_pv_energy_yield": [30348, 4, 'UINT64', "Total PV energy yield", -2],  
 
         "pv_output_power": [30354, 2, 'UINT32', "PV output power", 0],  
@@ -237,6 +237,10 @@ export class Huawei extends Homey.Device {
         "battery_control": [40000, 1, 'INT16', "Battery control ESS control mode", 0], 
         "preferred_use_of_surplus_PV": [40001, 1, 'INT16', "[Time of Use mode] Preferred use of surplus PV power", 0], 
         "maximum_power_for_charging_from_grid": [40002, 2, 'UINT32', "[Time of Use mode] Maximum power for charging batteries from grid", -3], 
+        // 0: unlimited
+        // 5: grid connecte d with zero power
+        // 6: limited feed-in (kW)
+        // 7: power- limited grid connecte d (%)
         "power_control_mode_at_grid": [40100, 1, 'INT16', "Power control mode at grid connection", 0], 
         "limitation_mode": [40101, 1, 'INT16', "Limitation mode", 0], 
         "maximum_grid_feedin_power": [40107, 2, 'INT32', "Maximum grid feed-in power (kW)", -3], 
@@ -277,7 +281,24 @@ export class Huawei extends Homey.Device {
                 var currenteac3 = Number(result['phase_c_current'].value) * (Math.pow(10, Number(result['phase_c_current'].scale)));
                 this.setCapabilityValue('measure_current.phase3', currenteac3);
             }
- 
+
+            if (result['phase_a_voltage'] && result['phase_a_voltage'].value != '-1' && result['phase_a_voltage'].value != 'xxx'  && this.hasCapability('measure_voltage.phase1')) {
+                this.addCapability('measure_voltage.phase1');
+                var voltageac1 = Number(result['phase_a_voltage'].value) * (Math.pow(10, Number(result['phase_a_voltage'].scale)));
+                this.setCapabilityValue('measure_voltage.phase1', voltageac1);
+            }
+            if (result['phase_b_voltage'] && result['phase_b_voltage'].value != '-1' && result['phase_b_voltage'].value != 'xxx' && this.hasCapability('measure_voltage.phase2')) {
+                this.addCapability('measure_voltage.phase2');
+                var voltageac2 = Number(result['phase_b_voltage'].value) * (Math.pow(10, Number(result['phase_b_voltage'].scale)));
+                this.setCapabilityValue('measure_voltage.phase2', voltageac2);
+            }
+            if (result['phase_c_voltage'] && result['phase_c_voltage'].value != '-1' && result['phase_c_voltage'].value != 'xxx' && this.hasCapability('measure_voltage.phase3')) {
+                this.addCapability('measure_voltage.phase3');
+                var voltageac3 = Number(result['phase_c_voltage'].value) * (Math.pow(10, Number(result['phase_c_voltage'].scale)));
+                this.setCapabilityValue('measure_voltage.phase3', voltageac3);
+            }           
+
+
             if (result['inverter_active_power'] && result['inverter_active_power'].value != 'xxx' ) {
                 this.addCapability('measure_power');
                 var inverter_active_power = Number(result['inverter_active_power'].value) * (Math.pow(10, Number(result['inverter_active_power'].scale)));
@@ -309,12 +330,47 @@ export class Huawei extends Homey.Device {
             }
 
             if (result['soc'] && result['soc'].value != 'xxx' && this.hasCapability('measure_battery')) {
-                this.addCapability('batterysoh');
                 this.addCapability('measure_battery');
                 var soc = Number(result['soc'].value) * (Math.pow(10, Number(result['soc'].scale)));
-                this.setCapabilityValue('batterysoh', soc);
                 this.setCapabilityValue('measure_battery', soc);
             }
+
+            if (result['pv_yield_today'] && result['pv_yield_today'].value != 'xxx') {
+                this.addCapability('meter_power.daily');
+                var pv_yield_today = Number(result['pv_yield_today'].value) * (Math.pow(10, Number(result['pv_yield_today'].scale)));
+                this.setCapabilityValue('meter_power.daily', pv_yield_today);
+            }
+
+            if (result['total_pv_energy_yield'] && result['total_pv_energy_yield'].value != 'xxx') {
+                this.addCapability('meter_power');
+                var total_pv_energy_yield = Number(result['total_pv_energy_yield'].value) * (Math.pow(10, Number(result['total_pv_energy_yield'].scale)));
+                this.setCapabilityValue('meter_power', total_pv_energy_yield);
+            }
+
+            if (result['supply_from_grid_today'] && result['supply_from_grid_today'].value != 'xxx') {
+                this.addCapability('meter_power.grid_import');
+                var supply_from_grid_today = Number(result['supply_from_grid_today'].value) * (Math.pow(10, Number(result['supply_from_grid_today'].scale)));
+                this.setCapabilityValue('meter_power.grid_import', supply_from_grid_today);
+            }
+
+            if (result['feedin_to_grid_today'] && result['feedin_to_grid_today'].value != 'xxx') {
+                this.addCapability('meter_power.grid_export');
+                var feedin_to_grid_today = Number(result['feedin_to_grid_today'].value) * (Math.pow(10, Number(result['feedin_to_grid_today'].scale)));
+                this.setCapabilityValue('meter_power.grid_export', feedin_to_grid_today);
+            }
+
+            if (result['battery_control'] && result['battery_control'].value != 'xxx') {
+                this.addCapability('battery_control');
+                var battery_control = result['battery_control'].value;
+                this.setCapabilityValue('battery_control', battery_control);
+            }
+
+            if (result['power_control_mode_at_grid'] && result['power_control_mode_at_grid'].value != 'xxx') {
+                this.addCapability('power_control_mode_at_grid');
+                var power_control_mode_at_grid = result['power_control_mode_at_grid'].value;
+                this.setCapabilityValue('power_control_mode_at_grid', power_control_mode_at_grid);
+            }
+
 
         }
     }        
