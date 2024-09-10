@@ -212,7 +212,7 @@ export class Huawei extends Homey.Device {
 
         "pv_output_power": [30354, 2, 'UINT32', "PV output power", 0],  
         "load_power": [30356, 2, 'UINT32', "Load power", 0],  
-        "feedin_power": [30358, 2, 'UINT32', "Feed-in power", 0],  
+        "feedin_power": [30358, 2, 'INT32', "Feed-in power", 0],  
         "battery_charge_discharge_power": [30360, 2, 'INT32', "Battery charge/ discharge power", 0],
         "inverter_rated_power": [30362, 2, 'UINT32', "Inverter rated power", 0],
         "inverter_active_power": [30364, 2, 'INT32', "Inverter active power", 0],
@@ -331,8 +331,10 @@ export class Huawei extends Homey.Device {
 
             if (result['soc'] && result['soc'].value != 'xxx' && this.hasCapability('measure_battery')) {
                 this.addCapability('measure_battery');
+                this.addCapability('battery');
                 var soc = Number(result['soc'].value) * (Math.pow(10, Number(result['soc'].scale)));
                 this.setCapabilityValue('measure_battery', soc);
+                this.setCapabilityValue('battery', soc);
             }
 
             if (result['pv_yield_today'] && result['pv_yield_today'].value != 'xxx') {

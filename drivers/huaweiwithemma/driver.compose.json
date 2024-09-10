@@ -16,6 +16,7 @@
     "measure_power.batt_charge",
     "measure_power.input",    
     "measure_battery",
+    "battery",
     "meter_power",
     "meter_power.daily", 
     "meter_power.grid_import",
