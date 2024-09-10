@@ -2,6 +2,7 @@ import * as Modbus from 'jsmodbus';
 import net from 'net';
 import {checkHoldingRegisterHuaweiEmma} from '../response';
 import { Huawei } from '../huawei';
+import Homey, { Device } from 'homey';
 
 const RETRY_INTERVAL = 25 * 1000; 
 
@@ -23,7 +24,16 @@ class MyHuaweiEmmaDevice extends Huawei {
       // poll device state from inverter
       this.pollInvertor();
     }, RETRY_INTERVAL);
- 
+
+    // homey menu / device actions
+    this.registerCapabilityListener('battery_control', async (value) => {
+      this.updateControl('battery_control', Number(value), this);
+      return value;
+    });
+    this.registerCapabilityListener('power_control_mode_at_grid', async (value) => {
+      this.updateControl('power_control_mode_at_grid', Number(value), this);
+      return value;
+    });    
 
   }
 
@@ -66,6 +76,69 @@ class MyHuaweiEmmaDevice extends Huawei {
   delay(ms: any) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
+
+  async updateControl(type: string, value: number, device:  Homey.Device) {
+    let name = device.getData().id;
+    this.log("device name id " + name );
+    this.log("device name " + device.getName());    
+    let socket = new net.Socket();
+    var unitID = device.getSetting('id');
+    let client = new Modbus.client.TCP(socket, unitID, 2000); 
+
+    let modbusOptions = {
+      'host': device.getSetting('address'),
+      'port': device.getSetting('port'),
+      'unitId': device.getSetting('id'),
+      'timeout': 15,
+      'autoReconnect': false,
+      'logLabel': 'emma device',
+      'logLevel': 'error',
+      'logEnabled': true
+    }
+
+    socket.setKeepAlive(false); 
+    socket.connect(modbusOptions);
+    console.log(modbusOptions);
+    
+    socket.on('connect', async () => {
+
+      if ( type== 'battery_control') {
+        // Battery control ESS control mode RW ENUM16 40000 1
+        // 1: reserved
+        // 2: maximum self-consumption
+        // 3: reserved
+        // 4: fully fed to grid
+        // 5: time of use
+        // 6: Third- party dispatch
+        const battery_controlRes = await client.writeSingleRegister(40000, Number(value));
+        console.log('battery_control', battery_controlRes)
+      }
+
+      if (type == 'power_control_mode_at_grid') {
+        // 0: unlimited
+        // 5: grid connecte d with zero power
+        // 6: limited feed-in (kW)
+        // 7: power- limited grid connecte d (%)
+        const power_control_mode_at_gridRes = await client.writeSingleRegister(40100, Number(value));
+        console.log('power_control_mode_at_grid', power_control_mode_at_gridRes)
+      }
+
+      console.log('disconnect');
+      client.socket.end();
+      socket.end();
+    })
+
+    socket.on('close', () => {
+      console.log('Client closed');
+    }); 
+
+    socket.on('error', (err) => {
+      console.log(err);
+      socket.end();
+      setTimeout(() => socket.connect(modbusOptions), 4000);
+    })
+  }
+
 
   async pollInvertor() {
     this.log("pollInvertor");

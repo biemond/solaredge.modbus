@@ -5,8 +5,8 @@
 		"de": "Batterie kontroll"
     },
     "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
+    "setable": true,
+    "uiComponent": "picker",
     "uiQuickAction": false,
     "values": [
         {

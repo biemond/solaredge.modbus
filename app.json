@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.153",
+  "version": "3.0.154",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -4591,7 +4591,7 @@
           "title": {
             "en": "Total Yield",
             "nl": "Totale opbrengst",
-            "de": "Gesamtertrag"
+            "de": "PV-Ertrag Total"
           },
           "decimals": 2
         },
@@ -4599,7 +4599,7 @@
           "title": {
             "en": "Total Day Yield",
             "nl": "Totale dag opbrengst",
-            "de": "Tagesgesamtertrag"
+            "de": "PV-Ertrag Heute"
           },
           "decimals": 2,
           "icon": "/assets/total_yield.svg"
@@ -4607,7 +4607,7 @@
         "meter_power.grid_import": {
           "title": {
             "en": "Grid Import Yield",
-            "de": "Netzimport"
+            "de": "Netzimport Heute"
           },
           "units": {
             "en": "kWh"
@@ -4618,7 +4618,7 @@
         "meter_power.grid_export": {
           "title": {
             "en": "Grid Export Yield",
-            "de": "Netzexport"
+            "de": "Netzexport Heute"
           },
           "units": {
             "en": "kWh"
@@ -6681,8 +6681,8 @@
         "de": "Batterie kontroll"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "picker",
       "uiQuickAction": false,
       "values": [
         {
@@ -7671,8 +7671,8 @@
         "en": "Power control mode at grid"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "picker",
       "uiQuickAction": false,
       "values": [
         {

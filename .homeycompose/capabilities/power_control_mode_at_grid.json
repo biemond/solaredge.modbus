@@ -4,8 +4,8 @@
         "en": "Power control mode at grid"
     },
     "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
+    "setable": true,
+    "uiComponent": "picker",
     "uiQuickAction": false,
     "values": [
         {
