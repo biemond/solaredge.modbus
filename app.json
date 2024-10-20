@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.154",
+  "version": "3.0.155",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -476,33 +476,6 @@
         ]
       },
       {
-        "id": "measure_voltage_changed",
-        "title": {
-          "en": "The voltage changed",
-          "nl": "Het voltage is veranderd",
-          "de": "Spannung hat sich geändert"
-        },
-        "tokens": [
-          {
-            "name": "measure_voltage",
-            "title": {
-              "en": "Voltage",
-              "nl": "Voltage",
-              "de": "Spannung"
-            },
-            "type": "number",
-            "example": 230
-          }
-        ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=invertorwithbatt"
-          }
-        ]
-      },
-      {
         "id": "measure_temperature.battery_changed",
         "highlight": true,
         "title": {
@@ -686,6 +659,51 @@
             },
             "type": "number",
             "example": 100
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "measure_battery_changed",
+        "title": {
+          "en": "The battery level changed",
+          "nl": "Het accuniveau is veranderd",
+          "de": "Der Batteriestand hat sich geändert",
+          "fr": "Le niveau de la batterie a changé",
+          "it": "Il livello della batteria è cambiato",
+          "sv": "Batterinivån ändrades",
+          "no": "Batterinivået ble endret",
+          "es": "El nivel de la batería ha cambiado",
+          "da": "Batteriniveauet har ændret sig",
+          "ru": "Уровень аккумулятора изменен",
+          "pl": "Zmiana poziomu naładowania baterii",
+          "ko": "배터리 수준 변경됨"
+        },
+        "tokens": [
+          {
+            "name": "measure_battery",
+            "title": {
+              "en": "Battery",
+              "nl": "Accuniveau",
+              "de": "Batterie",
+              "fr": "Batterie",
+              "it": "Batteria",
+              "sv": "Batteri",
+              "no": "Batteri",
+              "es": "Batería",
+              "da": "Batteri",
+              "ru": "Аккумулятор",
+              "pl": "Bateria",
+              "ko": "배터리"
+            },
+            "type": "number",
+            "example": 99
           }
         ],
         "args": [
@@ -2420,6 +2438,96 @@
                 "title": {
                   "en": "Enabled",
                   "de": "Aktiviert"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "battery_control",
+        "title": {
+          "en": "Battery Control",
+          "de": "Batterie kontroll"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=huaweiwithemma"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "2",
+                "title": {
+                  "en": "Maximize Self Consumption",
+                  "de": "Maximiere Eigenverbrauch"
+                }
+              },
+              {
+                "id": "5",
+                "title": {
+                  "en": "Time of Use",
+                  "de": "Nutzungszeit"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "fully fed to grid"
+                }
+              },
+              {
+                "id": "6",
+                "title": {
+                  "en": "Remote Control",
+                  "de": "Ferngesteuert"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "power_control_mode_at_grid",
+        "title": {
+          "en": "Power control mode at grid"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=huaweiwithemma"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Unlimited"
+                }
+              },
+              {
+                "id": "5",
+                "title": {
+                  "en": "grid connected with 0 power"
+                }
+              },
+              {
+                "id": "6",
+                "title": {
+                  "en": "limited feed-in (kW)"
+                }
+              },
+              {
+                "id": "7",
+                "title": {
+                  "en": "power-limited grid connected (%)"
                 }
               }
             ]

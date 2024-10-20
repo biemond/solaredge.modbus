@@ -1,5 +1,6 @@
 {
-    "triggers": [],
+    "triggers": [
+    ],
     "conditions": [
         {
             "id": "solarcharge",

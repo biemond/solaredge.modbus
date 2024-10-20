@@ -35,6 +35,24 @@ class MyHuaweiEmmaDevice extends Huawei {
       return value;
     });    
 
+    let controlBatteryControl = this.homey.flow.getActionCard('battery_control');
+    controlBatteryControl.registerRunListener(async (args, state) => {
+      let name = this.getData().id;
+      this.log("device name id " + name );
+      this.log("device name " + this.getName());
+      this.log(args.device.getName());      
+      await this.updateControl('battery_control', Number(args.mode), args.device);
+    });  
+
+    let controlpowerControlModeAtGrid = this.homey.flow.getActionCard('power_control_mode_at_grid');
+    controlpowerControlModeAtGrid.registerRunListener(async (args, state) => {
+      let name = this.getData().id;
+      this.log("device name id " + name );
+      this.log("device name " + this.getName());
+      this.log(args.device.getName());      
+      await this.updateControl('power_control_mode_at_grid', Number(args.mode), args.device);
+    });  
+
   }
 
   /**
