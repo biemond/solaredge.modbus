@@ -252,7 +252,7 @@ export class Solaredge extends Homey.Device {
 
             // result
             for (let k in result) {
-                console.log(k, result[k].value, result[k].scale, result[k].label)
+                console.log("solaredge: " , k, result[k].value, result[k].scale, result[k].label)
             }
 
             if ( this.validResultRecord(result['power_ac']) ) {

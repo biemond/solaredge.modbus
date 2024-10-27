@@ -344,7 +344,7 @@ export async function checkHoldingRegisterHuawei(registers: Object, client: Inst
     for (const [key, value] of Object.entries(registers)) {
         await delay(250);
         try {
-
+            // console.log(key, value);
             const res = client.readHoldingRegisters(value[0], value[1])
             const actualRes = await res;
             // const metrics = actualRes.metrics;

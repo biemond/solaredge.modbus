@@ -1,0 +1,203 @@
+{
+  "name": {
+    "en": "Huawei 2 Inverters S-Dongle + Battery",
+    "de": "Huawei 2 Wechselrichters S-Dongle + Batterie"
+  },
+  "class": "solarpanel",
+  "energy": {
+    "batteries": [
+      "OTHER"
+    ]
+  },
+  "capabilities": [
+    "measure_power",
+    "measure_power_1",       
+    "measure_power_2",    
+    "measure_power.active_power",    
+    "measure_power.active_power_2",    
+    "measure_temperature.invertor",
+    "measure_temperature.invertor_2",
+    "meter_power",
+    "meter_power_2",
+    "meter_power.daily",
+    "meter_power.daily_2",
+    "measure_voltage",
+    "measure_voltage_2",
+    "huawei_status",
+    "huawei_status_2"                                                       
+  ],
+  "capabilitiesOptions": {
+    "measure_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar Power total",
+        "de": "Solarleistung total"
+      }
+    },
+    "measure_power_1": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar Power1",
+        "de": "Solarleistung1"
+      }
+    },    
+    "measure_power_2": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar Power2",
+        "de": "Solarleistung2"
+      }
+    },
+    "measure_power.active_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Active Power"
+      }
+    },
+    "measure_temperature.invertor": {
+      "title": {
+        "en": "Heatsink temperature",
+        "nl": "Heatsink temperatuur",
+        "de": "Kühlkörpertemperatur"
+      },
+      "decimals": 2
+    },
+    "meter_power": {
+      "title": {
+        "en": "Total Yield",
+        "nl": "Totale opbrengst",
+        "de": "Gesamtertrag"
+      },
+      "decimals": 2
+    },
+    "meter_power.daily": {
+      "title": {
+        "en": "Total Day Yield",
+        "nl": "Totale dag opbrengst",
+        "de": "Tagesgesamtertrag"
+      },
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },
+    "huawei_status": {
+      "title": {
+        "en": "Inverter status",
+	    	"de": "Status des Wechselrichters"
+      },
+      "icon": "/assets/operational_status.svg"   
+    },
+    "measure_power.active_power_2": {
+      "decimals": 0,
+      "title": {
+        "en": "Active Power2"
+      }
+    },
+    "measure_temperature.invertor_2": {
+      "title": {
+        "en": "Heatsink temperature2",
+        "nl": "Heatsink temperatuur2",
+        "de": "Kühlkörpertemperatur2"
+      },
+      "decimals": 2
+    },
+    "meter_power_2": {
+      "title": {
+        "en": "Total Yield2",
+        "nl": "Totale opbrengst2",
+        "de": "Gesamtertrag2"
+      },
+      "decimals": 2
+    },
+    "meter_power.daily_2": {
+      "title": {
+        "en": "Total Day Yield2",
+        "nl": "Totale dag opbrengst2",
+        "de": "Tagesgesamtertrag2"
+      },
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },
+    "huawei_status_2": {
+      "title": {
+        "en": "Inverter status2",
+	    	"de": "Status des Wechselrichters2"
+      },
+      "icon": "/assets/operational_status.svg"   
+    }                                                                                        
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
+  "pair": [
+    {
+      "id": "start"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Inverter settings",
+        "de": "Wechselrichtereinstellungen"
+      },
+      "children": [
+        {
+          "id": "address",
+          "type": "text",
+          "value": "0.0.0.0",
+          "label": {
+            "en": "IP Address",
+            "de": "IP-Adresse"
+          }
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "value": 1502,
+          "step": 1,
+          "label": {
+            "en": "Port",
+            "de": "Port"
+          }
+        },
+        {
+          "id": "id",
+          "type": "number",
+          "value": 1,
+          "step": 1,
+          "attr": {
+            "min": 0,
+            "max": 50
+          },
+          "label": {
+            "en": "Inverter ID",
+            "nl": "Inverter ID",
+            "de": "Wechselrichter-ID"
+          }
+        },
+        {
+          "id": "id2",
+          "type": "number",
+          "value": 1,
+          "step": 1,
+          "attr": {
+            "min": 0,
+            "max": 50
+          },
+          "label": {
+            "en": "Inverter ID2",
+            "nl": "Inverter ID2",
+            "de": "Wechselrichter-ID2"
+          }
+        }        
+      ]
+    }
+  ]
+}

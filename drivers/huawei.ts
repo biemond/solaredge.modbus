@@ -378,12 +378,12 @@ export class Huawei extends Homey.Device {
     }        
 
 
-    processResult(result: Record<string, Measurement>) {
+    processResult(result: Record<string, Measurement>, power: boolean=false) {
         if (result) {
 
             // result
             for (let k in result) {
-                console.log(k, result[k].value, result[k].scale, result[k].label)
+                console.log("huawei: " ,k, result[k].value, result[k].scale, result[k].label)
             }
   
 
@@ -419,12 +419,12 @@ export class Huawei extends Homey.Device {
                 this.setCapabilityValue('measure_current.grid_phase3', currenteac3);
             }
 
-            if (result['PV1current'] && result['PV1current'].value != '-1' && result['PV1current'].value != 'xxx') {
+            if (result['PV1current'] && result['PV1current'].value != '-1' && result['PV1current'].value != 'xxx'  && this.hasCapability('measure_current.pv1')) {
                 this.addCapability('measure_current.pv1');
                 var currentepv1 = Number(result['PV1current'].value) * (Math.pow(10, Number(result['PV1current'].scale)));
                 this.setCapabilityValue('measure_current.pv1', currentepv1);
             }
-            if (result['PV2current'] && result['PV2current'].value != '-1' && result['PV2current'].value != 'xxx') {
+            if (result['PV2current'] && result['PV2current'].value != '-1' && result['PV2current'].value != 'xxx' && this.hasCapability('measure_current.pv2')) {
                 this.addCapability('measure_current.pv2');
                 var currentpv2 = Number(result['PV2current'].value) * (Math.pow(10, Number(result['PV2current'].scale)));
                 this.setCapabilityValue('measure_current.pv2', currentpv2);
@@ -491,22 +491,30 @@ export class Huawei extends Homey.Device {
                 this.setCapabilityValue('measure_voltage.phase3', PHASE_C_VOLTAGE);
             }
 
-            if (result['PV1voltage'] && result['PV1voltage'].value != 'xxx') {
+            if (result['PV1voltage'] && result['PV1voltage'].value != 'xxx' && this.hasCapability('measure_voltage.pv1')) {
                 this.addCapability('measure_voltage.pv1');
                 var PV1voltage = Number(result['PV1voltage'].value) * (Math.pow(10, Number(result['PV1voltage'].scale)));
                 this.setCapabilityValue('measure_voltage.pv1', PV1voltage);
             }
 
-            if (result['PV2voltage'] && result['PV2voltage'].value != 'xxx') {
+            if (result['PV2voltage'] && result['PV2voltage'].value != 'xxx' && this.hasCapability('measure_voltage.pv2')) {
                 this.addCapability('measure_voltage.pv2');
                 var PV2voltage = Number(result['PV2voltage'].value) * (Math.pow(10, Number(result['PV2voltage'].scale)));
                 this.setCapabilityValue('measure_voltage.pv2', PV2voltage);
             }
 
-            if (result['inputPower'] && result['inputPower'].value != 'xxx' ) {
-                this.addCapability('measure_power');
-                var inputPower = Number(result['inputPower'].value) * (Math.pow(10, Number(result['inputPower'].scale)));
-                this.setCapabilityValue('measure_power', inputPower);
+            if ( power == false) {
+                if (result['inputPower'] && result['inputPower'].value != 'xxx' ) {
+                    this.addCapability('measure_power');
+                    var inputPower = Number(result['inputPower'].value) * (Math.pow(10, Number(result['inputPower'].scale)));
+                    this.setCapabilityValue('measure_power', inputPower);
+                }
+            } else {
+                if (result['inputPower'] && result['inputPower'].value != 'xxx' && this.hasCapability('measure_power_1')) {
+                    this.addCapability('measure_power_1');
+                    var inputPower = Number(result['inputPower'].value) * (Math.pow(10, Number(result['inputPower'].scale)));
+                    this.setCapabilityValue('measure_power_1', inputPower);
+                }
             }
         
             if (result['ACTIVE_POWER'] && result['ACTIVE_POWER'].value != 'xxx' ) {
@@ -684,4 +692,313 @@ export class Huawei extends Homey.Device {
             }               
         }
     }
+
+    processResult2(result: Record<string, Measurement>) {
+        if (result) {
+
+            // result
+            for (let k in result) {
+                console.log("huawei: " ,k, result[k].value, result[k].scale, result[k].label)
+            }
+  
+
+            if (result['PHASE_A_CURRENT'] && result['PHASE_A_CURRENT'].value != '-1' && result['PHASE_A_CURRENT'].value != 'xxx'  && this.hasCapability('measure_current.phase1_2')) {
+                this.addCapability('measure_current.phase1_2');
+                var currenteac1 = Number(result['PHASE_A_CURRENT'].value) * (Math.pow(10, Number(result['PHASE_A_CURRENT'].scale)));
+                this.setCapabilityValue('measure_current.phase1_2', currenteac1);
+            }
+            if (result['PHASE_B_CURRENT'] && result['PHASE_B_CURRENT'].value != '-1' && result['PHASE_B_CURRENT'].value != 'xxx' && this.hasCapability('measure_current.phase2_2')) {
+                this.addCapability('measure_current.phase2_2');
+                var currenteac2 = Number(result['PHASE_B_CURRENT'].value) * (Math.pow(10, Number(result['PHASE_B_CURRENT'].scale)));
+                this.setCapabilityValue('measure_current.phase2_2', currenteac2);
+            }
+            if (result['PHASE_C_CURRENT'] && result['PHASE_C_CURRENT'].value != '-1' && result['PHASE_C_CURRENT'].value != 'xxx' && this.hasCapability('measure_current.phase3_2')) {
+                this.addCapability('measure_current.phase3_2');
+                var currenteac3 = Number(result['PHASE_C_CURRENT'].value) * (Math.pow(10, Number(result['PHASE_C_CURRENT'].scale)));
+                this.setCapabilityValue('measure_current.phase3_2', currenteac3);
+            }
+
+            if (result['GRID_PHASE_A_CURRENT'] && result['GRID_PHASE_A_CURRENT'].value != '-1' && result['GRID_PHASE_A_CURRENT'].value != 'xxx'  && this.hasCapability('measure_current.grid_phase1_2')) {
+                this.addCapability('measure_current.grid_phase1_2');
+                var currenteac1 = Number(result['GRID_PHASE_A_CURRENT'].value) * (Math.pow(10, Number(result['GRID_PHASE_A_CURRENT'].scale)));
+                this.setCapabilityValue('measure_current.grid_phase1_2', currenteac1);
+            }
+            if (result['GRID_PHASE_B_CURRENT'] && result['GRID_PHASE_B_CURRENT'].value != '-1' && result['GRID_PHASE_B_CURRENT'].value != 'xxx' && this.hasCapability('measure_current.grid_phase2_2')) {
+                this.addCapability('measure_current.grid_phase2_2');
+                var currenteac2 = Number(result['GRID_PHASE_B_CURRENT'].value) * (Math.pow(10, Number(result['GRID_PHASE_B_CURRENT'].scale)));
+                this.setCapabilityValue('measure_current.grid_phase2_2', currenteac2);
+            }
+            if (result['GRID_PHASE_C_CURRENT'] && result['GRID_PHASE_C_CURRENT'].value != '-1' && result['GRID_PHASE_C_CURRENT'].value != 'xxx' && this.hasCapability('measure_current.grid_phase3_2')) {
+                this.addCapability('measure_current.grid_phase3_2');
+                var currenteac3 = Number(result['GRID_PHASE_C_CURRENT'].value) * (Math.pow(10, Number(result['GRID_PHASE_C_CURRENT'].scale)));
+                this.setCapabilityValue('measure_current.grid_phase3_2', currenteac3);
+            }
+
+            if (result['PV1current'] && result['PV1current'].value != '-1' && result['PV1current'].value != 'xxx'  && this.hasCapability('measure_current.pv1_2')) {
+                this.addCapability('measure_current.pv1_2');
+                var currentepv1 = Number(result['PV1current'].value) * (Math.pow(10, Number(result['PV1current'].scale)));
+                this.setCapabilityValue('measure_current.pv1_2', currentepv1);
+            }
+            if (result['PV2current'] && result['PV2current'].value != '-1' && result['PV2current'].value != 'xxx' && this.hasCapability('measure_current.pv2_2')) {
+                this.addCapability('measure_current.pv2_2');
+                var currentpv2 = Number(result['PV2current'].value) * (Math.pow(10, Number(result['PV2current'].scale)));
+                this.setCapabilityValue('measure_current.pv2_2', currentpv2);
+            }
+
+            if (result['INTERNAL_TEMPERATURE'] && result['INTERNAL_TEMPERATURE'].value != 'xxx') {
+                this.addCapability('measure_temperature.invertor_2');
+                var temperature = Number(result['INTERNAL_TEMPERATURE'].value) * (Math.pow(10, Number(result['INTERNAL_TEMPERATURE'].scale)));
+                this.setCapabilityValue('measure_temperature.invertor_2', temperature);
+            }
+
+            if (result['DAILY_YIELD_ENERGY'] && result['DAILY_YIELD_ENERGY'].value != 'xxx') {
+                this.addCapability('meter_power.daily_2');
+                var DAILY_YIELD_ENERGY = Number(result['DAILY_YIELD_ENERGY'].value) * (Math.pow(10, Number(result['DAILY_YIELD_ENERGY'].scale)));
+                this.setCapabilityValue('meter_power.daily_2', DAILY_YIELD_ENERGY);
+            }
+
+            if (result['ACCUMULATED_YIELD_ENERGY'] && result['ACCUMULATED_YIELD_ENERGY'].value != 'xxx') {
+                this.addCapability('meter_power_2');
+                var ACCUMULATED_YIELD_ENERGY = Number(result['ACCUMULATED_YIELD_ENERGY'].value) * (Math.pow(10, Number(result['ACCUMULATED_YIELD_ENERGY'].scale)));
+                this.setCapabilityValue('meter_power_2', ACCUMULATED_YIELD_ENERGY);
+            }
+
+
+            if (result['GRID_VOLTAGE'] && result['GRID_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage_2')) {
+                this.addCapability('measure_voltage_2');
+                var GRID_VOLTAGE = Number(result['GRID_VOLTAGE'].value) * (Math.pow(10, Number(result['GRID_VOLTAGE'].scale)));
+                this.setCapabilityValue('measure_voltage_2', GRID_VOLTAGE);
+            }
+
+            if (result['GRID_A_VOLTAGE'] && result['GRID_A_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.grid_phase1_2')) {
+                this.addCapability('measure_voltage.grid_phase1_2');
+                var GRID_A_VOLTAGE = Number(result['GRID_A_VOLTAGE'].value) * (Math.pow(10, Number(result['GRID_A_VOLTAGE'].scale)));
+                this.setCapabilityValue('measure_voltage.grid_phase1_2', GRID_A_VOLTAGE);
+            }
+
+            if (result['GRID_B_VOLTAGE'] && result['GRID_B_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.grid_phase2_2')) {
+                this.addCapability('measure_voltage.grid_phase2_2');
+                var GRID_B_VOLTAGE = Number(result['GRID_B_VOLTAGE'].value) * (Math.pow(10, Number(result['GRID_B_VOLTAGE'].scale)));
+                this.setCapabilityValue('measure_voltage.grid_phase2_2', GRID_B_VOLTAGE);
+            }
+
+            if (result['GRID_C_VOLTAGE'] && result['GRID_C_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.grid_phase3_2')) {
+                this.addCapability('measure_voltage.grid_phase3_2');
+                var GRID_C_VOLTAGE = Number(result['GRID_C_VOLTAGE'].value) * (Math.pow(10, Number(result['GRID_C_VOLTAGE'].scale)));
+                this.setCapabilityValue('measure_voltage.grid_phase3_2', GRID_C_VOLTAGE);
+            }        
+
+            if (result['PHASE_A_VOLTAGE'] && result['PHASE_A_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.phase1_2')) {
+                this.addCapability('measure_voltage.phase1_2');
+                var PHASE_A_VOLTAGE = Number(result['PHASE_A_VOLTAGE'].value) * (Math.pow(10, Number(result['PHASE_A_VOLTAGE'].scale)));
+                this.setCapabilityValue('measure_voltage.phase1_2', PHASE_A_VOLTAGE);
+            }
+
+            if (result['PHASE_B_VOLTAGE'] && result['PHASE_B_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.phase2_2')) {
+                this.addCapability('measure_voltage.phase2_2');
+                var PHASE_B_VOLTAGE = Number(result['PHASE_B_VOLTAGE'].value) * (Math.pow(10, Number(result['PHASE_B_VOLTAGE'].scale)));
+                this.setCapabilityValue('measure_voltage.phase2_2', PHASE_B_VOLTAGE);
+            }
+
+            if (result['PHASE_C_VOLTAGE'] && result['PHASE_C_VOLTAGE'].value != 'xxx' && this.hasCapability('measure_voltage.phase3_2')) {
+                this.addCapability('measure_voltage.phase3_2');
+                var PHASE_C_VOLTAGE = Number(result['PHASE_C_VOLTAGE'].value) * (Math.pow(10, Number(result['PHASE_C_VOLTAGE'].scale)));
+                this.setCapabilityValue('measure_voltage.phase3_2', PHASE_C_VOLTAGE);
+            }
+
+            if (result['PV1voltage'] && result['PV1voltage'].value != 'xxx' && this.hasCapability('measure_voltage.pv1_2')) {
+                this.addCapability('measure_voltage.pv1_2');
+                var PV1voltage = Number(result['PV1voltage'].value) * (Math.pow(10, Number(result['PV1voltage'].scale)));
+                this.setCapabilityValue('measure_voltage.pv1_2', PV1voltage);
+            }
+
+            if (result['PV2voltage'] && result['PV2voltage'].value != 'xxx' && this.hasCapability('measure_voltage.pv2_2')) {
+                this.addCapability('measure_voltage.pv2_2');
+                var PV2voltage = Number(result['PV2voltage'].value) * (Math.pow(10, Number(result['PV2voltage'].scale)));
+                this.setCapabilityValue('measure_voltage.pv2_2', PV2voltage);
+            }
+
+            if (result['inputPower'] && result['inputPower'].value != 'xxx' ) {
+                this.addCapability('measure_power_2');
+                var inputPower = Number(result['inputPower'].value) * (Math.pow(10, Number(result['inputPower'].scale)));
+                this.setCapabilityValue('measure_power_2', inputPower);
+            }
+        
+            if (result['ACTIVE_POWER'] && result['ACTIVE_POWER'].value != 'xxx' ) {
+                this.addCapability('measure_power.active_power_2');
+                var ACTIVE_POWER = Number(result['ACTIVE_POWER'].value) * (Math.pow(10, Number(result['ACTIVE_POWER'].scale)));
+                this.setCapabilityValue('measure_power.active_power_2', ACTIVE_POWER);
+            }
+
+            let DEVICE_STATUS_DEFINITIONS: { [key: string]: string } = {
+                "0": "Standby: initializing",
+                "1": "Standby: detecting insulation resistance",
+                "2": "Standby: detecting irradiation",
+                "3": "Standby: grid detecting",
+                "256": "Starting",
+                "512": "On-grid",
+                "513": "Grid Connection: power limited",
+                "514": "Grid Connection: self-derating",
+                "515": "Off-grid mode: running",
+                "768": "Shutdown: fault",
+                "769": "Shutdown: command",
+                "770": "Shutdown: OVGR",
+                "771": "Shutdown: communication disconnected",
+                "772": "Shutdown: power limited",
+                "773": "Shutdown: manual startup required",
+                "774": "Shutdown: DC switches disconnected",
+                "775": "Shutdown: rapid cutoff",
+                "776": "Shutdown: input underpowered",
+                "1025": "Grid scheduling: cosphi-P curve",
+                "1026": "Grid scheduling: Q-U curve",
+                "1027": "Grid scheduling: PF-U curve",
+                "1028": "Grid scheduling: dry contact",
+                "1029": "Grid scheduling: Q-P curve",
+                "1280": "Spot-check ready",
+                "1281": "Spot-checking",
+                "1536": "Inspecting",
+                "1792": "AFCI self check",
+                "2048": "I-V scanning",
+                "2304": "DC input detection",
+                "2560": "Running: off-grid charging",
+                "40960": "Standby: no irradiation",
+            }
+
+            if (result['DEVICE_STATUS'] && result['DEVICE_STATUS'].value !== undefined && result['DEVICE_STATUS'].value  && result['DEVICE_STATUS'].value != 'xxx' ) {
+                this.addCapability('huawei_status_2');
+                var huawei_status = result['DEVICE_STATUS'].value;
+                this.setCapabilityValue('huawei_status_2',  DEVICE_STATUS_DEFINITIONS[huawei_status] );
+                console.log('inverter status ' + DEVICE_STATUS_DEFINITIONS[huawei_status]);
+            }
+
+            // // "STORAGE_STATE_OF_CAPACITY": [37760, 1, 'UINT16', "RUNNING STATUS", -1],
+            // if (result['STORAGE_STATE_OF_CAPACITY'] && result['STORAGE_STATE_OF_CAPACITY'].value != 'xxx' && this.hasCapability('measure_battery')) {
+            //     this.addCapability('battery');
+            //     this.addCapability('measure_battery');
+            //     var soc = Number(result['STORAGE_STATE_OF_CAPACITY'].value) * (Math.pow(10, Number(result['STORAGE_STATE_OF_CAPACITY'].scale)));
+            //     this.setCapabilityValue('battery', soc);
+            //     this.setCapabilityValue('measure_battery', soc);
+            // }
+
+            // // "STORAGE_CHARGE_DISCHARGE_POWER": [37765, 2, 'INT32', "CHARGE_DISCHARGE POWER", 0],   
+            // if (result['STORAGE_CHARGE_DISCHARGE_POWER'] && result['STORAGE_CHARGE_DISCHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.batt_discharge')) {
+            //     this.addCapability('measure_power.batt_discharge');
+            //     var discharge = Number(result['STORAGE_CHARGE_DISCHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_CHARGE_DISCHARGE_POWER'].scale)));
+            //     if (discharge < 0 ){
+            //       this.setCapabilityValue('measure_power.batt_discharge', -1 * discharge);
+            //     } else {
+            //       this.setCapabilityValue('measure_power.batt_discharge', 0);
+            //     }
+            // }
+            // if (result['STORAGE_CHARGE_DISCHARGE_POWER'] && result['STORAGE_CHARGE_DISCHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.batt_charge')) {
+            //     this.addCapability('measure_power.batt_charge');
+            //     var charge = Number(result['STORAGE_CHARGE_DISCHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_CHARGE_DISCHARGE_POWER'].scale)));
+            //     if (charge > 0 ){
+            //         this.setCapabilityValue('measure_power.batt_charge', charge);
+            //     } else {
+            //         this.setCapabilityValue('measure_power.batt_charge', 0);
+            //     }
+            // }
+
+
+            // if (result['ACTIVE_GRID_A_POWER'] && result['ACTIVE_GRID_A_POWER'].value != 'xxx' && this.hasCapability('measure_power.grid_phase1')) {
+            //     this.addCapability('measure_power.grid_phase1');
+            //     var ACTIVE_GRID_A_POWER = Number(result['ACTIVE_GRID_A_POWER'].value) * (Math.pow(10, Number(result['ACTIVE_GRID_A_POWER'].scale)));
+            //     this.setCapabilityValue('measure_power.grid_phase1', ACTIVE_GRID_A_POWER);
+            // }
+
+            // if (result['ACTIVE_GRID_B_POWER'] && result['ACTIVE_GRID_B_POWER'].value != 'xxx' && this.hasCapability('measure_power.grid_phase2')) {
+            //     this.addCapability('measure_power.grid_phase2');
+            //     var ACTIVE_GRID_B_POWER = Number(result['ACTIVE_GRID_B_POWER'].value) * (Math.pow(10, Number(result['ACTIVE_GRID_B_POWER'].scale)));
+            //     this.setCapabilityValue('measure_power.grid_phase2', ACTIVE_GRID_B_POWER);
+            // }
+
+            // if (result['ACTIVE_GRID_C_POWER'] && result['ACTIVE_GRID_C_POWER'].value != 'xxx' && this.hasCapability('measure_power.grid_phase3')) {
+            //     this.addCapability('measure_power.grid_phase3');
+            //     var ACTIVE_GRID_C_POWER = Number(result['ACTIVE_GRID_C_POWER'].value) * (Math.pow(10, Number(result['ACTIVE_GRID_C_POWER'].scale)));
+            //     this.setCapabilityValue('measure_power.grid_phase3', ACTIVE_GRID_C_POWER);
+            // }            
+
+            // if (result['POWER_METER_ACTIVE_POWER'] && result['POWER_METER_ACTIVE_POWER'].value != 'xxx' && this.hasCapability('measure_power.grid_active_power')) {
+            //     this.addCapability('measure_power.grid_active_power');
+            //     var POWER_METER_ACTIVE_POWER = Number(result['POWER_METER_ACTIVE_POWER'].value) * (Math.pow(10, Number(result['POWER_METER_ACTIVE_POWER'].scale)));
+            //     this.setCapabilityValue('measure_power.grid_active_power', POWER_METER_ACTIVE_POWER);
+            // }
+
+            // if (result['GRID_EXPORTED_ENERGY'] && result['GRID_EXPORTED_ENERGY'].value != 'xxx' && this.hasCapability('meter_power.grid_import')) {
+            //     this.addCapability('meter_power.grid_import');
+            //     var GRID_EXPORTED_ENERGY = Number(result['GRID_EXPORTED_ENERGY'].value) * (Math.pow(10, Number(result['GRID_EXPORTED_ENERGY'].scale)));
+            //     this.setCapabilityValue('meter_power.grid_import', GRID_EXPORTED_ENERGY);
+            // }
+
+            // if (result['GRID_ACCUMULATED_ENERGY'] && result['GRID_ACCUMULATED_ENERGY'].value != 'xxx' && this.hasCapability('meter_power.grid_export')) {
+            //     this.addCapability('meter_power.grid_export');
+            //     var GRID_ACCUMULATED_ENERGY = Number(result['GRID_ACCUMULATED_ENERGY'].value) * (Math.pow(10, Number(result['GRID_ACCUMULATED_ENERGY'].scale)));
+            //     this.setCapabilityValue('meter_power.grid_export', GRID_ACCUMULATED_ENERGY);
+            // } 
+
+            // if (result['STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY'] && result['STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY'].value != 'xxx' && this.hasCapability('meter_power.today_batt_output')) {
+            //     this.addCapability('meter_power.today_batt_output');
+            //     var STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY = Number(result['STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY'].value) * (Math.pow(10, Number(result['STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY'].scale)));
+            //     this.setCapabilityValue('meter_power.today_batt_output', STORAGE_CURRENT_DAY_DISCHARGE_CAPACITY);
+            // }
+
+            // if (result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'] && result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'].value != 'xxx' && this.hasCapability('meter_power.today_batt_input')) {
+            //     this.addCapability('meter_power.today_batt_input');
+            //     var STORAGE_CURRENT_DAY_CHARGE_CAPACITY = Number(result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'].value) * (Math.pow(10, Number(result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'].scale)));
+            //     this.setCapabilityValue('meter_power.today_batt_input', STORAGE_CURRENT_DAY_CHARGE_CAPACITY);
+            // } 
+
+
+            // if (result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'] && result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'].value != 'xxx' && this.hasCapability('meter_power.today_batt_input')) {
+            //     this.addCapability('meter_power.today_batt_input');
+            //     var STORAGE_CURRENT_DAY_CHARGE_CAPACITY = Number(result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'].value) * (Math.pow(10, Number(result['STORAGE_CURRENT_DAY_CHARGE_CAPACITY'].scale)));
+            //     this.setCapabilityValue('meter_power.today_batt_input', STORAGE_CURRENT_DAY_CHARGE_CAPACITY);
+            // } 
+
+            // if (result['ACTIVE_POWER_CONTROL_MODE'] && result['ACTIVE_POWER_CONTROL_MODE'].value != 'xxx' && this.hasCapability('activepower_controlmode')) {
+            //     this.addCapability('activepower_controlmode');
+            //     var ACTIVE_POWER_CONTROL_MODE = result['ACTIVE_POWER_CONTROL_MODE'].value;
+            //     this.setCapabilityValue('activepower_controlmode', ACTIVE_POWER_CONTROL_MODE);
+            // } 
+
+            // if (result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'] && result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value != 'xxx' && this.hasCapability('storage_force_charge_discharge')) {
+            //     this.addCapability('storage_force_charge_discharge');
+            //     var STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE = result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value;
+            //     this.setCapabilityValue('storage_force_charge_discharge', STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE);
+            // }             
+
+            // if (result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'] && result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value != 'xxx' && this.hasCapability('storage_excess_pv_energy_use_in_tou')) {
+            //     this.addCapability('storage_excess_pv_energy_use_in_tou');
+            //     var STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU = result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value;
+            //     this.setCapabilityValue('storage_excess_pv_energy_use_in_tou', STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU);
+            // }   
+
+            // if (result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'] && result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value != 'xxx' && this.hasCapability('remote_charge_discharge_control_mode')) {
+            //     this.addCapability('remote_charge_discharge_control_mode');
+            //     var REMOTE_CHARGE_DISCHARGE_CONTROL_MODE = result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value;
+            //     this.setCapabilityValue('remote_charge_discharge_control_mode', REMOTE_CHARGE_DISCHARGE_CONTROL_MODE);
+            // }   
+
+            // if (result['STORAGE_WORKING_MODE_SETTINGS'] && result['STORAGE_WORKING_MODE_SETTINGS'].value != 'xxx' && this.hasCapability('storage_working_mode_settings')) {
+            //     this.addCapability('remote_charge_discharge_control_mode');
+            //     var STORAGE_WORKING_MODE_SETTINGS = result['STORAGE_WORKING_MODE_SETTINGS'].value;
+            //     this.setCapabilityValue('storage_working_mode_settings', STORAGE_WORKING_MODE_SETTINGS);
+            // }   
+
+            // if (result['STORAGE_MAXIMUM_CHARGE_POWER'] && result['STORAGE_MAXIMUM_CHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.chargesetting')) {
+            //     this.addCapability('remote_charge_discharge_control_mode');
+            //     var STORAGE_MAXIMUM_CHARGE_POWER = Number(result['STORAGE_MAXIMUM_CHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_MAXIMUM_CHARGE_POWER'].scale)));
+            //     this.setCapabilityValue('measure_power.chargesetting', STORAGE_MAXIMUM_CHARGE_POWER);
+            // }   
+
+            // if (result['STORAGE_MAXIMUM_DISCHARGE_POWER'] && result['STORAGE_MAXIMUM_DISCHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.dischargesetting')) {
+            //     this.addCapability('remote_charge_discharge_control_mode');
+            //     var STORAGE_MAXIMUM_DISCHARGE_POWER = Number(result['STORAGE_MAXIMUM_DISCHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_MAXIMUM_DISCHARGE_POWER'].scale)));
+            //     this.setCapabilityValue('measure_power.dischargesetting', STORAGE_MAXIMUM_DISCHARGE_POWER);
+            // }               
+        }
+    }
+
+
 }

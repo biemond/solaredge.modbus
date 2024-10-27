@@ -13,6 +13,7 @@
       "port": "Port",
       "polling": "Polling Frequency",
       "deviceid": "Device ID",
+      "deviceid2": "Device ID2",      
       "connect": "Connect"
     },
     "Unreachable": "Unreachable",
