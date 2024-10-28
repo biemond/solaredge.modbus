@@ -74,7 +74,7 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
       'port': this.getSetting('port'),
       'timeout': 175,
       'autoReconnect': false,
-      'logLabel' : 'huawei Inverter Battery',
+      'logLabel' : 'huawei sdongle Inverter Battery',
       'logLevel': 'error',
       'logEnabled': true
     }    
@@ -115,7 +115,7 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
       this.addCapability('measure_power');
       var inputPower  = Number(checkRegisterRes['inputPower'].value) *  (Math.pow(10, Number(checkRegisterRes['inputPower'].scale)));
       var inputPower2 = Number(checkRegisterRes2['inputPower'].value) * (Math.pow(10, Number(checkRegisterRes2['inputPower'].scale)));
-      this.setCapabilityValue('measure_power_2', inputPower + inputPower2);
+      this.setCapabilityValue('measure_power', inputPower + inputPower2);
 
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();

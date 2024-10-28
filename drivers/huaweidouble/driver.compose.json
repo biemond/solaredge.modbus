@@ -24,7 +24,15 @@
     "measure_voltage",
     "measure_voltage_2",
     "huawei_status",
-    "huawei_status_2"                                                       
+    "huawei_status_2",
+    "measure_voltage.pv1",
+    "measure_voltage.pv1_2",    
+    "measure_voltage.pv2",
+    "measure_voltage.pv2_2",    
+    "measure_current.pv1",
+    "measure_current.pv1_2",
+    "measure_current.pv2",
+    "measure_current.pv2_2"                                                               
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -123,7 +131,55 @@
 	    	"de": "Status des Wechselrichters2"
       },
       "icon": "/assets/operational_status.svg"   
-    }                                                                                        
+    },
+    "measure_current.pv1": {
+      "title": {
+        "en": "AC Current pv1",
+        "de": "AC-Strom pv1"
+      }
+    },
+    "measure_current.pv2": {
+      "title": {
+        "en": "AC Current pv2",
+        "de": "AC-Strom pv2"
+      }
+    }, 
+    "measure_current.pv1_2": {
+      "title": {
+        "en": "AC Current pv1 2",
+        "de": "AC-Strom pv1 2"
+      }
+    },
+    "measure_current.pv2_2": {
+      "title": {
+        "en": "AC Current pv2 2",
+        "de": "AC-Strom pv2 2"
+      }
+    },
+    "measure_voltage.pv1": {
+      "title": {
+        "en": "Voltage pv1",
+        "de": "Spannung pv1"
+      }
+    },
+    "measure_voltage.pv2": {
+      "title": {
+        "en": "Voltage pv2",
+        "de": "Spannung pv2"
+      }
+    }, 
+    "measure_voltage.pv1_2": {
+      "title": {
+        "en": "Voltage pv1 2",
+        "de": "Spannung pv1 2"
+      }
+    },
+    "measure_voltage.pv2_2": {
+      "title": {
+        "en": "Voltage pv2 2",
+        "de": "Spannung pv2 2"
+      }
+    }                                                                                                                  
   },
   "platforms": [
     "local"
