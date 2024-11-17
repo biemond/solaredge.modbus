@@ -9,7 +9,9 @@ $(function() {
     var inputaddress = $('#address').val();
     var inputport = Number($('#port').val());
     var invertorid = Number($('#invertorid').val());
+    var hasbatteryid = $('#hasbatteryid').is(":checked");
     var invertorid2 = Number($('#invertorid2').val());
+    var hasbatteryid2 = $('#hasbatteryid2').is(":checked");
 
     var deviceId = Math.random().toString(36).substr(2,5).toLowerCase();
     var id = Math.round(Math.random() * (100000 - 10000) + 10000);
@@ -20,10 +22,12 @@ $(function() {
       };
 
       var settings = {
-        address : inputaddress,
-        port    : inputport,
-        id      : invertorid,
-        id2     : invertorid2
+        address      : inputaddress,
+        port         : inputport,
+        id           : invertorid,
+        has_battery  : hasbatteryid,
+        id2          : invertorid2,
+        has_battery2 : hasbatteryid2        
       };
 
       Homey.addDevice({
@@ -94,10 +98,14 @@ $(function() {
   <div class="form-group">
   	<label for="invertorid" data-i18n="pair.deviceid">Port</label>
   	<input type="number" class="form-control" id="invertorid" placeholder="1" value="1" required>
+  	<label for="hasbatteryid" data-i18n="pair.deviceidbattery">Has battery</label>  
+    <input type="checkbox" class="form-control" id="hasbatteryid">
   </div>
   <div class="form-group">
   	<label for="invertorid2" data-i18n="pair.deviceid2">Port</label>
   	<input type="number" class="form-control" id="invertorid2" placeholder="3" value="3" required>
+  	<label for="hasbatteryid2" data-i18n="pair.deviceid2battery">Has battery</label>    
+  	<input type="checkbox" class="form-control" id="hasbatteryid2">
   </div>
   <div class="form-group buttons">
     <button id="connect" class="button" data-i18n="pair.connect">Connect</button>

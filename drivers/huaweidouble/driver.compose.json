@@ -11,10 +11,10 @@
   },
   "capabilities": [
     "measure_power",
-    "measure_power_1",       
-    "measure_power_2",    
-    "measure_power.active_power",    
-    "measure_power.active_power_2",    
+    "measure_power_1",
+    "measure_power_2",
+    "measure_power.active_power",
+    "measure_power.active_power_2",
     "measure_temperature.invertor",
     "measure_temperature.invertor_2",
     "meter_power",
@@ -26,13 +26,28 @@
     "huawei_status",
     "huawei_status_2",
     "measure_voltage.pv1",
-    "measure_voltage.pv1_2",    
+    "measure_voltage.pv1_2",
     "measure_voltage.pv2",
-    "measure_voltage.pv2_2",    
+    "measure_voltage.pv2_2",
     "measure_current.pv1",
     "measure_current.pv1_2",
     "measure_current.pv2",
-    "measure_current.pv2_2"                                                               
+    "measure_current.pv2_2",
+    "battery",
+    "measure_battery",
+    "battery2",
+    "measure_power.grid_active_power",
+    "measure_power.grid_active_power2",
+    "measure_power.batt_charge",
+    "measure_power.batt_discharge",
+    "measure_power.grid_phase1",
+    "measure_power.grid_phase2",
+    "measure_power.grid_phase3",
+    "measure_power.batt_charge2",
+    "measure_power.batt_discharge2",
+    "measure_power.grid_phase1_2",
+    "measure_power.grid_phase2_2",
+    "measure_power.grid_phase3_2"               
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -48,7 +63,7 @@
         "en": "Solar Power1",
         "de": "Solarleistung1"
       }
-    },    
+    },
     "measure_power_2": {
       "decimals": 0,
       "title": {
@@ -59,40 +74,40 @@
     "measure_power.active_power": {
       "decimals": 0,
       "title": {
-        "en": "Active Power"
+        "en": "Active Power1"
       }
     },
     "measure_temperature.invertor": {
       "title": {
-        "en": "Heatsink temperature",
-        "nl": "Heatsink temperatuur",
-        "de": "Kühlkörpertemperatur"
+        "en": "Heatsink temperature1",
+        "nl": "Heatsink temperatuur1",
+        "de": "Kühlkörpertemperatur1"
       },
       "decimals": 2
     },
     "meter_power": {
       "title": {
-        "en": "Total Yield",
-        "nl": "Totale opbrengst",
-        "de": "Gesamtertrag"
+        "en": "Total Yield1",
+        "nl": "Totale opbrengst1",
+        "de": "Gesamtertrag1"
       },
       "decimals": 2
     },
     "meter_power.daily": {
       "title": {
-        "en": "Total Day Yield",
-        "nl": "Totale dag opbrengst",
-        "de": "Tagesgesamtertrag"
+        "en": "Total Day Yield1",
+        "nl": "Totale dag opbrengst1",
+        "de": "Tagesgesamtertrag1"
       },
       "decimals": 2,
       "icon": "/assets/total_yield.svg"
     },
     "huawei_status": {
       "title": {
-        "en": "Inverter status",
-	    	"de": "Status des Wechselrichters"
+        "en": "Inverter status1",
+        "de": "Status des Wechselrichters1"
       },
-      "icon": "/assets/operational_status.svg"   
+      "icon": "/assets/operational_status.svg"
     },
     "measure_power.active_power_2": {
       "decimals": 0,
@@ -128,22 +143,22 @@
     "huawei_status_2": {
       "title": {
         "en": "Inverter status2",
-	    	"de": "Status des Wechselrichters2"
+        "de": "Status des Wechselrichters2"
       },
-      "icon": "/assets/operational_status.svg"   
+      "icon": "/assets/operational_status.svg"
     },
     "measure_current.pv1": {
       "title": {
-        "en": "AC Current pv1",
-        "de": "AC-Strom pv1"
+        "en": "AC Current pv1 1",
+        "de": "AC-Strom pv1 1"
       }
     },
     "measure_current.pv2": {
       "title": {
-        "en": "AC Current pv2",
-        "de": "AC-Strom pv2"
+        "en": "AC Current pv2 1",
+        "de": "AC-Strom pv2 1"
       }
-    }, 
+    },
     "measure_current.pv1_2": {
       "title": {
         "en": "AC Current pv1 2",
@@ -158,16 +173,16 @@
     },
     "measure_voltage.pv1": {
       "title": {
-        "en": "Voltage pv1",
-        "de": "Spannung pv1"
+        "en": "Voltage pv1 1",
+        "de": "Spannung pv1 1"
       }
     },
     "measure_voltage.pv2": {
       "title": {
-        "en": "Voltage pv2",
-        "de": "Spannung pv2"
+        "en": "Voltage pv2 1",
+        "de": "Spannung pv2 1"
       }
-    }, 
+    },
     "measure_voltage.pv1_2": {
       "title": {
         "en": "Voltage pv1 2",
@@ -179,7 +194,84 @@
         "en": "Voltage pv2 2",
         "de": "Spannung pv2 2"
       }
-    }                                                                                                                  
+    },
+    "battery": {
+      "title": {
+        "en": "Battery 1",
+        "nl": "Accuniveau 1",
+        "de": "Batteriestand 1"
+      }
+    },
+    "measure_power.grid_active_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid Active Power1"
+      }
+    },
+    "measure_power.grid_active_power2": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid Active Power2"
+      }
+    },
+    "measure_power.grid_phase1": {
+      "title": {
+        "en": "VGrid Power phase1 1"
+      }
+    },
+    "measure_power.grid_phase2": {
+      "title": {
+        "en": "VGrid Power phase2 1"
+      }
+    },
+    "measure_power.grid_phase3": {
+      "title": {
+        "en": "VGrid Power phase3 1"
+      }
+    },
+    "measure_power.grid_phase1_2": {
+      "title": {
+        "en": "VGrid Power phase1 2"
+      }
+    },
+    "measure_power.grid_phase2_2": {
+      "title": {
+        "en": "VGrid Power phase2 2"
+      }
+    },
+    "measure_power.grid_phase3_2": {
+      "title": {
+        "en": "VGrid Power phase3 2"
+      }
+    },
+    "measure_power.batt_discharge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power discharge 1",
+        "de": "Batterieentladeleistung 1"
+      }
+    },
+    "measure_power.batt_charge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power charge 1",
+        "de": "Batterieladeleistung 1"
+      }
+    },
+    "measure_power.batt_discharge2": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power discharge 2",
+        "de": "Batterieentladeleistung 2"
+      }
+    },
+    "measure_power.batt_charge2": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power charge 2",
+        "de": "Batterieladeleistung 2"
+      }
+    }                            
   },
   "platforms": [
     "local"
@@ -239,6 +331,14 @@
           }
         },
         {
+          "id": "has_battery",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Has battery"
+          }
+        },
+        {
           "id": "id2",
           "type": "number",
           "value": 1,
@@ -251,6 +351,14 @@
             "en": "Inverter ID2",
             "nl": "Inverter ID2",
             "de": "Wechselrichter-ID2"
+          }
+        },
+        {
+          "id": "has_battery2",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Has battery"
           }
         }        
       ]

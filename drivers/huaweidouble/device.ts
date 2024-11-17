@@ -96,19 +96,52 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
       await this.delay(5000);
       console.log('Retrieving unit: ' + unitID);
       const checkRegisterRes = await checkHoldingRegisterHuawei(this.holdingRegisters, client);
+      let checkBatteryRes = {}
+      let checkMetersRes = {}
+      if (this.getSetting('has_battery') == true){
+        checkBatteryRes = await checkHoldingRegisterHuawei(this.holdingRegistersBattery, client);
+        checkMetersRes = await checkHoldingRegisterHuawei(this.holdingRegistersMeters, client);
+      }
       await this.delay(10000);
       console.log('Retrieving unit: ' + unitID2);
       const checkRegisterRes2 = await checkHoldingRegisterHuawei(this.holdingRegisters, client2);
-
-      // const checkBatteryRes = await checkHoldingRegisterHuawei(this.holdingRegistersBattery, client);
-      // const checkMetersRes = await checkHoldingRegisterHuawei(this.holdingRegistersMeters, client);
-
+      let checkBatteryRes2 = {}
+      let checkMetersRes2 = {}
+      if (this.getSetting('has_battery2') == true){
+        checkBatteryRes2 = await checkHoldingRegisterHuawei(this.holdingRegistersBattery, client2);
+        checkMetersRes2 = await checkHoldingRegisterHuawei(this.holdingRegistersMeters, client2);
+      }
       console.log('Disconnect s-dongle...'); 
       client.socket.end();
       socket.end();
-      const finalRes = { ...checkRegisterRes } //, ...checkBatteryRes, ...checkMetersRes }
-      this.processResult(finalRes);
-      const finalRes2 = { ...checkRegisterRes2 } //, ...checkBatteryRes2, ...checkMetersRes2 }
+
+      let finalRes = { ...checkRegisterRes }
+      if (this.getSetting('has_battery') == true){
+        finalRes = { ...checkRegisterRes, ...checkBatteryRes, ...checkMetersRes }
+      }  else {
+        this.removeCapability('battery');
+        this.removeCapability('measure_battery');     
+        this.removeCapability('measure_power.grid_active_power'); 
+        this.removeCapability('measure_power.batt_charge');
+        this.removeCapability('measure_power.batt_discharge');   
+        this.removeCapability('measure_power.grid_phase1');
+        this.removeCapability('measure_power.grid_phase2');   
+        this.removeCapability('measure_power.grid_phase3');
+      }
+      this.processResult(finalRes,true);
+
+      let  finalRes2 = { ...checkRegisterRes2 };
+      if (this.getSetting('has_battery2') == true){
+        finalRes2 = { ...checkRegisterRes2, ...checkBatteryRes2, ...checkMetersRes2 };
+      } else {
+        this.removeCapability('battery2');
+        this.removeCapability('measure_power.grid_active_power2');
+        this.removeCapability('measure_power.batt_charge2');
+        this.removeCapability('measure_power.batt_discharge2');   
+        this.removeCapability('measure_power.grid_phase1_2');
+        this.removeCapability('measure_power.grid_phase2_2');   
+        this.removeCapability('measure_power.grid_phase3_2');
+      }
       this.processResult2(finalRes2);
 
 

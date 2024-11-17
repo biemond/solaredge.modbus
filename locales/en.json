@@ -13,7 +13,9 @@
       "port": "Port",
       "polling": "Polling Frequency",
       "deviceid": "Device ID",
-      "deviceid2": "Device ID2",      
+      "deviceidbattery": "Has battery",      
+      "deviceid2": "Device ID2",
+      "deviceid2battery": "Has battery",               
       "connect": "Connect"
     },
     "Unreachable": "Unreachable",
