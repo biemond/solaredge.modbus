@@ -1,0 +1,30 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Storage forcible charge/discharge 2"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "uiQuickAction": false,
+    "values": [
+        {
+            "id": "0",
+            "title": {
+                "en": "Stop"
+            }
+        },
+        {
+            "id": "1",
+            "title": {
+                "en": "Charge"
+            }
+        },
+        {
+            "id": "2",
+            "title": {
+                "en": "Discharge"
+            }
+        }               
+    ]
+}

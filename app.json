@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.160",
+  "version": "3.0.161",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -4365,7 +4365,21 @@
         "measure_power.batt_discharge2",
         "measure_power.grid_phase1_2",
         "measure_power.grid_phase2_2",
-        "measure_power.grid_phase3_2"
+        "measure_power.grid_phase3_2",
+        "storage_excess_pv_energy_use_in_tou",
+        "storage_force_charge_discharge",
+        "activepower_controlmode",
+        "remote_charge_discharge_control_mode",
+        "storage_working_mode_settings",
+        "measure_power.chargesetting",
+        "measure_power.dischargesetting",
+        "storage_excess_pv_energy_use_in_tou2",
+        "storage_force_charge_discharge3",
+        "activepower_controlmode2",
+        "remote_charge_discharge_control_mode2",
+        "storage_working_mode_settings2",
+        "measure_power.chargesetting2",
+        "measure_power.dischargesetting2"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -4588,6 +4602,30 @@
           "title": {
             "en": "Battery Power charge 2",
             "de": "Batterieladeleistung 2"
+          }
+        },
+        "measure_power.chargesetting": {
+          "title": {
+            "en": "Charge setting 1",
+            "de": "Maximale Ladeleistung 1"
+          }
+        },
+        "measure_power.dischargesetting": {
+          "title": {
+            "en": "Discharge setting 1",
+            "de": "Maximale Entladeleistung 1"
+          }
+        },
+        "measure_power.chargesetting2": {
+          "title": {
+            "en": "Charge setting 2",
+            "de": "Maximale Ladeleistung 2"
+          }
+        },
+        "measure_power.dischargesetting2": {
+          "title": {
+            "en": "Discharge setting 2",
+            "de": "Maximale Entladeleistung 2"
           }
         }
       },
@@ -7081,6 +7119,48 @@
         }
       ]
     },
+    "activepower_controlmode2": {
+      "type": "enum",
+      "title": {
+        "en": "Active power control mode 2"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Unlimited"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "DI Active scheduling"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Zero power grid connectionn"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "Power limited grid connection W"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "Power limited grid connection %"
+          }
+        }
+      ]
+    },
     "activepowerlimit": {
       "type": "number",
       "title": {
@@ -8392,6 +8472,48 @@
         }
       ]
     },
+    "remote_charge_discharge_control_mode2": {
+      "type": "enum",
+      "title": {
+        "en": "Remote charge/discharge control mode 2"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Local control"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Maximum self consumption"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "fully fed to grid"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "TOU"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "AI control"
+          }
+        }
+      ]
+    },
     "solarcharger_use_mode": {
       "type": "enum",
       "title": {
@@ -8515,6 +8637,30 @@
         }
       ]
     },
+    "storage_excess_pv_energy_use_in_tou2": {
+      "type": "enum",
+      "title": {
+        "en": "Storage excess pv 2"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Fed to grid"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Charge"
+          }
+        }
+      ]
+    },
     "storage_force_charge_discharge": {
       "type": "enum",
       "title": {
@@ -8575,10 +8721,88 @@
         }
       ]
     },
+    "storage_force_charge_discharge3": {
+      "type": "enum",
+      "title": {
+        "en": "Storage forcible charge/discharge 2"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Stop"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Charge"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Discharge"
+          }
+        }
+      ]
+    },
     "storage_working_mode_settings": {
       "type": "enum",
       "title": {
         "en": "Storage working mode setting"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Adaptive"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Fixed charge/discharge"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Maximum self consumption"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Time of use LG"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Fully fed to grid"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Time of use LUNA2000"
+          }
+        }
+      ]
+    },
+    "storage_working_mode_settings2": {
+      "type": "enum",
+      "title": {
+        "en": "Storage working mode setting 2"
       },
       "getable": true,
       "setable": false,

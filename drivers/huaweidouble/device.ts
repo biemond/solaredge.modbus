@@ -127,6 +127,14 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
         this.removeCapability('measure_power.grid_phase1');
         this.removeCapability('measure_power.grid_phase2');   
         this.removeCapability('measure_power.grid_phase3');
+
+        this.removeCapability('storage_excess_pv_energy_use_in_tou');     
+        this.removeCapability('storage_force_charge_discharge'); 
+        this.removeCapability('activepower_controlmode');
+        this.removeCapability('remote_charge_discharge_control_mode');   
+        this.removeCapability('storage_working_mode_settings');
+        this.removeCapability('measure_power.chargesetting');   
+        this.removeCapability('measure_power.dischargesetting');
       }
       this.processResult(finalRes,true);
 
@@ -141,6 +149,15 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
         this.removeCapability('measure_power.grid_phase1_2');
         this.removeCapability('measure_power.grid_phase2_2');   
         this.removeCapability('measure_power.grid_phase3_2');
+
+        this.removeCapability('storage_excess_pv_energy_use_in_tou2');     
+        this.removeCapability('storage_force_charge_discharge3'); 
+        this.removeCapability('activepower_controlmode2');
+        this.removeCapability('remote_charge_discharge_control_mode2');   
+        this.removeCapability('storage_working_mode_settings2');
+        this.removeCapability('measure_power.chargesetting2');   
+        this.removeCapability('measure_power.dischargesetting2');
+
       }
       this.processResult2(finalRes2);
 

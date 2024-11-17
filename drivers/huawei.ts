@@ -674,19 +674,19 @@ export class Huawei extends Homey.Device {
             }   
 
             if (result['STORAGE_WORKING_MODE_SETTINGS'] && result['STORAGE_WORKING_MODE_SETTINGS'].value != 'xxx' && this.hasCapability('storage_working_mode_settings')) {
-                this.addCapability('remote_charge_discharge_control_mode');
+                this.addCapability('storage_working_mode_settings');
                 var STORAGE_WORKING_MODE_SETTINGS = result['STORAGE_WORKING_MODE_SETTINGS'].value;
                 this.setCapabilityValue('storage_working_mode_settings', STORAGE_WORKING_MODE_SETTINGS);
             }   
 
             if (result['STORAGE_MAXIMUM_CHARGE_POWER'] && result['STORAGE_MAXIMUM_CHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.chargesetting')) {
-                this.addCapability('remote_charge_discharge_control_mode');
+                this.addCapability('measure_power.chargesetting');
                 var STORAGE_MAXIMUM_CHARGE_POWER = Number(result['STORAGE_MAXIMUM_CHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_MAXIMUM_CHARGE_POWER'].scale)));
                 this.setCapabilityValue('measure_power.chargesetting', STORAGE_MAXIMUM_CHARGE_POWER);
             }   
 
             if (result['STORAGE_MAXIMUM_DISCHARGE_POWER'] && result['STORAGE_MAXIMUM_DISCHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.dischargesetting')) {
-                this.addCapability('remote_charge_discharge_control_mode');
+                this.addCapability('measure_power.dischargesetting');
                 var STORAGE_MAXIMUM_DISCHARGE_POWER = Number(result['STORAGE_MAXIMUM_DISCHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_MAXIMUM_DISCHARGE_POWER'].scale)));
                 this.setCapabilityValue('measure_power.dischargesetting', STORAGE_MAXIMUM_DISCHARGE_POWER);
             }               
@@ -955,47 +955,47 @@ export class Huawei extends Homey.Device {
             //     this.setCapabilityValue('meter_power.today_batt_input', STORAGE_CURRENT_DAY_CHARGE_CAPACITY);
             // } 
 
-            // if (result['ACTIVE_POWER_CONTROL_MODE'] && result['ACTIVE_POWER_CONTROL_MODE'].value != 'xxx' && this.hasCapability('activepower_controlmode')) {
-            //     this.addCapability('activepower_controlmode');
-            //     var ACTIVE_POWER_CONTROL_MODE = result['ACTIVE_POWER_CONTROL_MODE'].value;
-            //     this.setCapabilityValue('activepower_controlmode', ACTIVE_POWER_CONTROL_MODE);
-            // } 
+            if (result['ACTIVE_POWER_CONTROL_MODE'] && result['ACTIVE_POWER_CONTROL_MODE'].value != 'xxx' && this.hasCapability('activepower_controlmode2')) {
+                this.addCapability('activepower_controlmode2');
+                var ACTIVE_POWER_CONTROL_MODE = result['ACTIVE_POWER_CONTROL_MODE'].value;
+                this.setCapabilityValue('activepower_controlmode2', ACTIVE_POWER_CONTROL_MODE);
+            } 
 
-            // if (result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'] && result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value != 'xxx' && this.hasCapability('storage_force_charge_discharge')) {
-            //     this.addCapability('storage_force_charge_discharge');
-            //     var STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE = result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value;
-            //     this.setCapabilityValue('storage_force_charge_discharge', STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE);
-            // }             
+            if (result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'] && result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value != 'xxx' && this.hasCapability('storage_force_charge_discharge3')) {
+                this.addCapability('storage_force_charge_discharge3');
+                var STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE = result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value;
+                this.setCapabilityValue('storage_force_charge_discharge3', STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE);
+            }             
 
-            // if (result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'] && result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value != 'xxx' && this.hasCapability('storage_excess_pv_energy_use_in_tou')) {
-            //     this.addCapability('storage_excess_pv_energy_use_in_tou');
-            //     var STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU = result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value;
-            //     this.setCapabilityValue('storage_excess_pv_energy_use_in_tou', STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU);
-            // }   
+            if (result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'] && result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value != 'xxx' && this.hasCapability('storage_excess_pv_energy_use_in_tou2')) {
+                this.addCapability('storage_excess_pv_energy_use_in_tou2');
+                var STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU = result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value;
+                this.setCapabilityValue('storage_excess_pv_energy_use_in_tou2', STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU);
+            }   
 
-            // if (result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'] && result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value != 'xxx' && this.hasCapability('remote_charge_discharge_control_mode')) {
-            //     this.addCapability('remote_charge_discharge_control_mode');
-            //     var REMOTE_CHARGE_DISCHARGE_CONTROL_MODE = result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value;
-            //     this.setCapabilityValue('remote_charge_discharge_control_mode', REMOTE_CHARGE_DISCHARGE_CONTROL_MODE);
-            // }   
+            if (result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'] && result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value != 'xxx' && this.hasCapability('remote_charge_discharge_control_mode2')) {
+                this.addCapability('remote_charge_discharge_control_mode2');
+                var REMOTE_CHARGE_DISCHARGE_CONTROL_MODE = result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value;
+                this.setCapabilityValue('remote_charge_discharge_control_mode2', REMOTE_CHARGE_DISCHARGE_CONTROL_MODE);
+            }   
 
-            // if (result['STORAGE_WORKING_MODE_SETTINGS'] && result['STORAGE_WORKING_MODE_SETTINGS'].value != 'xxx' && this.hasCapability('storage_working_mode_settings')) {
-            //     this.addCapability('remote_charge_discharge_control_mode');
-            //     var STORAGE_WORKING_MODE_SETTINGS = result['STORAGE_WORKING_MODE_SETTINGS'].value;
-            //     this.setCapabilityValue('storage_working_mode_settings', STORAGE_WORKING_MODE_SETTINGS);
-            // }   
+            if (result['STORAGE_WORKING_MODE_SETTINGS'] && result['STORAGE_WORKING_MODE_SETTINGS'].value != 'xxx' && this.hasCapability('storage_working_mode_settings2')) {
+                this.addCapability('storage_working_mode_settings2');
+                var STORAGE_WORKING_MODE_SETTINGS = result['STORAGE_WORKING_MODE_SETTINGS'].value;
+                this.setCapabilityValue('storage_working_mode_settings2', STORAGE_WORKING_MODE_SETTINGS);
+            }   
 
-            // if (result['STORAGE_MAXIMUM_CHARGE_POWER'] && result['STORAGE_MAXIMUM_CHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.chargesetting')) {
-            //     this.addCapability('remote_charge_discharge_control_mode');
-            //     var STORAGE_MAXIMUM_CHARGE_POWER = Number(result['STORAGE_MAXIMUM_CHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_MAXIMUM_CHARGE_POWER'].scale)));
-            //     this.setCapabilityValue('measure_power.chargesetting', STORAGE_MAXIMUM_CHARGE_POWER);
-            // }   
+            if (result['STORAGE_MAXIMUM_CHARGE_POWER'] && result['STORAGE_MAXIMUM_CHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.chargesetting2')) {
+                this.addCapability('measure_power.chargesetting2');
+                var STORAGE_MAXIMUM_CHARGE_POWER = Number(result['STORAGE_MAXIMUM_CHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_MAXIMUM_CHARGE_POWER'].scale)));
+                this.setCapabilityValue('measure_power.chargesetting2', STORAGE_MAXIMUM_CHARGE_POWER);
+            }   
 
-            // if (result['STORAGE_MAXIMUM_DISCHARGE_POWER'] && result['STORAGE_MAXIMUM_DISCHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.dischargesetting')) {
-            //     this.addCapability('remote_charge_discharge_control_mode');
-            //     var STORAGE_MAXIMUM_DISCHARGE_POWER = Number(result['STORAGE_MAXIMUM_DISCHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_MAXIMUM_DISCHARGE_POWER'].scale)));
-            //     this.setCapabilityValue('measure_power.dischargesetting', STORAGE_MAXIMUM_DISCHARGE_POWER);
-            // }               
+            if (result['STORAGE_MAXIMUM_DISCHARGE_POWER'] && result['STORAGE_MAXIMUM_DISCHARGE_POWER'].value != 'xxx' && this.hasCapability('measure_power.dischargesetting2')) {
+                this.addCapability('measure_power.dischargesetting2');
+                var STORAGE_MAXIMUM_DISCHARGE_POWER = Number(result['STORAGE_MAXIMUM_DISCHARGE_POWER'].value) * (Math.pow(10, Number(result['STORAGE_MAXIMUM_DISCHARGE_POWER'].scale)));
+                this.setCapabilityValue('measure_power.dischargesetting2', STORAGE_MAXIMUM_DISCHARGE_POWER);
+            }               
         }
     }
 

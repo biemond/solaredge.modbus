@@ -47,7 +47,21 @@
     "measure_power.batt_discharge2",
     "measure_power.grid_phase1_2",
     "measure_power.grid_phase2_2",
-    "measure_power.grid_phase3_2"               
+    "measure_power.grid_phase3_2",
+    "storage_excess_pv_energy_use_in_tou",
+    "storage_force_charge_discharge",
+    "activepower_controlmode",
+    "remote_charge_discharge_control_mode",
+    "storage_working_mode_settings",
+    "measure_power.chargesetting",
+    "measure_power.dischargesetting",
+    "storage_excess_pv_energy_use_in_tou2",
+    "storage_force_charge_discharge3",
+    "activepower_controlmode2",
+    "remote_charge_discharge_control_mode2",
+    "storage_working_mode_settings2",
+    "measure_power.chargesetting2",
+    "measure_power.dischargesetting2"                                           
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -271,7 +285,31 @@
         "en": "Battery Power charge 2",
         "de": "Batterieladeleistung 2"
       }
-    }                            
+    },
+    "measure_power.chargesetting": {
+      "title": {
+        "en": "Charge setting 1",
+        "de": "Maximale Ladeleistung 1"
+      }
+    },
+    "measure_power.dischargesetting": {
+      "title": {
+        "en": "Discharge setting 1",
+        "de": "Maximale Entladeleistung 1"
+      }
+    },
+    "measure_power.chargesetting2": {
+      "title": {
+        "en": "Charge setting 2",
+        "de": "Maximale Ladeleistung 2" 
+      }
+    },
+    "measure_power.dischargesetting2": {
+      "title": {
+        "en": "Discharge setting 2",
+        "de": "Maximale Entladeleistung 2"
+      }
+    }                                                            
   },
   "platforms": [
     "local"
