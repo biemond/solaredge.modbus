@@ -1,0 +1,103 @@
+<script type="text/javascript">
+
+Homey.setTitle( __('pair.title_sungrow') );
+
+$(function() {
+	$('#connect').click(function() {
+    $('.solaredge-error').hide();
+
+    var inputaddress = $('#address').val();
+    var inputport = Number($('#port').val());
+    var invertorid = Number($('#invertorid').val());
+
+    var deviceId = Math.random().toString(36).substr(2,5).toLowerCase();
+    var id = Math.round(Math.random() * (100000 - 10000) + 10000);
+
+    if (inputaddress != '' && inputport != '') {
+      var device_data = {
+        id:  deviceId
+      };
+
+      var settings = {
+        address : inputaddress,
+        port    : inputport,
+        id      : invertorid
+      };
+
+      Homey.addDevice({
+        name   : 'solar_' + deviceId,
+        data 	 : device_data,
+        settings : settings
+      }, function(error, result) {
+        if (error) {
+            $('.solaredge-error').show();
+            $('.solaredge-error-msg').html(error.message || error.toString() );
+        }
+        $('.solaredge-error').hide();
+
+        Homey.done();
+      })
+
+    } else {
+        $('.solaredge-error').show();
+        $('.solaredge-error-msg').html( __('pair.nosettings') );
+    }
+
+	});
+})
+</script>
+
+<style type="text/css">
+  .form-group {
+    width: 100%;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .form-group label {
+    display: block;
+  }
+  .solaredge-status, .solaredge-info {
+		display: none;
+	}
+  .solaredge-info {
+    margin-top: 10px;
+    font-size: 12px;
+  }
+  .solaredge-info .info-label {
+    min-width: 150px;
+    font-weight: 700;
+  }
+  .buttons, .messages {
+    padding-top: 14px;
+  }
+  .button:disabled {
+    color: #ccc;
+  }
+  .button:enabled {
+    background-color: #00c139 !important;
+    color: #fff;
+  }
+</style>
+
+<p data-i18n="pair.intro">Enter the IP address and port of your Sungrow Inverter. </p>
+<div class="solaredge-pairing">
+  <div class="form-group">
+    <label for="address" data-i18n="pair.address">IP address</label>
+    <input type="text" class="form-control" id="address" placeholder="0.0.0.0" required>
+  </div>
+  <div class="form-group">
+  	<label for="port" data-i18n="pair.port">Port</label>
+  	<input type="number" class="form-control" id="port" placeholder="502" value="502" required>
+  </div>
+  <div class="form-group">
+  	<label for="invertorid" data-i18n="pair.deviceid">Port</label>
+  	<input type="number" class="form-control" id="invertorid" placeholder="1" value="1" required>
+  </div>
+  <div class="form-group buttons">
+    <button id="connect" class="button" data-i18n="pair.connect">Connect</button>
+  </div>
+</div>
+
+<div class="messages">
+  <p class="solaredge-status solaredge-error" style="color: #ff6300;"><i class="fa fa-times"></i> <span class="solaredge-error-msg"></span></p>
+</div>

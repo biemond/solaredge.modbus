@@ -8,6 +8,19 @@ export interface Measurement {
 
 export class Sungrow extends Homey.Device {
 
+
+    inputRegistersStandard: Object = {
+        "totaldcpower":                        [5016, 2, 'UINT32', "Total DC power", 0],
+        "active_power_limit":                  [5000, 1, 'UINT16', "Nominal active power", -1],    
+        "temperature":                         [5007, 1, 'INT16', "temperature",-1],
+        "pvTodayEnergy":                       [5002, 1, 'UINT16', "daily energy yield", -1],    
+        "pvMonthEnergy":                       [5127, 2, 'UINT32', "monthly energy yield", -1],
+        "pvTotalEnergy":                       [5003, 2, 'UINT32', "total energy yield", -1],    
+        "daily_export_from_pv":                [5092, 2, 'UINT32', "daily export from pv", -1],
+        "daily_direct_energy_consumption":     [5100, 2, 'UINT32', "daily direct energy consumption", -1],        
+    };
+
+
     inputRegisters: Object = {
 
 
@@ -89,7 +102,7 @@ export class Sungrow extends Homey.Device {
             }
 
             if (result['pvTodayEnergy'] && result['pvTodayEnergy'].value != 'xxx') {
-                this.addCapability('meter_power.pvTodayEnergy');
+                this.addCapability('meter_power.daily');
                 var pvTodayEnergy = Number(result['pvTodayEnergy'].value) * (Math.pow(10, Number(result['pvTodayEnergy'].scale)));
 
                 if (this.getCapabilityValue('meter_power.daily') != pvTodayEnergy) {
@@ -103,7 +116,7 @@ export class Sungrow extends Homey.Device {
             }
 
             if (result['pvTotalEnergy'] && result['pvTotalEnergy'].value != 'xxx') {
-                this.addCapability('meter_power.pvTotalEnergy');
+                this.addCapability('meter_power');
                 var pvTotalEnergy = Number(result['pvTotalEnergy'].value) * (Math.pow(10, Number(result['pvTotalEnergy'].scale)));
                 this.setCapabilityValue('meter_power', pvTotalEnergy);
             }
@@ -340,4 +353,53 @@ export class Sungrow extends Homey.Device {
 
         }
     }
+
+    processResultPlain(result: Record<string, Measurement>) {
+        if (result) {
+
+            // result
+            for (let k in result) {
+                console.log(k, result[k].value, result[k].scale, result[k].label)
+            }
+
+            if (result['totaldcpower'] && result['totaldcpower'].value != 'xxx') {
+                this.addCapability('measure_power');
+                var dcPower = Number(result['totaldcpower'].value) * (Math.pow(10, Number(result['totaldcpower'].scale)));
+                this.setCapabilityValue('measure_power', Math.round(dcPower));
+            }
+
+
+
+            if (result['active_power_limit'] && result['active_power_limit'].value != 'xxx') {
+                this.addCapability('activepowerlimit');
+                var power_limit = Number(result['active_power_limit'].value);
+                this.setCapabilityValue('activepowerlimit', power_limit);
+            }
+
+            if (result['pvTodayEnergy'] && result['pvTodayEnergy'].value != 'xxx') {
+                this.addCapability('meter_power.daily');
+                var pvTodayEnergy = Number(result['pvTodayEnergy'].value) * (Math.pow(10, Number(result['pvTodayEnergy'].scale)));
+                this.setCapabilityValue('meter_power.daily', pvTodayEnergy);
+            }
+
+            if (result['pvMonthEnergy'] && result['pvMonthEnergy'].value != 'xxx') {
+                this.addCapability('meter_power.monthly');
+                var pvMonthEnergy = Number(result['pvMonthEnergy'].value) * (Math.pow(10, Number(result['pvMonthEnergy'].scale)));
+                this.setCapabilityValue('meter_power.monthly', pvMonthEnergy);
+            }
+
+            if (result['pvTotalEnergy'] && result['pvTotalEnergy'].value != 'xxx') {
+                this.addCapability('meter_power');
+                var pvTotalEnergy = Number(result['pvTotalEnergy'].value) * (Math.pow(10, Number(result['pvTotalEnergy'].scale)));
+                this.setCapabilityValue('meter_power', pvTotalEnergy);
+            }
+
+            if (result['temperature'] && result['temperature'].value != 'xxx') {
+                this.addCapability('measure_temperature');
+                var temperature = Number(result['temperature'].value) * (Math.pow(10, Number(result['temperature'].scale)));
+                this.setCapabilityValue('measure_temperature', temperature);
+            }
+        }
+    }
+
 }

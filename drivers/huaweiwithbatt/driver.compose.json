@@ -80,14 +80,14 @@
     },
     "measure_current.pv1": {
       "title": {
-        "en": "AC Current pv1",
-        "de": "AC-Strom pv1"
+        "en": "Current pv1",
+        "de": "Strom pv1"
       }
     },
     "measure_current.pv2": {
       "title": {
-        "en": "AC Current pv2",
-        "de": "AC-Strom pv2"
+        "en": "Current pv2",
+        "de": "Strom pv2"
       }
     },    
     "measure_voltage.grid_phase1": {
