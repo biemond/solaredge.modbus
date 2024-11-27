@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.162",
+  "version": "3.0.164",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -33,7 +33,8 @@
       "sungrow",
       "huawei",
       "solax",
-      "kostal"
+      "kostal",
+      "Sigenergy"
     ],
     "nl": [
       "solaredge",
@@ -51,7 +52,8 @@
       "sungrow",
       "huawei",
       "solax",
-      "kostal"
+      "kostal",
+      "Sigenergy"
     ],
     "de": [
       "solaredge",
@@ -67,7 +69,8 @@
       "sungrow",
       "huawei",
       "solax",
-      "kostal"
+      "kostal",
+      "Sigenergy"
     ]
   },
   "bugs": {
@@ -2438,6 +2441,284 @@
                 "title": {
                   "en": "Enabled",
                   "de": "Aktiviert"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "storage_working_mode_settings",
+        "title": {
+          "en": "Storage working mode setting"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=huaweidouble"
+          },
+          {
+            "type": "number",
+            "name": "deviceid",
+            "title": {
+              "en": "device id"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Adaptive"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Fixed charge/discharge"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Time of Use",
+                  "de": "Nutzungszeit"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Maximum self consumption"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Time of use LG"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Fully fed to grid"
+                }
+              },
+              {
+                "id": "5",
+                "title": {
+                  "en": "Time of use LUNA2000"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "remote_charge_discharge_control_mode",
+        "title": {
+          "en": "Remote charge/discharge control mode"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=huaweidouble"
+          },
+          {
+            "type": "number",
+            "name": "deviceid",
+            "title": {
+              "en": "device id"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Local control"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Maximum self consumption"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "fully fed to grid"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "TOU"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "AI control"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "storage_force_charge_discharge2",
+        "title": {
+          "en": "Storage forcible charge/discharge"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=huaweidouble"
+          },
+          {
+            "type": "number",
+            "name": "deviceid",
+            "title": {
+              "en": "device id"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1
+          },
+          {
+            "type": "dropdown",
+            "name": "mode",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Stop"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Charge"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Discharge"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "activepower_controlmode",
+        "title": {
+          "en": "Active power control mode"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=huaweidouble"
+          },
+          {
+            "type": "number",
+            "name": "deviceid",
+            "title": {
+              "en": "device id"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1
+          },
+          {
+            "type": "dropdown",
+            "name": "mode",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Unlimited"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "DI Active scheduling"
+                }
+              },
+              {
+                "id": "5",
+                "title": {
+                  "en": "Zero power grid connectionn"
+                }
+              },
+              {
+                "id": "6",
+                "title": {
+                  "en": "Power limited grid connection W"
+                }
+              },
+              {
+                "id": "7",
+                "title": {
+                  "en": "Power limited grid connection %"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "storage_excess_pv_energy_use_in_tou",
+        "title": {
+          "en": "Storage excess pv"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=huaweidouble"
+          },
+          {
+            "type": "number",
+            "name": "deviceid",
+            "title": {
+              "en": "device id"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1
+          },
+          {
+            "type": "dropdown",
+            "name": "mode",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Fed to grid"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Charge"
                 }
               }
             ]
@@ -6046,6 +6327,153 @@
         }
       ],
       "id": "kostal"
+    },
+    {
+      "name": {
+        "en": "Sigenergy + Battery",
+        "de": "Sigenergy Batterie"
+      },
+      "class": "solarpanel",
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "capabilities": [
+        "measure_power",
+        "measure_power.pv",
+        "measure_power.batt_charge_discharge",
+        "measure_temperature.invertor",
+        "measure_temperature.battery",
+        "meter_power",
+        "meter_power.daily",
+        "measure_voltage.battery",
+        "battery",
+        "measure_battery",
+        "batterysoh"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "decimals": 0,
+          "title": {
+            "en": "Solar + Batt Power",
+            "de": "Solar- und Batterie-Leistung"
+          }
+        },
+        "measure_power.pv": {
+          "decimals": 0,
+          "title": {
+            "en": "PV input",
+            "de": "PV Eingang"
+          }
+        },
+        "measure_power.batt_charge_discharge": {
+          "decimals": 0,
+          "title": {
+            "en": "Battery Power charge/discharge",
+            "de": "Batterie Lade/Entladung"
+          }
+        },
+        "measure_temperature.invertor": {
+          "title": {
+            "en": "Heatsink temperature",
+            "nl": "Heatsink temperatuur",
+            "de": "Kühlkörpertemperatur"
+          },
+          "decimals": 2
+        },
+        "measure_temperature.battery": {
+          "title": {
+            "en": "Battery temperature",
+            "de": "Batterietemperatur"
+          },
+          "decimals": 2
+        },
+        "meter_power": {
+          "title": {
+            "en": "Total Yield",
+            "nl": "Totale opbrengst",
+            "de": "Gesamtertrag"
+          },
+          "decimals": 1
+        },
+        "meter_power.daily": {
+          "title": {
+            "en": "Total Day Yield",
+            "nl": "Totale dag opbrengst",
+            "de": "Tagesgesamtertrag"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "measure_voltage.battery": {
+          "title": {
+            "en": "Battery Voltage",
+            "de": "Batteriespannung"
+          }
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "small": "/drivers/sigenergywithbatt/assets/images/small.png",
+        "large": "/drivers/sigenergywithbatt/assets/images/large.png"
+      },
+      "pair": [
+        {
+          "id": "start"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Inverter settings",
+            "de": "Wechselrichtereinstellungen"
+          },
+          "children": [
+            {
+              "id": "address",
+              "type": "text",
+              "value": "0.0.0.0",
+              "label": {
+                "en": "IP Address",
+                "de": "IP-Adresse"
+              }
+            },
+            {
+              "id": "port",
+              "type": "number",
+              "value": 502,
+              "step": 1,
+              "label": {
+                "en": "Port",
+                "de": "Port"
+              }
+            },
+            {
+              "id": "id",
+              "type": "number",
+              "value": 1,
+              "step": 1,
+              "attr": {
+                "min": 0,
+                "max": 50
+              },
+              "label": {
+                "en": "Inverter ID",
+                "nl": "Inverter ID",
+                "de": "Wechselrichter-ID"
+              }
+            }
+          ]
+        }
+      ],
+      "id": "sigenergywithbatt"
     },
     {
       "name": {

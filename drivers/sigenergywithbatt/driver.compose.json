@@ -1,0 +1,146 @@
+{
+  "name": {
+    "en": "Sigenergy + Battery",
+    "de": "Sigenergy Batterie"
+  },
+  "class": "solarpanel",
+  "energy": {
+    "batteries": [
+      "OTHER"
+    ]
+  },
+  "capabilities": [
+    "measure_power",
+    "measure_power.pv",
+    "measure_power.batt_charge_discharge",      
+    "measure_temperature.invertor",
+    "measure_temperature.battery",
+    "meter_power",
+    "meter_power.daily",
+    "measure_voltage.battery",
+    "battery",
+    "measure_battery",
+    "batterysoh"        
+  ],
+  "capabilitiesOptions": {
+    "measure_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar + Batt Power",
+        "de": "Solar- und Batterie-Leistung"
+      }
+    },
+    "measure_power.pv": {
+      "decimals": 0,
+      "title": {
+        "en": "PV input",
+        "de": "PV Eingang"
+      }
+    },
+    "measure_power.batt_charge_discharge": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power charge/discharge",
+        "de": "Batterie Lade/Entladung"
+      }
+    },    
+    "measure_temperature.invertor": {
+      "title": {
+        "en": "Heatsink temperature",
+        "nl": "Heatsink temperatuur",
+        "de": "Kühlkörpertemperatur"
+      },
+      "decimals": 2
+    },
+    "measure_temperature.battery": {
+      "title": {
+        "en": "Battery temperature",
+        "de": "Batterietemperatur"
+      },
+      "decimals": 2
+    },    
+    "meter_power": {
+      "title": {
+        "en": "Total Yield",
+        "nl": "Totale opbrengst",
+        "de": "Gesamtertrag"
+      },
+      "decimals": 1
+    },
+    "meter_power.daily": {
+      "title": {
+        "en": "Total Day Yield",
+        "nl": "Totale dag opbrengst",
+        "de": "Tagesgesamtertrag"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "measure_voltage.battery": {
+      "title": {
+        "en": "Battery Voltage",
+        "de": "Batteriespannung"
+      }
+    }    
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
+  "pair": [
+    {
+      "id": "start"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Inverter settings",
+        "de": "Wechselrichtereinstellungen"
+      },
+      "children": [
+        {
+          "id": "address",
+          "type": "text",
+          "value": "0.0.0.0",
+          "label": {
+            "en": "IP Address",
+            "de": "IP-Adresse"
+          }
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "value": 502,
+          "step": 1,
+          "label": {
+            "en": "Port",
+            "de": "Port"
+          }
+        },
+        {
+          "id": "id",
+          "type": "number",
+          "value": 1,
+          "step": 1,
+          "attr": {
+            "min": 0,
+            "max": 50
+          },
+          "label": {
+            "en": "Inverter ID",
+            "nl": "Inverter ID",
+            "de": "Wechselrichter-ID"
+          }
+        }
+      ]
+    }
+  ]
+}

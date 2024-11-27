@@ -1,6 +1,6 @@
 {
   "id": "solaredge.modbus",
-  "version": "3.0.162",
+  "version": "3.0.164",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -32,7 +32,8 @@
       "sungrow",
       "huawei",
       "solax",
-      "kostal"
+      "kostal",
+      "Sigenergy"
     ],
     "nl": [
       "solaredge",
@@ -50,7 +51,8 @@
       "sungrow",
       "huawei",
       "solax",
-      "kostal"      
+      "kostal",
+      "Sigenergy"      
     ],
     "de": [
       "solaredge",
@@ -66,7 +68,8 @@
       "sungrow",
       "huawei",
       "solax",
-      "kostal"         
+      "kostal",
+      "Sigenergy"         
     ]
   },
   "bugs": {
