@@ -3,7 +3,7 @@ import net from 'net';
 import {checkRegisterSigenergy,checkHoldingRegisterSigenergy} from '../response';
 import { Sigenergy } from '../sigenergy';
 
-const RETRY_INTERVAL = 25 * 1000; 
+const RETRY_INTERVAL = 15 * 1000; 
 
 class MySigenergyDevice extends Sigenergy {
   timer!: NodeJS.Timer;  
@@ -72,7 +72,7 @@ class MySigenergyDevice extends Sigenergy {
     let modbusOptions = {
       'host': this.getSetting('address'),
       'port': this.getSetting('port'),
-      'timeout': 20,
+      'timeout': 14,
       'autoReconnect': false,
       'logLabel' : 'sigenenergy Inverter',
       'logLevel': 'error',

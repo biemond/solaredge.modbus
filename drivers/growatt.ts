@@ -270,7 +270,7 @@ export class Growatt extends Homey.Device {
                 var currenteac2 = Number(result['l2_current'].value) * (Math.pow(10, Number(result['l2_current'].scale)));
                 this.setCapabilityValue('measure_current.phase2', currenteac2);
             }
-            if (result['l3_current'] && result['l2_current'].value != '-1' && result['l3_current'].value != 'xxx') {
+            if (result['l3_current'] && result['l3_current'].value != '-1' && result['l3_current'].value != 'xxx') {
                 this.addCapability('measure_current.phase3');
                 var currenteac3 = Number(result['l3_current'].value) * (Math.pow(10, Number(result['l3_current'].scale)));
                 this.setCapabilityValue('measure_current.phase3', currenteac3);

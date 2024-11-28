@@ -15,12 +15,21 @@
     "measure_power.batt_charge_discharge",      
     "measure_temperature.invertor",
     "measure_temperature.battery",
-    "meter_power",
-    "meter_power.daily",
+    "meter_power.daily_export",
+    "meter_power.daily_import",
+    "meter_power.daily_charge",
+    "meter_power.daily_discharge",           
     "measure_voltage.battery",
     "battery",
     "measure_battery",
-    "batterysoh"        
+    "batterysoh",
+    "measure_current.phase1",
+    "measure_current.phase2",
+    "measure_current.phase3",
+    "measure_voltage.phase1",
+    "measure_voltage.phase2",
+    "measure_voltage.phase3",
+    "sigendev_running_state_code"            
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -58,30 +67,77 @@
         "de": "Batterietemperatur"
       },
       "decimals": 2
-    },    
-    "meter_power": {
-      "title": {
-        "en": "Total Yield",
-        "nl": "Totale opbrengst",
-        "de": "Gesamtertrag"
-      },
-      "decimals": 1
     },
-    "meter_power.daily": {
+    "meter_power.daily_export": {
       "title": {
-        "en": "Total Day Yield",
-        "nl": "Totale dag opbrengst",
-        "de": "Tagesgesamtertrag"
+        "en": "Total Day Export"
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
     },
+    "meter_power.daily_import": {
+      "title": {
+        "en": "Total Day Import"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.daily_charge": {
+      "title": {
+        "en": "Total Day Charge"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.daily_discharge": {
+      "title": {
+        "en": "Total Day Discharge"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },    
     "measure_voltage.battery": {
       "title": {
         "en": "Battery Voltage",
         "de": "Batteriespannung"
       }
-    }    
+    },
+    "measure_current.phase1": {
+      "title": {
+        "en": "AC Current phase1",
+        "de": "AC-Strom Phase 1"
+      }
+    },
+    "measure_current.phase2": {
+      "title": {
+        "en": "AC Current phase2",
+        "de": "AC-Strom Phase 2"
+      }
+    },
+    "measure_current.phase3": {
+      "title": {
+        "en": "AC Current phase3",
+        "de": "AC-Strom Phase 3"
+      }
+    },
+    "measure_voltage.phase1": {
+      "title": {
+        "en": "Voltage phase1",
+        "de": "Spannung Phase 1"
+      }
+    },
+    "measure_voltage.phase2": {
+      "title": {
+        "en": "Voltage phase2",
+        "de": "Spannung Phase 2"
+      }
+    },
+    "measure_voltage.phase3": {
+      "title": {
+        "en": "Voltage phase3",
+        "de": "Spannung Phase 3"
+      }
+    }        
   },
   "platforms": [
     "local"
