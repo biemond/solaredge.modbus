@@ -12,7 +12,9 @@
   "capabilities": [
     "measure_power",
     "measure_power.pv",
-    "measure_power.batt_charge_discharge",      
+    "measure_power.grid",    
+    "measure_power.batt_charge_discharge",    
+    "measure_power.consumed",         
     "measure_temperature.invertor",
     "measure_temperature.battery",
     "meter_power.daily_export",
@@ -29,7 +31,9 @@
     "measure_voltage.phase1",
     "measure_voltage.phase2",
     "measure_voltage.phase3",
-    "sigendev_running_state_code"            
+    "sigendev_running_state_code",
+    "sigen_remote_ems_code",
+    "sigen_remote_ems_control_mode_code"            
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -46,6 +50,18 @@
         "de": "PV Eingang"
       }
     },
+    "measure_power.grid": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid Power"
+      }
+    },
+    "measure_power.consumed": {
+      "decimals": 0,
+      "title": {
+        "en": "Consumed Power"
+      }
+    },           
     "measure_power.batt_charge_discharge": {
       "decimals": 0,
       "title": {

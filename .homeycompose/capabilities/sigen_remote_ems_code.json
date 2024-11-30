@@ -1,0 +1,26 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Remote EMS"
+    },
+    "getable": true,
+    "setable": true,
+    "uiComponent": "picker",
+    "uiQuickAction": false,
+    "values": [
+        {
+            "id": "0",
+            "title": {
+                "en": "Disabled",
+                "de": "Deaktiviert"
+            }
+        },
+        {
+            "id": "1",
+            "title": {
+                "en": "Enabled",
+                "de": "Aktiviert"
+            }
+        }        
+    ]
+}

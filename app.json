@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.165",
+  "version": "3.0.166",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -6342,7 +6342,9 @@
       "capabilities": [
         "measure_power",
         "measure_power.pv",
+        "measure_power.grid",
         "measure_power.batt_charge_discharge",
+        "measure_power.consumed",
         "measure_temperature.invertor",
         "measure_temperature.battery",
         "meter_power.daily_export",
@@ -6359,7 +6361,9 @@
         "measure_voltage.phase1",
         "measure_voltage.phase2",
         "measure_voltage.phase3",
-        "sigendev_running_state_code"
+        "sigendev_running_state_code",
+        "sigen_remote_ems_code",
+        "sigen_remote_ems_control_mode_code"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -6374,6 +6378,18 @@
           "title": {
             "en": "PV input",
             "de": "PV Eingang"
+          }
+        },
+        "measure_power.grid": {
+          "decimals": 0,
+          "title": {
+            "en": "Grid Power"
+          }
+        },
+        "measure_power.consumed": {
+          "decimals": 0,
+          "title": {
+            "en": "Consumed Power"
           }
         },
         "measure_power.batt_charge_discharge": {
@@ -9116,6 +9132,86 @@
           "id": "4",
           "title": {
             "en": "AI control"
+          }
+        }
+      ]
+    },
+    "sigen_remote_ems_code": {
+      "type": "enum",
+      "title": {
+        "en": "Remote EMS"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Disabled",
+            "de": "Deaktiviert"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Enabled",
+            "de": "Aktiviert"
+          }
+        }
+      ]
+    },
+    "sigen_remote_ems_control_mode_code": {
+      "type": "enum",
+      "title": {
+        "en": "Remote EMS control mode"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "PCS remote control"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Standby"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Maximum self consumption"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Command charging, grid first"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Command charging, PV first"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Command discharging, PV first"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "Command discharging, Battery first"
           }
         }
       ]
