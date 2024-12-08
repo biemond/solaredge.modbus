@@ -1,0 +1,91 @@
+{
+  "triggers": [
+  ],
+  "conditions": [],
+  "actions": [
+    {
+      "id": "sigen_remote_ems_control_mode_code",
+      "title": {
+        "en": "Remote EMS control mode"
+      },
+      "args": [
+        {
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en":  "PCS remote control"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Standby"
+              }
+            },
+            {
+                "id": "2",
+                "title": {
+                    "en": "Maximum self consumption"
+                }
+            },
+            {
+                "id": "3",
+                "title": {
+                    "en": "Command charging, grid first"
+                }
+            },
+            {
+                "id": "4",
+                "title": {
+                    "en": "Command charging, PV first"
+                }
+            },
+            {
+                "id": "5",
+                "title": {
+                    "en": "Command discharging, PV first"
+                }
+            },
+            {
+                "id": "6",
+                "title": {
+                    "en": "Command discharging, Battery first"
+                }
+            }        
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sigen_remote_ems_code",
+      "title": {
+        "en": "Remote EMS"
+      },
+      "args": [
+        {
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+                "id": "0",
+                "title": {
+                    "en": "Disabled",
+                    "de": "Deaktiviert"
+                }
+            },
+            {
+                "id": "1",
+                "title": {
+                    "en": "Enabled",
+                    "de": "Aktiviert"
+                }
+            } 
+          ]
+        }
+      ]
+    }
+  ]
+}

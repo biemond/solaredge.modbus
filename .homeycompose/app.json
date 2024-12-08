@@ -1,6 +1,6 @@
 {
   "id": "solaredge.modbus",
-  "version": "3.0.166",
+  "version": "3.0.168",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -28,12 +28,12 @@
       "sunways",
       "solinteg",
       "A-Tronix",
-      "St-ems",
+      "st-ems",
       "sungrow",
       "huawei",
       "solax",
       "kostal",
-      "Sigenergy"
+      "sigenergy"
     ],
     "nl": [
       "solaredge",
@@ -47,12 +47,12 @@
       "sunways",
       "solinteg",
       "A-Tronix",
-      "St-ems",
+      "st-ems",
       "sungrow",
       "huawei",
       "solax",
       "kostal",
-      "Sigenergy"      
+      "sigenergy"      
     ],
     "de": [
       "solaredge",
@@ -64,12 +64,12 @@
       "sunways",
       "solinteg",
       "A-Tronix",
-      "St-ems",
+      "st-ems",
       "sungrow",
       "huawei",
       "solax",
       "kostal",
-      "Sigenergy"         
+      "sigenergy"         
     ]
   },
   "bugs": {

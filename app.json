@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.166",
+  "version": "3.0.168",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -29,12 +29,12 @@
       "sunways",
       "solinteg",
       "A-Tronix",
-      "St-ems",
+      "st-ems",
       "sungrow",
       "huawei",
       "solax",
       "kostal",
-      "Sigenergy"
+      "sigenergy"
     ],
     "nl": [
       "solaredge",
@@ -48,12 +48,12 @@
       "sunways",
       "solinteg",
       "A-Tronix",
-      "St-ems",
+      "st-ems",
       "sungrow",
       "huawei",
       "solax",
       "kostal",
-      "Sigenergy"
+      "sigenergy"
     ],
     "de": [
       "solaredge",
@@ -65,12 +65,12 @@
       "sunways",
       "solinteg",
       "A-Tronix",
-      "St-ems",
+      "st-ems",
       "sungrow",
       "huawei",
       "solax",
       "kostal",
-      "Sigenergy"
+      "sigenergy"
     ]
   },
   "bugs": {
@@ -3162,6 +3162,100 @@
         ]
       },
       {
+        "id": "sigen_remote_ems_control_mode_code",
+        "title": {
+          "en": "Remote EMS control mode"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sigenergywithbatt"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "PCS remote control"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Standby"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Maximum self consumption"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Command charging, grid first"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Command charging, PV first"
+                }
+              },
+              {
+                "id": "5",
+                "title": {
+                  "en": "Command discharging, PV first"
+                }
+              },
+              {
+                "id": "6",
+                "title": {
+                  "en": "Command discharging, Battery first"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sigen_remote_ems_code",
+        "title": {
+          "en": "Remote EMS"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sigenergywithbatt"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Enabled",
+                  "de": "Aktiviert"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
         "id": "FeedinOnPower",
         "title": {
           "en": "Set Feedin Power to"
@@ -3417,7 +3511,7 @@
             ]
           },
           {
-            "name": "power",
+            "name": "power in W",
             "type": "number"
           }
         ]
@@ -7705,8 +7799,8 @@
         "en": "Active power control mode"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "picker",
       "uiQuickAction": false,
       "values": [
         {
@@ -9058,8 +9152,8 @@
         "en": "Remote charge/discharge control mode"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "picker",
       "uiQuickAction": false,
       "values": [
         {
@@ -9357,8 +9451,8 @@
         "en": "Storage excess pv"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "picker",
       "uiQuickAction": false,
       "values": [
         {
@@ -9405,8 +9499,8 @@
         "en": "Storage forcible charge/discharge"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "picker",
       "uiQuickAction": false,
       "values": [
         {
@@ -9495,8 +9589,8 @@
         "en": "Storage working mode setting"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
+      "setable": true,
+      "uiComponent": "picker",
       "uiQuickAction": false,
       "values": [
         {

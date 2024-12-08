@@ -16,10 +16,11 @@ Following devices are supported
 - Storedge devices (DC connected battery storage)
 - Growatt - SPA, SPH or TL-X XXX Hybrid Inverter and others in the same range
 - Wattsonic gen3 inverter and their clones (sunways, solinteg, A-Tronix, St-ems)
-- Sungrow Hybrid with battery
-- Huawei Hybrid with battery
+- Sungrow Hybrid and with battery
+- Huawei Hybrid and with battery, also double Huawei with s-dongle
 - Solax with battery
 - Kostal with battery
+- Sigenergy with battery
 
 ## Inverters
 Modbus TCP is disabled by default on all inverters, you have to enable this function
