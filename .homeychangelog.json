@@ -112,5 +112,8 @@
   },
   "3.0.168": {
     "en": "Huawei inverter with Emma, Double Huawei inverter with S-Dongle, Sungrow string inverter, Sigenergy"
-  }                                                                
+  },
+  "3.0.169": {
+    "en": "fix sungrow charge command"
+  }                                                                   
 }

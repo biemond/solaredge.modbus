@@ -169,7 +169,7 @@
           ]
         },
         {
-          "name": "power in W",
+          "name": "power",
           "type": "number"
         }
       ]
