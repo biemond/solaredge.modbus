@@ -5,6 +5,8 @@
   },
   "class": "solarpanel",
   "energy": {
+    "cumulativeImportedCapability": "meter_power.import",
+    "cumulativeExportedCapability": "meter_power.export",
     "batteries": [
       "OTHER"
     ]

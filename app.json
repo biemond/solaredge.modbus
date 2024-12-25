@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.169",
+  "version": "3.0.171",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -2704,6 +2704,234 @@
             "min": 0,
             "max": 100,
             "step": 1
+          },
+          {
+            "type": "dropdown",
+            "name": "mode",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Fed to grid"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Charge"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "storage_working_mode_settings_main",
+        "title": {
+          "en": "Storage working mode setting"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=huaweiwithbatt"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Adaptive"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Fixed charge/discharge"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Time of Use",
+                  "de": "Nutzungszeit"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Maximum self consumption"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Time of use LG"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Fully fed to grid"
+                }
+              },
+              {
+                "id": "5",
+                "title": {
+                  "en": "Time of use LUNA2000"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "remote_charge_discharge_control_mode_main",
+        "title": {
+          "en": "Remote charge/discharge control mode"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=huaweiwithbatt"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Local control"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Maximum self consumption"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "fully fed to grid"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "TOU"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "AI control"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "storage_force_charge_discharge_main",
+        "title": {
+          "en": "Storage forcible charge/discharge"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=huaweiwithbatt"
+          },
+          {
+            "type": "dropdown",
+            "name": "mode",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Stop"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Charge"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Discharge"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "activepower_controlmode_main",
+        "title": {
+          "en": "Active power control mode"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=huaweiwithbatt"
+          },
+          {
+            "type": "dropdown",
+            "name": "mode",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Unlimited"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "DI Active scheduling"
+                }
+              },
+              {
+                "id": "5",
+                "title": {
+                  "en": "Zero power grid connectionn"
+                }
+              },
+              {
+                "id": "6",
+                "title": {
+                  "en": "Power limited grid connection W"
+                }
+              },
+              {
+                "id": "7",
+                "title": {
+                  "en": "Power limited grid connection %"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "storage_excess_pv_energy_use_in_tou_main",
+        "title": {
+          "en": "Storage excess pv"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=huaweiwithbatt"
           },
           {
             "type": "dropdown",
@@ -5819,6 +6047,8 @@
       },
       "class": "solarpanel",
       "energy": {
+        "cumulativeImportedCapability": "meter_power.import",
+        "cumulativeExportedCapability": "meter_power.export",
         "batteries": [
           "OTHER"
         ]
@@ -7799,8 +8029,8 @@
         "en": "Active power control mode"
       },
       "getable": true,
-      "setable": true,
-      "uiComponent": "picker",
+      "setable": false,
+      "uiComponent": "sensor",
       "uiQuickAction": false,
       "values": [
         {
@@ -8265,8 +8495,7 @@
         {
           "id": "10",
           "title": {
-            "en": "Unknown",
-            "de": "Unbekannt"
+            "en": "Sleep"
           }
         }
       ]
@@ -8342,8 +8571,7 @@
         {
           "id": "10",
           "title": {
-            "en": "Unknown",
-            "de": "Unbekannt"
+            "en": "Sleep"
           }
         }
       ]
@@ -9152,8 +9380,8 @@
         "en": "Remote charge/discharge control mode"
       },
       "getable": true,
-      "setable": true,
-      "uiComponent": "picker",
+      "setable": false,
+      "uiComponent": "sensor",
       "uiQuickAction": false,
       "values": [
         {
@@ -9451,8 +9679,8 @@
         "en": "Storage excess pv"
       },
       "getable": true,
-      "setable": true,
-      "uiComponent": "picker",
+      "setable": false,
+      "uiComponent": "sensor",
       "uiQuickAction": false,
       "values": [
         {
@@ -9499,8 +9727,8 @@
         "en": "Storage forcible charge/discharge"
       },
       "getable": true,
-      "setable": true,
-      "uiComponent": "picker",
+      "setable": false,
+      "uiComponent": "sensor",
       "uiQuickAction": false,
       "values": [
         {
@@ -9589,8 +9817,8 @@
         "en": "Storage working mode setting"
       },
       "getable": true,
-      "setable": true,
-      "uiComponent": "picker",
+      "setable": false,
+      "uiComponent": "sensor",
       "uiQuickAction": false,
       "values": [
         {

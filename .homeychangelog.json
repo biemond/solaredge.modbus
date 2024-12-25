@@ -114,6 +114,9 @@
     "en": "Huawei inverter with Emma, Double Huawei inverter with S-Dongle, Sungrow string inverter, Sigenergy"
   },
   "3.0.169": {
-    "en": "fix sungrow charge command"
-  }                                                                   
+    "en": "adding cumulativeImportedCapability, cumulativeExportedCapability"
+  },
+  "3.0.171": {
+    "en": "adding huawei battery flow actions"
+  }  
 }

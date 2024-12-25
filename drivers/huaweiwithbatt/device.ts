@@ -2,6 +2,7 @@ import * as Modbus from 'jsmodbus';
 import net from 'net';
 import {checkHoldingRegisterHuawei} from '../response';
 import { Huawei } from '../huawei';
+import Homey, { Device } from 'homey';
 
 const RETRY_INTERVAL = 120 * 1000; 
 
@@ -27,25 +28,51 @@ class MyHuaweiDeviceBattery extends Huawei {
 
     // homey menu / device actions
     this.registerCapabilityListener('storage_excess_pv_energy_use_in_tou', async (value) => {
-      this.updateControl('storage_excess_pv_energy_use_in_tou', Number(value));
+      this.updateControl('storage_excess_pv_energy_use_in_tou', Number(value), this);
       return value;
     });
     this.registerCapabilityListener('storage_force_charge_discharge', async (value) => {
-      this.updateControl('storage_force_charge_discharge', Number(value));
+      this.updateControl('storage_force_charge_discharge', Number(value), this);
       return value;
     });
     this.registerCapabilityListener('activepower_controlmode', async (value) => {
-      this.updateControl('activepower_controlmode', Number(value));
+      this.updateControl('activepower_controlmode', Number(value), this);
       return value;
     });
     this.registerCapabilityListener('remote_charge_discharge_control_mode', async (value) => {
-      this.updateControl('remote_charge_discharge_control_mode', Number(value));
+      this.updateControl('remote_charge_discharge_control_mode', Number(value), this);
       return value;
     });
     
     this.registerCapabilityListener('storage_working_mode_settings', async (value) => {
-      this.updateControl('storage_working_mode_settings', Number(value));
+      this.updateControl('storage_working_mode_settings', Number(value), this);
       return value;
+    });    
+
+
+    let controlActionStorageWorkingModeSettings = this.homey.flow.getActionCard('storage_working_mode_settings_main');
+    controlActionStorageWorkingModeSettings.registerRunListener(async (args, state) => {
+      await this.updateControl('storage_working_mode_settings', Number(args.mode), args.device);
+    });
+
+    let controlActionRemoteChargeDischargeControlMode = this.homey.flow.getActionCard('remote_charge_discharge_control_mode_main');
+    controlActionRemoteChargeDischargeControlMode.registerRunListener(async (args, state) => {
+      await this.updateControl('remote_charge_discharge_control_mode',  Number(args.mode), args.device);
+    });
+
+    let controlActionStorageForceChargeDischarge = this.homey.flow.getActionCard('storage_force_charge_discharge_main');
+    controlActionStorageForceChargeDischarge.registerRunListener(async (args, state) => {
+      await this.updateControl('storage_force_charge_discharge',  Number(args.mode), args.device);
+    });
+
+    let controlActionActivepowerControlmode = this.homey.flow.getActionCard('activepower_controlmode_main');
+    controlActionActivepowerControlmode.registerRunListener(async (args, state) => {
+      await this.updateControl('activepower_controlmode', Number(args.mode), args.device);
+    });
+    
+    let controlActionStorageExcessPvEnergyUseInTou = this.homey.flow.getActionCard('storage_excess_pv_energy_use_in_tou_main');
+    controlActionStorageExcessPvEnergyUseInTou.registerRunListener(async (args, state) => {
+      await this.updateControl('storage_excess_pv_energy_use_in_tou', Number(args.mode), args.device);
     });    
 
 
@@ -87,9 +114,10 @@ class MyHuaweiDeviceBattery extends Huawei {
     this.homey.clearInterval(this.timer);
   }
   
-  async updateControl(type: string, value: number) {
+  async updateControl(type: string, value: number, device:  Homey.Device) {
     let socket = new net.Socket();
-    var unitID = this.getSetting('id');
+    var unitID = device.getSetting('id');
+
     let client = new Modbus.client.TCP(socket, unitID, 5500);
 
     let modbusOptions = {
@@ -134,6 +162,7 @@ class MyHuaweiDeviceBattery extends Huawei {
         const storageworkingmodesettingsRes = await client.writeSingleRegister(47086, value);
         console.log('storage_working_mode_settings', storageworkingmodesettingsRes);
       } 
+
 
       console.log('disconnect');
       client.socket.end();

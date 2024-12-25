@@ -4,8 +4,8 @@
         "en": "Storage working mode setting"
     },
     "getable": true,
-    "setable": true,
-    "uiComponent": "picker",
+    "setable": false,
+    "uiComponent": "sensor",
     "uiQuickAction": false,
     "values": [
         {
