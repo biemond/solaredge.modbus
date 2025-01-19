@@ -25,7 +25,9 @@ export class Sungrow extends Homey.Device {
 
 
         "totaldcpower":   [5016,  2, 'UINT32', "Total DC power", 0],
-        "battery_power":  [13021, 1, 'UINT16', "battery_power",0],
+        // # old firmware ( before october 2024): always positive battery power
+        // # new firmware: positive if charging and negative if discharging
+        "battery_power":  [13021, 1, 'INT16', "battery_power",0],
 
 
         "loadpower":               [13007, 2, 'INT32', "Load power", 0],
