@@ -22,6 +22,13 @@ export class Sigenergy extends Homey.Device {
         //   precision: 3
         //   unit_of_measurement: kW
         //   scale: 0.001
+
+        "sigen_grid_status_mode": [30009, 1, 'UINT16', "Sigen gird status mode", 0],
+        // 0: on grid
+        // 1: off grid (auto)
+        // 2: off grid (manual)
+
+
         "sigen_grid_phase_a_active_power": [30052, 2, 'INT32', "Sigen Grid Phase A active power", 0],
         // # >0 buy from grid;
         // # <0 sell to grid
@@ -419,6 +426,13 @@ export class Sigenergy extends Homey.Device {
                 let emscode = result['sigen_remote_ems_control_mode_code'].value;
                 this.setCapabilityValue('sigen_remote_ems_control_mode_code', emscode);
             }  
+
+            if (result['sigen_grid_status_mode'] && result['sigen_grid_status_mode'].value != '-1' && result['sigen_grid_status_mode'].value != 'xxx') {
+                this.addCapability('grid_status');
+                let gridmode = result['sigen_grid_status_mode'].value;
+                this.setCapabilityValue('grid_status', gridmode);
+            }  
+            
         }
     }
 

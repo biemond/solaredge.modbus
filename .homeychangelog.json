@@ -116,7 +116,7 @@
   "3.0.169": {
     "en": "adding cumulativeImportedCapability, cumulativeExportedCapability"
   },
-  "3.0.172": {
+  "3.0.173": {
     "en": "adding huawei battery flow actions, sungrow battery power +/- after firmware upgrade"
   }  
 }

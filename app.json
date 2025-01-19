@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.172",
+  "version": "3.0.173",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -6687,7 +6687,8 @@
         "measure_voltage.phase3",
         "sigendev_running_state_code",
         "sigen_remote_ems_code",
-        "sigen_remote_ems_control_mode_code"
+        "sigen_remote_ems_control_mode_code",
+        "grid_status"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -8769,6 +8770,36 @@
       "decimals": 1,
       "min": 0,
       "max": 100
+    },
+    "grid_status": {
+      "type": "enum",
+      "title": {
+        "en": "On/Off Grid status"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "On grid"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "off grid (auto)"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "off grid (manual)"
+          }
+        }
+      ]
     },
     "gridfirst1": {
       "type": "string",

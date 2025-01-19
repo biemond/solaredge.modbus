@@ -25,6 +25,10 @@ class MySigenergyDevice extends Sigenergy {
       this.pollInvertor();
     }, RETRY_INTERVAL);
 
+    if (this.hasCapability('grid_status') === false) {
+      await this.addCapability('grid_status');
+    }
+
     this.registerCapabilityListener('sigen_remote_ems_code', async (value) => {
       this.updateControl('sigen_remote_ems_code', Number(value), this);
       return value;

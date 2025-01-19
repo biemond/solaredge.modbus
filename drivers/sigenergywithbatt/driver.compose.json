@@ -33,7 +33,8 @@
     "measure_voltage.phase3",
     "sigendev_running_state_code",
     "sigen_remote_ems_code",
-    "sigen_remote_ems_control_mode_code"            
+    "sigen_remote_ems_control_mode_code",
+    "grid_status"            
   ],
   "capabilitiesOptions": {
     "measure_power": {
