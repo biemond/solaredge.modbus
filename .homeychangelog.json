@@ -118,5 +118,8 @@
   },
   "3.0.173": {
     "en": "adding huawei battery flow actions, sungrow battery power +/- after firmware upgrade"
-  }  
+  },
+  "3.0.174": {
+    "en": "meter_power and measure power flow triggers"
+  }      
 }
