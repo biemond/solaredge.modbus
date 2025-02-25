@@ -3,10 +3,10 @@ import net from 'net';
 import {checkRegisterGrowatt, checkHoldingRegisterGrowatt} from '../response';
 import { Growatt } from '../growatt';
 
-const RETRY_INTERVAL = 28 * 1000; 
+const RETRY_INTERVAL = 28 * 1000;
 
 class MyGrowattBattery extends Growatt {
-  timer!: NodeJS.Timer;  
+  timer!: NodeJS.Timer;
   /**
    * onInit is called when the device is initialized.
    */
@@ -24,7 +24,7 @@ class MyGrowattBattery extends Growatt {
       this.pollInvertor();
     }, RETRY_INTERVAL);
 
-    // flow action 
+    // flow action
     let exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
       await this.updateControl('exportlimitenabled', Number(args.mode));
@@ -44,7 +44,7 @@ class MyGrowattBattery extends Growatt {
     battminsocAction.registerRunListener(async (args, state) => {
       await this.updateControl('battminsoc', args.percentage);
     });
-    
+
     let prioritychangeAction = this.homey.flow.getActionCard('prioritymode');
     prioritychangeAction.registerRunListener(async (args, state) => {
       await this.updateControl('prioritymode', Number(args.mode));
@@ -66,7 +66,7 @@ class MyGrowattBattery extends Growatt {
     // let loadfirsttime1Action = this.homey.flow.getActionCard('loadfirsttime1');
     // loadfirsttime1Action.registerRunListener(async (args, state) => {
     //   await this.updateControlProfile('loadfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
-    // });    
+    // });
 
 
     // homey menu / device actions
@@ -80,7 +80,7 @@ class MyGrowattBattery extends Growatt {
     });
 
 
-   
+
     if (this.hasCapability('priority') === false) {
       await this.addCapability('priority');
     }
@@ -89,7 +89,7 @@ class MyGrowattBattery extends Growatt {
     }
     if (this.hasCapability('meter_power.today_grid_import') === false) {
       await this.addCapability('meter_power.today_grid_import');
-    }    
+    }
     if (this.hasCapability('meter_power.today_grid_export') === false) {
       await this.addCapability('meter_power.today_grid_export');
     }
@@ -101,7 +101,7 @@ class MyGrowattBattery extends Growatt {
     }
     if (this.hasCapability('meter_power.today_load') === false) {
       await this.addCapability('meter_power.today_load');
-    }    
+    }
     if (this.hasCapability('batteryminsoc') === false) {
       await this.addCapability('batteryminsoc');
     }
@@ -110,7 +110,7 @@ class MyGrowattBattery extends Growatt {
     }
     if (this.hasCapability('gridfirst1') === false) {
       await this.addCapability('gridfirst1');
-    }    
+    }
     if (this.hasCapability('battfirst1') === false) {
       await this.addCapability('battfirst1');
     }
@@ -161,11 +161,11 @@ class MyGrowattBattery extends Growatt {
     this.log('MyGrowattBattery has been deleted');
     this.homey.clearInterval(this.timer);
   }
-  
+
   async updateControl(type: string, value: number) {
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID); 
+    let client = new Modbus.client.TCP(socket, unitID);
 
     let modbusOptions = {
       'host': this.getSetting('address'),
@@ -178,10 +178,10 @@ class MyGrowattBattery extends Growatt {
       'logEnabled': true
     }
 
-    socket.setKeepAlive(false); 
+    socket.setKeepAlive(false);
     socket.connect(modbusOptions);
     console.log(modbusOptions);
-    
+
     socket.on('connect', async () => {
       console.log('Connected ...');
 
@@ -198,7 +198,7 @@ class MyGrowattBattery extends Growatt {
           console.log('exportlimitenabled unknown value: ' + value);
         }
       }
- 
+
       if (type == 'battacchargeswitch') {
         // 0 – Disabled
         // 1 – Enabled
@@ -211,7 +211,7 @@ class MyGrowattBattery extends Growatt {
         } else {
           console.log('battacchargeswitch unknown value: ' + value);
         }
-      }      
+      }
 
       if (type == 'exportlimitpowerrate') {
         // 0 – 100 % with 1 decimal
@@ -227,7 +227,7 @@ class MyGrowattBattery extends Growatt {
       }
 
       if (type == 'battmaxsoc') {
-        // 0 – 100 % 
+        // 0 – 100 %
         console.log('battmaxsoc value: ' + value);
         if (value >= 0 && value <= 100) {
           const battmaxsocRes = await client.writeSingleRegister(1091, value);
@@ -238,7 +238,7 @@ class MyGrowattBattery extends Growatt {
       }
 
       if (type == 'battminsoc') {
-        // 10 – 100 % 
+        // 10 – 100 %
         console.log('battminsoc value: ' + value);
         if (value >= 10 && value <= 100) {
           const battminsocRes = await client.writeSingleRegister(1071, value);
@@ -250,10 +250,41 @@ class MyGrowattBattery extends Growatt {
 
       if (type == 'prioritymode') {
         console.log('prioritymode value: ' + value);
-        const prioritychangeRes = await client.writeSingleRegister(1044, value);
-        console.log('prioritymode', prioritychangeRes);
+        if (value === 0) {
+          // disable all time slots, to enforce Load First
+          await client.writeSingleRegister(1082, 0);  // Grid First slot#1
+          await client.writeSingleRegister(1085, 0);  // Grid First slot#2
+          await client.writeSingleRegister(1088, 0);  // Grid First slot#3
+          await client.writeSingleRegister(1102, 0);  // Battery First slot#1
+          await client.writeSingleRegister(1105, 0);  // Battery First slot#2
+          await client.writeSingleRegister(1108, 0);  // Battery First slot#3
+          console.log('prioritymode Load First: all time slots for Batt&Grid set to disabled');
+        } else if (value === 1) {
+          await client.writeSingleRegister(1082, 0); // disable all other slots
+          await client.writeSingleRegister(1085, 0);
+          await client.writeSingleRegister(1088, 0);
+          await client.writeSingleRegister(1102, 0);
+          await client.writeSingleRegister(1105, 0);
+          // set Battery First slot#3 to enabled / 00:00-23:59
+          await client.writeSingleRegister(1106, 0); // 00:00
+          await client.writeSingleRegister(1107, 5947); // 23:59
+          await client.writeSingleRegister(1108, 1); // enabled
+          console.log('prioritymode Batt First: slot#3 is enabled and set to 00:00-23:59');
+        } else if (value === 2) {
+          await client.writeSingleRegister(1082, 0); // disable all other slots
+          await client.writeSingleRegister(1085, 0);
+          await client.writeSingleRegister(1108, 0);
+          await client.writeSingleRegister(1102, 0);
+          await client.writeSingleRegister(1105, 0);
+          // set Grid First slot#3 to enabled / 00:00-23:59
+          await client.writeSingleRegister(1086, 0); // 00:00
+          await client.writeSingleRegister(1087, 5947); // 23:59
+          await client.writeSingleRegister(1088, 1);  // enabled
+          console.log('prioritymode Grid First: slot#3 is enabled and set to 00:00-23:59');
+        } else {
+          console.log('prioritymode unknown value: ' + value);
+        }
       }
-      
 
       console.log('disconnect');
       client.socket.end();
@@ -262,7 +293,7 @@ class MyGrowattBattery extends Growatt {
 
     socket.on('close', () => {
       console.log('Client closed');
-    }); 
+    });
 
     socket.on('error', (err) => {
       console.log(err);
@@ -287,10 +318,10 @@ class MyGrowattBattery extends Growatt {
       'logEnabled': true
     }
 
-    socket.setKeepAlive(false); 
+    socket.setKeepAlive(false);
     socket.connect(modbusOptions);
     console.log(modbusOptions);
-    
+
     socket.on('connect', async () => {
       console.log('Connected ...');
       let startRegister = 0;
@@ -321,16 +352,16 @@ class MyGrowattBattery extends Growatt {
         startRegister = 1110
         stopRegister = 1111
         enabledRegister = 1112
-      }      
+      }
       if ( hourstart == 0 && minstart == 0 ) {
         minstart = 1;
       }
       let start  =  (hourstart * 256) + minstart;
       const startRes = await client.writeSingleRegister(startRegister, start);
       console.log('start', startRes);
-      let stop  =  (hourstop * 256) + minstop;   
+      let stop  =  (hourstop * 256) + minstop;
       const stopRes = await client.writeSingleRegister(stopRegister, stop);
-      console.log('stop', stopRes);             
+      console.log('stop', stopRes);
       // 0 – Disabled
       // 1 – Enabled
       if (enabled == "1") {
@@ -350,7 +381,7 @@ class MyGrowattBattery extends Growatt {
 
     socket.on('close', () => {
       console.log('Client closed');
-    }); 
+    });
 
     socket.on('error', (err) => {
       console.log(err);
@@ -373,7 +404,7 @@ class MyGrowattBattery extends Growatt {
       'logLabel' : 'Growatt Inverter',
       'logLevel': 'error',
       'logEnabled': true
-    }    
+    }
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
@@ -386,18 +417,18 @@ class MyGrowattBattery extends Growatt {
       console.log(modbusOptions);
 
       const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
-      const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegisters, client);      
+      const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegisters, client);
 
-      console.log('disconnect'); 
+      console.log('disconnect');
       client.socket.end();
       socket.end();
       const finalRes = {...checkRegisterRes, ...checkHoldingRegisterRes}
       this.processResult(finalRes, this.getSetting('maxpeakpower'));
-    });    
+    });
 
     socket.on('close', () => {
       console.log('Client closed');
-    });  
+    });
 
     socket.on('timeout', () => {
       console.log('socket timed out!');
