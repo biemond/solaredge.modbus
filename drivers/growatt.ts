@@ -1,4 +1,5 @@
-import Homey, { Device } from 'homey';
+import * as Homey from 'homey';
+import { Device } from 'homey';
 
 export interface Measurement {
     value: string;
@@ -47,7 +48,7 @@ export class Growatt extends Homey.Device {
         "period3start": [3042, 1, 'UINT16', "period3start", 0],
         "period3stop":  [3043, 1, 'UINT16', "period3stop", 0],
         "period4start": [3044, 1, 'UINT16', "period4start", 0],
-        "period4stop":  [3045, 1, 'UINT16', "period4stop", 0],                         
+        "period4stop":  [3045, 1, 'UINT16', "period4stop", 0],
         // "gridfirststarttime1": [1080, 1, 'UINT16', "Grid First Start Time", 0],
         // "gridfirststoptime1": [1081, 1, 'UINT16', "Grid First Stop Time", 0],
         // "gridfirststopswitch1": [1082, 1, 'UINT16', "Grid First Stop Switch 1", 0],
@@ -60,7 +61,7 @@ export class Growatt extends Homey.Device {
         // "loadfirststoptime1": [1111, 1, 'UINT16', "Load First Stop Time", 0],
         // "loadfirststopswitch1": [1112, 1, 'UINT16', "Load First Stop Switch 1", 0]
 
-             
+
     }
 
     registers: Object = {
@@ -214,7 +215,7 @@ export class Growatt extends Homey.Device {
         "today_load": [3075, 2, 'UINT32', "Today's Load", -1],
         "total_load": [3077, 2, 'UINT32', "Total Load", -1],
 
-    };    
+    };
 
     processResult(result: Record<string, Measurement>, maxpeakpower: number) {
         if (result) {
@@ -227,7 +228,7 @@ export class Growatt extends Homey.Device {
             if (result['outputPower'] && result['outputPower'].value != 'xxx') {
                 this.addCapability('measure_power');
                 var outputPower = Number(result['outputPower'].value) * (Math.pow(10, Number(result['outputPower'].scale)));
-                
+
                 if (maxpeakpower > 0 && outputPower > maxpeakpower ) {
                     // skip
                     console.log("skip measure_power, max: "+ maxpeakpower + " power: " + outputPower);
@@ -393,13 +394,13 @@ export class Growatt extends Homey.Device {
             //     var gridpowertoload = Number(result['ac_chargepower'].value) * (Math.pow(10, Number(result['ac_chargepower'].scale)));
             //     this.setCapabilityValue('measure_power.gridpowertoload', gridpowertoload);
             //     console.log('gridpowertoload ' + gridpowertoload);
-            // }     
+            // }
 
             // if (result['realoutputpercentage'] && result['realoutputpercentage'].value != 'xxx' && this.hasCapability('realoutputpercentage')) {
             //     this.addCapability('realoutputpercentage');
             //     var realoutputpercentage = Number(result['realoutputpercentage'].value) * (Math.pow(10, Number(result['realoutputpercentage'].scale)));
             //     this.setCapabilityValue('realoutputpercentage', realoutputpercentage);
-            // }   
+            // }
 
             // if (result['outputmaxpowerlimited'] && result['outputmaxpowerlimited'].value != 'xxx' && this.hasCapability('outputmaxpowerlimited')) {
             //     this.addCapability('outputmaxpowerlimited');
@@ -411,7 +412,7 @@ export class Growatt extends Homey.Device {
             //     this.addCapability('exportlimitwhenfailed');
             //     var exportlimitwhenfailed = Number(result['exportlimitwhenfailed'].value) * (Math.pow(10, Number(result['exportlimitwhenfailed'].scale)));
             //     this.setCapabilityValue('exportlimitwhenfailed', exportlimitwhenfailed);
-            // } 
+            // }
 
             if (result['priority'] && result['priority'].value != 'xxx' && this.hasCapability('priority')) {
                 this.addCapability('priority');
@@ -433,12 +434,12 @@ export class Growatt extends Homey.Device {
                 this.addCapability('measure_power.import');
                 var meterimport = Number(result['pactousertotal'].value) * (Math.pow(10, Number(result['pactousertotal'].scale)));
                 this.setCapabilityValue('measure_power.import', meterimport);
-            }            
+            }
             if (result['pactogridtotal'] && result['pactogridtotal'].value != 'xxx' && this.hasCapability('measure_power.export')) {
                 this.addCapability('measure_power.export');
                 var meterexport = Number(result['pactogridtotal'].value) * (Math.pow(10, Number(result['pactogridtotal'].scale)));
                 this.setCapabilityValue('measure_power.export', meterexport);
-            } 
+            }
 
             if (result['today_grid_import'] && result['today_grid_import'].value != 'xxx' && this.hasCapability('meter_power.today_grid_import')) {
                 this.addCapability('meter_power.today_grid_import');
@@ -578,14 +579,14 @@ export class Growatt extends Homey.Device {
                 let lowVal = value & 0xFF;
                 let highval = (value >> 8) & 0xFF;
 
-                let bit0 = (highval & (1<<0)); 
-                let bit1 = (highval & (1<<1));                                 
-                let bit2 = (highval & (1<<2)); 
-                let bit3 = (highval & (1<<3)); 
+                let bit0 = (highval & (1<<0));
+                let bit1 = (highval & (1<<1));
+                let bit2 = (highval & (1<<2));
+                let bit3 = (highval & (1<<3));
                 let bit4 = (highval & (1<<4));
-                let starthour = bit0 + bit1 + bit2 + bit3 + bit4; 
+                let starthour = bit0 + bit1 + bit2 + bit3 + bit4;
 
-                let bit5 = (highval & (1<<5)); 
+                let bit5 = (highval & (1<<5));
                 let bit6 = (highval & (1<<6));
                 let priorityPeriod1 = "";
                 if ((bit5 + bit6) == 0) {
@@ -594,10 +595,10 @@ export class Growatt extends Homey.Device {
                     priorityPeriod1 = "battery";
                 } else {
                     priorityPeriod1 = "grid";
-                }                              
-                
+                }
+
                 let enabledPeriod1 = false;
-                let bit7 = (highval & (1<<7)); 
+                let bit7 = (highval & (1<<7));
                 if (bit7 == 128) {
                     enabledPeriod1 = true;
                 }
@@ -631,14 +632,14 @@ export class Growatt extends Homey.Device {
                 let lowVal = value & 0xFF;
                 let highval = (value >> 8) & 0xFF;
 
-                let bit0 = (highval & (1<<0)); 
-                let bit1 = (highval & (1<<1));                                 
-                let bit2 = (highval & (1<<2)); 
-                let bit3 = (highval & (1<<3)); 
+                let bit0 = (highval & (1<<0));
+                let bit1 = (highval & (1<<1));
+                let bit2 = (highval & (1<<2));
+                let bit3 = (highval & (1<<3));
                 let bit4 = (highval & (1<<4));
-                let starthour = bit0 + bit1 + bit2 + bit3 + bit4; 
+                let starthour = bit0 + bit1 + bit2 + bit3 + bit4;
 
-                let bit5 = (highval & (1<<5)); 
+                let bit5 = (highval & (1<<5));
                 let bit6 = (highval & (1<<6));
                 let priorityperiod2 = "";
                 if ((bit5 + bit6) == 0) {
@@ -647,10 +648,10 @@ export class Growatt extends Homey.Device {
                     priorityperiod2 = "battery";
                 } else {
                     priorityperiod2 = "grid";
-                }                              
-                
+                }
+
                 let enabledperiod2 = false;
-                let bit7 = (highval & (1<<7)); 
+                let bit7 = (highval & (1<<7));
                 if (bit7 == 128) {
                     enabledperiod2 = true;
                 }
@@ -683,14 +684,14 @@ export class Growatt extends Homey.Device {
                 let lowVal = value & 0xFF;
                 let highval = (value >> 8) & 0xFF;
 
-                let bit0 = (highval & (1<<0)); 
-                let bit1 = (highval & (1<<1));                                 
-                let bit2 = (highval & (1<<2)); 
-                let bit3 = (highval & (1<<3)); 
+                let bit0 = (highval & (1<<0));
+                let bit1 = (highval & (1<<1));
+                let bit2 = (highval & (1<<2));
+                let bit3 = (highval & (1<<3));
                 let bit4 = (highval & (1<<4));
-                let starthour = bit0 + bit1 + bit2 + bit3 + bit4; 
+                let starthour = bit0 + bit1 + bit2 + bit3 + bit4;
 
-                let bit5 = (highval & (1<<5)); 
+                let bit5 = (highval & (1<<5));
                 let bit6 = (highval & (1<<6));
                 let priorityperiod3 = "";
                 if ((bit5 + bit6) == 0) {
@@ -699,10 +700,10 @@ export class Growatt extends Homey.Device {
                     priorityperiod3 = "battery";
                 } else {
                     priorityperiod3 = "grid";
-                }                              
-                
+                }
+
                 let enabledperiod3 = false;
-                let bit7 = (highval & (1<<7)); 
+                let bit7 = (highval & (1<<7));
                 if (bit7 == 128) {
                     enabledperiod3 = true;
                 }
@@ -735,14 +736,14 @@ export class Growatt extends Homey.Device {
                 let lowVal = value & 0xFF;
                 let highval = (value >> 8) & 0xFF;
 
-                let bit0 = (highval & (1<<0)); 
-                let bit1 = (highval & (1<<1));                                 
-                let bit2 = (highval & (1<<2)); 
-                let bit3 = (highval & (1<<3)); 
+                let bit0 = (highval & (1<<0));
+                let bit1 = (highval & (1<<1));
+                let bit2 = (highval & (1<<2));
+                let bit3 = (highval & (1<<3));
                 let bit4 = (highval & (1<<4));
-                let starthour = bit0 + bit1 + bit2 + bit3 + bit4; 
+                let starthour = bit0 + bit1 + bit2 + bit3 + bit4;
 
-                let bit5 = (highval & (1<<5)); 
+                let bit5 = (highval & (1<<5));
                 let bit6 = (highval & (1<<6));
                 let priorityperiod4 = "";
                 if ((bit5 + bit6) == 0) {
@@ -751,10 +752,10 @@ export class Growatt extends Homey.Device {
                     priorityperiod4 = "battery";
                 } else {
                     priorityperiod4 = "grid";
-                }                              
-                
+                }
+
                 let enabledperiod4 = false;
-                let bit7 = (highval & (1<<7)); 
+                let bit7 = (highval & (1<<7));
                 if (bit7 == 128) {
                     enabledperiod4 = true;
                 }
@@ -783,7 +784,7 @@ export class Growatt extends Homey.Device {
             }
         }
 
-        
+
 
     }
 }

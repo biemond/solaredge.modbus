@@ -55,6 +55,11 @@ class MyGrowattBattery extends Growatt {
       await this.updateControl('battacchargeswitch', Number(args.mode));
     });
 
+    let clocksyncAction = this.homey.flow.getActionCard('timesync');
+    clocksyncAction.registerRunListener(async (args, state) => {
+      await this.updateControl('timesync', Number(args.syncdate));
+    });
+
     let battfirsttime1Action = this.homey.flow.getActionCard('battfirsttime1');
     battfirsttime1Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('battfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
@@ -286,6 +291,22 @@ class MyGrowattBattery extends Growatt {
         }
       }
 
+      if (type == 'timesync') {
+        console.log('timesync value: ' + value);
+        const now = new Date();
+        // Always set time
+        await client.writeSingleRegister(50, now.getMilliseconds() > 500 ? now.getSeconds() + 1 : now.getSeconds()); // Seconds
+        await client.writeSingleRegister(49, now.getMinutes()); // Minutes
+        await client.writeSingleRegister(48, now.getHours()); // Hours
+        // Only set date if value == 1
+        if (value == 1) {
+          await client.writeSingleRegister(47, now.getDate()); // Day
+          await client.writeSingleRegister(46, now.getMonth() + 1); // Month
+          await client.writeSingleRegister(45, now.getFullYear()); // Year
+        }
+        console.log('timesync: ' + now);
+      }
+
       console.log('disconnect');
       client.socket.end();
       socket.end();
@@ -418,18 +439,6 @@ class MyGrowattBattery extends Growatt {
 
       const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
       const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegisters, client);
-
-      // Add invertor time sync at midnight
-      const now = new Date();
-      if (now.getHours() === 0 && now.getMinutes() === 0) {
-        const seconds = now.getMilliseconds() > 500 ? now.getSeconds() + 1 : now.getSeconds();
-        await client.writeSingleRegister(50, seconds); // Second
-        await client.writeSingleRegister(49, 0); // Minute
-        await client.writeSingleRegister(48, 0); // Hour
-        await client.writeSingleRegister(47, now.getDate()); // Day
-        await client.writeSingleRegister(46, now.getMonth() + 1); // Month
-        await client.writeSingleRegister(45, now.getFullYear()); // Year
-      }
 
       console.log('disconnect');
       client.socket.end();
