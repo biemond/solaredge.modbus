@@ -419,6 +419,18 @@ class MyGrowattBattery extends Growatt {
       const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
       const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegisters, client);
 
+      // Add invertor time sync at midnight
+      const now = new Date();
+      if (now.getHours() === 0 && now.getMinutes() === 0) {
+        const seconds = now.getMilliseconds() > 500 ? now.getSeconds() + 1 : now.getSeconds();
+        await client.writeSingleRegister(50, seconds); // Second
+        await client.writeSingleRegister(49, 0); // Minute
+        await client.writeSingleRegister(48, 0); // Hour
+        await client.writeSingleRegister(47, now.getDate()); // Day
+        await client.writeSingleRegister(46, now.getMonth() + 1); // Month
+        await client.writeSingleRegister(45, now.getFullYear()); // Year
+      }
+
       console.log('disconnect');
       client.socket.end();
       socket.end();
