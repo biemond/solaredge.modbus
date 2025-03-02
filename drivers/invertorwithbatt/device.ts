@@ -128,7 +128,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
     let batterylevelStatus = this.homey.flow.getConditionCard("batterylevel");
     batterylevelStatus.registerRunListener(async (args, state) => {
       let result = (await args.device.getCapabilityValue('measure_battery') >= args.charged);
-      this.log("batterylevel " + args.device.getCapabilityValue('measure_battery' ) + " args " +  args.charged );
+      this.log("batterylevel " + args.device.getCapabilityValue('measure_battery' ) + " args " +  args.charged + " result " + result );
       return Promise.resolve(result);
     })
 

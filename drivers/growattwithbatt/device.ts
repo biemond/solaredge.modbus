@@ -45,6 +45,12 @@ class MyGrowattBattery extends Growatt {
       await this.updateControl('battminsoc', args.percentage);
     });
 
+    let battminsocLFAction = this.homey.flow.getActionCard('battery_min_cap_load_first');
+    battminsocLFAction.registerRunListener(async (args, state) => {
+      await this.updateControl('battminsocLF', args.percentage);
+    });
+    
+
     let prioritychangeAction = this.homey.flow.getActionCard('prioritymode');
     prioritychangeAction.registerRunListener(async (args, state) => {
       await this.updateControl('prioritymode', Number(args.mode));
@@ -127,6 +133,9 @@ class MyGrowattBattery extends Growatt {
     }
     if (this.hasCapability('measure_power.export') === false) {
       await this.addCapability('measure_power.export');
+    }
+    if (this.hasCapability('batteryminsoclf') === false) {
+      await this.addCapability('batteryminsoclf');
     }
 
   }
@@ -253,6 +262,17 @@ class MyGrowattBattery extends Growatt {
         }
       }
 
+      if (type == 'battminsocLF') {
+        // 10 – 100 %
+        console.log('battminsocLF value: ' + value);
+        if (value >= 10 && value <= 100) {
+          const battminsocRes = await client.writeSingleRegister(608, value);
+          console.log('battminsocLF', battminsocRes);
+        } else {
+          console.log('battminsocLF unknown value: ' + value);
+        }
+      }
+
       if (type == 'prioritymode') {
         console.log('prioritymode value: ' + value);
         if (value === 0) {
@@ -270,22 +290,22 @@ class MyGrowattBattery extends Growatt {
           await client.writeSingleRegister(1088, 0);
           await client.writeSingleRegister(1102, 0);
           await client.writeSingleRegister(1105, 0);
-          // set Battery First slot#3 to enabled / 00:00-23:59
-          await client.writeSingleRegister(1106, 0); // 00:00
-          await client.writeSingleRegister(1107, 5947); // 23:59
-          await client.writeSingleRegister(1108, 1); // enabled
-          console.log('prioritymode Batt First: slot#3 is enabled and set to 00:00-23:59');
+          // set Battery First slot#1 to enabled / 00:00-23:59
+          await client.writeSingleRegister(1100, 0); // 00:00
+          await client.writeSingleRegister(1101, 5947); // 23:59
+          await client.writeSingleRegister(1102, 1); // enabled
+          console.log('prioritymode Batt First: slot#1 is enabled and set to 00:00-23:59');
         } else if (value === 2) {
           await client.writeSingleRegister(1082, 0); // disable all other slots
           await client.writeSingleRegister(1085, 0);
           await client.writeSingleRegister(1108, 0);
           await client.writeSingleRegister(1102, 0);
           await client.writeSingleRegister(1105, 0);
-          // set Grid First slot#3 to enabled / 00:00-23:59
-          await client.writeSingleRegister(1086, 0); // 00:00
-          await client.writeSingleRegister(1087, 5947); // 23:59
-          await client.writeSingleRegister(1088, 1);  // enabled
-          console.log('prioritymode Grid First: slot#3 is enabled and set to 00:00-23:59');
+          // set Grid First slot#1 to enabled / 00:00-23:59
+          await client.writeSingleRegister(1080, 0); // 00:00
+          await client.writeSingleRegister(1081, 5947); // 23:59
+          await client.writeSingleRegister(1082, 1);  // enabled
+          console.log('prioritymode Grid First: slot#1 is enabled and set to 00:00-23:59');
         } else {
           console.log('prioritymode unknown value: ' + value);
         }

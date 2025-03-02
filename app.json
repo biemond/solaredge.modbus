@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.174",
+  "version": "3.0.175",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -1818,6 +1818,31 @@
           }
         ],
         "id": "prioritymode"
+      },
+      {
+        "id": "battery_min_cap_load_first",
+        "title": {
+          "en": "Set Load first Battery Minimum Capacity to",
+          "de": "Setze Load first Batteriemindeststand auf"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          },
+          {
+            "type": "range",
+            "name": "percentage",
+            "title": {
+              "en": "percentage",
+              "de": "Prozent"
+            },
+            "min": 10,
+            "max": 100,
+            "step": 1
+          }
+        ]
       },
       {
         "id": "timesync",
@@ -4106,6 +4131,7 @@
         "meter_power.today_load",
         "batterymaxsoc",
         "batteryminsoc",
+        "batteryminsoclf",
         "gridfirst1",
         "battfirst1",
         "battacchargeswitch"
@@ -8372,6 +8398,25 @@
       "title": {
         "en": "Battery Minimum Capacity",
         "de": "Minimaler Batteriestand"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "uiComponent": "sensor",
+      "icon": "/assets/battery.svg",
+      "units": {
+        "en": "%",
+        "nl": "%"
+      },
+      "min": 10,
+      "max": 100,
+      "step": 1
+    },
+    "batteryminsoclf": {
+      "type": "number",
+      "title": {
+        "en": "Battery Minimum Capacity Load First",
+        "de": "Minimaler Batteriestand Load First"
       },
       "getable": true,
       "setable": false,

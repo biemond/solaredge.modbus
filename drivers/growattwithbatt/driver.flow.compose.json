@@ -1,6 +1,26 @@
 {
   "actions": [
     {
+      "id": "battery_min_cap_load_first",
+      "title": {
+        "en": "Set Load first Battery Minimum Capacity to",
+        "de": "Setze Load first Batteriemindeststand auf"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "percentage",
+          "title": {
+            "en": "percentage",
+            "de": "Prozent"
+          },
+          "min": 10,
+          "max": 100,
+          "step": 1
+        }
+      ]
+    },
+    {
       "id": "timesync",
       "title": {
         "en": "Sync Invertor Clock",

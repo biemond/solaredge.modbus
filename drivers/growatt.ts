@@ -15,6 +15,7 @@ export class Growatt extends Homey.Device {
         "prioritychange": [1044, 1, 'UINT16', "Priority", 0],
         "gridfirststopsoc": [1071, 1, 'UINT16', "GridFirst stop SOC", 0],
         "batfirststopsoc": [1091, 1, 'UINT16', "BatFirst stop SOC", 0],
+        "batfirststopsocLF": [608, 1, 'UINT16', "BatFirst load first stop SOC", 0],
 
         "acchargeswitch": [1092, 1, 'UINT16', "Batt AC charge switch", 0],
 
@@ -480,6 +481,11 @@ export class Growatt extends Homey.Device {
                 this.addCapability('batteryminsoc');
                 var soc = Number(result['gridfirststopsoc'].value);
                 this.setCapabilityValue('batteryminsoc', soc);
+            }
+            if (result['batfirststopsocLF'] && result['batfirststopsocLF'].value != 'xxx' && this.hasCapability('batteryminsoclf')) {
+                this.addCapability('batteryminsoclf');
+                var soc = Number(result['batfirststopsocLF'].value);
+                this.setCapabilityValue('batteryminsoclf', soc);
             }
 
             if (result['batfirststopsoc'] && result['batfirststopsoc'].value != 'xxx' && this.hasCapability('batterymaxsoc')) {
