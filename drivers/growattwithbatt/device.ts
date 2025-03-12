@@ -50,7 +50,7 @@ class MyGrowattBattery extends Growatt {
     battminsocLFAction.registerRunListener(async (args, state) => {
       await this.updateControl('battminsocLF', args.percentage);
     });
-    
+
 
     let prioritychangeAction = this.homey.flow.getActionCard('prioritymode');
     prioritychangeAction.registerRunListener(async (args, state) => {
@@ -71,13 +71,25 @@ class MyGrowattBattery extends Growatt {
     battfirsttime1Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('battfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
     });
+    // let battfirsttime2Action = this.homey.flow.getActionCard('battfirsttime2');
+    //  battfirsttime1Action.registerRunListener(async (args, state) => {
+    //  await this.updateControlProfile('battfirsttime2', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+    // });
+    // let battfirsttime3Action = this.homey.flow.getActionCard('battfirsttime3');
+    //  battfirsttime1Action.registerRunListener(async (args, state) => {
+    //  await this.updateControlProfile('battfirsttime3', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+    // });
     let gridfirsttime1Action = this.homey.flow.getActionCard('gridfirsttime1');
     gridfirsttime1Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('gridfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
     });
-    // let loadfirsttime1Action = this.homey.flow.getActionCard('loadfirsttime1');
-    // loadfirsttime1Action.registerRunListener(async (args, state) => {
-    //   await this.updateControlProfile('loadfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+    // let gridfirsttime2Action = this.homey.flow.getActionCard('gridfirsttime2');
+    // gridfirsttime2Action.registerRunListener(async (args, state) => {
+    //   await this.updateControlProfile('gridfirsttime2', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+    // });
+    // let gridfirsttime1Action = this.homey.flow.getActionCard('gridfirsttime3');
+    // gridfirsttime3Action.registerRunListener(async (args, state) => {
+    //   await this.updateControlProfile('gridfirsttime3', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
     // });
 
 
@@ -90,8 +102,6 @@ class MyGrowattBattery extends Growatt {
       this.updateControl('exportlimitpowerrate', value);
       return value;
     });
-
-
 
     if (this.hasCapability('priority') === false) {
       await this.addCapability('priority');
@@ -175,6 +185,10 @@ class MyGrowattBattery extends Growatt {
   async onDeleted() {
     this.log('MyGrowattBattery has been deleted');
     this.homey.clearInterval(this.timer);
+  }
+
+  delay(ms: any) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   async updateControl(type: string, value: number) {
@@ -276,40 +290,39 @@ class MyGrowattBattery extends Growatt {
 
       if (type == 'prioritymode') {
         console.log('prioritymode value: ' + value);
+        const res = client.readHoldingRegisters(1080, 29)
+        const actualRes = await res;
+        await this.delay(850); // Growatt needs at least 850ms between commands
+        let registers = actualRes.response.body.valuesAsArray;
+
         if (value === 0) {
           // disable all time slots, to enforce Load First
-          await client.writeSingleRegister(1082, 0);  // Grid First slot#1
-          await client.writeSingleRegister(1085, 0);  // Grid First slot#2
-          await client.writeSingleRegister(1088, 0);  // Grid First slot#3
-          await client.writeSingleRegister(1102, 0);  // Battery First slot#1
-          await client.writeSingleRegister(1105, 0);  // Battery First slot#2
-          await client.writeSingleRegister(1108, 0);  // Battery First slot#3
+          registers[2] = registers[5] = registers[8] = registers[22] = registers[25] = registers[28] = 0;
           console.log('prioritymode Load First: all time slots for Batt&Grid set to disabled');
         } else if (value === 1) {
-          await client.writeSingleRegister(1082, 0); // disable all other slots
-          await client.writeSingleRegister(1085, 0);
-          await client.writeSingleRegister(1088, 0);
-          await client.writeSingleRegister(1102, 0);
-          await client.writeSingleRegister(1105, 0);
+
           // set Battery First slot#1 to enabled / 00:00-23:59
-          await client.writeSingleRegister(1100, 0); // 00:00
-          await client.writeSingleRegister(1101, 5947); // 23:59
-          await client.writeSingleRegister(1102, 1); // enabled
+          registers[20] = 0; // 1100->00:00
+          registers[21] = 5947; // 1101->23:59
+          registers[22] = 1; // 1102->enabled
+          // disable all other slots
+          registers[2] = registers[5] = registers[8] = registers[25] = registers[28] = 0;
           console.log('prioritymode Batt First: slot#1 is enabled and set to 00:00-23:59');
         } else if (value === 2) {
-          await client.writeSingleRegister(1082, 0); // disable all other slots
-          await client.writeSingleRegister(1085, 0);
-          await client.writeSingleRegister(1108, 0);
-          await client.writeSingleRegister(1102, 0);
-          await client.writeSingleRegister(1105, 0);
+
           // set Grid First slot#1 to enabled / 00:00-23:59
-          await client.writeSingleRegister(1080, 0); // 00:00
-          await client.writeSingleRegister(1081, 5947); // 23:59
-          await client.writeSingleRegister(1082, 1);  // enabled
+          registers[0] = 0; // 1080->00:00
+          registers[1] = 5947; // 1081->23:59
+          registers[2] = 1; // 1082->enabled
+          // disable all other slots
+          registers[5] = registers[8] = registers[22] = registers[25] = registers[28] = 0;
           console.log('prioritymode Grid First: slot#1 is enabled and set to 00:00-23:59');
         } else {
           console.log('prioritymode unknown value: ' + value);
         }
+        const setData: number[] = Array.from(registers);
+        const priorityRes = await client.writeMultipleRegisters(1080, setData);
+        console.log('prioritymode', priorityRes);
       }
 
       if (type == 'timesync') {
@@ -362,57 +375,24 @@ class MyGrowattBattery extends Growatt {
     socket.connect(modbusOptions);
     console.log(modbusOptions);
 
+    // Set start registers for all slots
+    const startRegisters: Record<string, number> = {
+      battfirsttime1: 1100,
+      battfirsttime2: 1103,
+      battfirsttime3: 1106,
+      gridfirsttime1: 1080,
+      gridfirsttime2: 1083,
+      gridfirsttime3: 1086
+    };
+
     socket.on('connect', async () => {
       console.log('Connected ...');
-      let startRegister = 0;
-      let stopRegister = 0;
-      let enabledRegister = 0;
-      if (type == 'battfirsttime1') {
-        // "battfirststarttime1": [1100, 1, 'UINT16', "Battery First Start Time", 0],
-        // "battfirststoptime1": [1101, 1, 'UINT16', "Battery First Stop Time", 0],
-        // "battfirststopswitch1": [1102, 1, 'UINT16', "Battery First Stop Switch 1", 0],
-        startRegister = 1100
-        stopRegister = 1101
-        enabledRegister = 1102
-      }
-
-      if (type == 'gridfirsttime1') {
-        // "gridfirststarttime1": [1080, 1, 'UINT16', "Grid First Start Time", 0],
-        // "gridfirststoptime1": [1081, 1, 'UINT16', "Grid First Stop Time", 0],
-        // "gridfirststopswitch1": [1082, 1, 'UINT16', "Grid First Stop Switch 1", 0],
-        startRegister = 1080
-        stopRegister = 1081
-        enabledRegister = 1082
-      }
-
-      if (type == 'loadfirsttime1') {
-        // "loadfirststarttime1": [1110, 1, 'UINT16', "Load First Start Time", 0],
-        // "loadfirststoptime1": [1111, 1, 'UINT16', "Load First Stop Time", 0],
-        // "loadfirststopswitch1": [1112, 1, 'UINT16', "Load First Stop Switch 1", 0]
-        startRegister = 1110
-        stopRegister = 1111
-        enabledRegister = 1112
-      }
-      if ( hourstart == 0 && minstart == 0 ) {
-        minstart = 1;
-      }
-      let start  =  (hourstart * 256) + minstart;
-      const startRes = await client.writeSingleRegister(startRegister, start);
-      console.log('start', startRes);
-      let stop  =  (hourstop * 256) + minstop;
-      const stopRes = await client.writeSingleRegister(stopRegister, stop);
-      console.log('stop', stopRes);
-      // 0 – Disabled
-      // 1 – Enabled
-      if (enabled == "1") {
-        const enabledRes = await client.writeSingleRegister(enabledRegister, Number(1));
-        console.log('timeenabled', enabledRes);
-      } else if (enabled == "0") {
-        const enabledRes = await client.writeSingleRegister(enabledRegister, Number(0));
-        console.log('timeenabled', enabledRes);
-      } else {
-        console.log('timeenabled unknown value: ' + enabled);
-      }
+      // any slot has the same structure
+      // start time, stop time, enabled
+      const setData: number[] = [(hourstart * 256) + minstart, (hourstop * 256) + minstop, 1];
+      const startRegister = startRegisters[type];
+      const timeRes = await client.writeMultipleRegisters(startRegister, setData);
+      console.log(type, timeRes);
 
       console.log('disconnect');
       client.socket.end();
