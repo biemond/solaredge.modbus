@@ -1820,6 +1820,28 @@
         "id": "prioritymode"
       },
       {
+        "title": {
+          "en": "Sync Invertor Clock",
+          "de": "Synchronisiere Wechselrichteruhr"
+        },
+        "args": [
+          {
+            "type": "checkbox",
+            "name": "syncdate",
+            "title": {
+              "en": "Sync Date",
+              "de": "Datum synchronisieren"
+            }
+          },
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+          }
+        ],
+        "id": "timesync"
+      },
+      {
         "id": "battery_min_cap_load_first",
         "title": {
           "en": "Set Load first Battery Minimum Capacity to",
@@ -1841,28 +1863,6 @@
             "min": 10,
             "max": 100,
             "step": 1
-          }
-        ]
-      },
-      {
-        "id": "timesync",
-        "title": {
-          "en": "Sync Invertor Clock",
-          "de": "Synchronisiere Wechselrichteruhr"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=growattwithbatt"
-          },
-          {
-            "type": "checkbox",
-            "name": "syncdate",
-            "title": {
-              "en": "Sync Date",
-              "de": "Datum synchronisieren"
-            }
           }
         ]
       },

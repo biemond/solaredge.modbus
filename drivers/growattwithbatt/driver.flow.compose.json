@@ -21,23 +21,6 @@
       ]
     },
     {
-      "id": "timesync",
-      "title": {
-        "en": "Sync Invertor Clock",
-        "de": "Synchronisiere Wechselrichteruhr"
-      },
-      "args": [
-        {
-          "type": "checkbox",
-          "name": "syncdate",
-          "title": {
-            "en": "Sync Date",
-            "de": "Datum synchronisieren"
-          }
-        }
-      ]
-    },
-    {
       "id": "battfirsttime1",
       "title": {
         "en": "Battery 1st, time slot 1:",

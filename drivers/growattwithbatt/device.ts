@@ -1,5 +1,6 @@
 import * as Modbus from 'jsmodbus';
-import net from 'net';
+import * as net from 'net';
+import moment from 'moment-timezone';
 import {checkRegisterGrowatt, checkHoldingRegisterGrowatt} from '../response';
 import { Growatt } from '../growatt';
 
@@ -313,16 +314,14 @@ class MyGrowattBattery extends Growatt {
 
       if (type == 'timesync') {
         console.log('timesync value: ' + value);
-        const now = new Date();
-        // Always set time
-        await client.writeSingleRegister(50, now.getMilliseconds() > 500 ? now.getSeconds() + 1 : now.getSeconds()); // Seconds
-        await client.writeSingleRegister(49, now.getMinutes()); // Minutes
-        await client.writeSingleRegister(48, now.getHours()); // Hours
-        // Only set date if value == 1
+        const now = moment().tz(this.homey.clock.getTimezone());
+        const time: number[] = [ now.hours(), now.minutes(), now.milliseconds() > 500 ? now.seconds() + 1 : now.seconds()];
+        const date: number[] = [now.year() - 2000, now.month() + 1, now.date()];
+
         if (value == 1) {
-          await client.writeSingleRegister(47, now.getDate()); // Day
-          await client.writeSingleRegister(46, now.getMonth() + 1); // Month
-          await client.writeSingleRegister(45, now.getFullYear()); // Year
+          await client.writeMultipleRegisters(45, [...date, ...time]);
+        } else {
+          await client.writeMultipleRegisters(48, time);
         }
         console.log('timesync: ' + now);
       }

@@ -1,0 +1,21 @@
+{
+    "title": {
+      "en": "Sync Invertor Clock",
+      "de": "Synchronisiere Wechselrichteruhr"
+    },
+    "args": [
+    {
+        "type": "checkbox",
+        "name": "syncdate",
+        "title": {
+            "en": "Sync Date",
+            "de": "Datum synchronisieren"
+        }
+    },
+    {
+        "type": "device",
+        "name": "device",
+        "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+    }
+    ]
+  }
