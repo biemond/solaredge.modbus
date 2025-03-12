@@ -1,4 +1,5 @@
 /env.json
 /node_modules/
+package-lock.json
 /.homeybuild/
 .DS_Store
