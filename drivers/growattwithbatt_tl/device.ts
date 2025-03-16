@@ -1,12 +1,13 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
+import moment from 'moment-timezone';
 import {checkRegisterGrowatt, checkHoldingRegisterGrowatt} from '../response';
 import { Growatt } from '../growatt';
 
-const RETRY_INTERVAL = 60 * 1000; 
+const RETRY_INTERVAL = 60 * 1000;
 
 class MyGrowattTLBattery extends Growatt {
-  timer!: NodeJS.Timer;  
+  timer!: NodeJS.Timer;
   /**
    * onInit is called when the device is initialized.
    */
@@ -24,7 +25,7 @@ class MyGrowattTLBattery extends Growatt {
       this.pollInvertor();
     }, RETRY_INTERVAL);
 
-    // flow action 
+    // flow action
     let exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
       await this.updateControl('exportlimitenabled', Number(args.mode));
@@ -44,7 +45,7 @@ class MyGrowattTLBattery extends Growatt {
     battminsocAction.registerRunListener(async (args, state) => {
       await this.updateControl('battminsoc', args.percentage);
     });
-    
+
     // let prioritychangeAction = this.homey.flow.getActionCard('prioritymode');
     // prioritychangeAction.registerRunListener(async (args, state) => {
     //   await this.updateControl('prioritymode', Number(args.mode));
@@ -69,7 +70,7 @@ class MyGrowattTLBattery extends Growatt {
     period3Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('period3', Number(args.hourstart), Number(args.minstart), Number(args.hourstop), Number(args.minstop), Number(args.priority), Number(args.active));
     });
-    
+
     let period4Action = this.homey.flow.getActionCard('period4');
     period4Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('period4', Number(args.hourstart), Number(args.minstart), Number(args.hourstop), Number(args.minstop), Number(args.priority), Number(args.active));
@@ -103,7 +104,7 @@ class MyGrowattTLBattery extends Growatt {
     }
     if (this.hasCapability('battfirst1') === true) {
       await this.removeCapability('battfirst1');
-    }    
+    }
   }
 
   /**
@@ -141,11 +142,11 @@ class MyGrowattTLBattery extends Growatt {
     this.log('MyGrowattTLBattery has been deleted');
     this.homey.clearInterval(this.timer);
   }
-  
+
   async updateControl(type: string, value: number) {
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 2000); 
+    let client = new Modbus.client.TCP(socket, unitID, 2000);
 
     let modbusOptions = {
       'host': this.getSetting('address'),
@@ -158,10 +159,10 @@ class MyGrowattTLBattery extends Growatt {
       'logEnabled': true
     }
 
-    socket.setKeepAlive(false); 
+    socket.setKeepAlive(false);
     socket.connect(modbusOptions);
     console.log(modbusOptions);
-    
+
     socket.on('connect', async () => {
       console.log('Connected ...');
 
@@ -178,7 +179,7 @@ class MyGrowattTLBattery extends Growatt {
           console.log('exportlimitenabled unknown value: ' + value);
         }
       }
- 
+
       if (type == 'battacchargeswitch') {
         // 0 – Disabled
         // 1 – Enabled
@@ -191,7 +192,7 @@ class MyGrowattTLBattery extends Growatt {
         } else {
           console.log('battacchargeswitch unknown value: ' + value);
         }
-      }      
+      }
 
       if (type == 'exportlimitpowerrate') {
         // 0 – 100 % with 1 decimal
@@ -207,7 +208,7 @@ class MyGrowattTLBattery extends Growatt {
       }
 
       if (type == 'battmaxsoc') {
-        // 0 – 100 % 
+        // 0 – 100 %
         console.log('battmaxsoc value: ' + value);
         if (value >= 0 && value <= 100) {
           const battmaxsocRes = await client.writeSingleRegister(3048, value);
@@ -218,7 +219,7 @@ class MyGrowattTLBattery extends Growatt {
       }
 
       if (type == 'battminsoc') {
-        // 10 – 100 % 
+        // 10 – 100 %
         console.log('battminsoc value: ' + value);
         if (value >= 10 && value <= 100) {
           const battminsocRes = await client.writeSingleRegister(3037, value);
@@ -233,7 +234,20 @@ class MyGrowattTLBattery extends Growatt {
         const prioritychangeRes = await client.writeSingleRegister(1044, value);
         console.log('prioritymode', prioritychangeRes);
       }
-      
+
+      if (type == 'timesync') {
+        console.log('timesync value: ' + value);
+        const now = moment().tz(this.homey.clock.getTimezone());
+        const time: number[] = [ now.hours(), now.minutes(), now.milliseconds() > 500 ? now.seconds() + 1 : now.seconds()];
+        const date: number[] = [now.year() - 2000, now.month() + 1, now.date()];
+
+        if (value == 1) {
+          await client.writeMultipleRegisters(45, [...date, ...time]);
+        } else {
+          await client.writeMultipleRegisters(48, time);
+        }
+        console.log('timesync: ' + now);
+      }
 
       console.log('disconnect');
       client.socket.end();
@@ -242,7 +256,7 @@ class MyGrowattTLBattery extends Growatt {
 
     socket.on('close', () => {
       console.log('Client closed');
-    }); 
+    });
 
     socket.on('error', (err) => {
       console.log(err);
@@ -267,10 +281,10 @@ class MyGrowattTLBattery extends Growatt {
       'logEnabled': true
     }
 
-    socket.setKeepAlive(false); 
+    socket.setKeepAlive(false);
     socket.connect(modbusOptions);
     console.log(modbusOptions);
-    
+
     socket.on('connect', async () => {
       console.log('Connected ...');
       let startRegister = 0;
@@ -289,19 +303,19 @@ class MyGrowattTLBattery extends Growatt {
       if (type == 'period3') {
         startRegister = 3042
         stopRegister = 3043
-      } 
+      }
 
       if (type == 'period4') {
         startRegister = 3044
         stopRegister = 3045
-      } 
- 
+      }
+
       let start  =  ((hourstart + priority + enabled ) * 256) + minstart;
       const startRes = await client.writeSingleRegister(startRegister, start);
       console.log('start', startRes);
-      let stop  =  (hourstop * 256) + minstop;   
+      let stop  =  (hourstop * 256) + minstop;
       const stopRes = await client.writeSingleRegister(stopRegister, stop);
-      console.log('stop', stopRes);             
+      console.log('stop', stopRes);
 
       console.log('disconnect');
       client.socket.end();
@@ -310,7 +324,7 @@ class MyGrowattTLBattery extends Growatt {
 
     socket.on('close', () => {
       console.log('Client closed');
-    }); 
+    });
 
     socket.on('error', (err) => {
       console.log(err);
@@ -333,7 +347,7 @@ class MyGrowattTLBattery extends Growatt {
       'logLabel' : 'Growatt Inverter',
       'logLevel': 'error',
       'logEnabled': true
-    }    
+    }
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
@@ -346,18 +360,18 @@ class MyGrowattTLBattery extends Growatt {
       console.log(modbusOptions);
 
       const checkRegisterRes = await checkRegisterGrowatt(this.registersTL, client);
-      const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegistersTL, client);      
+      const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegistersTL, client);
 
-      console.log('disconnect'); 
+      console.log('disconnect');
       client.socket.end();
       socket.end();
       const finalRes = {...checkRegisterRes, ...checkHoldingRegisterRes}
       this.processResult(finalRes, this.getSetting('maxpeakpower'));
-    });    
+    });
 
     socket.on('close', () => {
       console.log('Client closed');
-    });  
+    });
 
     socket.on('timeout', () => {
       console.log('socket timed out!');
