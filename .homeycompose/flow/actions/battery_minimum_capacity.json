@@ -1,24 +1,24 @@
 {
-    "title": {
-      "en": "Set Battery Minimum Capacity to",
-      "de": "Setze Batteriemindeststand auf"
-    },
-    "args": [
-      {
-        "type": "range",
-        "name": "percentage",
-        "title": {
-          "en": "percentage",
-          "de": "Prozent"
-        },
-        "min": 10,
-        "max": 100,
-        "step": 1
+  "title": {
+    "en": "Set Battery Minimum Capacity to",
+    "de": "Setze Batteriemindeststand auf"
+  },
+  "args": [
+    {
+      "type": "range",
+      "name": "percentage",
+      "title": {
+        "en": "percentage",
+        "de": "Prozent"
+      },
+      "min": 10,
+      "max": 100,
+      "step": 1
     },
     {
-        "type": "device",
-        "name": "device",
-        "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
     }
-    ]
-  }
+  ]
+}
