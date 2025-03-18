@@ -308,6 +308,8 @@ class MyGrowattBattery extends Growatt {
 
       if (type == 'prioritymode') {
         console.log('prioritymode value: ' + value);
+        const limit = this.getCapabilityValue('exportlimitenabled');
+        console.log('export limit is:', limit);
         const res = client.readHoldingRegisters(1080, 29)
         const actualRes = await res;
         await this.delay(850); // Growatt needs at least 850ms between commands
@@ -327,19 +329,31 @@ class MyGrowattBattery extends Growatt {
           registers[2] = registers[5] = registers[8] = registers[25] = registers[28] = 0;
           console.log('prioritymode Batt First: slot#1 is enabled and set to 00:00-23:59');
         } else if (value === 2) {
-
-          // set Grid First slot#1 to enabled / 00:00-23:59
-          registers[0] = 0; // 1080->00:00
-          registers[1] = 5947; // 1081->23:59
-          registers[2] = 1; // 1082->enabled
-          // disable all other slots
-          registers[5] = registers[8] = registers[22] = registers[25] = registers[28] = 0;
-          console.log('prioritymode Grid First: slot#1 is enabled and set to 00:00-23:59');
+          if (limit === 0) {
+            // set Grid First slot#1 to enabled / 00:00-23:59
+            registers[0] = 0; // 1080->00:00
+            registers[1] = 5947; // 1081->23:59
+            registers[2] = 1; // 1082->enabled
+            // disable all other slots
+            registers[5] = registers[8] = registers[22] = registers[25] = registers[28] = 0;
+            console.log('prioritymode Grid First: slot#1 is enabled and set to 00:00-23:59');
+          } else {
+            console.log('prioritymode Grid First: not possible, export limit is enabled');
+          }
         } else {
           console.log('prioritymode unknown value: ' + value);
         }
         const setData: number[] = Array.from(registers);
-        const priorityRes = await client.writeMultipleRegisters(1080, setData);
+        let priorityRes;
+        if (limit === 0) {
+          priorityRes = await client.writeMultipleRegisters(1080, setData);
+        } else if (value != 2) {
+          // export limit is enabled, only write Batt First registers
+          const modifiedSetData = setData.slice(20, 29);
+          priorityRes = await client.writeMultipleRegisters(1100, modifiedSetData);
+        } else {
+          priorityRes = 'Grid First: not possible, export limit is enabled';
+        }
         console.log('prioritymode', priorityRes);
       }
 
