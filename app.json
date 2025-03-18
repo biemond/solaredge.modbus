@@ -890,6 +890,61 @@
         "id": "changedStatus"
       },
       {
+        "title": {
+          "en": "Inverter priority is",
+          "nl": "Omvormerprioriteit is",
+          "de": "Wechselrichter-Priorität ist"
+        },
+        "titleFormatted": {
+          "en": "Inverter priority is [[priority]]",
+          "nl": "Omvormerprioriteit is [[priority]]",
+          "de": "Wechselrichter-Priorität ist [[priority]]"
+        },
+        "hint": {
+          "en": "Inverter priority",
+          "nl": "Omvormerprioriteit",
+          "de": "Wechselrichter-Priorität"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+          },
+          {
+            "name": "priority",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Load First",
+                  "nl": "Belasting eerst",
+                  "de": "Last zuerst"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Battery First",
+                  "nl": "Batterij eerst",
+                  "de": "Batterie zuerst"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Grid First",
+                  "nl": "Net eerst",
+                  "de": "Netz zuerst"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "priorityMode"
+      },
+      {
         "id": "solarcharge",
         "title": {
           "en": "Inverter power !{{is|isn't}} higher than",
@@ -1419,7 +1474,13 @@
       {
         "title": {
           "en": "Set Battery AC charge switch to",
+          "nl": "Zet de batterij AC laden op",
           "de": "Setze Netzladung der Batterie auf"
+        },
+        "titleFormatted": {
+          "en": "Set Battery AC charge switch to [[mode]]",
+          "nl": "Zet de batterij AC laden [[mode]]",
+          "de": "Setze Netzladung der Batterie auf [[mode]]"
         },
         "args": [
           {
@@ -1430,6 +1491,7 @@
                 "id": "0",
                 "title": {
                   "en": "Disabled",
+                  "nl": "Uit",
                   "de": "Deaktiviert"
                 }
               },
@@ -1437,6 +1499,7 @@
                 "id": "1",
                 "title": {
                   "en": "Enabled",
+                  "nl": "Aan",
                   "de": "Aktiviert"
                 }
               }
@@ -1452,20 +1515,28 @@
       },
       {
         "title": {
-          "en": "Set Battery Maximum Capacity to",
-          "de": "Setze Batteriemaximumstand auf"
+          "en": "Set Battery First Maximum SoC to",
+          "nl": "Stel de maximale SoC van de batterij in voor Batterij Eerst op",
+          "de": "Setze Batterie Zuerst maximum SoC auf"
+        },
+        "titleFormatted": {
+          "en": "Set Battery First Maximum SoC to [[percentage]]",
+          "nl": "Stel de maximale SoC van de batterij in voor Batterij Eerst op [[percentage]]",
+          "de": "Setze Batterie Zuerst maximum SoC auf [[percentage]]"
         },
         "args": [
           {
             "type": "range",
             "name": "percentage",
             "title": {
-              "en": "percentage",
-              "de": "Prozent"
+              "en": "Maximum SoC(%)",
+              "nl": "Maximum SoC(%)",
+              "de": "Maximum SoC(%)"
             },
             "min": 0,
             "max": 100,
-            "step": 1
+            "step": 1,
+            "label": "%"
           },
           {
             "type": "device",
@@ -1477,20 +1548,28 @@
       },
       {
         "title": {
-          "en": "Set Battery Minimum Capacity to",
-          "de": "Setze Batteriemindeststand auf"
+          "en": "Set Grid First Battery Minimum SoC to",
+          "nl": "Stel de minimale SoC van de batterij in voor Net Eerst op",
+          "de": "Setze Netz Zuerst Batterie min SoC auf"
+        },
+        "titleFormatted": {
+          "en": "Set Grid First Battery Minimum SoC to [[percentage]]",
+          "nl": "Stel de minimale SoC van de batterij in voor Net Eerst op [[percentage]]",
+          "de": "Setze Netz Zuerst Batterie min SoC auf [[percentage]]"
         },
         "args": [
           {
             "type": "range",
             "name": "percentage",
             "title": {
-              "en": "percentage",
-              "de": "Prozent"
+              "en": "Minimum SoC(%)",
+              "nl": "Minimum SoC(%)",
+              "de": "Minimum SoC(%)"
             },
             "min": 10,
             "max": 100,
-            "step": 1
+            "step": 1,
+            "label": "%"
           },
           {
             "type": "device",
@@ -1673,7 +1752,13 @@
       {
         "title": {
           "en": "Set export limit to",
+          "nl": "Stel de exportlimiet in op",
           "de": "Setze Exportbeschränkung auf"
+        },
+        "titleFormatted": {
+          "en": "Set export limit to [[mode]]",
+          "nl": "Stel de exportlimiet in op [[mode]]",
+          "de": "Setze Exportbeschränkung auf [[mode]]"
         },
         "args": [
           {
@@ -1684,6 +1769,7 @@
                 "id": "0",
                 "title": {
                   "en": "Disabled",
+                  "nl": "Uit",
                   "de": "Deaktiviert"
                 }
               },
@@ -1691,6 +1777,7 @@
                 "id": "1",
                 "title": {
                   "en": "Enabled",
+                  "nl": "Aan",
                   "de": "Aktiviert"
                 }
               }
@@ -1707,20 +1794,28 @@
       {
         "title": {
           "en": "Set Export limit to",
+          "nl": "Stel de exportlimiet in op",
           "de": "Setze Exportbeschränkung auf"
+        },
+        "titleFormatted": {
+          "en": "Set Export limit to [[percentage]]",
+          "nl": "Stel de exportlimiet in op [[percentage]]",
+          "de": "Setze Exportbeschränkung auf [[percentage]]"
         },
         "args": [
           {
             "type": "range",
             "name": "percentage",
             "title": {
-              "en": "percentage",
-              "de": "Prozent"
+              "en": "Export Limit(%)",
+              "nl": "Exportlimiet(%)",
+              "de": "Exportbeschränkung(%)"
             },
             "min": 0,
             "max": 100,
             "step": 0.1,
-            "labelDecimals": 1
+            "labelDecimals": 1,
+            "label": "%"
           },
           {
             "type": "device",
@@ -1781,7 +1876,13 @@
       {
         "title": {
           "en": "Set Priority mode to",
+          "nl": "Stel de Prioriteit in op",
           "de": "Setze Priorität auf"
+        },
+        "titleFormatted": {
+          "en": "Set Priority mode to [[mode]]",
+          "nl": "Stel de Prioriteit in op [[mode]]",
+          "de": "Setze Priorität auf [[mode]]"
         },
         "args": [
           {
@@ -1792,6 +1893,7 @@
                 "id": "0",
                 "title": {
                   "en": "Load",
+                  "nl": "Belasting",
                   "de": "Last"
                 }
               },
@@ -1799,6 +1901,7 @@
                 "id": "1",
                 "title": {
                   "en": "Battery",
+                  "nl": "Batterij",
                   "de": "Batterie"
                 }
               },
@@ -1806,6 +1909,7 @@
                 "id": "2",
                 "title": {
                   "en": "Grid",
+                  "nl": "Net",
                   "de": "Netz"
                 }
               }
@@ -1822,15 +1926,22 @@
       {
         "title": {
           "en": "Sync Invertor Clock",
+          "nl": "Synchroniseer omvormerklok",
           "de": "Synchronisiere Wechselrichteruhr"
+        },
+        "titleFormatted": {
+          "en": "Sync Invertor Clock, including date: [[syncdate]]",
+          "nl": "Synchroniseer omvormerklok, inclusief datum: [[syncdate]]",
+          "de": "Synchronisiere Wechselrichteruhr, einschließlich Datum: [[syncdate]]"
         },
         "args": [
           {
             "type": "checkbox",
             "name": "syncdate",
             "title": {
-              "en": "Sync Date",
-              "de": "Datum synchronisieren"
+              "en": "Set Date as well",
+              "nl": "Ook Datum  synchroniseren",
+              "de": "Auch Datum synchronisieren"
             }
           },
           {
@@ -1842,10 +1953,145 @@
         "id": "timesync"
       },
       {
+        "id": "grid_first_for_interval_with_percentage",
+        "title": {
+          "en": "Set Grid First for the next xxx hour quarters with discharge rate xxx and SoC xxx",
+          "nl": "Stel Grid First in voor de volgende xxx kwarturen met ontlaadsnelheid xxx en SoC xxx",
+          "de": "Setze Netz Zuerst für die nächsten xxx Viertelstunden mit EntLade-Rate xxx und SoC xxx"
+        },
+        "titleFormatted": {
+          "en": "Set Grid First for the next [[hours]] hours at discharge rate [[percentage]] and min SoC [[soc]]",
+          "nl": "Stel Grid First in voor de volgende [[hours]] uren met ontlaadsnelheid [[percentage]] en min SoC [[soc]]",
+          "de": "Setze Netz Zuerst für die nächsten [[hours]] Stunden mit EntLade-Rate [[percentage]] und min SoC [[soc]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          },
+          {
+            "type": "range",
+            "name": "hours",
+            "title": {
+              "en": "Hours",
+              "nl": "Uren",
+              "de": "Stunden"
+            },
+            "min": 0.25,
+            "max": 24,
+            "step": 0.25,
+            "labelDecimals": 2,
+            "label": " "
+          },
+          {
+            "type": "range",
+            "name": "percentage",
+            "title": {
+              "en": "Discharge Rate(%)",
+              "nl": "Ontlaadsnelheid(%)",
+              "de": "EntLade-Rate(%)"
+            },
+            "min": 10,
+            "max": 100,
+            "step": 1,
+            "label": "%"
+          },
+          {
+            "type": "range",
+            "name": "soc",
+            "title": {
+              "en": "Minimum SoC(%)",
+              "nl": "Minimale SoC(%)",
+              "de": "Min SoC(%)"
+            },
+            "min": 10,
+            "max": 100,
+            "step": 1,
+            "label": "%"
+          }
+        ]
+      },
+      {
+        "id": "batt_first_for_interval_with_percentage",
+        "title": {
+          "en": "Set Battery First for the next xxx hours with charge rate xxx and SoC xxx",
+          "nl": "Stel Batterij Eerst in voor de volgende xxx uren met laadsnelheid xxx en SoC xxx",
+          "de": "Setze Batterie Zuerst für die nächsten xxx Stunden mit Lade-Rate xxx und SoC xxx"
+        },
+        "titleFormatted": {
+          "en": "Set Battery First for the next [[hours]] hours at charge rate [[percentage]] and max SoC [[soc]] with AC charge [[accharge]]",
+          "nl": "Stel Batterij Eerst in voor de volgende [[hours]] uren met laadsnelheid [[percentage]] en max SoC [[soc]] met AC laden [[accharge]]",
+          "de": "Setze Batterie Zuerst für die nächsten [[hours]] Stunden mit Lade-Rate [[percentage]] und max SoC [[soc]] mit AC Laden [[accharge]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          },
+          {
+            "type": "range",
+            "name": "hours",
+            "title": {
+              "en": "Hours",
+              "nl": "Uren",
+              "de": "Stunden"
+            },
+            "min": 0.25,
+            "max": 24,
+            "step": 0.25,
+            "labelDecimals": 2,
+            "label": " "
+          },
+          {
+            "type": "range",
+            "name": "percentage",
+            "title": {
+              "en": "Max Charge rate(%)",
+              "nl": "Max Laadsnelheid(%)",
+              "de": "Max Lade-Rate(%)"
+            },
+            "min": 10,
+            "max": 100,
+            "step": 1,
+            "label": "%"
+          },
+          {
+            "type": "range",
+            "name": "soc",
+            "title": {
+              "en": "Max Battery SoC(%)",
+              "nl": "Max Batterij SoC(%)",
+              "de": "Max Batterie SoC(%)"
+            },
+            "min": 10,
+            "max": 100,
+            "step": 1,
+            "label": "%"
+          },
+          {
+            "type": "checkbox",
+            "name": "accharge",
+            "title": {
+              "en": "AC charge enabled",
+              "nl": "AC laden geactiveerd",
+              "de": "AC Laden aktiviert"
+            }
+          }
+        ]
+      },
+      {
         "id": "battery_min_cap_load_first",
         "title": {
-          "en": "Set Load first Battery Minimum Capacity to",
-          "de": "Setze Load first Batteriemindeststand auf"
+          "en": "Set Load First Battery Minimum Capacity to",
+          "nl": "Stel de minimale capaciteit van de batterij in voor Belasting Eerst op",
+          "de": "Setze Load Zuerst Batteriemindeststand auf"
+        },
+        "titleFormatted": {
+          "en": "Set Load first Battery Minimum Capacity to [[percentage]]",
+          "nl": "Stel de minimale capaciteit van de batterij in voor Belasting Eerst op [[percentage]]",
+          "de": "Setze Load Zuerst Batteriemindeststand auf [[percentage]]"
         },
         "args": [
           {
@@ -1857,20 +2103,28 @@
             "type": "range",
             "name": "percentage",
             "title": {
-              "en": "percentage",
-              "de": "Prozent"
+              "en": "Load First minimum SoC(%)",
+              "nl": "Minimale SoC van Belasting Eerst(%)",
+              "de": "Load Zuerst Mindeststand(%)"
             },
             "min": 10,
             "max": 100,
-            "step": 1
+            "step": 1,
+            "label": "%"
           }
         ]
       },
       {
         "id": "battfirsttime1",
         "title": {
-          "en": "Battery 1st, time slot 1:",
-          "de": "Batterie zuerst, Zeitfenster 1:"
+          "en": "Battery First, time slot 1:",
+          "nl": "Batterij Eerst, tijdslot 1:",
+          "de": "Batterie Zuerst, Zeitfenster 1:"
+        },
+        "titleFormatted": {
+          "en": "Battery First, time slot 1: [[starttime]] ~ [[stoptime]] state: [[active]]",
+          "nl": "Batterij Eerst, tijdslot 1: [[starttime]] ~ [[stoptime]] state: [[active]]",
+          "de": "Batterie Zuerst, Zeitfenster 1: [[starttime]] ~ [[stoptime]] state: [[active]]"
         },
         "args": [
           {
@@ -1879,56 +2133,28 @@
             "filter": "driver_id=growattwithbatt"
           },
           {
-            "type": "range",
-            "name": "hourstart",
+            "type": "time",
+            "name": "starttime",
             "title": {
-              "en": "Hour",
-              "de": "Stunde"
+              "en": "Start Time",
+              "nl": "Starttijd",
+              "de": "Startzeit"
             },
-            "min": 0,
-            "max": 23,
-            "step": 1,
-            "labelDecimals": 0,
-            "label": ":"
+            "placeholder": {
+              "en": "13:37"
+            }
           },
           {
-            "type": "range",
-            "name": "minstart",
+            "type": "time",
+            "name": "stoptime",
             "title": {
-              "en": "Minute",
-              "de": "Minute"
+              "en": "Stop Time",
+              "nl": "Stop tijd",
+              "de": "Stop Zeit"
             },
-            "min": 0,
-            "max": 59,
-            "step": 1,
-            "labelDecimals": 0,
-            "label": " ~ "
-          },
-          {
-            "type": "range",
-            "name": "hourstop",
-            "title": {
-              "en": "Hour",
-              "de": "Stunde"
-            },
-            "min": 0,
-            "max": 23,
-            "step": 1,
-            "labelDecimals": 0,
-            "label": ":"
-          },
-          {
-            "type": "range",
-            "name": "minstop",
-            "title": {
-              "en": "Minute",
-              "de": "Minute"
-            },
-            "min": 0,
-            "max": 59,
-            "step": 1,
-            "labelDecimals": 0,
-            "label": " state: "
+            "placeholder": {
+              "en": "14:37"
+            }
           },
           {
             "name": "active",
@@ -1955,8 +2181,14 @@
       {
         "id": "gridfirsttime1",
         "title": {
-          "en": "Grid 1st, time slot 1:",
-          "de": "Netz zuerst, Zeitfenster 1:"
+          "en": "Grid First, time slot 1:",
+          "nl": "Net Eerst, tijdslot 1:",
+          "de": "Netz Zuerst, Zeitfenster 1:"
+        },
+        "titleFormatted": {
+          "en": "Grid First, time slot 1: [[starttime]] ~ [[stoptime]] state: [[active]]",
+          "nl": "Net Eerst, tijdslot 1: [[starttime]] ~ [[stoptime]] state: [[active]]",
+          "de": "Netz zuerst, Zeitfenster 1: [[starttime]] ~ [[stoptime]] state: [[active]]"
         },
         "args": [
           {
@@ -1965,56 +2197,28 @@
             "filter": "driver_id=growattwithbatt"
           },
           {
-            "type": "range",
-            "name": "hourstart",
+            "type": "time",
+            "name": "starttime",
             "title": {
-              "en": "Hour",
-              "de": "Stunde"
+              "en": "Start Time",
+              "nl": "Starttijd",
+              "de": "Startzeit"
             },
-            "min": 0,
-            "max": 23,
-            "step": 1,
-            "labelDecimals": 0,
-            "label": ":"
+            "placeholder": {
+              "en": "13:37"
+            }
           },
           {
-            "type": "range",
-            "name": "minstart",
+            "type": "time",
+            "name": "stoptime",
             "title": {
-              "en": "Minute",
-              "de": "Minute"
+              "en": "Stop Time",
+              "nl": "Stop tijd",
+              "de": "Stop Zeit"
             },
-            "min": 0,
-            "max": 59,
-            "step": 1,
-            "labelDecimals": 0,
-            "label": " ~ "
-          },
-          {
-            "type": "range",
-            "name": "hourstop",
-            "title": {
-              "en": "Hour",
-              "de": "Stunde"
-            },
-            "min": 0,
-            "max": 23,
-            "step": 1,
-            "labelDecimals": 0,
-            "label": ":"
-          },
-          {
-            "type": "range",
-            "name": "minstop",
-            "title": {
-              "en": "Minute",
-              "de": "Minute"
-            },
-            "min": 0,
-            "max": 59,
-            "step": 1,
-            "labelDecimals": 0,
-            "label": " state: "
+            "placeholder": {
+              "en": "14:37"
+            }
           },
           {
             "name": "active",
@@ -4132,6 +4336,8 @@
         "batterymaxsoc",
         "batteryminsoc",
         "batteryminsoclf",
+        "gfdischargerate",
+        "bfchargerate",
         "gridfirst1",
         "battfirst1",
         "battacchargeswitch"
@@ -8644,6 +8850,26 @@
         }
       ]
     },
+    "bfchargerate": {
+      "type": "number",
+      "title": {
+        "en": "Battery First Charge Rate",
+        "nl": "Batterij Eerst Laadsnelheid",
+        "de": "Batterie Zuerst Ladungsrate"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "uiComponent": "sensor",
+      "icon": "/assets/power_drawn.svg",
+      "units": {
+        "en": "%",
+        "nl": "%"
+      },
+      "min": 10,
+      "max": 100,
+      "step": 1
+    },
     "charge_discharge_power": {
       "type": "number",
       "title": {
@@ -8837,6 +9063,26 @@
       "decimals": 1,
       "min": 0,
       "max": 100
+    },
+    "gfdischargerate": {
+      "type": "number",
+      "title": {
+        "en": "Grid First Battery Discharge Rate",
+        "nl": "Net Eerst Batterij Ontlaadsnelheid",
+        "de": "Netz Erste Batterie Entladungsrate"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "uiComponent": "sensor",
+      "icon": "/assets/power_drawn.svg",
+      "units": {
+        "en": "%",
+        "nl": "%"
+      },
+      "min": 10,
+      "max": 100,
+      "step": 1
     },
     "grid_status": {
       "type": "enum",

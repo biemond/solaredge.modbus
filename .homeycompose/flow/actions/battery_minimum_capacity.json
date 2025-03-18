@@ -1,24 +1,32 @@
 {
-  "title": {
-    "en": "Set Battery Minimum Capacity to",
-    "de": "Setze Batteriemindeststand auf"
-  },
-  "args": [
-    {
-      "type": "range",
-      "name": "percentage",
-      "title": {
-        "en": "percentage",
-        "de": "Prozent"
-      },
-      "min": 10,
-      "max": 100,
-      "step": 1
+    "title": {
+      "en": "Set Grid First Battery Minimum SoC to",
+      "nl": "Stel de minimale SoC van de batterij in voor Net Eerst op",
+      "de": "Setze Netz Zuerst Batterie min SoC auf"
+    },
+    "titleFormatted": {
+      "en": "Set Grid First Battery Minimum SoC to [[percentage]]",
+      "nl": "Stel de minimale SoC van de batterij in voor Net Eerst op [[percentage]]",
+      "de": "Setze Netz Zuerst Batterie min SoC auf [[percentage]]"
+    },
+    "args": [
+      {
+        "type": "range",
+        "name": "percentage",
+        "title": {
+          "en": "Minimum SoC(%)",
+          "nl": "Minimum SoC(%)",
+          "de": "Minimum SoC(%)"
+        },
+        "min": 10,
+        "max": 100,
+        "step": 1,
+        "label": "%"
     },
     {
-      "type": "device",
-      "name": "device",
-      "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+        "type": "device",
+        "name": "device",
+        "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
     }
-  ]
-}
+    ]
+  }

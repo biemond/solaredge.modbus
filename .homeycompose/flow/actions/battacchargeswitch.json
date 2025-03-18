@@ -1,7 +1,13 @@
 {
     "title": {
       "en": "Set Battery AC charge switch to",
+      "nl": "Zet de batterij AC laden op",
       "de": "Setze Netzladung der Batterie auf"
+    },
+    "titleFormatted": {
+      "en": "Set Battery AC charge switch to [[mode]]",
+      "nl": "Zet de batterij AC laden [[mode]]",
+      "de": "Setze Netzladung der Batterie auf [[mode]]"
     },
     "args": [
       {
@@ -12,6 +18,7 @@
             "id": "0",
             "title": {
               "en": "Disabled",
+              "nl": "Uit",
               "de": "Deaktiviert"
             }
           },
@@ -19,6 +26,7 @@
             "id": "1",
             "title": {
               "en": "Enabled",
+              "nl": "Aan",
               "de": "Aktiviert"
             }
           }

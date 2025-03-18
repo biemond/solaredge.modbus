@@ -48,7 +48,9 @@
     "meter_power.today_load",
     "batterymaxsoc",
     "batteryminsoc",
-    "batteryminsoclf",    
+    "batteryminsoclf",
+    "gfdischargerate",
+    "bfchargerate",
     "gridfirst1",
     "battfirst1",
     "battacchargeswitch"

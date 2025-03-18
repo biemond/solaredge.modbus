@@ -25,6 +25,13 @@ class MyGrowattTLBattery extends Growatt {
       this.pollInvertor();
     }, RETRY_INTERVAL);
 
+    // priority condition
+    let prioCondition = this.homey.flow.getConditionCard("priorityMode");
+    prioCondition.registerRunListener(async (args, state) => {
+      let result = (await args.device.getCapabilityValue('priority') == args.priority);
+      return Promise.resolve(result);
+    })
+
     // flow action
     let exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {

@@ -1,7 +1,13 @@
 {
     "title": {
       "en": "Set Priority mode to",
+      "nl": "Stel de Prioriteit in op",
       "de": "Setze Priorität auf"
+    },
+    "titleFormatted": {
+      "en": "Set Priority mode to [[mode]]",
+      "nl": "Stel de Prioriteit in op [[mode]]",
+      "de": "Setze Priorität auf [[mode]]"
     },
     "args": [
       {
@@ -12,6 +18,7 @@
             "id": "0",
             "title": {
               "en": "Load",
+              "nl": "Belasting",
               "de": "Last"
             }
           },
@@ -19,6 +26,7 @@
             "id": "1",
             "title": {
               "en": "Battery",
+              "nl": "Batterij",
               "de": "Batterie"
             }
           },
@@ -26,6 +34,7 @@
             "id": "2",
             "title": {
               "en": "Grid",
+              "nl": "Net",
               "de": "Netz"
             }
           }
@@ -35,6 +44,6 @@
         "type": "device",
         "name": "device",
         "filter": "driver_id=growattwithbatt"
-      }      
+      }
     ]
   }
