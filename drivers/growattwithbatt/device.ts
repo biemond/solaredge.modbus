@@ -166,6 +166,12 @@ class MyGrowattBattery extends Growatt {
     if (this.hasCapability('batteryminsoclf') === false) {
       await this.addCapability('batteryminsoclf');
     }
+    if (this.hasCapability('gfdischargerate') === false) {
+      await this.addCapability('gfdischargerate');
+    }
+    if (this.hasCapability('bfchargerate') === false) {
+      await this.addCapability('bfchargerate');
+    }
 
   }
 
