@@ -25,6 +25,13 @@ class MyGrowattTLBattery extends Growatt {
       this.pollInvertor();
     }, RETRY_INTERVAL);
 
+    // priority condition
+    let prioCondition = this.homey.flow.getConditionCard("priorityMode");
+    prioCondition.registerRunListener(async (args, state) => {
+      let result = (await args.device.getCapabilityValue('priority') == args.priority);
+      return Promise.resolve(result);
+    })
+
     // flow action
     let exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
@@ -240,13 +247,15 @@ class MyGrowattTLBattery extends Growatt {
         const now = moment().tz(this.homey.clock.getTimezone());
         const time: number[] = [ now.hours(), now.minutes(), now.milliseconds() > 500 ? now.seconds() + 1 : now.seconds()];
         const date: number[] = [now.year() - 2000, now.month() + 1, now.date()];
+        let format = 'hh:mm:ss'
 
         if (value == 1) {
+          format = 'DD-MM-YYYY ' + format;
           await client.writeMultipleRegisters(45, [...date, ...time]);
         } else {
           await client.writeMultipleRegisters(48, time);
         }
-        console.log('timesync: ' + now);
+        console.log('timesync: ' + now.format(format));
       }
 
       console.log('disconnect');

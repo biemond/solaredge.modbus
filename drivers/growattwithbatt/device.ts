@@ -25,6 +25,13 @@ class MyGrowattBattery extends Growatt {
       this.pollInvertor();
     }, RETRY_INTERVAL);
 
+    // priority condition
+    let prioCondition = this.homey.flow.getConditionCard("priorityMode");
+    prioCondition.registerRunListener(async (args, state) => {
+      let result = (await args.device.getCapabilityValue('priority') == args.priority);
+      return Promise.resolve(result);
+    })
+
     // flow action
     let exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
@@ -67,29 +74,40 @@ class MyGrowattBattery extends Growatt {
       await this.updateControl('timesync', Number(args.syncdate));
     });
 
+    let battFirstAction = this.homey.flow.getActionCard('batt_first_for_interval_with_percentage');
+    battFirstAction.registerRunListener(async (args, state) => {
+      await this.updateControlPrio('batt_first_for_interval_with_percentage', Number(args.hours) ,Number(args.percentage), Number(args.soc), Number(args.accharge) );
+    });
+
+    let gridFirstAction = this.homey.flow.getActionCard('grid_first_for_interval_with_percentage');
+    gridFirstAction.registerRunListener(async (args, state) => {
+      await this.updateControlPrio('grid_first_for_interval_with_percentage', Number(args.hours) ,Number(args.percentage), Number(args.soc), 0 );
+    });
+
     let battfirsttime1Action = this.homey.flow.getActionCard('battfirsttime1');
     battfirsttime1Action.registerRunListener(async (args, state) => {
-      await this.updateControlProfile('battfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+      await this.updateControlProfile('battfirsttime1', args.starttime, args.stoptime, Number(args.active) );
     });
     // let battfirsttime2Action = this.homey.flow.getActionCard('battfirsttime2');
-    //  battfirsttime1Action.registerRunListener(async (args, state) => {
-    //  await this.updateControlProfile('battfirsttime2', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+    // battfirsttime2Action.registerRunListener(async (args, state) => {
+    //   await this.updateControlProfile('battfirsttime2', args.starttime, args.stoptime, Number(args.active));
     // });
     // let battfirsttime3Action = this.homey.flow.getActionCard('battfirsttime3');
-    //  battfirsttime1Action.registerRunListener(async (args, state) => {
-    //  await this.updateControlProfile('battfirsttime3', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+    // battfirsttime3Action.registerRunListener(async (args, state) => {
+    //   await this.updateControlProfile('battfirsttime3', args.starttime, args.stoptime, Number(args.active));
     // });
+
     let gridfirsttime1Action = this.homey.flow.getActionCard('gridfirsttime1');
     gridfirsttime1Action.registerRunListener(async (args, state) => {
-      await this.updateControlProfile('gridfirsttime1', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+      await this.updateControlProfile('gridfirsttime1', args.starttime, args.stoptime, Number(args.active));
     });
     // let gridfirsttime2Action = this.homey.flow.getActionCard('gridfirsttime2');
     // gridfirsttime2Action.registerRunListener(async (args, state) => {
-    //   await this.updateControlProfile('gridfirsttime2', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+    //   await this.updateControlProfile('gridfirsttime2', args.starttime, args.stoptime, Number(args.active));
     // });
-    // let gridfirsttime1Action = this.homey.flow.getActionCard('gridfirsttime3');
+    // let gridfirsttime3Action = this.homey.flow.getActionCard('gridfirsttime3');
     // gridfirsttime3Action.registerRunListener(async (args, state) => {
-    //   await this.updateControlProfile('gridfirsttime3', Number(args.hourstart),Number(args.minstart) ,Number(args.hourstop) ,Number(args.minstop) , args.active );
+    //   await this.updateControlProfile('gridfirsttime3', args.starttime, args.stoptime, Number(args.active));
     // });
 
 
@@ -148,9 +166,14 @@ class MyGrowattBattery extends Growatt {
     if (this.hasCapability('batteryminsoclf') === false) {
       await this.addCapability('batteryminsoclf');
     }
+    if (this.hasCapability('gfdischargerate') === false) {
+      await this.addCapability('gfdischargerate');
+    }
+    if (this.hasCapability('bfchargerate') === false) {
+      await this.addCapability('bfchargerate');
+    }
 
   }
-
   /**
    * onAdded is called when the user adds the device, called just after pairing.
    */
@@ -290,6 +313,8 @@ class MyGrowattBattery extends Growatt {
 
       if (type == 'prioritymode') {
         console.log('prioritymode value: ' + value);
+        const limit = this.getCapabilityValue('exportlimitenabled');
+        console.log('export limit is:', limit);
         const res = client.readHoldingRegisters(1080, 29)
         const actualRes = await res;
         await this.delay(850); // Growatt needs at least 850ms between commands
@@ -309,19 +334,31 @@ class MyGrowattBattery extends Growatt {
           registers[2] = registers[5] = registers[8] = registers[25] = registers[28] = 0;
           console.log('prioritymode Batt First: slot#1 is enabled and set to 00:00-23:59');
         } else if (value === 2) {
-
-          // set Grid First slot#1 to enabled / 00:00-23:59
-          registers[0] = 0; // 1080->00:00
-          registers[1] = 5947; // 1081->23:59
-          registers[2] = 1; // 1082->enabled
-          // disable all other slots
-          registers[5] = registers[8] = registers[22] = registers[25] = registers[28] = 0;
-          console.log('prioritymode Grid First: slot#1 is enabled and set to 00:00-23:59');
+          if (limit === 0) {
+            // set Grid First slot#1 to enabled / 00:00-23:59
+            registers[0] = 0; // 1080->00:00
+            registers[1] = 5947; // 1081->23:59
+            registers[2] = 1; // 1082->enabled
+            // disable all other slots
+            registers[5] = registers[8] = registers[22] = registers[25] = registers[28] = 0;
+            console.log('prioritymode Grid First: slot#1 is enabled and set to 00:00-23:59');
+          } else {
+            console.log('prioritymode Grid First: not possible, export limit is enabled');
+          }
         } else {
           console.log('prioritymode unknown value: ' + value);
         }
         const setData: number[] = Array.from(registers);
-        const priorityRes = await client.writeMultipleRegisters(1080, setData);
+        let priorityRes;
+        if (limit === 0) {
+          priorityRes = await client.writeMultipleRegisters(1080, setData);
+        } else if (value != 2) {
+          // export limit is enabled, only write Batt First registers
+          const modifiedSetData = setData.slice(20, 29);
+          priorityRes = await client.writeMultipleRegisters(1100, modifiedSetData);
+        } else {
+          priorityRes = 'Grid First: not possible, export limit is enabled';
+        }
         console.log('prioritymode', priorityRes);
       }
 
@@ -330,13 +367,15 @@ class MyGrowattBattery extends Growatt {
         const now = moment().tz(this.homey.clock.getTimezone());
         const time: number[] = [ now.hours(), now.minutes(), now.milliseconds() > 500 ? now.seconds() + 1 : now.seconds()];
         const date: number[] = [now.year() - 2000, now.month() + 1, now.date()];
+        let format = 'hh:mm:ss'
 
         if (value == 1) {
+          format = 'DD-MM-YYYY ' + format;
           await client.writeMultipleRegisters(45, [...date, ...time]);
         } else {
           await client.writeMultipleRegisters(48, time);
         }
-        console.log('timesync: ' + now);
+        console.log('timesync: ' + now.format(format));
       }
 
       console.log('disconnect');
@@ -355,7 +394,7 @@ class MyGrowattBattery extends Growatt {
     })
   }
 
-  async updateControlProfile(type: string, hourstart: number, minstart: number, hourstop: number, minstop: number, enabled: string) {
+  async updateControlProfile(type: string, startTime: string, stopTime: string, active: number) {
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
     let client = new Modbus.client.TCP(socket, unitID, 500);
@@ -387,12 +426,19 @@ class MyGrowattBattery extends Growatt {
 
     socket.on('connect', async () => {
       console.log('Connected ...');
-      // any slot has the same structure
-      // start time, stop time, enabled
-      const setData: number[] = [(hourstart * 256) + minstart, (hourstop * 256) + minstop, 1];
+      const limit = this.getCapabilityValue('exportlimitenabled');
       const startRegister = startRegisters[type];
-      const timeRes = await client.writeMultipleRegisters(startRegister, setData);
-      console.log(type, timeRes);
+      if (limit === 1 && startRegister < 1100) {
+        console.log('export limit is enabled, cannot change grid first time slot');
+      } else {
+        // Parse startTime and stopTime in "HH:MM" format
+        const [hourstart, minstart] = startTime.split(":").map(Number);
+        const [hourstop, minstop] = stopTime.split(":").map(Number);
+        // any slot has the same structure: start time, stop time, enabled status
+        const setData: number[] = [(hourstart * 256) + minstart, (hourstop * 256) + minstop, active];
+        const timeRes = await client.writeMultipleRegisters(startRegister, setData);
+        console.log(type, timeRes);
+      }
 
       console.log('disconnect');
       client.socket.end();
@@ -410,6 +456,75 @@ class MyGrowattBattery extends Growatt {
     })
   }
 
+  async updateControlPrio(type: string, hours: number, percentage: number, soc: number, ac: number) {
+    let socket = new net.Socket();
+    var unitID = this.getSetting('id');
+    let client = new Modbus.client.TCP(socket, unitID, 500);
+
+    let modbusOptions = {
+      'host': this.getSetting('address'),
+      'port': this.getSetting('port'),
+      'unitId': this.getSetting('id'),
+      'timeout': 15,
+      'autoReconnect': false,
+      'logLabel': 'growatt Inverter',
+      'logLevel': 'error',
+      'logEnabled': true
+    }
+
+    socket.setKeepAlive(false);
+    socket.connect(modbusOptions);
+    console.log(modbusOptions);
+
+    // Set start registers for all slots
+    let startRegister = 0;
+    if (type == 'grid_first_for_interval_with_percentage') {
+      startRegister = 1070;
+    }
+    if (type == 'batt_first_for_interval_with_percentage') {
+      startRegister = 1090;
+    }
+
+    const now = moment().tz(this.homey.clock.getTimezone());
+    const end = moment().tz(this.homey.clock.getTimezone()).add(hours, 'hours');
+    let startTime = now.hours() * 256 + now.minutes();
+    let endTime = 0;
+    // if end time is not today, set to 23:59
+    if(end.date() != now.date()) {
+      endTime = 5947; // 23:59
+    } else {
+      endTime = end.hours() * 256 + end.minutes();
+    }
+
+    socket.on('connect', async () => {
+      console.log('Connected ...');
+      let registers: number[] =  Array(13).fill(0);
+      registers[0] = percentage; // Charge/discharge rate limit
+      registers[1] = soc; // SOC limit
+      if (type == 'batt_first_for_interval_with_percentage') {
+        registers[2] = ac; // Battery First AC charge enable
+      }
+      registers[10] = startTime; // Slot start time
+      registers[11] = endTime; // Slot stop time
+      registers[12] = 1; // Slot enabled
+      const priorityRes = await client.writeMultipleRegisters(startRegister, registers);
+      console.log('prioritymode', priorityRes);
+
+      console.log('disconnect');
+      client.socket.end();
+      socket.end();
+    })
+
+    socket.on('close', () => {
+      console.log('Client closed');
+    });
+
+    socket.on('error', (err) => {
+      console.log(err);
+      socket.end();
+      setTimeout(() => socket.connect(modbusOptions), 4000);
+    })
+  }
 
   async pollInvertor() {
     this.log("pollInvertor");

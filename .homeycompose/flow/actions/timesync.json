@@ -1,15 +1,22 @@
 {
     "title": {
       "en": "Sync Invertor Clock",
+      "nl": "Synchroniseer omvormerklok",
       "de": "Synchronisiere Wechselrichteruhr"
+    },
+    "titleFormatted": {
+      "en": "Sync Invertor Clock, including date: [[syncdate]]",
+      "nl": "Synchroniseer omvormerklok, inclusief datum: [[syncdate]]",
+      "de": "Synchronisiere Wechselrichteruhr, einschließlich Datum: [[syncdate]]"
     },
     "args": [
     {
         "type": "checkbox",
         "name": "syncdate",
         "title": {
-            "en": "Sync Date",
-            "de": "Datum synchronisieren"
+            "en": "Set Date as well",
+            "nl": "Ook Datum  synchroniseren",
+            "de": "Auch Datum synchronisieren"
         }
     },
     {

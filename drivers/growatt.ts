@@ -13,9 +13,11 @@ export class Growatt extends Homey.Device {
         "exportlimitenabled": [122, 1, 'UINT16', "Export Limit enable", 0],
         "exportlimitpowerrate": [123, 1, 'UINT16', "Export Limit Power Rate", -1],
         "prioritychange": [1044, 1, 'UINT16', "Priority", 0],
+        "gridfirstrate": [1070, 1, 'UINT16', "GridFirst discharge rate", 0],
         "gridfirststopsoc": [1071, 1, 'UINT16', "GridFirst stop SOC", 0],
+        "batfirstrate": [1090, 1, 'UINT16', "BatFirst charge rate", 0],
         "batfirststopsoc": [1091, 1, 'UINT16', "BatFirst stop SOC", 0],
-        "batfirststopsocLF": [608, 1, 'UINT16', "BatFirst load first stop SOC", 0],
+        "loadfirststopsoc": [608, 1, 'UINT16', "LoadFirst stop SOC", 0],
 
         "acchargeswitch": [1092, 1, 'UINT16', "Batt AC charge switch", 0],
 
@@ -482,9 +484,16 @@ export class Growatt extends Homey.Device {
                 var soc = Number(result['gridfirststopsoc'].value);
                 this.setCapabilityValue('batteryminsoc', soc);
             }
-            if (result['batfirststopsocLF'] && result['batfirststopsocLF'].value != 'xxx' && this.hasCapability('batteryminsoclf')) {
+
+            if (result['gridfirstrate'] && result['gridfirstrate'].value != 'xxx' && this.hasCapability('gfdischargerate')) {
+                this.addCapability('gfdischargerate');
+                var soc = Number(result['gridfirstrate'].value);
+                this.setCapabilityValue('gfdischargerate', soc);
+            }
+
+            if (result['loadfirststopsoc'] && result['loadfirststopsoc'].value != 'xxx' && this.hasCapability('batteryminsoclf')) {
                 this.addCapability('batteryminsoclf');
-                var soc = Number(result['batfirststopsocLF'].value);
+                var soc = Number(result['loadfirststopsoc'].value);
                 this.setCapabilityValue('batteryminsoclf', soc);
             }
 
@@ -492,6 +501,12 @@ export class Growatt extends Homey.Device {
                 this.addCapability('batterymaxsoc');
                 var soc = Number(result['batfirststopsoc'].value);
                 this.setCapabilityValue('batterymaxsoc', soc);
+            }
+
+            if (result['batfirstrate'] && result['batfirstrate'].value != 'xxx' && this.hasCapability('bfchargerate')) {
+                this.addCapability('bfchargerate');
+                var soc = Number(result['batfirstrate'].value);
+                this.setCapabilityValue('bfchargerate', soc);
             }
 
             if (result['acchargeswitch'] && result['acchargeswitch'].value != 'xxx' && this.hasCapability('battacchargeswitch')) {
