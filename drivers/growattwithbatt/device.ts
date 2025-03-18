@@ -356,7 +356,7 @@ class MyGrowattBattery extends Growatt {
         } else {
           await client.writeMultipleRegisters(48, time);
         }
-        console.log('timesync: ' + now);
+        console.log('timesync: ' + now.format(format));
       }
 
       console.log('disconnect');
