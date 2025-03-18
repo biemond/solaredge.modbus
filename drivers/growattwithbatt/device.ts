@@ -174,7 +174,6 @@ class MyGrowattBattery extends Growatt {
     }
 
   }
-
   /**
    * onAdded is called when the user adds the device, called just after pairing.
    */
@@ -427,14 +426,19 @@ class MyGrowattBattery extends Growatt {
 
     socket.on('connect', async () => {
       console.log('Connected ...');
-      // Parse startTime and stopTime in "HH:MM" format
-      const [hourstart, minstart] = startTime.split(":").map(Number);
-      const [hourstop, minstop] = stopTime.split(":").map(Number);
-      // any slot has the same structure: start time, stop time, enabled status
-      const setData: number[] = [(hourstart * 256) + minstart, (hourstop * 256) + minstop, active];
+      const limit = this.getCapabilityValue('exportlimitenabled');
       const startRegister = startRegisters[type];
-      const timeRes = await client.writeMultipleRegisters(startRegister, setData);
-      console.log(type, timeRes);
+      if (limit === 1 && startRegister < 1100) {
+        console.log('export limit is enabled, cannot change grid first time slot');
+      } else {
+        // Parse startTime and stopTime in "HH:MM" format
+        const [hourstart, minstart] = startTime.split(":").map(Number);
+        const [hourstop, minstop] = stopTime.split(":").map(Number);
+        // any slot has the same structure: start time, stop time, enabled status
+        const setData: number[] = [(hourstart * 256) + minstart, (hourstop * 256) + minstop, active];
+        const timeRes = await client.writeMultipleRegisters(startRegister, setData);
+        console.log(type, timeRes);
+      }
 
       console.log('disconnect');
       client.socket.end();
