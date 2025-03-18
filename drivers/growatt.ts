@@ -15,7 +15,7 @@ export class Growatt extends Homey.Device {
         "prioritychange": [1044, 1, 'UINT16', "Priority", 0],
         "gridfirstrate": [1070, 1, 'UINT16', "GridFirst discharge rate", 0],
         "gridfirststopsoc": [1071, 1, 'UINT16', "GridFirst stop SOC", 0],
-        "batfirstrate": [1091, 1, 'UINT16', "BatFirst charge rate", 0],
+        "batfirstrate": [1090, 1, 'UINT16', "BatFirst charge rate", 0],
         "batfirststopsoc": [1091, 1, 'UINT16', "BatFirst stop SOC", 0],
         "loadfirststopsoc": [608, 1, 'UINT16', "LoadFirst stop SOC", 0],
 
