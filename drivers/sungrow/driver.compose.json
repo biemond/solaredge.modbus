@@ -13,7 +13,7 @@
     "measure_temperature",
     "meter_power",
     "meter_power.daily",
-    "meter_power.monthly",    
+    "meter_power.monthly",
     "activepowerlimit"
   ],
   "capabilitiesOptions": {
