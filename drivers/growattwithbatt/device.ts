@@ -313,7 +313,7 @@ class MyGrowattBattery extends Growatt {
 
       if (type == 'prioritymode') {
         console.log('prioritymode value: ' + value);
-        const limit = this.getCapabilityValue('exportlimitenabled');
+        const limit = Number(this.getCapabilityValue('exportlimitenabled'));
         console.log('export limit is:', limit);
         const res = client.readHoldingRegisters(1080, 29)
         const actualRes = await res;
@@ -426,7 +426,7 @@ class MyGrowattBattery extends Growatt {
 
     socket.on('connect', async () => {
       console.log('Connected ...');
-      const limit = this.getCapabilityValue('exportlimitenabled');
+      const limit = Number(this.getCapabilityValue('exportlimitenabled'));
       const startRegister = startRegisters[type];
       if (limit === 1 && startRegister < 1100) {
         console.log('export limit is enabled, cannot change grid first time slot');
