@@ -545,9 +545,9 @@ export class Growatt extends Homey.Device {
           const value2 = Number(result[stopKey].value);
           const stopminute = value2 & 0xff;
           const stophour = (value2 >> 8) & 0xff;
-          const enabled = Number(result[switchKey].value) === 0 ? 'No' : 'Yes';
-          this.log(`${slot}: ${formatTime(starthour, startminute)} ~ ${formatTime(stophour, stopminute)} enabled: ${enabled}`);
-          this.setCapabilityValue(slot, `${formatTime(starthour, startminute)} ~ ${formatTime(stophour, stopminute)} enabled: ${enabled}`).catch(this.error);
+          const enabled = Number(result[switchKey].value) === 0 ? 'Disabled' : 'Enabled';
+          this.log(`${slot}: ${formatTime(starthour, startminute)} ~ ${formatTime(stophour, stopminute)} is ${enabled}`);
+          this.setCapabilityValue(slot, `${formatTime(starthour, startminute)}~${formatTime(stophour, stopminute)}/${enabled}`).catch(this.error);
         }
       });
 
@@ -562,7 +562,7 @@ export class Growatt extends Homey.Device {
           const starthour = (value >> 8) & 0x1f; // bits 8-12: hours (5 bits)
           const prioValue = (value >> 13) & 0x3; // bits 13-14: priority
           const priority = priorityMap[prioValue] || 'unknown';
-          const enabled = ((value >> 15) & 1) === 1 ? 'Yes' : 'No'; // bit 15: enabled
+          const enabled = ((value >> 15) & 1) === 1 ? 'Enabled' : 'Disabled'; // bit 15: enabled
 
           this.log(`${startKey}: hour ${starthour} min ${startminute}`);
 
@@ -573,7 +573,7 @@ export class Growatt extends Homey.Device {
 
           this.setCapabilityValue(
             capKey,
-            `${formatTime(starthour, startminute)} ~ ${formatTime(stophour, stopminute)} enabled: ${enabled} priority: ${priority}`,
+            `${formatTime(starthour, startminute)} ~ ${formatTime(stophour, stopminute)} is ${enabled} priority: ${priority}`,
           ).catch(this.error);
         }
       }
