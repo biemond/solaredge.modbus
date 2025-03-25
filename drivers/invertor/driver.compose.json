@@ -157,7 +157,7 @@
           "label": {
             "en": "Max peak power in W"
           }
-        },        
+        },
         {
           "id": "id",
           "type": "number",

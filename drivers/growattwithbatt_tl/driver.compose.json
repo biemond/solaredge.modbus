@@ -5,9 +5,7 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": [
-      "OTHER"
-    ]
+    "batteries": ["OTHER"]
   },
   "capabilities": [
     "measure_power",
@@ -49,7 +47,7 @@
     "period1",
     "period2",
     "period3",
-    "period4",    
+    "period4",
     "battacchargeswitch"
   ],
   "capabilitiesOptions": {
@@ -261,12 +259,8 @@
       "icon": "/assets/total_yield.svg"
     }
   },
-  "platforms": [
-    "local"
-  ],
-  "connectivity": [
-    "lan"
-  ],
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"
@@ -311,7 +305,7 @@
           "label": {
             "en": "Max peak power in W"
           }
-        },        
+        },
         {
           "id": "id",
           "type": "number",

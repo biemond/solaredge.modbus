@@ -1,41 +1,41 @@
 {
-    "title": {
-      "en": "Set Battery AC charge switch to",
-      "nl": "Zet de batterij AC laden op",
-      "de": "Setze Netzladung der Batterie auf"
-    },
-    "titleFormatted": {
-      "en": "Set Battery AC charge switch to [[mode]]",
-      "nl": "Zet de batterij AC laden [[mode]]",
-      "de": "Setze Netzladung der Batterie auf [[mode]]"
-    },
-    "args": [
-      {
-        "name": "mode",
-        "type": "dropdown",
-        "values": [
-          {
-            "id": "0",
-            "title": {
-              "en": "Disabled",
-              "nl": "Uit",
-              "de": "Deaktiviert"
-            }
-          },
-          {
-            "id": "1",
-            "title": {
-              "en": "Enabled",
-              "nl": "Aan",
-              "de": "Aktiviert"
-            }
+  "title": {
+    "en": "Set Battery AC charge switch to",
+    "nl": "Zet de batterij AC laden op",
+    "de": "Setze Netzladung der Batterie auf"
+  },
+  "titleFormatted": {
+    "en": "Set Battery AC charge switch to [[mode]]",
+    "nl": "Zet de batterij AC laden [[mode]]",
+    "de": "Setze Netzladung der Batterie auf [[mode]]"
+  },
+  "args": [
+    {
+      "name": "mode",
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Disabled",
+            "nl": "Uit",
+            "de": "Deaktiviert"
           }
-        ]
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Enabled",
+            "nl": "Aan",
+            "de": "Aktiviert"
+          }
+        }
+      ]
     },
     {
-        "type": "device",
-        "name": "device",
-        "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
     }
-    ]
+  ]
 }

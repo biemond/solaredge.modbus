@@ -5,30 +5,28 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": [
-      "OTHER"
-    ]
+    "batteries": ["OTHER"]
   },
   "capabilities": [
     "measure_power",
     "measure_power.houseload",
     "measure_power.feedin",
     "measure_power.batt_charge",
-    "measure_power.input",    
+    "measure_power.input",
     "measure_battery",
     "battery",
     "meter_power",
-    "meter_power.daily", 
+    "meter_power.daily",
     "meter_power.grid_import",
-    "meter_power.grid_export",               
+    "meter_power.grid_export",
     "measure_current.phase1",
     "measure_current.phase2",
     "measure_current.phase3",
     "measure_voltage.phase1",
     "measure_voltage.phase2",
     "measure_voltage.phase3",
-    "battery_control",      
-    "power_control_mode_at_grid"  
+    "battery_control",
+    "power_control_mode_at_grid"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -58,14 +56,14 @@
         "en": "Battery Power (dis)charge",
         "de": "Batterie(ent)ladeleistung"
       }
-    }, 
+    },
     "measure_power.houseload": {
       "decimals": 1,
       "title": {
         "en": "House load",
         "de": "Hauslast"
       }
-    },    
+    },
     "meter_power": {
       "title": {
         "en": "Total Yield",
@@ -140,14 +138,10 @@
         "en": "Voltage phase3",
         "de": "Spannung Phase 3"
       }
-    }                      
+    }
   },
-  "platforms": [
-    "local"
-  ],
-  "connectivity": [
-    "lan"
-  ],
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"

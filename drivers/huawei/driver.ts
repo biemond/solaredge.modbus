@@ -1,7 +1,6 @@
 import Homey from 'homey';
 
 class MyHuaweiDriver extends Homey.Driver {
-
   /**
    * onInit is called when the driver is initialized.
    */
@@ -27,7 +26,6 @@ class MyHuaweiDriver extends Homey.Driver {
       // },
     ];
   }
-
 }
 
 module.exports = MyHuaweiDriver;

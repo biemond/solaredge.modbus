@@ -1,29 +1,28 @@
 {
-    "pair": {
-      "title": "Add Solaredge Inverter",
-      "title_growatt": "Add Growatt Inverter",
-      "title_wattsonic": "Add Wattsonic Inverter",
-      "title_solax": "Add SOLAX Inverter",
-      "title_sungrow": "Add Sungrow Inverter",
-      "title_huawei": "Add Huawei Inverter",      
-      "title_kostal": "Add Kostal Inverter",
-      "title_sigenergy": "Add Sigenergy Inverter",                 
-      "nosettings": "Please fill in all the required fields.",
-      "intro": "Enter the IP address and port of your inverter and set the polling frequency.",
-      "address": "IP Address",
-      "port": "Port",
-      "polling": "Polling Frequency",
-      "deviceid": "Device ID",
-      "deviceidbattery": "Has battery",      
-      "deviceid2": "Device ID2",
-      "deviceid2battery": "Has battery",               
-      "connect": "Connect"
-    },
-    "Unreachable": "Unreachable",
-    "Off": "Off",
-    "BatteryStandby": "Battery Standby",
-    "Charge": "Battery Charging",
-    "Discharge": "Battery Discharging",
-    "NA": "Information Not Available"
-  }
-  
+  "pair": {
+    "title": "Add Solaredge Inverter",
+    "title_growatt": "Add Growatt Inverter",
+    "title_wattsonic": "Add Wattsonic Inverter",
+    "title_solax": "Add SOLAX Inverter",
+    "title_sungrow": "Add Sungrow Inverter",
+    "title_huawei": "Add Huawei Inverter",
+    "title_kostal": "Add Kostal Inverter",
+    "title_sigenergy": "Add Sigenergy Inverter",
+    "nosettings": "Please fill in all the required fields.",
+    "intro": "Enter the IP address and port of your inverter and set the polling frequency.",
+    "address": "IP Address",
+    "port": "Port",
+    "polling": "Polling Frequency",
+    "deviceid": "Device ID",
+    "deviceidbattery": "Has battery",
+    "deviceid2": "Device ID2",
+    "deviceid2battery": "Has battery",
+    "connect": "Connect"
+  },
+  "Unreachable": "Unreachable",
+  "Off": "Off",
+  "BatteryStandby": "Battery Standby",
+  "Charge": "Battery Charging",
+  "Discharge": "Battery Discharging",
+  "NA": "Information Not Available"
+}

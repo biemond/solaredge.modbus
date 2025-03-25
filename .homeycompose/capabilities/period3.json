@@ -1,12 +1,12 @@
 {
-    "type": "string",
-    "title": {
-        "en": "Time slot 3",
-		"de": "Zeitfenster 3:"
-    },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,
-    "icon": "/assets/clock.svg"
+  "type": "string",
+  "title": {
+    "en": "Time slot 3",
+    "de": "Zeitfenster 3:"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "icon": "/assets/clock.svg"
 }

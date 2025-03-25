@@ -1,32 +1,32 @@
 {
-    "title": {
-      "en": "Set Battery First Maximum SoC to",
-      "nl": "Stel de maximale SoC van de batterij in voor Batterij Eerst op",
-      "de": "Setze Batterie Zuerst maximum SoC auf"
-    },
-    "titleFormatted": {
-      "en": "Set Battery First Maximum SoC to [[percentage]]",
-      "nl": "Stel de maximale SoC van de batterij in voor Batterij Eerst op [[percentage]]",
-      "de": "Setze Batterie Zuerst maximum SoC auf [[percentage]]"
-    },
-    "args": [
-      {
-        "type": "range",
-        "name": "percentage",
-        "title": {
-          "en": "Maximum SoC(%)",
-          "nl": "Maximum SoC(%)",
-          "de": "Maximum SoC(%)"
-        },
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "label": "%"
+  "title": {
+    "en": "Set Battery First Maximum SoC to",
+    "nl": "Stel de maximale SoC van de batterij in voor Batterij Eerst op",
+    "de": "Setze Batterie Zuerst maximum SoC auf"
+  },
+  "titleFormatted": {
+    "en": "Set Battery First Maximum SoC to [[percentage]]",
+    "nl": "Stel de maximale SoC van de batterij in voor Batterij Eerst op [[percentage]]",
+    "de": "Setze Batterie Zuerst maximum SoC auf [[percentage]]"
+  },
+  "args": [
+    {
+      "type": "range",
+      "name": "percentage",
+      "title": {
+        "en": "Maximum SoC(%)",
+        "nl": "Maximum SoC(%)",
+        "de": "Maximum SoC(%)"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "%"
     },
     {
-        "type": "device",
-        "name": "device",
-        "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
     }
-    ]
-  }
+  ]
+}

@@ -1,19 +1,19 @@
 {
-    "type": "number",
-    "title": {
-      "en": "Export limit failed",
-      "de": "Exportbeschränkung fehlgeschlagen"
-    },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,    
-    "insights": true,
-    "units": {
-      "en": "%",
-      "nl": "%"
-    },
-    "decimals": 1,
-    "min": 0,
-    "max": 100    
+  "type": "number",
+  "title": {
+    "en": "Export limit failed",
+    "de": "Exportbeschränkung fehlgeschlagen"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "insights": true,
+  "units": {
+    "en": "%",
+    "nl": "%"
+  },
+  "decimals": 1,
+  "min": 0,
+  "max": 100
 }

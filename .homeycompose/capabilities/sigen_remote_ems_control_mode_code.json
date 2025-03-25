@@ -1,54 +1,54 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Remote EMS control mode"
+  "type": "enum",
+  "title": {
+    "en": "Remote EMS control mode"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "PCS remote control"
+      }
     },
-    "getable": true,
-    "setable": true,
-    "uiComponent": "picker",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "PCS remote control"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Standby"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "Maximum self consumption"
-            }
-        },
-        {
-            "id": "3",
-            "title": {
-                "en": "Command charging, grid first"
-            }
-        },
-        {
-            "id": "4",
-            "title": {
-                "en": "Command charging, PV first"
-            }
-        },
-        {
-            "id": "5",
-            "title": {
-                "en": "Command discharging, PV first"
-            }
-        },
-        {
-            "id": "6",
-            "title": {
-                "en": "Command discharging, Battery first"
-            }
-        }                                              
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Standby"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Maximum self consumption"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Command charging, grid first"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "Command charging, PV first"
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "Command discharging, PV first"
+      }
+    },
+    {
+      "id": "6",
+      "title": {
+        "en": "Command discharging, Battery first"
+      }
+    }
+  ]
 }

@@ -7,9 +7,7 @@
   "energy": {
     "cumulativeImportedCapability": "meter_power.import",
     "cumulativeExportedCapability": "meter_power.export",
-    "batteries": [
-      "OTHER"
-    ]
+    "batteries": ["OTHER"]
   },
   "capabilities": [
     "measure_battery",
@@ -19,7 +17,7 @@
     "measure_power.batt_charge",
     "measure_power.batt_discharge",
     "measure_power.batt_charge2",
-    "measure_power.batt_discharge2",    
+    "measure_power.batt_discharge2",
     "measure_power.chargesetting",
     "measure_power.dischargesetting",
     "measure_current",
@@ -39,7 +37,7 @@
     "measure_voltage.meter_phase3",
     "measure_temperature.invertor",
     "measure_temperature.battery",
-    "measure_temperature.battery2",    
+    "measure_temperature.battery2",
     "meter_power",
     "meter_power.daily",
     "meter_power.export",
@@ -47,7 +45,7 @@
     "battery",
     "batterysoh",
     "battery2",
-    "batterysoh2",    
+    "batterysoh2",
     "storagecontrolmode",
     "storagedefaultmode",
     "invertorstatus",
@@ -56,7 +54,7 @@
     "batterymaxcap",
     "battstatus2",
     "batterycap2",
-    "batterymaxcap2",    
+    "batterymaxcap2",
     "ownconsumption",
     "activepowerlimit",
     "limitcontrolmode",
@@ -141,7 +139,7 @@
         "en": "Battery 2 Power charge",
         "de": "Batterieladeleistung 2"
       }
-    },    
+    },
     "measure_power.import": {
       "decimals": 0,
       "title": {
@@ -225,7 +223,7 @@
         "de": "Durchschnittliche Batterie 2 temperatur"
       },
       "decimals": 2
-    },    
+    },
     "measure_power.chargesetting": {
       "title": {
         "en": "Charge setting",
@@ -274,12 +272,8 @@
       "icon": "/assets/total_yield.svg"
     }
   },
-  "platforms": [
-    "local"
-  ],
-  "connectivity": [
-    "lan"
-  ],
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.jpg",
     "large": "{{driverAssetsPath}}/images/large.jpg"
@@ -324,7 +318,7 @@
           "label": {
             "en": "Max peak power in W"
           }
-        },                  
+        },
         {
           "id": "id",
           "type": "number",

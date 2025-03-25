@@ -1,21 +1,21 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import {checkHoldingRegisterWattsonic} from '../response';
+import { checkHoldingRegisterWattsonic } from '../response';
 import { Wattsonic } from '../wattsonic';
 
-const RETRY_INTERVAL = 28 * 1000; 
+const RETRY_INTERVAL = 28 * 1000;
 
 class MyWattsonicDevice extends Wattsonic {
-  timer!: NodeJS.Timer;  
+  timer!: NodeJS.Timer;
   /**
    * onInit is called when the device is initialized.
    */
   async onInit() {
     this.log('MyWattsonicDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log("device name id " + name );
-    this.log("device name " + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -23,8 +23,6 @@ class MyWattsonicDevice extends Wattsonic {
       // poll device state from inverter
       this.pollInvertor();
     }, RETRY_INTERVAL);
- 
-
   }
 
   /**
@@ -42,7 +40,7 @@ class MyWattsonicDevice extends Wattsonic {
    * @param {string[]} event.changedKeys An array of keys changed since the previous version
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
-  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string|void> {
+  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string | void> {
     this.log('MyWattsonicDevice settings where changed');
   }
 
@@ -62,25 +60,25 @@ class MyWattsonicDevice extends Wattsonic {
     this.log('MyWattsonicDevice has been deleted');
     this.homey.clearInterval(this.timer);
   }
-  
+
   async pollInvertor() {
-    this.log("pollInvertor");
+    this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
-      'host': this.getSetting('address'),
-      'port': this.getSetting('port'),
-      'unitId': this.getSetting('id'),
-      'timeout': 22,
-      'autoReconnect': false,
-      'logLabel' : 'wattsonic Inverter',
-      'logLevel': 'error',
-      'logEnabled': true
-    }    
+    const modbusOptions = {
+      host: this.getSetting('address'),
+      port: this.getSetting('port'),
+      unitId: this.getSetting('id'),
+      timeout: 22,
+      autoReconnect: false,
+      logLabel: 'wattsonic Inverter',
+      logLevel: 'error',
+      logEnabled: true,
+    };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 1000);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 1000);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
@@ -89,16 +87,16 @@ class MyWattsonicDevice extends Wattsonic {
       console.log(modbusOptions);
 
       const checkRegisterRes = await checkHoldingRegisterWattsonic(this.holdingRegisters, client);
-      console.log('disconnect'); 
+      console.log('disconnect');
       client.socket.end();
       socket.end();
-      const finalRes = {...checkRegisterRes}
-      this.processResult(finalRes)
-    });    
+      const finalRes = { ...checkRegisterRes };
+      this.processResult(finalRes);
+    });
 
     socket.on('close', () => {
       console.log('Client closed');
-    });  
+    });
 
     socket.on('timeout', () => {
       console.log('socket timed out!');
@@ -110,7 +108,7 @@ class MyWattsonicDevice extends Wattsonic {
       console.log(err);
       client.socket.end();
       socket.end();
-    })
+    });
   }
 }
 

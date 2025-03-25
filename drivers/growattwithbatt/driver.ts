@@ -1,7 +1,6 @@
 import Homey from 'homey';
 
 class MyGrowattBatteryDriver extends Homey.Driver {
-
   /**
    * onInit is called when the driver is initialized.
    */
@@ -27,7 +26,6 @@ class MyGrowattBatteryDriver extends Homey.Driver {
       // },
     ];
   }
-
 }
 
 module.exports = MyGrowattBatteryDriver;

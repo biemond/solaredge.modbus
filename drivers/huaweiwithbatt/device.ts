@@ -1,22 +1,22 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import {checkHoldingRegisterHuawei} from '../response';
-import { Huawei } from '../huawei';
 import Homey, { Device } from 'homey';
+import { checkHoldingRegisterHuawei } from '../response';
+import { Huawei } from '../huawei';
 
-const RETRY_INTERVAL = 120 * 1000; 
+const RETRY_INTERVAL = 120 * 1000;
 
 class MyHuaweiDeviceBattery extends Huawei {
-  timer!: NodeJS.Timer;  
+  timer!: NodeJS.Timer;
   /**
    * onInit is called when the device is initialized.
    */
   async onInit() {
     this.log('MyHuaweiDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log("device name id " + name );
-    this.log("device name " + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -24,7 +24,6 @@ class MyHuaweiDeviceBattery extends Huawei {
       // poll device state from inverter
       this.pollInvertor();
     }, RETRY_INTERVAL);
- 
 
     // homey menu / device actions
     this.registerCapabilityListener('storage_excess_pv_energy_use_in_tou', async (value) => {
@@ -43,39 +42,36 @@ class MyHuaweiDeviceBattery extends Huawei {
       this.updateControl('remote_charge_discharge_control_mode', Number(value), this);
       return value;
     });
-    
+
     this.registerCapabilityListener('storage_working_mode_settings', async (value) => {
       this.updateControl('storage_working_mode_settings', Number(value), this);
       return value;
-    });    
+    });
 
-
-    let controlActionStorageWorkingModeSettings = this.homey.flow.getActionCard('storage_working_mode_settings_main');
+    const controlActionStorageWorkingModeSettings = this.homey.flow.getActionCard('storage_working_mode_settings_main');
     controlActionStorageWorkingModeSettings.registerRunListener(async (args, state) => {
       await this.updateControl('storage_working_mode_settings', Number(args.mode), args.device);
     });
 
-    let controlActionRemoteChargeDischargeControlMode = this.homey.flow.getActionCard('remote_charge_discharge_control_mode_main');
+    const controlActionRemoteChargeDischargeControlMode = this.homey.flow.getActionCard('remote_charge_discharge_control_mode_main');
     controlActionRemoteChargeDischargeControlMode.registerRunListener(async (args, state) => {
-      await this.updateControl('remote_charge_discharge_control_mode',  Number(args.mode), args.device);
+      await this.updateControl('remote_charge_discharge_control_mode', Number(args.mode), args.device);
     });
 
-    let controlActionStorageForceChargeDischarge = this.homey.flow.getActionCard('storage_force_charge_discharge_main');
+    const controlActionStorageForceChargeDischarge = this.homey.flow.getActionCard('storage_force_charge_discharge_main');
     controlActionStorageForceChargeDischarge.registerRunListener(async (args, state) => {
-      await this.updateControl('storage_force_charge_discharge',  Number(args.mode), args.device);
+      await this.updateControl('storage_force_charge_discharge', Number(args.mode), args.device);
     });
 
-    let controlActionActivepowerControlmode = this.homey.flow.getActionCard('activepower_controlmode_main');
+    const controlActionActivepowerControlmode = this.homey.flow.getActionCard('activepower_controlmode_main');
     controlActionActivepowerControlmode.registerRunListener(async (args, state) => {
       await this.updateControl('activepower_controlmode', Number(args.mode), args.device);
     });
-    
-    let controlActionStorageExcessPvEnergyUseInTou = this.homey.flow.getActionCard('storage_excess_pv_energy_use_in_tou_main');
+
+    const controlActionStorageExcessPvEnergyUseInTou = this.homey.flow.getActionCard('storage_excess_pv_energy_use_in_tou_main');
     controlActionStorageExcessPvEnergyUseInTou.registerRunListener(async (args, state) => {
       await this.updateControl('storage_excess_pv_energy_use_in_tou', Number(args.mode), args.device);
-    });    
-
-
+    });
   }
 
   /**
@@ -93,7 +89,7 @@ class MyHuaweiDeviceBattery extends Huawei {
    * @param {string[]} event.changedKeys An array of keys changed since the previous version
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
-  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string|void> {
+  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string | void> {
     this.log('MyHuaweiDeviceBattery settings where changed');
   }
 
@@ -113,28 +109,28 @@ class MyHuaweiDeviceBattery extends Huawei {
     this.log('MyHuaweiDeviceBattery has been deleted');
     this.homey.clearInterval(this.timer);
   }
-  
-  async updateControl(type: string, value: number, device:  Homey.Device) {
-    let socket = new net.Socket();
-    var unitID = device.getSetting('id');
 
-    let client = new Modbus.client.TCP(socket, unitID, 5500);
+  async updateControl(type: string, value: number, device: Homey.Device) {
+    const socket = new net.Socket();
+    const unitID = device.getSetting('id');
 
-    let modbusOptions = {
-      'host': this.getSetting('address'),
-      'port': this.getSetting('port'),
-      'unitId': this.getSetting('id'),
-      'timeout': 45,
-      'autoReconnect': false,
-      'logLabel': 'huawei Inverter Battery',
-      'logLevel': 'error',
-      'logEnabled': true
-    }
+    const client = new Modbus.client.TCP(socket, unitID, 5500);
 
-    socket.setKeepAlive(false); 
+    const modbusOptions = {
+      host: this.getSetting('address'),
+      port: this.getSetting('port'),
+      unitId: this.getSetting('id'),
+      timeout: 45,
+      autoReconnect: false,
+      logLabel: 'huawei Inverter Battery',
+      logLevel: 'error',
+      logEnabled: true,
+    };
+
+    socket.setKeepAlive(false);
     socket.connect(modbusOptions);
     console.log(modbusOptions);
-    
+
     socket.on('connect', async () => {
       console.log('Connected ...');
 
@@ -142,68 +138,65 @@ class MyHuaweiDeviceBattery extends Huawei {
         const storage_excess_pvRes = await client.writeSingleRegister(47299, value);
         console.log('storage_excess_pv_energy_use_in_tou', storage_excess_pvRes);
       }
- 
+
       if (type == 'storage_force_charge_discharge') {
         const storage_forceRes = await client.writeSingleRegister(47100, value);
         console.log('storage_force_charge_discharge', storage_forceRes);
-      }     
+      }
 
       if (type == 'activepower_controlmode') {
         const activepowerRes = await client.writeSingleRegister(47415, value);
         console.log('activepower_controlmode', activepowerRes);
-      }  
+      }
 
       if (type == 'remote_charge_discharge_control_mode') {
         const controlmodeRes = await client.writeSingleRegister(47589, value);
         console.log('remote_charge_discharge_control_mode', controlmodeRes);
-      } 
-      
+      }
+
       if (type == 'storage_working_mode_settings') {
         const storageworkingmodesettingsRes = await client.writeSingleRegister(47086, value);
         console.log('storage_working_mode_settings', storageworkingmodesettingsRes);
-      } 
-
+      }
 
       console.log('disconnect');
       client.socket.end();
       socket.end();
-    })
+    });
 
     socket.on('close', () => {
       console.log('Client closed');
-    }); 
+    });
 
     socket.on('error', (err) => {
       console.log(err);
       socket.end();
       setTimeout(() => socket.connect(modbusOptions), 4000);
-    })
+    });
   }
 
-
-
   delay(ms: any) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   async pollInvertor() {
-    this.log("pollInvertor");
+    this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
-      'host': this.getSetting('address'),
-      'port': this.getSetting('port'),
-      'unitId': this.getSetting('id'),
-      'timeout': 115,
-      'autoReconnect': false,
-      'logLabel' : 'huawei Inverter Battery',
-      'logLevel': 'error',
-      'logEnabled': true
-    }    
+    const modbusOptions = {
+      host: this.getSetting('address'),
+      port: this.getSetting('port'),
+      unitId: this.getSetting('id'),
+      timeout: 115,
+      autoReconnect: false,
+      logLabel: 'huawei Inverter Battery',
+      logLevel: 'error',
+      logEnabled: true,
+    };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 5500);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 5500);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
@@ -217,20 +210,20 @@ class MyHuaweiDeviceBattery extends Huawei {
       const checkBatteryRes = await checkHoldingRegisterHuawei(this.holdingRegistersBattery, client);
       const checkMetersRes = await checkHoldingRegisterHuawei(this.holdingRegistersMeters, client);
 
-      console.log('disconnect'); 
+      console.log('disconnect');
       client.socket.end();
       socket.end();
-      const finalRes = { ...checkRegisterRes, ...checkBatteryRes, ...checkMetersRes }
-      this.processResult(finalRes)
+      const finalRes = { ...checkRegisterRes, ...checkBatteryRes, ...checkMetersRes };
+      this.processResult(finalRes);
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
-      let seconds = Math.floor(timeDiff / 1000);
-      console.log("total time: " +seconds + " seconds");
-    });    
+      const seconds = Math.floor(timeDiff / 1000);
+      console.log(`total time: ${seconds} seconds`);
+    });
 
     socket.on('close', () => {
       console.log('Client closed');
-    });  
+    });
 
     socket.on('timeout', () => {
       console.log('socket timed out!');
@@ -242,7 +235,7 @@ class MyHuaweiDeviceBattery extends Huawei {
       console.log(err);
       client.socket.end();
       socket.end();
-    })
+    });
   }
 }
 

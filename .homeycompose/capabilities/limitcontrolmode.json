@@ -1,41 +1,41 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Limit mode",
-        "de": "Limit-Modus"
+  "type": "enum",
+  "title": {
+    "en": "Limit mode",
+    "de": "Limit-Modus"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Disabled",
+        "de": "Deaktiviert"
+      }
     },
-    "getable": true,
-    "setable": true,
-    "uiComponent": "picker",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Disabled",
-                "de": "Deaktiviert"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Export Control",
-                "de": "Exportbeschränkung"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "Production Limitation",
-                "de": "Production beschränkung"
-            }
-        },
-        {
-            "id": "11",
-            "title": {
-                "en": "Import Control",
-                "de": "Importbeschränkung"
-            }
-        }                                           
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Export Control",
+        "de": "Exportbeschränkung"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Production Limitation",
+        "de": "Production beschränkung"
+      }
+    },
+    {
+      "id": "11",
+      "title": {
+        "en": "Import Control",
+        "de": "Importbeschränkung"
+      }
+    }
+  ]
 }

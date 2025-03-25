@@ -1,25 +1,25 @@
 {
-      "type": "number",
-      "title": {
-        "en": "Battery 2",
-        "nl": "Accuniveau 2",
-        "de": "Batteriestand 2"
-      },
-      "insights": false,
-      "icon": "/assets/battery.svg",
-      "units": {
-        "en": "%"
-      },
-      "min": 0,
-      "max": 100,
-      "desc": {
-        "en": "Battery charge in percentage (%)",
-        "nl": "Accuniveau in procenten (%)",
-        "de": "Batteriestand in Prozent (%)"
-      },
-      "chartType": "spline",
-      "decimals": 2,
-      "getable": true,
-      "setable": false,
-      "uiComponent": "sensor"      
+  "type": "number",
+  "title": {
+    "en": "Battery 2",
+    "nl": "Accuniveau 2",
+    "de": "Batteriestand 2"
+  },
+  "insights": false,
+  "icon": "/assets/battery.svg",
+  "units": {
+    "en": "%"
+  },
+  "min": 0,
+  "max": 100,
+  "desc": {
+    "en": "Battery charge in percentage (%)",
+    "nl": "Accuniveau in procenten (%)",
+    "de": "Batteriestand in Prozent (%)"
+  },
+  "chartType": "spline",
+  "decimals": 2,
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor"
 }

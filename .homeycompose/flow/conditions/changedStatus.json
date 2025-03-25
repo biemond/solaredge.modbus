@@ -1,90 +1,90 @@
 {
-    "title": {
-        "en": "Inverter status is",
-        "de": "Status des Wechselrichters ist"
+  "title": {
+    "en": "Inverter status is",
+    "de": "Status des Wechselrichters ist"
+  },
+  "titleFormatted": {
+    "en": "Inverter status is [[argument_main]]",
+    "de": "Status des Wechselrichters ist [[argument_main]]"
+  },
+  "hint": {
+    "en": "Inverter status",
+    "de": "Status des Wechselrichters"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=invertor|invertorwithbatt"
     },
-    "titleFormatted": {
-        "en": "Inverter status is [[argument_main]]",
-        "de": "Status des Wechselrichters ist [[argument_main]]"
-    },    
-    "hint": {
-        "en": "Inverter status",
-        "de": "Status des Wechselrichters"
-    },
-    "args": [
+    {
+      "name": "argument_main",
+      "type": "dropdown",
+      "values": [
         {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=invertor|invertorwithbatt"
+          "id": "0",
+          "label": {
+            "en": "Undefined",
+            "de": "Undefiniert"
+          }
         },
         {
-            "name": "argument_main",
-            "type": "dropdown",
-            "values": [
-                {
-                    "id": "0",
-                    "label": {
-                        "en": "Undefined",
-                        "de": "Undefiniert"
-                    }
-                },
-                {
-                    "id": "1",
-                    "label": {
-                        "en": "Off",
-                        "de": "Aus"
-                    }
-                },
-                {
-                    "id": "2",
-                    "label": {
-                        "en": "Sleeping",
-                        "de": "Schlafend"
-                    }
-                },
-                {
-                    "id": "3",
-                    "label": {
-                        "en": "Grid Monitoring",
-                        "de": "Netzüberwachung"
-                    }
-                },
-                {
-                    "id": "4",
-                    "label": {
-                        "en": "Producing",
-                        "de": "Produzierend"
-                    }
-                },
-                {
-                    "id": "5",
-                    "label": {
-                        "en": "Producing (Throttled)",
-                        "de": "Produzierend (gedrosselt)"
-                    }
-                },
-                {
-                    "id": "6",
-                    "label": {
-                        "en": "Shutting Down",
-                        "de": "Fährt herunter"
-                    }
-                },
-                {
-                    "id": "7",
-                    "label": {
-                        "en": "Fault",
-                        "de": "Störung"
-                    }
-                },
-                {
-                    "id": "8",
-                    "label": {
-                        "en": "Maintenance",
-                        "de": "Wartung"
-                    }
-                }                                 
-            ]
+          "id": "1",
+          "label": {
+            "en": "Off",
+            "de": "Aus"
+          }
+        },
+        {
+          "id": "2",
+          "label": {
+            "en": "Sleeping",
+            "de": "Schlafend"
+          }
+        },
+        {
+          "id": "3",
+          "label": {
+            "en": "Grid Monitoring",
+            "de": "Netzüberwachung"
+          }
+        },
+        {
+          "id": "4",
+          "label": {
+            "en": "Producing",
+            "de": "Produzierend"
+          }
+        },
+        {
+          "id": "5",
+          "label": {
+            "en": "Producing (Throttled)",
+            "de": "Produzierend (gedrosselt)"
+          }
+        },
+        {
+          "id": "6",
+          "label": {
+            "en": "Shutting Down",
+            "de": "Fährt herunter"
+          }
+        },
+        {
+          "id": "7",
+          "label": {
+            "en": "Fault",
+            "de": "Störung"
+          }
+        },
+        {
+          "id": "8",
+          "label": {
+            "en": "Maintenance",
+            "de": "Wartung"
+          }
         }
-    ]
+      ]
+    }
+  ]
 }

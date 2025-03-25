@@ -11,7 +11,7 @@
       "title": {
         "en": "Power",
         "nl": "Vermogen",
-			  "de": "Leistung"
+        "de": "Leistung"
       },
       "type": "number",
       "example": 100

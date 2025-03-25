@@ -1,76 +1,76 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Battery status",
-		"de": "Batteriestatus"
+  "type": "enum",
+  "title": {
+    "en": "Battery status",
+    "de": "Batteriestatus"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "icon": "/assets/operational_status.svg",
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Off",
+        "de": "Aus"
+      }
     },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,
-    "icon": "/assets/operational_status.svg",    
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Off",
-                "de": "Aus"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Standby",
-                "de": "Bereitschaft"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "Init",
-                "de": "Initialisierung"
-            }
-        },
-        {
-            "id": "3",
-            "title": {
-                "en": "Charge",
-                "de": "Ladung"
-            }
-        },
-        {
-            "id": "4",
-            "title": {
-                "en": "Discharge",
-                "de": "Entladung"
-            }
-        },
-        {
-            "id": "5",
-            "title": {
-                "en": "Fault",
-                "de": "Störung"
-            }
-        },
-        {
-            "id": "6",
-            "title": {
-                "en": "Idle",
-                "de": "Leerlauf"
-            }
-        },
-        {
-            "id": "7",
-            "title": {
-                "en": "Idle",
-                "de": "Leerlauf"
-            }
-        },        
-        {
-            "id": "10",
-            "title": {
-                "en": "Sleep"
-            }
-        }                                                           
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Standby",
+        "de": "Bereitschaft"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Init",
+        "de": "Initialisierung"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Charge",
+        "de": "Ladung"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "Discharge",
+        "de": "Entladung"
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "Fault",
+        "de": "Störung"
+      }
+    },
+    {
+      "id": "6",
+      "title": {
+        "en": "Idle",
+        "de": "Leerlauf"
+      }
+    },
+    {
+      "id": "7",
+      "title": {
+        "en": "Idle",
+        "de": "Leerlauf"
+      }
+    },
+    {
+      "id": "10",
+      "title": {
+        "en": "Sleep"
+      }
+    }
+  ]
 }

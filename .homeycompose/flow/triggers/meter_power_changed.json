@@ -1,26 +1,26 @@
 {
-    "title": {
-      "en": "Total Yield changed",
-      "nl": "Totale opbrengst is veranderd",
-		  "de": "Gesamtertrag hat sich geändert"
-    },
-    "tokens": [
-      {
-        "name": "meter_power",
-        "title": {
-          "en": "Energy",
-          "nl": "Energie",
-          "de": "Energie"
-        },
-        "type": "number",
-        "example": 25
-      }
-    ],
-    "args": [
-        {
-          "type": "device",
-          "name": "device",
-          "filter": "driver_id=invertor|invertorwithbatt|sungrowhybirdwithbatt|sungrow|sigenergywithbatt|huawei|huaweiwithbatt|wattsonic|huaweiwithemma|growatt|growattwithbatt|kostal"
-        }
-    ]    
+  "title": {
+    "en": "Total Yield changed",
+    "nl": "Totale opbrengst is veranderd",
+    "de": "Gesamtertrag hat sich geändert"
+  },
+  "tokens": [
+    {
+      "name": "meter_power",
+      "title": {
+        "en": "Energy",
+        "nl": "Energie",
+        "de": "Energie"
+      },
+      "type": "number",
+      "example": 25
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=invertor|invertorwithbatt|sungrowhybirdwithbatt|sungrow|sigenergywithbatt|huawei|huaweiwithbatt|wattsonic|huaweiwithemma|growatt|growattwithbatt|kostal"
+    }
+  ]
 }

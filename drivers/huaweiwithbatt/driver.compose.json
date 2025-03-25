@@ -5,14 +5,12 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": [
-      "OTHER"
-    ]
+    "batteries": ["OTHER"]
   },
   "capabilities": [
     "measure_power",
     "measure_power.active_power",
-    "battery",    
+    "battery",
     "measure_current.grid_phase1",
     "measure_current.grid_phase2",
     "measure_current.grid_phase3",
@@ -44,7 +42,7 @@
     "remote_charge_discharge_control_mode",
     "storage_working_mode_settings",
     "measure_power.chargesetting",
-    "measure_power.dischargesetting"                                              
+    "measure_power.dischargesetting"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -89,7 +87,7 @@
         "en": "Current pv2",
         "de": "Strom pv2"
       }
-    },    
+    },
     "measure_voltage.grid_phase1": {
       "title": {
         "en": "Voltage grid phase1",
@@ -119,7 +117,7 @@
         "en": "Voltage pv2",
         "de": "Spannung pv2"
       }
-    },    
+    },
     "measure_temperature.invertor": {
       "title": {
         "en": "Heatsink temperature",
@@ -148,9 +146,9 @@
     "huawei_status": {
       "title": {
         "en": "Inverter status",
-	    	"de": "Status des Wechselrichters"
+        "de": "Status des Wechselrichters"
       },
-      "icon": "/assets/operational_status.svg"   
+      "icon": "/assets/operational_status.svg"
     },
     "measure_power.batt_discharge": {
       "decimals": 0,
@@ -245,14 +243,10 @@
         "en": "Discharge setting",
         "de": "Maximale Entladeleistung"
       }
-    }                                                        
+    }
   },
-  "platforms": [
-    "local"
-  ],
-  "connectivity": [
-    "lan"
-  ],
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"

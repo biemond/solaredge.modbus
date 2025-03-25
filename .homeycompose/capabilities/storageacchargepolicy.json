@@ -1,41 +1,41 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Storage AC Charge Policy",
-		"de": "Speicher-AC-Laderegelung"
+  "type": "enum",
+  "title": {
+    "en": "Storage AC Charge Policy",
+    "de": "Speicher-AC-Laderegelung"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Disabled",
+        "de": "Deaktiviert"
+      }
     },
-    "getable": true,
-    "setable": true,
-    "uiComponent": "picker",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Disabled",
-                "de": "Deaktiviert"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Always allowed",
-                "de": "Immer erlaubt"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "Fixed Energy Limit",
-                "de": "Festes Energielimit"
-            }
-        },
-        {
-            "id": "3",
-            "title": {
-                "en": "Percent of Production",
-                "de": "Prozent der Produktion"
-            }
-        }         
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Always allowed",
+        "de": "Immer erlaubt"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Fixed Energy Limit",
+        "de": "Festes Energielimit"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Percent of Production",
+        "de": "Prozent der Produktion"
+      }
+    }
+  ]
 }

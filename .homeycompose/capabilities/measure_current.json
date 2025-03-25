@@ -3,7 +3,7 @@
   "title": {
     "en": "Current",
     "nl": "Stroom",
-		"de": "Strom"
+    "de": "Strom"
   },
   "units": {
     "en": "A"
@@ -12,7 +12,7 @@
   "desc": {
     "en": "Electric current (A)",
     "nl": "Elektrische stroom (A)",
-		"de": "Elektrischer Strom (A)"
+    "de": "Elektrischer Strom (A)"
   },
   "chartType": "stepLine",
   "decimals": 2,

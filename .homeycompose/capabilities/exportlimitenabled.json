@@ -1,25 +1,25 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Set export limit",
-		"de": "Exportbeschränkung"
+  "type": "enum",
+  "title": {
+    "en": "Set export limit",
+    "de": "Exportbeschränkung"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": true,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Disabled"
+      }
     },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": true,   
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Disabled"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Enabled"
-            }
-        }                                   
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Enabled"
+      }
+    }
+  ]
 }

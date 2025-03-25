@@ -1,209 +1,209 @@
 {
-    "triggers": [],
-    "conditions": [],
-    "actions": [
+  "triggers": [],
+  "conditions": [],
+  "actions": [
+    {
+      "id": "storage_working_mode_settings_main",
+      "title": {
+        "en": "Storage working mode setting"
+      },
+      "args": [
         {
-            "id": "storage_working_mode_settings_main",
-            "title": {
-                "en": "Storage working mode setting"
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Adaptive"
+              }
             },
-            "args": [
-                {
-                    "name": "mode",
-                    "type": "dropdown",
-                    "values": [
-                        {
-                            "id": "0",
-                            "title": {
-                                "en": "Adaptive"
-                            }
-                        },
-                        {
-                            "id": "1",
-                            "title": {
-                                "en": "Fixed charge/discharge"
-                            }
-                        },
-                        {
-                            "id": "2",
-                            "title": {
-                                "en": "Time of Use",
-                                "de": "Nutzungszeit"
-                            }
-                        },
-                        {
-                            "id": "2",
-                            "title": {
-                                "en": "Maximum self consumption"
-                            }
-                        },
-                        {
-                            "id": "3",
-                            "title": {
-                                "en": "Time of use LG"
-                            }
-                        },
-                        {
-                            "id": "4",
-                            "title": {
-                                "en": "Fully fed to grid"
-                            }
-                        },
-                        {
-                            "id": "5",
-                            "title": {
-                                "en": "Time of use LUNA2000"
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "remote_charge_discharge_control_mode_main",
-            "title": {
-                "en": "Remote charge/discharge control mode"
+            {
+              "id": "1",
+              "title": {
+                "en": "Fixed charge/discharge"
+              }
             },
-            "args": [
-                {
-                    "name": "mode",
-                    "type": "dropdown",
-                    "values": [
-                        {
-                            "id": "0",
-                            "title": {
-                                "en": "Local control"
-                            }
-                        },
-                        {
-                            "id": "1",
-                            "title": {
-                                "en": "Maximum self consumption"
-                            }
-                        },
-                        {
-                            "id": "2",
-                            "title": {
-                                "en": "fully fed to grid"
-                            }
-                        },
-                        {
-                            "id": "3",
-                            "title": {
-                                "en": "TOU"
-                            }
-                        },
-                        {
-                            "id": "4",
-                            "title": {
-                                "en": "AI control"
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "storage_force_charge_discharge_main",
-            "title": {
-                "en": "Storage forcible charge/discharge"
+            {
+              "id": "2",
+              "title": {
+                "en": "Time of Use",
+                "de": "Nutzungszeit"
+              }
             },
-            "args": [
-                {
-                    "type": "dropdown",
-                    "name": "mode",
-                    "values": [
-                        {
-                            "id": "0",
-                            "title": {
-                                "en": "Stop"
-                            }
-                        },
-                        {
-                            "id": "1",
-                            "title": {
-                                "en": "Charge"
-                            }
-                        },
-                        {
-                            "id": "2",
-                            "title": {
-                                "en": "Discharge"
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "activepower_controlmode_main",
-            "title": {
-                "en": "Active power control mode"
+            {
+              "id": "2",
+              "title": {
+                "en": "Maximum self consumption"
+              }
             },
-            "args": [
-                {
-                    "type": "dropdown",
-                    "name": "mode",
-                    "values": [
-                        {
-                            "id": "0",
-                            "title": {
-                                "en": "Unlimited"
-                            }
-                        },
-                        {
-                            "id": "1",
-                            "title": {
-                                "en": "DI Active scheduling"
-                            }
-                        },
-                        {
-                            "id": "5",
-                            "title": {
-                                "en": "Zero power grid connectionn"
-                            }
-                        },
-                        {
-                            "id": "6",
-                            "title": {
-                                "en": "Power limited grid connection W"
-                            }
-                        },
-                        {
-                            "id": "7",
-                            "title": {
-                                "en": "Power limited grid connection %"
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "storage_excess_pv_energy_use_in_tou_main",
-            "title": {
-                "en": "Storage excess pv"
+            {
+              "id": "3",
+              "title": {
+                "en": "Time of use LG"
+              }
             },
-            "args": [
-                {
-                    "type": "dropdown",
-                    "name": "mode",
-                    "values": [
-                        {
-                            "id": "0",
-                            "title": {
-                                "en": "Fed to grid"
-                            }
-                        },
-                        {
-                            "id": "1",
-                            "title": {
-                                "en": "Charge"
-                            }
-                        }
-                    ]
-                }
-            ]
+            {
+              "id": "4",
+              "title": {
+                "en": "Fully fed to grid"
+              }
+            },
+            {
+              "id": "5",
+              "title": {
+                "en": "Time of use LUNA2000"
+              }
+            }
+          ]
         }
-    ]
+      ]
+    },
+    {
+      "id": "remote_charge_discharge_control_mode_main",
+      "title": {
+        "en": "Remote charge/discharge control mode"
+      },
+      "args": [
+        {
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Local control"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Maximum self consumption"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "fully fed to grid"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "TOU"
+              }
+            },
+            {
+              "id": "4",
+              "title": {
+                "en": "AI control"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "storage_force_charge_discharge_main",
+      "title": {
+        "en": "Storage forcible charge/discharge"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "mode",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Stop"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Charge"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Discharge"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "activepower_controlmode_main",
+      "title": {
+        "en": "Active power control mode"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "mode",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Unlimited"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "DI Active scheduling"
+              }
+            },
+            {
+              "id": "5",
+              "title": {
+                "en": "Zero power grid connectionn"
+              }
+            },
+            {
+              "id": "6",
+              "title": {
+                "en": "Power limited grid connection W"
+              }
+            },
+            {
+              "id": "7",
+              "title": {
+                "en": "Power limited grid connection %"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "storage_excess_pv_energy_use_in_tou_main",
+      "title": {
+        "en": "Storage excess pv"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "mode",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Fed to grid"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Charge"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

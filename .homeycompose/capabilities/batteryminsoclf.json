@@ -1,19 +1,19 @@
 {
-      "type": "number",
-      "title": {
-        "en": "Battery Minimum Capacity Load First",
-        "de": "Minimaler Batteriestand Load First"
-      },
-      "getable": true,
-      "setable": false,
-      "insights": true,
-      "uiComponent": "sensor",
-      "icon": "/assets/battery.svg",
-      "units": {
-        "en": "%",
-        "nl": "%"
-      },
-      "min": 10,
-      "max": 100,
-      "step": 1         
-}    
+  "type": "number",
+  "title": {
+    "en": "Battery Minimum Capacity Load First",
+    "de": "Minimaler Batteriestand Load First"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "uiComponent": "sensor",
+  "icon": "/assets/battery.svg",
+  "units": {
+    "en": "%",
+    "nl": "%"
+  },
+  "min": 10,
+  "max": 100,
+  "step": 1
+}

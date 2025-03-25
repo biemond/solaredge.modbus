@@ -1,33 +1,33 @@
 {
-    "title": {
-      "en": "Set Export limit to",
-      "nl": "Stel de exportlimiet in op",
-      "de": "Setze Exportbeschränkung auf"
-    },
-    "titleFormatted": {
-      "en": "Set Export limit to [[percentage]]",
-      "nl": "Stel de exportlimiet in op [[percentage]]",
-      "de": "Setze Exportbeschränkung auf [[percentage]]"
-    },
-    "args": [
-      {
-        "type": "range",
-        "name": "percentage",
-        "title": {
-          "en": "Export Limit(%)",
-          "nl": "Exportlimiet(%)",
-          "de": "Exportbeschränkung(%)"
-        },
-        "min": 0,
-        "max": 100,
-        "step": 0.1,
-        "labelDecimals": 1,
-        "label": "%"
+  "title": {
+    "en": "Set Export limit to",
+    "nl": "Stel de exportlimiet in op",
+    "de": "Setze Exportbeschränkung auf"
+  },
+  "titleFormatted": {
+    "en": "Set Export limit to [[percentage]]",
+    "nl": "Stel de exportlimiet in op [[percentage]]",
+    "de": "Setze Exportbeschränkung auf [[percentage]]"
+  },
+  "args": [
+    {
+      "type": "range",
+      "name": "percentage",
+      "title": {
+        "en": "Export Limit(%)",
+        "nl": "Exportlimiet(%)",
+        "de": "Exportbeschränkung(%)"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 0.1,
+      "labelDecimals": 1,
+      "label": "%"
     },
     {
-        "type": "device",
-        "name": "device",
-        "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
     }
-    ]
-  }
+  ]
+}

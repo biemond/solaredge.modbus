@@ -1,21 +1,21 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import {checkholdingRegisterKostal} from '../response';
+import { checkholdingRegisterKostal } from '../response';
 import { Kostal } from '../kostal';
 
-const RETRY_INTERVAL = 25 * 1000; 
+const RETRY_INTERVAL = 25 * 1000;
 
 class MyKostalDevice extends Kostal {
-  timer!: NodeJS.Timer;  
+  timer!: NodeJS.Timer;
   /**
    * onInit is called when the device is initialized.
    */
   async onInit() {
     this.log('MyKostalDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log("device name id " + name );
-    this.log("device name " + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -23,8 +23,6 @@ class MyKostalDevice extends Kostal {
       // poll device state from inverter
       this.pollInvertor();
     }, RETRY_INTERVAL);
- 
-
   }
 
   /**
@@ -42,7 +40,7 @@ class MyKostalDevice extends Kostal {
    * @param {string[]} event.changedKeys An array of keys changed since the previous version
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
-  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string|void> {
+  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string | void> {
     this.log('MyKostalDevice settings where changed');
   }
 
@@ -62,29 +60,29 @@ class MyKostalDevice extends Kostal {
     this.log('MyKostalDevice has been deleted');
     this.homey.clearInterval(this.timer);
   }
-  
+
   delay(ms: any) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   async pollInvertor() {
-    this.log("pollInvertor");
+    this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
-      'host': this.getSetting('address'),
-      'port': this.getSetting('port'),
-      'unitId': this.getSetting('id'),
-      'timeout': 50,
-      'autoReconnect': false,
-      'logLabel' : 'huawei Inverter',
-      'logLevel': 'error',
-      'logEnabled': true
-    }    
+    const modbusOptions = {
+      host: this.getSetting('address'),
+      port: this.getSetting('port'),
+      unitId: this.getSetting('id'),
+      timeout: 50,
+      autoReconnect: false,
+      logLabel: 'huawei Inverter',
+      logLevel: 'error',
+      logEnabled: true,
+    };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 3500);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 3500);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
@@ -96,20 +94,20 @@ class MyKostalDevice extends Kostal {
 
       const checkRegisterRes = await checkholdingRegisterKostal(this.holdingRegisters, client);
 
-      console.log('disconnect'); 
+      console.log('disconnect');
       client.socket.end();
       socket.end();
-      const finalRes = { ...checkRegisterRes }
-      this.processResult(finalRes)
+      const finalRes = { ...checkRegisterRes };
+      this.processResult(finalRes);
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
-      let seconds = Math.floor(timeDiff / 1000);
-      console.log("total time: " +seconds + " seconds");
-    });    
+      const seconds = Math.floor(timeDiff / 1000);
+      console.log(`total time: ${seconds} seconds`);
+    });
 
     socket.on('close', () => {
       console.log('Client closed');
-    });  
+    });
 
     socket.on('timeout', () => {
       console.log('socket timed out!');
@@ -121,7 +119,7 @@ class MyKostalDevice extends Kostal {
       console.log(err);
       client.socket.end();
       socket.end();
-    })
+    });
   }
 }
 

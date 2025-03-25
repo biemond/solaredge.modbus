@@ -1,31 +1,31 @@
 {
-    "title": {
-      "en": "Status Changed",
-      "nl": "Status gewijzigd",
-		  "de": "Status hat sich geändert"
-    },
-    "titleFormatted": {
-      "en": "Status changed",
-      "nl": "Status veranderd",
-		  "de": "Status hat sich geändert"
-    },
-    "tokens": [
-      {
-        "name": "status",
-        "type": "string",
-        "title": {
-          "en": "Status",
-          "nl": "Status",
-          "de": "Status"
-        },
-        "example": "Fault"
-      }
-    ],
-    "args": [
-      {
-        "type": "device",
-        "name": "device",
-        "filter": "driver_id=invertor|invertorwithbatt"
-      }
-    ]
-  }
+  "title": {
+    "en": "Status Changed",
+    "nl": "Status gewijzigd",
+    "de": "Status hat sich geändert"
+  },
+  "titleFormatted": {
+    "en": "Status changed",
+    "nl": "Status veranderd",
+    "de": "Status hat sich geändert"
+  },
+  "tokens": [
+    {
+      "name": "status",
+      "type": "string",
+      "title": {
+        "en": "Status",
+        "nl": "Status",
+        "de": "Status"
+      },
+      "example": "Fault"
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=invertor|invertorwithbatt"
+    }
+  ]
+}

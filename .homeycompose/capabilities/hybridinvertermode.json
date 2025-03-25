@@ -1,60 +1,60 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Hybrid Inverter Working Mode"
+  "type": "enum",
+  "title": {
+    "en": "Hybrid Inverter Working Mode"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "11",
+      "title": {
+        "en": "General Mode"
+      }
     },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "11",
-            "title": {
-                "en": "General Mode"
-            }
-        },
-        {
-            "id": "12",
-            "title": {
-                "en": "Economic Mode"
-            }
-        },
-        {
-            "id": "13",
-            "title": {
-                "en": "UPS Mode"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "Off Grid Mode"
-            }
-        },
-        {
-            "id": "31",
-            "title": {
-                "en": "EMS_ACCtrlMode"
-            }
-        },
-        {
-            "id": "32",
-            "title": {
-                "en": "EMS_GeneralMode"
-            }
-        },
-        {
-            "id": "33",
-            "title": {
-                "en": "EMS_BattCtrlMode"
-            }
-        },
-        {
-            "id": "34",
-            "title": {
-                "en": "EMS_OffGridMode"
-            }
-        }                                         
-    ]
+    {
+      "id": "12",
+      "title": {
+        "en": "Economic Mode"
+      }
+    },
+    {
+      "id": "13",
+      "title": {
+        "en": "UPS Mode"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Off Grid Mode"
+      }
+    },
+    {
+      "id": "31",
+      "title": {
+        "en": "EMS_ACCtrlMode"
+      }
+    },
+    {
+      "id": "32",
+      "title": {
+        "en": "EMS_GeneralMode"
+      }
+    },
+    {
+      "id": "33",
+      "title": {
+        "en": "EMS_BattCtrlMode"
+      }
+    },
+    {
+      "id": "34",
+      "title": {
+        "en": "EMS_OffGridMode"
+      }
+    }
+  ]
 }

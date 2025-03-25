@@ -1,12 +1,12 @@
 {
-    "type": "string",
-    "title": {
-        "en": "Grid 1st, Time slot 1",
-		"de": "Netz zuerst, Zeitfenster 1:"
-    },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,
-    "icon": "/assets/clock.svg"
+  "type": "string",
+  "title": {
+    "en": "Grid 1st, Time slot 1",
+    "de": "Netz zuerst, Zeitfenster 1:"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "icon": "/assets/clock.svg"
 }

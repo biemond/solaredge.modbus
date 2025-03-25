@@ -1,30 +1,30 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "On/Off Grid status"
+  "type": "enum",
+  "title": {
+    "en": "On/Off Grid status"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "On grid"
+      }
     },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "On grid"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "off grid (auto)"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "off grid (manual)"
-            }
-        }                              
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "off grid (auto)"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "off grid (manual)"
+      }
+    }
+  ]
 }

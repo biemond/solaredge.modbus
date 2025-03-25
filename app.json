@@ -891,6 +891,53 @@
       },
       {
         "title": {
+          "en": "Export Limit is",
+          "nl": "Export limiet is",
+          "de": "Exportlimit ist"
+        },
+        "titleFormatted": {
+          "en": "Export limit is [[exportlimit]]",
+          "nl": "Export limiet is [[exportlimit]]",
+          "de": "Exportlimit ist [[exportlimit]]"
+        },
+        "hint": {
+          "en": "Whether export limit is enabled or disabled",
+          "nl": "Of de export limiet is ingeschakeld of uitgeschakeld",
+          "de": "Ob das Exportlimit aktiviert oder deaktiviert ist"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+          },
+          {
+            "name": "exportlimit",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Disabled",
+                  "nl": "Uitgeschakeld",
+                  "de": "Deaktiviert"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Enabled",
+                  "nl": "Ingeschakeld",
+                  "de": "Aktiviert"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "exportLimit"
+      },
+      {
+        "title": {
           "en": "Inverter priority is",
           "nl": "Omvormerprioriteit is",
           "de": "Wechselrichter-Priorität ist"
@@ -2189,6 +2236,262 @@
           "en": "Grid First, time slot 1: [[starttime]] ~ [[stoptime]] state: [[active]]",
           "nl": "Net Eerst, tijdslot 1: [[starttime]] ~ [[stoptime]] state: [[active]]",
           "de": "Netz zuerst, Zeitfenster 1: [[starttime]] ~ [[stoptime]] state: [[active]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          },
+          {
+            "type": "time",
+            "name": "starttime",
+            "title": {
+              "en": "Start Time",
+              "nl": "Starttijd",
+              "de": "Startzeit"
+            },
+            "placeholder": {
+              "en": "13:37"
+            }
+          },
+          {
+            "type": "time",
+            "name": "stoptime",
+            "title": {
+              "en": "Stop Time",
+              "nl": "Stop tijd",
+              "de": "Stop Zeit"
+            },
+            "placeholder": {
+              "en": "14:37"
+            }
+          },
+          {
+            "name": "active",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Enabled",
+                  "de": "Aktiviert"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "battfirsttime2",
+        "title": {
+          "en": "Battery First, time slot 2:",
+          "nl": "Batterij Eerst, tijdslot 2:",
+          "de": "Batterie Zuerst, Zeitfenster 2:"
+        },
+        "titleFormatted": {
+          "en": "Battery First, time slot 2: [[starttime]] ~ [[stoptime]] state: [[active]]",
+          "nl": "Batterij Eerst, tijdslot 2: [[starttime]] ~ [[stoptime]] state: [[active]]",
+          "de": "Batterie Zuerst, Zeitfenster 2: [[starttime]] ~ [[stoptime]] state: [[active]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          },
+          {
+            "type": "time",
+            "name": "starttime",
+            "title": {
+              "en": "Start Time",
+              "nl": "Starttijd",
+              "de": "Startzeit"
+            },
+            "placeholder": {
+              "en": "13:37"
+            }
+          },
+          {
+            "type": "time",
+            "name": "stoptime",
+            "title": {
+              "en": "Stop Time",
+              "nl": "Stop tijd",
+              "de": "Stop Zeit"
+            },
+            "placeholder": {
+              "en": "14:37"
+            }
+          },
+          {
+            "name": "active",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Enabled",
+                  "de": "Aktiviert"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "battfirsttime3",
+        "title": {
+          "en": "Battery First, time slot 3:",
+          "nl": "Batterij Eerst, tijdslot 3:",
+          "de": "Batterie Zuerst, Zeitfenster 3:"
+        },
+        "titleFormatted": {
+          "en": "Battery First, time slot 3: [[starttime]] ~ [[stoptime]] state: [[active]]",
+          "nl": "Batterij Eerst, tijdslot 3: [[starttime]] ~ [[stoptime]] state: [[active]]",
+          "de": "Batterie Zuerst, Zeitfenster 3: [[starttime]] ~ [[stoptime]] state: [[active]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          },
+          {
+            "type": "time",
+            "name": "starttime",
+            "title": {
+              "en": "Start Time",
+              "nl": "Starttijd",
+              "de": "Startzeit"
+            },
+            "placeholder": {
+              "en": "13:37"
+            }
+          },
+          {
+            "type": "time",
+            "name": "stoptime",
+            "title": {
+              "en": "Stop Time",
+              "nl": "Stop tijd",
+              "de": "Stop Zeit"
+            },
+            "placeholder": {
+              "en": "14:37"
+            }
+          },
+          {
+            "name": "active",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Enabled",
+                  "de": "Aktiviert"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "gridfirsttime2",
+        "title": {
+          "en": "Grid First, time slot 2:",
+          "nl": "Net Eerst, tijdslot 2:",
+          "de": "Netz Zuerst, Zeitfenster 2:"
+        },
+        "titleFormatted": {
+          "en": "Grid First, time slot 2: [[starttime]] ~ [[stoptime]] state: [[active]]",
+          "nl": "Net Eerst, tijdslot 2: [[starttime]] ~ [[stoptime]] state: [[active]]",
+          "de": "Netz zuerst, Zeitfenster 2: [[starttime]] ~ [[stoptime]] state: [[active]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          },
+          {
+            "type": "time",
+            "name": "starttime",
+            "title": {
+              "en": "Start Time",
+              "nl": "Starttijd",
+              "de": "Startzeit"
+            },
+            "placeholder": {
+              "en": "13:37"
+            }
+          },
+          {
+            "type": "time",
+            "name": "stoptime",
+            "title": {
+              "en": "Stop Time",
+              "nl": "Stop tijd",
+              "de": "Stop Zeit"
+            },
+            "placeholder": {
+              "en": "14:37"
+            }
+          },
+          {
+            "name": "active",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Enabled",
+                  "de": "Aktiviert"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "gridfirsttime3",
+        "title": {
+          "en": "Grid First, time slot 3:",
+          "nl": "Net Eerst, tijdslot 3:",
+          "de": "Netz Zuerst, Zeitfenster 3:"
+        },
+        "titleFormatted": {
+          "en": "Grid First, time slot 3: [[starttime]] ~ [[stoptime]] state: [[active]]",
+          "nl": "Net Eerst, tijdslot 3: [[starttime]] ~ [[stoptime]] state: [[active]]",
+          "de": "Netz zuerst, Zeitfenster 3: [[starttime]] ~ [[stoptime]] state: [[active]]"
         },
         "args": [
           {
@@ -4339,7 +4642,11 @@
         "gfdischargerate",
         "bfchargerate",
         "gridfirst1",
+        "gridfirst2",
+        "gridfirst3",
         "battfirst1",
+        "battfirst2",
+        "battfirst3",
         "battacchargeswitch"
       ],
       "capabilitiesOptions": {
@@ -8698,6 +9005,30 @@
       "uiQuickAction": false,
       "icon": "/assets/clock.svg"
     },
+    "battfirst2": {
+      "type": "string",
+      "title": {
+        "en": "Battery 1st, Time slot 2",
+        "de": "Batterie zuerst, Zeitfenster 2:"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "icon": "/assets/clock.svg"
+    },
+    "battfirst3": {
+      "type": "string",
+      "title": {
+        "en": "Battery 1st, Time slot 3",
+        "de": "Batterie zuerst, Zeitfenster 3:"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "icon": "/assets/clock.svg"
+    },
     "battstatus": {
       "type": "enum",
       "title": {
@@ -9119,6 +9450,30 @@
       "title": {
         "en": "Grid 1st, Time slot 1",
         "de": "Netz zuerst, Zeitfenster 1:"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "icon": "/assets/clock.svg"
+    },
+    "gridfirst2": {
+      "type": "string",
+      "title": {
+        "en": "Grid 1st, Time slot 2",
+        "de": "Netz zuerst, Zeitfenster 2:"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "icon": "/assets/clock.svg"
+    },
+    "gridfirst3": {
+      "type": "string",
+      "title": {
+        "en": "Grid 1st, Time slot 3",
+        "de": "Netz zuerst, Zeitfenster 3:"
       },
       "getable": true,
       "setable": false,

@@ -1,6 +1,5 @@
 {
-  "triggers": [
-  ],
+  "triggers": [],
   "conditions": [
     {
       "id": "batterylevelWattsonic",
@@ -32,54 +31,54 @@
           "type": "dropdown",
           "values": [
             {
-                "id": "11",
-                "title": {
-                    "en": "General Mode"
-                }
+              "id": "11",
+              "title": {
+                "en": "General Mode"
+              }
             },
             {
-                "id": "12",
-                "title": {
-                    "en": "Economic Mode"
-                }
+              "id": "12",
+              "title": {
+                "en": "Economic Mode"
+              }
             },
             {
-                "id": "13",
-                "title": {
-                    "en": "UPS Mode"
-                }
+              "id": "13",
+              "title": {
+                "en": "UPS Mode"
+              }
             },
             {
-                "id": "2",
-                "title": {
-                    "en": "Off Grid Mode"
-                }
+              "id": "2",
+              "title": {
+                "en": "Off Grid Mode"
+              }
             },
             {
-                "id": "31",
-                "title": {
-                    "en": "EMS_ACCtrlMode"
-                }
+              "id": "31",
+              "title": {
+                "en": "EMS_ACCtrlMode"
+              }
             },
             {
-                "id": "32",
-                "title": {
-                    "en": "EMS_GeneralMode"
-                }
+              "id": "32",
+              "title": {
+                "en": "EMS_GeneralMode"
+              }
             },
             {
-                "id": "33",
-                "title": {
-                    "en": "EMS_BattCtrlMode"
-                }
+              "id": "33",
+              "title": {
+                "en": "EMS_BattCtrlMode"
+              }
             },
             {
-                "id": "34",
-                "title": {
-                    "en": "EMS_OffGridMode"
-                }
-            }                                         
-        ]
+              "id": "34",
+              "title": {
+                "en": "EMS_OffGridMode"
+              }
+            }
+          ]
         }
       ]
     }

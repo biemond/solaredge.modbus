@@ -1,20 +1,20 @@
 {
-      "type": "number",
-      "title": {
-        "en": "Battery First Charge Rate",
-        "nl": "Batterij Eerst Laadsnelheid",
-        "de": "Batterie Zuerst Ladungsrate"
-      },
-      "getable": true,
-      "setable": false,
-      "insights": true,
-      "uiComponent": "sensor",
-      "icon": "/assets/power_drawn.svg",
-      "units": {
-        "en": "%",
-        "nl": "%"
-      },
-      "min": 10,
-      "max": 100,
-      "step": 1
+  "type": "number",
+  "title": {
+    "en": "Battery First Charge Rate",
+    "nl": "Batterij Eerst Laadsnelheid",
+    "de": "Batterie Zuerst Ladungsrate"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "uiComponent": "sensor",
+  "icon": "/assets/power_drawn.svg",
+  "units": {
+    "en": "%",
+    "nl": "%"
+  },
+  "min": 10,
+  "max": 100,
+  "step": 1
 }

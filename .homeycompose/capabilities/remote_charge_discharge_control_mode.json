@@ -1,42 +1,42 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Remote charge/discharge control mode"
+  "type": "enum",
+  "title": {
+    "en": "Remote charge/discharge control mode"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Local control"
+      }
     },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Local control"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Maximum self consumption"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "fully fed to grid"
-            }
-        },
-        {
-            "id": "3",
-            "title": {
-                "en": "TOU"
-            }
-        },
-        {
-            "id": "4",
-            "title": {
-                "en": "AI control"
-            }
-        }                                   
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Maximum self consumption"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "fully fed to grid"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "TOU"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "AI control"
+      }
+    }
+  ]
 }

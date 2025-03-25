@@ -1,48 +1,48 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Storage working mode setting 2"
+  "type": "enum",
+  "title": {
+    "en": "Storage working mode setting 2"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Adaptive"
+      }
     },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Adaptive"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Fixed charge/discharge"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "Maximum self consumption"
-            }
-        },
-        {
-            "id": "3",
-            "title": {
-                "en": "Time of use LG"
-            }
-        },
-        {
-            "id": "4",
-            "title": {
-                "en": "Fully fed to grid"
-            }
-        },
-        {
-            "id": "5",
-            "title": {
-                "en": "Time of use LUNA2000"
-            }
-        }                                     
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Fixed charge/discharge"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Maximum self consumption"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Time of use LG"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "Fully fed to grid"
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "Time of use LUNA2000"
+      }
+    }
+  ]
 }

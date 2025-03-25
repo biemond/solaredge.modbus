@@ -1,17 +1,16 @@
 {
-      "type": "number",
-      "title": {
-        "en": "Battery 2 Capacity",
-        "de": "Batteriekapazität 2"
-      },
-      "getable": true,
-      "setable": false,
-      "insights": true,
-      "decimals": 1,
-      "uiComponent": "sensor",
-      "icon": "/assets/battery_capacity.svg",
-      "units": {
-        "en": "kWh"
-      }
+  "type": "number",
+  "title": {
+    "en": "Battery 2 Capacity",
+    "de": "Batteriekapazität 2"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "decimals": 1,
+  "uiComponent": "sensor",
+  "icon": "/assets/battery_capacity.svg",
+  "units": {
+    "en": "kWh"
+  }
 }
-    

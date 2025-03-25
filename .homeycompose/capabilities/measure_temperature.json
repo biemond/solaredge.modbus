@@ -3,7 +3,7 @@
   "title": {
     "en": "Temperature",
     "nl": "Temperatuur",
-		"de": "Temperatur"
+    "de": "Temperatur"
   },
   "units": {
     "en": "°C"
@@ -12,7 +12,7 @@
   "desc": {
     "en": "Temperature in degrees Celsius (°C)",
     "nl": "Temperatuur in graden Celsius (°C)",
-		"de": "Temperatur in Grad Celsius (°C)"
+    "de": "Temperatur in Grad Celsius (°C)"
   },
   "decimals": 2,
   "chartType": "spline",
