@@ -1,8 +1,8 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
+import Homey, { Device } from 'homey';
 import { checkRegisterSigenergy, checkHoldingRegisterSigenergy } from '../response';
 import { Sigenergy } from '../sigenergy';
-import Homey, { Device } from 'homey';
 
 const RETRY_INTERVAL = 15 * 1000;
 
@@ -14,9 +14,9 @@ class MySigenergyDevice extends Sigenergy {
   async onInit() {
     this.log('MySigenergyDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -39,12 +39,12 @@ class MySigenergyDevice extends Sigenergy {
     });
 
     // flow action
-    let sigen_remote_ems_code = this.homey.flow.getActionCard('sigen_remote_ems_code');
+    const sigen_remote_ems_code = this.homey.flow.getActionCard('sigen_remote_ems_code');
     sigen_remote_ems_code.registerRunListener(async (args, state) => {
       await this.updateControl('sigen_remote_ems_code', Number(args.value), args.device);
     });
 
-    let sigen_remote_ems_control_mode_code = this.homey.flow.getActionCard('sigen_remote_ems_control_mode_code');
+    const sigen_remote_ems_control_mode_code = this.homey.flow.getActionCard('sigen_remote_ems_control_mode_code');
     sigen_remote_ems_control_mode_code.registerRunListener(async (args, state) => {
       await this.updateControl('sigen_remote_ems_control_mode_code', Number(args.mode), args.device);
     });
@@ -87,13 +87,13 @@ class MySigenergyDevice extends Sigenergy {
   }
 
   async updateControl(type: string, value: number, device: Homey.Device) {
-    let name = device.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + device.getName());
-    let socket = new net.Socket();
-    let client = new Modbus.client.TCP(socket, 247);
+    const name = device.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${device.getName()}`);
+    const socket = new net.Socket();
+    const client = new Modbus.client.TCP(socket, 247);
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: device.getSetting('address'),
       port: device.getSetting('port'),
       timeout: 15,
@@ -149,7 +149,7 @@ class MySigenergyDevice extends Sigenergy {
     this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       timeout: 14,
@@ -159,10 +159,10 @@ class MySigenergyDevice extends Sigenergy {
       logEnabled: true,
     };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, 247, 2500);
-    let clientInverter = new Modbus.client.TCP(socket, unitID, 2500);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, 247, 2500);
+    const clientInverter = new Modbus.client.TCP(socket, unitID, 2500);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 

@@ -2,9 +2,10 @@ console.log('-------------------');
 
 const modbus = require('jsmodbus');
 const net = require('net');
+
 const socket = new net.Socket();
 
-let options = {
+const options = {
   host: '192.168.50.252',
   port: 502,
   unitId: 1,
@@ -16,18 +17,18 @@ let options = {
   logEnabled: true,
 };
 
-let client = new modbus.client.TCP(socket, 1, 500);
+const client = new modbus.client.TCP(socket, 1, 500);
 
 socket.connect(options);
 
 socket.on('connect', () => {
-  var delay = (function () {
-    var timer = 0;
-    return function (callback, ms) {
+  const delay = (function() {
+    let timer = 0;
+    return function(callback, ms) {
       clearTimeout(timer);
       timer = setTimeout(callback, ms);
     };
-  })();
+  }());
 
   console.log('Connected ...');
 
@@ -116,24 +117,24 @@ socket.on('connect', () => {
     HybridInverterWorkingMode: [50000, 1, 'BYTE', 'Hybrid Inverter Working Mode Setting'],
 
     'Battery Power Setting': [50207, 1, 'INT16', 'Battery Power Setting'],
-    //	50207	1	Battery Power Setting	I16	kW	100
+    //  50207  1  Battery Power Setting  I16  kW  100
     'Max. AC Power Limit Setting': [50207, 1, 'INT16', 'Max. AC Power Limit Setting'],
-    //	50208	1	Max. AC Power Limit Setting	I16	kW	100
+    //  50208  1  Max. AC Power Limit Setting  I16  kW  100
     'Min. AC Power Limit Setting': [50209, 1, 'INT16', 'Min. AC Power Limit Setting'],
-    //	50209	1	Min. AC Power Limit Setting	I16	kW	100
+    //  50209  1  Min. AC Power Limit Setting  I16  kW  100
     PriorityPowerOutput: [50210, 1, 'UINT16', 'Priority Power Output Setting'],
-    //	50210	1	Priority Power Output Setting	U16	NA	1	0：PV Output Priority 1：Battery Output Priority
+    //  50210  1  Priority Power Output Setting  U16  NA  1  0：PV Output Priority 1：Battery Output Priority
     // "PV Power Setting":  [50211, 1, 'UINT16', "PV Power Setting"],
-    //	50211	1	PV Power Setting	U16	kW	100
+    //  50211  1  PV Power Setting  U16  kW  100
 
     scheduledChargeDischarge: [53006, 1, 'BITS', 'Scheduled Charge & Discharge'],
-    // // 53006	1	Scheduled Charge&Discharge	U16	N/A	1	bit0- bit5 stands for period1-period6,
+    // // 53006  1  Scheduled Charge&Discharge  U16  N/A  1  bit0- bit5 stands for period1-period6,
     // // bit7-bit15 Reserved;
     // // 0: disable
     // // 1: enable
 
     'period1Charge/Discharge': [53007, 1, 'UINT16', 'Period 1 Charge/Discharge Setting'],
-    // // 35	53007	1	Charge/Discharge Setting	U16	N/A	1	Period1:
+    // // 35  53007  1  Charge/Discharge Setting  U16  N/A  1  Period1:
     // // 0:NONE
     // // 1:charge
     // // 2:discharge
@@ -141,7 +142,7 @@ socket.on('connect', () => {
     'Battery Charge By': [53008, 1, 'UINT16', 'Battery Charge By'],
 
     period1StartTime: [53012, 1, 'BYTE', 'Period 1 Start Time'],
-    // // // 53012	1	Start Time	U16	N/A	1	Period1:
+    // // // 53012  1  Start Time  U16  N/A  1  Period1:
     // // // High 8bits(Hour):[0,23]
     // // // Low 8bits(Mins):[0,59]
 
@@ -154,37 +155,37 @@ socket.on('connect', () => {
 
     client
       .readHoldingRegisters(value[0], value[1])
-      .then(function (resp) {
+      .then((resp) => {
         // console.log(resp.response._body);
         if (value[2] == 'UINT16') {
-          console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readUInt16BE());
+          console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readUInt16BE()}`);
         } else if (value[2] == 'BYTE') {
           var value2 = resp.response._body._valuesAsBuffer.readUInt16BE();
-          let lowVal = value2 & 0xff;
-          let highval = (value2 >> 8) & 0xff;
-          console.log(value[3] + ': ' + highval + ' ' + lowVal);
+          const lowVal = value2 & 0xff;
+          const highval = (value2 >> 8) & 0xff;
+          console.log(`${value[3]}: ${highval} ${lowVal}`);
         } else if (value[2] == 'BITS') {
           var value2 = resp.response._body._valuesAsBuffer.readUInt16BE();
-          let lowVal = value2 & 0xff;
-          let highval = (value2 >> 8) & 0xff;
+          const lowVal = value2 & 0xff;
+          const highval = (value2 >> 8) & 0xff;
 
-          console.log(value[3] + ': ' + lowVal);
+          console.log(`${value[3]}: ${lowVal}`);
         } else if (value[2] == 'UINT32') {
-          console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readUInt32BE());
+          console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readUInt32BE()}`);
         } else if (value[2] == 'ACC32') {
-          console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readUInt32BE());
+          console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readUInt32BE()}`);
         } else if (value[2] == 'FLOAT') {
-          console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readFloatBE());
+          console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readFloatBE()}`);
         } else if (value[2] == 'STRING') {
-          console.log(value[3] + ': ' + Buffer.from(resp.response._body._valuesAsBuffer, 'hex').toString());
+          console.log(`${value[3]}: ${Buffer.from(resp.response._body._valuesAsBuffer, 'hex').toString()}`);
         } else if (value[2] == 'INT16' || value[2] == 'SCALE') {
-          console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readInt16BE());
+          console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readInt16BE()}`);
         } else if (value[2] == 'INT32') {
-          console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readInt32BE());
+          console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readInt32BE()}`);
         } else if (value[2] == 'FLOAT32') {
-          console.log(value[3] + ': ' + Buffer.from(resp.response._body._valuesAsBuffer, 'hex').swap16().swap32().readFloatBE());
+          console.log(`${value[3]}: ${Buffer.from(resp.response._body._valuesAsBuffer, 'hex').swap16().swap32().readFloatBE()}`);
         } else {
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
         }
       })
       .catch((err) => {
@@ -193,12 +194,12 @@ socket.on('connect', () => {
       });
   }
 
-  delay(function () {
+  delay(() => {
     socket.end();
   }, 20000);
 });
 
-//avoid all the crash reports
+// avoid all the crash reports
 socket.on('error', (err) => {
   console.log(err);
   socket.end();

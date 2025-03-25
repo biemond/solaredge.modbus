@@ -1,8 +1,8 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
+import Homey, { Device } from 'homey';
 import { checkHoldingRegisterHuawei } from '../response';
 import { Huawei } from '../huawei';
-import Homey, { Device } from 'homey';
 
 const RETRY_INTERVAL = 120 * 1000;
 
@@ -14,9 +14,9 @@ class MyHuaweiDeviceBattery extends Huawei {
   async onInit() {
     this.log('MyHuaweiDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -48,27 +48,27 @@ class MyHuaweiDeviceBattery extends Huawei {
       return value;
     });
 
-    let controlActionStorageWorkingModeSettings = this.homey.flow.getActionCard('storage_working_mode_settings_main');
+    const controlActionStorageWorkingModeSettings = this.homey.flow.getActionCard('storage_working_mode_settings_main');
     controlActionStorageWorkingModeSettings.registerRunListener(async (args, state) => {
       await this.updateControl('storage_working_mode_settings', Number(args.mode), args.device);
     });
 
-    let controlActionRemoteChargeDischargeControlMode = this.homey.flow.getActionCard('remote_charge_discharge_control_mode_main');
+    const controlActionRemoteChargeDischargeControlMode = this.homey.flow.getActionCard('remote_charge_discharge_control_mode_main');
     controlActionRemoteChargeDischargeControlMode.registerRunListener(async (args, state) => {
       await this.updateControl('remote_charge_discharge_control_mode', Number(args.mode), args.device);
     });
 
-    let controlActionStorageForceChargeDischarge = this.homey.flow.getActionCard('storage_force_charge_discharge_main');
+    const controlActionStorageForceChargeDischarge = this.homey.flow.getActionCard('storage_force_charge_discharge_main');
     controlActionStorageForceChargeDischarge.registerRunListener(async (args, state) => {
       await this.updateControl('storage_force_charge_discharge', Number(args.mode), args.device);
     });
 
-    let controlActionActivepowerControlmode = this.homey.flow.getActionCard('activepower_controlmode_main');
+    const controlActionActivepowerControlmode = this.homey.flow.getActionCard('activepower_controlmode_main');
     controlActionActivepowerControlmode.registerRunListener(async (args, state) => {
       await this.updateControl('activepower_controlmode', Number(args.mode), args.device);
     });
 
-    let controlActionStorageExcessPvEnergyUseInTou = this.homey.flow.getActionCard('storage_excess_pv_energy_use_in_tou_main');
+    const controlActionStorageExcessPvEnergyUseInTou = this.homey.flow.getActionCard('storage_excess_pv_energy_use_in_tou_main');
     controlActionStorageExcessPvEnergyUseInTou.registerRunListener(async (args, state) => {
       await this.updateControl('storage_excess_pv_energy_use_in_tou', Number(args.mode), args.device);
     });
@@ -111,12 +111,12 @@ class MyHuaweiDeviceBattery extends Huawei {
   }
 
   async updateControl(type: string, value: number, device: Homey.Device) {
-    let socket = new net.Socket();
-    var unitID = device.getSetting('id');
+    const socket = new net.Socket();
+    const unitID = device.getSetting('id');
 
-    let client = new Modbus.client.TCP(socket, unitID, 5500);
+    const client = new Modbus.client.TCP(socket, unitID, 5500);
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -183,7 +183,7 @@ class MyHuaweiDeviceBattery extends Huawei {
     this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -194,9 +194,9 @@ class MyHuaweiDeviceBattery extends Huawei {
       logEnabled: true,
     };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 5500);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 5500);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
@@ -217,8 +217,8 @@ class MyHuaweiDeviceBattery extends Huawei {
       this.processResult(finalRes);
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
-      let seconds = Math.floor(timeDiff / 1000);
-      console.log('total time: ' + seconds + ' seconds');
+      const seconds = Math.floor(timeDiff / 1000);
+      console.log(`total time: ${seconds} seconds`);
     });
 
     socket.on('close', () => {

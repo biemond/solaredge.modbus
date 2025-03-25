@@ -91,7 +91,7 @@ export class Kostal extends Homey.Device {
   processResult(result: Record<string, Measurement>) {
     if (result) {
       // result
-      for (let k in result) {
+      for (const k in result) {
         console.log(k, result[k].value, result[k].scale, result[k].label);
       }
 
@@ -109,19 +109,19 @@ export class Kostal extends Homey.Device {
 
       if (result['PowerDC1'] && result['PowerDC1'].value != 'xxx') {
         this.addCapability('measure_power.pv1input');
-        var PowerDC1 = Number(result['PowerDC1'].value) * Math.pow(10, Number(result['PowerDC1'].scale));
+        const PowerDC1 = Number(result['PowerDC1'].value) * Math.pow(10, Number(result['PowerDC1'].scale));
         this.setCapabilityValue('measure_power.pv1input', Math.round(PowerDC1));
       }
 
       if (result['PowerDC2'] && result['PowerDC2'].value != 'xxx') {
         this.addCapability('measure_power.pv2input');
-        var PowerDC2 = Number(result['PowerDC2'].value) * Math.pow(10, Number(result['PowerDC2'].scale));
+        const PowerDC2 = Number(result['PowerDC2'].value) * Math.pow(10, Number(result['PowerDC2'].scale));
         this.setCapabilityValue('measure_power.pv2input', Math.round(PowerDC2));
       }
 
       if (result['PowerDC3'] && result['PowerDC3'].value != 'xxx') {
         this.addCapability('measure_power.pv3input');
-        var pv3InputPower = Number(result['PowerDC3'].value) * Math.pow(10, Number(result['PowerDC3'].scale));
+        const pv3InputPower = Number(result['PowerDC3'].value) * Math.pow(10, Number(result['PowerDC3'].scale));
         this.setCapabilityValue('measure_power.pv3input', Math.round(pv3InputPower));
       }
 
@@ -145,83 +145,83 @@ export class Kostal extends Homey.Device {
 
       if (result['batterytemperature'] && result['batterytemperature'].value != 'xxx') {
         this.addCapability('measure_temperature.battery');
-        var temperature = Number(result['batterytemperature'].value) * Math.pow(10, Number(result['batterytemperature'].scale));
+        const temperature = Number(result['batterytemperature'].value) * Math.pow(10, Number(result['batterytemperature'].scale));
         this.setCapabilityValue('measure_temperature.battery', temperature);
       }
 
       if (result['batterysoc'] && result['batterysoc'].value != 'xxx') {
         this.addCapability('battery');
         this.addCapability('measure_battery');
-        var soc = Number(result['batterysoc'].value) * Math.pow(10, Number(result['batterysoc'].scale));
+        const soc = Number(result['batterysoc'].value) * Math.pow(10, Number(result['batterysoc'].scale));
         this.setCapabilityValue('battery', soc);
         this.setCapabilityValue('measure_battery', soc);
       }
 
       if (result['batterycycles'] && result['batterycycles'].value != 'xxx') {
         this.addCapability('batterycycles');
-        var batterycycles = Number(result['batterycycles'].value) * Math.pow(10, Number(result['batterycycles'].scale));
+        const batterycycles = Number(result['batterycycles'].value) * Math.pow(10, Number(result['batterycycles'].scale));
         this.setCapabilityValue('batterycycles', batterycycles);
       }
 
       if (result['totalyield'] && result['totalyield'].value != 'xxx') {
         this.addCapability('meter_power');
-        var totalyield = Number(result['totalyield'].value) / 1000;
+        const totalyield = Number(result['totalyield'].value) / 1000;
         this.setCapabilityValue('meter_power', totalyield);
       }
 
       if (result['Dailyyield'] && result['Dailyyield'].value != 'xxx') {
         this.addCapability('meter_power.daily');
-        var Dailyyield = Number(result['Dailyyield'].value) / 1000;
+        const Dailyyield = Number(result['Dailyyield'].value) / 1000;
         this.setCapabilityValue('meter_power.daily', Dailyyield);
       }
 
       if (result['totalhomeconsumption'] && result['totalhomeconsumption'].value != 'xxx') {
         this.addCapability('meter_power.houseload');
-        var totalhomeconsumption = Number(result['totalhomeconsumption'].value) / 1000;
+        const totalhomeconsumption = Number(result['totalhomeconsumption'].value) / 1000;
         this.setCapabilityValue('meter_power.houseload', totalhomeconsumption);
       }
 
       if (result['batteryvoltage'] && result['batteryvoltage'].value != 'xxx') {
         this.addCapability('measure_voltage.battery');
-        var batteryvoltage = Number(result['batteryvoltage'].value) * Math.pow(10, Number(result['batteryvoltage'].scale));
+        const batteryvoltage = Number(result['batteryvoltage'].value) * Math.pow(10, Number(result['batteryvoltage'].scale));
         this.setCapabilityValue('measure_voltage.battery', batteryvoltage);
       }
 
       if (result['Actualbatterychargedischargepower'] && result['Actualbatterychargedischargepower'].value != 'xxx') {
         this.addCapability('measure_power.batt_charge_discharge');
-        var charge = Number(result['Actualbatterychargedischargepower'].value) * Math.pow(10, Number(result['Actualbatterychargedischargepower'].scale));
+        const charge = Number(result['Actualbatterychargedischargepower'].value) * Math.pow(10, Number(result['Actualbatterychargedischargepower'].scale));
         this.setCapabilityValue('measure_power.batt_charge_discharge', charge);
       }
 
       if (result['Currentphase1'] && result['Currentphase1'].value != 'xxx') {
         this.addCapability('measure_current.meter_phase1');
-        var currenteac1 = Number(result['Currentphase1'].value) * Math.pow(10, Number(result['Currentphase1'].scale));
+        const currenteac1 = Number(result['Currentphase1'].value) * Math.pow(10, Number(result['Currentphase1'].scale));
         this.setCapabilityValue('measure_current.meter_phase1', currenteac1);
       }
       if (result['Currentphase2'] && result['Currentphase2'].value != 'xxx') {
         this.addCapability('measure_current.meter_phase2');
-        var currenteac2 = Number(result['Currentphase2'].value) * Math.pow(10, Number(result['Currentphase2'].scale));
+        const currenteac2 = Number(result['Currentphase2'].value) * Math.pow(10, Number(result['Currentphase2'].scale));
         this.setCapabilityValue('measure_current.meter_phase2', currenteac2);
       }
       if (result['Currentphase3'] && result['Currentphase3'].value != 'xxx') {
         this.addCapability('measure_current.meter_phase3');
-        var currenteac3 = Number(result['Currentphase3'].value) * Math.pow(10, Number(result['Currentphase3'].scale));
+        const currenteac3 = Number(result['Currentphase3'].value) * Math.pow(10, Number(result['Currentphase3'].scale));
         this.setCapabilityValue('measure_current.meter_phase3', currenteac3);
       }
 
       if (result['Voltagephase1'] && result['Voltagephase1'].value != 'xxx') {
         this.addCapability('measure_voltage.meter_phase1');
-        var voltageeac1 = Number(result['Voltagephase1'].value) * Math.pow(10, Number(result['Voltagephase1'].scale));
+        const voltageeac1 = Number(result['Voltagephase1'].value) * Math.pow(10, Number(result['Voltagephase1'].scale));
         this.setCapabilityValue('measure_voltage.meter_phase1', voltageeac1);
       }
       if (result['Voltagephase2'] && result['Voltagephase2'].value != 'xxx') {
         this.addCapability('measure_voltage.meter_phase2');
-        var voltageeac2 = Number(result['Voltagephase2'].value) * Math.pow(10, Number(result['Voltagephase2'].scale));
+        const voltageeac2 = Number(result['Voltagephase2'].value) * Math.pow(10, Number(result['Voltagephase2'].scale));
         this.setCapabilityValue('measure_voltage.meter_phase2', voltageeac2);
       }
       if (result['Voltagephase3'] && result['Voltagephase3'].value != 'xxx') {
         this.addCapability('measure_voltage.meter_phase3');
-        var voltageeac3 = Number(result['Voltagephase3'].value) * Math.pow(10, Number(result['Voltagephase3'].scale));
+        const voltageeac3 = Number(result['Voltagephase3'].value) * Math.pow(10, Number(result['Voltagephase3'].scale));
         this.setCapabilityValue('measure_voltage.meter_phase3', voltageeac3);
       }
 

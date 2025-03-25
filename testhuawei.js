@@ -2,9 +2,10 @@ console.log('-------------------');
 
 const modbus = require('jsmodbus');
 const net = require('net');
+
 const socket = new net.Socket();
 
-let options = {
+const options = {
   host: '11.13.11.154',
   port: 502,
   timeout: 26,
@@ -32,7 +33,7 @@ socket.on('connect', () => {
     console.log('Connected ...');
 
     registers = {
-      inputPower: [32064, 2, 'INT32', 'Input Power', 0], //	kW	1000
+      inputPower: [32064, 2, 'INT32', 'Input Power', 0], //  kW  1000
 
       // rn.GRID_VOLTAGE: U16Register("V", 10, 32066, 1),
       GRID_VOLTAGE: [32066, 1, 'UINT16', 'GRID VOLTAGE', -1],
@@ -86,20 +87,20 @@ socket.on('connect', () => {
       // rn.MODEL_ID: U16Register(None, 1, 30070, 1),
       // "modelId": [30070, 1, 'UINT16', "Model ID", 0],
 
-      // "Number of PV strings"	RO	U16	N/A	1	30071	1
+      // "Number of PV strings"  RO  U16  N/A  1  30071  1
       // "TotalPVstrings": [30071, 1, 'UINT16', "Number of PV strings", 0],
-      // PV1 voltage	RO	I16	V	10	32016
+      // PV1 voltage  RO  I16  V  10  32016
       PV1voltage: [32016, 1, 'INT16', 'PV1 voltage', -1],
-      // PV1 current	RO	I16	A	100	32017
+      // PV1 current  RO  I16  A  100  32017
       PV1current: [32017, 1, 'INT16', 'PV1 current', -2],
-      // PV2 voltage	RO	I16	V	10	32018
+      // PV2 voltage  RO  I16  V  10  32018
       PV2voltage: [32018, 1, 'INT16', 'PV2 voltage', -1],
-      // PV2 current	RO	I16	A	100	32019
+      // PV2 current  RO  I16  A  100  32019
       PV2current: [32019, 1, 'INT16', 'PV2 current', -2],
     };
 
     registers_batt = {
-      inputPower: [32064, 2, 'INT32', 'Input Power', 0], //	kW	1000
+      inputPower: [32064, 2, 'INT32', 'Input Power', 0], //  kW  1000
 
       // rn.GRID_VOLTAGE: U16Register("V", 10, 32066, 1),
       GRID_VOLTAGE: [32066, 1, 'UINT16', 'GRID VOLTAGE', -1],
@@ -153,15 +154,15 @@ socket.on('connect', () => {
       // rn.MODEL_ID: U16Register(None, 1, 30070, 1),
       // "modelId": [30070, 1, 'UINT16', "Model ID", 0],
 
-      // "Number of PV strings"	RO	U16	N/A	1	30071	1
+      // "Number of PV strings"  RO  U16  N/A  1  30071  1
       // "TotalPVstrings": [30071, 1, 'UINT16', "Number of PV strings", 0],
-      // PV1 voltage	RO	I16	V	10	32016
+      // PV1 voltage  RO  I16  V  10  32016
       PV1voltage: [32016, 1, 'INT16', 'PV1 voltage', -1],
-      // PV1 current	RO	I16	A	100	32017
+      // PV1 current  RO  I16  A  100  32017
       PV1current: [32017, 1, 'INT16', 'PV1 current', -2],
-      // PV2 voltage	RO	I16	V	10	32018
+      // PV2 voltage  RO  I16  V  10  32018
       PV2voltage: [32018, 1, 'INT16', 'PV2 voltage', -1],
-      // PV2 current	RO	I16	A	100	32019
+      // PV2 current  RO  I16  A  100  32019
       PV2current: [32019, 1, 'INT16', 'PV2 current', -2],
 
       STORAGE_CHARGE_DISCHARGE_POWER: [37765, 2, 'INT32', 'CHARGE_DISCHARGE POWER', 0],
@@ -174,7 +175,7 @@ socket.on('connect', () => {
         wait = 1000;
       }
       await sleep(wait).then(async () => {
-        console.log('unitId: ' + clients[x].unitId);
+        console.log(`unitId: ${clients[x].unitId}`);
         let register = registers;
         if (x == 1) {
           register = registers_batt;
@@ -188,27 +189,27 @@ socket.on('connect', () => {
 
             clients[x]
               .readHoldingRegisters(value[0], value[1])
-              .then(function (resp) {
+              .then((resp) => {
                 // console.log(resp.response._body);
                 if (value[2] == 'UINT16') {
-                  console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readUInt16BE());
+                  console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readUInt16BE()}`);
                 } else if (value[2] == 'STRING') {
-                  console.log(value[3] + ': ' + Buffer.from(resp.response._body._valuesAsBuffer, 'hex').toString());
+                  console.log(`${value[3]}: ${Buffer.from(resp.response._body._valuesAsBuffer, 'hex').toString()}`);
                 } else if (value[2] == 'INT16' || value[2] == 'SCALE') {
-                  console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readInt16BE());
+                  console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readInt16BE()}`);
                 } else if (value[2] == 'UINT32') {
                   // response.body.valuesAsBuffer.readUInt32BE().toString();
-                  console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readUInt32BE());
+                  console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readUInt32BE()}`);
                   // console.log(value[3] + ": " + (resp.response._body._valuesAsArray[1] << 16 | resp.response._body._valuesAsArray[0]))
                   //   console.log(resp.response._body._valuesAsArray[1] << 16)
                   //  console.log(resp.response._body._valuesAsArray[0])
                 } else if (value[2] == 'INT32') {
-                  console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readInt32BE());
+                  console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readInt32BE()}`);
                   // console.log(value[3] + ": " + ((resp.response._body._valuesAsArray[1] << 16 | resp.response._body._valuesAsArray[0]) | 0));
                   // console.log(resp.response._body._valuesAsArray[1] << 16)
                   // console.log(resp.response._body._valuesAsArray[0])
                 } else {
-                  console.log(key + ': type not found ' + value[2]);
+                  console.log(`${key}: type not found ${value[2]}`);
                 }
                 // console.log(new Date());
               })
@@ -220,21 +221,21 @@ socket.on('connect', () => {
       });
     }
 
-    delay(function () {
+    delay(() => {
       socket.end();
     }, 25000);
   });
 });
 
-var delay = (function () {
-  var timer = 0;
-  return function (callback, ms) {
+var delay = (function() {
+  let timer = 0;
+  return function(callback, ms) {
     clearTimeout(timer);
     timer = setTimeout(callback, ms);
   };
-})();
+}());
 
-//avoid all the crash reports
+// avoid all the crash reports
 socket.on('error', (err) => {
   console.log(err);
   socket.end();

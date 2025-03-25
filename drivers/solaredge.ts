@@ -248,7 +248,7 @@ export class Solaredge extends Homey.Device {
   processResult(result: Record<string, Measurement>, maxpeakpower: number) {
     if (result) {
       // result
-      for (let k in result) {
+      for (const k in result) {
         console.log('solaredge: ', k, result[k].value, result[k].scale, result[k].label);
       }
 
@@ -257,7 +257,7 @@ export class Solaredge extends Homey.Device {
         var acpower = Number(result['power_ac'].value) * Math.pow(10, Number(result['power_ac'].scale));
         if (maxpeakpower > 0 && acpower > maxpeakpower) {
           // skip
-          console.log('skip measure_power, max: ' + maxpeakpower + ' power: ' + acpower);
+          console.log(`skip measure_power, max: ${maxpeakpower} power: ${acpower}`);
         } else {
           this.setCapabilityValue('measure_power', Math.round(acpower));
         }
@@ -286,38 +286,38 @@ export class Solaredge extends Homey.Device {
 
       if (this.validResultRecord(result['l1_voltage']) && this.validResultScaleRecord(result['l1_voltage']) && result['l1_voltage'].value != '-1') {
         this.addCapability('measure_voltage.phase1');
-        var voltagel1 = Number(result['l1_voltage'].value) * Math.pow(10, Number(result['l1_voltage'].scale));
+        const voltagel1 = Number(result['l1_voltage'].value) * Math.pow(10, Number(result['l1_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase1', voltagel1);
       }
       if (this.validResultRecord(result['l2_voltage']) && this.validResultScaleRecord(result['l2_voltage']) && result['l2_voltage'].value != '-1') {
         this.addCapability('measure_voltage.phase2');
-        var voltagel2 = Number(result['l2_voltage'].value) * Math.pow(10, Number(result['l2_voltage'].scale));
+        const voltagel2 = Number(result['l2_voltage'].value) * Math.pow(10, Number(result['l2_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase2', voltagel2);
       }
       if (this.validResultRecord(result['l3_voltage']) && this.validResultScaleRecord(result['l3_voltage']) && result['l3_voltage'].value != '-1') {
         this.addCapability('measure_voltage.phase3');
-        var voltagel3 = Number(result['l3_voltage'].value) * Math.pow(10, Number(result['l3_voltage'].scale));
+        const voltagel3 = Number(result['l3_voltage'].value) * Math.pow(10, Number(result['l3_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase3', voltagel3);
       }
 
       if (this.validResultRecord(result['l1n_voltage']) && this.validResultScaleRecord(result['l1n_voltage']) && result['l1n_voltage'].value != '-1') {
         this.addCapability('measure_voltage.phase1n');
-        var voltagel1n = Number(result['l1n_voltage'].value) * Math.pow(10, Number(result['l1n_voltage'].scale));
+        const voltagel1n = Number(result['l1n_voltage'].value) * Math.pow(10, Number(result['l1n_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase1n', voltagel1n);
       }
       if (this.validResultRecord(result['l2n_voltage']) && this.validResultScaleRecord(result['l2n_voltage']) && result['l2n_voltage'].value != '-1') {
         this.addCapability('measure_voltage.phase2n');
-        var voltagel2n = Number(result['l2n_voltage'].value) * Math.pow(10, Number(result['l2n_voltage'].scale));
+        const voltagel2n = Number(result['l2n_voltage'].value) * Math.pow(10, Number(result['l2n_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase2n', voltagel2n);
       }
       if (this.validResultRecord(result['l3n_voltage']) && this.validResultScaleRecord(result['l3n_voltage']) && result['l3n_voltage'].value != '-1') {
         this.addCapability('measure_voltage.phase3n');
-        var voltagel3n = Number(result['l3n_voltage'].value) * Math.pow(10, Number(result['l3n_voltage'].scale));
+        const voltagel3n = Number(result['l3n_voltage'].value) * Math.pow(10, Number(result['l3n_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase3n', voltagel3n);
       }
 
-      let tz = this.homey.clock.getTimezone();
-      var now = new Date().toLocaleString(this.homey.i18n.getLanguage(), {
+      const tz = this.homey.clock.getTimezone();
+      const now = new Date().toLocaleString(this.homey.i18n.getLanguage(), {
         hour12: false,
         timeZone: tz,
         hour: '2-digit',
@@ -326,7 +326,7 @@ export class Solaredge extends Homey.Device {
 
       if (this.validResultRecord(result['energy_total'])) {
         this.addCapability('meter_power');
-        var total = Number(result['energy_total'].value) * Math.pow(10, Number(result['energy_total'].scale));
+        const total = Number(result['energy_total'].value) * Math.pow(10, Number(result['energy_total'].scale));
         this.setCapabilityValue('meter_power', total / 1000);
         console.log(now);
         if (total != null) {
@@ -338,11 +338,11 @@ export class Solaredge extends Homey.Device {
             this.setStoreValue('daily', total / 1000);
           }
           if (this.getStoreValue('daily') != null) {
-            var daily_power = Number((total / 1000 - this.getStoreValue('daily')).toFixed(2));
-            console.log('daily: ' + daily_power);
+            const daily_power = Number((total / 1000 - this.getStoreValue('daily')).toFixed(2));
+            console.log(`daily: ${daily_power}`);
             this.addCapability('meter_power.daily');
             if (this.getCapabilityValue('meter_power.daily') != daily_power) {
-              let tokens = {
+              const tokens = {
                 'meter_power.daily': daily_power,
               };
               this.homey.flow.getDeviceTriggerCard('meter_power_day_changed').trigger(this, tokens);
@@ -364,10 +364,10 @@ export class Solaredge extends Homey.Device {
 
       if (this.validResultRecord(result['temperature'])) {
         this.addCapability('measure_temperature.invertor');
-        var temperature = Number((Number(result['temperature'].value) * Math.pow(10, Number(result['temperature'].scale))).toFixed(2));
+        const temperature = Number((Number(result['temperature'].value) * Math.pow(10, Number(result['temperature'].scale))).toFixed(2));
 
         if (this.getCapabilityValue('measure_temperature.invertor') != temperature) {
-          let tokens = {
+          const tokens = {
             'measure_temperature.invertor': temperature,
           };
           this.homey.flow.getDeviceTriggerCard('measure_temperature_inverter_changed').trigger(this, tokens);
@@ -390,7 +390,7 @@ export class Solaredge extends Homey.Device {
       if (this.validResultRecord(result['export_control_mode'])) {
         if (this.hasCapability('limitcontrolmode')) {
           this.addCapability('limitcontrolmode');
-          var mode = '0';
+          let mode = '0';
           if (result['export_control_mode'].value == '1') {
             mode = '1';
           } else if (result['export_control_mode'].value == '4') {
@@ -423,16 +423,16 @@ export class Solaredge extends Homey.Device {
         if (parseInt(result['status'].value) < 9) {
           this.addCapability('invertorstatus');
           if (this.getCapabilityValue('invertorstatus') != result['status'].value) {
-            let status_str: { [key: string]: string } = {
-              '0': 'Undefined',
-              '1': 'Off',
-              '2': 'Sleeping',
-              '3': 'Grid Monitoring',
-              '4': 'Producing',
-              '5': 'Producing (Throttled)',
-              '6': 'Shutting Down',
-              '7': 'Fault',
-              '8': 'Maintenance',
+            const status_str: { [key: string]: string } = {
+              0: 'Undefined',
+              1: 'Off',
+              2: 'Sleeping',
+              3: 'Grid Monitoring',
+              4: 'Producing',
+              5: 'Producing (Throttled)',
+              6: 'Shutting Down',
+              7: 'Fault',
+              8: 'Maintenance',
             };
             // console.log(this.driver.id);
             // console.log(status_str[result['status'].value]);
@@ -448,19 +448,19 @@ export class Solaredge extends Homey.Device {
       // meters
       if (this.validResultRecord(result['meter1-export_energy_active'])) {
         this.addCapability('meter_power.export');
-        var totalexport = Number(result['meter1-export_energy_active'].value) * Math.pow(10, Number(result['meter1-export_energy_active'].scale));
+        const totalexport = Number(result['meter1-export_energy_active'].value) * Math.pow(10, Number(result['meter1-export_energy_active'].scale));
         this.setCapabilityValue('meter_power.export', totalexport / 1000);
       }
 
       if (this.validResultRecord(result['meter1-import_energy_active']) && this.validResultScaleRecord(result['meter1-export_energy_active'])) {
         this.addCapability('meter_power.import');
-        var totalimport = Number(result['meter1-import_energy_active'].value) * Math.pow(10, Number(result['meter1-export_energy_active'].scale));
+        const totalimport = Number(result['meter1-import_energy_active'].value) * Math.pow(10, Number(result['meter1-export_energy_active'].scale));
         this.setCapabilityValue('meter_power.import', totalimport / 1000);
       }
 
       if (this.validResultRecord(result['meter1-voltage_ln']) && this.validResultScaleRecord(result['meter1-voltage_ln'])) {
         this.addCapability('measure_voltage.meter');
-        var voltageac = Number(result['meter1-voltage_ln'].value) * Math.pow(10, Number(result['meter1-voltage_ln'].scale));
+        const voltageac = Number(result['meter1-voltage_ln'].value) * Math.pow(10, Number(result['meter1-voltage_ln'].scale));
         this.setCapabilityValue('measure_voltage.meter', voltageac);
       }
 
@@ -490,20 +490,20 @@ export class Solaredge extends Homey.Device {
 
       if (this.validResultRecord(result['meter1-l1n_voltage']) && this.validResultRecord(result['meter1-voltage_ln_scale'])) {
         this.addCapability('measure_voltage.meter_phase1');
-        var voltageeac1 = Number(result['meter1-l1n_voltage'].value) * Math.pow(10, Number(result['meter1-voltage_ln_scale'].value));
+        const voltageeac1 = Number(result['meter1-l1n_voltage'].value) * Math.pow(10, Number(result['meter1-voltage_ln_scale'].value));
         console.log(voltageeac1);
         this.setCapabilityValue('measure_voltage.meter_phase1', voltageeac1);
       }
 
       if (this.validResultRecord(result['meter1-l2n_voltage']) && this.validResultRecord(result['meter1-voltage_ln_scale'])) {
         this.addCapability('measure_voltage.meter_phase2');
-        var voltageeac2 = Number(result['meter1-l2n_voltage'].value) * Math.pow(10, Number(result['meter1-voltage_ln_scale'].value));
+        const voltageeac2 = Number(result['meter1-l2n_voltage'].value) * Math.pow(10, Number(result['meter1-voltage_ln_scale'].value));
         this.setCapabilityValue('measure_voltage.meter_phase2', voltageeac2);
       }
 
       if (this.validResultRecord(result['meter1-l3n_voltage']) && this.validResultRecord(result['meter1-voltage_ln_scale'])) {
         this.addCapability('measure_voltage.meter_phase3');
-        var voltageeac3 = Number(result['meter1-l3n_voltage'].value) * Math.pow(10, Number(result['meter1-voltage_ln_scale'].value));
+        const voltageeac3 = Number(result['meter1-l3n_voltage'].value) * Math.pow(10, Number(result['meter1-voltage_ln_scale'].value));
         this.setCapabilityValue('measure_voltage.meter_phase3', voltageeac3);
       }
 
@@ -512,16 +512,16 @@ export class Solaredge extends Homey.Device {
         this.addCapability('measure_power.export');
         this.addCapability('ownconsumption');
         var acpower = Number(result['power_ac'].value) * Math.pow(10, Number(result['power_ac'].scale));
-        var meterpower = Number(result['meter1-power'].value) * Math.pow(10, Number(result['meter1-power'].scale));
-        console.log('acpower: ' + acpower);
-        console.log('meterpower: ' + meterpower);
+        const meterpower = Number(result['meter1-power'].value) * Math.pow(10, Number(result['meter1-power'].scale));
+        console.log(`acpower: ${acpower}`);
+        console.log(`meterpower: ${meterpower}`);
         if (meterpower > 0) {
           this.setCapabilityValue('measure_power.export', meterpower);
           this.setCapabilityValue('measure_power.import', 0);
           this.setCapabilityValue('ownconsumption', acpower - meterpower);
-          console.log('export: ' + meterpower);
-          console.log('import: ' + 0);
-          console.log('ownconsumption: ' + (acpower - meterpower));
+          console.log(`export: ${meterpower}`);
+          console.log(`import: ${0}`);
+          console.log(`ownconsumption: ${acpower - meterpower}`);
           this.homey.flow.getDeviceTriggerCard('changedExportPower').trigger(this, { 'measure_power.export': meterpower }, {});
           this.homey.flow.getDeviceTriggerCard('changedImportPower').trigger(this, { 'measure_power.import': 0 }, {});
           this.homey.flow.getDeviceTriggerCard('changedConsumption').trigger(this, { ownconsumption: acpower - meterpower }, {});
@@ -529,9 +529,9 @@ export class Solaredge extends Homey.Device {
           this.setCapabilityValue('measure_power.export', 0);
           this.setCapabilityValue('measure_power.import', -1 * meterpower);
           this.setCapabilityValue('ownconsumption', acpower + -1 * meterpower);
-          console.log('export: ' + 0);
-          console.log('import: ' + -1 * meterpower);
-          console.log('ownconsumption: ' + (acpower + -1 * meterpower));
+          console.log(`export: ${0}`);
+          console.log(`import: ${-1 * meterpower}`);
+          console.log(`ownconsumption: ${acpower + -1 * meterpower}`);
           this.homey.flow.getDeviceTriggerCard('changedExportPower').trigger(this, { 'measure_power.export': 0 }, {});
           this.homey.flow.getDeviceTriggerCard('changedImportPower').trigger(this, { 'measure_power.import': -1 * meterpower }, {});
           this.homey.flow.getDeviceTriggerCard('changedConsumption').trigger(this, { ownconsumption: acpower + -1 * meterpower }, {});
@@ -559,8 +559,8 @@ export class Solaredge extends Homey.Device {
         if (battery > 0) {
           if (this.validResultRecord(result['batt2-soe'])) {
             console.log('2 batteries');
-            var battery2 = Number(Number.parseFloat(result['batt2-soe'].value).toFixed(2));
-            var bothBattery = (battery + battery2) / 2;
+            const battery2 = Number(Number.parseFloat(result['batt2-soe'].value).toFixed(2));
+            const bothBattery = (battery + battery2) / 2;
             if (this.getCapabilityValue('battery') != bothBattery) {
               this.homey.flow.getDeviceTriggerCard('changedBattery').trigger(this, { charge: bothBattery }, {});
             }
@@ -637,15 +637,15 @@ export class Solaredge extends Homey.Device {
       if (this.validResultRecord(result['batt1-soh'])) {
         if (this.validResultRecord(result['storage_control_mode'])) {
           this.addCapability('storagecontrolmode');
-          var storagecontrolmode = result['storage_control_mode'].value;
-          console.log('changedStoragecontrolmode old ' + this.getCapabilityValue('storagecontrolmode'));
-          console.log('changedStoragecontrolmode new ' + storagecontrolmode);
+          const storagecontrolmode = result['storage_control_mode'].value;
+          console.log(`changedStoragecontrolmode old ${this.getCapabilityValue('storagecontrolmode')}`);
+          console.log(`changedStoragecontrolmode new ${storagecontrolmode}`);
           if (this.getCapabilityValue('storagecontrolmode') != storagecontrolmode) {
-            let tokens = {
+            const tokens = {
               mode: Number(storagecontrolmode),
             };
-            let state = {};
-            console.log('trigger changedStoragecontrolmode ' + storagecontrolmode);
+            const state = {};
+            console.log(`trigger changedStoragecontrolmode ${storagecontrolmode}`);
             this.setCapabilityValue('storagecontrolmode', storagecontrolmode);
             sleep().then(() => {
               this.homey.flow.getDeviceTriggerCard('changedStoragecontrolmode').trigger(this, tokens, state);
@@ -656,19 +656,19 @@ export class Solaredge extends Homey.Device {
 
         if (this.validResultRecord(result['storage_accharge_policy'])) {
           this.addCapability('storageacchargepolicy');
-          var storageacchargepolicy = result['storage_accharge_policy'].value;
+          const storageacchargepolicy = result['storage_accharge_policy'].value;
           this.setCapabilityValue('storageacchargepolicy', storageacchargepolicy);
         }
 
         if (this.validResultRecord(result['remote_control_command_mode'])) {
           this.addCapability('storagedefaultmode');
-          var storagedefaultmode = result['remote_control_command_mode'].value;
+          const storagedefaultmode = result['remote_control_command_mode'].value;
           if (this.getCapabilityValue('storagedefaultmode') != storagedefaultmode) {
-            let tokens = {
+            const tokens = {
               mode: Number(storagedefaultmode),
             };
-            let state = {};
-            console.log('trigger changedStoragedefaultmode ' + storagedefaultmode);
+            const state = {};
+            console.log(`trigger changedStoragedefaultmode ${storagedefaultmode}`);
             this.setCapabilityValue('storagedefaultmode', storagedefaultmode);
             sleep().then(() => {
               this.homey.flow.getDeviceTriggerCard('changedStoragedefaultmode').trigger(this, tokens, state);
@@ -679,13 +679,13 @@ export class Solaredge extends Homey.Device {
 
         if (this.validResultRecord(result['remote_control_charge_limit'])) {
           this.addCapability('measure_power.chargesetting');
-          var chargeLimit = Number(result['remote_control_charge_limit'].value);
+          const chargeLimit = Number(result['remote_control_charge_limit'].value);
           this.setCapabilityValue('measure_power.chargesetting', chargeLimit);
         }
 
         if (this.validResultRecord(result['remote_control_command_discharge_limit'])) {
           this.addCapability('measure_power.dischargesetting');
-          var dischargeLimit = Number(result['remote_control_command_discharge_limit'].value);
+          const dischargeLimit = Number(result['remote_control_command_discharge_limit'].value);
           this.setCapabilityValue('measure_power.dischargesetting', dischargeLimit);
         }
       }
@@ -700,16 +700,16 @@ export class Solaredge extends Homey.Device {
         if (parseInt(result['batt1-status'].value) < 11) {
           this.addCapability('battstatus');
           if (this.getCapabilityValue('battstatus') != result['batt1-status'].value) {
-            let status_str: { [key: string]: string } = {
-              '0': 'Off',
-              '1': 'Standby',
-              '2': 'Init',
-              '3': 'Charge',
-              '4': 'Discharge',
-              '5': 'Fault',
-              '6': 'Idle',
-              '7': 'Idle',
-              '10': 'Unknown',
+            const status_str: { [key: string]: string } = {
+              0: 'Off',
+              1: 'Standby',
+              2: 'Init',
+              3: 'Charge',
+              4: 'Discharge',
+              5: 'Fault',
+              6: 'Idle',
+              7: 'Idle',
+              10: 'Unknown',
             };
             // console.log(this.driver.id);
             this.homey.flow.getDeviceTriggerCard('changedBatteryStatus').trigger(this, { status: status_str[result['batt1-status'].value] }, {});

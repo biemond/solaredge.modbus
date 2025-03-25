@@ -1,6 +1,6 @@
 console.log('-------------------');
 
-let value = 0;
+const value = 0;
 let buffer;
 
 // if (value == 0) {
@@ -17,7 +17,7 @@ let buffer;
 //     chargehex2 =  17595;
 
 if (value < -3.4028234663852886e38 || value > 3.4028234663852886e38) {
-  throw new Error('Value out of range for FLOAT32: ' + value);
+  throw new Error(`Value out of range for FLOAT32: ${value}`);
 }
 // buffer = Buffer.allocUnsafe(4);
 // buffer.writeFloatLE(value);
@@ -26,14 +26,14 @@ buffer = Buffer.allocUnsafe(4);
 buffer.writeFloatBE(value);
 buffer.swap32().swap16();
 
-let bytes = buffer
+const bytes = buffer
   .toString('hex')
   .toUpperCase()
   .replace(/(.{2})/g, '$1 ')
   .trimEnd();
 
-console.log('Write register: Bytes: ' + bytes);
-console.log('Write register: ' + buffer.toString('hex'));
+console.log(`Write register: Bytes: ${bytes}`);
+console.log(`Write register: ${buffer.toString('hex')}`);
 if (buffer.byteLength > 2) {
   console.log('---------2----------');
 } else {

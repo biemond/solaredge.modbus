@@ -264,174 +264,173 @@ export class Sigenergy extends Homey.Device {
   processResult(result: Record<string, Measurement>) {
     if (result) {
       // result
-      for (let k in result) {
+      for (const k in result) {
         console.log('sigenergy: ', k, result[k].value, result[k].scale, result[k].label);
       }
 
       if (result['sigen_plant_active_power'] && result['sigen_plant_active_power'].value != 'xxx') {
         this.addCapability('measure_power');
-        let activePower = Number(result['sigen_plant_active_power'].value) * Math.pow(10, Number(result['sigen_plant_active_power'].scale));
+        const activePower = Number(result['sigen_plant_active_power'].value) * Math.pow(10, Number(result['sigen_plant_active_power'].scale));
         this.setCapabilityValue('measure_power', Math.round(activePower));
       }
 
       if (result['sigen_pv_power'] && result['sigen_pv_power'].value != 'xxx') {
         this.addCapability('measure_power.pv');
-        let PowerDC = Number(result['sigen_pv_power'].value) * Math.pow(10, Number(result['sigen_pv_power'].scale));
+        const PowerDC = Number(result['sigen_pv_power'].value) * Math.pow(10, Number(result['sigen_pv_power'].scale));
         this.setCapabilityValue('measure_power.pv', Math.round(PowerDC));
       }
 
       if (result['sigen_grid_sensor_active_power'] && result['sigen_grid_sensor_active_power'].value != 'xxx') {
         this.addCapability('measure_power.grid');
-        let PowerGrid = Number(result['sigen_grid_sensor_active_power'].value) * Math.pow(10, Number(result['sigen_grid_sensor_active_power'].scale));
+        const PowerGrid = Number(result['sigen_grid_sensor_active_power'].value) * Math.pow(10, Number(result['sigen_grid_sensor_active_power'].scale));
         this.setCapabilityValue('measure_power.grid', Math.round(PowerGrid));
       }
 
       if (result['sigen_battery_power'] && result['sigen_battery_power'].value != 'xxx') {
         this.addCapability('measure_power.batt_charge_discharge');
-        let PowerBatt = Number(result['sigen_battery_power'].value) * Math.pow(10, Number(result['sigen_battery_power'].scale));
+        const PowerBatt = Number(result['sigen_battery_power'].value) * Math.pow(10, Number(result['sigen_battery_power'].scale));
         this.setCapabilityValue('measure_power.batt_charge_discharge', Math.round(PowerBatt));
       }
 
       if (result['sigen_grid_sensor_active_power'] && result['sigen_grid_sensor_active_power'].value != 'xxx') {
         this.addCapability('measure_power.consumed');
-        let PowerBatt = Number(result['sigen_battery_power'].value) * Math.pow(10, Number(result['sigen_battery_power'].scale));
-        let PowerGrid = Number(result['sigen_grid_sensor_active_power'].value) * Math.pow(10, Number(result['sigen_grid_sensor_active_power'].scale));
-        let PowerDC = Number(result['sigen_pv_power'].value) * Math.pow(10, Number(result['sigen_pv_power'].scale));
+        const PowerBatt = Number(result['sigen_battery_power'].value) * Math.pow(10, Number(result['sigen_battery_power'].scale));
+        const PowerGrid = Number(result['sigen_grid_sensor_active_power'].value) * Math.pow(10, Number(result['sigen_grid_sensor_active_power'].scale));
+        const PowerDC = Number(result['sigen_pv_power'].value) * Math.pow(10, Number(result['sigen_pv_power'].scale));
         this.setCapabilityValue('measure_power.consumed', Math.round(PowerDC - PowerBatt + PowerGrid));
       }
 
       if (result['sigendev_ess_battery_soc'] && result['sigendev_ess_battery_soc'].value != 'xxx') {
         this.addCapability('battery');
         this.addCapability('measure_battery');
-        let soc = Number(result['sigendev_ess_battery_soc'].value) * Math.pow(10, Number(result['sigendev_ess_battery_soc'].scale));
+        const soc = Number(result['sigendev_ess_battery_soc'].value) * Math.pow(10, Number(result['sigendev_ess_battery_soc'].scale));
         this.setCapabilityValue('battery', soc);
         this.setCapabilityValue('measure_battery', soc);
       }
       if (result['sigendev_ess_battery_soh'] && result['sigendev_ess_battery_soh'].value != 'xxx') {
         this.addCapability('batterysoh');
-        let soh = Number(result['sigendev_ess_battery_soh'].value) * Math.pow(10, Number(result['sigendev_ess_battery_soh'].scale));
+        const soh = Number(result['sigendev_ess_battery_soh'].value) * Math.pow(10, Number(result['sigendev_ess_battery_soh'].scale));
         this.setCapabilityValue('batterysoh', soh);
       }
 
       if (result['sigendev_inverter_temperature'] && result['sigendev_inverter_temperature'].value != 'xxx') {
         this.addCapability('measure_temperature.invertor');
-        let temperature = Number(result['sigendev_inverter_temperature'].value) * Math.pow(10, Number(result['sigendev_inverter_temperature'].scale));
+        const temperature = Number(result['sigendev_inverter_temperature'].value) * Math.pow(10, Number(result['sigendev_inverter_temperature'].scale));
         this.setCapabilityValue('measure_temperature.invertor', temperature);
       }
       if (result['sigendev_ess_average_cell_temperature'] && result['sigendev_ess_average_cell_temperature'].value != 'xxx') {
         this.addCapability('measure_temperature.battery');
-        let temperature =
-          Number(result['sigendev_ess_average_cell_temperature'].value) * Math.pow(10, Number(result['sigendev_ess_average_cell_temperature'].scale));
+        const temperature = Number(result['sigendev_ess_average_cell_temperature'].value) * Math.pow(10, Number(result['sigendev_ess_average_cell_temperature'].scale));
         this.setCapabilityValue('measure_temperature.battery', temperature);
       }
 
       if (result['sigendev_running_state_code'] && result['sigendev_running_state_code'].value != 'xxx') {
         this.addCapability('sigendev_running_state_code');
-        let state = result['sigendev_running_state_code'].value;
+        const state = result['sigendev_running_state_code'].value;
         this.setCapabilityValue('sigendev_running_state_code', state);
       }
 
       if (result['sigendev_phase_a_current'] && result['sigendev_phase_a_current'].value != '-1' && result['sigendev_phase_a_current'].value != 'xxx') {
         this.addCapability('measure_current.phase1');
-        let currenteac1 = Number(result['sigendev_phase_a_current'].value) * Math.pow(10, Number(result['sigendev_phase_a_current'].scale));
+        const currenteac1 = Number(result['sigendev_phase_a_current'].value) * Math.pow(10, Number(result['sigendev_phase_a_current'].scale));
         this.setCapabilityValue('measure_current.phase1', currenteac1);
       }
       if (result['sigendev_phase_b_current'] && result['sigendev_phase_b_current'].value != '-1' && result['sigendev_phase_b_current'].value != 'xxx') {
         this.addCapability('measure_current.phase2');
-        let currenteac2 = Number(result['sigendev_phase_b_current'].value) * Math.pow(10, Number(result['sigendev_phase_b_current'].scale));
+        const currenteac2 = Number(result['sigendev_phase_b_current'].value) * Math.pow(10, Number(result['sigendev_phase_b_current'].scale));
         this.setCapabilityValue('measure_current.phase2', currenteac2);
       }
       if (result['sigendev_phase_c_current'] && result['sigendev_phase_c_current'].value != '-1' && result['sigendev_phase_c_current'].value != 'xxx') {
         this.addCapability('measure_current.phase3');
-        let currenteac3 = Number(result['sigendev_phase_c_current'].value) * Math.pow(10, Number(result['sigendev_phase_c_current'].scale));
+        const currenteac3 = Number(result['sigendev_phase_c_current'].value) * Math.pow(10, Number(result['sigendev_phase_c_current'].scale));
         this.setCapabilityValue('measure_current.phase3', currenteac3);
       }
 
       if (result['sigendev_phase_a_voltage'] && result['sigendev_phase_a_voltage'].value != '-1' && result['sigendev_phase_a_voltage'].value != 'xxx') {
         this.addCapability('measure_voltage.phase1');
-        let voltageeac1 = Number(result['sigendev_phase_a_voltage'].value) * Math.pow(10, Number(result['sigendev_phase_a_voltage'].scale));
+        const voltageeac1 = Number(result['sigendev_phase_a_voltage'].value) * Math.pow(10, Number(result['sigendev_phase_a_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase1', voltageeac1);
       }
       if (result['sigendev_phase_b_voltage'] && result['sigendev_phase_b_voltage'].value != '-1' && result['sigendev_phase_b_voltage'].value != 'xxx') {
         this.addCapability('measure_voltage.phase2');
-        let voltageeac2 = Number(result['sigendev_phase_b_voltage'].value) * Math.pow(10, Number(result['sigendev_phase_b_voltage'].scale));
+        const voltageeac2 = Number(result['sigendev_phase_b_voltage'].value) * Math.pow(10, Number(result['sigendev_phase_b_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase2', voltageeac2);
       }
       if (result['sigendev_phase_c_voltage'] && result['sigendev_phase_c_voltage'].value != '-1' && result['sigendev_phase_c_voltage'].value != 'xxx') {
         this.addCapability('measure_voltage.phase3');
-        let voltageeac3 = Number(result['sigendev_phase_c_voltage'].value) * Math.pow(10, Number(result['sigendev_phase_c_voltage'].scale));
+        const voltageeac3 = Number(result['sigendev_phase_c_voltage'].value) * Math.pow(10, Number(result['sigendev_phase_c_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase3', voltageeac3);
       }
 
       if (
-        result['sigendev_ess_average_cell_voltage'] &&
-        result['sigendev_ess_average_cell_voltage'].value != '-1' &&
-        result['sigendev_ess_average_cell_voltage'].value != 'xxx'
+        result['sigendev_ess_average_cell_voltage']
+        && result['sigendev_ess_average_cell_voltage'].value != '-1'
+        && result['sigendev_ess_average_cell_voltage'].value != 'xxx'
       ) {
         this.addCapability('measure_voltage.battery');
-        let voltageebatt = Number(result['sigendev_ess_average_cell_voltage'].value) * Math.pow(10, Number(result['sigendev_ess_average_cell_voltage'].scale));
+        const voltageebatt = Number(result['sigendev_ess_average_cell_voltage'].value) * Math.pow(10, Number(result['sigendev_ess_average_cell_voltage'].scale));
         this.setCapabilityValue('measure_voltage.battery', voltageebatt);
       }
 
       if (
-        result['sigendev_daily_export_energy'] &&
-        result['sigendev_daily_export_energy'].value != '-1' &&
-        result['sigendev_daily_export_energy'].value != 'xxx'
+        result['sigendev_daily_export_energy']
+        && result['sigendev_daily_export_energy'].value != '-1'
+        && result['sigendev_daily_export_energy'].value != 'xxx'
       ) {
         this.addCapability('meter_power.daily_export');
-        let voltageebatt = Number(result['sigendev_daily_export_energy'].value) * Math.pow(10, Number(result['sigendev_daily_export_energy'].scale));
+        const voltageebatt = Number(result['sigendev_daily_export_energy'].value) * Math.pow(10, Number(result['sigendev_daily_export_energy'].scale));
         this.setCapabilityValue('meter_power.daily_export', voltageebatt);
       }
 
       if (
-        result['sigendev_daily_import_energy'] &&
-        result['sigendev_daily_import_energy'].value != '-1' &&
-        result['sigendev_daily_import_energy'].value != 'xxx'
+        result['sigendev_daily_import_energy']
+        && result['sigendev_daily_import_energy'].value != '-1'
+        && result['sigendev_daily_import_energy'].value != 'xxx'
       ) {
         this.addCapability('meter_power.daily_import');
-        let voltageebatt = Number(result['sigendev_daily_import_energy'].value) * Math.pow(10, Number(result['sigendev_daily_import_energy'].scale));
+        const voltageebatt = Number(result['sigendev_daily_import_energy'].value) * Math.pow(10, Number(result['sigendev_daily_import_energy'].scale));
         this.setCapabilityValue('meter_power.daily_import', voltageebatt);
       }
 
       if (
-        result['sigendev_daily_charge_energy'] &&
-        result['sigendev_daily_charge_energy'].value != '-1' &&
-        result['sigendev_daily_charge_energy'].value != 'xxx'
+        result['sigendev_daily_charge_energy']
+        && result['sigendev_daily_charge_energy'].value != '-1'
+        && result['sigendev_daily_charge_energy'].value != 'xxx'
       ) {
         this.addCapability('meter_power.daily_charge');
-        let voltageebatt = Number(result['sigendev_daily_charge_energy'].value) * Math.pow(10, Number(result['sigendev_daily_charge_energy'].scale));
+        const voltageebatt = Number(result['sigendev_daily_charge_energy'].value) * Math.pow(10, Number(result['sigendev_daily_charge_energy'].scale));
         this.setCapabilityValue('meter_power.daily_charge', voltageebatt);
       }
 
       if (
-        result['sigendev_daily_discharge_energy'] &&
-        result['sigendev_daily_discharge_energy'].value != '-1' &&
-        result['sigendev_daily_discharge_energy'].value != 'xxx'
+        result['sigendev_daily_discharge_energy']
+        && result['sigendev_daily_discharge_energy'].value != '-1'
+        && result['sigendev_daily_discharge_energy'].value != 'xxx'
       ) {
         this.addCapability('meter_power.daily_discharge');
-        let voltageebatt = Number(result['sigendev_daily_discharge_energy'].value) * Math.pow(10, Number(result['sigendev_daily_discharge_energy'].scale));
+        const voltageebatt = Number(result['sigendev_daily_discharge_energy'].value) * Math.pow(10, Number(result['sigendev_daily_discharge_energy'].scale));
         this.setCapabilityValue('meter_power.daily_discharge', voltageebatt);
       }
 
       if (result['sigen_remote_ems_code'] && result['sigen_remote_ems_code'].value != '-1' && result['sigen_remote_ems_code'].value != 'xxx') {
         this.addCapability('sigen_remote_ems_code');
-        let emscode = result['sigen_remote_ems_code'].value;
+        const emscode = result['sigen_remote_ems_code'].value;
         this.setCapabilityValue('sigen_remote_ems_code', emscode);
       }
 
       if (
-        result['sigen_remote_ems_control_mode_code'] &&
-        result['sigen_remote_ems_control_mode_code'].value != '-1' &&
-        result['sigen_remote_ems_control_mode_code'].value != 'xxx'
+        result['sigen_remote_ems_control_mode_code']
+        && result['sigen_remote_ems_control_mode_code'].value != '-1'
+        && result['sigen_remote_ems_control_mode_code'].value != 'xxx'
       ) {
         this.addCapability('sigen_remote_ems_control_mode_code');
-        let emscode = result['sigen_remote_ems_control_mode_code'].value;
+        const emscode = result['sigen_remote_ems_control_mode_code'].value;
         this.setCapabilityValue('sigen_remote_ems_control_mode_code', emscode);
       }
 
       if (result['sigen_grid_status_mode'] && result['sigen_grid_status_mode'].value != '-1' && result['sigen_grid_status_mode'].value != 'xxx') {
         this.addCapability('grid_status');
-        let gridmode = result['sigen_grid_status_mode'].value;
+        const gridmode = result['sigen_grid_status_mode'].value;
         this.setCapabilityValue('grid_status', gridmode);
       }
     }

@@ -1,8 +1,8 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
+import Homey, { Device } from 'homey';
 import { checkHoldingRegisterHuaweiEmma } from '../response';
 import { Huawei } from '../huawei';
-import Homey, { Device } from 'homey';
 
 const RETRY_INTERVAL = 25 * 1000;
 
@@ -14,9 +14,9 @@ class MyHuaweiEmmaDevice extends Huawei {
   async onInit() {
     this.log('MyHuaweiEmmaDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -35,20 +35,20 @@ class MyHuaweiEmmaDevice extends Huawei {
       return value;
     });
 
-    let controlBatteryControl = this.homey.flow.getActionCard('battery_control');
+    const controlBatteryControl = this.homey.flow.getActionCard('battery_control');
     controlBatteryControl.registerRunListener(async (args, state) => {
-      let name = this.getData().id;
-      this.log('device name id ' + name);
-      this.log('device name ' + this.getName());
+      const name = this.getData().id;
+      this.log(`device name id ${name}`);
+      this.log(`device name ${this.getName()}`);
       this.log(args.device.getName());
       await this.updateControl('battery_control', Number(args.mode), args.device);
     });
 
-    let controlpowerControlModeAtGrid = this.homey.flow.getActionCard('power_control_mode_at_grid');
+    const controlpowerControlModeAtGrid = this.homey.flow.getActionCard('power_control_mode_at_grid');
     controlpowerControlModeAtGrid.registerRunListener(async (args, state) => {
-      let name = this.getData().id;
-      this.log('device name id ' + name);
-      this.log('device name ' + this.getName());
+      const name = this.getData().id;
+      this.log(`device name id ${name}`);
+      this.log(`device name ${this.getName()}`);
       this.log(args.device.getName());
       await this.updateControl('power_control_mode_at_grid', Number(args.mode), args.device);
     });
@@ -95,14 +95,14 @@ class MyHuaweiEmmaDevice extends Huawei {
   }
 
   async updateControl(type: string, value: number, device: Homey.Device) {
-    let name = device.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + device.getName());
-    let socket = new net.Socket();
-    var unitID = device.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 2000);
+    const name = device.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${device.getName()}`);
+    const socket = new net.Socket();
+    const unitID = device.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 2000);
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: device.getSetting('address'),
       port: device.getSetting('port'),
       unitId: device.getSetting('id'),
@@ -159,7 +159,7 @@ class MyHuaweiEmmaDevice extends Huawei {
     this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -170,9 +170,9 @@ class MyHuaweiEmmaDevice extends Huawei {
       logEnabled: true,
     };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 1500);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 1500);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
@@ -191,8 +191,8 @@ class MyHuaweiEmmaDevice extends Huawei {
       this.processEmmaResult(finalRes);
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
-      let seconds = Math.floor(timeDiff / 1000);
-      console.log('total time: ' + seconds + ' seconds');
+      const seconds = Math.floor(timeDiff / 1000);
+      console.log(`total time: ${seconds} seconds`);
     });
 
     socket.on('close', () => {

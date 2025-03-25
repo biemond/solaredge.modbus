@@ -272,7 +272,7 @@ export class Solax extends Homey.Device {
   processResult(result: Record<string, Measurement>) {
     if (result) {
       // result
-      for (let k in result) {
+      for (const k in result) {
         console.log(k, result[k].value, result[k].scale, result[k].label);
       }
 
@@ -291,7 +291,7 @@ export class Solax extends Homey.Device {
       if (result['GridPower'] && result['GridPower'].value != 'xxx' && result['feedin_power'] && result['feedin_power'].value != 'xxx') {
         this.addCapability('measure_power.load');
         var dcPower = Number(result['GridPower'].value) * Math.pow(10, Number(result['GridPower'].scale));
-        var feedin_power = Number(result['feedin_power'].value) * Math.pow(10, Number(result['feedin_power'].scale));
+        const feedin_power = Number(result['feedin_power'].value) * Math.pow(10, Number(result['feedin_power'].scale));
         this.setCapabilityValue('measure_power.load', Math.round(dcPower - feedin_power));
       }
 
@@ -324,8 +324,8 @@ export class Solax extends Homey.Device {
 
       if (result['Powerdc2'] && result['Powerdc2'].value != 'xxx' && result['Powerdc1'] && result['Powerdc1'].value != 'xxx') {
         this.addCapability('measure_power.pvinput');
-        var dcPower1 = Number(result['Powerdc1'].value) * Math.pow(10, Number(result['Powerdc1'].scale));
-        var dcPower2 = Number(result['Powerdc2'].value) * Math.pow(10, Number(result['Powerdc2'].scale));
+        const dcPower1 = Number(result['Powerdc1'].value) * Math.pow(10, Number(result['Powerdc1'].scale));
+        const dcPower2 = Number(result['Powerdc2'].value) * Math.pow(10, Number(result['Powerdc2'].scale));
         this.setCapabilityValue('measure_power.pvinput', Math.round(dcPower1 + dcPower2));
       }
 
@@ -447,7 +447,7 @@ export class Solax extends Homey.Device {
       if (result['BatteryCapacity'] && result['BatteryCapacity'].value != 'xxx') {
         this.addCapability('battery');
         this.addCapability('measure_battery');
-        var battery = Number(result['BatteryCapacity'].value);
+        const battery = Number(result['BatteryCapacity'].value);
         if (battery > 0) {
           this.setCapabilityValue('battery', battery);
           this.setCapabilityValue('measure_battery', battery);
@@ -455,7 +455,7 @@ export class Solax extends Homey.Device {
       }
       if (result['BMS_UserSOH'] && result['BMS_UserSOH'].value != 'xxx') {
         this.addCapability('batterysoh');
-        var health = Number(result['BMS_UserSOH'].value);
+        const health = Number(result['BMS_UserSOH'].value);
         this.setCapabilityValue('batterysoh', health);
       }
       // SolarChargerUseMode 0 0 SolarChargerUseMode
@@ -468,7 +468,7 @@ export class Solax extends Homey.Device {
 
       if (result['SolarChargerUseMode'] && result['SolarChargerUseMode'].value != 'xxx') {
         this.addCapability('solarcharger_use_mode');
-        var storage = result['SolarChargerUseMode'].value;
+        const storage = result['SolarChargerUseMode'].value;
         this.setCapabilityValue('solarcharger_use_mode', storage);
       }
 
@@ -476,7 +476,7 @@ export class Solax extends Homey.Device {
 
       if (result['ManualMode'] && result['ManualMode'].value != 'xxx') {
         this.addCapability('storage_force_charge_discharge2');
-        var mode = result['ManualMode'].value;
+        const mode = result['ManualMode'].value;
         this.setCapabilityValue('storage_force_charge_discharge2', mode);
       }
     }

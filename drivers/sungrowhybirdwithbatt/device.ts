@@ -13,9 +13,9 @@ class MyWSungrowDevice extends Sungrow {
   async onInit() {
     this.log('MyWSungrowDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -25,17 +25,17 @@ class MyWSungrowDevice extends Sungrow {
     }, RETRY_INTERVAL);
 
     // flow action
-    let emsmodedAction = this.homey.flow.getActionCard('emsmodeselection');
+    const emsmodedAction = this.homey.flow.getActionCard('emsmodeselection');
     emsmodedAction.registerRunListener(async (args, state) => {
       await this.updateControl('emsmodeselection', Number(args.mode));
     });
 
-    let exportEnabledAction = this.homey.flow.getActionCard('export');
+    const exportEnabledAction = this.homey.flow.getActionCard('export');
     exportEnabledAction.registerRunListener(async (args, state) => {
       await this.updateControl2('export', Number(args.limitation), Number(args.power));
     });
 
-    let chargeAction = this.homey.flow.getActionCard('charge');
+    const chargeAction = this.homey.flow.getActionCard('charge');
     chargeAction.registerRunListener(async (args, state) => {
       await this.updateControl2('charge', Number(args.command), Number(args.power));
     });
@@ -48,11 +48,11 @@ class MyWSungrowDevice extends Sungrow {
   }
 
   async updateControl(type: string, value: number) {
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 2000);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 2000);
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -95,11 +95,11 @@ class MyWSungrowDevice extends Sungrow {
   }
 
   async updateControl2(type: string, command: number, value: number) {
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 2000);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 2000);
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -189,7 +189,7 @@ class MyWSungrowDevice extends Sungrow {
     this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -200,9 +200,9 @@ class MyWSungrowDevice extends Sungrow {
       logEnabled: true,
     };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 2500);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 2500);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 

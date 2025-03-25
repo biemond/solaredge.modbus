@@ -2,9 +2,10 @@ console.log('-------------------');
 
 const modbus = require('jsmodbus');
 const net = require('net');
+
 const socket = new net.Socket();
 
-let options = {
+const options = {
   host: '176.61.80.108',
   port: 502,
   unitId: 1,
@@ -16,18 +17,18 @@ let options = {
   logEnabled: true,
 };
 
-let client = new modbus.client.TCP(socket);
+const client = new modbus.client.TCP(socket);
 
 socket.connect(options);
 
 socket.on('connect', () => {
-  var delay = (function () {
-    var timer = 0;
-    return function (callback, ms) {
+  const delay = (function() {
+    let timer = 0;
+    return function(callback, ms) {
       clearTimeout(timer);
       timer = setTimeout(callback, ms);
     };
-  })();
+  }());
 
   console.log('Connected ...');
 
@@ -104,34 +105,34 @@ socket.on('connect', () => {
     // start normale poll
     client
       .readHoldingRegisters(value[0], value[1])
-      .then(function (resp) {
+      .then((resp) => {
         // console.log(resp.response._body);
         if (value[2] == 'UINT16') {
-          console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readInt16BE());
+          console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readInt16BE()}`);
         } else if (value[2] == 'ACC32') {
-          console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readUInt32BE());
+          console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readUInt32BE()}`);
         } else if (value[2] == 'FLOAT') {
-          console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readFloatBE());
+          console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readFloatBE()}`);
         } else if (value[2] == 'STRING') {
-          console.log(value[3] + ': ' + Buffer.from(resp.response._body._valuesAsBuffer, 'hex').toString());
+          console.log(`${value[3]}: ${Buffer.from(resp.response._body._valuesAsBuffer, 'hex').toString()}`);
         } else if (value[2] == 'INT16' || value[2] == 'SCALE') {
-          console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readInt16BE());
+          console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readInt16BE()}`);
         } else if (value[2] == 'FLOAT32') {
-          console.log(value[3] + ': ' + Buffer.from(resp.response._body._valuesAsBuffer, 'hex').swap16().swap32().readFloatBE());
+          console.log(`${value[3]}: ${Buffer.from(resp.response._body._valuesAsBuffer, 'hex').swap16().swap32().readFloatBE()}`);
         } else {
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
         }
       })
       .catch((err) => {
         console.log(err);
       });
   }
-  delay(function () {
+  delay(() => {
     socket.end();
   }, 8000);
 });
 
-//avoid all the crash reports
+// avoid all the crash reports
 socket.on('error', (err) => {
   console.log(err);
   socket.end();

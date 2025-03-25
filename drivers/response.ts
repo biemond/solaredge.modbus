@@ -2,14 +2,14 @@ import * as Modbus from 'jsmodbus';
 import { Measurement } from './solaredge';
 
 export async function checkRegister(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
   for (const [key, value] of Object.entries(registers)) {
     try {
       const res = client.readHoldingRegisters(value[0], value[1]);
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: 'xxx',
@@ -50,7 +50,7 @@ export async function checkRegister(registers: Object, client: InstanceType<type
           resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
       if (resultValue && resultValue !== undefined) {
@@ -58,7 +58,7 @@ export async function checkRegister(registers: Object, client: InstanceType<type
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       // console.log(err);
     }
   }
@@ -68,7 +68,7 @@ export async function checkRegister(registers: Object, client: InstanceType<type
 }
 
 export async function checkRegisterGrowatt(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
 
   for (const [key, value] of Object.entries(registers)) {
     try {
@@ -76,7 +76,7 @@ export async function checkRegisterGrowatt(registers: Object, client: InstanceTy
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: value[4],
@@ -93,7 +93,7 @@ export async function checkRegisterGrowatt(registers: Object, client: InstanceTy
           // console.log(key);
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
       if (resultValue && resultValue !== undefined) {
@@ -101,7 +101,7 @@ export async function checkRegisterGrowatt(registers: Object, client: InstanceTy
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       // console.log(err);
     }
   }
@@ -111,7 +111,7 @@ export async function checkRegisterGrowatt(registers: Object, client: InstanceTy
 }
 
 export async function checkholdingRegisterKostal(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
 
   for (const [key, value] of Object.entries(registers)) {
     try {
@@ -119,7 +119,7 @@ export async function checkholdingRegisterKostal(registers: Object, client: Inst
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: value[4],
@@ -143,7 +143,7 @@ export async function checkholdingRegisterKostal(registers: Object, client: Inst
           resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
       if (resultValue && resultValue !== undefined) {
@@ -151,7 +151,7 @@ export async function checkholdingRegisterKostal(registers: Object, client: Inst
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       // console.log(err);
     }
   }
@@ -161,7 +161,7 @@ export async function checkholdingRegisterKostal(registers: Object, client: Inst
 }
 
 export async function checkholdingRegisterSolax(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
 
   for (const [key, value] of Object.entries(registers)) {
     try {
@@ -169,7 +169,7 @@ export async function checkholdingRegisterSolax(registers: Object, client: Insta
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: value[4],
@@ -195,7 +195,7 @@ export async function checkholdingRegisterSolax(registers: Object, client: Insta
           // resultValue = response.body.valuesAsBuffer.readInt32LE().toString();
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
       if (resultValue && resultValue !== undefined) {
@@ -203,7 +203,7 @@ export async function checkholdingRegisterSolax(registers: Object, client: Insta
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       // console.log(err);
     }
   }
@@ -213,7 +213,7 @@ export async function checkholdingRegisterSolax(registers: Object, client: Insta
 }
 
 export async function checkinputRegisterSolax(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
 
   for (const [key, value] of Object.entries(registers)) {
     try {
@@ -221,7 +221,7 @@ export async function checkinputRegisterSolax(registers: Object, client: Instanc
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: value[4],
@@ -247,7 +247,7 @@ export async function checkinputRegisterSolax(registers: Object, client: Instanc
           // resultValue = response.body.valuesAsBuffer.readInt32LE().toString();
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
       if (resultValue && resultValue !== undefined) {
@@ -255,7 +255,7 @@ export async function checkinputRegisterSolax(registers: Object, client: Instanc
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       // console.log(err);
     }
   }
@@ -265,7 +265,7 @@ export async function checkinputRegisterSolax(registers: Object, client: Instanc
 }
 
 export async function checkHoldingRegisterWattsonic(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
 
   for (const [key, value] of Object.entries(registers)) {
     try {
@@ -273,7 +273,7 @@ export async function checkHoldingRegisterWattsonic(registers: Object, client: I
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: value[4],
@@ -306,7 +306,7 @@ export async function checkHoldingRegisterWattsonic(registers: Object, client: I
           resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
       if (resultValue && resultValue !== undefined) {
@@ -314,7 +314,7 @@ export async function checkHoldingRegisterWattsonic(registers: Object, client: I
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       // console.log(err);
     }
   }
@@ -328,7 +328,7 @@ function delay(ms: any) {
 }
 
 export async function checkHoldingRegisterHuawei(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
 
   for (const [key, value] of Object.entries(registers)) {
     await delay(250);
@@ -338,7 +338,7 @@ export async function checkHoldingRegisterHuawei(registers: Object, client: Inst
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: value[4],
@@ -374,7 +374,7 @@ export async function checkHoldingRegisterHuawei(registers: Object, client: Inst
           resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
       if (resultValue && resultValue !== undefined) {
@@ -382,7 +382,7 @@ export async function checkHoldingRegisterHuawei(registers: Object, client: Inst
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       console.log(err);
     }
   }
@@ -392,7 +392,7 @@ export async function checkHoldingRegisterHuawei(registers: Object, client: Inst
 }
 
 export async function checkHoldingRegisterHuaweiEmma(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
 
   for (const [key, value] of Object.entries(registers)) {
     await delay(100);
@@ -401,7 +401,7 @@ export async function checkHoldingRegisterHuaweiEmma(registers: Object, client: 
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: value[4],
@@ -440,7 +440,7 @@ export async function checkHoldingRegisterHuaweiEmma(registers: Object, client: 
           resultValue = response.body.valuesAsBuffer.swap16().swap32().readFloatBE().toString();
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
       if (resultValue && resultValue !== undefined) {
@@ -448,7 +448,7 @@ export async function checkHoldingRegisterHuaweiEmma(registers: Object, client: 
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       console.log(err);
     }
   }
@@ -458,7 +458,7 @@ export async function checkHoldingRegisterHuaweiEmma(registers: Object, client: 
 }
 
 export async function checkHoldingRegisterGrowatt(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
 
   for (const [key, value] of Object.entries(registers)) {
     try {
@@ -466,7 +466,7 @@ export async function checkHoldingRegisterGrowatt(registers: Object, client: Ins
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: value[4],
@@ -483,7 +483,7 @@ export async function checkHoldingRegisterGrowatt(registers: Object, client: Ins
           // console.log(key);
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
       if (resultValue && resultValue !== undefined) {
@@ -491,7 +491,7 @@ export async function checkHoldingRegisterGrowatt(registers: Object, client: Ins
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       // console.log(err);
     }
   }
@@ -501,7 +501,7 @@ export async function checkHoldingRegisterGrowatt(registers: Object, client: Ins
 }
 
 export async function checkRegisterSungrow(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
 
   for (const [key, value] of Object.entries(registers)) {
     try {
@@ -509,7 +509,7 @@ export async function checkRegisterSungrow(registers: Object, client: InstanceTy
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: value[4],
@@ -533,7 +533,7 @@ export async function checkRegisterSungrow(registers: Object, client: InstanceTy
           resultValue = ((response.body.valuesAsArray[1] << 16) | response.body.valuesAsArray[0] | 0).toString();
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
 
@@ -542,7 +542,7 @@ export async function checkRegisterSungrow(registers: Object, client: InstanceTy
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       // console.log(err);
     }
   }
@@ -552,7 +552,7 @@ export async function checkRegisterSungrow(registers: Object, client: InstanceTy
 }
 
 export async function checkRegisterSigenergy(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
 
   for (const [key, value] of Object.entries(registers)) {
     try {
@@ -560,7 +560,7 @@ export async function checkRegisterSigenergy(registers: Object, client: Instance
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: value[4],
@@ -587,7 +587,7 @@ export async function checkRegisterSigenergy(registers: Object, client: Instance
           resultValue = response.body.valuesAsBuffer.readBigUint64BE().toString();
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
 
@@ -596,7 +596,7 @@ export async function checkRegisterSigenergy(registers: Object, client: Instance
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       // console.log(err);
     }
   }
@@ -606,7 +606,7 @@ export async function checkRegisterSigenergy(registers: Object, client: Instance
 }
 
 export async function checkHoldingRegisterSigenergy(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
 
   for (const [key, value] of Object.entries(registers)) {
     try {
@@ -614,7 +614,7 @@ export async function checkHoldingRegisterSigenergy(registers: Object, client: I
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: value[4],
@@ -641,7 +641,7 @@ export async function checkHoldingRegisterSigenergy(registers: Object, client: I
           resultValue = response.body.valuesAsBuffer.readBigUint64BE().toString();
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
 
@@ -650,7 +650,7 @@ export async function checkHoldingRegisterSigenergy(registers: Object, client: I
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       // console.log(err);
     }
   }
@@ -660,7 +660,7 @@ export async function checkHoldingRegisterSigenergy(registers: Object, client: I
 }
 
 export async function checkHoldingRegisterSungrow(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
 
   for (const [key, value] of Object.entries(registers)) {
     try {
@@ -668,7 +668,7 @@ export async function checkHoldingRegisterSungrow(registers: Object, client: Ins
       const actualRes = await res;
       // const metrics = actualRes.metrics;
       // const request = actualRes.request;
-      const response = actualRes.response;
+      const { response } = actualRes;
       const measurement: Measurement = {
         value: 'xxx',
         scale: value[4],
@@ -692,7 +692,7 @@ export async function checkHoldingRegisterSungrow(registers: Object, client: Ins
           resultValue = ((response.body.valuesAsArray[1] << 16) | response.body.valuesAsArray[0] | 0).toString();
           break;
         default:
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
           break;
       }
 
@@ -701,7 +701,7 @@ export async function checkHoldingRegisterSungrow(registers: Object, client: Ins
       }
       result[key] = measurement;
     } catch (err) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       // console.log(err);
     }
   }
@@ -711,7 +711,7 @@ export async function checkHoldingRegisterSungrow(registers: Object, client: Ins
 }
 
 export async function checkMeter(meter_dids: Object, meter_registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
   for (const [key, value] of Object.entries(meter_dids)) {
     try {
       const res = client.readHoldingRegisters(value[0], value[1]);
@@ -727,7 +727,7 @@ export async function checkMeter(meter_dids: Object, meter_registers: Object, cl
             const actualRes = await innerRes;
             // const metrics = actualRes.metrics;
             // const request = actualRes.request;
-            const response = actualRes.response;
+            const { response } = actualRes;
 
             const measurement: Measurement = {
               value: 'xxx',
@@ -757,25 +757,25 @@ export async function checkMeter(meter_dids: Object, meter_registers: Object, cl
               case 'SCALE':
                 resultValue = response.body.valuesAsBuffer.readInt16BE().toString();
                 if (resultValue) {
-                  result[key + '-' + key2.replace('_scale', '')].scale = resultValue;
+                  result[`${key}-${key2.replace('_scale', '')}`].scale = resultValue;
                 }
                 break;
               default:
-                console.log(key2 + ': type not found ' + value2[2]);
+                console.log(`${key2}: type not found ${value2[2]}`);
                 break;
             }
             if (resultValue) {
               measurement.value = resultValue;
             }
-            result[key + '-' + key2] = measurement;
+            result[`${key}-${key2}`] = measurement;
           } catch (e) {
-            console.log('error with key: ' + key + ' key2: ' + key2);
+            console.log(`error with key: ${key} key2: ${key2}`);
             // console.log(e);
           }
         }
       }
     } catch (e) {
-      console.log('error with key: ' + key);
+      console.log(`error with key: ${key}`);
       // console.log(e);
     }
   }
@@ -784,7 +784,7 @@ export async function checkMeter(meter_dids: Object, meter_registers: Object, cl
 }
 
 export async function checkBattery(battery_dids: Object, batt_registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
-  let result: Record<string, Measurement> = {};
+  const result: Record<string, Measurement> = {};
   try {
     for (const [key, value] of Object.entries(battery_dids)) {
       try {
@@ -792,19 +792,19 @@ export async function checkBattery(battery_dids: Object, batt_registers: Object,
         const actualRes = await res;
         // const metrics = actualRes.metrics;
         // const request = actualRes.request;
-        const response = actualRes.response;
+        const { response } = actualRes;
 
         if (value[2] == 'UINT16') {
           if (response.body.valuesAsBuffer.readUInt16BE() != 255) {
             // console.log(key + ": " + response.body.valuesAsBuffer.readUInt16BE());
-            let offset = 0x0;
+            const offset = 0x0;
             for (const [key2, value2] of Object.entries(batt_registers)) {
               try {
                 const res = client.readHoldingRegisters(value2[0] + value[3], value2[1]);
                 const actualRes = await res;
-                //const metrics = actualRes.metrics;
-                //const request = actualRes.request;
-                const response = actualRes.response;
+                // const metrics = actualRes.metrics;
+                // const request = actualRes.request;
+                const { response } = actualRes;
                 // console.log(resp.response._body);
                 const measurement: Measurement = {
                   value: 'xxx',
@@ -830,22 +830,22 @@ export async function checkBattery(battery_dids: Object, batt_registers: Object,
                     // resultValue = response.body.valuesAsBuffer.readBigUInt64LE().toString();
                     break;
                   default:
-                    console.log(key2 + ': type not found ' + value2[2]);
+                    console.log(`${key2}: type not found ${value2[2]}`);
                     break;
                 }
                 if (resultValue) {
                   measurement.value = resultValue;
                 }
-                result[key + '-' + key2] = measurement;
+                result[`${key}-${key2}`] = measurement;
               } catch (e) {
-                console.log('error with key: ' + key + ' key2: ' + key2);
+                console.log(`error with key: ${key} key2: ${key2}`);
                 console.log(e);
               }
             }
           }
         }
       } catch (e) {
-        console.log('error with key: ' + key);
+        console.log(`error with key: ${key}`);
         console.log(e);
       }
     }

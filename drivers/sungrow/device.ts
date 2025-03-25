@@ -13,9 +13,9 @@ class MyWSungrowPlainDevice extends Sungrow {
   async onInit() {
     this.log('MyWSungrowPlainDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -65,7 +65,7 @@ class MyWSungrowPlainDevice extends Sungrow {
     this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -76,9 +76,9 @@ class MyWSungrowPlainDevice extends Sungrow {
       logEnabled: true,
     };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 2500);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 2500);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 

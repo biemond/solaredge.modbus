@@ -13,9 +13,9 @@ class MyKostalDevice extends Kostal {
   async onInit() {
     this.log('MyKostalDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -69,7 +69,7 @@ class MyKostalDevice extends Kostal {
     this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -80,9 +80,9 @@ class MyKostalDevice extends Kostal {
       logEnabled: true,
     };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 3500);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 3500);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
@@ -101,8 +101,8 @@ class MyKostalDevice extends Kostal {
       this.processResult(finalRes);
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
-      let seconds = Math.floor(timeDiff / 1000);
-      console.log('total time: ' + seconds + ' seconds');
+      const seconds = Math.floor(timeDiff / 1000);
+      console.log(`total time: ${seconds} seconds`);
     });
 
     socket.on('close', () => {

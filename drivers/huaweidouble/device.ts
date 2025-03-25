@@ -1,8 +1,8 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
+import Homey, { Device } from 'homey';
 import { checkHoldingRegisterHuawei } from '../response';
 import { Huawei } from '../huawei';
-import Homey, { Device } from 'homey';
 
 const RETRY_INTERVAL = 180 * 1000;
 
@@ -14,9 +14,9 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
   async onInit() {
     this.log('MyHuaweiDoubleDeviceBattery has been initialized');
 
-    let name = this.getData().id;
-    this.log('s-dongle device name id ' + name);
-    this.log('s-dongle device name ' + this.getName());
+    const name = this.getData().id;
+    this.log(`s-dongle device name id ${name}`);
+    this.log(`s-dongle device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -25,41 +25,41 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
       this.pollInvertor();
     }, RETRY_INTERVAL);
 
-    let controlActionStorageWorkingModeSettings = this.homey.flow.getActionCard('storage_working_mode_settings');
+    const controlActionStorageWorkingModeSettings = this.homey.flow.getActionCard('storage_working_mode_settings');
     controlActionStorageWorkingModeSettings.registerRunListener(async (args, state) => {
       await this.updateControl('storage_working_mode_settings', args.deviceid, Number(args.mode), args.device);
     });
 
-    let controlActionRemoteChargeDischargeControlMode = this.homey.flow.getActionCard('remote_charge_discharge_control_mode');
+    const controlActionRemoteChargeDischargeControlMode = this.homey.flow.getActionCard('remote_charge_discharge_control_mode');
     controlActionRemoteChargeDischargeControlMode.registerRunListener(async (args, state) => {
       await this.updateControl('remote_charge_discharge_control_mode', args.deviceid, Number(args.mode), args.device);
     });
 
-    let controlActionStorageForceChargeDischarge = this.homey.flow.getActionCard('storage_force_charge_discharge2');
+    const controlActionStorageForceChargeDischarge = this.homey.flow.getActionCard('storage_force_charge_discharge2');
     controlActionStorageForceChargeDischarge.registerRunListener(async (args, state) => {
       await this.updateControl('storage_force_charge_discharge', args.deviceid, Number(args.mode), args.device);
     });
 
-    let controlActionActivepowerControlmode = this.homey.flow.getActionCard('activepower_controlmode');
+    const controlActionActivepowerControlmode = this.homey.flow.getActionCard('activepower_controlmode');
     controlActionActivepowerControlmode.registerRunListener(async (args, state) => {
       await this.updateControl('activepower_controlmode', args.deviceid, Number(args.mode), args.device);
     });
 
-    let controlActionStorageExcessPvEnergyUseInTou = this.homey.flow.getActionCard('storage_excess_pv_energy_use_in_tou');
+    const controlActionStorageExcessPvEnergyUseInTou = this.homey.flow.getActionCard('storage_excess_pv_energy_use_in_tou');
     controlActionStorageExcessPvEnergyUseInTou.registerRunListener(async (args, state) => {
       await this.updateControl('storage_excess_pv_energy_use_in_tou', args.deviceid, Number(args.mode), args.device);
     });
   }
 
   async updateControl(type: string, deviceid: number, value: number, device: Homey.Device) {
-    let name = device.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + device.getName());
-    let socket = new net.Socket();
+    const name = device.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${device.getName()}`);
+    const socket = new net.Socket();
 
-    let client = new Modbus.client.TCP(socket, deviceid, 5500);
+    const client = new Modbus.client.TCP(socket, deviceid, 5500);
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: device.getSetting('address'),
       port: device.getSetting('port'),
       timeout: 25,
@@ -161,7 +161,7 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
     this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       timeout: 175,
@@ -171,7 +171,7 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
       logEnabled: true,
     };
 
-    let socket = new net.Socket();
+    const socket = new net.Socket();
     this.log(this.getSettings());
     const unitID = this.getSetting('id');
     const unitID2 = this.getSetting('id2');
@@ -186,7 +186,7 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
       console.log(modbusOptions);
       const startTime = new Date();
       await this.delay(5000);
-      console.log('Retrieving unit: ' + unitID);
+      console.log(`Retrieving unit: ${unitID}`);
       const checkRegisterRes = await checkHoldingRegisterHuawei(this.holdingRegisters, client);
       let checkBatteryRes = {};
       let checkMetersRes = {};
@@ -195,7 +195,7 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
         checkMetersRes = await checkHoldingRegisterHuawei(this.holdingRegistersMeters, client);
       }
       await this.delay(10000);
-      console.log('Retrieving unit: ' + unitID2);
+      console.log(`Retrieving unit: ${unitID2}`);
       const checkRegisterRes2 = await checkHoldingRegisterHuawei(this.holdingRegisters, client2);
       let checkBatteryRes2 = {};
       let checkMetersRes2 = {};
@@ -253,14 +253,14 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
       this.processResult2(finalRes2);
 
       this.addCapability('measure_power');
-      var inputPower = Number(checkRegisterRes['inputPower'].value) * Math.pow(10, Number(checkRegisterRes['inputPower'].scale));
-      var inputPower2 = Number(checkRegisterRes2['inputPower'].value) * Math.pow(10, Number(checkRegisterRes2['inputPower'].scale));
+      const inputPower = Number(checkRegisterRes['inputPower'].value) * Math.pow(10, Number(checkRegisterRes['inputPower'].scale));
+      const inputPower2 = Number(checkRegisterRes2['inputPower'].value) * Math.pow(10, Number(checkRegisterRes2['inputPower'].scale));
       this.setCapabilityValue('measure_power', inputPower + inputPower2);
 
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
-      let seconds = Math.floor(timeDiff / 1000);
-      console.log('total time: ' + seconds + ' seconds');
+      const seconds = Math.floor(timeDiff / 1000);
+      console.log(`total time: ${seconds} seconds`);
     });
 
     socket.on('close', () => {

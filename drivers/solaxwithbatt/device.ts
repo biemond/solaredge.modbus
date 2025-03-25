@@ -1,8 +1,8 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
+import Homey, { Device } from 'homey';
 import { checkinputRegisterSolax, checkholdingRegisterSolax } from '../response';
 import { Solax } from '../solax';
-import Homey, { Device } from 'homey';
 
 const RETRY_INTERVAL = 30 * 1000;
 
@@ -14,9 +14,9 @@ class MySolaxDevice extends Solax {
   async onInit() {
     this.log('MySolaxDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -35,39 +35,39 @@ class MySolaxDevice extends Solax {
       return value;
     });
 
-    let controlAction = this.homey.flow.getActionCard('solarcharger_use_mode');
+    const controlAction = this.homey.flow.getActionCard('solarcharger_use_mode');
     controlAction.registerRunListener(async (args, state) => {
       await this.updateControl('solarcharger_use_mode', Number(args.mode), args.device);
     });
 
-    let customChargeAction = this.homey.flow.getActionCard('storage_force_charge_discharge');
+    const customChargeAction = this.homey.flow.getActionCard('storage_force_charge_discharge');
     customChargeAction.registerRunListener(async (args, state) => {
       await this.updateControl('storage_force_charge_discharge', Number(args.mode), args.device);
     });
 
-    let controlFeedinOnPowerAction = this.homey.flow.getActionCard('FeedinOnPower');
+    const controlFeedinOnPowerAction = this.homey.flow.getActionCard('FeedinOnPower');
     controlFeedinOnPowerAction.registerRunListener(async (args, state) => {
       await this.updateControl('FeedinOnPower', Number(args.power), args.device);
     });
 
-    let customCHardExportPowerAction = this.homey.flow.getActionCard('ExportcontrolUserLimit');
+    const customCHardExportPowerAction = this.homey.flow.getActionCard('ExportcontrolUserLimit');
     customCHardExportPowerAction.registerRunListener(async (args, state) => {
       await this.updateControl('ExportcontrolUserLimit', Number(args.power), args.device);
     });
 
-    let changedUsemode = this.homey.flow.getConditionCard('changedsolarcharger_use_mode');
+    const changedUsemode = this.homey.flow.getConditionCard('changedsolarcharger_use_mode');
     changedUsemode.registerRunListener(async (args, state) => {
-      this.log('changedsolarcharger_use_mode  solarcharger_use_mode ' + args.device.getCapabilityValue('solarcharger_use_mode'));
-      this.log('changedsolarcharger_use_mode  argument_main ' + args.argument_main);
-      let result = (await args.device.getCapabilityValue('solarcharger_use_mode')) == args.argument_main;
+      this.log(`changedsolarcharger_use_mode  solarcharger_use_mode ${args.device.getCapabilityValue('solarcharger_use_mode')}`);
+      this.log(`changedsolarcharger_use_mode  argument_main ${args.argument_main}`);
+      const result = (await args.device.getCapabilityValue('solarcharger_use_mode')) == args.argument_main;
       return Promise.resolve(result);
     });
 
-    let changedstorage_force_charge_discharge = this.homey.flow.getConditionCard('changedstorage_force_charge_discharge');
+    const changedstorage_force_charge_discharge = this.homey.flow.getConditionCard('changedstorage_force_charge_discharge');
     changedstorage_force_charge_discharge.registerRunListener(async (args, state) => {
-      this.log('changedstorage_force_charge_discharge  storage_force_charge_discharge2 ' + args.device.getCapabilityValue('storage_force_charge_discharge2'));
-      this.log('changedstorage_force_charge_discharge  argument_main ' + args.argument_main);
-      let result = (await args.device.getCapabilityValue('storage_force_charge_discharge2')) == args.argument_main;
+      this.log(`changedstorage_force_charge_discharge  storage_force_charge_discharge2 ${args.device.getCapabilityValue('storage_force_charge_discharge2')}`);
+      this.log(`changedstorage_force_charge_discharge  argument_main ${args.argument_main}`);
+      const result = (await args.device.getCapabilityValue('storage_force_charge_discharge2')) == args.argument_main;
       return Promise.resolve(result);
     });
   }
@@ -109,14 +109,14 @@ class MySolaxDevice extends Solax {
   }
 
   async updateControl(type: string, value: number, device: Homey.Device) {
-    let name = device.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + device.getName());
-    let socket = new net.Socket();
-    var unitID = device.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 3500);
+    const name = device.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${device.getName()}`);
+    const socket = new net.Socket();
+    const unitID = device.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 3500);
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: device.getSetting('address'),
       port: device.getSetting('port'),
       unitId: device.getSetting('id'),
@@ -179,7 +179,7 @@ class MySolaxDevice extends Solax {
     this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -190,9 +190,9 @@ class MySolaxDevice extends Solax {
       logEnabled: true,
     };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 2000);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 2000);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 

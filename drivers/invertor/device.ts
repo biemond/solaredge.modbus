@@ -1,8 +1,8 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
+import Homey, { Device } from 'homey';
 import { Solaredge } from '../solaredge';
 import { checkRegister } from '../response';
-import Homey, { Device } from 'homey';
 
 const DEFAULT_RETRY_INTERVAL = 28;
 
@@ -14,12 +14,12 @@ class MySolaredgeDevice extends Solaredge {
   async onInit() {
     this.log('MySolaredgeDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
-    let settings = this.getSettings();
+    const settings = this.getSettings();
 
     if (settings.pollinginterval === undefined) {
       this.setSettings({ pollinginterval: DEFAULT_RETRY_INTERVAL });
@@ -42,7 +42,7 @@ class MySolaredgeDevice extends Solaredge {
     //   return value;
     // });
 
-    let controlActionActivePower = this.homey.flow.getActionCard('activepowerlimit');
+    const controlActionActivePower = this.homey.flow.getActionCard('activepowerlimit');
     controlActionActivePower.registerRunListener(async (args, state) => {
       // let name = this.getData().id;
       // this.log("device name id " + name );
@@ -52,7 +52,7 @@ class MySolaredgeDevice extends Solaredge {
       await this.updateControl('activepowerlimit', Number(args.value), args.device);
     });
 
-    let controlpowerreduce = this.homey.flow.getActionCard('powerreduce');
+    const controlpowerreduce = this.homey.flow.getActionCard('powerreduce');
     controlpowerreduce.registerRunListener(async (args, state) => {
       // let name = this.getData().id;
       // this.log("device name id " + name );
@@ -63,15 +63,15 @@ class MySolaredgeDevice extends Solaredge {
     });
 
     // flow conditions
-    let changedStatus = this.homey.flow.getConditionCard('changedStatus');
+    const changedStatus = this.homey.flow.getConditionCard('changedStatus');
     changedStatus.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('invertorstatus')) == args.argument_main;
+      const result = (await args.device.getCapabilityValue('invertorstatus')) == args.argument_main;
       return Promise.resolve(result);
     });
 
-    let solarcharge = this.homey.flow.getConditionCard('solarcharge');
+    const solarcharge = this.homey.flow.getConditionCard('solarcharge');
     solarcharge.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('measure_power')) >= args.charging;
+      const result = (await args.device.getCapabilityValue('measure_power')) >= args.charging;
       return Promise.resolve(result);
     });
 
@@ -158,15 +158,15 @@ class MySolaredgeDevice extends Solaredge {
   }
 
   async updateControl(type: string, value: number, device: Homey.Device) {
-    let name = device.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + device.getName());
+    const name = device.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${device.getName()}`);
 
-    let socket = new net.Socket();
-    var unitID = device.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID);
+    const socket = new net.Socket();
+    const unitID = device.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID);
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: device.getSetting('address'),
       port: device.getSetting('port'),
       unitId: device.getSetting('id'),
@@ -197,12 +197,12 @@ class MySolaredgeDevice extends Solaredge {
         buffer = Buffer.allocUnsafe(4);
         buffer.writeFloatBE(value);
         buffer.swap32().swap16();
-        let bytes = buffer
+        const bytes = buffer
           .toString('hex')
           .toUpperCase()
           .replace(/(.{2})/g, '$1 ')
           .trimEnd();
-        console.log('Write register: Bytes: ' + bytes);
+        console.log(`Write register: Bytes: ${bytes}`);
         const powerreduceRes = await client.writeMultipleRegisters(0xf140, buffer);
         console.log('powerreduce', powerreduceRes);
       }
@@ -236,8 +236,8 @@ class MySolaredgeDevice extends Solaredge {
       if (type == 'exportlimit') {
         // https://babbage.cs.qc.cuny.edu/ieee-754.old/Decimal.html
         // https://www.rapidtables.com/convert/number/hex-to-decimal.html
-        var dischargehex1 = 16384;
-        var dischargehex2 = 17820;
+        let dischargehex1 = 16384;
+        let dischargehex2 = 17820;
 
         if (value == 0) {
           dischargehex1 = 0;
@@ -312,7 +312,7 @@ class MySolaredgeDevice extends Solaredge {
     this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -323,9 +323,9 @@ class MySolaredgeDevice extends Solaredge {
       logEnabled: true,
     };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 1000);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 1000);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 

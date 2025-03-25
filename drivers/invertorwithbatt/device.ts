@@ -1,10 +1,8 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import { Solaredge } from '../solaredge';
-import { checkRegister } from '../response';
-import { checkMeter } from '../response';
-import { checkBattery } from '../response';
 import Homey, { Device } from 'homey';
+import { Solaredge } from '../solaredge';
+import { checkRegister, checkMeter, checkBattery } from '../response';
 
 const RETRY_INTERVAL = 30 * 1000;
 
@@ -17,9 +15,9 @@ class MySolaredgeBatteryDevice extends Solaredge {
   async onInit() {
     this.log('MySolaredgeBatteryDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -32,11 +30,11 @@ class MySolaredgeBatteryDevice extends Solaredge {
     this.registerCapabilityListener('storagecontrolmode', async (value) => {
       this.updateControl('storagecontrolmode', Number(value), this);
 
-      let tokens = {
+      const tokens = {
         mode: Number(value),
       };
-      let state = {};
-      console.log('trigger changedStoragecontrolmode ' + value);
+      const state = {};
+      console.log(`trigger changedStoragecontrolmode ${value}`);
       this.homey.flow.getDeviceTriggerCard('changedStoragecontrolmode').trigger(this, tokens, state);
       return value;
     });
@@ -48,11 +46,11 @@ class MySolaredgeBatteryDevice extends Solaredge {
 
     this.registerCapabilityListener('storagedefaultmode', async (value) => {
       this.updateControl('storagedefaultmode', Number(value), this);
-      let tokens = {
+      const tokens = {
         mode: Number(value),
       };
-      let state = {};
-      console.log('trigger changedStoragedefaultmode ' + value);
+      const state = {};
+      console.log(`trigger changedStoragedefaultmode ${value}`);
       this.homey.flow.getDeviceTriggerCard('changedStoragedefaultmode').trigger(this, tokens, state);
       return value;
     });
@@ -66,98 +64,98 @@ class MySolaredgeBatteryDevice extends Solaredge {
     });
 
     // flow action
-    let controlActionActivePower = this.homey.flow.getActionCard('activepowerlimit');
+    const controlActionActivePower = this.homey.flow.getActionCard('activepowerlimit');
     controlActionActivePower.registerRunListener(async (args, state) => {
-      let name = this.getData().id;
-      this.log('device name id ' + name);
-      this.log('device name ' + this.getName());
+      const name = this.getData().id;
+      this.log(`device name id ${name}`);
+      this.log(`device name ${this.getName()}`);
       this.log(args.device.getName());
       await this.updateControl('activepowerlimit', Number(args.value), args.device);
     });
-    let controlAction = this.homey.flow.getActionCard('storagecontrolmode');
+    const controlAction = this.homey.flow.getActionCard('storagecontrolmode');
     controlAction.registerRunListener(async (args, state) => {
       await this.updateControl('storagecontrolmode', Number(args.mode), args.device);
     });
-    let customModeAction = this.homey.flow.getActionCard('storagedefaultmode');
+    const customModeAction = this.homey.flow.getActionCard('storagedefaultmode');
     customModeAction.registerRunListener(async (args, state) => {
       await this.updateControl('storagedefaultmode', Number(args.mode), args.device);
     });
-    let chargeLimitAction = this.homey.flow.getActionCard('setcharging');
+    const chargeLimitAction = this.homey.flow.getActionCard('setcharging');
     chargeLimitAction.registerRunListener(async (args, state) => {
       await this.updateControl('chargelimit', Number(args.chargepower), args.device);
     });
-    let dischargeLimitAction = this.homey.flow.getActionCard('setdischarging');
+    const dischargeLimitAction = this.homey.flow.getActionCard('setdischarging');
     dischargeLimitAction.registerRunListener(async (args, state) => {
       await this.updateControl('dischargelimit', Number(args.dischargepower), args.device);
     });
-    let limitControlModeAction = this.homey.flow.getActionCard('limitcontrolmode');
+    const limitControlModeAction = this.homey.flow.getActionCard('limitcontrolmode');
     limitControlModeAction.registerRunListener(async (args, state) => {
       await this.updateControl('limitcontrolmode', Number(args.mode), args.device);
     });
-    let exportLimitAction = this.homey.flow.getActionCard('exportlimit');
+    const exportLimitAction = this.homey.flow.getActionCard('exportlimit');
     exportLimitAction.registerRunListener(async (args, state) => {
       await this.updateControl('exportlimit', Number(args.exportlimit), args.device);
     });
 
     // flow conditions
-    let changedStatus = this.homey.flow.getConditionCard('changedStatus');
+    const changedStatus = this.homey.flow.getConditionCard('changedStatus');
     changedStatus.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('invertorstatus')) == args.argument_main;
+      const result = (await args.device.getCapabilityValue('invertorstatus')) == args.argument_main;
       return Promise.resolve(result);
     });
 
-    let changedBatteryStatus = this.homey.flow.getConditionCard('changedBatteryStatus');
+    const changedBatteryStatus = this.homey.flow.getConditionCard('changedBatteryStatus');
     changedBatteryStatus.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('battstatus')) == args.argument_main;
+      const result = (await args.device.getCapabilityValue('battstatus')) == args.argument_main;
       return Promise.resolve(result);
     });
 
-    let changedStoragedefaultmode = this.homey.flow.getConditionCard('changedStoragedefaultmode');
+    const changedStoragedefaultmode = this.homey.flow.getConditionCard('changedStoragedefaultmode');
     changedStoragedefaultmode.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('storagedefaultmode')) == args.argument_main;
+      const result = (await args.device.getCapabilityValue('storagedefaultmode')) == args.argument_main;
       return Promise.resolve(result);
     });
 
-    let changedStoragecontrolmode = this.homey.flow.getConditionCard('changedStoragecontrolmode');
+    const changedStoragecontrolmode = this.homey.flow.getConditionCard('changedStoragecontrolmode');
     changedStoragecontrolmode.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('storagecontrolmode')) == args.argument_main;
+      const result = (await args.device.getCapabilityValue('storagecontrolmode')) == args.argument_main;
       return Promise.resolve(result);
     });
 
-    let batterylevelStatus = this.homey.flow.getConditionCard('batterylevel');
+    const batterylevelStatus = this.homey.flow.getConditionCard('batterylevel');
     batterylevelStatus.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('measure_battery')) >= args.charged;
-      this.log('batterylevel ' + args.device.getCapabilityValue('measure_battery') + ' args ' + args.charged + ' result ' + result);
+      const result = (await args.device.getCapabilityValue('measure_battery')) >= args.charged;
+      this.log(`batterylevel ${args.device.getCapabilityValue('measure_battery')} args ${args.charged} result ${result}`);
       return Promise.resolve(result);
     });
 
-    let batterychargeStatus = this.homey.flow.getConditionCard('batterycharge');
+    const batterychargeStatus = this.homey.flow.getConditionCard('batterycharge');
     batterychargeStatus.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('measure_power.batt_charge')) >= args.charging;
+      const result = (await args.device.getCapabilityValue('measure_power.batt_charge')) >= args.charging;
       return Promise.resolve(result);
     });
 
-    let batterydischargeStatus = this.homey.flow.getConditionCard('batterydischarge');
+    const batterydischargeStatus = this.homey.flow.getConditionCard('batterydischarge');
     batterydischargeStatus.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('measure_power.batt_discharge')) >= args.discharging;
+      const result = (await args.device.getCapabilityValue('measure_power.batt_discharge')) >= args.discharging;
       return Promise.resolve(result);
     });
 
-    let solarbattchargeStatus = this.homey.flow.getConditionCard('solarbattcharge');
+    const solarbattchargeStatus = this.homey.flow.getConditionCard('solarbattcharge');
     solarbattchargeStatus.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('measure_power')) >= args.charging;
+      const result = (await args.device.getCapabilityValue('measure_power')) >= args.charging;
       return Promise.resolve(result);
     });
 
-    let gridimportStatus = this.homey.flow.getConditionCard('gridimport');
+    const gridimportStatus = this.homey.flow.getConditionCard('gridimport');
     gridimportStatus.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('measure_power.import')) >= args.import;
+      const result = (await args.device.getCapabilityValue('measure_power.import')) >= args.import;
       return Promise.resolve(result);
     });
 
-    let gridexportStatus = this.homey.flow.getConditionCard('gridexport');
+    const gridexportStatus = this.homey.flow.getConditionCard('gridexport');
     gridexportStatus.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('measure_power.export')) >= args.export;
+      const result = (await args.device.getCapabilityValue('measure_power.export')) >= args.export;
       return Promise.resolve(result);
     });
 
@@ -218,14 +216,14 @@ class MySolaredgeBatteryDevice extends Solaredge {
   }
 
   async updateControl(type: string, value: number, device: Homey.Device) {
-    let name = device.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + device.getName());
-    let socket = new net.Socket();
-    var unitID = device.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID);
+    const name = device.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${device.getName()}`);
+    const socket = new net.Socket();
+    const unitID = device.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID);
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: device.getSetting('address'),
       port: device.getSetting('port'),
       unitId: device.getSetting('id'),
@@ -250,12 +248,12 @@ class MySolaredgeBatteryDevice extends Solaredge {
         buffer = Buffer.allocUnsafe(4);
         buffer.writeFloatBE(value);
         buffer.swap32().swap16();
-        let bytes = buffer
+        const bytes = buffer
           .toString('hex')
           .toUpperCase()
           .replace(/(.{2})/g, '$1 ')
           .trimEnd();
-        console.log('Write register: Bytes: ' + bytes);
+        console.log(`Write register: Bytes: ${bytes}`);
         const chargeRes = await client.writeMultipleRegisters(0xe00e, buffer);
         console.log('charge', chargeRes);
       }
@@ -265,12 +263,12 @@ class MySolaredgeBatteryDevice extends Solaredge {
         buffer = Buffer.allocUnsafe(4);
         buffer.writeFloatBE(value);
         buffer.swap32().swap16();
-        let bytes = buffer
+        const bytes = buffer
           .toString('hex')
           .toUpperCase()
           .replace(/(.{2})/g, '$1 ')
           .trimEnd();
-        console.log('Write register: Bytes: ' + bytes);
+        console.log(`Write register: Bytes: ${bytes}`);
         const dischargeRes = await client.writeMultipleRegisters(0xe010, buffer);
         console.log('discharge', dischargeRes);
       }
@@ -319,12 +317,12 @@ class MySolaredgeBatteryDevice extends Solaredge {
         buffer = Buffer.allocUnsafe(4);
         buffer.writeFloatBE(value);
         buffer.swap32().swap16();
-        let bytes = buffer
+        const bytes = buffer
           .toString('hex')
           .toUpperCase()
           .replace(/(.{2})/g, '$1 ')
           .trimEnd();
-        console.log('Write register: Bytes: ' + bytes);
+        console.log(`Write register: Bytes: ${bytes}`);
         const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, buffer);
         console.log('limitcontrolwatt', limitcontrolWattRes);
       }
@@ -400,7 +398,7 @@ class MySolaredgeBatteryDevice extends Solaredge {
       console.log('No meter');
     }
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -411,9 +409,9 @@ class MySolaredgeBatteryDevice extends Solaredge {
       logEnabled: true,
     };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 1000);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 1000);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
     console.log(modbusOptions);
@@ -430,8 +428,8 @@ class MySolaredgeBatteryDevice extends Solaredge {
       this.processResult(finalRes, this.getSetting('maxpeakpower'));
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
-      let seconds = Math.floor(timeDiff / 1000);
-      console.log('total time: ' + seconds + ' seconds');
+      const seconds = Math.floor(timeDiff / 1000);
+      console.log(`total time: ${seconds} seconds`);
     });
 
     socket.on('close', () => {

@@ -68,7 +68,7 @@ export class Sungrow extends Homey.Device {
   processResult(result: Record<string, Measurement>) {
     if (result) {
       // result
-      for (let k in result) {
+      for (const k in result) {
         console.log(k, result[k].value, result[k].scale, result[k].label);
       }
 
@@ -86,16 +86,16 @@ export class Sungrow extends Homey.Device {
 
       if (result['active_power_limit'] && result['active_power_limit'].value != 'xxx') {
         this.addCapability('activepowerlimit');
-        var power_limit = Number(result['active_power_limit'].value);
+        const power_limit = Number(result['active_power_limit'].value);
         this.setCapabilityValue('activepowerlimit', power_limit);
       }
 
       if (result['pvTodayEnergy'] && result['pvTodayEnergy'].value != 'xxx') {
         this.addCapability('meter_power.daily');
-        var pvTodayEnergy = Number(result['pvTodayEnergy'].value) * Math.pow(10, Number(result['pvTodayEnergy'].scale));
+        const pvTodayEnergy = Number(result['pvTodayEnergy'].value) * Math.pow(10, Number(result['pvTodayEnergy'].scale));
 
         if (this.getCapabilityValue('meter_power.daily') != pvTodayEnergy) {
-          let tokens = {
+          const tokens = {
             'meter_power.daily': pvTodayEnergy,
           };
           this.homey.flow.getDeviceTriggerCard('meter_power_day_changed').trigger(this, tokens);
@@ -106,7 +106,7 @@ export class Sungrow extends Homey.Device {
 
       if (result['pvTotalEnergy'] && result['pvTotalEnergy'].value != 'xxx') {
         this.addCapability('meter_power');
-        var pvTotalEnergy = Number(result['pvTotalEnergy'].value) * Math.pow(10, Number(result['pvTotalEnergy'].scale));
+        const pvTotalEnergy = Number(result['pvTotalEnergy'].value) * Math.pow(10, Number(result['pvTotalEnergy'].scale));
         this.setCapabilityValue('meter_power', pvTotalEnergy);
       }
 
@@ -115,7 +115,7 @@ export class Sungrow extends Homey.Device {
         var temperature = Number(result['temperature'].value) * Math.pow(10, Number(result['temperature'].scale));
 
         if (this.getCapabilityValue('measure_temperature.invertor') != temperature) {
-          let tokens = {
+          const tokens = {
             'measure_temperature.invertor': temperature,
           };
           this.homey.flow.getDeviceTriggerCard('measure_temperature_inverter_changed').trigger(this, tokens);
@@ -132,20 +132,20 @@ export class Sungrow extends Homey.Device {
       if (result['battsoc'] && result['battsoc'].value != 'xxx' && this.hasCapability('measure_battery')) {
         this.addCapability('battery');
         this.addCapability('measure_battery');
-        var soc = Number(result['battsoc'].value) * Math.pow(10, Number(result['battsoc'].scale));
+        const soc = Number(result['battsoc'].value) * Math.pow(10, Number(result['battsoc'].scale));
         this.setCapabilityValue('battery', soc);
         this.setCapabilityValue('measure_battery', soc);
       }
 
       if (result['bmshealth'] && result['bmshealth'].value != 'xxx' && this.hasCapability('batterysoh')) {
         this.addCapability('batterysoh');
-        var soh = Number(result['bmshealth'].value) * Math.pow(10, Number(result['bmshealth'].scale));
+        const soh = Number(result['bmshealth'].value) * Math.pow(10, Number(result['bmshealth'].scale));
         this.setCapabilityValue('batterysoh', soh);
       }
 
       if (result['loadpower'] && result['loadpower'].value != 'xxx' && this.hasCapability('measure_power.load')) {
         this.addCapability('measure_power.load');
-        var load = Number(result['loadpower'].value) * Math.pow(10, Number(result['loadpower'].scale));
+        const load = Number(result['loadpower'].value) * Math.pow(10, Number(result['loadpower'].scale));
         if (this.getCapabilityValue('measure_power.load') != load) {
           this.homey.flow.getDeviceTriggerCard('measure_power_load_changed').trigger(this, { 'measure_power.load': load }, {});
         }
@@ -156,7 +156,7 @@ export class Sungrow extends Homey.Device {
         this.addCapability('measure_power.grid_import');
         this.addCapability('measure_power.grid_export');
 
-        var exportpower = Number(result['exportpower'].value) * Math.pow(10, Number(result['exportpower'].scale));
+        const exportpower = Number(result['exportpower'].value) * Math.pow(10, Number(result['exportpower'].scale));
         if (exportpower >= 0) {
           if (this.getCapabilityValue('measure_power.grid_export') != exportpower) {
             this.homey.flow.getDeviceTriggerCard('measure_power_grid_export_changed').trigger(this, { 'measure_power.grid_export': exportpower }, {});
@@ -180,55 +180,53 @@ export class Sungrow extends Homey.Device {
 
       if (result['total_battery_output_energy'] && result['total_battery_output_energy'].value != 'xxx' && this.hasCapability('meter_power.battery_output')) {
         this.addCapability('meter_power.battery_output');
-        var total_battery_output_energy =
-          Number(result['total_battery_output_energy'].value) * Math.pow(10, Number(result['total_battery_output_energy'].scale));
+        const total_battery_output_energy = Number(result['total_battery_output_energy'].value) * Math.pow(10, Number(result['total_battery_output_energy'].scale));
         this.setCapabilityValue('meter_power.battery_output', total_battery_output_energy);
       }
 
       if (
-        result['today_battery_output_energy'] &&
-        result['today_battery_output_energy'].value != 'xxx' &&
-        this.hasCapability('meter_power.today_batt_output')
+        result['today_battery_output_energy']
+        && result['today_battery_output_energy'].value != 'xxx'
+        && this.hasCapability('meter_power.today_batt_output')
       ) {
         this.addCapability('meter_power.today_batt_output');
-        var today_battery_output_energy =
-          Number(result['today_battery_output_energy'].value) * Math.pow(10, Number(result['today_battery_output_energy'].scale));
+        const today_battery_output_energy = Number(result['today_battery_output_energy'].value) * Math.pow(10, Number(result['today_battery_output_energy'].scale));
         this.setCapabilityValue('meter_power.today_batt_output', today_battery_output_energy);
       }
 
       if (result['total_battery_input_energy'] && result['total_battery_input_energy'].value != 'xxx' && this.hasCapability('meter_power.battery_input')) {
         this.addCapability('meter_power.battery_input');
-        var total_battery_input_energy = Number(result['total_battery_input_energy'].value) * Math.pow(10, Number(result['total_battery_input_energy'].scale));
+        const total_battery_input_energy = Number(result['total_battery_input_energy'].value) * Math.pow(10, Number(result['total_battery_input_energy'].scale));
         this.setCapabilityValue('meter_power.battery_input', total_battery_input_energy);
       }
 
       if (result['today_battery_input_energy'] && result['today_battery_input_energy'].value != 'xxx' && this.hasCapability('meter_power.today_batt_input')) {
         this.addCapability('meter_power.today_batt_input');
-        var today_battery_input_energy = Number(result['today_battery_input_energy'].value) * Math.pow(10, Number(result['today_battery_input_energy'].scale));
+        const today_battery_input_energy = Number(result['today_battery_input_energy'].value) * Math.pow(10, Number(result['today_battery_input_energy'].scale));
         this.setCapabilityValue('meter_power.today_batt_input', today_battery_input_energy);
       }
 
       if (result['today_grid_import'] && result['today_grid_import'].value != 'xxx' && this.hasCapability('meter_power.today_grid_import')) {
         this.addCapability('meter_power.today_grid_import');
-        var today_grid_import = Number(result['today_grid_import'].value) * Math.pow(10, Number(result['today_grid_import'].scale));
+        const today_grid_import = Number(result['today_grid_import'].value) * Math.pow(10, Number(result['today_grid_import'].scale));
         this.setCapabilityValue('meter_power.today_grid_import', today_grid_import);
       }
 
       if (result['today_grid_export'] && result['today_grid_export'].value != 'xxx' && this.hasCapability('meter_power.today_grid_export')) {
         this.addCapability('meter_power.today_grid_export');
-        var today_grid_export = Number(result['today_grid_export'].value) * Math.pow(10, Number(result['today_grid_export'].scale));
+        const today_grid_export = Number(result['today_grid_export'].value) * Math.pow(10, Number(result['today_grid_export'].scale));
         this.setCapabilityValue('meter_power.today_grid_export', today_grid_export);
       }
 
       if (result['total_grid_import'] && result['total_grid_import'].value != 'xxx' && this.hasCapability('meter_power.grid_import')) {
         this.addCapability('meter_power.grid_import');
-        var total_grid_import = Number(result['total_grid_import'].value) * Math.pow(10, Number(result['total_grid_import'].scale));
+        const total_grid_import = Number(result['total_grid_import'].value) * Math.pow(10, Number(result['total_grid_import'].scale));
         this.setCapabilityValue('meter_power.grid_import', total_grid_import);
       }
 
       if (result['total_grid_export'] && result['total_grid_export'].value != 'xxx' && this.hasCapability('meter_power.grid_export')) {
         this.addCapability('meter_power.grid_export');
-        var total_grid_export = Number(result['total_grid_export'].value) * Math.pow(10, Number(result['total_grid_export'].scale));
+        const total_grid_export = Number(result['total_grid_export'].value) * Math.pow(10, Number(result['total_grid_export'].scale));
         this.setCapabilityValue('meter_power.grid_export', total_grid_export);
       }
 
@@ -241,56 +239,56 @@ export class Sungrow extends Homey.Device {
         this.addCapability('status_importing_power_from_grid');
         this.addCapability('status_power_generated_from_load');
 
-        var Runningstate = Number(result['Runningstate'].value);
-        let lowVal = Runningstate & 0xff;
-        let highval = (Runningstate >> 8) & 0xff;
-        let bit0 = lowVal & (1 << 0);
-        let bit1 = lowVal & (1 << 1);
-        let bit2 = lowVal & (1 << 2);
-        let bit3 = lowVal & (1 << 3);
-        let bit4 = lowVal & (1 << 4);
-        let bit5 = lowVal & (1 << 5);
-        let bit7 = lowVal & (1 << 7);
+        const Runningstate = Number(result['Runningstate'].value);
+        const lowVal = Runningstate & 0xff;
+        const highval = (Runningstate >> 8) & 0xff;
+        const bit0 = lowVal & (1 << 0);
+        const bit1 = lowVal & (1 << 1);
+        const bit2 = lowVal & (1 << 2);
+        const bit3 = lowVal & (1 << 3);
+        const bit4 = lowVal & (1 << 4);
+        const bit5 = lowVal & (1 << 5);
+        const bit7 = lowVal & (1 << 7);
 
-        console.log('Runningstate: ' + lowVal);
-        console.log('Runningstate: ' + highval);
-        console.log('bit0 ' + bit0);
+        console.log(`Runningstate: ${lowVal}`);
+        console.log(`Runningstate: ${highval}`);
+        console.log(`bit0 ${bit0}`);
         if (bit0 == 1) {
           this.setCapabilityValue('status_power_generated_from_pv', true);
         } else {
           this.setCapabilityValue('status_power_generated_from_pv', false);
         }
-        console.log('bit1 ' + bit1);
+        console.log(`bit1 ${bit1}`);
         if (bit1 == 2) {
           this.setCapabilityValue('status_charging', true);
         } else {
           this.setCapabilityValue('status_charging', false);
         }
-        console.log('bit2 ' + bit2);
+        console.log(`bit2 ${bit2}`);
         if (bit2 == 4) {
           this.setCapabilityValue('status_discharging', true);
         } else {
           this.setCapabilityValue('status_discharging', false);
         }
-        console.log('bit3 ' + bit3);
+        console.log(`bit3 ${bit3}`);
         if (bit3 == 8) {
           this.setCapabilityValue('status_load_is_active', true);
         } else {
           this.setCapabilityValue('status_load_is_active', false);
         }
-        console.log('bit4 ' + bit4);
+        console.log(`bit4 ${bit4}`);
         if (bit4 == 16) {
           this.setCapabilityValue('status_exporting_power_to_grid', true);
         } else {
           this.setCapabilityValue('status_exporting_power_to_grid', false);
         }
-        console.log('bit5 ' + bit5);
+        console.log(`bit5 ${bit5}`);
         if (bit5 == 32) {
           this.setCapabilityValue('status_importing_power_from_grid', true);
         } else {
           this.setCapabilityValue('status_importing_power_from_grid', false);
         }
-        console.log('bit7 ' + bit7);
+        console.log(`bit7 ${bit7}`);
         if (bit7 == 128) {
           this.setCapabilityValue('status_power_generated_from_load', true);
         } else {
@@ -300,14 +298,14 @@ export class Sungrow extends Homey.Device {
 
       if (result['emsmodeselection'] && result['emsmodeselection'].value != 'xxx' && this.hasCapability('emsmodeselection')) {
         this.addCapability('emsmodeselection');
-        var emsmodeselection = result['emsmodeselection'].value;
+        const emsmodeselection = result['emsmodeselection'].value;
         this.setCapabilityValue('emsmodeselection', emsmodeselection);
       }
 
       // "export_power_enabled":     [13086, 1, 'UINT16', "Export power limitation 170: Enable, 85: Disable | ", 0],
       if (result['export_power_enabled'] && result['export_power_enabled'].value != 'xxx' && this.hasCapability('exportlimitenabled')) {
         this.addCapability('exportlimitenabled');
-        var export_power_enabled = Number(result['export_power_enabled'].value) * Math.pow(10, Number(result['export_power_enabled'].scale));
+        const export_power_enabled = Number(result['export_power_enabled'].value) * Math.pow(10, Number(result['export_power_enabled'].scale));
         if (export_power_enabled == 170) {
           this.setCapabilityValue('exportlimitenabled', '1');
         } else {
@@ -317,31 +315,31 @@ export class Sungrow extends Homey.Device {
 
       if (result['export_power'] && result['export_power'].value != 'xxx' && this.hasCapability('exportcontrolsitelimit')) {
         this.addCapability('exportcontrolsitelimit');
-        var export_power = Number(result['export_power'].value) * Math.pow(10, Number(result['export_power'].scale));
+        const export_power = Number(result['export_power'].value) * Math.pow(10, Number(result['export_power'].scale));
         this.setCapabilityValue('exportcontrolsitelimit', export_power);
       }
 
       if (result['charge_discharge_command'] && result['charge_discharge_command'].value != 'xxx' && this.hasCapability('chargedischargecommand')) {
         this.addCapability('chargedischargecommand');
-        var charge_discharge_command = result['charge_discharge_command'].value;
+        const charge_discharge_command = result['charge_discharge_command'].value;
         this.setCapabilityValue('chargedischargecommand', charge_discharge_command);
       }
 
       if (result['charge_discharge_power'] && result['charge_discharge_power'].value != 'xxx' && this.hasCapability('charge_discharge_power')) {
         this.addCapability('charge_discharge_power');
-        var charge_discharge_power = Number(result['charge_discharge_power'].value) * Math.pow(10, Number(result['charge_discharge_power'].scale));
+        const charge_discharge_power = Number(result['charge_discharge_power'].value) * Math.pow(10, Number(result['charge_discharge_power'].scale));
         this.setCapabilityValue('charge_discharge_power', charge_discharge_power);
       }
 
       if (result['max_soc'] && result['max_soc'].value != 'xxx' && this.hasCapability('charge_discharge_power')) {
         this.addCapability('batterymaxsoc');
-        var max_soc = Number(result['max_soc'].value) * Math.pow(10, Number(result['max_soc'].scale));
+        const max_soc = Number(result['max_soc'].value) * Math.pow(10, Number(result['max_soc'].scale));
         this.setCapabilityValue('batterymaxsoc', max_soc);
       }
 
       if (result['min_soc'] && result['min_soc'].value != 'xxx' && this.hasCapability('batteryminsoc')) {
         this.addCapability('batteryminsoc');
-        var min_soc = Number(result['min_soc'].value) * Math.pow(10, Number(result['min_soc'].scale));
+        const min_soc = Number(result['min_soc'].value) * Math.pow(10, Number(result['min_soc'].scale));
         this.setCapabilityValue('batteryminsoc', min_soc);
       }
     }
@@ -350,43 +348,43 @@ export class Sungrow extends Homey.Device {
   processResultPlain(result: Record<string, Measurement>) {
     if (result) {
       // result
-      for (let k in result) {
+      for (const k in result) {
         console.log(k, result[k].value, result[k].scale, result[k].label);
       }
 
       if (result['totaldcpower'] && result['totaldcpower'].value != 'xxx') {
         this.addCapability('measure_power');
-        var dcPower = Number(result['totaldcpower'].value) * Math.pow(10, Number(result['totaldcpower'].scale));
+        const dcPower = Number(result['totaldcpower'].value) * Math.pow(10, Number(result['totaldcpower'].scale));
         this.setCapabilityValue('measure_power', Math.round(dcPower));
       }
 
       if (result['active_power_limit'] && result['active_power_limit'].value != 'xxx') {
         this.addCapability('activepowerlimit');
-        var power_limit = Number(result['active_power_limit'].value);
+        const power_limit = Number(result['active_power_limit'].value);
         this.setCapabilityValue('activepowerlimit', power_limit);
       }
 
       if (result['pvTodayEnergy'] && result['pvTodayEnergy'].value != 'xxx') {
         this.addCapability('meter_power.daily');
-        var pvTodayEnergy = Number(result['pvTodayEnergy'].value) * Math.pow(10, Number(result['pvTodayEnergy'].scale));
+        const pvTodayEnergy = Number(result['pvTodayEnergy'].value) * Math.pow(10, Number(result['pvTodayEnergy'].scale));
         this.setCapabilityValue('meter_power.daily', pvTodayEnergy);
       }
 
       if (result['pvMonthEnergy'] && result['pvMonthEnergy'].value != 'xxx') {
         this.addCapability('meter_power.monthly');
-        var pvMonthEnergy = Number(result['pvMonthEnergy'].value) * Math.pow(10, Number(result['pvMonthEnergy'].scale));
+        const pvMonthEnergy = Number(result['pvMonthEnergy'].value) * Math.pow(10, Number(result['pvMonthEnergy'].scale));
         this.setCapabilityValue('meter_power.monthly', pvMonthEnergy);
       }
 
       if (result['pvTotalEnergy'] && result['pvTotalEnergy'].value != 'xxx') {
         this.addCapability('meter_power');
-        var pvTotalEnergy = Number(result['pvTotalEnergy'].value) * Math.pow(10, Number(result['pvTotalEnergy'].scale));
+        const pvTotalEnergy = Number(result['pvTotalEnergy'].value) * Math.pow(10, Number(result['pvTotalEnergy'].scale));
         this.setCapabilityValue('meter_power', pvTotalEnergy);
       }
 
       if (result['temperature'] && result['temperature'].value != 'xxx') {
         this.addCapability('measure_temperature');
-        var temperature = Number(result['temperature'].value) * Math.pow(10, Number(result['temperature'].scale));
+        const temperature = Number(result['temperature'].value) * Math.pow(10, Number(result['temperature'].scale));
         this.setCapabilityValue('measure_temperature', temperature);
       }
     }

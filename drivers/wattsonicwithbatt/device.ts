@@ -13,9 +13,9 @@ class MyWattsonicBatteryDevice extends Wattsonic {
   async onInit() {
     this.log('MyWattsonicBatteryDevice has been initialized');
 
-    let name = this.getData().id;
-    this.log('device name id ' + name);
-    this.log('device name ' + this.getName());
+    const name = this.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${this.getName()}`);
 
     this.pollInvertor();
 
@@ -29,14 +29,14 @@ class MyWattsonicBatteryDevice extends Wattsonic {
       return value;
     });
 
-    let controlAction = this.homey.flow.getActionCard('hybridinvertermode');
+    const controlAction = this.homey.flow.getActionCard('hybridinvertermode');
     controlAction.registerRunListener(async (args, state) => {
       await this.updateControl('hybridinvertermode', args.mode);
     });
 
-    let batterylevelStatus = this.homey.flow.getConditionCard('batterylevelWattsonic');
+    const batterylevelStatus = this.homey.flow.getConditionCard('batterylevelWattsonic');
     batterylevelStatus.registerRunListener(async (args, state) => {
-      let result = (await args.device.getCapabilityValue('measure_battery')) >= args.charged;
+      const result = (await args.device.getCapabilityValue('measure_battery')) >= args.charged;
       return Promise.resolve(result);
     });
   }
@@ -78,11 +78,11 @@ class MyWattsonicBatteryDevice extends Wattsonic {
   }
 
   async updateControl(type: string, value: string) {
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID);
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -102,19 +102,19 @@ class MyWattsonicBatteryDevice extends Wattsonic {
 
       if (type == 'hybridinvertermode') {
         if (value == '11' || value == '12' || value == '13' || value == '31' || value == '32' || value == '33' || value == '34') {
-          let high = Number(value.charAt(0));
-          let low = Number(value.charAt(1));
-          let modevalue = high * 256 + low;
+          const high = Number(value.charAt(0));
+          const low = Number(value.charAt(1));
+          const modevalue = high * 256 + low;
           const hybridinvertermodeRes = await client.writeSingleRegister(50000, Number(modevalue));
           console.log('hybridinvertermode', hybridinvertermodeRes);
           console.log('hybridinvertermode', Number(modevalue));
         } else if (value == '2') {
-          let modevalue = 2 * 256;
+          const modevalue = 2 * 256;
           const hybridinvertermodeRes = await client.writeSingleRegister(50000, Number(modevalue));
           console.log('hybridinvertermode', Number(modevalue));
           console.log('hybridinvertermode', hybridinvertermodeRes);
         } else {
-          console.log('hybridinvertermode unknown value: ' + value);
+          console.log(`hybridinvertermode unknown value: ${value}`);
         }
       }
 
@@ -138,7 +138,7 @@ class MyWattsonicBatteryDevice extends Wattsonic {
     this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
-    let modbusOptions = {
+    const modbusOptions = {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
@@ -149,9 +149,9 @@ class MyWattsonicBatteryDevice extends Wattsonic {
       logEnabled: true,
     };
 
-    let socket = new net.Socket();
-    var unitID = this.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 1000);
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 1000);
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 

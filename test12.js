@@ -2,9 +2,10 @@ console.log('-------------------');
 
 const modbus = require('jsmodbus');
 const net = require('net');
+
 const socket = new net.Socket();
 
-let options = {
+const options = {
   host: '11.13.11.154',
   port: 502,
   unitId: 3,
@@ -16,26 +17,26 @@ let options = {
   logEnabled: true,
 };
 
-let client = new modbus.client.TCP(socket, 1, 5500);
+const client = new modbus.client.TCP(socket, 1, 5500);
 socket.setKeepAlive(false);
 socket.connect(options);
 
 socket.on('connect', () => {
   // const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-  var delay = (function () {
-    var timer = 0;
-    return function (callback, ms) {
+  const delay = (function() {
+    let timer = 0;
+    return function(callback, ms) {
       clearTimeout(timer);
       timer = setTimeout(callback, ms);
     };
-  })();
+  }());
 
   delay(() => 5000);
   console.log('Connected ...');
 
   registers = {
-    // "inputPower": [32064, 2, 'INT32', "Input Power", 0], //	kW	1000
+    // "inputPower": [32064, 2, 'INT32', "Input Power", 0], //  kW  1000
 
     // // rn.GRID_VOLTAGE: U16Register("V", 10, 32066, 1),
     // "GRID_VOLTAGE": [32066, 1, 'UINT16', "GRID VOLTAGE", -1],
@@ -71,26 +72,26 @@ socket.on('connect', () => {
     client
       .readHoldingRegisters(value[0], value[1])
       // client.readHoldingRegisters(value[0],value[1])
-      .then(function (resp) {
+      .then((resp) => {
         // console.log(resp.response._body);
         if (value[2] == 'UINT16') {
-          console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readUInt16BE());
+          console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readUInt16BE()}`);
         } else if (value[2] == 'STRING') {
-          console.log(value[3] + ': ' + Buffer.from(resp.response._body._valuesAsBuffer, 'hex').toString());
+          console.log(`${value[3]}: ${Buffer.from(resp.response._body._valuesAsBuffer, 'hex').toString()}`);
         } else if (value[2] == 'INT16' || value[2] == 'SCALE') {
-          console.log(value[3] + ': ' + resp.response._body._valuesAsBuffer.readInt16BE());
+          console.log(`${value[3]}: ${resp.response._body._valuesAsBuffer.readInt16BE()}`);
         } else if (value[2] == 'UINT32') {
           // console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readUInt32LE());
-          console.log(value[3] + ': ' + ((resp.response._body._valuesAsArray[1] << 16) | resp.response._body._valuesAsArray[0]));
+          console.log(`${value[3]}: ${(resp.response._body._valuesAsArray[1] << 16) | resp.response._body._valuesAsArray[0]}`);
           console.log(resp.response._body._valuesAsArray[1] << 16);
           console.log(resp.response._body._valuesAsArray[0]);
         } else if (value[2] == 'INT32') {
           // console.log(value[3] + ": " + resp.response._body._valuesAsBuffer.readInt32LE());
-          console.log(value[3] + ': ' + ((resp.response._body._valuesAsArray[1] << 16) | resp.response._body._valuesAsArray[0] | 0));
+          console.log(`${value[3]}: ${(resp.response._body._valuesAsArray[1] << 16) | resp.response._body._valuesAsArray[0] | 0}`);
           console.log(resp.response._body._valuesAsArray[1] << 16);
           console.log(resp.response._body._valuesAsArray[0]);
         } else {
-          console.log(key + ': type not found ' + value[2]);
+          console.log(`${key}: type not found ${value[2]}`);
         }
       })
       .catch((err) => {
@@ -98,12 +99,12 @@ socket.on('connect', () => {
       });
   }
 
-  delay(function () {
+  delay(() => {
     socket.end();
   }, 26000);
 });
 
-//avoid all the crash reports
+// avoid all the crash reports
 socket.on('error', (err) => {
   console.log(err);
   socket.end();
