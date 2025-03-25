@@ -368,7 +368,7 @@ export class Growatt extends Homey.Device {
       },
       {
         resultKey: 'battsoc',
-        capabilities: ['battery', 'measure_battery'],
+        capabilities: ['measure_battery', 'battery'],
         valid: (data) => data.value !== 'xxx',
         transform: (data) => Number(data.value) * 10 ** Number(data.scale),
         requireCapabilityCheck: true,
@@ -524,13 +524,12 @@ export class Growatt extends Homey.Device {
             continue;
           }
 
-          for (const cap of mapping.capabilities) {
-            this.addCapability(cap).catch(this.error);
-          }
-
           const transformedValue = mapping.transform?.(data, context);
           if (transformedValue === null || transformedValue === undefined) continue;
-          this.setCapabilityValue(mapping.capabilities[0], transformedValue).catch(this.error);
+          for (const cap of mapping.capabilities) {
+            this.addCapability(cap).catch(this.error);
+            this.setCapabilityValue(cap, transformedValue).catch(this.error);
+          }
         }
       }
 
