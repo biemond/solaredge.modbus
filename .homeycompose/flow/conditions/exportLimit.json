@@ -1,0 +1,46 @@
+{
+  "title": {
+    "en": "Export Limit is",
+    "nl": "Export limiet is",
+    "de": "Exportlimit ist"
+  },
+  "titleFormatted": {
+    "en": "Export limit is [[exportlimit]]",
+    "nl": "Export limiet is [[exportlimit]]",
+    "de": "Exportlimit ist [[exportlimit]]"
+  },
+  "hint": {
+    "en": "Whether export limit is enabled or disabled",
+    "nl": "Of de export limiet is ingeschakeld of uitgeschakeld",
+    "de": "Ob das Exportlimit aktiviert oder deaktiviert ist"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+    },
+    {
+      "name": "exportlimit",
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "0",
+          "label": {
+            "en": "Disabled",
+            "nl": "Uitgeschakeld",
+            "de": "Deaktiviert"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "Enabled",
+            "nl": "Ingeschakeld",
+            "de": "Aktiviert"
+          }
+        }
+      ]
+    }
+  ]
+}

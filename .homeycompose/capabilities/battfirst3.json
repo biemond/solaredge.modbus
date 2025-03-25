@@ -1,0 +1,12 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Battery 1st, Time slot 3",
+    "de": "Batterie zuerst, Zeitfenster 3:"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "icon": "/assets/clock.svg"
+}
