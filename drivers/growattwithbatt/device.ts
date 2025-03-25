@@ -99,11 +99,11 @@ class MyGrowattBattery extends Growatt {
     battfirsttime1Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('battfirsttime1', args.starttime, args.stoptime, Number(args.active));
     });
-    let battfirsttime2Action = this.homey.flow.getActionCard('battfirsttime2');
+    const battfirsttime2Action = this.homey.flow.getActionCard('battfirsttime2');
     battfirsttime2Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('battfirsttime2', args.starttime, args.stoptime, Number(args.active));
     });
-    let battfirsttime3Action = this.homey.flow.getActionCard('battfirsttime3');
+    const battfirsttime3Action = this.homey.flow.getActionCard('battfirsttime3');
     battfirsttime3Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('battfirsttime3', args.starttime, args.stoptime, Number(args.active));
     });
@@ -112,11 +112,11 @@ class MyGrowattBattery extends Growatt {
     gridfirsttime1Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('gridfirsttime1', args.starttime, args.stoptime, Number(args.active));
     });
-    let gridfirsttime2Action = this.homey.flow.getActionCard('gridfirsttime2');
+    const gridfirsttime2Action = this.homey.flow.getActionCard('gridfirsttime2');
     gridfirsttime2Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('gridfirsttime2', args.starttime, args.stoptime, Number(args.active));
     });
-    let gridfirsttime3Action = this.homey.flow.getActionCard('gridfirsttime3');
+    const gridfirsttime3Action = this.homey.flow.getActionCard('gridfirsttime3');
     gridfirsttime3Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('gridfirsttime3', args.starttime, args.stoptime, Number(args.active));
     });
