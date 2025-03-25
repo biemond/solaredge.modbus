@@ -1,7 +1,6 @@
 import Homey from 'homey';
 
 class MySungrowDriver extends Homey.Driver {
-
   /**
    * onInit is called when the driver is initialized.
    */
@@ -27,7 +26,6 @@ class MySungrowDriver extends Homey.Driver {
       // },
     ];
   }
-
 }
 
 module.exports = MySungrowDriver;

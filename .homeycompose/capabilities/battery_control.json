@@ -1,40 +1,40 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Battery Control",
-		"de": "Batterie kontroll"
+  "type": "enum",
+  "title": {
+    "en": "Battery Control",
+    "de": "Batterie kontroll"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "2",
+      "title": {
+        "en": "Maximize Self Consumption",
+        "de": "Maximiere Eigenverbrauch"
+      }
     },
-    "getable": true,
-    "setable": true,
-    "uiComponent": "picker",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "2",
-            "title": {
-                "en": "Maximize Self Consumption",
-                "de": "Maximiere Eigenverbrauch"
-            }
-        },
-        {
-            "id": "5",
-            "title": {
-                "en": "Time of Use",
-                "de": "Nutzungszeit"
-            }
-        },
-        {
-            "id": "4",
-            "title": {
-                "en": "fully fed to grid"
-            }
-        },
-        {
-            "id": "6",
-            "title": {
-                "en": "Remote Control",
-                "de": "Ferngesteuert"
-            }
-        }                
-    ]
+    {
+      "id": "5",
+      "title": {
+        "en": "Time of Use",
+        "de": "Nutzungszeit"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "fully fed to grid"
+      }
+    },
+    {
+      "id": "6",
+      "title": {
+        "en": "Remote Control",
+        "de": "Ferngesteuert"
+      }
+    }
+  ]
 }

@@ -1,7 +1,6 @@
 import Homey from 'homey';
 
 class MyKostalDriver extends Homey.Driver {
-
   /**
    * onInit is called when the driver is initialized.
    */
@@ -27,7 +26,6 @@ class MyKostalDriver extends Homey.Driver {
       // },
     ];
   }
-
 }
 
 module.exports = MyKostalDriver;

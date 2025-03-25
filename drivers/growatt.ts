@@ -548,9 +548,7 @@ export class Growatt extends Homey.Device {
           const stophour = (value2 >> 8) & 0xff;
           const enabled = Number(result[switchKey].value) === 0 ? 'No' : 'Yes';
           this.log(`${slot}: ${formatTime(starthour, startminute)} ~ ${formatTime(stophour, stopminute)} enabled: ${enabled}`);
-          this.setCapabilityValue(slot,
-            `${formatTime(starthour, startminute)} ~ ${formatTime(stophour, stopminute)} enabled: ${enabled}`)
-            .catch(this.error);
+          this.setCapabilityValue(slot, `${formatTime(starthour, startminute)} ~ ${formatTime(stophour, stopminute)} enabled: ${enabled}`).catch(this.error);
         }
       });
 

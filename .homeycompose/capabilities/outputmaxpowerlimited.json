@@ -2,7 +2,7 @@
   "type": "number",
   "title": {
     "en": "Output max power limited",
-		"de": "Maximale Ausgangsleistung begrenzt"
+    "de": "Maximale Ausgangsleistung begrenzt"
   },
   "units": {
     "en": "W"

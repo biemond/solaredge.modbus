@@ -1,12 +1,12 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import {checkRegisterGrowatt} from '../response';
+import { checkRegisterGrowatt } from '../response';
 import { Growatt } from '../growatt';
 
-const RETRY_INTERVAL = 28 * 1000; 
+const RETRY_INTERVAL = 28 * 1000;
 
 class MyGrowattDevice extends Growatt {
-  timer!: NodeJS.Timer;  
+  timer!: NodeJS.Timer;
   /**
    * onInit is called when the device is initialized.
    */
@@ -14,8 +14,8 @@ class MyGrowattDevice extends Growatt {
     this.log('MyGrowattDevice has been initialized');
 
     let name = this.getData().id;
-    this.log("device name id " + name );
-    this.log("device name " + this.getName());
+    this.log('device name id ' + name);
+    this.log('device name ' + this.getName());
 
     this.pollInvertor();
 
@@ -23,7 +23,6 @@ class MyGrowattDevice extends Growatt {
       // poll device state from inverter
       this.pollInvertor();
     }, RETRY_INTERVAL);
-
   }
 
   /**
@@ -41,7 +40,7 @@ class MyGrowattDevice extends Growatt {
    * @param {string[]} event.changedKeys An array of keys changed since the previous version
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
-  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string|void> {
+  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string | void> {
     this.log('MyGrowattDevice settings where changed');
   }
 
@@ -61,21 +60,21 @@ class MyGrowattDevice extends Growatt {
     this.log('MyGrowattDevice has been deleted');
     this.homey.clearInterval(this.timer);
   }
-  
+
   async pollInvertor() {
-    this.log("pollInvertor");
+    this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
     let modbusOptions = {
-      'host': this.getSetting('address'),
-      'port': this.getSetting('port'),
-      'unitId': this.getSetting('id'),
-      'timeout': 22,
-      'autoReconnect': false,
-      'logLabel' : 'Growatt Inverter',
-      'logLevel': 'error',
-      'logEnabled': true
-    }    
+      host: this.getSetting('address'),
+      port: this.getSetting('port'),
+      unitId: this.getSetting('id'),
+      timeout: 22,
+      autoReconnect: false,
+      logLabel: 'Growatt Inverter',
+      logLevel: 'error',
+      logEnabled: true,
+    };
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
@@ -88,16 +87,16 @@ class MyGrowattDevice extends Growatt {
       console.log(modbusOptions);
 
       const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
-      console.log('disconnect'); 
+      console.log('disconnect');
       client.socket.end();
       socket.end();
-      const finalRes = {...checkRegisterRes}
+      const finalRes = { ...checkRegisterRes };
       this.processResult(finalRes, this.getSetting('maxpeakpower'));
-    });    
+    });
 
     socket.on('close', () => {
       console.log('Client closed');
-    });  
+    });
 
     socket.on('timeout', () => {
       console.log('socket timed out!');
@@ -109,7 +108,7 @@ class MyGrowattDevice extends Growatt {
       console.log(err);
       client.socket.end();
       socket.end();
-    })
+    });
   }
 }
 

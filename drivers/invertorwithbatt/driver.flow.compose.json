@@ -16,7 +16,7 @@
           },
           "example": 0
         }
-      ]      
+      ]
     },
     {
       "id": "changedStoragedefaultmode",
@@ -34,8 +34,8 @@
           },
           "example": 0
         }
-      ] 
-    },    
+      ]
+    },
     {
       "id": "changedBattery",
       "title": {
@@ -339,7 +339,6 @@
         }
       ]
     }
-      
   ],
   "conditions": [
     {
@@ -811,7 +810,7 @@
               "label": {
                 "en": "250W"
               }
-            },                        
+            },
             {
               "id": "500",
               "label": {
@@ -886,13 +885,13 @@
               "label": {
                 "en": "0W"
               }
-            },             
+            },
             {
               "id": "10",
               "label": {
                 "en": "10W"
               }
-            },            
+            },
             {
               "id": "50",
               "label": {
@@ -904,7 +903,7 @@
               "label": {
                 "en": "100W"
               }
-            },                        
+            },
             {
               "id": "500",
               "label": {

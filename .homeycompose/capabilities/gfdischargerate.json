@@ -1,20 +1,20 @@
 {
-      "type": "number",
-      "title": {
-        "en": "Grid First Battery Discharge Rate",
-        "nl": "Net Eerst Batterij Ontlaadsnelheid",
-        "de": "Netz Erste Batterie Entladungsrate"
-      },
-      "getable": true,
-      "setable": false,
-      "insights": true,
-      "uiComponent": "sensor",
-      "icon": "/assets/power_drawn.svg",
-      "units": {
-        "en": "%",
-        "nl": "%"
-      },
-      "min": 10,
-      "max": 100,
-      "step": 1
+  "type": "number",
+  "title": {
+    "en": "Grid First Battery Discharge Rate",
+    "nl": "Net Eerst Batterij Ontlaadsnelheid",
+    "de": "Netz Erste Batterie Entladungsrate"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "uiComponent": "sensor",
+  "icon": "/assets/power_drawn.svg",
+  "units": {
+    "en": "%",
+    "nl": "%"
+  },
+  "min": 10,
+  "max": 100,
+  "step": 1
 }

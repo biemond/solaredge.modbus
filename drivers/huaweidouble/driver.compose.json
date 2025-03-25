@@ -5,9 +5,7 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": [
-      "OTHER"
-    ]
+    "batteries": ["OTHER"]
   },
   "capabilities": [
     "measure_power",
@@ -61,7 +59,7 @@
     "remote_charge_discharge_control_mode2",
     "storage_working_mode_settings2",
     "measure_power.chargesetting2",
-    "measure_power.dischargesetting2"                                           
+    "measure_power.dischargesetting2"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -301,7 +299,7 @@
     "measure_power.chargesetting2": {
       "title": {
         "en": "Charge setting 2",
-        "de": "Maximale Ladeleistung 2" 
+        "de": "Maximale Ladeleistung 2"
       }
     },
     "measure_power.dischargesetting2": {
@@ -309,14 +307,10 @@
         "en": "Discharge setting 2",
         "de": "Maximale Entladeleistung 2"
       }
-    }                                                            
+    }
   },
-  "platforms": [
-    "local"
-  ],
-  "connectivity": [
-    "lan"
-  ],
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"
@@ -398,7 +392,7 @@
           "label": {
             "en": "Has battery"
           }
-        }        
+        }
       ]
     }
   ]

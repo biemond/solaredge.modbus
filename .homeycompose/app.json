@@ -4,9 +4,7 @@
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
-  "platforms": [
-    "local"
-  ],
+  "platforms": ["local"],
   "name": {
     "en": "SolarEdge + Growatt TCP modbus"
   },
@@ -14,9 +12,7 @@
     "en": "Monitor various inverters over TCP modbus protocol",
     "de": "Überwache verschieden Wechselrichter über das TCP-Modbus-Protokoll"
   },
-  "category": [
-    "energy"
-  ],
+  "category": ["energy"],
   "tags": {
     "en": [
       "solaredge",

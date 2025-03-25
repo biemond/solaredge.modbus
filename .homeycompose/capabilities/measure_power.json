@@ -3,7 +3,7 @@
   "title": {
     "en": "Power",
     "nl": "Vermogen",
-		"de": "Leistung"
+    "de": "Leistung"
   },
   "units": {
     "en": "W"
@@ -12,7 +12,7 @@
   "desc": {
     "en": "Power in watt (W)",
     "nl": "Vermogen in watt (W)",
-		"de": "Leistung in Watt (W)"
+    "de": "Leistung in Watt (W)"
   },
   "chartType": "stepLine",
   "decimals": 2,

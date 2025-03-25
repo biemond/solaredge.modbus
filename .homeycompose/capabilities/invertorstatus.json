@@ -1,77 +1,77 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Inverter status",
-		"de": "Status des Wechselrichters"
+  "type": "enum",
+  "title": {
+    "en": "Inverter status",
+    "de": "Status des Wechselrichters"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/operational_status.svg",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Undefined",
+        "de": "Undefiniert"
+      }
     },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "icon": "/assets/operational_status.svg",    
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Undefined",
-                "de": "Undefiniert"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Off",
-                "de": "Aus"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "Sleeping",
-                "de": "Schlafend"
-            }
-        },
-        {
-            "id": "3",
-            "title": {
-                "en": "Grid Monitoring",
-                "de": "Netzüberwachung"
-            }
-        },
-        {
-            "id": "4",
-            "title": {
-                "en": "Producing",
-                "de": "Produzierend"
-            }
-        },
-        {
-            "id": "5",
-            "title": {
-                "en": "Producing (Throttled)",
-                "de": "Produzierend (gedrosselt)"
-            }
-        },
-        {
-            "id": "6",
-            "title": {
-                "en": "Shutting Down",
-                "de": "Fährt herunter"
-            }
-        },
-        {
-            "id": "7",
-            "title": {
-                "en": "Fault",
-                "de": "Störung"
-            }
-        },
-        {
-            "id": "8",
-            "title": {
-                "en": "Maintenance",
-                "de": "Wartung"
-            }
-        }                                                 
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Off",
+        "de": "Aus"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Sleeping",
+        "de": "Schlafend"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Grid Monitoring",
+        "de": "Netzüberwachung"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "Producing",
+        "de": "Produzierend"
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "Producing (Throttled)",
+        "de": "Produzierend (gedrosselt)"
+      }
+    },
+    {
+      "id": "6",
+      "title": {
+        "en": "Shutting Down",
+        "de": "Fährt herunter"
+      }
+    },
+    {
+      "id": "7",
+      "title": {
+        "en": "Fault",
+        "de": "Störung"
+      }
+    },
+    {
+      "id": "8",
+      "title": {
+        "en": "Maintenance",
+        "de": "Wartung"
+      }
+    }
+  ]
 }

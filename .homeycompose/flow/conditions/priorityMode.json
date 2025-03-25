@@ -1,54 +1,54 @@
 {
-    "title": {
-        "en": "Inverter priority is",
-        "nl": "Omvormerprioriteit is",
-        "de": "Wechselrichter-Priorität ist"
-        },
-        "titleFormatted": {
-        "en": "Inverter priority is [[priority]]",
-        "nl": "Omvormerprioriteit is [[priority]]",
-        "de": "Wechselrichter-Priorität ist [[priority]]"
-        },
-        "hint": {
-        "en": "Inverter priority",
-        "nl": "Omvormerprioriteit",
-        "de": "Wechselrichter-Priorität"
+  "title": {
+    "en": "Inverter priority is",
+    "nl": "Omvormerprioriteit is",
+    "de": "Wechselrichter-Priorität ist"
+  },
+  "titleFormatted": {
+    "en": "Inverter priority is [[priority]]",
+    "nl": "Omvormerprioriteit is [[priority]]",
+    "de": "Wechselrichter-Priorität ist [[priority]]"
+  },
+  "hint": {
+    "en": "Inverter priority",
+    "nl": "Omvormerprioriteit",
+    "de": "Wechselrichter-Priorität"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
     },
-    "args": [
+    {
+      "name": "priority",
+      "type": "dropdown",
+      "values": [
         {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+          "id": "0",
+          "label": {
+            "en": "Load First",
+            "nl": "Belasting eerst",
+            "de": "Last zuerst"
+          }
         },
         {
-            "name": "priority",
-            "type": "dropdown",
-            "values": [
-                {
-                    "id": "0",
-                    "label": {
-                        "en": "Load First",
-                        "nl": "Belasting eerst",
-                        "de": "Last zuerst"
-                    }
-                },
-                {
-                    "id": "1",
-                    "label": {
-                        "en": "Battery First",
-                        "nl": "Batterij eerst",
-                        "de": "Batterie zuerst"
-                    }
-                },
-                {
-                    "id": "2",
-                    "label": {
-                        "en": "Grid First",
-                        "nl": "Net eerst",
-                        "de": "Netz zuerst"
-                    }
-                }
-            ]
+          "id": "1",
+          "label": {
+            "en": "Battery First",
+            "nl": "Batterij eerst",
+            "de": "Batterie zuerst"
+          }
+        },
+        {
+          "id": "2",
+          "label": {
+            "en": "Grid First",
+            "nl": "Net eerst",
+            "de": "Netz zuerst"
+          }
         }
-    ]
+      ]
+    }
+  ]
 }

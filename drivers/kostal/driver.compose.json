@@ -5,9 +5,7 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": [
-      "OTHER"
-    ]
+    "batteries": ["OTHER"]
   },
   "capabilities": [
     "measure_power",
@@ -17,11 +15,11 @@
     "measure_power.pv3input",
     "measure_power.houseloadfrompv",
     "measure_power.houseloadfrombatt",
-    "measure_power.houseloadfromgrid",          
+    "measure_power.houseloadfromgrid",
     "measure_temperature.battery",
     "meter_power",
     "meter_power.daily",
-    "meter_power.houseload",    
+    "meter_power.houseload",
     "battery",
     "measure_battery",
     "batterycycles",
@@ -32,7 +30,7 @@
     "measure_current.meter_phase3",
     "measure_voltage.meter_phase1",
     "measure_voltage.meter_phase2",
-    "measure_voltage.meter_phase3"                              
+    "measure_voltage.meter_phase3"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -48,7 +46,7 @@
         "en": "Grid in/output",
         "de": "Netz Im/Export"
       }
-    },    
+    },
     "measure_power.pv1input": {
       "decimals": 0,
       "title": {
@@ -105,7 +103,7 @@
       "units": { "en": "kWh" },
       "decimals": 0,
       "icon": "/assets/total_yield.svg"
-    },        
+    },
     "measure_power.houseloadfrompv": {
       "decimals": 0,
       "title": {
@@ -193,14 +191,10 @@
         "en": "Meter AC power p3",
         "de": "Zähler AC power P3"
       }
-    }                                                                    
+    }
   },
-  "platforms": [
-    "local"
-  ],
-  "connectivity": [
-    "lan"
-  ],
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"

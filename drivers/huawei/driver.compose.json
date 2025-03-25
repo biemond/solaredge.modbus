@@ -5,13 +5,11 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": [
-      "OTHER"
-    ]
+    "batteries": ["OTHER"]
   },
   "capabilities": [
     "measure_power",
-    "measure_power.active_power",    
+    "measure_power.active_power",
     "measure_current.phase1",
     "measure_current.phase2",
     "measure_current.phase3",
@@ -26,7 +24,7 @@
     "measure_voltage.pv2",
     "measure_current.pv1",
     "measure_current.pv2",
-    "huawei_status"            
+    "huawei_status"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -71,13 +69,13 @@
         "en": "AC Current pv2",
         "de": "AC-Strom pv2"
       }
-    },    
+    },
     "measure_voltage": {
       "title": {
         "en": "Voltage",
         "de": "Spannung"
       }
-    },    
+    },
     "measure_voltage.phase1": {
       "title": {
         "en": "Voltage phase1",
@@ -107,7 +105,7 @@
         "en": "Voltage pv2",
         "de": "Spannung pv2"
       }
-    },    
+    },
     "measure_temperature.invertor": {
       "title": {
         "en": "Heatsink temperature",
@@ -136,17 +134,13 @@
     "huawei_status": {
       "title": {
         "en": "Inverter status",
-	    	"de": "Status des Wechselrichters"
+        "de": "Status des Wechselrichters"
       },
-      "icon": "/assets/operational_status.svg"   
-    }                      
+      "icon": "/assets/operational_status.svg"
+    }
   },
-  "platforms": [
-    "local"
-  ],
-  "connectivity": [
-    "lan"
-  ],
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"

@@ -1,34 +1,34 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Priority",
-		"de": "Priorität"
+  "type": "enum",
+  "title": {
+    "en": "Priority",
+    "de": "Priorität"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Load First",
+        "de": "Last zuerst"
+      }
     },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Load First",
-                "de": "Last zuerst"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Battery First",
-                "de": "Batterie zuerst"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "Grid First",
-                "de": "Netz zuerst"
-            }
-        }        
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Battery First",
+        "de": "Batterie zuerst"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Grid First",
+        "de": "Netz zuerst"
+      }
+    }
+  ]
 }

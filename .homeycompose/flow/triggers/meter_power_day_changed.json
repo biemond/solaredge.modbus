@@ -1,26 +1,26 @@
 {
-    "title": {
-      "en": "Total Day Yield changed",
-      "nl": "Totale dag opbrengst is veranderd",
-		  "de": "Tagesgesamtertrag hat sich verändert"
-    },
-    "tokens": [
-      {
-        "name": "meter_power.daily",
-        "title": {
-          "en": "Energy",
-          "nl": "Energie",
-          "de": "Energie"
-        },
-        "type": "number",
-        "example": 25
-      }
-    ],
-    "args": [
-        {
-          "type": "device",
-          "name": "device",
-          "filter": "driver_id=invertor|invertorwithbatt|sungrowhybirdwithbatt|sungrow"
-        }
-    ]    
+  "title": {
+    "en": "Total Day Yield changed",
+    "nl": "Totale dag opbrengst is veranderd",
+    "de": "Tagesgesamtertrag hat sich verändert"
+  },
+  "tokens": [
+    {
+      "name": "meter_power.daily",
+      "title": {
+        "en": "Energy",
+        "nl": "Energie",
+        "de": "Energie"
+      },
+      "type": "number",
+      "example": 25
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=invertor|invertorwithbatt|sungrowhybirdwithbatt|sungrow"
+    }
+  ]
 }

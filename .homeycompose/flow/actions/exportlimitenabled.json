@@ -1,41 +1,41 @@
 {
-    "title": {
-      "en": "Set export limit to",
-      "nl": "Stel de exportlimiet in op",
-      "de": "Setze Exportbeschränkung auf"
-    },
-    "titleFormatted": {
-      "en": "Set export limit to [[mode]]",
-      "nl": "Stel de exportlimiet in op [[mode]]",
-      "de": "Setze Exportbeschränkung auf [[mode]]"
-    },
-    "args": [
-      {
-        "name": "mode",
-        "type": "dropdown",
-        "values": [
-          {
-            "id": "0",
-            "title": {
-              "en": "Disabled",
-              "nl": "Uit",
-              "de": "Deaktiviert"
-            }
-          },
-          {
-            "id": "1",
-            "title": {
-              "en": "Enabled",
-              "nl": "Aan",
-              "de": "Aktiviert"
-            }
+  "title": {
+    "en": "Set export limit to",
+    "nl": "Stel de exportlimiet in op",
+    "de": "Setze Exportbeschränkung auf"
+  },
+  "titleFormatted": {
+    "en": "Set export limit to [[mode]]",
+    "nl": "Stel de exportlimiet in op [[mode]]",
+    "de": "Setze Exportbeschränkung auf [[mode]]"
+  },
+  "args": [
+    {
+      "name": "mode",
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Disabled",
+            "nl": "Uit",
+            "de": "Deaktiviert"
           }
-        ]
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Enabled",
+            "nl": "Aan",
+            "de": "Aktiviert"
+          }
+        }
+      ]
     },
     {
-        "type": "device",
-        "name": "device",
-        "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
     }
-    ]
+  ]
 }

@@ -1,28 +1,28 @@
 {
-    "title": {
-      "en": "Sync Invertor Clock",
-      "nl": "Synchroniseer omvormerklok",
-      "de": "Synchronisiere Wechselrichteruhr"
-    },
-    "titleFormatted": {
-      "en": "Sync Invertor Clock, including date: [[syncdate]]",
-      "nl": "Synchroniseer omvormerklok, inclusief datum: [[syncdate]]",
-      "de": "Synchronisiere Wechselrichteruhr, einschließlich Datum: [[syncdate]]"
-    },
-    "args": [
+  "title": {
+    "en": "Sync Invertor Clock",
+    "nl": "Synchroniseer omvormerklok",
+    "de": "Synchronisiere Wechselrichteruhr"
+  },
+  "titleFormatted": {
+    "en": "Sync Invertor Clock, including date: [[syncdate]]",
+    "nl": "Synchroniseer omvormerklok, inclusief datum: [[syncdate]]",
+    "de": "Synchronisiere Wechselrichteruhr, einschließlich Datum: [[syncdate]]"
+  },
+  "args": [
     {
-        "type": "checkbox",
-        "name": "syncdate",
-        "title": {
-            "en": "Set Date as well",
-            "nl": "Ook Datum  synchroniseren",
-            "de": "Auch Datum synchronisieren"
-        }
+      "type": "checkbox",
+      "name": "syncdate",
+      "title": {
+        "en": "Set Date as well",
+        "nl": "Ook Datum  synchroniseren",
+        "de": "Auch Datum synchronisieren"
+      }
     },
     {
-        "type": "device",
-        "name": "device",
-        "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
     }
-    ]
-  }
+  ]
+}

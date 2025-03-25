@@ -1,48 +1,48 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Storage Control Mode",
-		"de": "Speicherkontrollmodus"
+  "type": "enum",
+  "title": {
+    "en": "Storage Control Mode",
+    "de": "Speicherkontrollmodus"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Disabled",
+        "de": "Deaktiviert"
+      }
     },
-    "getable": true,
-    "setable": true,
-    "uiComponent": "picker",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Disabled",
-                "de": "Deaktiviert"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Maximize Self Consumption",
-                "de": "Maximiere Eigenverbrauch"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "Time of Use",
-                "de": "Nutzungszeit"
-            }
-        },
-        {
-            "id": "3",
-            "title": {
-                "en": "Backup Only",
-                "de": "Nur als Backup"
-            }
-        },
-        {
-            "id": "4",
-            "title": {
-                "en": "Remote Control",
-                "de": "Ferngesteuert"
-            }
-        }                
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Maximize Self Consumption",
+        "de": "Maximiere Eigenverbrauch"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Time of Use",
+        "de": "Nutzungszeit"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Backup Only",
+        "de": "Nur als Backup"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "Remote Control",
+        "de": "Ferngesteuert"
+      }
+    }
+  ]
 }

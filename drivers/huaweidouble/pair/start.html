@@ -1,56 +1,56 @@
 <script type="text/javascript">
+  Homey.setTitle(__('pair.title_huawei'));
 
-Homey.setTitle( __('pair.title_huawei') );
+  $(function () {
+    $('#connect').click(function () {
+      $('.solaredge-error').hide();
 
-$(function() {
-	$('#connect').click(function() {
-    $('.solaredge-error').hide();
+      var inputaddress = $('#address').val();
+      var inputport = Number($('#port').val());
+      var invertorid = Number($('#invertorid').val());
+      var hasbatteryid = $('#hasbatteryid').is(':checked');
+      var invertorid2 = Number($('#invertorid2').val());
+      var hasbatteryid2 = $('#hasbatteryid2').is(':checked');
 
-    var inputaddress = $('#address').val();
-    var inputport = Number($('#port').val());
-    var invertorid = Number($('#invertorid').val());
-    var hasbatteryid = $('#hasbatteryid').is(":checked");
-    var invertorid2 = Number($('#invertorid2').val());
-    var hasbatteryid2 = $('#hasbatteryid2').is(":checked");
+      var deviceId = Math.random().toString(36).substr(2, 5).toLowerCase();
+      var id = Math.round(Math.random() * (100000 - 10000) + 10000);
 
-    var deviceId = Math.random().toString(36).substr(2,5).toLowerCase();
-    var id = Math.round(Math.random() * (100000 - 10000) + 10000);
+      if (inputaddress != '' && inputport != '') {
+        var device_data = {
+          id: deviceId,
+        };
 
-    if (inputaddress != '' && inputport != '') {
-      var device_data = {
-        id:  deviceId
-      };
+        var settings = {
+          address: inputaddress,
+          port: inputport,
+          id: invertorid,
+          has_battery: hasbatteryid,
+          id2: invertorid2,
+          has_battery2: hasbatteryid2,
+        };
 
-      var settings = {
-        address      : inputaddress,
-        port         : inputport,
-        id           : invertorid,
-        has_battery  : hasbatteryid,
-        id2          : invertorid2,
-        has_battery2 : hasbatteryid2        
-      };
+        Homey.addDevice(
+          {
+            name: 'solar_batt_' + deviceId,
+            data: device_data,
+            settings: settings,
+          },
+          function (error, result) {
+            if (error) {
+              $('.solaredge-error').show();
+              $('.solaredge-error-msg').html(error.message || error.toString());
+            }
+            $('.solaredge-error').hide();
 
-      Homey.addDevice({
-        name   : 'solar_batt_' + deviceId,
-        data 	 : device_data,
-        settings : settings
-      }, function(error, result) {
-        if (error) {
-            $('.solaredge-error').show();
-            $('.solaredge-error-msg').html(error.message || error.toString() );
-        }
-        $('.solaredge-error').hide();
-
-        Homey.done();
-      })
-
-    } else {
+            Homey.done();
+          },
+        );
+      } else {
         $('.solaredge-error').show();
-        $('.solaredge-error-msg').html( __('pair.nosettings') );
-    }
-
-	});
-})
+        $('.solaredge-error-msg').html(__('pair.nosettings'));
+      }
+    });
+  });
 </script>
 
 <style type="text/css">
@@ -62,9 +62,10 @@ $(function() {
   .form-group label {
     display: block;
   }
-  .solaredge-status, .solaredge-info {
-		display: none;
-	}
+  .solaredge-status,
+  .solaredge-info {
+    display: none;
+  }
   .solaredge-info {
     margin-top: 10px;
     font-size: 12px;
@@ -73,7 +74,8 @@ $(function() {
     min-width: 150px;
     font-weight: 700;
   }
-  .buttons, .messages {
+  .buttons,
+  .messages {
     padding-top: 14px;
   }
   .button:disabled {
@@ -85,27 +87,27 @@ $(function() {
   }
 </style>
 
-<p data-i18n="pair.intro">Enter the IP address and port of your Huawei S-Dongle. </p>
+<p data-i18n="pair.intro">Enter the IP address and port of your Huawei S-Dongle.</p>
 <div class="solaredge-pairing">
   <div class="form-group">
     <label for="address" data-i18n="pair.address">IP address</label>
-    <input type="text" class="form-control" id="address" placeholder="0.0.0.0" required>
+    <input type="text" class="form-control" id="address" placeholder="0.0.0.0" required />
   </div>
   <div class="form-group">
-  	<label for="port" data-i18n="pair.port">Port</label>
-  	<input type="number" class="form-control" id="port" placeholder="502" value="502" required>
+    <label for="port" data-i18n="pair.port">Port</label>
+    <input type="number" class="form-control" id="port" placeholder="502" value="502" required />
   </div>
   <div class="form-group">
-  	<label for="invertorid" data-i18n="pair.deviceid">Port</label>
-  	<input type="number" class="form-control" id="invertorid" placeholder="1" value="1" required>
-  	<label for="hasbatteryid" data-i18n="pair.deviceidbattery">Has battery</label>  
-    <input type="checkbox" class="form-control" id="hasbatteryid">
+    <label for="invertorid" data-i18n="pair.deviceid">Port</label>
+    <input type="number" class="form-control" id="invertorid" placeholder="1" value="1" required />
+    <label for="hasbatteryid" data-i18n="pair.deviceidbattery">Has battery</label>
+    <input type="checkbox" class="form-control" id="hasbatteryid" />
   </div>
   <div class="form-group">
-  	<label for="invertorid2" data-i18n="pair.deviceid2">Port</label>
-  	<input type="number" class="form-control" id="invertorid2" placeholder="3" value="3" required>
-  	<label for="hasbatteryid2" data-i18n="pair.deviceid2battery">Has battery</label>    
-  	<input type="checkbox" class="form-control" id="hasbatteryid2">
+    <label for="invertorid2" data-i18n="pair.deviceid2">Port</label>
+    <input type="number" class="form-control" id="invertorid2" placeholder="3" value="3" required />
+    <label for="hasbatteryid2" data-i18n="pair.deviceid2battery">Has battery</label>
+    <input type="checkbox" class="form-control" id="hasbatteryid2" />
   </div>
   <div class="form-group buttons">
     <button id="connect" class="button" data-i18n="pair.connect">Connect</button>
@@ -113,5 +115,5 @@ $(function() {
 </div>
 
 <div class="messages">
-  <p class="solaredge-status solaredge-error" style="color: #ff6300;"><i class="fa fa-times"></i> <span class="solaredge-error-msg"></span></p>
+  <p class="solaredge-status solaredge-error" style="color: #ff6300"><i class="fa fa-times"></i> <span class="solaredge-error-msg"></span></p>
 </div>

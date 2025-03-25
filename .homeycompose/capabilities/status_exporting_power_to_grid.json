@@ -1,7 +1,7 @@
 {
-    "type": "boolean",
-    "title": { "en": "Power feed-in the grid" },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "toggle"
-  }
+  "type": "boolean",
+  "title": { "en": "Power feed-in the grid" },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "toggle"
+}

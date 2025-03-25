@@ -1,25 +1,25 @@
 {
-    "title": {
-        "en": "Set Active Power Limit to",
-        "de": "Setze Aktive Leistungsbeschränkung auf"
+  "title": {
+    "en": "Set Active Power Limit to",
+    "de": "Setze Aktive Leistungsbeschränkung auf"
+  },
+  "args": [
+    {
+      "type": "range",
+      "name": "value",
+      "title": {
+        "en": "percentage",
+        "de": "Prozent"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "labelDecimals": 0
     },
-    "args": [
-        {
-            "type": "range",
-            "name": "value",
-            "title": {
-                "en": "percentage",
-                "de": "Prozent"
-            },
-            "min": 0,
-            "max": 100,
-            "step": 1,
-            "labelDecimals": 0
-        },
-        {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=invertor|invertorwithbatt"
-        }
-    ]
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=invertor|invertorwithbatt"
+    }
+  ]
 }

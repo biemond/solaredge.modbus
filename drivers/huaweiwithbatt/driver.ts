@@ -1,7 +1,6 @@
 import Homey from 'homey';
 
 class MyHuaweiBatteryDriver extends Homey.Driver {
-
   /**
    * onInit is called when the driver is initialized.
    */
@@ -27,7 +26,6 @@ class MyHuaweiBatteryDriver extends Homey.Driver {
       // },
     ];
   }
-
 }
 
 module.exports = MyHuaweiBatteryDriver;

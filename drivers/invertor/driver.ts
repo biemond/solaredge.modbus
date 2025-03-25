@@ -1,7 +1,6 @@
 import Homey from 'homey';
 
 class MySolaredgeDriver extends Homey.Driver {
-
   /**
    * onInit is called when the driver is initialized.
    */
@@ -14,10 +13,8 @@ class MySolaredgeDriver extends Homey.Driver {
    * This should return an array with the data of devices that are available for pairing.
    */
   async onPairListDevices() {
-    return [
-    ];
+    return [];
   }
-  
 }
 
 module.exports = MySolaredgeDriver;

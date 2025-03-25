@@ -1,5 +1,3 @@
 {
-    "recommendations": [
-        "homey.homey-apps-extension"
-    ]
+  "recommendations": ["homey.homey-apps-extension"]
 }

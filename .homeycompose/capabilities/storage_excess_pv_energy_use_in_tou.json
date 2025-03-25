@@ -1,24 +1,24 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Storage excess pv"
+  "type": "enum",
+  "title": {
+    "en": "Storage excess pv"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Fed to grid"
+      }
     },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Fed to grid"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Charge"
-            }
-        }      
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Charge"
+      }
+    }
+  ]
 }

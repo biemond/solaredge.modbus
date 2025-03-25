@@ -1,13 +1,13 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import {checkHoldingRegisterHuaweiEmma} from '../response';
+import { checkHoldingRegisterHuaweiEmma } from '../response';
 import { Huawei } from '../huawei';
 import Homey, { Device } from 'homey';
 
-const RETRY_INTERVAL = 25 * 1000; 
+const RETRY_INTERVAL = 25 * 1000;
 
 class MyHuaweiEmmaDevice extends Huawei {
-  timer!: NodeJS.Timer;  
+  timer!: NodeJS.Timer;
   /**
    * onInit is called when the device is initialized.
    */
@@ -15,8 +15,8 @@ class MyHuaweiEmmaDevice extends Huawei {
     this.log('MyHuaweiEmmaDevice has been initialized');
 
     let name = this.getData().id;
-    this.log("device name id " + name );
-    this.log("device name " + this.getName());
+    this.log('device name id ' + name);
+    this.log('device name ' + this.getName());
 
     this.pollInvertor();
 
@@ -33,26 +33,25 @@ class MyHuaweiEmmaDevice extends Huawei {
     this.registerCapabilityListener('power_control_mode_at_grid', async (value) => {
       this.updateControl('power_control_mode_at_grid', Number(value), this);
       return value;
-    });    
+    });
 
     let controlBatteryControl = this.homey.flow.getActionCard('battery_control');
     controlBatteryControl.registerRunListener(async (args, state) => {
       let name = this.getData().id;
-      this.log("device name id " + name );
-      this.log("device name " + this.getName());
-      this.log(args.device.getName());      
+      this.log('device name id ' + name);
+      this.log('device name ' + this.getName());
+      this.log(args.device.getName());
       await this.updateControl('battery_control', Number(args.mode), args.device);
-    });  
+    });
 
     let controlpowerControlModeAtGrid = this.homey.flow.getActionCard('power_control_mode_at_grid');
     controlpowerControlModeAtGrid.registerRunListener(async (args, state) => {
       let name = this.getData().id;
-      this.log("device name id " + name );
-      this.log("device name " + this.getName());
-      this.log(args.device.getName());      
+      this.log('device name id ' + name);
+      this.log('device name ' + this.getName());
+      this.log(args.device.getName());
       await this.updateControl('power_control_mode_at_grid', Number(args.mode), args.device);
-    });  
-
+    });
   }
 
   /**
@@ -70,7 +69,7 @@ class MyHuaweiEmmaDevice extends Huawei {
    * @param {string[]} event.changedKeys An array of keys changed since the previous version
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
-  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string|void> {
+  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string | void> {
     this.log('MyHuaweiEmmaDevice settings where changed');
   }
 
@@ -90,37 +89,36 @@ class MyHuaweiEmmaDevice extends Huawei {
     this.log('MyHuaweiEmmaDevice has been deleted');
     this.homey.clearInterval(this.timer);
   }
-  
+
   delay(ms: any) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  async updateControl(type: string, value: number, device:  Homey.Device) {
+  async updateControl(type: string, value: number, device: Homey.Device) {
     let name = device.getData().id;
-    this.log("device name id " + name );
-    this.log("device name " + device.getName());    
+    this.log('device name id ' + name);
+    this.log('device name ' + device.getName());
     let socket = new net.Socket();
     var unitID = device.getSetting('id');
-    let client = new Modbus.client.TCP(socket, unitID, 2000); 
+    let client = new Modbus.client.TCP(socket, unitID, 2000);
 
     let modbusOptions = {
-      'host': device.getSetting('address'),
-      'port': device.getSetting('port'),
-      'unitId': device.getSetting('id'),
-      'timeout': 15,
-      'autoReconnect': false,
-      'logLabel': 'emma device',
-      'logLevel': 'error',
-      'logEnabled': true
-    }
+      host: device.getSetting('address'),
+      port: device.getSetting('port'),
+      unitId: device.getSetting('id'),
+      timeout: 15,
+      autoReconnect: false,
+      logLabel: 'emma device',
+      logLevel: 'error',
+      logEnabled: true,
+    };
 
-    socket.setKeepAlive(false); 
+    socket.setKeepAlive(false);
     socket.connect(modbusOptions);
     console.log(modbusOptions);
-    
-    socket.on('connect', async () => {
 
-      if ( type== 'battery_control') {
+    socket.on('connect', async () => {
+      if (type == 'battery_control') {
         // Battery control ESS control mode RW ENUM16 40000 1
         // 1: reserved
         // 2: maximum self-consumption
@@ -129,7 +127,7 @@ class MyHuaweiEmmaDevice extends Huawei {
         // 5: time of use
         // 6: Third- party dispatch
         const battery_controlRes = await client.writeSingleRegister(40000, Number(value));
-        console.log('battery_control', battery_controlRes)
+        console.log('battery_control', battery_controlRes);
       }
 
       if (type == 'power_control_mode_at_grid') {
@@ -138,40 +136,39 @@ class MyHuaweiEmmaDevice extends Huawei {
         // 6: limited feed-in (kW)
         // 7: power- limited grid connecte d (%)
         const power_control_mode_at_gridRes = await client.writeSingleRegister(40100, Number(value));
-        console.log('power_control_mode_at_grid', power_control_mode_at_gridRes)
+        console.log('power_control_mode_at_grid', power_control_mode_at_gridRes);
       }
 
       console.log('disconnect');
       client.socket.end();
       socket.end();
-    })
+    });
 
     socket.on('close', () => {
       console.log('Client closed');
-    }); 
+    });
 
     socket.on('error', (err) => {
       console.log(err);
       socket.end();
       setTimeout(() => socket.connect(modbusOptions), 4000);
-    })
+    });
   }
 
-
   async pollInvertor() {
-    this.log("pollInvertor");
+    this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
     let modbusOptions = {
-      'host': this.getSetting('address'),
-      'port': this.getSetting('port'),
-      'unitId': this.getSetting('id'),
-      'timeout': 27,
-      'autoReconnect': false,
-      'logLabel' : 'huawei Inverter',
-      'logLevel': 'error',
-      'logEnabled': true
-    }    
+      host: this.getSetting('address'),
+      port: this.getSetting('port'),
+      unitId: this.getSetting('id'),
+      timeout: 27,
+      autoReconnect: false,
+      logLabel: 'huawei Inverter',
+      logLevel: 'error',
+      logEnabled: true,
+    };
 
     let socket = new net.Socket();
     var unitID = this.getSetting('id');
@@ -187,20 +184,20 @@ class MyHuaweiEmmaDevice extends Huawei {
 
       const checkRegisterRes = await checkHoldingRegisterHuaweiEmma(this.holdingEmmaRegisters, client);
 
-      console.log('disconnect'); 
+      console.log('disconnect');
       client.socket.end();
       socket.end();
-      const finalRes = { ...checkRegisterRes }
-      this.processEmmaResult(finalRes)
+      const finalRes = { ...checkRegisterRes };
+      this.processEmmaResult(finalRes);
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
       let seconds = Math.floor(timeDiff / 1000);
-      console.log("total time: " +seconds + " seconds");
-    });    
+      console.log('total time: ' + seconds + ' seconds');
+    });
 
     socket.on('close', () => {
       console.log('Client closed');
-    });  
+    });
 
     socket.on('timeout', () => {
       console.log('socket timed out!');
@@ -212,7 +209,7 @@ class MyHuaweiEmmaDevice extends Huawei {
       console.log(err);
       client.socket.end();
       socket.end();
-    })
+    });
   }
 }
 

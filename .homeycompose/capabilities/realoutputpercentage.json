@@ -1,19 +1,19 @@
 {
-    "type": "number",
-    "title": {
-      "en": "real output power",
-      "de": "Reale Ausgangsleistung"
-    },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,    
-    "insights": true,
-    "units": {
-      "en": "%",
-      "nl": "%"
-    },
-    "decimals": 0,
-    "min": 0,
-    "max": 100    
+  "type": "number",
+  "title": {
+    "en": "real output power",
+    "de": "Reale Ausgangsleistung"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "insights": true,
+  "units": {
+    "en": "%",
+    "nl": "%"
+  },
+  "decimals": 0,
+  "min": 0,
+  "max": 100
 }

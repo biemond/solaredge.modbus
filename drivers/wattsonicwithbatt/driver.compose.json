@@ -5,22 +5,20 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": [
-      "OTHER"
-    ]
+    "batteries": ["OTHER"]
   },
   "capabilities": [
     "measure_power",
-    "measure_power.gridoutput",    
+    "measure_power.gridoutput",
     "measure_power.pv1input",
     "measure_power.pv2input",
     "measure_power.batt_charge",
-    "measure_power.batt_discharge",    
+    "measure_power.batt_discharge",
     "measure_current.phase1",
     "measure_current.phase2",
     "measure_current.phase3",
     "measure_temperature.invertor",
-    "measure_temperature.battery",    
+    "measure_temperature.battery",
     "meter_power",
     "meter_power.daily",
     "battery",
@@ -34,9 +32,9 @@
     "meter_power.today_batt_input",
     "meter_power.battery_input",
     "meter_power.battery_output",
-    "meter_power.today_load",    
+    "meter_power.today_load",
     "batterystatus",
-    "hybridinvertermode"                     
+    "hybridinvertermode"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -66,7 +64,7 @@
         "en": "Grid output",
         "de": "Netzexport"
       }
-    },    
+    },
     "measure_power.batt_discharge": {
       "decimals": 0,
       "title": {
@@ -80,7 +78,7 @@
         "en": "Battery Power charge",
         "de": "Batterieladeleistung"
       }
-    },    
+    },
     "measure_current.phase1": {
       "title": {
         "en": "AC Current phase1",
@@ -113,7 +111,7 @@
         "de": "Batterietemperatur"
       },
       "decimals": 2
-    },    
+    },
     "meter_power": {
       "title": {
         "en": "Total Yield",
@@ -196,7 +194,7 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    },    
+    },
     "meter_power.today_batt_output": {
       "title": {
         "en": "Battery Output Day Yield",
@@ -229,14 +227,10 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    }                   
+    }
   },
-  "platforms": [
-    "local"
-  ],
-  "connectivity": [
-    "lan"
-  ],
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"

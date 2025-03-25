@@ -1,19 +1,18 @@
 {
-      "type": "number",
-      "title": {
-        "en": "Battery 2 Health",
-        "nl": "Batterij 2 SoH",
-        "de": "Batteriezustand 2"
-      },
-      "getable": true,
-      "setable": false,
-      "insights": true,
-      "decimals": 1,
-      "uiComponent": "sensor",
-      "icon": "/assets/battery.svg",
-      "units": {
-        "en": "%",
-        "nl": "%"
-      }
+  "type": "number",
+  "title": {
+    "en": "Battery 2 Health",
+    "nl": "Batterij 2 SoH",
+    "de": "Batteriezustand 2"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "decimals": 1,
+  "uiComponent": "sensor",
+  "icon": "/assets/battery.svg",
+  "units": {
+    "en": "%",
+    "nl": "%"
+  }
 }
-    

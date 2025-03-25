@@ -5,22 +5,20 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": [
-      "OTHER"
-    ]
+    "batteries": ["OTHER"]
   },
   "capabilities": [
     "measure_power",
     "measure_power.pv",
-    "measure_power.grid",    
-    "measure_power.batt_charge_discharge",    
-    "measure_power.consumed",         
+    "measure_power.grid",
+    "measure_power.batt_charge_discharge",
+    "measure_power.consumed",
     "measure_temperature.invertor",
     "measure_temperature.battery",
     "meter_power.daily_export",
     "meter_power.daily_import",
     "meter_power.daily_charge",
-    "meter_power.daily_discharge",           
+    "meter_power.daily_discharge",
     "measure_voltage.battery",
     "battery",
     "measure_battery",
@@ -34,7 +32,7 @@
     "sigendev_running_state_code",
     "sigen_remote_ems_code",
     "sigen_remote_ems_control_mode_code",
-    "grid_status"            
+    "grid_status"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -62,14 +60,14 @@
       "title": {
         "en": "Consumed Power"
       }
-    },           
+    },
     "measure_power.batt_charge_discharge": {
       "decimals": 0,
       "title": {
         "en": "Battery Power charge/discharge",
         "de": "Batterie Lade/Entladung"
       }
-    },    
+    },
     "measure_temperature.invertor": {
       "title": {
         "en": "Heatsink temperature",
@@ -112,7 +110,7 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
-    },    
+    },
     "measure_voltage.battery": {
       "title": {
         "en": "Battery Voltage",
@@ -154,14 +152,10 @@
         "en": "Voltage phase3",
         "de": "Spannung Phase 3"
       }
-    }        
+    }
   },
-  "platforms": [
-    "local"
-  ],
-  "connectivity": [
-    "lan"
-  ],
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"

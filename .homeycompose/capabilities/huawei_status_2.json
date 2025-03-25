@@ -1,8 +1,8 @@
 {
-    "type": "string",
-    "title": {
-        "en": "Status"
-    },
-    "getable": true,
-    "setable": false
+  "type": "string",
+  "title": {
+    "en": "Status"
+  },
+  "getable": true,
+  "setable": false
 }

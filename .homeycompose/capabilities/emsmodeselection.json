@@ -1,42 +1,42 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Hybrid Inverter Working Mode"
+  "type": "enum",
+  "title": {
+    "en": "Hybrid Inverter Working Mode"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Self-consumption mode"
+      }
     },
-    "getable": true,
-    "setable": true,
-    "uiComponent": "picker",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Self-consumption mode"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "Forced mode (charge/discharge/stop)"
-            }
-        },
-        {
-            "id": "3",
-            "title": {
-                "en": "External EMS mode"
-            }
-        },
-        {
-            "id": "4",
-            "title": {
-                "en": "VPP"
-            }
-        },
-        {
-            "id": "8",
-            "title": {
-                "en": "MicroGrid"
-            }
-        }                                                    
-    ]
+    {
+      "id": "2",
+      "title": {
+        "en": "Forced mode (charge/discharge/stop)"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "External EMS mode"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "VPP"
+      }
+    },
+    {
+      "id": "8",
+      "title": {
+        "en": "MicroGrid"
+      }
+    }
+  ]
 }

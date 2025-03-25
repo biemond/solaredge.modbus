@@ -1,36 +1,36 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Running state code"
+  "type": "enum",
+  "title": {
+    "en": "Running state code"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Standby"
+      }
     },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Standby"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Running"
-            }
-        },
-        {
-            "id": "2",
-            "title": {
-                "en": "Fault"
-            }
-        },
-        {
-            "id": "3",
-            "title": {
-                "en": "Shutdown"
-            }
-        }                        
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Running"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Fault"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Shutdown"
+      }
+    }
+  ]
 }

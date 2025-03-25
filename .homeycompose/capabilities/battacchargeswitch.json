@@ -1,34 +1,34 @@
 {
-    "type": "enum",
-    "title": {
-        "en": "Batt AC charge switch",
-		"de": "Netzladung der Batterie"
+  "type": "enum",
+  "title": {
+    "en": "Batt AC charge switch",
+    "de": "Netzladung der Batterie"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Disabled",
+        "de": "Deaktiviert"
+      }
     },
-    "getable": true,
-    "setable": false,
-    "uiComponent": "sensor",
-    "uiQuickAction": false,
-    "values": [
-        {
-            "id": "0",
-            "title": {
-                "en": "Disabled",
-                "de": "Deaktiviert"
-            }
-        },
-        {
-            "id": "1",
-            "title": {
-                "en": "Enabled",
-                "de": "Aktiviert"
-            }
-        },
-        {
-            "id": "100",
-            "title": {
-                "en": "Enabled",
-                "de": "Aktiviert"
-            }
-        }                                             
-    ]
+    {
+      "id": "1",
+      "title": {
+        "en": "Enabled",
+        "de": "Aktiviert"
+      }
+    },
+    {
+      "id": "100",
+      "title": {
+        "en": "Enabled",
+        "de": "Aktiviert"
+      }
+    }
+  ]
 }
