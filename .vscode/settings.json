@@ -25,6 +25,7 @@
     "battminsoc",
     "bfchargerate",
     "clocksync",
+    "exportlimit",
     "exportlimitpowerrate",
     "exportlimitpowerrated",
     "gfdischargerate",

@@ -32,6 +32,12 @@ class MyGrowattBattery extends Growatt {
       return Promise.resolve(result);
     });
 
+    const limitCondition = this.homey.flow.getConditionCard('exportLimit');
+    limitCondition.registerRunListener(async (args, state) => {
+      const result = Number(await args.device.getCapabilityValue('exportLimit')) === Number(args.exportlimit);
+      return Promise.resolve(result);
+    });
+
     // flow action
     const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
@@ -93,27 +99,27 @@ class MyGrowattBattery extends Growatt {
     battfirsttime1Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('battfirsttime1', args.starttime, args.stoptime, Number(args.active));
     });
-    // let battfirsttime2Action = this.homey.flow.getActionCard('battfirsttime2');
-    // battfirsttime2Action.registerRunListener(async (args, state) => {
-    //   await this.updateControlProfile('battfirsttime2', args.starttime, args.stoptime, Number(args.active));
-    // });
-    // let battfirsttime3Action = this.homey.flow.getActionCard('battfirsttime3');
-    // battfirsttime3Action.registerRunListener(async (args, state) => {
-    //   await this.updateControlProfile('battfirsttime3', args.starttime, args.stoptime, Number(args.active));
-    // });
+    let battfirsttime2Action = this.homey.flow.getActionCard('battfirsttime2');
+    battfirsttime2Action.registerRunListener(async (args, state) => {
+      await this.updateControlProfile('battfirsttime2', args.starttime, args.stoptime, Number(args.active));
+    });
+    let battfirsttime3Action = this.homey.flow.getActionCard('battfirsttime3');
+    battfirsttime3Action.registerRunListener(async (args, state) => {
+      await this.updateControlProfile('battfirsttime3', args.starttime, args.stoptime, Number(args.active));
+    });
 
     const gridfirsttime1Action = this.homey.flow.getActionCard('gridfirsttime1');
     gridfirsttime1Action.registerRunListener(async (args, state) => {
       await this.updateControlProfile('gridfirsttime1', args.starttime, args.stoptime, Number(args.active));
     });
-    // let gridfirsttime2Action = this.homey.flow.getActionCard('gridfirsttime2');
-    // gridfirsttime2Action.registerRunListener(async (args, state) => {
-    //   await this.updateControlProfile('gridfirsttime2', args.starttime, args.stoptime, Number(args.active));
-    // });
-    // let gridfirsttime3Action = this.homey.flow.getActionCard('gridfirsttime3');
-    // gridfirsttime3Action.registerRunListener(async (args, state) => {
-    //   await this.updateControlProfile('gridfirsttime3', args.starttime, args.stoptime, Number(args.active));
-    // });
+    let gridfirsttime2Action = this.homey.flow.getActionCard('gridfirsttime2');
+    gridfirsttime2Action.registerRunListener(async (args, state) => {
+      await this.updateControlProfile('gridfirsttime2', args.starttime, args.stoptime, Number(args.active));
+    });
+    let gridfirsttime3Action = this.homey.flow.getActionCard('gridfirsttime3');
+    gridfirsttime3Action.registerRunListener(async (args, state) => {
+      await this.updateControlProfile('gridfirsttime3', args.starttime, args.stoptime, Number(args.active));
+    });
 
     // homey menu / device actions
     this.registerCapabilityListener('exportlimitenabled', async (value) => {
@@ -155,8 +161,20 @@ class MyGrowattBattery extends Growatt {
     if (this.hasCapability('gridfirst1') === false) {
       await this.addCapability('gridfirst1');
     }
+    if (this.hasCapability('gridfirst2') === false) {
+      await this.addCapability('gridfirst2');
+    }
+    if (this.hasCapability('gridfirst3') === false) {
+      await this.addCapability('gridfirst3');
+    }
     if (this.hasCapability('battfirst1') === false) {
       await this.addCapability('battfirst1');
+    }
+    if (this.hasCapability('battfirst2') === false) {
+      await this.addCapability('battfirst2');
+    }
+    if (this.hasCapability('battfirst3') === false) {
+      await this.addCapability('battfirst3');
     }
     if (this.hasCapability('battacchargeswitch') === false) {
       await this.addCapability('battacchargeswitch');

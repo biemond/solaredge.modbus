@@ -256,6 +256,226 @@
           ]
         }
       ]
+    },
+    {
+      "id": "battfirsttime2",
+      "title": {
+        "en": "Battery First, time slot 2:",
+        "nl": "Batterij Eerst, tijdslot 2:",
+        "de": "Batterie Zuerst, Zeitfenster 2:"
+      },
+      "titleFormatted": {
+        "en": "Battery First, time slot 2: [[starttime]] ~ [[stoptime]] state: [[active]]",
+        "nl": "Batterij Eerst, tijdslot 2: [[starttime]] ~ [[stoptime]] state: [[active]]",
+        "de": "Batterie Zuerst, Zeitfenster 2: [[starttime]] ~ [[stoptime]] state: [[active]]"
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "starttime",
+          "title": {
+            "en": "Start Time",
+            "nl": "Starttijd",
+            "de": "Startzeit"
+          },
+          "placeholder": { "en": "13:37" }
+        },
+        {
+          "type": "time",
+          "name": "stoptime",
+          "title": {
+            "en": "Stop Time",
+            "nl": "Stop tijd",
+            "de": "Stop Zeit"
+          },
+          "placeholder": { "en": "14:37" }
+        },
+        {
+          "name": "active",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Disabled",
+                "de": "Deaktiviert"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Enabled",
+                "de": "Aktiviert"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "battfirsttime3",
+      "title": {
+        "en": "Battery First, time slot 3:",
+        "nl": "Batterij Eerst, tijdslot 3:",
+        "de": "Batterie Zuerst, Zeitfenster 3:"
+      },
+      "titleFormatted": {
+        "en": "Battery First, time slot 3: [[starttime]] ~ [[stoptime]] state: [[active]]",
+        "nl": "Batterij Eerst, tijdslot 3: [[starttime]] ~ [[stoptime]] state: [[active]]",
+        "de": "Batterie Zuerst, Zeitfenster 3: [[starttime]] ~ [[stoptime]] state: [[active]]"
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "starttime",
+          "title": {
+            "en": "Start Time",
+            "nl": "Starttijd",
+            "de": "Startzeit"
+          },
+          "placeholder": { "en": "13:37" }
+        },
+        {
+          "type": "time",
+          "name": "stoptime",
+          "title": {
+            "en": "Stop Time",
+            "nl": "Stop tijd",
+            "de": "Stop Zeit"
+          },
+          "placeholder": { "en": "14:37" }
+        },
+        {
+          "name": "active",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Disabled",
+                "de": "Deaktiviert"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Enabled",
+                "de": "Aktiviert"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gridfirsttime2",
+      "title": {
+        "en": "Grid First, time slot 2:",
+        "nl": "Net Eerst, tijdslot 2:",
+        "de": "Netz Zuerst, Zeitfenster 2:"
+      },
+      "titleFormatted": {
+        "en": "Grid First, time slot 2: [[starttime]] ~ [[stoptime]] state: [[active]]",
+        "nl": "Net Eerst, tijdslot 2: [[starttime]] ~ [[stoptime]] state: [[active]]",
+        "de": "Netz zuerst, Zeitfenster 2: [[starttime]] ~ [[stoptime]] state: [[active]]"
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "starttime",
+          "title": {
+            "en": "Start Time",
+            "nl": "Starttijd",
+            "de": "Startzeit"
+          },
+          "placeholder": { "en": "13:37" }
+        },
+        {
+          "type": "time",
+          "name": "stoptime",
+          "title": {
+            "en": "Stop Time",
+            "nl": "Stop tijd",
+            "de": "Stop Zeit"
+          },
+          "placeholder": { "en": "14:37" }
+        },
+        {
+          "name": "active",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Disabled",
+                "de": "Deaktiviert"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Enabled",
+                "de": "Aktiviert"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gridfirsttime3",
+      "title": {
+        "en": "Grid First, time slot 3:",
+        "nl": "Net Eerst, tijdslot 3:",
+        "de": "Netz Zuerst, Zeitfenster 3:"
+      },
+      "titleFormatted": {
+        "en": "Grid First, time slot 3: [[starttime]] ~ [[stoptime]] state: [[active]]",
+        "nl": "Net Eerst, tijdslot 3: [[starttime]] ~ [[stoptime]] state: [[active]]",
+        "de": "Netz zuerst, Zeitfenster 3: [[starttime]] ~ [[stoptime]] state: [[active]]"
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "starttime",
+          "title": {
+            "en": "Start Time",
+            "nl": "Starttijd",
+            "de": "Startzeit"
+          },
+          "placeholder": { "en": "13:37" }
+        },
+        {
+          "type": "time",
+          "name": "stoptime",
+          "title": {
+            "en": "Stop Time",
+            "nl": "Stop tijd",
+            "de": "Stop Zeit"
+          },
+          "placeholder": { "en": "14:37" }
+        },
+        {
+          "name": "active",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Disabled",
+                "de": "Deaktiviert"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Enabled",
+                "de": "Aktiviert"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -50,7 +50,11 @@
     "gfdischargerate",
     "bfchargerate",
     "gridfirst1",
+    "gridfirst2",
+    "gridfirst3",
     "battfirst1",
+    "battfirst2",
+    "battfirst3",
     "battacchargeswitch"
   ],
   "capabilitiesOptions": {
