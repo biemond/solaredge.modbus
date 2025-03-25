@@ -5,9 +5,7 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": [
-      "OTHER"
-    ]
+    "batteries": ["OTHER"]
   },
   "capabilities": [
     "measure_power",
@@ -40,7 +38,7 @@
     "priority",
     "measure_power.houseload",
     "measure_power.import",
-    "measure_power.export",          
+    "measure_power.export",
     "meter_power.today_grid_import",
     "meter_power.today_grid_export",
     "meter_power.today_batt_output",
@@ -207,7 +205,7 @@
       "title": {
         "en": "Exported to grid"
       }
-    },        
+    },
     "measure_voltage.meter": {
       "title": {
         "en": "Meter AC Voltage",
@@ -276,12 +274,8 @@
       "icon": "/assets/total_yield.svg"
     }
   },
-  "platforms": [
-    "local"
-  ],
-  "connectivity": [
-    "lan"
-  ],
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"
@@ -326,7 +320,7 @@
           "label": {
             "en": "Max peak power in W"
           }
-        },        
+        },
         {
           "id": "id",
           "type": "number",
