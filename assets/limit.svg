@@ -1,0 +1,35 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     x="0px" y="0px" width="554.883px" height="554.883px"
+     viewBox="0 0 554.883 554.883"
+     style="enable-background:new 0 0 554.883 554.883;"
+     xml:space="preserve">
+
+<rect x="100" y="300" width="40" height="100" fill="#000"/>
+<rect x="180" y="250" width="40" height="150" fill="#000"/>
+<rect x="260" y="180" width="40" height="220" fill="#000"/>
+
+
+<path d="
+  M 100.00,260.00
+  L 167.88,243.03
+  L 129.70,204.85
+  L 244.85,89.70
+  L 232.12,76.97
+  L 300.00,60.00
+  L 283.03,127.88
+  L 270.30,115.15
+  L 155.15,230.30
+  L 116.97,192.12
+  Z
+" fill="#000"/>
+
+
+<g transform="translate(40,40)">
+  <rect x="0" y="0" width="30" height="30" fill="#000"/>
+  <rect x="90" y="90" width="30" height="30" fill="#000"/>
+  <line x1="0" y1="120" x2="120" y2="0" stroke="#000" stroke-width="28"/>
+</g>
+
+</svg>
