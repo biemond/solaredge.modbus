@@ -8,6 +8,7 @@
   "setable": false,
   "uiComponent": "sensor",
   "uiQuickAction": false,
+  "icon": "/assets/priority.svg",
   "values": [
     {
       "id": "0",

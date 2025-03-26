@@ -9,6 +9,7 @@
   "uiComponent": "sensor",
   "uiQuickAction": true,
   "insights": true,
+  "icon": "/assets/limit.svg",
   "units": {
     "en": "%",
     "nl": "%"
