@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.178",
+  "version": "3.0.180",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -800,12 +800,12 @@
     "conditions": [
       {
         "title": {
-          "en": "Inverter status is",
-          "de": "Status des Wechselrichters ist"
+          "en": "Inverter status !{{is|is not}}",
+          "de": "Status des Wechselrichters !{{ist|ist nicht}}"
         },
         "titleFormatted": {
-          "en": "Inverter status is [[argument_main]]",
-          "de": "Status des Wechselrichters ist [[argument_main]]"
+          "en": "Inverter status !{{is|is not}} [[argument_main]]",
+          "de": "Status des Wechselrichters !{{ist|ist nicht}} [[argument_main]]"
         },
         "hint": {
           "en": "Inverter status",
@@ -891,14 +891,14 @@
       },
       {
         "title": {
-          "en": "Export Limit is",
-          "nl": "Export limiet is",
-          "de": "Exportlimit ist"
+          "en": "Export Limit !{{is|is not}}",
+          "nl": "Export limiet !{{is|is niet}}",
+          "de": "Exportlimit !{{ist|ist nicht}}"
         },
         "titleFormatted": {
-          "en": "Export limit is [[exportlimit]]",
-          "nl": "Export limiet is [[exportlimit]]",
-          "de": "Exportlimit ist [[exportlimit]]"
+          "en": "Export limit !{{is|is not}} [[exportlimit]]",
+          "nl": "Export limiet !{{is|is niet}} [[exportlimit]]",
+          "de": "Exportlimit !{{ist|ist nicht}} [[exportlimit]]"
         },
         "hint": {
           "en": "Whether export limit is enabled or disabled",
@@ -938,14 +938,14 @@
       },
       {
         "title": {
-          "en": "Inverter priority is",
-          "nl": "Omvormerprioriteit is",
-          "de": "Wechselrichter-Priorität ist"
+          "en": "Inverter priority !{{is|is not}}",
+          "nl": "Omvormerprioriteit !{{is|is niet}}",
+          "de": "Wechselrichter-Priorität !{{ist|ist nicht}}"
         },
         "titleFormatted": {
-          "en": "Inverter priority is [[priority]]",
-          "nl": "Omvormerprioriteit is [[priority]]",
-          "de": "Wechselrichter-Priorität ist [[priority]]"
+          "en": "Inverter priority !{{is|is not}} [[priority]]",
+          "nl": "Omvormerprioriteit !{{is|is niet}} [[priority]]",
+          "de": "Wechselrichter-Priorität !{{ist|ist nicht}} [[priority]]"
         },
         "hint": {
           "en": "Inverter priority",
@@ -9369,6 +9369,7 @@
       "uiComponent": "sensor",
       "uiQuickAction": true,
       "insights": true,
+      "icon": "/assets/limit.svg",
       "units": {
         "en": "%",
         "nl": "%"
