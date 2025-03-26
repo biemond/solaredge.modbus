@@ -1,11 +1,11 @@
 {
   "title": {
-    "en": "Inverter status is",
-    "de": "Status des Wechselrichters ist"
+    "en": "Inverter status !{{is|is not}}",
+    "de": "Status des Wechselrichters !{{ist|ist nicht}}"
   },
   "titleFormatted": {
-    "en": "Inverter status is [[argument_main]]",
-    "de": "Status des Wechselrichters ist [[argument_main]]"
+    "en": "Inverter status !{{is|is not}} [[argument_main]]",
+    "de": "Status des Wechselrichters !{{ist|ist nicht}} [[argument_main]]"
   },
   "hint": {
     "en": "Inverter status",
