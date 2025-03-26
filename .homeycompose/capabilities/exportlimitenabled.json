@@ -8,6 +8,7 @@
   "setable": false,
   "uiComponent": "sensor",
   "uiQuickAction": true,
+  "icon": "/assets/onoff.svg",
   "values": [
     {
       "id": "0",

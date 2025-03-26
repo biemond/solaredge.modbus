@@ -8696,6 +8696,7 @@
       "setable": false,
       "uiComponent": "sensor",
       "uiQuickAction": false,
+      "icon": "/assets/onoff.svg",
       "values": [
         {
           "id": "0",
@@ -9341,6 +9342,7 @@
       "setable": false,
       "uiComponent": "sensor",
       "uiQuickAction": true,
+      "icon": "/assets/onoff.svg",
       "values": [
         {
           "id": "0",
@@ -10030,6 +10032,7 @@
       "setable": false,
       "uiComponent": "sensor",
       "uiQuickAction": false,
+      "icon": "/assets/priority.svg",
       "values": [
         {
           "id": "0",

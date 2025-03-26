@@ -1,0 +1,26 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     x="0px" y="0px" width="554.883px" height="554.883px" viewBox="0 0 554.883 554.883"
+     style="enable-background:new 0 0 554.883 554.883;" xml:space="preserve">
+
+<line x1="317.441" y1="40" x2="40" y2="317.441" stroke="#000" stroke-width="20"/>
+<line x1="514.883" y1="237.44099999999997" x2="237.44099999999997" y2="514.883" stroke="#000" stroke-width="20"/>
+
+
+<g transform="translate(30,30) scale(1.5)">
+  <rect x="0" y="0" width="80" height="40" stroke="#000" fill="none" stroke-width="12"/>
+  <rect x="80" y="10" width="10" height="20" stroke="#000" fill="none" stroke-width="12"/>
+</g>
+
+
+<g transform="translate(217,217) scale(1.5)">
+  <path d="M0 40 L40 0 L80 40 Z" stroke="#000" fill="none" stroke-width="12"/>
+  <rect x="20" y="40" width="40" height="40" stroke="#000" fill="none" stroke-width="12"/>
+</g>
+
+
+<g transform="translate(400,400) scale(1.5)">
+  <path d="M0 80 L30 30 H10 L50 -40 L20 30 H40 Z" stroke="#000" fill="none" stroke-width="12"/>
+</g>
+
+</svg>
