@@ -1,13 +1,13 @@
 {
   "title": {
-    "en": "Inverter priority is",
-    "nl": "Omvormerprioriteit is",
-    "de": "Wechselrichter-Priorität ist"
+    "en": "Inverter priority !{{is|is not}}",
+    "nl": "Omvormerprioriteit !{{is|is niet}}",
+    "de": "Wechselrichter-Priorität !{{ist|ist nicht}}"
   },
   "titleFormatted": {
-    "en": "Inverter priority is [[priority]]",
-    "nl": "Omvormerprioriteit is [[priority]]",
-    "de": "Wechselrichter-Priorität ist [[priority]]"
+    "en": "Inverter priority !{{is|is not}} [[priority]]",
+    "nl": "Omvormerprioriteit !{{is|is niet}} [[priority]]",
+    "de": "Wechselrichter-Priorität !{{ist|ist nicht}} [[priority]]"
   },
   "hint": {
     "en": "Inverter priority",
