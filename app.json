@@ -800,6 +800,53 @@
     "conditions": [
       {
         "title": {
+          "en": "Grid charge !{{is|is not}}",
+          "nl": "Net opladen !{{is|is not}}",
+          "de": "Netz laden !{{is|is not}}"
+        },
+        "titleFormatted": {
+          "en": "Grid charging !{{is|is not}} [[accharge]]",
+          "nl": "Net opladen !{{is|is not}} [[accharge]]",
+          "de": "Netz laden !{{is|is not}} [[accharge]]"
+        },
+        "hint": {
+          "en": "Whether the battery charging  from grid is enabled or disabled",
+          "nl": "Of de batterij opladen van het net is ingeschakeld of uitgeschakeld",
+          "de": "Ob das Laden der Batterie vom Netz aktiviert oder deaktiviert ist"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+          },
+          {
+            "name": "accharge",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Disabled",
+                  "nl": "Uitgeschakeld",
+                  "de": "Deaktiviert"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Enabled",
+                  "nl": "Ingeschakeld",
+                  "de": "Aktiviert"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "acCharge"
+      },
+      {
+        "title": {
           "en": "Inverter status !{{is|is not}}",
           "de": "Status des Wechselrichters !{{ist|ist nicht}}"
         },
@@ -2153,6 +2200,72 @@
               "en": "Load First minimum SoC(%)",
               "nl": "Minimale SoC van Belasting Eerst(%)",
               "de": "Load Zuerst Mindeststand(%)"
+            },
+            "min": 10,
+            "max": 100,
+            "step": 1,
+            "label": "%"
+          }
+        ]
+      },
+      {
+        "id": "discharge_rate_grid_first",
+        "title": {
+          "en": "Set Grid First Battery Discharge Rate to",
+          "nl": "Stel de ontlaadsnelheid van de batterij in voor Net Eerst op",
+          "de": "Setze Netz Zuerst Batterielade-Rate auf"
+        },
+        "titleFormatted": {
+          "en": "Set Grid First Battery Discharge Rate to [[percentage]]",
+          "nl": "Stel de ontlaadsnelheid van de batterij in voor Net Eerst op [[percentage]]",
+          "de": "Setze Netz Zuerst Batterielade-Rate auf [[percentage]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          },
+          {
+            "type": "range",
+            "name": "percentage",
+            "title": {
+              "en": "Discharge Rate(%)",
+              "nl": "Ontlaadsnelheid(%)",
+              "de": "EntLade-Rate(%)"
+            },
+            "min": 10,
+            "max": 100,
+            "step": 1,
+            "label": "%"
+          }
+        ]
+      },
+      {
+        "id": "charge_rate_batt_first",
+        "title": {
+          "en": "Set Batt First Battery Charge Rate to",
+          "nl": "Stel de laadsnelheid van de batterij in voor Batterij Eerst op",
+          "de": "Setze Batterie Zuerst Batterielade-Rate auf"
+        },
+        "titleFormatted": {
+          "en": "Set Batt First Battery Charge Rate to [[percentage]]",
+          "nl": "Stel de laadsnelheid van de batterij in voor Batterij Eerst op [[percentage]]",
+          "de": "Setze Batterie Zuerst Batterielade-Rate auf [[percentage]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          },
+          {
+            "type": "range",
+            "name": "percentage",
+            "title": {
+              "en": "Discharge Rate(%)",
+              "nl": "Ontlaadsnelheid(%)",
+              "de": "EntLade-Rate(%)"
             },
             "min": 10,
             "max": 100,
@@ -8690,6 +8803,7 @@
       "type": "enum",
       "title": {
         "en": "Batt AC charge switch",
+        "nl": "Batterij AC laadschakelaar",
         "de": "Netzladung der Batterie"
       },
       "getable": true,
@@ -8702,6 +8816,7 @@
           "id": "0",
           "title": {
             "en": "Disabled",
+            "nl": "Uitgeschakeld",
             "de": "Deaktiviert"
           }
         },
@@ -8709,6 +8824,7 @@
           "id": "1",
           "title": {
             "en": "Enabled",
+            "nl": "Ingeschakeld",
             "de": "Aktiviert"
           }
         },
@@ -8716,6 +8832,7 @@
           "id": "100",
           "title": {
             "en": "Enabled",
+            "nl": "Ingeschakeld",
             "de": "Aktiviert"
           }
         }

@@ -38,6 +38,12 @@ class MyGrowattBattery extends Growatt {
       return Promise.resolve(result);
     });
 
+    const acCondition = this.homey.flow.getConditionCard('acCharge');
+    acCondition.registerRunListener(async (args, state) => {
+      const result = Number(await args.device.getCapabilityValue('battacchargeswitch')) === Number(args.accharge);
+      return Promise.resolve(result);
+    });
+
     // flow action
     const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
@@ -62,6 +68,16 @@ class MyGrowattBattery extends Growatt {
     const battminsocLFAction = this.homey.flow.getActionCard('battery_min_cap_load_first');
     battminsocLFAction.registerRunListener(async (args, state) => {
       await this.updateControl('battminsocLF', args.percentage);
+    });
+
+    const dischargeRateAction = this.homey.flow.getActionCard('discharge_rate_grid_first');
+    dischargeRateAction.registerRunListener(async (args, state) => {
+      await this.updateControl('dischargeRate', args.percentage);
+    });
+
+    const chargeRateAction = this.homey.flow.getActionCard('charge_rate_batt_first');
+    chargeRateAction.registerRunListener(async (args, state) => {
+      await this.updateControl('chargeRate', args.percentage);
     });
 
     const prioritychangeAction = this.homey.flow.getActionCard('prioritymode');
@@ -339,6 +355,28 @@ class MyGrowattBattery extends Growatt {
             this.log('battminsocLF', battminsocRes);
           } else {
             this.log(`battminsocLF unknown value: ${value}`);
+          }
+        }
+
+        if (type === 'dischargeRate') {
+          // 10 – 100 %
+          this.log(`dischargeRate value: ${value}`);
+          if (value >= 10 && value <= 100) {
+            const dischargeRateRes = await client.writeSingleRegister(1070, value);
+            this.log('dischargeRate', dischargeRateRes);
+          } else {
+            this.log(`dischargeRate unknown value: ${value}`);
+          }
+        }
+
+        if (type === 'chargeRate') {
+          // 10 – 100 %
+          this.log(`chargeRate value: ${value}`);
+          if (value >= 10 && value <= 100) {
+            const chargeRateRes = await client.writeSingleRegister(1090, value);
+            this.log('chargeRate', chargeRateRes);
+          } else {
+            this.log(`chargeRate unknown value: ${value}`);
           }
         }
 
