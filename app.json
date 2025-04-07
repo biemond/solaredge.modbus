@@ -800,6 +800,53 @@
     "conditions": [
       {
         "title": {
+          "en": "Grid charge !{{is|is not}}",
+          "nl": "Net opladen !{{is|is not}}",
+          "de": "Netz laden !{{is|is not}}"
+        },
+        "titleFormatted": {
+          "en": "Grid charging !{{is|is not}} [[accharge]]",
+          "nl": "Net opladen !{{is|is not}} [[accharge]]",
+          "de": "Netz laden !{{is|is not}} [[accharge]]"
+        },
+        "hint": {
+          "en": "Whether the battery charging  from grid is enabled or disabled",
+          "nl": "Of de batterij opladen van het net is ingeschakeld of uitgeschakeld",
+          "de": "Ob das Laden der Batterie vom Netz aktiviert oder deaktiviert ist"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+          },
+          {
+            "name": "accharge",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Disabled",
+                  "nl": "Uitgeschakeld",
+                  "de": "Deaktiviert"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Enabled",
+                  "nl": "Ingeschakeld",
+                  "de": "Aktiviert"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "acCharge"
+      },
+      {
+        "title": {
           "en": "Inverter status !{{is|is not}}",
           "de": "Status des Wechselrichters !{{ist|ist nicht}}"
         },
@@ -8690,6 +8737,7 @@
       "type": "enum",
       "title": {
         "en": "Batt AC charge switch",
+        "nl": "Batterij AC laadschakelaar",
         "de": "Netzladung der Batterie"
       },
       "getable": true,
@@ -8702,6 +8750,7 @@
           "id": "0",
           "title": {
             "en": "Disabled",
+            "nl": "Uitgeschakeld",
             "de": "Deaktiviert"
           }
         },
@@ -8709,6 +8758,7 @@
           "id": "1",
           "title": {
             "en": "Enabled",
+            "nl": "Ingeschakeld",
             "de": "Aktiviert"
           }
         },
@@ -8716,6 +8766,7 @@
           "id": "100",
           "title": {
             "en": "Enabled",
+            "nl": "Ingeschakeld",
             "de": "Aktiviert"
           }
         }

@@ -38,6 +38,12 @@ class MyGrowattBattery extends Growatt {
       return Promise.resolve(result);
     });
 
+    const acCondition = this.homey.flow.getConditionCard('acCharge');
+    acCondition.registerRunListener(async (args, state) => {
+      const result = Number(await args.device.getCapabilityValue('battacchargeswitch')) === Number(args.accharge);
+      return Promise.resolve(result);
+    });
+
     // flow action
     const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {

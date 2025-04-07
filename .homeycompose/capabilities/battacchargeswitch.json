@@ -2,6 +2,7 @@
   "type": "enum",
   "title": {
     "en": "Batt AC charge switch",
+    "nl": "Batterij AC laadschakelaar",
     "de": "Netzladung der Batterie"
   },
   "getable": true,
@@ -14,6 +15,7 @@
       "id": "0",
       "title": {
         "en": "Disabled",
+        "nl": "Uitgeschakeld",
         "de": "Deaktiviert"
       }
     },
@@ -21,6 +23,7 @@
       "id": "1",
       "title": {
         "en": "Enabled",
+        "nl": "Ingeschakeld",
         "de": "Aktiviert"
       }
     },
@@ -28,6 +31,7 @@
       "id": "100",
       "title": {
         "en": "Enabled",
+        "nl": "Ingeschakeld",
         "de": "Aktiviert"
       }
     }
