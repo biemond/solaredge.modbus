@@ -148,6 +148,62 @@
       ]
     },
     {
+      "id": "discharge_rate_grid_first",
+      "title": {
+        "en": "Set Grid First Battery Discharge Rate to",
+        "nl": "Stel de ontlaadsnelheid van de batterij in voor Net Eerst op",
+        "de": "Setze Netz Zuerst Batterielade-Rate auf"
+      },
+      "titleFormatted": {
+        "en": "Set Grid First Battery Discharge Rate to [[percentage]]",
+        "nl": "Stel de ontlaadsnelheid van de batterij in voor Net Eerst op [[percentage]]",
+        "de": "Setze Netz Zuerst Batterielade-Rate auf [[percentage]]"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "percentage",
+          "title": {
+            "en": "Discharge Rate(%)",
+            "nl": "Ontlaadsnelheid(%)",
+            "de": "EntLade-Rate(%)"
+          },
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "label": "%"
+        }
+      ]
+    },
+    {
+      "id": "charge_rate_batt_first",
+      "title": {
+        "en": "Set Batt First Battery Charge Rate to",
+        "nl": "Stel de laadsnelheid van de batterij in voor Batterij Eerst op",
+        "de": "Setze Batterie Zuerst Batterielade-Rate auf"
+      },
+      "titleFormatted": {
+        "en": "Set Batt First Battery Charge Rate to [[percentage]]",
+        "nl": "Stel de laadsnelheid van de batterij in voor Batterij Eerst op [[percentage]]",
+        "de": "Setze Batterie Zuerst Batterielade-Rate auf [[percentage]]"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "percentage",
+          "title": {
+            "en": "Discharge Rate(%)",
+            "nl": "Ontlaadsnelheid(%)",
+            "de": "EntLade-Rate(%)"
+          },
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "label": "%"
+        }
+      ]
+    },
+    {
       "id": "battfirsttime1",
       "title": {
         "en": "Battery First, time slot 1:",
