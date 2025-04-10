@@ -25,7 +25,6 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "homey": "^3.7.15",
     "jsmodbus": "^4.0.10",
     "moment-timezone": "^0.5.47"
   }
