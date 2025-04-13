@@ -2269,9 +2269,9 @@
             "type": "range",
             "name": "percentage",
             "title": {
-              "en": "Discharge Rate(%)",
-              "nl": "Ontlaadsnelheid(%)",
-              "de": "EntLade-Rate(%)"
+              "en": "Charge Rate(%)",
+              "nl": "Laadsnelheid(%)",
+              "de": "Lade-Rate(%)"
             },
             "min": 10,
             "max": 100,
