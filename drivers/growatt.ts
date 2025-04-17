@@ -500,7 +500,7 @@ export class Growatt extends Homey.Device {
   private isValidNumberInRange(value: string | number, min: number, max: number): boolean {
     return value !== 'xxx' && Number(value) >= min && Number(value) <= max;
   }
-  
+
   private getMappingAndRegister(capability: string): { mapping: CapabilityMapping; registerDefinition: RegisterDefinition } | null {
     const mapping = this.CapabilityMappings.find((m) => m.capabilities.includes(capability));
     if (!mapping) {
@@ -541,19 +541,27 @@ export class Growatt extends Homey.Device {
     return typeof transformedValue === 'number' ? transformedValue : Number(transformedValue);
   }
 
-  processResult(result: Record<string, Measurement>, maxpeakpower: number) {
-    interface TimeFormatter {
-      (hour: number, minute: number): string;
-    }
-
-    const context = { maxpeakpower };
-    const formatTime: TimeFormatter = (hour: number, minute: number): string => `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-
+  getSlotCapabilityValue(startTime: number, stopTime: number, enabled: number, priority?: number): string {
+    const formatTime = (hour: number, minute: number): string => `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+    const enabledStr = enabled === 1 ? 'Enabled' : 'Disabled';
     const priorityMap: Record<number, string> = {
-      0: 'Low',
-      1: 'Medium',
-      2: 'High',
+      0: 'Load',
+      1: 'Battery',
+      2: 'Grid',
     };
+    const startminute = startTime & 0xff;
+    const starthour = (startTime >> 8) & 0x1f;
+    const stopminute = stopTime & 0xff;
+    const stophour = (stopTime >> 8) & 0x1f;
+    if (priority !== undefined) {
+      const priorityStr = priorityMap[priority] || 'unknown';
+      return `${formatTime(starthour, startminute)}~${formatTime(stophour, stopminute)}/${enabledStr} priority: ${priorityStr}`;
+    }
+    return `${formatTime(starthour, startminute)}~${formatTime(stophour, stopminute)}/${enabledStr}`;
+  }
+
+  processResult(result: Record<string, Measurement>, maxpeakpower: number) {
+    const context = { maxpeakpower };
     const slots = ['battfirst1', 'battfirst2', 'battfirst3', 'gridfirst1', 'gridfirst2', 'gridfirst3'];
 
     if (result) {
@@ -585,15 +593,12 @@ export class Growatt extends Homey.Device {
         const switchKey = `${slot}switch`;
 
         if (result[startKey] && result[startKey].value !== 'xxx' && this.hasCapability(slot)) {
-          const value = Number(result[startKey].value);
-          const startminute = value & 0xff;
-          const starthour = (value >> 8) & 0xff;
-          const value2 = Number(result[stopKey].value);
-          const stopminute = value2 & 0xff;
-          const stophour = (value2 >> 8) & 0xff;
-          const enabled = Number(result[switchKey].value) === 0 ? 'Disabled' : 'Enabled';
-          this.log(`${slot}: ${formatTime(starthour, startminute)} ~ ${formatTime(stophour, stopminute)} is ${enabled}`);
-          this.setCapabilityValue(slot, `${formatTime(starthour, startminute)}~${formatTime(stophour, stopminute)}/${enabled}`).catch(this.error);
+          const startTime = Number(result[startKey].value);
+          const stopTime = Number(result[stopKey].value);
+          const enabled = Number(result[switchKey].value);
+          const capabilityStr = this.getSlotCapabilityValue(startTime, stopTime, enabled);
+          this.log(`${slot}: `, capabilityStr);
+          this.setCapabilityValue(slot, capabilityStr).catch(this.error);
         }
       });
 
@@ -603,24 +608,14 @@ export class Growatt extends Homey.Device {
         const capKey = `period${i}`;
 
         if (result[startKey] && result[startKey].value !== 'xxx' && this.hasCapability(capKey)) {
-          const value = Number(result[startKey].value);
-          const startminute = value & 0xff; // bits 0-7: minutes
-          const starthour = (value >> 8) & 0x1f; // bits 8-12: hours (5 bits)
-          const prioValue = (value >> 13) & 0x3; // bits 13-14: priority
-          const priority = priorityMap[prioValue] || 'unknown';
-          const enabled = ((value >> 15) & 1) === 1 ? 'Enabled' : 'Disabled'; // bit 15: enabled
+          const startTime = Number(result[startKey].value);
+          const prioValue = (startTime >> 13) & 0x3; // bits 13-14: priority
+          const enabled = (startTime >> 15) & 1; // bit 15: enabled
+          const stopTime = Number(result[stopKey].value);
+          const capabilityStr = this.getSlotCapabilityValue(startTime, stopTime, enabled, prioValue);
+          this.log(`period${i}: `, capabilityStr);
 
-          this.log(`${startKey}: hour ${starthour} min ${startminute}`);
-
-          const value2 = Number(result[stopKey].value);
-          const stopminute = value2 & 0xff; // bits 0-7: minutes
-          const stophour = (value2 >> 8) & 0x1f; // bits 8-12: hours (5 bits)
-          this.log(`${stopKey}: hour ${stophour} min ${stopminute}`);
-
-          this.setCapabilityValue(
-            capKey,
-            `${formatTime(starthour, startminute)} ~ ${formatTime(stophour, stopminute)} is ${enabled} priority: ${priority}`,
-          ).catch(this.error);
+          this.setCapabilityValue(capKey, capabilityStr).catch(this.error);
         }
       }
     }

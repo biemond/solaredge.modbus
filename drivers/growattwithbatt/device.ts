@@ -84,7 +84,7 @@ class MyGrowattBattery extends Growatt {
 
     const prioritychangeAction = this.homey.flow.getActionCard('prioritymode');
     prioritychangeAction.registerRunListener(async (args, state) => {
-      await this.updateControl('prioritymode', Number(args.mode));
+      await this.updateControl('priority', Number(args.mode));
     });
 
     const battacchargeswitchAction = this.homey.flow.getActionCard('battacchargeswitch');
@@ -256,6 +256,24 @@ class MyGrowattBattery extends Growatt {
     return new Promise((resolve) => this.homey.setTimeout(resolve, ms));
   }
 
+  private async castToCapabilityType(capability: string, value: unknown): Promise<string | number | boolean> {
+    const currentValue = await this.getCapabilityValue(capability);
+    const expectedType = typeof currentValue;
+
+    this.log(`Casting '${capability}' to capability: ${expectedType}, raw value:`, value);
+
+    switch (expectedType) {
+      case 'number':
+        return Number(value);
+      case 'string':
+        return String(value);
+      case 'boolean':
+        return value === true || value === 'true' || value === 1;
+      default:
+        throw new Error(`Unsupported or unknown capability: ${expectedType}`);
+    }
+  }
+
   async updateControl(type: string, value: number) {
     const socket = new net.Socket();
     const unitID = this.getSetting('id');
@@ -281,11 +299,13 @@ class MyGrowattBattery extends Growatt {
         this.log('Connected ...');
         let res;
         switch (type) {
-          case 'prioritymode': {
+          case 'priority': {
             this.log(`prioritymode value: ${value}`);
             const limit = Number(this.getCapabilityValue('exportlimitenabled'));
             this.log('export limit is:', limit);
-            res = client.readHoldingRegisters(1080, 29);
+            // All slot registers start with gridfirst1starttime
+            const startRegister = this.holdingRegisters['gridfirst1starttime'][0];
+            res = client.readHoldingRegisters(startRegister, 29);
             const actualRes = await res;
             await this.delay(850); // Growatt needs at least 850ms between commands
             const registers = actualRes.response.body.valuesAsArray;
@@ -293,8 +313,13 @@ class MyGrowattBattery extends Growatt {
             switch (value) {
               case 0:
                 // disable all time slots, to enforce Load First
-                // eslint-disable-next-line no-multi-assign
-                registers[2] = registers[5] = registers[8] = registers[22] = registers[25] = registers[28] = 0;
+                if (limit === 0) {
+                  // eslint-disable-next-line no-multi-assign
+                  registers[2] = registers[5] = registers[8] = registers[22] = registers[25] = registers[28] = 0;
+                } else {
+                  // eslint-disable-next-line no-multi-assign
+                  registers[22] = registers[25] = registers[28] = 0;
+                }
                 this.log('prioritymode Load First: all time slots for Batt&Grid set to disabled');
                 break;
               case 1:
@@ -303,8 +328,13 @@ class MyGrowattBattery extends Growatt {
                 registers[21] = 5947; // 1101->23:59
                 registers[22] = 1; // 1102->enabled
                 // disable all other slots
-                // eslint-disable-next-line no-multi-assign
-                registers[2] = registers[5] = registers[8] = registers[25] = registers[28] = 0;
+                if (limit === 0) {
+                  // eslint-disable-next-line no-multi-assign
+                  registers[2] = registers[5] = registers[8] = registers[25] = registers[28] = 0;
+                } else {
+                  // eslint-disable-next-line no-multi-assign
+                  registers[25] = registers[28] = 0;
+                }
                 this.log('prioritymode Batt First: slot#1 is enabled and set to 00:00-23:59');
                 break;
               case 2:
@@ -327,15 +357,27 @@ class MyGrowattBattery extends Growatt {
 
             const setData: number[] = Array.from(registers);
             if (limit === 0) {
-              res = await client.writeMultipleRegisters(1080, setData);
+              res = await client.writeMultipleRegisters(startRegister, setData);
             } else if (value !== 2) {
               // export limit is enabled, only write Batt First registers
               const modifiedSetData = setData.slice(20, 29);
-              res = await client.writeMultipleRegisters(1100, modifiedSetData);
+              res = await client.writeMultipleRegisters(startRegister + 20, modifiedSetData);
             } else {
               res = 'Grid First: not possible, export limit is enabled';
             }
             this.log('prioritymode', res);
+            // Update the changed capabilities value
+            const typedValue = await this.castToCapabilityType(type, value);
+            this.log(`typeof typedValue: ${typeof typedValue}, value:`, typedValue);
+            await Promise.all([
+              this.setCapabilityValue(type, typedValue),
+              this.setCapabilityValue('gridfirst1', this.getSlotCapabilityValue(setData[0], setData[1], setData[2])),
+              this.setCapabilityValue('gridfirst2', this.getSlotCapabilityValue(setData[3], setData[4], setData[5])),
+              this.setCapabilityValue('gridfirst3', this.getSlotCapabilityValue(setData[6], setData[7], setData[8])),
+              this.setCapabilityValue('battfirst1', this.getSlotCapabilityValue(setData[20], setData[21], setData[22])),
+              this.setCapabilityValue('battfirst2', this.getSlotCapabilityValue(setData[23], setData[24], setData[25])),
+              this.setCapabilityValue('battfirst3', this.getSlotCapabilityValue(setData[26], setData[27], setData[28])),
+            ]);
             break;
           }
           case 'timesync': {
@@ -367,6 +409,10 @@ class MyGrowattBattery extends Growatt {
               res = await client.writeSingleRegister(registerAddress, regValue);
               this.log(type, res);
             }
+            // Update the changed capability value
+            const typedValue = await this.castToCapabilityType(type, value);
+            this.log(`typeof typedValue: ${typeof typedValue}, value:`, typedValue);
+            await this.setCapabilityValue(type, typedValue);
             break;
           }
         }
@@ -425,9 +471,10 @@ class MyGrowattBattery extends Growatt {
           const [hourstart, minstart] = startTime.split(':').map(Number);
           const [hourstop, minstop] = stopTime.split(':').map(Number);
           // any slot has the same structure: start time, stop time, enabled status
-          const setData: number[] = [hourstart * 256 + minstart, hourstop * 256 + minstop, active];
-          const timeRes = await client.writeMultipleRegisters(startRegister, setData);
-          this.log(type, timeRes);
+          const setData: number[] = [(hourstart << 8) + minstart, (hourstop << 8) + minstop, active];
+          const res = await client.writeMultipleRegisters(startRegister, setData);
+          this.log(type, res);
+          await this.setCapabilityValue(type, this.getSlotCapabilityValue(setData[0], setData[1], setData[2]));
         }
 
         this.log('disconnect');
@@ -476,13 +523,13 @@ class MyGrowattBattery extends Growatt {
 
     const now = moment().tz(this.homey.clock.getTimezone());
     const end = moment().tz(this.homey.clock.getTimezone()).add(hours, 'hours');
-    const startTime = now.hours() * 256 + now.minutes();
+    const startTime = (now.hours() << 8) + now.minutes();
     let endTime = 0;
     // if end time is not today, set to 23:59
     if (end.date() !== now.date()) {
       endTime = 5947; // 23:59
     } else {
-      endTime = end.hours() * 256 + end.minutes();
+      endTime = (end.hours() << 8) + end.minutes();
     }
 
     socket.on('connect', () => {
@@ -491,14 +538,28 @@ class MyGrowattBattery extends Growatt {
         const registers: number[] = Array(13).fill(0);
         registers[0] = percentage; // Charge/discharge rate limit
         registers[1] = soc; // SOC limit
-        if (type === 'batt_first_for_interval_with_percentage') {
-          registers[2] = ac; // Battery First AC charge enable
-        }
+        if (type === 'batfirstrate') {
+          registers[2] = ac;
+        } // Battery First AC charge enable
         registers[10] = startTime; // Slot start time
         registers[11] = endTime; // Slot stop time
         registers[12] = 1; // Slot enabled
-        const priorityRes = await client.writeMultipleRegisters(startRegister, registers);
-        this.log('prioritymode', priorityRes);
+        const res = await client.writeMultipleRegisters(startRegister, registers);
+        this.log('prioritymode', res);
+        if (type === 'gridfirstrate') {
+          await Promise.all([
+            this.setCapabilityValue('gfdischargerate', percentage),
+            this.setCapabilityValue('batteryminsoc', soc),
+            this.setCapabilityValue('gridfirst1', this.getSlotCapabilityValue(startTime, endTime, 1)),
+          ]);
+        } else {
+          await Promise.all([
+            this.setCapabilityValue('bfchargerate', percentage),
+            this.setCapabilityValue('batterymaxsoc', soc),
+            this.setCapabilityValue('battacchargeswitch', String(ac)),
+            this.setCapabilityValue('battfirst1', this.getSlotCapabilityValue(startTime, endTime, 1)),
+          ]);
+        }
 
         this.log('disconnect');
         client.socket.end();
