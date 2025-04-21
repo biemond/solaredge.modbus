@@ -1,8 +1,10 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import moment from 'moment-timezone';
+/* eslint-disable node/no-missing-import */
 import { checkRegisterGrowatt, checkHoldingRegisterGrowatt } from '../response';
 import { Growatt } from '../growatt';
+/* eslint-enable node/no-missing-import */
 
 const RETRY_INTERVAL = 60 * 1000;
 
@@ -28,7 +30,7 @@ class MyGrowattTLBattery extends Growatt {
     // priority condition
     const prioCondition = this.homey.flow.getConditionCard('priorityMode');
     prioCondition.registerRunListener(async (args, state) => {
-      const result = (await args.device.getCapabilityValue('priority')) == args.priority;
+      const result = Number(await args.device.getCapabilityValue('priority')) === Number(args.priority);
       return Promise.resolve(result);
     });
 
@@ -201,6 +203,16 @@ class MyGrowattTLBattery extends Growatt {
     this.homey.clearInterval(this.timer);
   }
 
+  private getRegisterAddressForCapability(capability: string): number | undefined {
+    const result = this.getMappingAndRegister(capability, this.holdingRegistersTL);
+    if (!result) return undefined;
+    return result.registerDefinition[0];
+  }
+
+  private processRegisterValue(capability: string, registerValue: number): number | null {
+    return this.processRegisterValueCommon(capability, registerValue, this.holdingRegistersTL);
+  }
+
   async updateControl(type: string, value: number) {
     const socket = new net.Socket();
     const unitID = this.getSetting('id');
@@ -225,89 +237,48 @@ class MyGrowattTLBattery extends Growatt {
       (async () => {
         this.log('Connected ...');
 
-        if (type == 'exportlimitenabled') {
-          // 0 – Disabled
-          // 1 – Enabled
-          if (value == 1) {
-            const exportlimitenabledRes = await client.writeSingleRegister(122, Number(1));
-            this.log('exportlimitenabled', exportlimitenabledRes);
-          } else if (value == 0) {
-            const exportlimitenabledRes = await client.writeSingleRegister(122, Number(0));
-            this.log('exportlimitenabled', exportlimitenabledRes);
-          } else {
-            this.log(`exportlimitenabled unknown value: ${value}`);
+        switch (type) {
+          case 'prioritymode': {
+            this.log(`prioritymode value: ${value}`);
+            const res = await client.writeSingleRegister(1044, value);
+            this.log('prioritymode', res);
+            break;
           }
-        }
+          case 'timesync': {
+            this.log(`timesync value: ${value}`);
+            const now = moment().tz(this.homey.clock.getTimezone());
+            const time: number[] = [now.hours(), now.minutes(), now.milliseconds() > 500 ? now.seconds() + 1 : now.seconds()];
+            const date: number[] = [now.year() - 2000, now.month() + 1, now.date()];
+            let format = 'hh:mm:ss';
 
-        if (type == 'battacchargeswitch') {
-          // 0 – Disabled
-          // 1 – Enabled
-          if (value == 1) {
-            const battacchargeswitchRes = await client.writeSingleRegister(3049, Number(1));
-            this.log('battacchargeswitch', battacchargeswitchRes);
-          } else if (value == 0) {
-            const battacchargeswitchRes = await client.writeSingleRegister(3049, Number(0));
-            this.log('battacchargeswitch', battacchargeswitchRes);
-          } else {
-            this.log(`battacchargeswitch unknown value: ${value}`);
+            if (value === 1) {
+              format = `DD-MM-YYYY ${format}`;
+              await client.writeMultipleRegisters(45, [...date, ...time]);
+            } else {
+              await client.writeMultipleRegisters(48, time);
+            }
+            this.log(`timesync: ${now.format(format)}`);
+            break;
           }
-        }
-
-        if (type == 'exportlimitpowerrate') {
-          // 0 – 100 % with 1 decimal
-          // 0 – 1000 as values
-          this.log(`exportlimitpowerrate value: ${value}`);
-          if (value >= 0 && value <= 100) {
-            const exportlimitpowerratedRes = await client.writeSingleRegister(123, value * 10);
-            this.log('exportlimitpowerrate', exportlimitpowerratedRes);
-            this.log(`exportlimitpowerrate value 2: ${value * 10}`);
-          } else {
-            this.log(`exportlimitpowerrate unknown value: ${value}`);
+          default: {
+            this.log(`${type} value: ${value}`);
+            const registerAddress = this.getRegisterAddressForCapability(type);
+            const regValue = this.processRegisterValue(type, value);
+            if (registerAddress === undefined) {
+              this.log(`${type} register mapping not found`);
+            } else if (regValue === null) {
+              this.log(`${type} register value not valid`);
+            } else {
+              this.log(`${type} register: ${registerAddress} value: ${regValue}`);
+              const res = await client.writeSingleRegister(registerAddress, regValue);
+              this.log(type, res);
+              // Update the changed capability value
+              const typedValue = this.castToCapabilityType(type, value);
+              this.log(`typeof typedValue: ${typeof typedValue}, value:`, typedValue);
+              await this.setCapabilityValue(type, typedValue);
+            }
+            break;
           }
-        }
-
-        if (type == 'battmaxsoc') {
-          // 0 – 100 %
-          this.log(`battmaxsoc value: ${value}`);
-          if (value >= 0 && value <= 100) {
-            const battmaxsocRes = await client.writeSingleRegister(3048, value);
-            this.log('battmaxsoc', battmaxsocRes);
-          } else {
-            this.log(`battmaxsoc unknown value: ${value}`);
-          }
-        }
-
-        if (type == 'battminsoc') {
-          // 10 – 100 %
-          this.log(`battminsoc value: ${value}`);
-          if (value >= 10 && value <= 100) {
-            const battminsocRes = await client.writeSingleRegister(3037, value);
-            this.log('battminsoc', battminsocRes);
-          } else {
-            this.log(`battminsoc unknown value: ${value}`);
-          }
-        }
-
-        if (type == 'prioritymode') {
-          this.log(`prioritymode value: ${value}`);
-          const prioritychangeRes = await client.writeSingleRegister(1044, value);
-          this.log('prioritymode', prioritychangeRes);
-        }
-
-        if (type == 'timesync') {
-          this.log(`timesync value: ${value}`);
-          const now = moment().tz(this.homey.clock.getTimezone());
-          const time: number[] = [now.hours(), now.minutes(), now.milliseconds() > 500 ? now.seconds() + 1 : now.seconds()];
-          const date: number[] = [now.year() - 2000, now.month() + 1, now.date()];
-          let format = 'hh:mm:ss';
-
-          if (value == 1) {
-            format = `DD-MM-YYYY ${format}`;
-            await client.writeMultipleRegisters(45, [...date, ...time]);
-          } else {
-            await client.writeMultipleRegisters(48, time);
-          }
-          this.log(`timesync: ${now.format(format)}`);
         }
 
         this.log('disconnect');
@@ -347,21 +318,23 @@ class MyGrowattTLBattery extends Growatt {
     socket.connect(modbusOptions);
     this.log(modbusOptions);
 
-    const startRegisters: Record<string, number> = {
-      period1: 3038,
-      period2: 3040,
-      period3: 3042,
-      period4: 3044,
-    };
-
     socket.on('connect', () => {
       (async () => {
         this.log('Connected ...');
-        const startRegister = startRegisters[type];
+        const startRegister = this.holdingRegistersTL[`${type}start`]?.[0];
+        if (startRegister === undefined) {
+          this.log(`${type}start register mapping not found`);
+          return;
+        }
+        this.log(`${type} start register: ${startRegister}`);
+
         // any slot has the same structure: start time, stop time, enabled status
-        const setData: number[] = [(hourstart + priority + enabled) * 256 + minstart, hourstop * 256 + minstop];
-        const timeRes = await client.writeMultipleRegisters(startRegister, setData);
-        this.log(type, timeRes);
+        const setData: number[] = [((hourstart + priority + enabled) << 8) + minstart, (hourstop << 8) + minstop];
+        const res = await client.writeMultipleRegisters(startRegister, setData);
+        this.log(type, res);
+        const capabilityStr = this.getSlotCapabilityValue(setData[0], setData[1]);
+        this.log(`${type}: `, capabilityStr);
+        await this.setCapabilityValue(type, capabilityStr);
 
         this.log('disconnect');
         client.socket.end();

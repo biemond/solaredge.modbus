@@ -29,7 +29,7 @@ export class Growatt extends Homey.Device {
   readonly holdingRegisters: { [key: string]: RegisterDefinition } = {
     exportlimitenabled: [122, 1, 'UINT16', 'Export Limit enable', 0],
     exportlimitpowerrate: [123, 1, 'UINT16', 'Export Limit Power Rate', -1],
-    prioritychange: [1044, 1, 'UINT16', 'Priority', 0],
+    priority: [1044, 1, 'UINT16', 'Priority', 0],
     gridfirstrate: [1070, 1, 'UINT16', 'GridFirst discharge rate', 0],
     gridfirststopsoc: [1071, 1, 'UINT16', 'GridFirst stop SOC', 0],
     batfirstrate: [1090, 1, 'UINT16', 'BatFirst charge rate', 0],
@@ -57,10 +57,6 @@ export class Growatt extends Homey.Device {
     battfirst3starttime: [1106, 1, 'UINT16', 'Battery First Start Time', 0],
     battfirst3stoptime: [1107, 1, 'UINT16', 'Battery First Stop Time', 0],
     battfirst3switch: [1108, 1, 'UINT16', 'Battery First Stop Switch 1', 0],
-
-    loadfirst1starttime: [1110, 1, 'UINT16', 'Load First Start Time', 0],
-    loadfirst1stoptime: [1111, 1, 'UINT16', 'Load First Stop Time', 0],
-    loadfirst1switch: [1112, 1, 'UINT16', 'Load First Stop Switch 1', 0],
   };
 
   readonly holdingRegistersTL: { [key: string]: RegisterDefinition } = {
@@ -501,13 +497,16 @@ export class Growatt extends Homey.Device {
     return value !== 'xxx' && Number(value) >= min && Number(value) <= max;
   }
 
-  private getMappingAndRegister(capability: string): { mapping: CapabilityMapping; registerDefinition: RegisterDefinition } | null {
+  getMappingAndRegister(
+    capability: string,
+    holdingRegisters: { [key: string]: RegisterDefinition },
+  ): { mapping: CapabilityMapping; registerDefinition: RegisterDefinition } | null {
     const mapping = this.CapabilityMappings.find((m) => m.capabilities.includes(capability));
     if (!mapping) {
       this.log(`Mapping not found for capability: ${capability}`);
       return null;
     }
-    const registerDefinition = this.holdingRegisters[mapping.resultKey];
+    const registerDefinition = holdingRegisters[mapping.resultKey];
     if (!registerDefinition) {
       this.log(`Register definition not found for resultKey: ${mapping.resultKey}`);
       return null;
@@ -515,14 +514,8 @@ export class Growatt extends Homey.Device {
     return { mapping, registerDefinition };
   }
 
-  getRegisterAddressForCapability(capability: string): number | undefined {
-    const result = this.getMappingAndRegister(capability);
-    if (!result) return undefined;
-    return result.registerDefinition[0];
-  }
-
-  processRegisterValue(capability: string, registerValue: number): number | null {
-    const result = this.getMappingAndRegister(capability);
+  processRegisterValueCommon(capability: string, registerValue: number, holdingRegisters: { [key: string]: RegisterDefinition }): number | null {
+    const result = this.getMappingAndRegister(capability, holdingRegisters);
     if (!result) return null;
     const { mapping, registerDefinition } = result;
     // Use registerDefinition[4] as scale and invert its sign
@@ -541,9 +534,26 @@ export class Growatt extends Homey.Device {
     return typeof transformedValue === 'number' ? transformedValue : Number(transformedValue);
   }
 
-  getSlotCapabilityValue(startTime: number, stopTime: number, enabled: number, priority?: number): string {
+  castToCapabilityType(capability: string, value: unknown): string | number | boolean {
+    const currentValue = this.getCapabilityValue(capability);
+    const expectedType = typeof currentValue;
+
+    this.log(`Casting '${capability}' to capability: ${expectedType}, raw value:`, value);
+
+    switch (expectedType) {
+      case 'number':
+        return Number(value);
+      case 'string':
+        return String(value);
+      case 'boolean':
+        return value === true || value === 'true' || value === 1;
+      default:
+        throw new Error(`Unsupported or unknown capability: ${expectedType}`);
+    }
+  }
+
+  getSlotCapabilityValue(startTime: number, stopTime: number, enabled?: number): string {
     const formatTime = (hour: number, minute: number): string => `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-    const enabledStr = enabled === 1 ? 'Enabled' : 'Disabled';
     const priorityMap: Record<number, string> = {
       0: 'Load',
       1: 'Battery',
@@ -553,11 +563,12 @@ export class Growatt extends Homey.Device {
     const starthour = (startTime >> 8) & 0x1f;
     const stopminute = stopTime & 0xff;
     const stophour = (stopTime >> 8) & 0x1f;
-    if (priority !== undefined) {
-      const priorityStr = priorityMap[priority] || 'unknown';
-      return `${formatTime(starthour, startminute)}~${formatTime(stophour, stopminute)}/${enabledStr} priority: ${priorityStr}`;
+    if (enabled !== undefined) {
+      return `${formatTime(starthour, startminute)}~${formatTime(stophour, stopminute)}/${enabled === 1 ? 'Enabled' : 'Disabled'}`;
     }
-    return `${formatTime(starthour, startminute)}~${formatTime(stophour, stopminute)}/${enabledStr}`;
+    return `${formatTime(starthour, startminute)}~${formatTime(stophour, stopminute)}/${
+      ((startTime >> 15) & 1) === 1 ? 'Enabled' : 'Disabled'
+    } priority: ${priorityMap[(startTime >> 13) & 0x3] || 'unknown'}`;
   }
 
   processResult(result: Record<string, Measurement>, maxpeakpower: number) {
@@ -609,12 +620,9 @@ export class Growatt extends Homey.Device {
 
         if (result[startKey] && result[startKey].value !== 'xxx' && this.hasCapability(capKey)) {
           const startTime = Number(result[startKey].value);
-          const prioValue = (startTime >> 13) & 0x3; // bits 13-14: priority
-          const enabled = (startTime >> 15) & 1; // bit 15: enabled
           const stopTime = Number(result[stopKey].value);
-          const capabilityStr = this.getSlotCapabilityValue(startTime, stopTime, enabled, prioValue);
+          const capabilityStr = this.getSlotCapabilityValue(startTime, stopTime);
           this.log(`period${i}: `, capabilityStr);
-
           this.setCapabilityValue(capKey, capabilityStr).catch(this.error);
         }
       }

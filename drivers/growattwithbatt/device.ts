@@ -256,22 +256,14 @@ class MyGrowattBattery extends Growatt {
     return new Promise((resolve) => this.homey.setTimeout(resolve, ms));
   }
 
-  private async castToCapabilityType(capability: string, value: unknown): Promise<string | number | boolean> {
-    const currentValue = await this.getCapabilityValue(capability);
-    const expectedType = typeof currentValue;
+  private getRegisterAddressForCapability(capability: string): number | undefined {
+    const result = this.getMappingAndRegister(capability, this.holdingRegisters);
+    if (!result) return undefined;
+    return result.registerDefinition[0];
+  }
 
-    this.log(`Casting '${capability}' to capability: ${expectedType}, raw value:`, value);
-
-    switch (expectedType) {
-      case 'number':
-        return Number(value);
-      case 'string':
-        return String(value);
-      case 'boolean':
-        return value === true || value === 'true' || value === 1;
-      default:
-        throw new Error(`Unsupported or unknown capability: ${expectedType}`);
-    }
+  private processRegisterValue(capability: string, registerValue: number): number | null {
+    return this.processRegisterValueCommon(capability, registerValue, this.holdingRegisters);
   }
 
   async updateControl(type: string, value: number) {
@@ -367,7 +359,7 @@ class MyGrowattBattery extends Growatt {
             }
             this.log('prioritymode', res);
             // Update the changed capabilities value
-            const typedValue = await this.castToCapabilityType(type, value);
+            const typedValue = this.castToCapabilityType(type, value);
             this.log(`typeof typedValue: ${typeof typedValue}, value:`, typedValue);
             await Promise.all([
               this.setCapabilityValue(type, typedValue),
@@ -408,11 +400,11 @@ class MyGrowattBattery extends Growatt {
               this.log(`${type} register: ${registerAddress} value: ${regValue}`);
               res = await client.writeSingleRegister(registerAddress, regValue);
               this.log(type, res);
+              // Update the changed capability value
+              const typedValue = this.castToCapabilityType(type, value);
+              this.log(`typeof typedValue: ${typeof typedValue}, value:`, typedValue);
+              await this.setCapabilityValue(type, typedValue);
             }
-            // Update the changed capability value
-            const typedValue = await this.castToCapabilityType(type, value);
-            this.log(`typeof typedValue: ${typeof typedValue}, value:`, typedValue);
-            await this.setCapabilityValue(type, typedValue);
             break;
           }
         }
@@ -551,6 +543,7 @@ class MyGrowattBattery extends Growatt {
             this.setCapabilityValue('gfdischargerate', percentage),
             this.setCapabilityValue('batteryminsoc', soc),
             this.setCapabilityValue('gridfirst1', this.getSlotCapabilityValue(startTime, endTime, 1)),
+            this.setCapabilityValue('priority', '2'),
           ]);
         } else {
           await Promise.all([
@@ -558,6 +551,7 @@ class MyGrowattBattery extends Growatt {
             this.setCapabilityValue('batterymaxsoc', soc),
             this.setCapabilityValue('battacchargeswitch', String(ac)),
             this.setCapabilityValue('battfirst1', this.getSlotCapabilityValue(startTime, endTime, 1)),
+            this.setCapabilityValue('priority', '1'),
           ]);
         }
 
