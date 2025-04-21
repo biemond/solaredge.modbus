@@ -238,12 +238,12 @@ class MyGrowattTLBattery extends Growatt {
         this.log('Connected ...');
 
         switch (type) {
-          case 'prioritymode': {
-            this.log(`prioritymode value: ${value}`);
-            const res = await client.writeSingleRegister(1044, value);
-            this.log('prioritymode', res);
-            break;
-          }
+          // case 'prioritymode': {
+          //   this.log(`prioritymode value: ${value}`);
+          //   const res = await client.writeSingleRegister(1044, value);
+          //   this.log('prioritymode', res);
+          //   break;
+          // }
           case 'timesync': {
             this.log(`timesync value: ${value}`);
             const now = moment().tz(this.homey.clock.getTimezone());

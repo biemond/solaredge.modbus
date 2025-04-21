@@ -537,7 +537,7 @@ class MyGrowattBattery extends Growatt {
         registers[11] = endTime; // Slot stop time
         registers[12] = 1; // Slot enabled
         const res = await client.writeMultipleRegisters(startRegister, registers);
-        this.log('prioritymode', res);
+        this.log('prioritychange', res);
         if (type === 'gridfirstrate') {
           await Promise.all([
             this.setCapabilityValue('gfdischargerate', percentage),
