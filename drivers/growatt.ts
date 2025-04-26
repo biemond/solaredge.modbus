@@ -5,13 +5,31 @@ export interface Measurement {
   scale: string;
   label: string;
 }
+
+interface GrowattData {
+  value: string;
+  scale?: string;
+}
+
+interface GrowattContext {
+  maxpeakpower: number;
+}
+
+interface CapabilityMapping {
+  resultKey: string;
+  capabilities: string[];
+  valid?: (data: GrowattData, context?: GrowattContext) => boolean;
+  transform?: (data: GrowattData, context?: GrowattContext) => string | number | null;
+  requireCapabilityCheck?: boolean;
+}
+
 type RegisterDefinition = [number, number, string, string, number];
 
 export class Growatt extends Homey.Device {
   readonly holdingRegisters: { [key: string]: RegisterDefinition } = {
     exportlimitenabled: [122, 1, 'UINT16', 'Export Limit enable', 0],
     exportlimitpowerrate: [123, 1, 'UINT16', 'Export Limit Power Rate', -1],
-    prioritychange: [1044, 1, 'UINT16', 'Priority', 0],
+    priority: [1044, 1, 'UINT16', 'Priority', 0],
     gridfirstrate: [1070, 1, 'UINT16', 'GridFirst discharge rate', 0],
     gridfirststopsoc: [1071, 1, 'UINT16', 'GridFirst stop SOC', 0],
     batfirstrate: [1090, 1, 'UINT16', 'BatFirst charge rate', 0],
@@ -39,10 +57,6 @@ export class Growatt extends Homey.Device {
     battfirst3starttime: [1106, 1, 'UINT16', 'Battery First Start Time', 0],
     battfirst3stoptime: [1107, 1, 'UINT16', 'Battery First Stop Time', 0],
     battfirst3switch: [1108, 1, 'UINT16', 'Battery First Stop Switch 1', 0],
-
-    loadfirst1starttime: [1110, 1, 'UINT16', 'Load First Start Time', 0],
-    loadfirst1stoptime: [1111, 1, 'UINT16', 'Load First Stop Time', 0],
-    loadfirst1switch: [1112, 1, 'UINT16', 'Load First Stop Switch 1', 0],
   };
 
   readonly holdingRegistersTL: { [key: string]: RegisterDefinition } = {
@@ -208,306 +222,357 @@ export class Growatt extends Homey.Device {
     total_load: [3077, 2, 'UINT32', 'Total Load', -1],
   };
 
-  processResult(result: Record<string, Measurement>, maxpeakpower: number) {
-    interface TimeFormatter {
-      (hour: number, minute: number): string;
+  readonly CapabilityMappings: CapabilityMapping[] = [
+    {
+      resultKey: 'outputPower',
+      capabilities: ['measure_power'],
+      valid: (data: GrowattData, context?: GrowattContext): boolean => {
+        if (data.value === 'xxx') return false;
+        const value = Number(data.value) * 10 ** Number(data.scale ?? '0');
+        return !context || context.maxpeakpower <= 0 || value <= context.maxpeakpower;
+      },
+      transform: (data: GrowattData, context?: GrowattContext): number | null => {
+        const outputPower = Number(data.value) * 10 ** Number(data.scale ?? '0');
+        if (context && context.maxpeakpower > 0 && outputPower > context.maxpeakpower) {
+          this.log(`skip measure_power, max: ${context.maxpeakpower} power: ${outputPower}`);
+          return null;
+        }
+        return Math.round(outputPower);
+      },
+    },
+    {
+      resultKey: 'gridOutputPower',
+      capabilities: ['measure_power.gridoutput'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
+    },
+    {
+      resultKey: 'inputPower',
+      capabilities: ['measure_power.input'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
+    },
+    {
+      resultKey: 'pv1InputPower',
+      capabilities: ['measure_power.pv1input'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
+    },
+    {
+      resultKey: 'pv2InputPower',
+      capabilities: ['measure_power.pv2input'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
+    },
+    {
+      resultKey: 'l1_current',
+      capabilities: ['measure_current.phase1'],
+      valid: (data) => data.value !== 'xxx' && data.value !== '-1',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'l2_current',
+      capabilities: ['measure_current.phase2'],
+      valid: (data) => data.value !== 'xxx' && data.value !== '-1',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'l3_current',
+      capabilities: ['measure_current.phase3'],
+      valid: (data) => data.value !== 'xxx' && data.value !== '-1',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'temperature',
+      capabilities: ['measure_temperature.invertor'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'todayEnergy',
+      capabilities: ['meter_power.daily'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'pv1TodayEnergy',
+      capabilities: ['meter_power.pv1TodayEnergy'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'pv2TodayEnergy',
+      capabilities: ['meter_power.pv2TodayEnergy'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'totalEnergy',
+      capabilities: ['meter_power'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'pv1TotalEnergy',
+      capabilities: ['meter_power.pv1TotalEnergy'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'pv2TotalEnergy',
+      capabilities: ['meter_power.pv2TotalEnergy'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'gridVoltage',
+      capabilities: ['measure_voltage.meter'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'battvoltage',
+      capabilities: ['measure_voltage.battery'],
+      valid: (data) => data.value !== 'xxx',
+      requireCapabilityCheck: true,
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'batttemperature',
+      capabilities: ['measure_temperature.battery'],
+      valid: (data) => data.value !== 'xxx',
+      requireCapabilityCheck: true,
+      transform: (data) => {
+        let temp = Number(data.value) * 10 ** Number(data.scale);
+        if (temp < 6) {
+          temp *= 10;
+        }
+        return temp;
+      },
+    },
+    {
+      resultKey: 'battsoc',
+      capabilities: ['measure_battery', 'battery'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+      requireCapabilityCheck: true,
+    },
+    {
+      resultKey: 'bmshealth',
+      capabilities: ['batterysoh'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+      requireCapabilityCheck: true,
+    },
+    {
+      resultKey: 'battDischarge',
+      capabilities: ['measure_power.batt_discharge'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'battCharge',
+      capabilities: ['measure_power.batt_charge'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'bmsstatus',
+      capabilities: ['batterystatus'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value),
+    },
+    {
+      resultKey: 'bmscyclecount',
+      capabilities: ['batterycycles'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'exportlimitenabled',
+      capabilities: ['exportlimitenabled'],
+      valid: (data) => this.isValidNumberInRange(data.value, 0, 1),
+      transform: (data) => data.value,
+    },
+    {
+      resultKey: 'exportlimitpowerrate',
+      capabilities: ['exportlimitpowerrate'],
+      valid: (data) => this.isValidNumberInRange(data.value, 0, 1000),
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'priority',
+      capabilities: ['priority'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => data.value,
+    },
+    {
+      resultKey: 'totalhouseload',
+      capabilities: ['measure_power.houseload'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+      requireCapabilityCheck: true,
+    },
+    {
+      resultKey: 'pactousertotal',
+      capabilities: ['measure_power.import'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'pactogridtotal',
+      capabilities: ['measure_power.export'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'today_grid_import',
+      capabilities: ['meter_power.today_grid_import'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'today_grid_export',
+      capabilities: ['meter_power.today_grid_export'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'today_battery_output_energy',
+      capabilities: ['meter_power.today_batt_output'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'today_battery_input_energy',
+      capabilities: ['meter_power.today_batt_input'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'today_load',
+      capabilities: ['meter_power.today_load'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'gridfirststopsoc',
+      capabilities: ['batteryminsoc'],
+      valid: (data) => this.isValidNumberInRange(data.value, 10, 100),
+      transform: (data) => Number(data.value),
+    },
+    {
+      resultKey: 'gridfirstrate',
+      capabilities: ['gfdischargerate'],
+      valid: (data) => this.isValidNumberInRange(data.value, 1, 100),
+      transform: (data) => Number(data.value),
+    },
+    {
+      resultKey: 'loadfirststopsoc',
+      capabilities: ['batteryminsoclf'],
+      valid: (data) => this.isValidNumberInRange(data.value, 10, 100),
+      transform: (data) => Number(data.value),
+    },
+    {
+      resultKey: 'batfirststopsoc',
+      capabilities: ['batterymaxsoc'],
+      valid: (data) => data.value !== 'xxx' && Number(data.value) >= 0 && Number(data.value) <= 100,
+      transform: (data) => Number(data.value),
+    },
+    {
+      resultKey: 'batfirstrate',
+      capabilities: ['bfchargerate'],
+      valid: (data) => this.isValidNumberInRange(data.value, 1, 100),
+      transform: (data) => Number(data.value),
+    },
+    {
+      resultKey: 'acchargeswitch',
+      capabilities: ['battacchargeswitch'],
+      valid: (data) => this.isValidNumberInRange(data.value, 0, 1),
+      transform: (data) => data.value,
+    },
+  ];
+
+  private isValidNumberInRange(value: string | number, min: number, max: number): boolean {
+    return value !== 'xxx' && Number(value) >= min && Number(value) <= max;
+  }
+
+  getMappingAndRegister(
+    capability: string,
+    holdingRegisters: { [key: string]: RegisterDefinition },
+  ): { mapping: CapabilityMapping; registerDefinition: RegisterDefinition } | null {
+    const mapping = this.CapabilityMappings.find((m) => m.capabilities.includes(capability));
+    if (!mapping) {
+      this.log(`Mapping not found for capability: ${capability}`);
+      return null;
     }
-
-    interface GrowattData {
-      value: string;
-      scale?: string;
+    const registerDefinition = holdingRegisters[mapping.resultKey];
+    if (!registerDefinition) {
+      this.log(`Register definition not found for resultKey: ${mapping.resultKey}`);
+      return null;
     }
+    return { mapping, registerDefinition };
+  }
 
-    interface GrowattContext {
-      maxpeakpower: number;
+  processRegisterValueCommon(capability: string, registerValue: number, holdingRegisters: { [key: string]: RegisterDefinition }): number | null {
+    const result = this.getMappingAndRegister(capability, holdingRegisters);
+    if (!result) return null;
+    const { mapping, registerDefinition } = result;
+    // Use registerDefinition[4] as scale and invert its sign
+    const invertedScale = (-1 * registerDefinition[4]).toString();
+    // Convert the numeric registerValue to a string for processing, if needed.
+    const data: GrowattData = { value: registerValue.toString(), scale: invertedScale };
+    const transformedValue = mapping.transform ? mapping.transform(data) : data.value;
+    if (transformedValue === null) {
+      this.log(`Transformed value is null for capability: ${capability}`);
+      return null;
     }
-
-    interface CapabilityMapping {
-      resultKey: string;
-      capabilities: string[];
-      valid?: (data: GrowattData, context?: GrowattContext) => boolean;
-      transform?: (data: GrowattData, context?: GrowattContext) => string | number | null;
-      requireCapabilityCheck?: boolean;
+    if (mapping.valid && !mapping.valid({ value: transformedValue.toString(), scale: data.scale })) {
+      this.log(`Validation failed for capability: ${capability}`);
+      return null;
     }
+    return typeof transformedValue === 'number' ? transformedValue : Number(transformedValue);
+  }
 
-    const context = { maxpeakpower };
-    const formatTime: TimeFormatter = (hour: number, minute: number): string => `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+  castToCapabilityType(capability: string, value: unknown): string | number | boolean {
+    const currentValue = this.getCapabilityValue(capability);
+    const expectedType = typeof currentValue;
 
+    this.log(`Casting '${capability}' to capability: ${expectedType}, raw value:`, value);
+
+    switch (expectedType) {
+      case 'number':
+        return Number(value);
+      case 'string':
+        return String(value);
+      case 'boolean':
+        return value === true || value === 'true' || value === 1;
+      default:
+        throw new Error(`Unsupported or unknown capability: ${expectedType}`);
+    }
+  }
+
+  getSlotCapabilityValue(startTime: number, stopTime: number, enabled?: number): string {
+    const formatTime = (hour: number, minute: number): string => `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
     const priorityMap: Record<number, string> = {
-      0: 'Low',
-      1: 'Medium',
-      2: 'High',
+      0: 'Load',
+      1: 'Battery',
+      2: 'Grid',
     };
-    const mappings: CapabilityMapping[] = [
-      {
-        resultKey: 'outputPower',
-        capabilities: ['measure_power'],
-        valid: (data: GrowattData, context?: GrowattContext): boolean => {
-          if (data.value === 'xxx') return false;
-          const value = Number(data.value) * 10 ** Number(data.scale ?? '0');
-          return !context || context.maxpeakpower <= 0 || value <= context.maxpeakpower;
-        },
-        transform: (data: GrowattData, context?: GrowattContext): number | null => {
-          const outputPower = Number(data.value) * 10 ** Number(data.scale ?? '0');
-          if (context && context.maxpeakpower > 0 && outputPower > context.maxpeakpower) {
-            this.log(`skip measure_power, max: ${context.maxpeakpower} power: ${outputPower}`);
-            return null;
-          }
-          return Math.round(outputPower);
-        },
-      },
-      {
-        resultKey: 'gridOutputPower',
-        capabilities: ['measure_power.gridoutput'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
-      },
-      {
-        resultKey: 'inputPower',
-        capabilities: ['measure_power.input'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
-      },
-      {
-        resultKey: 'pv1InputPower',
-        capabilities: ['measure_power.pv1input'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
-      },
-      {
-        resultKey: 'pv2InputPower',
-        capabilities: ['measure_power.pv2input'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
-      },
-      {
-        resultKey: 'l1_current',
-        capabilities: ['measure_current.phase1'],
-        valid: (data) => data.value !== 'xxx' && data.value !== '-1',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'l2_current',
-        capabilities: ['measure_current.phase2'],
-        valid: (data) => data.value !== 'xxx' && data.value !== '-1',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'l3_current',
-        capabilities: ['measure_current.phase3'],
-        valid: (data) => data.value !== 'xxx' && data.value !== '-1',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'temperature',
-        capabilities: ['measure_temperature.invertor'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'todayEnergy',
-        capabilities: ['meter_power.daily'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'pv1TodayEnergy',
-        capabilities: ['meter_power.pv1TodayEnergy'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'pv2TodayEnergy',
-        capabilities: ['meter_power.pv2TodayEnergy'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'totalEnergy',
-        capabilities: ['meter_power'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'pv1TotalEnergy',
-        capabilities: ['meter_power.pv1TotalEnergy'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'pv2TotalEnergy',
-        capabilities: ['meter_power.pv2TotalEnergy'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'gridVoltage',
-        capabilities: ['measure_voltage.meter'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'battvoltage',
-        capabilities: ['measure_voltage.battery'],
-        valid: (data) => data.value !== 'xxx',
-        requireCapabilityCheck: true,
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'batttemperature',
-        capabilities: ['measure_temperature.battery'],
-        valid: (data) => data.value !== 'xxx',
-        requireCapabilityCheck: true,
-        transform: (data) => {
-          let temp = Number(data.value) * 10 ** Number(data.scale);
-          if (temp < 6) {
-            temp *= 10;
-          }
-          return temp;
-        },
-      },
-      {
-        resultKey: 'battsoc',
-        capabilities: ['measure_battery', 'battery'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-        requireCapabilityCheck: true,
-      },
-      {
-        resultKey: 'bmshealth',
-        capabilities: ['batterysoh'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-        requireCapabilityCheck: true,
-      },
-      {
-        resultKey: 'battDischarge',
-        capabilities: ['measure_power.batt_discharge'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'battCharge',
-        capabilities: ['measure_power.batt_charge'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'bmsstatus',
-        capabilities: ['batterystatus'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value),
-      },
-      {
-        resultKey: 'bmscyclecount',
-        capabilities: ['batterycycles'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'exportlimitenabled',
-        capabilities: ['exportlimitenabled'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => data.value,
-      },
-      {
-        resultKey: 'exportlimitpowerrate',
-        capabilities: ['exportlimitpowerrate'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'priority',
-        capabilities: ['priority'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => data.value,
-      },
-      {
-        resultKey: 'totalhouseload',
-        capabilities: ['measure_power.houseload'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-        requireCapabilityCheck: true,
-      },
-      {
-        resultKey: 'pactousertotal',
-        capabilities: ['measure_power.import'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'pactogridtotal',
-        capabilities: ['measure_power.export'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'today_grid_import',
-        capabilities: ['meter_power.today_grid_import'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'today_grid_export',
-        capabilities: ['meter_power.today_grid_export'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'today_battery_output_energy',
-        capabilities: ['meter_power.today_batt_output'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'today_battery_input_energy',
-        capabilities: ['meter_power.today_batt_input'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'today_load',
-        capabilities: ['meter_power.today_load'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value) * 10 ** Number(data.scale),
-      },
-      {
-        resultKey: 'gridfirststopsoc',
-        capabilities: ['batteryminsoc'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value),
-      },
-      {
-        resultKey: 'gridfirstrate',
-        capabilities: ['gfdischargerate'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value),
-      },
-      {
-        resultKey: 'loadfirststopsoc',
-        capabilities: ['batteryminsoclf'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value),
-      },
-      {
-        resultKey: 'batfirststopsoc',
-        capabilities: ['batterymaxsoc'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value),
-      },
-      {
-        resultKey: 'batfirstrate',
-        capabilities: ['bfchargerate'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => Number(data.value),
-      },
-      {
-        resultKey: 'acchargeswitch',
-        capabilities: ['battacchargeswitch'],
-        valid: (data) => data.value !== 'xxx',
-        transform: (data) => data.value,
-      },
-    ];
+    const startminute = startTime & 0xff;
+    const starthour = (startTime >> 8) & 0x1f;
+    const stopminute = stopTime & 0xff;
+    const stophour = (stopTime >> 8) & 0x1f;
+    if (enabled !== undefined) {
+      return `${formatTime(starthour, startminute)}~${formatTime(stophour, stopminute)}/${enabled === 1 ? 'Enabled' : 'Disabled'}`;
+    }
+    return `${formatTime(starthour, startminute)}~${formatTime(stophour, stopminute)}/${
+      ((startTime >> 15) & 1) === 1 ? 'Enabled' : 'Disabled'
+    } priority: ${priorityMap[(startTime >> 13) & 0x3] || 'unknown'}`;
+  }
+
+  processResult(result: Record<string, Measurement>, maxpeakpower: number) {
+    const context = { maxpeakpower };
     const slots = ['battfirst1', 'battfirst2', 'battfirst3', 'gridfirst1', 'gridfirst2', 'gridfirst3'];
 
     if (result) {
@@ -516,7 +581,7 @@ export class Growatt extends Homey.Device {
         this.log(key, value, scale, label);
       }
 
-      for (const mapping of mappings) {
+      for (const mapping of this.CapabilityMappings) {
         const data = result[mapping.resultKey];
 
         if (data && (!mapping.valid || mapping.valid(data, context))) {
@@ -539,15 +604,12 @@ export class Growatt extends Homey.Device {
         const switchKey = `${slot}switch`;
 
         if (result[startKey] && result[startKey].value !== 'xxx' && this.hasCapability(slot)) {
-          const value = Number(result[startKey].value);
-          const startminute = value & 0xff;
-          const starthour = (value >> 8) & 0xff;
-          const value2 = Number(result[stopKey].value);
-          const stopminute = value2 & 0xff;
-          const stophour = (value2 >> 8) & 0xff;
-          const enabled = Number(result[switchKey].value) === 0 ? 'Disabled' : 'Enabled';
-          this.log(`${slot}: ${formatTime(starthour, startminute)} ~ ${formatTime(stophour, stopminute)} is ${enabled}`);
-          this.setCapabilityValue(slot, `${formatTime(starthour, startminute)}~${formatTime(stophour, stopminute)}/${enabled}`).catch(this.error);
+          const startTime = Number(result[startKey].value);
+          const stopTime = Number(result[stopKey].value);
+          const enabled = Number(result[switchKey].value);
+          const capabilityStr = this.getSlotCapabilityValue(startTime, stopTime, enabled);
+          this.log(`${slot}: `, capabilityStr);
+          this.setCapabilityValue(slot, capabilityStr).catch(this.error);
         }
       });
 
@@ -557,24 +619,11 @@ export class Growatt extends Homey.Device {
         const capKey = `period${i}`;
 
         if (result[startKey] && result[startKey].value !== 'xxx' && this.hasCapability(capKey)) {
-          const value = Number(result[startKey].value);
-          const startminute = value & 0xff; // bits 0-7: minutes
-          const starthour = (value >> 8) & 0x1f; // bits 8-12: hours (5 bits)
-          const prioValue = (value >> 13) & 0x3; // bits 13-14: priority
-          const priority = priorityMap[prioValue] || 'unknown';
-          const enabled = ((value >> 15) & 1) === 1 ? 'Enabled' : 'Disabled'; // bit 15: enabled
-
-          this.log(`${startKey}: hour ${starthour} min ${startminute}`);
-
-          const value2 = Number(result[stopKey].value);
-          const stopminute = value2 & 0xff; // bits 0-7: minutes
-          const stophour = (value2 >> 8) & 0x1f; // bits 8-12: hours (5 bits)
-          this.log(`${stopKey}: hour ${stophour} min ${stopminute}`);
-
-          this.setCapabilityValue(
-            capKey,
-            `${formatTime(starthour, startminute)} ~ ${formatTime(stophour, stopminute)} is ${enabled} priority: ${priority}`,
-          ).catch(this.error);
+          const startTime = Number(result[startKey].value);
+          const stopTime = Number(result[stopKey].value);
+          const capabilityStr = this.getSlotCapabilityValue(startTime, stopTime);
+          this.log(`period${i}: `, capabilityStr);
+          this.setCapabilityValue(capKey, capabilityStr).catch(this.error);
         }
       }
     }
