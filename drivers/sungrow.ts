@@ -8,8 +8,9 @@ export interface Measurement {
 
 export class Sungrow extends Homey.Device {
   inputRegistersStandard: Object = {
-    totaldcpower: [5016, 2, 'UINT32', 'Total DC power', 0],
-    active_power_limit: [5000, 1, 'UINT16', 'Nominal active power', -1],
+    totaldcpower:           [5016, 2, 'UINT32', 'Total DC power', 0],
+    nomimal_active_power:  [5000, 1, 'UINT16', 'Nominal active power', -1],
+    active_power_limit2:    [5030, 2, 'UINT32', 'Total active power', 0],
     temperature: [5007, 1, 'INT16', 'temperature', -1],
     pvTodayEnergy: [5002, 1, 'UINT16', 'daily energy yield', -1],
     pvMonthEnergy: [5127, 2, 'UINT32', 'monthly energy yield', -1],
@@ -17,6 +18,13 @@ export class Sungrow extends Homey.Device {
     daily_export_from_pv: [5092, 2, 'UINT32', 'daily export from pv', -1],
     daily_direct_energy_consumption: [5100, 2, 'UINT32', 'daily direct energy consumption', -1],
   };
+
+  holdingRegistersStandard: Object = {
+    power_limitation_switch: [5006, 1, 'UINT16', 'power limitation switch 0xAA Enable 0x55 Disable', 0],
+    power_limitation_setting: [5007, 1, 'UINT16', 'power limitation setting in %', -1],    
+    power_limitation_adjustment: [5038, 1, 'UINT16', 'Power limitation adjustment in kW', -1],
+  };
+
 
   inputRegisters: Object = {
     totaldcpower: [5016, 2, 'UINT32', 'Total DC power', 0],
@@ -59,7 +67,7 @@ export class Sungrow extends Homey.Device {
     emsmodeselection: [13049, 1, 'UINT16', 'EMS mode 0: Self-consumption mode, 2: Forced mode (charge/discharge/stop), 3: External EMS mode | ', 0],
     charge_discharge_command: [13050, 1, 'UINT16', 'Charge/discharge command 170: Charge, 187: Discharge, 204: Stop | ', 0],
     charge_discharge_power: [13051, 1, 'UINT16', 'Charge/discharge power', 0],
-    'max_soc ': [13057, 1, 'UINT16', 'Max SOC ', -1],
+    max_soc: [13057, 1, 'UINT16', 'Max SOC ', -1],
     min_soc: [13058, 1, 'UINT16', 'Min SOC', -1],
     export_power: [13073, 1, 'UINT16', 'Export power', 0],
     export_power_enabled: [13086, 1, 'UINT16', 'Export power limitation 170: Enable, 85: Disable | ', 0],
@@ -89,6 +97,18 @@ export class Sungrow extends Homey.Device {
         const power_limit = Number(result['active_power_limit'].value);
         this.setCapabilityValue('activepowerlimit', power_limit);
       }
+
+      if (result['active_power_limit2'] && result['active_power_limit2'].value != 'xxx') {
+        this.addCapability('active_power_limit2');
+        const power_limit = Number(result['active_power_limit2'].value);
+        this.setCapabilityValue('active_power_limit2', power_limit);
+      }
+ 
+      if (result['nomimal_active_power'] && result['nomimal_active_power'].value != 'xxx') {
+        this.addCapability('nominalactivepower');
+        const power_limit = Number(result['nomimal_active_power'].value) * Math.pow(10, Number(result['nomimal_active_power'].scale));
+        this.setCapabilityValue('nominalactivepower', power_limit);
+      }      
 
       if (result['pvTodayEnergy'] && result['pvTodayEnergy'].value != 'xxx') {
         this.addCapability('meter_power.daily');

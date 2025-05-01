@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Nominal Active power"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "uiComponent": "sensor",
+  "units": {
+    "en": "kW"
+  },
+  "decimals": 1
+}

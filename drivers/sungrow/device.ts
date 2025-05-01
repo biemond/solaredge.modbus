@@ -1,6 +1,6 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import { checkRegisterSungrow } from '../response';
+import { checkRegisterSungrow, checkHoldingRegisterSungrow } from '../response';
 import { Sungrow } from '../sungrow';
 
 const RETRY_INTERVAL = 25 * 1000;
@@ -16,6 +16,20 @@ class MyWSungrowPlainDevice extends Sungrow {
     const name = this.getData().id;
     this.log(`device name id ${name}`);
     this.log(`device name ${this.getName()}`);
+
+    if (this.hasCapability('active_power_limit') === true) {
+      await this.removeCapability('active_power_limit');
+    }
+
+    if (this.hasCapability('active_power_limit2') === false) {
+      await this.addCapability('active_power_limit2');
+    }
+
+    if (this.hasCapability('nominalactivepower') === false) {
+      await this.addCapability('nominalactivepower');
+    }
+
+
 
     this.pollInvertor();
 
@@ -87,10 +101,11 @@ class MyWSungrowPlainDevice extends Sungrow {
       console.log(modbusOptions);
 
       const checkRegisterRes = await checkRegisterSungrow(this.inputRegistersStandard, client);
+      const checkHoldingRegisterRes = await checkHoldingRegisterSungrow(this.holdingRegistersStandard, client);
       console.log('disconnect');
       client.socket.end();
       socket.end();
-      const finalRes = { ...checkRegisterRes };
+      const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
       this.processResultPlain(finalRes);
     });
 
