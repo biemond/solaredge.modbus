@@ -28,8 +28,24 @@ class MyWSungrowPlainDevice extends Sungrow {
     if (this.hasCapability('nominalactivepower') === false) {
       await this.addCapability('nominalactivepower');
     }
+    if (this.hasCapability('start_stop') === false) {
+      await this.addCapability('start_stop');
+    }
 
+    if (this.hasCapability('power_limitation_switch') === false) {
+      await this.addCapability('power_limitation_switch');
+    }
 
+    // flow action
+    const power_limitation_switchAction = this.homey.flow.getActionCard('power_limitation_switch');
+    power_limitation_switchAction.registerRunListener(async (args, state) => {
+      await this.updateControl('power_limitation_switch', Number(args.mode));
+    });
+
+    const start_stopAction = this.homey.flow.getActionCard('start_stop');
+    start_stopAction.registerRunListener(async (args, state) => {
+      await this.updateControl('start_stop', Number(args.mode));
+    });
 
     this.pollInvertor();
 
@@ -37,6 +53,55 @@ class MyWSungrowPlainDevice extends Sungrow {
       // poll device state from inverter
       this.pollInvertor();
     }, RETRY_INTERVAL);
+  }
+
+ async updateControl(type: string, value: number) {
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 2000);
+
+    const modbusOptions = {
+      host: this.getSetting('address'),
+      port: this.getSetting('port'),
+      unitId: this.getSetting('id'),
+      timeout: 22,
+      autoReconnect: false,
+      logLabel: 'sungrow Inverter',
+      logLevel: 'error',
+      logEnabled: true,
+    };
+
+    socket.setKeepAlive(false);
+    socket.connect(modbusOptions);
+    console.log(modbusOptions);
+
+    socket.on('connect', async () => {
+      console.log('Connected ...');
+
+      if (type == 'power_limitation_switch') {
+        const power_limitation_switchRes = await client.writeSingleRegister(5006, value);
+        console.log('power_limitation_switch', power_limitation_switchRes);
+      }
+
+      if (type == 'start_stop') {
+        const start_stopRes = await client.writeSingleRegister(5005, value);
+        console.log('start_stop', start_stopRes);
+      }
+
+      console.log('disconnect');
+      client.socket.end();
+      socket.end();
+    });
+
+    socket.on('close', () => {
+      console.log('Client closed');
+    });
+
+    socket.on('error', (err) => {
+      console.log(err);
+      socket.end();
+      setTimeout(() => socket.connect(modbusOptions), 4000);
+    });
   }
 
   /**

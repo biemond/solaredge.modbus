@@ -1,0 +1,29 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Power limitation switch"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "icon": "/assets/onoff.svg",
+  "values": [
+    {
+      "id": "85",
+      "title": {
+        "en": "Disabled",
+        "nl": "Uitgeschakeld",
+        "de": "Deaktiviert"
+      }
+    },
+    {
+      "id": "170",
+      "title": {
+        "en": "Enabled",
+        "nl": "Ingeschakeld",
+        "de": "Aktiviert"
+      }
+    }
+  ]
+}

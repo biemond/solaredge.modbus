@@ -20,7 +20,8 @@
     "battery",
     "measure_battery",
     "batterysoh",
-    "activepowerlimit",
+    "activepowerlimit2",
+    "nominalactivepower",    
     "meter_power.today_grid_import",
     "meter_power.today_grid_export",
     "meter_power.grid_import",
@@ -42,7 +43,9 @@
     "chargedischargecommand",
     "charge_discharge_power",
     "batteryminsoc",
-    "batterymaxsoc"
+    "batterymaxsoc",
+    "start_stop",
+    "power_limitation_switch"
   ],
   "capabilitiesOptions": {
     "measure_power": {

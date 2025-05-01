@@ -1,0 +1,37 @@
+{
+  "title": {
+    "en": "Set power limitation mode to"
+  },
+  "titleFormatted": {
+    "en": "Set power limitation [[mode]]"
+  },
+  "args": [
+    {
+      "name": "mode",
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "85",
+          "title": {
+            "en": "Disabled",
+            "nl": "Uit",
+            "de": "Deaktiviert"
+          }
+        },
+        {
+          "id": "170",
+          "title": {
+            "en": "Enabled",
+            "nl": "Aan",
+            "de": "Aktiviert"
+          }
+        }
+      ]
+    },
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=sungrow|sungrowhybirdwithbatt"
+    }
+  ]
+}

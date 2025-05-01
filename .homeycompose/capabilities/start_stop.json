@@ -1,0 +1,29 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Start/Stop switch"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "icon": "/assets/onoff.svg",
+  "values": [
+    {
+      "id": "206",
+      "title": {
+        "en": "Stop",
+        "nl": "Uitgeschakeld",
+        "de": "Deaktiviert"
+      }
+    },
+    {
+      "id": "207",
+      "title": {
+        "en": "Start",
+        "nl": "Ingeschakeld",
+        "de": "Aktiviert"
+      }
+    }
+  ]
+}

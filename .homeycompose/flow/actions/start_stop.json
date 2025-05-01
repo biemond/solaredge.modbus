@@ -1,0 +1,37 @@
+{
+  "title": {
+    "en": "Set inverter to"
+  },
+  "titleFormatted": {
+    "en": "Set inverter to [[mode]]"
+  },
+  "args": [
+    {
+      "name": "mode",
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "206",
+          "title": {
+            "en": "Stop",
+            "nl": "Uitgeschakeld",
+            "de": "Deaktiviert"
+          }
+        },
+        {
+          "id": "207",
+          "title": {
+            "en": "Start",
+            "nl": "Ingeschakeld",
+            "de": "Aktiviert"
+          }
+        }
+      ]
+    },
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=sungrow|sungrowhybirdwithbatt"
+    }
+  ]
+}

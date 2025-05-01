@@ -23,6 +23,7 @@ export class Sungrow extends Homey.Device {
     power_limitation_switch: [5006, 1, 'UINT16', 'power limitation switch 0xAA Enable 0x55 Disable', 0],
     power_limitation_setting: [5007, 1, 'UINT16', 'power limitation setting in %', -1],    
     power_limitation_adjustment: [5038, 1, 'UINT16', 'Power limitation adjustment in kW', -1],
+    start_stop: [5005, 1, 'UINT16', 'start/stop 0xCF (Start). 0xCE (Stop)', -1],
   };
 
 
@@ -37,6 +38,9 @@ export class Sungrow extends Homey.Device {
 
     outputPower: [5002, 1, 'UINT16', 'Daily Output Energy pv + batt discharge', 0],
     active_power_limit: [5000, 1, 'UINT16', 'Nominal active power', -1],
+
+    nomimal_active_power:  [5000, 1, 'UINT16', 'Nominal active power', -1],
+    active_power_limit2:    [5030, 2, 'UINT32', 'Total active power', 0],
 
     pvTodayEnergy: [13001, 1, 'UINT16', 'Daily PV Generation', -1],
 
@@ -71,6 +75,12 @@ export class Sungrow extends Homey.Device {
     min_soc: [13058, 1, 'UINT16', 'Min SOC', -1],
     export_power: [13073, 1, 'UINT16', 'Export power', 0],
     export_power_enabled: [13086, 1, 'UINT16', 'Export power limitation 170: Enable, 85: Disable | ', 0],
+
+    power_limitation_switch: [5006, 1, 'UINT16', 'power limitation switch 0xAA Enable 0x55 Disable', 0],
+    power_limitation_setting: [5007, 1, 'UINT16', 'power limitation setting in %', -1],    
+    power_limitation_adjustment: [5038, 1, 'UINT16', 'Power limitation adjustment in kW', -1],
+    start_stop: [5005, 1, 'UINT16', 'start/stop 0xCF (Start). 0xCE (Stop)', -1],
+
   };
 
   processResult(result: Record<string, Measurement>) {
@@ -92,11 +102,11 @@ export class Sungrow extends Homey.Device {
         this.setCapabilityValue('measure_power.battery', Math.round(dcPower));
       }
 
-      if (result['active_power_limit'] && result['active_power_limit'].value != 'xxx') {
-        this.addCapability('activepowerlimit');
-        const power_limit = Number(result['active_power_limit'].value);
-        this.setCapabilityValue('activepowerlimit', power_limit);
-      }
+      // if (result['active_power_limit'] && result['active_power_limit'].value != 'xxx') {
+      //   this.addCapability('activepowerlimit');
+      //   const power_limit = Number(result['active_power_limit'].value);
+      //   this.setCapabilityValue('activepowerlimit', power_limit);
+      // }
 
       if (result['active_power_limit2'] && result['active_power_limit2'].value != 'xxx') {
         this.addCapability('activepowerlimit2');
@@ -109,6 +119,19 @@ export class Sungrow extends Homey.Device {
         const power_limit = Number(result['nomimal_active_power'].value) * Math.pow(10, Number(result['nomimal_active_power'].scale));
         this.setCapabilityValue('nominalactivepower', power_limit);
       }      
+
+      if (result['start_stop'] && result['start_stop'].value != 'xxx') {
+        this.addCapability('start_stop');
+        const switchvalue = result['start_stop'];
+        this.setCapabilityValue('start_stop', switchvalue);
+      }
+
+      if (result['power_limitation_switch'] && result['power_limitation_switch'].value != 'xxx') {
+        this.addCapability('power_limitation_switch');
+        const switchvalue = result['power_limitation_switch'];
+        this.setCapabilityValue('power_limitation_switch', switchvalue);
+      }
+
 
       if (result['pvTodayEnergy'] && result['pvTodayEnergy'].value != 'xxx') {
         this.addCapability('meter_power.daily');

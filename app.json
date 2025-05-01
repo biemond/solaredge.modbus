@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.186",
+  "version": "3.0.188",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -1975,6 +1975,44 @@
       },
       {
         "title": {
+          "en": "Set power limitation mode to"
+        },
+        "titleFormatted": {
+          "en": "Set power limitation [[mode]]"
+        },
+        "args": [
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "85",
+                "title": {
+                  "en": "Disabled",
+                  "nl": "Uit",
+                  "de": "Deaktiviert"
+                }
+              },
+              {
+                "id": "170",
+                "title": {
+                  "en": "Enabled",
+                  "nl": "Aan",
+                  "de": "Aktiviert"
+                }
+              }
+            ]
+          },
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sungrow|sungrowhybirdwithbatt"
+          }
+        ],
+        "id": "power_limitation_switch copy"
+      },
+      {
+        "title": {
           "en": "Set Priority mode to",
           "nl": "Stel de Prioriteit in op",
           "de": "Setze Priorität auf"
@@ -2022,6 +2060,44 @@
           }
         ],
         "id": "prioritymode"
+      },
+      {
+        "title": {
+          "en": "Set inverter to"
+        },
+        "titleFormatted": {
+          "en": "Set inverter to [[mode]]"
+        },
+        "args": [
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "206",
+                "title": {
+                  "en": "Stop",
+                  "nl": "Uitgeschakeld",
+                  "de": "Deaktiviert"
+                }
+              },
+              {
+                "id": "207",
+                "title": {
+                  "en": "Start",
+                  "nl": "Ingeschakeld",
+                  "de": "Aktiviert"
+                }
+              }
+            ]
+          },
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sungrow|sungrowhybirdwithbatt"
+          }
+        ],
+        "id": "start_stop"
       },
       {
         "title": {
@@ -7874,7 +7950,9 @@
         "meter_power.daily",
         "meter_power.monthly",
         "activepowerlimit2",
-        "nominalactivepower"
+        "nominalactivepower",
+        "start_stop",
+        "power_limitation_switch"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -8004,7 +8082,8 @@
         "battery",
         "measure_battery",
         "batterysoh",
-        "activepowerlimit",
+        "activepowerlimit2",
+        "nominalactivepower",
         "meter_power.today_grid_import",
         "meter_power.today_grid_export",
         "meter_power.grid_import",
@@ -8026,7 +8105,9 @@
         "chargedischargecommand",
         "charge_discharge_power",
         "batteryminsoc",
-        "batterymaxsoc"
+        "batterymaxsoc",
+        "start_stop",
+        "power_limitation_switch"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -10160,6 +10241,35 @@
         }
       ]
     },
+    "power_limitation_switch": {
+      "type": "enum",
+      "title": {
+        "en": "Power limitation switch"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "icon": "/assets/onoff.svg",
+      "values": [
+        {
+          "id": "85",
+          "title": {
+            "en": "Disabled",
+            "nl": "Uitgeschakeld",
+            "de": "Deaktiviert"
+          }
+        },
+        {
+          "id": "170",
+          "title": {
+            "en": "Enabled",
+            "nl": "Ingeschakeld",
+            "de": "Aktiviert"
+          }
+        }
+      ]
+    },
     "powerreduce": {
       "type": "number",
       "title": {
@@ -10462,6 +10572,35 @@
           "id": "3",
           "title": {
             "en": "Manual mode"
+          }
+        }
+      ]
+    },
+    "start_stop": {
+      "type": "enum",
+      "title": {
+        "en": "Start/Stop switch"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "icon": "/assets/onoff.svg",
+      "values": [
+        {
+          "id": "206",
+          "title": {
+            "en": "Stop",
+            "nl": "Uitgeschakeld",
+            "de": "Deaktiviert"
+          }
+        },
+        {
+          "id": "207",
+          "title": {
+            "en": "Start",
+            "nl": "Ingeschakeld",
+            "de": "Aktiviert"
           }
         }
       ]

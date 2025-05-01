@@ -17,12 +17,43 @@ class MyWSungrowDevice extends Sungrow {
     this.log(`device name id ${name}`);
     this.log(`device name ${this.getName()}`);
 
+    if (this.hasCapability('active_power_limit') === true) {
+      await this.removeCapability('active_power_limit');
+    }
+
+    if (this.hasCapability('activepowerlimit2') === false) {
+      await this.addCapability('activepowerlimit2');
+    }
+
+    if (this.hasCapability('nominalactivepower') === false) {
+      await this.addCapability('nominalactivepower');
+    }
+
+    if (this.hasCapability('start_stop') === false) {
+      await this.addCapability('start_stop');
+    }
+
+    if (this.hasCapability('power_limitation_switch') === false) {
+      await this.addCapability('power_limitation_switch');
+    }
+
     this.pollInvertor();
 
     this.timer = this.homey.setInterval(() => {
       // poll device state from inverter
       this.pollInvertor();
     }, RETRY_INTERVAL);
+
+    // flow action
+    const power_limitation_switchAction = this.homey.flow.getActionCard('power_limitation_switch');
+    power_limitation_switchAction.registerRunListener(async (args, state) => {
+      await this.updateControl('power_limitation_switch', Number(args.mode));
+    });
+
+    const start_stopAction = this.homey.flow.getActionCard('start_stop');
+    start_stopAction.registerRunListener(async (args, state) => {
+      await this.updateControl('start_stop', Number(args.mode));
+    });
 
     // flow action
     const emsmodedAction = this.homey.flow.getActionCard('emsmodeselection');
@@ -77,6 +108,17 @@ class MyWSungrowDevice extends Sungrow {
         const emsmodeselectionRes = await client.writeSingleRegister(13049, value);
         console.log('emsmodeselection', emsmodeselectionRes);
       }
+
+      if (type == 'power_limitation_switch') {
+        const power_limitation_switchRes = await client.writeSingleRegister(5006, value);
+        console.log('power_limitation_switch', power_limitation_switchRes);
+      }
+
+      if (type == 'start_stop') {
+        const start_stopRes = await client.writeSingleRegister(5005, value);
+        console.log('start_stop', start_stopRes);
+      }
+
 
       console.log('disconnect');
       client.socket.end();
