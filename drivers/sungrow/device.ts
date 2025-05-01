@@ -21,8 +21,8 @@ class MyWSungrowPlainDevice extends Sungrow {
       await this.removeCapability('active_power_limit');
     }
 
-    if (this.hasCapability('active_power_limit2') === false) {
-      await this.addCapability('active_power_limit2');
+    if (this.hasCapability('activepowerlimit2') === false) {
+      await this.addCapability('activepowerlimit2');
     }
 
     if (this.hasCapability('nominalactivepower') === false) {

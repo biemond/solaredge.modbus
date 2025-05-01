@@ -99,9 +99,9 @@ export class Sungrow extends Homey.Device {
       }
 
       if (result['active_power_limit2'] && result['active_power_limit2'].value != 'xxx') {
-        this.addCapability('active_power_limit2');
+        this.addCapability('activepowerlimit2');
         const power_limit = Number(result['active_power_limit2'].value);
-        this.setCapabilityValue('active_power_limit2', power_limit);
+        this.setCapabilityValue('activepowerlimit2', power_limit);
       }
  
       if (result['nomimal_active_power'] && result['nomimal_active_power'].value != 'xxx') {
