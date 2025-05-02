@@ -122,13 +122,13 @@ export class Sungrow extends Homey.Device {
 
       if (result['start_stop'] && result['start_stop'].value != 'xxx') {
         this.addCapability('start_stop');
-        const switchvalue = result['start_stop'];
+        const switchvalue = result['start_stop'].value;
         this.setCapabilityValue('start_stop', switchvalue);
       }
 
       if (result['power_limitation_switch'] && result['power_limitation_switch'].value != 'xxx') {
         this.addCapability('power_limitation_switch');
-        const switchvalue = result['power_limitation_switch'];
+        const switchvalue = result['power_limitation_switch'].value;
         this.setCapabilityValue('power_limitation_switch', switchvalue);
       }
 
@@ -421,16 +421,15 @@ export class Sungrow extends Homey.Device {
 
       if (result['start_stop'] && result['start_stop'].value != 'xxx') {
         this.addCapability('start_stop');
-        const switchvalue = result['start_stop'];
+        const switchvalue = result['start_stop'].value;
         this.setCapabilityValue('start_stop', switchvalue);
       }
 
       if (result['power_limitation_switch'] && result['power_limitation_switch'].value != 'xxx') {
         this.addCapability('power_limitation_switch');
-        const switchvalue = result['power_limitation_switch'];
+        const switchvalue = result['power_limitation_switch'].value;
         this.setCapabilityValue('power_limitation_switch', switchvalue);
-      }      
-
+      }
       
       if (result['pvTodayEnergy'] && result['pvTodayEnergy'].value != 'xxx') {
         this.addCapability('meter_power.daily');
