@@ -9,7 +9,7 @@ export interface Measurement {
 export class Sungrow extends Homey.Device {
   inputRegistersStandard: Object = {
     totaldcpower:           [5016, 2, 'UINT32', 'Total DC power', 0],
-    nomimal_active_power:  [5000, 1, 'UINT16', 'Nominal active power', -1],
+    nomimal_active_power:   [5000, 1, 'UINT16', 'Nominal active power', -1],
     active_power_limit2:    [5030, 2, 'UINT32', 'Total active power', 0],
     temperature: [5007, 1, 'INT16', 'temperature', -1],
     pvTodayEnergy: [5002, 1, 'UINT16', 'daily energy yield', -1],
@@ -401,12 +401,37 @@ export class Sungrow extends Homey.Device {
         this.setCapabilityValue('measure_power', Math.round(dcPower));
       }
 
-      if (result['active_power_limit'] && result['active_power_limit'].value != 'xxx') {
-        this.addCapability('activepowerlimit');
-        const power_limit = Number(result['active_power_limit'].value);
-        this.setCapabilityValue('activepowerlimit', power_limit);
+      // if (result['active_power_limit'] && result['active_power_limit'].value != 'xxx') {
+      //   this.addCapability('activepowerlimit');
+      //   const power_limit = Number(result['active_power_limit'].value);
+      //   this.setCapabilityValue('activepowerlimit', power_limit);
+      // }
+
+      if (result['active_power_limit2'] && result['active_power_limit2'].value != 'xxx') {
+        this.addCapability('activepowerlimit2');
+        const power_limit = Number(result['active_power_limit2'].value);
+        this.setCapabilityValue('activepowerlimit2', power_limit);
+      }
+ 
+      if (result['nomimal_active_power'] && result['nomimal_active_power'].value != 'xxx') {
+        this.addCapability('nominalactivepower');
+        const power_limit = Number(result['nomimal_active_power'].value) * Math.pow(10, Number(result['nomimal_active_power'].scale));
+        this.setCapabilityValue('nominalactivepower', power_limit);
+      }      
+
+      if (result['start_stop'] && result['start_stop'].value != 'xxx') {
+        this.addCapability('start_stop');
+        const switchvalue = result['start_stop'];
+        this.setCapabilityValue('start_stop', switchvalue);
       }
 
+      if (result['power_limitation_switch'] && result['power_limitation_switch'].value != 'xxx') {
+        this.addCapability('power_limitation_switch');
+        const switchvalue = result['power_limitation_switch'];
+        this.setCapabilityValue('power_limitation_switch', switchvalue);
+      }      
+
+      
       if (result['pvTodayEnergy'] && result['pvTodayEnergy'].value != 'xxx') {
         this.addCapability('meter_power.daily');
         const pvTodayEnergy = Number(result['pvTodayEnergy'].value) * Math.pow(10, Number(result['pvTodayEnergy'].scale));
