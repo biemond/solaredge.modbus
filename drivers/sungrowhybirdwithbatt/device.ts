@@ -55,6 +55,16 @@ class MyWSungrowDevice extends Sungrow {
       await this.updateControl('start_stop', Number(args.mode));
     });
 
+    const adjustpowerlimitationAction = this.homey.flow.getActionCard('adjustpowerlimitation');
+    adjustpowerlimitationAction.registerRunListener(async (args, state) => {
+      await this.updateControl('adjustpowerlimitation', Number(args.mode));
+    });
+
+    const powerlimitationsettingAction = this.homey.flow.getActionCard('powerlimitationsetting');
+    powerlimitationsettingAction.registerRunListener(async (args, state) => {
+      await this.updateControl('powerlimitationsetting', Number(args.percentage));
+    });
+
     // flow action
     const emsmodedAction = this.homey.flow.getActionCard('emsmodeselection');
     emsmodedAction.registerRunListener(async (args, state) => {
@@ -70,6 +80,8 @@ class MyWSungrowDevice extends Sungrow {
     chargeAction.registerRunListener(async (args, state) => {
       await this.updateControl2('charge', Number(args.command), Number(args.power));
     });
+
+
 
     // homey menu / device actions
     this.registerCapabilityListener('emsmodeselection', async (value) => {
@@ -117,6 +129,15 @@ class MyWSungrowDevice extends Sungrow {
       if (type == 'start_stop') {
         const start_stopRes = await client.writeSingleRegister(5005, value);
         console.log('start_stop', start_stopRes);
+      }
+      if (type == 'adjustpowerlimitation') {
+        const adjustpowerlimitationRes = await client.writeSingleRegister(5038, value * 10);
+        console.log('adjustpowerlimitation', adjustpowerlimitationRes);
+      }
+
+      if (type == 'powerlimitationsetting') {
+        const powerlimitationsettingRes = await client.writeSingleRegister(5007, value * 10);
+        console.log('powerlimitationsetting', powerlimitationsettingRes);
       }
 
 

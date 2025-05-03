@@ -2,6 +2,7 @@ import * as Modbus from 'jsmodbus';
 import net from 'net';
 import { checkRegisterSungrow, checkHoldingRegisterSungrow } from '../response';
 import { Sungrow } from '../sungrow';
+import Homey, { Device } from 'homey';
 
 const RETRY_INTERVAL = 25 * 1000;
 
@@ -39,12 +40,22 @@ class MyWSungrowPlainDevice extends Sungrow {
     // flow action
     const power_limitation_switchAction = this.homey.flow.getActionCard('power_limitation_switch');
     power_limitation_switchAction.registerRunListener(async (args, state) => {
-      await this.updateControl('power_limitation_switch', Number(args.mode));
+      await this.updateControl('power_limitation_switch', Number(args.mode), args.device);
     });
 
     const start_stopAction = this.homey.flow.getActionCard('start_stop');
     start_stopAction.registerRunListener(async (args, state) => {
-      await this.updateControl('start_stop', Number(args.mode));
+      await this.updateControl('start_stop', Number(args.mode), args.device);
+    });
+
+    const adjustpowerlimitationAction = this.homey.flow.getActionCard('adjustpowerlimitation');
+    adjustpowerlimitationAction.registerRunListener(async (args, state) => {
+      await this.updateControl('adjustpowerlimitation', Number(args.mode), args.device);
+    });
+
+    const powerlimitationsettingAction = this.homey.flow.getActionCard('powerlimitationsetting');
+    powerlimitationsettingAction.registerRunListener(async (args, state) => {
+      await this.updateControl('powerlimitationsetting', Number(args.percentage), args.device);
     });
 
     this.pollInvertor();
@@ -55,21 +66,26 @@ class MyWSungrowPlainDevice extends Sungrow {
     }, RETRY_INTERVAL);
   }
 
- async updateControl(type: string, value: number) {
-    const socket = new net.Socket();
-    const unitID = this.getSetting('id');
-    const client = new Modbus.client.TCP(socket, unitID, 2000);
+ async updateControl(type: string, value: number, device: Homey.Device) {
 
-    const modbusOptions = {
-      host: this.getSetting('address'),
-      port: this.getSetting('port'),
-      unitId: this.getSetting('id'),
-      timeout: 22,
-      autoReconnect: false,
-      logLabel: 'sungrow Inverter',
-      logLevel: 'error',
-      logEnabled: true,
-    };
+     const name = device.getData().id;
+     this.log(`device name id ${name}`);
+     this.log(`device name ${device.getName()}`);
+ 
+     const socket = new net.Socket();
+     const unitID = device.getSetting('id');
+     const client = new Modbus.client.TCP(socket, unitID, 2000);
+ 
+     const modbusOptions = {
+       host: device.getSetting('address'),
+       port: device.getSetting('port'),
+       unitId: device.getSetting('id'),
+       timeout: 22,
+       autoReconnect: false,
+       logLabel: 'sungrow Inverter',
+       logLevel: 'error',
+       logEnabled: true,
+     }; 
 
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
@@ -86,6 +102,16 @@ class MyWSungrowPlainDevice extends Sungrow {
       if (type == 'start_stop') {
         const start_stopRes = await client.writeSingleRegister(5005, value);
         console.log('start_stop', start_stopRes);
+      }
+
+      if (type == 'adjustpowerlimitation') {
+        const adjustpowerlimitationRes = await client.writeSingleRegister(5038, value * 10);
+        console.log('adjustpowerlimitation', adjustpowerlimitationRes);
+      }
+
+      if (type == 'powerlimitationsetting') {
+        const powerlimitationsettingRes = await client.writeSingleRegister(5007, value * 10);
+        console.log('powerlimitationsetting', powerlimitationsettingRes);
       }
 
       console.log('disconnect');
