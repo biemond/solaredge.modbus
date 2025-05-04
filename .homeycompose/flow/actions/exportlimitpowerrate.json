@@ -2,12 +2,14 @@
   "title": {
     "en": "Set Export limit to",
     "nl": "Stel de exportlimiet in op",
-    "de": "Setze Exportbeschränkung auf"
+    "de": "Setze Exportbeschränkung auf",
+    "sv": "Ställ in exportbegränsning till"
   },
   "titleFormatted": {
     "en": "Set Export limit to [[percentage]]",
     "nl": "Stel de exportlimiet in op [[percentage]]",
-    "de": "Setze Exportbeschränkung auf [[percentage]]"
+    "de": "Setze Exportbeschränkung auf [[percentage]]",
+    "sv": "Ställ in exportbegränsning till [[percentage]]"
   },
   "args": [
     {
@@ -16,7 +18,8 @@
       "title": {
         "en": "Export Limit(%)",
         "nl": "Exportlimiet(%)",
-        "de": "Exportbeschränkung(%)"
+        "de": "Exportbeschränkung(%)",
+        "sv": "Exportbegränsning(%)"
       },
       "min": 0,
       "max": 100,
