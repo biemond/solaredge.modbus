@@ -2,7 +2,8 @@
   "type": "number",
   "title": {
     "en": "Active power limit",
-    "de": "Aktive Leistungsbeschränkung"
+    "de": "Aktive Leistungsbeschränkung",
+    "sv": "Aktiv Effektbegränsning"
   },
   "getable": true,
   "setable": false,
