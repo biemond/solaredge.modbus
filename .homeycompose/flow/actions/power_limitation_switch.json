@@ -1,9 +1,11 @@
 {
   "title": {
-    "en": "Set power limitation mode to"
+    "en": "Set power limitation mode to",
+    "sv": "Ange effektbegränsningsläge till"
   },
   "titleFormatted": {
-    "en": "Set power limitation [[mode]]"
+    "en": "Set power limitation [[mode]]",
+    "sv": "Effektbegränsningsläge [[mode]]"
   },
   "args": [
     {
@@ -15,7 +17,8 @@
           "title": {
             "en": "Disabled",
             "nl": "Uit",
-            "de": "Deaktiviert"
+            "de": "Deaktiviert",
+            "sv": "Av"
           }
         },
         {
@@ -23,7 +26,8 @@
           "title": {
             "en": "Enabled",
             "nl": "Aan",
-            "de": "Aktiviert"
+            "de": "Aktiviert",
+            "sv": "På"
           }
         }
       ]
