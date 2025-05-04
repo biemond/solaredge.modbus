@@ -1,7 +1,8 @@
 {
   "title": {
     "en": "Set Active Power Limit to",
-    "de": "Setze Aktive Leistungsbeschränkung auf"
+    "de": "Setze Aktive Leistungsbeschränkung auf",
+    "sv": "Ange effektbegränsning till"
   },
   "args": [
     {
@@ -9,7 +10,8 @@
       "name": "value",
       "title": {
         "en": "percentage",
-        "de": "Prozent"
+        "de": "Prozent",
+        "sv": "Procent"
       },
       "min": 0,
       "max": 100,
