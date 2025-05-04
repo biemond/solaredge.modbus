@@ -2,17 +2,20 @@
   "title": {
     "en": "Inverter priority !{{is|is not}}",
     "nl": "Omvormerprioriteit !{{is|is niet}}",
-    "de": "Wechselrichter-Priorität !{{ist|ist nicht}}"
+    "de": "Wechselrichter-Priorität !{{ist|ist nicht}}",
+    "sv": "Växelriktarprioritet !{{är|är inte}}"
   },
   "titleFormatted": {
     "en": "Inverter priority !{{is|is not}} [[priority]]",
     "nl": "Omvormerprioriteit !{{is|is niet}} [[priority]]",
-    "de": "Wechselrichter-Priorität !{{ist|ist nicht}} [[priority]]"
+    "de": "Wechselrichter-Priorität !{{ist|ist nicht}} [[priority]]",
+    "sv": "Växelriktarprioritet !{{är|är inte}} [[priority]]"
   },
   "hint": {
     "en": "Inverter priority",
     "nl": "Omvormerprioriteit",
-    "de": "Wechselrichter-Priorität"
+    "de": "Wechselrichter-Priorität",
+    "sv": "Växelriktarprioritet"
   },
   "args": [
     {
@@ -29,7 +32,8 @@
           "label": {
             "en": "Load First",
             "nl": "Belasting eerst",
-            "de": "Last zuerst"
+            "de": "Last zuerst",
+            "sv": "Först lasten"
           }
         },
         {
@@ -37,7 +41,8 @@
           "label": {
             "en": "Battery First",
             "nl": "Batterij eerst",
-            "de": "Batterie zuerst"
+            "de": "Batterie zuerst",
+            "sv": "Först batteriet"
           }
         },
         {
@@ -45,7 +50,8 @@
           "label": {
             "en": "Grid First",
             "nl": "Net eerst",
-            "de": "Netz zuerst"
+            "de": "Netz zuerst",
+            "sv": "Först elnätet"
           }
         }
       ]
