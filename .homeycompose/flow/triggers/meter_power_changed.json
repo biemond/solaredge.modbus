@@ -2,7 +2,8 @@
   "title": {
     "en": "Total Yield changed",
     "nl": "Totale opbrengst is veranderd",
-    "de": "Gesamtertrag hat sich geändert"
+    "de": "Gesamtertrag hat sich geändert",
+    "sv": "Totala produktionen har ändrats"
   },
   "tokens": [
     {
@@ -10,7 +11,8 @@
       "title": {
         "en": "Energy",
         "nl": "Energie",
-        "de": "Energie"
+        "de": "Energie",
+        "sv": "Energi"
       },
       "type": "number",
       "example": 25
