@@ -2,17 +2,20 @@
   "title": {
     "en": "Export Limit !{{is|is not}}",
     "nl": "Export limiet !{{is|is niet}}",
-    "de": "Exportlimit !{{ist|ist nicht}}"
+    "de": "Exportlimit !{{ist|ist nicht}}",
+    "sv": "Exportbegränsning !{{är|är inte}}"
   },
   "titleFormatted": {
     "en": "Export limit !{{is|is not}} [[exportlimit]]",
     "nl": "Export limiet !{{is|is niet}} [[exportlimit]]",
-    "de": "Exportlimit !{{ist|ist nicht}} [[exportlimit]]"
+    "de": "Exportlimit !{{ist|ist nicht}} [[exportlimit]]",
+    "sv": "Exportbegränsning !{{är|är inte}} [[exportlimit]]"
   },
   "hint": {
     "en": "Whether export limit is enabled or disabled",
     "nl": "Of de export limiet is ingeschakeld of uitgeschakeld",
-    "de": "Ob das Exportlimit aktiviert oder deaktiviert ist"
+    "de": "Ob das Exportlimit aktiviert oder deaktiviert ist",
+    "sv": "Huruvida exportgränsen är aktiverad eller inaktiverad"
   },
   "args": [
     {
@@ -29,7 +32,8 @@
           "label": {
             "en": "Disabled",
             "nl": "Uitgeschakeld",
-            "de": "Deaktiviert"
+            "de": "Deaktiviert",
+            "sv": "Inaktiverad"
           }
         },
         {
@@ -37,7 +41,8 @@
           "label": {
             "en": "Enabled",
             "nl": "Ingeschakeld",
-            "de": "Aktiviert"
+            "de": "Aktiviert",
+            "sv": "Aktiverad"
           }
         }
       ]
