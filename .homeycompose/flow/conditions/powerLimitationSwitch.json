@@ -1,12 +1,15 @@
 {
   "title": {
-    "en": "Power limitation !{{is|is not}}"
+    "en": "Power limitation !{{is|is not}}",
+    "sv": "Effektbegränsning !{{är|är inte}}"
   },
   "titleFormatted": {
-    "en": "Power limitation !{{is|is not}} [[switch]]"
+    "en": "Power limitation !{{is|is not}} [[switch]]",
+    "sv": "Effektbegränsning !{{är|är inte}} [[switch]]"
   },
   "hint": {
-    "en": "Whether the power limitation is enabled or disabled"
+    "en": "Whether the power limitation is enabled or disabled",
+    "sv": "Om effektbegränsningen är på eller av"
   },
   "args": [
     {
@@ -23,7 +26,8 @@
           "label": {
             "en": "Disabled",
             "nl": "Uitgeschakeld",
-            "de": "Deaktiviert"
+            "de": "Deaktiviert",
+            "sv": "Av"
           }
         },
         {
@@ -31,7 +35,8 @@
           "label": {
             "en": "Enabled",
             "nl": "Ingeschakeld",
-            "de": "Aktiviert"
+            "de": "Aktiviert",
+            "sv": "På"
           }
         }
       ]
