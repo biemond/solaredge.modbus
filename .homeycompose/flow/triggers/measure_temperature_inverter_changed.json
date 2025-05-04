@@ -3,7 +3,8 @@
   "title": {
     "en": "The inverter temperature changed",
     "nl": "De inverter temperatuur is veranderd",
-    "de": "Wechselrichtertemperatur hat sich geändert"
+    "de": "Wechselrichtertemperatur hat sich geändert",
+    "sv": "Växelriktarens temperatur har ändrats"
   },
   "tokens": [
     {
@@ -11,7 +12,8 @@
       "title": {
         "en": "Temperature",
         "nl": "Temperatuur",
-        "de": "Temperatur"
+        "de": "Temperatur",
+        "sv": "Temperatur"
       },
       "type": "number",
       "example": 23.5
