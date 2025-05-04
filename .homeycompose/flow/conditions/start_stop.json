@@ -5,7 +5,7 @@
   },
   "titleFormatted": {
     "en": "Inverter !{{is|is not}} [[switch]]",
-    "sv": "Växelriktare !{{är|är inte}} [[switch]]""
+    "sv": "Växelriktare !{{är|är inte}} [[switch]]"
   },
   "hint": {
     "en": "Whether the inverter is enabled or disabled",

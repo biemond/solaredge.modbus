@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.193",
+  "version": "3.0.194",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -985,13 +985,16 @@
       },
       {
         "title": {
-          "en": "Power limitation !{{is|is not}}"
+          "en": "Power limitation !{{is|is not}}",
+          "sv": "Effektbegränsning !{{är|är inte}}"
         },
         "titleFormatted": {
-          "en": "Power limitation !{{is|is not}} [[switch]]"
+          "en": "Power limitation !{{is|is not}} [[switch]]",
+          "sv": "Effektbegränsning !{{är|är inte}} [[switch]]"
         },
         "hint": {
-          "en": "Whether the power limitation is enabled or disabled"
+          "en": "Whether the power limitation is enabled or disabled",
+          "sv": "Om effektbegränsningen är på eller av"
         },
         "args": [
           {
@@ -1008,7 +1011,8 @@
                 "label": {
                   "en": "Disabled",
                   "nl": "Uitgeschakeld",
-                  "de": "Deaktiviert"
+                  "de": "Deaktiviert",
+                  "sv": "Av"
                 }
               },
               {
@@ -1016,7 +1020,8 @@
                 "label": {
                   "en": "Enabled",
                   "nl": "Ingeschakeld",
-                  "de": "Aktiviert"
+                  "de": "Aktiviert",
+                  "sv": "På"
                 }
               }
             ]
@@ -1081,13 +1086,16 @@
       },
       {
         "title": {
-          "en": "Inverter !{{is|is not}}"
+          "en": "Inverter !{{is|is not}}",
+          "sv": "Växelriktare !{{är|är inte}}"
         },
         "titleFormatted": {
-          "en": "Inverter !{{is|is not}} [[switch]]"
+          "en": "Inverter !{{is|is not}} [[switch]]",
+          "sv": "Växelriktare !{{är|är inte}} [[switch]]"
         },
         "hint": {
-          "en": "Whether the inverter is enabled or disabled"
+          "en": "Whether the inverter is enabled or disabled",
+          "sv": "Om växelriktaren är på eller av"
         },
         "args": [
           {
@@ -1104,7 +1112,8 @@
                 "title": {
                   "en": "Stop",
                   "nl": "Uitgeschakeld",
-                  "de": "Deaktiviert"
+                  "de": "Deaktiviert",
+                  "sv": "Av"
                 }
               },
               {
@@ -1112,7 +1121,8 @@
                 "title": {
                   "en": "Start",
                   "nl": "Ingeschakeld",
-                  "de": "Aktiviert"
+                  "de": "Aktiviert",
+                  "sv": "På"
                 }
               }
             ]
@@ -1649,7 +1659,8 @@
       },
       {
         "title": {
-          "en": "Adjust Power limitation"
+          "en": "Adjust Power limitation",
+          "sv": "Justera effektbegränsning"
         },
         "args": [
           {
@@ -2118,7 +2129,8 @@
       },
       {
         "title": {
-          "en": "Set Power limitation setting to"
+          "en": "Set Power limitation setting to",
+          "sv": "Ställ in effektbegränsningen på"
         },
         "args": [
           {
@@ -2127,7 +2139,8 @@
             "title": {
               "en": "Limit(%)",
               "nl": "limiet(%)",
-              "de": "beschränkung(%)"
+              "de": "beschränkung(%)",
+              "sv": "begränsning(%)"
             },
             "min": 0,
             "max": 100,
@@ -8093,14 +8106,16 @@
           "decimals": 0,
           "title": {
             "en": "Solar Power",
-            "de": "Solarleistung"
+            "de": "Solarleistung",
+            "sv": "Solkraft"
           }
         },
         "measure_temperature": {
           "title": {
             "en": "Heatsink temperature",
             "nl": "Heatsink temperatuur",
-            "de": "Kühlkörpertemperatur"
+            "de": "Kühlkörpertemperatur",
+            "sv": "Kylflänstemperatur"
           },
           "decimals": 2
         },
@@ -8108,7 +8123,8 @@
           "title": {
             "en": "Total Yield",
             "nl": "Totale opbrengst",
-            "de": "Gesamtertrag"
+            "de": "Gesamtertrag",
+            "sv": "Total produktion"
           },
           "decimals": 1
         },
@@ -8116,7 +8132,8 @@
           "title": {
             "en": "Total Day Yield",
             "nl": "Totale dag opbrengst",
-            "de": "Tagesgesamtertrag"
+            "de": "Tagesgesamtertrag",
+            "sv": "Dagsproduktion"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
@@ -8124,7 +8141,8 @@
         "meter_power.monthly": {
           "title": {
             "en": "Total Month Yield",
-            "nl": "Totale maand opbrengst"
+            "nl": "Totale maand opbrengst",
+            "sv": "Månadsproduktion"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
@@ -8150,7 +8168,8 @@
           "type": "group",
           "label": {
             "en": "Inverter settings",
-            "de": "Wechselrichtereinstellungen"
+            "de": "Wechselrichtereinstellungen",
+            "sv": "Växelriktarinställningar"
           },
           "children": [
             {
@@ -8159,7 +8178,8 @@
               "value": "0.0.0.0",
               "label": {
                 "en": "IP Address",
-                "de": "IP-Adresse"
+                "de": "IP-Adresse",
+                "sv": "IP adress"
               }
             },
             {
@@ -8169,7 +8189,8 @@
               "step": 1,
               "label": {
                 "en": "Port",
-                "de": "Port"
+                "de": "Port",
+                "sv": "Port"
               }
             },
             {
@@ -8184,7 +8205,8 @@
               "label": {
                 "en": "Inverter ID",
                 "nl": "Inverter ID",
-                "de": "Wechselrichter-ID"
+                "de": "Wechselrichter-ID",
+                "sv": "Växelriktarens Id"
               }
             }
           ]
@@ -9027,7 +9049,8 @@
       "type": "number",
       "title": {
         "en": "Active power limit",
-        "de": "Aktive Leistungsbeschränkung"
+        "de": "Aktive Leistungsbeschränkung",
+        "sv": "Aktiv Effektbegränsning"
       },
       "getable": true,
       "setable": false,
@@ -10380,21 +10403,24 @@
     "power_limitation_adjustment": {
       "type": "number",
       "title": {
-        "en": "Power limitation adjustment"
+        "en": "Power limitation adjustment",
+        "sv": "Justera effektbegränsningen"
       },
       "getable": true,
       "setable": false,
       "insights": true,
       "uiComponent": "sensor",
       "units": {
-        "en": "kW"
+        "en": "kW",
+        "sv": "kW"
       },
       "decimals": 1
     },
     "power_limitation_setting": {
       "type": "number",
       "title": {
-        "en": "power limitation setting"
+        "en": "power limitation setting",
+        "sv": "Effektbegränsning"
       },
       "getable": true,
       "setable": false,
@@ -10402,14 +10428,16 @@
       "uiComponent": "sensor",
       "units": {
         "en": "%",
-        "nl": "%"
+        "nl": "%",
+        "sv": "%"
       },
       "decimals": 1
     },
     "power_limitation_switch": {
       "type": "enum",
       "title": {
-        "en": "Power limitation switch"
+        "en": "Power limitation switch",
+        "sv": "Effektbegränsningsknapp"
       },
       "getable": true,
       "setable": false,
@@ -10422,7 +10450,8 @@
           "title": {
             "en": "Disabled",
             "nl": "Uitgeschakeld",
-            "de": "Deaktiviert"
+            "de": "Deaktiviert",
+            "sv": "Av"
           }
         },
         {
@@ -10430,7 +10459,8 @@
           "title": {
             "en": "Enabled",
             "nl": "Ingeschakeld",
-            "de": "Aktiviert"
+            "de": "Aktiviert",
+            "sv": "På"
           }
         }
       ]
@@ -10744,7 +10774,8 @@
     "start_stop": {
       "type": "enum",
       "title": {
-        "en": "Start/Stop switch"
+        "en": "Start/Stop switch",
+        "sv": "Start/stopp knapp"
       },
       "getable": true,
       "setable": false,
@@ -10757,7 +10788,8 @@
           "title": {
             "en": "Stop",
             "nl": "Uitgeschakeld",
-            "de": "Deaktiviert"
+            "de": "Deaktiviert",
+            "sv": "Av"
           }
         },
         {
@@ -10765,7 +10797,8 @@
           "title": {
             "en": "Start",
             "nl": "Ingeschakeld",
-            "de": "Aktiviert"
+            "de": "Aktiviert",
+            "sv": "På"
           }
         }
       ]
