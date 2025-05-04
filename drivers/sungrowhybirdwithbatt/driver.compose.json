@@ -45,7 +45,9 @@
     "batteryminsoc",
     "batterymaxsoc",
     "start_stop",
-    "power_limitation_switch"
+    "power_limitation_switch",
+    "power_limitation_setting",
+    "power_limitation_adjustment"    
   ],
   "capabilitiesOptions": {
     "measure_power": {

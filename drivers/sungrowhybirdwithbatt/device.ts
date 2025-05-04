@@ -36,6 +36,13 @@ class MyWSungrowDevice extends Sungrow {
     if (this.hasCapability('power_limitation_switch') === false) {
       await this.addCapability('power_limitation_switch');
     }
+    if (this.hasCapability('power_limitation_setting') === false) {
+      await this.addCapability('power_limitation_setting');
+    }
+    if (this.hasCapability('power_limitation_adjustment') === false) {
+      await this.addCapability('power_limitation_adjustment');
+    }    
+    
 
     this.pollInvertor();
 
@@ -81,13 +88,25 @@ class MyWSungrowDevice extends Sungrow {
       await this.updateControl2('charge', Number(args.command), Number(args.power));
     });
 
-
-
     // homey menu / device actions
     this.registerCapabilityListener('emsmodeselection', async (value) => {
       this.updateControl('emsmodeselection', Number(value));
       return value;
     });
+
+    // flow conditions
+    const powerLimitationSwitchStatus = this.homey.flow.getConditionCard('powerLimitationSwitch');
+    powerLimitationSwitchStatus.registerRunListener(async (args, state) => {
+      const result = (await args.device.getCapabilityValue('power_limitation_switch')) == args.switch;
+      return Promise.resolve(result);
+    });
+
+    const start_stopStatus = this.homey.flow.getConditionCard('start_stop');
+    start_stopStatus.registerRunListener(async (args, state) => {
+      const result = (await args.device.getCapabilityValue('start_stop')) >= args.switch;
+      return Promise.resolve(result);
+    });
+
   }
 
   async updateControl(type: string, value: number) {

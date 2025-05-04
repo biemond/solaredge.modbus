@@ -1,0 +1,15 @@
+{
+  "type": "number",
+  "title": {
+    "en": "power limitation setting"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "uiComponent": "sensor",
+  "units": {
+    "en": "%",
+    "nl": "%"
+  },
+  "decimals": 1
+}

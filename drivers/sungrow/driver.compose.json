@@ -6,7 +6,7 @@
   "energy": {
     "batteries": ["OTHER"]
   },
-  "capabilities": ["measure_power", "activepowerlimit2", "nominalactivepower", "measure_temperature", "meter_power.daily", "meter_power.monthly", "meter_power","start_stop","power_limitation_switch"],
+  "capabilities": ["measure_power", "activepowerlimit2", "nominalactivepower", "measure_temperature", "meter_power.daily", "meter_power.monthly", "meter_power","start_stop","power_limitation_switch","power_limitation_setting", "power_limitation_adjustment"],
   "capabilitiesOptions": {
     "measure_power": {
       "decimals": 0,

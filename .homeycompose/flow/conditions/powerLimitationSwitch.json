@@ -1,0 +1,40 @@
+{
+  "title": {
+    "en": "Power limitation !{{is|is not}}"
+  },
+  "titleFormatted": {
+    "en": "Power limitation !{{is|is not}} [[switch]]"
+  },
+  "hint": {
+    "en": "Whether the power limitation is enabled or disabled"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=sungrow|sungrowhybirdwithbatt"
+    },
+    {
+      "name": "switch",
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "85",
+          "label": {
+            "en": "Disabled",
+            "nl": "Uitgeschakeld",
+            "de": "Deaktiviert"
+          }
+        },
+        {
+          "id": "170",
+          "label": {
+            "en": "Enabled",
+            "nl": "Ingeschakeld",
+            "de": "Aktiviert"
+          }
+        }
+      ]
+    }
+  ]
+}
