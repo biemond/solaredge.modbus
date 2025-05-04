@@ -1,12 +1,15 @@
 {
   "title": {
-    "en": "Inverter !{{is|is not}}"
+    "en": "Inverter !{{is|is not}}",
+    "sv": "Växelriktare !{{är|är inte}}"
   },
   "titleFormatted": {
-    "en": "Inverter !{{is|is not}} [[switch]]"
+    "en": "Inverter !{{is|is not}} [[switch]]",
+    "sv": "Växelriktare !{{är|är inte}} [[switch]]""
   },
   "hint": {
-    "en": "Whether the inverter is enabled or disabled"
+    "en": "Whether the inverter is enabled or disabled",
+    "sv": "Om växelriktaren är på eller av"
   },
   "args": [
     {
@@ -23,7 +26,8 @@
           "title": {
             "en": "Stop",
             "nl": "Uitgeschakeld",
-            "de": "Deaktiviert"
+            "de": "Deaktiviert",
+            "sv": "Av"
           }
         },
         {
@@ -31,7 +35,8 @@
             "title": {
               "en": "Start",
               "nl": "Ingeschakeld",
-              "de": "Aktiviert"
+              "de": "Aktiviert",
+              "sv": "På"
             }
         }
       ]
