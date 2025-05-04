@@ -1,15 +1,18 @@
 {
   "title": {
     "en": "Inverter status !{{is|is not}}",
-    "de": "Status des Wechselrichters !{{ist|ist nicht}}"
+    "de": "Status des Wechselrichters !{{ist|ist nicht}}",
+    "sv": "Växelriktarstatus !{{är|är inte}}"
   },
   "titleFormatted": {
     "en": "Inverter status !{{is|is not}} [[argument_main]]",
-    "de": "Status des Wechselrichters !{{ist|ist nicht}} [[argument_main]]"
+    "de": "Status des Wechselrichters !{{ist|ist nicht}} [[argument_main]]",
+    "sv": "Växelriktarstatus !{{är|är inte}} [[argument_main]]"
   },
   "hint": {
     "en": "Inverter status",
-    "de": "Status des Wechselrichters"
+    "de": "Status des Wechselrichters",
+    "sv": "Växelriktarstatus"
   },
   "args": [
     {
@@ -25,63 +28,72 @@
           "id": "0",
           "label": {
             "en": "Undefined",
-            "de": "Undefiniert"
+            "de": "Undefiniert",
+            "sv": "Odefinierad"
           }
         },
         {
           "id": "1",
           "label": {
             "en": "Off",
-            "de": "Aus"
+            "de": "Aus",
+            "sv": "Av"
           }
         },
         {
           "id": "2",
           "label": {
             "en": "Sleeping",
-            "de": "Schlafend"
+            "de": "Schlafend",
+            "sv": "Viloläge"
           }
         },
         {
           "id": "3",
           "label": {
             "en": "Grid Monitoring",
-            "de": "Netzüberwachung"
+            "de": "Netzüberwachung",
+            "sv": "Nätövervakning"
           }
         },
         {
           "id": "4",
           "label": {
             "en": "Producing",
-            "de": "Produzierend"
+            "de": "Produzierend",
+            "sv": "Producerar"
           }
         },
         {
           "id": "5",
           "label": {
             "en": "Producing (Throttled)",
-            "de": "Produzierend (gedrosselt)"
+            "de": "Produzierend (gedrosselt)",
+            "sv": "Producerar (Begränsad)"
           }
         },
         {
           "id": "6",
           "label": {
             "en": "Shutting Down",
-            "de": "Fährt herunter"
+            "de": "Fährt herunter",
+            "sv": "Stänger av"
           }
         },
         {
           "id": "7",
           "label": {
             "en": "Fault",
-            "de": "Störung"
+            "de": "Störung",
+            "sv": "Fel"
           }
         },
         {
           "id": "8",
           "label": {
             "en": "Maintenance",
-            "de": "Wartung"
+            "de": "Wartung",
+            "sv": "Service"
           }
         }
       ]
