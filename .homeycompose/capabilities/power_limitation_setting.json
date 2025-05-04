@@ -1,7 +1,8 @@
 {
   "type": "number",
   "title": {
-    "en": "power limitation setting"
+    "en": "power limitation setting",
+    "sv": "Effektbegränsning"
   },
   "getable": true,
   "setable": false,
@@ -9,7 +10,8 @@
   "uiComponent": "sensor",
   "units": {
     "en": "%",
-    "nl": "%"
+    "nl": "%",
+    "sv": "%"
   },
   "decimals": 1
 }
