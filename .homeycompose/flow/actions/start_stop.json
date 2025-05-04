@@ -1,9 +1,11 @@
 {
   "title": {
-    "en": "Set inverter to"
+    "en": "Set inverter to",
+    "sv": "Ställ in växelriktaren till"
   },
   "titleFormatted": {
-    "en": "Set inverter to [[mode]]"
+    "en": "Set inverter to [[mode]]",
+    "sv": "Ställ in växelriktaren till [[mode]]"
   },
   "args": [
     {
@@ -15,7 +17,8 @@
           "title": {
             "en": "Stop",
             "nl": "Uitgeschakeld",
-            "de": "Deaktiviert"
+            "de": "Deaktiviert",
+            "sv": "Inaktiverad"
           }
         },
         {
@@ -23,7 +26,8 @@
           "title": {
             "en": "Start",
             "nl": "Ingeschakeld",
-            "de": "Aktiviert"
+            "de": "Aktiviert",
+            "sv": "Aktiverad"
           }
         }
       ]
