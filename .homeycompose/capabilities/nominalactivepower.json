@@ -1,7 +1,8 @@
 {
   "type": "number",
   "title": {
-    "en": "Nominal Active power"
+    "en": "Nominal Active power",
+    "sv": "Nominell aktiv effekt"
   },
   "getable": true,
   "setable": false,
