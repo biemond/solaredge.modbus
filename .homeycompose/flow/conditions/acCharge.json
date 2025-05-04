@@ -2,17 +2,20 @@
   "title": {
     "en": "Grid charge !{{is|is not}}",
     "nl": "Net opladen !{{is|is not}}",
-    "de": "Netz laden !{{is|is not}}"
+    "de": "Netz laden !{{is|is not}}",
+    "sv": "Nätladdning !{{är|är inte}}"
   },
   "titleFormatted": {
     "en": "Grid charging !{{is|is not}} [[accharge]]",
     "nl": "Net opladen !{{is|is not}} [[accharge]]",
-    "de": "Netz laden !{{is|is not}} [[accharge]]"
+    "de": "Netz laden !{{is|is not}} [[accharge]]",
+    "sv": "Nätladdning !{{är|är inte}} [[accharge]]"
   },
   "hint": {
     "en": "Whether the battery charging from grid is enabled or disabled",
     "nl": "Of de batterij opladen van het net is ingeschakeld of uitgeschakeld",
-    "de": "Ob das Laden der Batterie vom Netz aktiviert oder deaktiviert ist"
+    "de": "Ob das Laden der Batterie vom Netz aktiviert oder deaktiviert ist",
+    "sv": "Huruvida batteriladdning från elnätet är aktiverad eller inaktiverad"
   },
   "args": [
     {
@@ -29,7 +32,8 @@
           "label": {
             "en": "Disabled",
             "nl": "Uitgeschakeld",
-            "de": "Deaktiviert"
+            "de": "Deaktiviert",
+            "sv": "Av"
           }
         },
         {
@@ -37,7 +41,8 @@
           "label": {
             "en": "Enabled",
             "nl": "Ingeschakeld",
-            "de": "Aktiviert"
+            "de": "Aktiviert",
+            "sv": "På"
           }
         }
       ]
