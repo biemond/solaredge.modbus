@@ -2,12 +2,14 @@
   "title": {
     "en": "Set Battery First Maximum SoC to",
     "nl": "Stel de maximale SoC van de batterij in voor Batterij Eerst op",
-    "de": "Setze Batterie Zuerst maximum SoC auf"
+    "de": "Setze Batterie Zuerst maximum SoC auf",
+    "sv": "Ställ in Batteri Först Maximal SoC till"
   },
   "titleFormatted": {
     "en": "Set Battery First Maximum SoC to [[percentage]]",
     "nl": "Stel de maximale SoC van de batterij in voor Batterij Eerst op [[percentage]]",
-    "de": "Setze Batterie Zuerst maximum SoC auf [[percentage]]"
+    "de": "Setze Batterie Zuerst maximum SoC auf [[percentage]]",
+    "sv": "Ställ in Batteri Först Maximal SoC till [[percentage]]"
   },
   "args": [
     {
@@ -16,7 +18,8 @@
       "title": {
         "en": "Maximum SoC(%)",
         "nl": "Maximum SoC(%)",
-        "de": "Maximum SoC(%)"
+        "de": "Maximum SoC(%)",
+        "sv": "Max SoC(%)"
       },
       "min": 0,
       "max": 100,
