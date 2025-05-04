@@ -2,12 +2,14 @@
   "title": {
     "en": "Set export limit to",
     "nl": "Stel de exportlimiet in op",
-    "de": "Setze Exportbeschränkung auf"
+    "de": "Setze Exportbeschränkung auf",
+    "sv": "Ställ in exportbegränsningen till"
   },
   "titleFormatted": {
     "en": "Set export limit to [[mode]]",
     "nl": "Stel de exportlimiet in op [[mode]]",
-    "de": "Setze Exportbeschränkung auf [[mode]]"
+    "de": "Setze Exportbeschränkung auf [[mode]]",
+    "sv": "Ställ in exportbegränsningen till [[mode]]"
   },
   "args": [
     {
@@ -19,7 +21,8 @@
           "title": {
             "en": "Disabled",
             "nl": "Uit",
-            "de": "Deaktiviert"
+            "de": "Deaktiviert",
+            "sv": "Inaktiverad"
           }
         },
         {
@@ -27,7 +30,8 @@
           "title": {
             "en": "Enabled",
             "nl": "Aan",
-            "de": "Aktiviert"
+            "de": "Aktiviert",
+            "sv": "Aktiverad"
           }
         }
       ]
