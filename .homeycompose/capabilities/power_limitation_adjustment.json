@@ -1,14 +1,16 @@
 {
   "type": "number",
   "title": {
-    "en": "Power limitation adjustment"
+    "en": "Power limitation adjustment",
+    "sv": "Justera effektbegränsningen"
   },
   "getable": true,
   "setable": false,
   "insights": true,
   "uiComponent": "sensor",
   "units": {
-    "en": "kW"
+    "en": "kW",
+    "sv": "kW"
   },
   "decimals": 1
 }
