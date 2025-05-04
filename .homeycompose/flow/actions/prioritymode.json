@@ -2,12 +2,14 @@
   "title": {
     "en": "Set Priority mode to",
     "nl": "Stel de Prioriteit in op",
-    "de": "Setze Priorität auf"
+    "de": "Setze Priorität auf",
+    "sv": "Ange Prioritet till"
   },
   "titleFormatted": {
     "en": "Set Priority mode to [[mode]]",
     "nl": "Stel de Prioriteit in op [[mode]]",
-    "de": "Setze Priorität auf [[mode]]"
+    "de": "Setze Priorität auf [[mode]]",
+    "sv": "Ange Prioritet till [[mode]]"
   },
   "args": [
     {
@@ -19,7 +21,8 @@
           "title": {
             "en": "Load",
             "nl": "Belasting",
-            "de": "Last"
+            "de": "Last",
+            "sv": "Belastningen"
           }
         },
         {
@@ -27,7 +30,8 @@
           "title": {
             "en": "Battery",
             "nl": "Batterij",
-            "de": "Batterie"
+            "de": "Batterie",
+            "sv": "Batteriet"
           }
         },
         {
@@ -35,7 +39,8 @@
           "title": {
             "en": "Grid",
             "nl": "Net",
-            "de": "Netz"
+            "de": "Netz",
+            "sv": "Elnätet"
           }
         }
       ]
