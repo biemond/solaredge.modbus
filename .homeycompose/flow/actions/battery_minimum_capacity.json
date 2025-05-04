@@ -2,12 +2,14 @@
   "title": {
     "en": "Set Grid First Battery Minimum SoC to",
     "nl": "Stel de minimale SoC van de batterij in voor Net Eerst op",
-    "de": "Setze Netz Zuerst Batterie min SoC auf"
+    "de": "Setze Netz Zuerst Batterie min SoC auf",
+    "sv": "Ställ in Nät Först Batteri Minimum SoC till"
   },
   "titleFormatted": {
     "en": "Set Grid First Battery Minimum SoC to [[percentage]]",
     "nl": "Stel de minimale SoC van de batterij in voor Net Eerst op [[percentage]]",
-    "de": "Setze Netz Zuerst Batterie min SoC auf [[percentage]]"
+    "de": "Setze Netz Zuerst Batterie min SoC auf [[percentage]]",
+    "sv": "Ställ in Nät Först Batteri Minimum SoC till [[percentage]]"
   },
   "args": [
     {
@@ -16,7 +18,8 @@
       "title": {
         "en": "Minimum SoC(%)",
         "nl": "Minimum SoC(%)",
-        "de": "Minimum SoC(%)"
+        "de": "Minimum SoC(%)",
+        "sv": "Min SoC(%)
       },
       "min": 10,
       "max": 100,
