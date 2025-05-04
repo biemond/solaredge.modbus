@@ -1,7 +1,8 @@
 {
   "title": {
     "en": "Set Export Limit to",
-    "de": "Setzte Exportbeschränkung auf"
+    "de": "Setzte Exportbeschränkung auf",
+    "sv": "Ställ in exportbegränsningen till"
   },
   "args": [
     {
