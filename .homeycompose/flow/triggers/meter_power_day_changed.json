@@ -2,7 +2,8 @@
   "title": {
     "en": "Total Day Yield changed",
     "nl": "Totale dag opbrengst is veranderd",
-    "de": "Tagesgesamtertrag hat sich verändert"
+    "de": "Tagesgesamtertrag hat sich verändert",
+    "sv": "Dagsproduktionen har ändrats"
   },
   "tokens": [
     {
@@ -10,7 +11,8 @@
       "title": {
         "en": "Energy",
         "nl": "Energie",
-        "de": "Energie"
+        "de": "Energie",
+        "sv": "Energi"
       },
       "type": "number",
       "example": 25
