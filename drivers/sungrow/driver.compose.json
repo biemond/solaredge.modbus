@@ -12,14 +12,16 @@
       "decimals": 0,
       "title": {
         "en": "Solar Power",
-        "de": "Solarleistung"
+        "de": "Solarleistung",
+        "sv": "Solkraft"
       }
     },
     "measure_temperature": {
       "title": {
         "en": "Heatsink temperature",
         "nl": "Heatsink temperatuur",
-        "de": "Kühlkörpertemperatur"
+        "de": "Kühlkörpertemperatur",
+        "sv": "Kylflänstemperatur"
       },
       "decimals": 2
     },
@@ -27,7 +29,8 @@
       "title": {
         "en": "Total Yield",
         "nl": "Totale opbrengst",
-        "de": "Gesamtertrag"
+        "de": "Gesamtertrag",
+        "sv": "Total produktion"
       },
       "decimals": 1
     },
@@ -35,7 +38,8 @@
       "title": {
         "en": "Total Day Yield",
         "nl": "Totale dag opbrengst",
-        "de": "Tagesgesamtertrag"
+        "de": "Tagesgesamtertrag",
+        "sv": "Dagsproduktion"
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
@@ -43,7 +47,8 @@
     "meter_power.monthly": {
       "title": {
         "en": "Total Month Yield",
-        "nl": "Totale maand opbrengst"
+        "nl": "Totale maand opbrengst",
+        "sv": "Månadsproduktion"
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
@@ -65,7 +70,8 @@
       "type": "group",
       "label": {
         "en": "Inverter settings",
-        "de": "Wechselrichtereinstellungen"
+        "de": "Wechselrichtereinstellungen",
+        "sv": "Växelriktarinställningar"
       },
       "children": [
         {
@@ -74,7 +80,8 @@
           "value": "0.0.0.0",
           "label": {
             "en": "IP Address",
-            "de": "IP-Adresse"
+            "de": "IP-Adresse",
+            "sv": "IP adress"
           }
         },
         {
@@ -84,7 +91,8 @@
           "step": 1,
           "label": {
             "en": "Port",
-            "de": "Port"
+            "de": "Port",
+            "sv": "Port"
           }
         },
         {
@@ -99,7 +107,8 @@
           "label": {
             "en": "Inverter ID",
             "nl": "Inverter ID",
-            "de": "Wechselrichter-ID"
+            "de": "Wechselrichter-ID",
+            "sv": "Växelriktarens Id"
           }
         }
       ]
