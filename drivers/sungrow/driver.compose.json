@@ -1,4 +1,4 @@
-{
+ekt{
   "name": {
     "en": "Sungrow String"
   },
@@ -13,7 +13,7 @@
       "title": {
         "en": "Solar Power",
         "de": "Solarleistung",
-        "sv": "Solkraft"
+        "sv": "Soleffekt"
       }
     },
     "measure_temperature": {
