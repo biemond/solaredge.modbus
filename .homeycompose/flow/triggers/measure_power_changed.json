@@ -3,7 +3,8 @@
   "title": {
     "en": "The solar power changed",
     "nl": "Het solar vermogen is veranderd",
-    "de": "Solarleistung hat sich geändert"
+    "de": "Solarleistung hat sich geändert",
+    "sv": "Soleffekten har ändrats"
   },
   "tokens": [
     {
@@ -11,7 +12,8 @@
       "title": {
         "en": "Power",
         "nl": "Vermogen",
-        "de": "Leistung"
+        "de": "Leistung",
+        "sv": "Effekt"
       },
       "type": "number",
       "example": 100
