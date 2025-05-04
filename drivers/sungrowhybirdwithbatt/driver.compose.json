@@ -54,28 +54,32 @@
       "decimals": 0,
       "title": {
         "en": "Solar Power",
-        "de": "Solarleistung"
+        "de": "Solarleistung",
+        "sv": "Soleffekt"
       }
     },
     "measure_power.battery": {
       "decimals": 0,
       "title": {
         "en": "Battery Power",
-        "de": "Batterieleistung"
+        "de": "Batterieleistung",
+        "sv": "batterieffekt"
       }
     },
     "measure_temperature.invertor": {
       "title": {
         "en": "Heatsink temperature",
         "nl": "Heatsink temperatuur",
-        "de": "Kühlkörpertemperatur"
+        "de": "Kühlkörpertemperatur",
+        "sv": "Kylflänstemperatur"
       },
       "decimals": 2
     },
     "measure_temperature.battery": {
       "title": {
         "en": "Battery temperature",
-        "de": "Batterietemperatur"
+        "de": "Batterietemperatur",
+        "sv": "Batteritemperatur"
       },
       "decimals": 2
     },
@@ -83,7 +87,8 @@
       "title": {
         "en": "Total Yield",
         "nl": "Totale opbrengst",
-        "de": "Gesamtertrag"
+        "de": "Gesamtertrag",
+        "sv": "Total produktion"
       },
       "decimals": 1
     },
@@ -91,7 +96,8 @@
       "title": {
         "en": "Total Day Yield",
         "nl": "Totale dag opbrengst",
-        "de": "Tagesgesamtertrag"
+        "de": "Tagesgesamtertrag",
+        "sv": "Dagsproduktion"
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
@@ -99,25 +105,29 @@
     "measure_power.grid_import": {
       "title": {
         "en": "Grid Import",
-        "de": "Netzimport"
+        "de": "Netzimport",
+        "sv": "Elnätsimport"
       }
     },
     "measure_power.grid_export": {
       "title": {
         "en": "Grid Export",
-        "de": "Netztexport"
+        "de": "Netztexport",
+        "sv": "Elnätsexport"
       }
     },
     "measure_power.load": {
       "title": {
         "en": "Load Yield",
-        "de": "Verbrauch"
+        "de": "Verbrauch",
+        "sv": "Lastförbrukning"
       }
     },
     "meter_power.today_grid_import": {
       "title": {
         "en": "Grid Import Day Yield",
-        "de": "Netztagesimport"
+        "de": "Netztagesimport",
+        "sv": "Dagens elnätsimport"
       },
       "units": {
         "en": "kWh"
@@ -128,7 +138,8 @@
     "meter_power.today_grid_export": {
       "title": {
         "en": "Grid Export Day Yield",
-        "de": "Netztagesexport"
+        "de": "Netztagesexport",
+        "sv": "Dagens Elnätsexport"
       },
       "units": {
         "en": "kWh"
@@ -139,7 +150,8 @@
     "meter_power.grid_import": {
       "title": {
         "en": "Grid Import",
-        "de": "Netzimport"
+        "de": "Netzimport",
+        "sv": "Elnätsimport"
       },
       "units": {
         "en": "kWh"
@@ -150,7 +162,8 @@
     "meter_power.grid_export": {
       "title": {
         "en": "Grid Export",
-        "de": "Netztexport"
+        "de": "Netztexport",
+        "sv": "Elnätsexport"
       },
       "units": {
         "en": "kWh"
@@ -161,7 +174,8 @@
     "meter_power.battery_input": {
       "title": {
         "en": "Battery input",
-        "de": "Batterie input"
+        "de": "Batterie input",
+        "sv": "Batteriladdning"
       },
       "units": {
         "en": "kWh"
@@ -172,7 +186,8 @@
     "meter_power.battery_output": {
       "title": {
         "en": "Battery output",
-        "de": "Batterie output"
+        "de": "Batterie output",
+        "sv": "Batterurladdning"
       },
       "units": {
         "en": "kWh"
@@ -183,7 +198,8 @@
     "meter_power.today_batt_output": {
       "title": {
         "en": "Battery Output Day Yield",
-        "de": "Tagesgesamtentladung der Batterie"
+        "de": "Tagesgesamtentladung der Batterie",
+        "sv": "Dagens batteriurladdning"
       },
       "units": {
         "en": "kWh"
@@ -194,7 +210,8 @@
     "meter_power.today_batt_input": {
       "title": {
         "en": "Battery Input Day Yield",
-        "de": "Tagesgesamtladung der Batterie"
+        "de": "Tagesgesamtladung der Batterie",
+        "sv": "Dagens batteriladdning"
       },
       "units": {
         "en": "kWh"
@@ -205,7 +222,8 @@
     "exportcontrolsitelimit": {
       "title": {
         "en": "Export Limit power",
-        "de": "Standortbeschränkung der Exportkontrolle"
+        "de": "Standortbeschränkung der Exportkontrolle",
+        "sv": "Exportbegränsningseffekt"
       }
     },
     "batteryminsoc": {
@@ -233,7 +251,8 @@
       "type": "group",
       "label": {
         "en": "Inverter settings",
-        "de": "Wechselrichtereinstellungen"
+        "de": "Wechselrichtereinstellungen",
+        "sv": "Växelriktarinställning"
       },
       "children": [
         {
@@ -242,7 +261,8 @@
           "value": "0.0.0.0",
           "label": {
             "en": "IP Address",
-            "de": "IP-Adresse"
+            "de": "IP-Adresse",
+            "sv": "Ip-Adress"
           }
         },
         {
@@ -252,7 +272,8 @@
           "step": 1,
           "label": {
             "en": "Port",
-            "de": "Port"
+            "de": "Port",
+            "sv": "Port"
           }
         },
         {
@@ -267,7 +288,8 @@
           "label": {
             "en": "Inverter ID",
             "nl": "Inverter ID",
-            "de": "Wechselrichter-ID"
+            "de": "Wechselrichter-ID",
+            "sv": "Växelriktarens id"
           }
         }
       ]
