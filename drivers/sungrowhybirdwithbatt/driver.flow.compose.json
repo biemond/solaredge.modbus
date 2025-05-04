@@ -5,7 +5,8 @@
       "title": {
         "en": "Load Yield changed",
         "nl": "Load is veranderd",
-        "de": "Verbrauch hat sich geändert"
+        "de": "Verbrauch hat sich geändert",
+        "sv": "Lasten har ändrats"
       },
       "tokens": [
         {
@@ -13,7 +14,8 @@
           "title": {
             "en": "Power",
             "nl": "Vermogen",
-            "de": "Leistung"
+            "de": "Leistung",
+            "sv": "Effekt"
           },
           "type": "number",
           "example": 100
@@ -24,7 +26,8 @@
       "id": "measure_power_grid_import_changed",
       "title": {
         "en": "Grid Import changed",
-        "de": "Netzimport hat sich geändert"
+        "de": "Netzimport hat sich geändert",
+        "sv": "Elnätsimporten har ändrats"
       },
       "tokens": [
         {
@@ -32,7 +35,8 @@
           "title": {
             "en": "Power",
             "nl": "Vermogen",
-            "de": "Leistung"
+            "de": "Leistung",
+            "sv": "Effekt"
           },
           "type": "number",
           "example": 100
@@ -43,7 +47,8 @@
       "id": "measure_power_grid_export_changed",
       "title": {
         "en": "Grid Export changed",
-        "de": "Netztexport hat sich geändert"
+        "de": "Netztexport hat sich geändert",
+        "sv": "Elnätsexporten har ändrats"
       },
       "tokens": [
         {
@@ -51,7 +56,8 @@
           "title": {
             "en": "Power",
             "nl": "Vermogen",
-            "de": "Leistung"
+            "de": "Leistung",
+            "sv": "Effekt"
           },
           "type": "number",
           "example": 100
@@ -64,7 +70,8 @@
     {
       "id": "emsmodeselection",
       "title": {
-        "en": "Hybrid Inverter Working Mode"
+        "en": "Hybrid Inverter Working Mode",
+        "sv": "Arbetsläge för hybridväxelriktare"
       },
       "args": [
         {
@@ -74,19 +81,22 @@
             {
               "id": "0",
               "title": {
-                "en": "Self-consumption mode"
+                "en": "Self-consumption mode",
+                "sv": "Egenförbrukningsläge"
               }
             },
             {
               "id": "2",
               "title": {
-                "en": "Forced mode (charge/discharge/stop)"
+                "en": "Forced mode (charge/discharge/stop)",
+                "sv": "Tvångsläge (ladda/ladda ur/stoppa)"
               }
             },
             {
               "id": "3",
               "title": {
-                "en": "External EMS mode"
+                "en": "External EMS mode",
+                "sv": "Externt EMS-läge"
               }
             },
             {
@@ -109,7 +119,8 @@
       "id": "export",
       "title": {
         "en": "Set export limit",
-        "de": "Exportbeschränkung"
+        "de": "Exportbeschränkung",
+        "sv": "Exportbegränsning"
       },
       "args": [
         {
@@ -120,14 +131,16 @@
               "id": "85",
               "title": {
                 "en": "Disabled",
-                "de": "Deaktiviert"
+                "de": "Deaktiviert",
+                "sv": "Inaktiverad"
               }
             },
             {
               "id": "170",
               "title": {
                 "en": "Enabled",
-                "de": "Aktiviert"
+                "de": "Aktiviert",
+                "sv": "Aktiverad"
               }
             }
           ]
@@ -141,7 +154,8 @@
     {
       "id": "charge",
       "title": {
-        "en": "Charge/discharge"
+        "en": "Charge/discharge",
+        "sv": "Ladda/Ladda ur"
       },
       "args": [
         {
@@ -151,19 +165,22 @@
             {
               "id": "170",
               "title": {
-                "en": "Charge"
+                "en": "Charge",
+                "sv": "Ladda"
               }
             },
             {
               "id": "187",
               "title": {
-                "en": "Discharge"
+                "en": "Discharge",
+                "sv": "Ladda ur"
               }
             },
             {
               "id": "204",
               "title": {
-                "en": "Stop"
+                "en": "Stop",
+                "sv": "Stopp"
               }
             }
           ]
