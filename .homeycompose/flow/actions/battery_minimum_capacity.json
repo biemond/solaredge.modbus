@@ -19,7 +19,7 @@
         "en": "Minimum SoC(%)",
         "nl": "Minimum SoC(%)",
         "de": "Minimum SoC(%)",
-        "sv": "Min SoC(%)
+        "sv": "Min SoC(%)"
       },
       "min": 10,
       "max": 100,

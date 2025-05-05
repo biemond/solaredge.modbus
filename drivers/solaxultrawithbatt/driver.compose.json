@@ -1,0 +1,194 @@
+{
+  "name": {
+    "en": "SolaxUltra + Battery",
+    "de": "SolaxUltra mit Batterie"
+  },
+  "class": "solarpanel",
+  "energy": {
+    "batteries": ["OTHER"]
+  },
+  "capabilities": [
+    "measure_power",
+    "measure_power.battery",
+    "measure_power.pvinput",
+    "measure_power.pv1input",
+    "measure_power.pv2input",
+    "measure_power.pv3input",    
+    "measure_current.batt_charge",
+    "measure_voltage.batt_charge",
+    "meter_power.export",
+    "meter_power.import",
+    "meter_power.export_daily",
+    "meter_power.import_daily",
+    "meter_power",
+    "meter_power.daily",
+    "batterysoh",
+    "battery",    
+    "measure_battery",
+    "storage_force_charge_discharge2"        
+  ],
+  "capabilitiesOptions": {
+    "measure_current.batt_charge": {
+      "title": {
+        "en": "Battery charge current"
+      }
+    },
+    "measure_voltage.batt_charge": {
+      "title": {
+        "en": "Battery charge voltage"
+      },
+      "decimals": 1
+    },
+    "measure_power": {
+      "decimals": 0,
+      "title": {
+        "en": "Solar + Batt Power",
+        "de": "Solar- und Batterie-Leistung"
+      }
+    },
+    "measure_power.battery": {
+      "decimals": 0,
+      "title": {
+        "en": "Battery Power",
+        "de": "Batterieleistung"
+      }
+    },
+    "measure_power.pvinput": {
+      "decimals": 0,
+      "title": {
+        "en": "PV input",
+        "de": "PV Eingang"
+      }
+    },
+    "measure_power.pv1input": {
+      "decimals": 0,
+      "title": {
+        "en": "PV1 input",
+        "de": "PV-Strang 1 Eingang"
+      }
+    },
+    "measure_power.pv2input": {
+      "decimals": 0,
+      "title": {
+        "en": "PV2 input",
+        "de": "PV-Strang 2 Eingang"
+      }
+    },
+    "measure_power.pv3input": {
+      "decimals": 0,
+      "title": {
+        "en": "PV3 input",
+        "de": "PV-Strang 3 Eingang"
+      }
+    },
+    "meter_power.import": {
+      "title": {
+        "en": "Total Import",
+        "nl": "Totale Import",
+        "de": "Gesamtimport"
+      },
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.export": {
+      "title": {
+        "en": "Total Export",
+        "nl": "Totale Export",
+        "de": "Gesamtexport"
+      },
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.import_daily": {
+      "title": {
+        "en": "Total Day Import",
+        "nl": "Totale Dag Import",
+        "de": "Gesamttagesimport"
+      },
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.export_daily": {
+      "title": {
+        "en": "Total Day Export",
+        "nl": "Totale Dag Export",
+        "de": "Gesamttagesexport"
+      },
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power": {
+      "title": {
+        "en": "Total Yield",
+        "nl": "Totale opbrengst",
+        "de": "Gesamtertrag"
+      },
+      "decimals": 2
+    },
+    "meter_power.daily": {
+      "title": {
+        "en": "Total Day Yield",
+        "nl": "Totale dag opbrengst",
+        "de": "Tagesgesamtertrag"
+      },
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    }
+  },
+  "platforms": ["local"],
+  "connectivity": ["lan"],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
+  "pair": [
+    {
+      "id": "start"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Inverter settings",
+        "de": "Wechselrichtereinstellungen"
+      },
+      "children": [
+        {
+          "id": "address",
+          "type": "text",
+          "value": "0.0.0.0",
+          "label": {
+            "en": "IP Address",
+            "de": "IP-Adresse"
+          }
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "value": 1502,
+          "step": 1,
+          "label": {
+            "en": "Port",
+            "de": "Port"
+          }
+        },
+        {
+          "id": "id",
+          "type": "number",
+          "value": 1,
+          "step": 1,
+          "attr": {
+            "min": 0,
+            "max": 50
+          },
+          "label": {
+            "en": "Inverter ID",
+            "nl": "Inverter ID",
+            "de": "Wechselrichter-ID"
+          }
+        }
+      ]
+    }
+  ]
+}

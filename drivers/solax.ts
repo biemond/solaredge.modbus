@@ -222,6 +222,94 @@ export class Solax extends Homey.Device {
     // "BusVolt":        [0x0066, 1, 'UINT16', "BusVolt"],
   };
 
+
+  inputRegistersUltra: Object = {
+
+
+    GridPowerR: [0x006C, 1, 'INT16', 'Inverter Power (R)', 0],
+    GridPowerS: [0x0070, 1, 'INT16', 'Inverter Power (S)', 0],
+    GridPowerT: [0x0074, 1, 'INT16', 'Inverter Power (T)', 0],
+
+    Powerdc1: [0x000a, 1, 'UINT16', 'Powerdc1', 0],
+    Powerdc2: [0x000b, 1, 'UINT16', 'Powerdc2', 0],
+    Powerdc3: [0x0124, 1, 'UINT16', 'Powerdc2', 0],
+
+    // 0x0014 BatVoltage_Charge1 R BatVoltage_Charge1 0.1V int16 1
+    BatVoltage_Charge1: [0x0014, 1, 'INT16', 'BatVoltage_Charge1', -1],
+    BatVoltage_Charge2: [0x0127, 1, 'INT16', 'BatVoltage_Charge2', -1],    
+    // 0x0015 BatCurrent_Charge1 R BatCurrent_Charge1 0.1A int16 1
+    BatCurrent_Charge1: [0x0015, 1, 'INT16', 'BatCurrent_Charge1', -1],
+    BatCurrent_Charge2: [0x0128, 1, 'INT16', 'BatCurrent_Charge2', -1],    
+    // 0x0016 Batpower_Charge1 R Batpower_Charge1 1W int16 1
+    Batpower_Charge1: [0x0016, 1, 'INT16', 'Batpower_Charge1', 0],
+    Batpower_Charge2: [0x0129, 1, 'INT16', 'Batpower_Charge2', 0],
+    Bat_status_charge: [0x0019, 1, 'UINT16', 'Bat_status_charge', 0],
+    // 0: discharge
+    // 1: charge
+    // 2: stop
+
+    
+    // 0x0048
+    // feedin_energy_total(meter) R
+    // energy to the grid
+    // (0x48:LSB,0x49:MSB)
+    // 0.01kWh uint32 2
+    feedin_energy_total: [0x0048, 2, 'UINT32', 'energy to the grid', -2],
+    // 0x004A
+    // consum_energy_total(meter) R
+    // energy form the grid
+    // (0x4A:LSB,0x4B:MSB)
+    // 0.01kWh uint32 2
+    consum_energy_total: [0x004a, 2, 'UINT32', 'energy from the grid', -2],
+
+    // ~0x0099
+    // feedin_energy_today
+    // R
+    // energy to the grid
+    // (meter)
+    // (0x98:LSB,0x99:MSB)
+    // 0.01kWh uint32
+    // 2
+    feedin_energy_today: [0x0098, 2, 'UINT32', 'energy to the grid today', -2],
+    // ~0x009B
+    // consum_energy_today
+    // R
+    // energy form the grid
+    // (meter)
+    // (0x9A:LSB,0x9B:MSB)
+    // 0.01kWh uint16
+    consum_energy_today: [0x009a, 2, 'UINT32', 'energy from the grid today', -2],
+
+    // 0x0050 Etoday_togrid R
+    // Today Energy
+    // (Inverter AC Port)
+    // 0.1kWh uint16 1
+    Etoday_togrid: [0x0050, 1, 'UINT16', "Today's Solar Energy", -1],
+
+    // 0x0052
+    // Etotal_togrid R
+    // Total Energy
+    // (Inverter AC Port)
+    // (0x52:LSB,0x53:MSB)
+    // 0.1kWh uint32 2
+    Etotal_togrid: [0x0052, 2, 'UINT32', 'Total Energy (Inverter AC Port)', -1],
+
+
+    // // 0x00BF BMS_UserSOH R BMS_UserSOH 1% Uint16 1
+    BMS_UserSOH:  [0x00bf, 1, 'UINT16', 'BMS_UserSOH', 0],
+    BMS_UserSOH2: [0x00be, 1, 'UINT16', 'BMS_UserSOH2', 0],
+
+
+    // 0x001C Battery Capacity R Battery capacity 1% uint16 1
+    BatteryCapacity:  [0x001c, 1, 'UINT16', 'Battery Capacity', 0],
+    BatteryCapacity2: [0x012D, 1, 'UINT16', 'Battery Capacity 2', 0],
+
+    // 0x0026    BMS_BatteryCapacity R BMS_BatteryCapacity Wh uint16 1
+    BMS_BatteryCapacity:  [0x0026, 1, 'UINT16', 'BMS Battery Capacity', 0],
+    BMS_BatteryCapacity2: [0x002a, 1, 'UINT16', 'BMS Battery Capacity 2', 0],
+ 
+  };
+
   holdingRegisters: Object = {
     // SolarChargerUseMode:
     // 0:Self use mode
@@ -238,7 +326,7 @@ export class Solax extends Homey.Device {
     PowerLimitsPercent: [0x0025, 1, 'UINT16', 'output power limits precent 0~100', 0],
     FeedinOnPower: [0x0123, 1, 'UINT16', 'Grid connected pull in power point', 0],
     // 0x008D wBattery1_Type R 0：Lead Acid 1：Lithium 1 uint16 1
-    wBattery1_Type: [0x008d, 1, 'UINT16', 'Battery1 Type', 0],
+    Battery1_Type: [0x008d, 1, 'UINT16', 'Battery1 Type', 0],
 
     // 0x008E Charge_floatVolt R Lead-acid battery charge_float voltage 0.1V
     Charge_floatVolt: [0x008e, 1, 'UINT16', 'Charge_floatVolt', 0],
@@ -269,6 +357,37 @@ export class Solax extends Homey.Device {
     HardExportPower: [0x00f0, 1, 'UINT16', 'HardExportPower', 0],
   };
 
+  holdingRegistersUltra: Object = {
+    // SolarChargerUseMode:
+    // 0:Self use mode
+    // 1: Feedin Priority
+    // 2:Back up mode
+    // 3:Manual mode
+    SolarChargerUseMode: [0x008b, 1, 'UINT16', 'SolarChargerUseMode', 0],
+
+    // 0:Stop charge&discharge
+    // 1:Force charge
+    // 2:Force discharge
+    ManualMode: [0x008c, 1, 'UINT16', 'Manual mode', 0],
+
+    // 0x0090 Battery_ChargeMaxCurrent R
+    // Lead-acid battery charge
+    // maximum current
+    // 0.1A uint16 1
+    Battery_ChargeMaxCurrent:     [0x0090, 1, 'UINT16', 'Battery_ChargeMaxCurrent', 0],
+    Battery_ChargeMaxCurrent_1:   [0x00d8, 1, 'UINT16', 'Battery_ChargeMaxCurrent 1', 0],
+    Battery_ChargeMaxCurrent_2:   [0x0123, 1, 'UINT16', 'Battery_ChargeMaxCurrent 2', 0],    
+    // 0x0091 Battery_DischargeMaxCurrent R
+    // Lead-acid battery discharge
+    // maximum Current
+    // 0.1A uint16 1
+    Battery_DischargeMaxCurrent:   [0x0091, 1, 'UINT16', 'Battery_DischargeMaxCurrent', 0],
+    Battery_DischargeMaxCurrent_1: [0x00d9, 1, 'UINT16', 'Battery_DischargeMaxCurrent 1', 0],
+    Battery_DischargeMaxCurrent_2: [0x0124, 1, 'UINT16', 'Battery_DischargeMaxCurrent 2', 0],
+
+  };
+
+
   processResult(result: Record<string, Measurement>) {
     if (result) {
       // result
@@ -280,6 +399,14 @@ export class Solax extends Homey.Device {
         this.addCapability('measure_power');
         var dcPower = Number(result['GridPower'].value) * Math.pow(10, Number(result['GridPower'].scale));
         this.setCapabilityValue('measure_power', Math.round(dcPower));
+      }
+
+      if (result['GridPowerR'] && result['GridPowerR'].value != 'xxx' && result['GridPowerS'] && result['GridPowerS'].value != 'xxx' && result['GridPowerS'] && result['GridPowerS'].value != 'xxx') {
+        this.addCapability('measure_power');
+        const GridPowerS = Number(result['GridPowerS'].value) * Math.pow(10, Number(result['GridPowerS'].scale));
+        const GridPowerR = Number(result['GridPowerR'].value) * Math.pow(10, Number(result['GridPowerR'].scale));
+        const GridPowerT = Number(result['GridPowerT'].value) * Math.pow(10, Number(result['GridPowerT'].scale));
+        this.setCapabilityValue('measure_power', Math.round(GridPowerS + GridPowerR + GridPowerT ));
       }
 
       // def value_function_house_load(initval, descr, datadict):
@@ -321,12 +448,22 @@ export class Solax extends Homey.Device {
         var dcPower = Number(result['Powerdc2'].value) * Math.pow(10, Number(result['Powerdc2'].scale));
         this.setCapabilityValue('measure_power.pv2input', Math.round(dcPower));
       }
+      if (result['Powerdc3'] && result['Powerdc3'].value != 'xxx') {
+        this.addCapability('measure_power.pv3input');
+        var dcPower = Number(result['Powerdc3'].value) * Math.pow(10, Number(result['Powerdc3'].scale));
+        this.setCapabilityValue('measure_power.pv3input', Math.round(dcPower));
+      }
 
       if (result['Powerdc2'] && result['Powerdc2'].value != 'xxx' && result['Powerdc1'] && result['Powerdc1'].value != 'xxx') {
         this.addCapability('measure_power.pvinput');
         const dcPower1 = Number(result['Powerdc1'].value) * Math.pow(10, Number(result['Powerdc1'].scale));
         const dcPower2 = Number(result['Powerdc2'].value) * Math.pow(10, Number(result['Powerdc2'].scale));
-        this.setCapabilityValue('measure_power.pvinput', Math.round(dcPower1 + dcPower2));
+        if (result['Powerdc3'] && result['Powerdc3'].value != 'xxx') {
+          const dcPower3 = Number(result['Powerdc3'].value) * Math.pow(10, Number(result['Powerdc3'].scale));
+          this.setCapabilityValue('measure_power.pvinput', Math.round(dcPower1 + dcPower2 + dcPower3 ));
+        } else {
+          this.setCapabilityValue('measure_power.pvinput', Math.round(dcPower1 + dcPower2 ));
+        }
       }
 
       if (result['Temperature'] && result['Temperature'].value != 'xxx') {
