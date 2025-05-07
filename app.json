@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.195",
+  "version": "3.0.196",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -2219,7 +2219,7 @@
               "sv": "begränsning(%)"
             },
             "min": 0,
-            "max": 100,
+            "max": 110,
             "step": 0.1,
             "labelDecimals": 1,
             "label": "%"
@@ -7901,7 +7901,8 @@
         "batterysoh",
         "battery",
         "measure_battery",
-        "storage_force_charge_discharge2"
+        "storage_force_charge_discharge2",
+        "measure_temperature.invertor"
       ],
       "capabilitiesOptions": {
         "measure_current.batt_charge": {
@@ -8009,6 +8010,14 @@
           },
           "decimals": 2,
           "icon": "/assets/total_yield.svg"
+        },
+        "measure_temperature.invertor": {
+          "title": {
+            "en": "Heatsink temperature",
+            "nl": "Heatsink temperatuur",
+            "de": "Kühlkörpertemperatur"
+          },
+          "decimals": 2
         }
       },
       "platforms": [
@@ -8573,7 +8582,7 @@
           "title": {
             "en": "Solar Power",
             "de": "Solarleistung",
-            "sv": "Soleffekt"
+            "sv": "Solpanel-effekt (DC)"
           }
         },
         "measure_power.battery": {
@@ -9372,7 +9381,7 @@
       "title": {
         "en": "Active power limit",
         "de": "Aktive Leistungsbeschränkung",
-        "sv": "Aktiv Effektbegränsning"
+        "sv": "Utmatad effekt (AC)"
       },
       "getable": true,
       "setable": false,
@@ -10727,7 +10736,7 @@
       "type": "number",
       "title": {
         "en": "Power limitation adjustment",
-        "sv": "Justera effektbegränsningen"
+        "sv": "Effektbegränsning"
       },
       "getable": true,
       "setable": false,

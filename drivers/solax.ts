@@ -234,6 +234,8 @@ export class Solax extends Homey.Device {
     Powerdc2: [0x000b, 1, 'UINT16', 'Powerdc2', 0],
     Powerdc3: [0x0124, 1, 'UINT16', 'Powerdc2', 0],
 
+    Temperature: [0x0008, 1, 'INT16', 'radiator temperature', -1],
+
     // 0x0014 BatVoltage_Charge1 R BatVoltage_Charge1 0.1V int16 1
     BatVoltage_Charge1: [0x0014, 1, 'INT16', 'BatVoltage_Charge1', -1],
     BatVoltage_Charge2: [0x0127, 1, 'INT16', 'BatVoltage_Charge2', -1],    

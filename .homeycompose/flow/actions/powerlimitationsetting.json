@@ -14,7 +14,7 @@
         "sv": "begränsning(%)"
       },
       "min": 0,
-      "max": 100,
+      "max": 110,
       "step": 0.1,
       "labelDecimals": 1,
       "label": "%"

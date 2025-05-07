@@ -25,7 +25,8 @@
     "batterysoh",
     "battery",    
     "measure_battery",
-    "storage_force_charge_discharge2"        
+    "storage_force_charge_discharge2",
+    "measure_temperature.invertor"            
   ],
   "capabilitiesOptions": {
     "measure_current.batt_charge": {
@@ -133,7 +134,15 @@
       },
       "decimals": 2,
       "icon": "/assets/total_yield.svg"
-    }
+    },
+    "measure_temperature.invertor": {
+      "title": {
+        "en": "Heatsink temperature",
+        "nl": "Heatsink temperatuur",
+        "de": "Kühlkörpertemperatur"
+      },
+      "decimals": 2
+    }    
   },
   "platforms": ["local"],
   "connectivity": ["lan"],
