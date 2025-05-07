@@ -3,7 +3,7 @@
   "title": {
     "en": "Active power limit",
     "de": "Aktive Leistungsbeschränkung",
-    "sv": "Aktiv Effektbegränsning"
+    "sv": "Utmatad effekt (AC)"
   },
   "getable": true,
   "setable": false,
