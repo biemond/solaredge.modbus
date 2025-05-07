@@ -2,7 +2,7 @@
   "type": "number",
   "title": {
     "en": "Power limitation adjustment",
-    "sv": "Justera effektbegränsningen"
+    "sv": "Effektbegränsning"
   },
   "getable": true,
   "setable": false,
