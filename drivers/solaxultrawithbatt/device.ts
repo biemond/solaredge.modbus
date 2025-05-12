@@ -18,6 +18,13 @@ class MySolaxUltraDevice extends Solax {
     this.log(`device name id ${name}`);
     this.log(`device name ${this.getName()}`);
 
+    if (this.hasCapability('measure_power.gridoutput') === false) {
+      await this.addCapability('measure_power.gridoutput');
+    }
+    if (this.hasCapability('measure_power.load') === false) {
+      await this.addCapability('measure_power.load');
+    }
+
     this.pollInvertor();
 
     this.timer = this.homey.setInterval(() => {
