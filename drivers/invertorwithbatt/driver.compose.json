@@ -326,7 +326,7 @@
           "step": 1,
           "attr": {
             "min": 0,
-            "max": 50
+            "max": 126
           },
           "label": {
             "en": "Inverter ID",

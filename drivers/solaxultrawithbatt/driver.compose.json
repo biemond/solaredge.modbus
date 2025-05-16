@@ -28,7 +28,8 @@
     "battery",    
     "measure_battery",
     "storage_force_charge_discharge2",
-    "measure_temperature.invertor"
+    "measure_temperature.invertor",
+    "solarcharger_use_mode"
   ],
   "capabilitiesOptions": {
     "measure_current.batt_charge": {
