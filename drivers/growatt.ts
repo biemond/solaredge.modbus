@@ -77,6 +77,11 @@ export class Growatt extends Homey.Device {
     period4stop: [3045, 1, 'UINT16', 'period4stop', 0],
   };
 
+  readonly holdingRegistersBase: { [key: string]: RegisterDefinition } = {
+    exportlimitenabled: [122, 1, 'UINT16', 'Export Limit enable', 0],
+    exportlimitpowerrate: [123, 1, 'UINT16', 'Export Limit Power Rate', -1]
+  };
+
   readonly registers: { [key: string]: RegisterDefinition } = {
     l1_current: [39, 1, 'UINT16', 'L1 Current', -1],
     l2_current: [43, 1, 'UINT16', 'L2 Current', -1],

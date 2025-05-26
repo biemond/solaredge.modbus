@@ -23,7 +23,9 @@
     "meter_power.pv1TotalEnergy",
     "meter_power.pv2TodayEnergy",
     "meter_power.pv2TotalEnergy",
-    "measure_voltage.meter"
+    "measure_voltage.meter",
+    "exportlimitenabled",
+    "exportlimitpowerrate"   
   ],
   "capabilitiesOptions": {
     "measure_power": {
