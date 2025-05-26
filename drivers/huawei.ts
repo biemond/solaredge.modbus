@@ -190,9 +190,9 @@ export class Huawei extends Homey.Device {
     model: [30222, 20, 'STRING', 'Model Name', 0],
     // Energy charged today RO U32 kWh 100 30306  2
     energy_charged_today: [30306, 2, 'UINT32', 'Energy charged today', -2],
-    energy_charged_total: [30308, 2, 'UINT32', 'Energy charged total', -2],
+    energy_charged_total: [30308, 4, 'UINT64', 'Energy charged total', -2],
     energy_discharged_today: [30312, 2, 'UINT32', 'Energy discharged today', -2],
-    energy_discharged_total: [30314, 2, 'UINT32', 'Energy discharged total', -2],
+    energy_discharged_total: [30314, 4, 'UINT64', 'Energy discharged total', -2],
 
 
     consumption_today: [30324, 2, 'UINT32', 'Consumption today', -2],
