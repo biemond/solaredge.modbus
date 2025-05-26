@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.201",
+  "version": "3.0.202",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -2066,7 +2066,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+            "filter": "driver_id=growattwithbatt|growattwithbatt_tl|growatt"
           }
         ],
         "id": "exportlimitenabled"
@@ -2103,7 +2103,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+            "filter": "driver_id=growattwithbatt|growattwithbatt_tl|growatt"
           }
         ],
         "id": "exportlimitpowerrate"

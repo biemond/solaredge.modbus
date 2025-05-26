@@ -17,6 +17,19 @@ class MyGrowattDevice extends Growatt {
     this.log(`device name id ${name}`);
     this.log(`device name ${this.getName()}`);
 
+
+    // flow action
+    const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
+    exportEnabledAction.registerRunListener(async (args, state) => {
+      await this.updateControl('exportlimitenabled', Number(args.mode));
+    });
+
+    const exportlimitpowerrateAction = this.homey.flow.getActionCard('exportlimitpowerrate');
+    exportlimitpowerrateAction.registerRunListener(async (args, state) => {
+      await this.updateControl('exportlimitpowerrate', args.percentage);
+    });
+
+
     this.pollInvertor();
 
     this.timer = this.homey.setInterval(() => {
@@ -60,6 +73,74 @@ class MyGrowattDevice extends Growatt {
     this.log('MyGrowattDevice has been deleted');
     this.homey.clearInterval(this.timer);
   }
+
+  async updateControl(type: string, value: number) {
+    const socket = new net.Socket();
+    const unitID = this.getSetting('id');
+    const client = new Modbus.client.TCP(socket, unitID, 2000);
+
+    const modbusOptions = {
+      host: this.getSetting('address'),
+      port: this.getSetting('port'),
+      unitId: this.getSetting('id'),
+      timeout: 15,
+      autoReconnect: false,
+      logLabel: 'growatt Inverter',
+      logLevel: 'error',
+      logEnabled: true,
+    };
+
+    socket.setKeepAlive(false);
+    socket.connect(modbusOptions);
+    this.log(modbusOptions);
+
+    socket.on('connect', () => {
+      (async () => {
+        this.log('Connected ...');
+
+        if (type == 'exportlimitenabled') {
+          // 0 – Disabled
+          // 1 – Enabled
+          if (value == 1) {
+            const exportlimitenabledRes = await client.writeSingleRegister(122, Number(1));
+            this.log('exportlimitenabled', exportlimitenabledRes);
+          } else if (value == 0) {
+            const exportlimitenabledRes = await client.writeSingleRegister(122, Number(0));
+            this.log('exportlimitenabled', exportlimitenabledRes);
+          } else {
+            this.log(`exportlimitenabled unknown value: ${value}`);
+          }
+        }
+        if (type == 'exportlimitpowerrate') {
+          // 0 – 100 % with 1 decimal
+          // 0 – 1000 as values
+          this.log(`exportlimitpowerrate value: ${value}`);
+          if (value >= 0 && value <= 100) {
+            const exportlimitpowerratedRes = await client.writeSingleRegister(123, value * 10);
+            this.log('exportlimitpowerrate', exportlimitpowerratedRes);
+            this.log(`exportlimitpowerrate value 2: ${value * 10}`);
+          } else {
+            this.log(`exportlimitpowerrate unknown value: ${value}`);
+          }
+        }
+
+        this.log('disconnect');
+        client.socket.end();
+        socket.end();
+      })().catch(this.error);
+    });
+
+    socket.on('close', () => {
+      this.log('Client closed');
+    });
+
+    socket.on('error', (err) => {
+      this.log(err);
+      socket.end();
+      this.homey.setTimeout(() => socket.connect(modbusOptions), 4000);
+    });
+  }
+
 
   async pollInvertor() {
     this.log('pollInvertor');

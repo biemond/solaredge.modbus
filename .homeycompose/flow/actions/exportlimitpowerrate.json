@@ -30,7 +30,7 @@
     {
       "type": "device",
       "name": "device",
-      "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+      "filter": "driver_id=growattwithbatt|growattwithbatt_tl|growatt"
     }
   ]
 }
