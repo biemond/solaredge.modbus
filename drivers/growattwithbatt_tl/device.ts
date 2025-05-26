@@ -34,7 +34,7 @@ class MyGrowattTLBattery extends Growatt {
 
     const limitCondition = this.homey.flow.getConditionCard('exportLimit');
     limitCondition.registerRunListener(async (args, state) => {
-      const result = Number(await args.device.getCapabilityValue('exportLimit')) === Number(args.exportlimit);
+      const result = Number(await args.device.getCapabilityValue('exportlimitenabled')) === Number(args.exportlimit);
       return Promise.resolve(result);
     });
 

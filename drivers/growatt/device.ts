@@ -17,6 +17,11 @@ class MyGrowattDevice extends Growatt {
     this.log(`device name id ${name}`);
     this.log(`device name ${this.getName()}`);
 
+    const limitCondition = this.homey.flow.getConditionCard('exportLimit');
+    limitCondition.registerRunListener(async (args, state) => {
+      const result = Number(await args.device.getCapabilityValue('exportlimitenabled')) === Number(args.exportlimit);
+      return Promise.resolve(result);
+    });
 
     // flow action
     const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
