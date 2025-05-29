@@ -2,6 +2,7 @@ import * as Modbus from 'jsmodbus';
 import net from 'net';
 import { checkRegisterSungrow, checkHoldingRegisterSungrow } from '../response';
 import { Sungrow } from '../sungrow';
+import Homey from 'homey';
 
 const RETRY_INTERVAL = 35 * 1000;
 
@@ -54,43 +55,43 @@ class MyWSungrowDevice extends Sungrow {
     // flow action
     const power_limitation_switchAction = this.homey.flow.getActionCard('power_limitation_switch');
     power_limitation_switchAction.registerRunListener(async (args, state) => {
-      await this.updateControl('power_limitation_switch', Number(args.mode));
+      await this.updateControl('power_limitation_switch', Number(args.mode), args.device);
     });
 
     const start_stopAction = this.homey.flow.getActionCard('start_stop');
     start_stopAction.registerRunListener(async (args, state) => {
-      await this.updateControl('start_stop', Number(args.mode));
+      await this.updateControl('start_stop', Number(args.mode), args.device);
     });
 
     const adjustpowerlimitationAction = this.homey.flow.getActionCard('adjustpowerlimitation');
     adjustpowerlimitationAction.registerRunListener(async (args, state) => {
-      await this.updateControl('adjustpowerlimitation', Number(args.mode));
+      await this.updateControl('adjustpowerlimitation', Number(args.mode), args.device);
     });
 
     const powerlimitationsettingAction = this.homey.flow.getActionCard('powerlimitationsetting');
     powerlimitationsettingAction.registerRunListener(async (args, state) => {
-      await this.updateControl('powerlimitationsetting', Number(args.percentage));
+      await this.updateControl('powerlimitationsetting', Number(args.percentage), args.device);
     });
 
     // flow action
     const emsmodedAction = this.homey.flow.getActionCard('emsmodeselection');
     emsmodedAction.registerRunListener(async (args, state) => {
-      await this.updateControl('emsmodeselection', Number(args.mode));
+      await this.updateControl('emsmodeselection', Number(args.mode), args.device);
     });
 
     const exportEnabledAction = this.homey.flow.getActionCard('export');
     exportEnabledAction.registerRunListener(async (args, state) => {
-      await this.updateControl2('export', Number(args.limitation), Number(args.power));
+      await this.updateControl2('export', Number(args.limitation), Number(args.power), args.device);
     });
 
     const chargeAction = this.homey.flow.getActionCard('charge');
     chargeAction.registerRunListener(async (args, state) => {
-      await this.updateControl2('charge', Number(args.command), Number(args.power));
+      await this.updateControl2('charge', Number(args.command), Number(args.power), args.device);
     });
 
     // homey menu / device actions
     this.registerCapabilityListener('emsmodeselection', async (value) => {
-      this.updateControl('emsmodeselection', Number(value));
+      this.updateControl('emsmodeselection', Number(value), this);
       return value;
     });
 
@@ -109,18 +110,22 @@ class MyWSungrowDevice extends Sungrow {
 
   }
 
-  async updateControl(type: string, value: number) {
+  async updateControl(type: string, value: number, device: Homey.Device) {
+
+    const name = device.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${device.getName()}`);
     const socket = new net.Socket();
-    const unitID = this.getSetting('id');
+    const unitID = device.getSetting('id');
     const client = new Modbus.client.TCP(socket, unitID, 2000);
 
     const modbusOptions = {
-      host: this.getSetting('address'),
-      port: this.getSetting('port'),
-      unitId: this.getSetting('id'),
+      host: device.getSetting('address'),
+      port: device.getSetting('port'),
+      unitId: device.getSetting('id'),
       timeout: 22,
       autoReconnect: false,
-      logLabel: 'sungrow Inverter',
+      logLabel: 'sungrow battery Inverter',
       logLevel: 'error',
       logEnabled: true,
     };
@@ -176,18 +181,21 @@ class MyWSungrowDevice extends Sungrow {
     });
   }
 
-  async updateControl2(type: string, command: number, value: number) {
+  async updateControl2(type: string, command: number, value: number, device: Homey.Device) {
+    const name = device.getData().id;
+    this.log(`device name id ${name}`);
+    this.log(`device name ${device.getName()}`);
     const socket = new net.Socket();
-    const unitID = this.getSetting('id');
+    const unitID = device.getSetting('id');
     const client = new Modbus.client.TCP(socket, unitID, 2000);
 
     const modbusOptions = {
-      host: this.getSetting('address'),
-      port: this.getSetting('port'),
-      unitId: this.getSetting('id'),
+      host: device.getSetting('address'),
+      port: device.getSetting('port'),
+      unitId: device.getSetting('id'),
       timeout: 22,
       autoReconnect: false,
-      logLabel: 'sungrow Inverter',
+      logLabel: 'sungrow battery Inverter',
       logLevel: 'error',
       logEnabled: true,
     };
