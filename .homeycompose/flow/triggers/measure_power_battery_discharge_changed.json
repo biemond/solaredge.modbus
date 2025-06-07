@@ -1,11 +1,11 @@
 {
   "highlight": true,
   "title": {
-    "en": "The battery charging changed"
+    "en": "The battery discharging changed"
   },
   "tokens": [
     {
-      "name": "measure_power.batt_charge",
+      "name": "measure_power.batt_discharge",
       "title": {
         "en": "Power",
         "nl": "Vermogen",
