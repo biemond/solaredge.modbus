@@ -1,0 +1,26 @@
+{
+  "highlight": true,
+  "title": {
+    "en": "The battery charging changed"
+  },
+  "tokens": [
+    {
+      "name": "measure_power.batt_charge",
+      "title": {
+        "en": "Power",
+        "nl": "Vermogen",
+        "de": "Leistung",
+        "sv": "Effekt"
+      },
+      "type": "number",
+      "example": 100
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=invertorwithbatt|huaweiwithemma|huaweiwithbatt|huaweidouble|growattwithbatt_tl|growattwithbatt"
+    }
+  ]
+}

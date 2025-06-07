@@ -1,6 +1,27 @@
 {
   "actions": [
     {
+      "id": "grid_first_discharge_percentage",
+      "title": {
+        "en": "Discharge powerrate, grid first"
+      },
+      "args": [
+        {
+          "type": "range",
+          "name": "value",
+          "title": {
+            "en": "percentage",
+            "de": "Prozent",
+            "sv": "Procent"
+          },
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "labelDecimals": 0
+        }
+      ]
+    },
+    {
       "id": "period1",
       "title": {
         "en": "Time slot 1:",

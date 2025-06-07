@@ -1,0 +1,26 @@
+{
+  "highlight": true,
+  "title": {
+    "en": "The battery (dis)charging changed"
+  },
+  "tokens": [
+    {
+      "name": "measure_power.battery",
+      "title": {
+        "en": "Power",
+        "nl": "Vermogen",
+        "de": "Leistung",
+        "sv": "Effekt"
+      },
+      "type": "number",
+      "example": 100
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=sungrowhybirdwithbatt|solaxultrawithbatt|solaxwithbatt"
+    }
+  ]
+}

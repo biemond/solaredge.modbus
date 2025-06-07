@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.206",
+  "version": "3.0.208",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -167,6 +167,87 @@
           }
         ],
         "id": "measure_current_changed"
+      },
+      {
+        "highlight": true,
+        "title": {
+          "en": "The battery (dis)charging changed"
+        },
+        "tokens": [
+          {
+            "name": "measure_power.battery",
+            "title": {
+              "en": "Power",
+              "nl": "Vermogen",
+              "de": "Leistung",
+              "sv": "Effekt"
+            },
+            "type": "number",
+            "example": 100
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sungrowhybirdwithbatt|solaxultrawithbatt|solaxwithbatt"
+          }
+        ],
+        "id": "measure_power_battery_changed"
+      },
+      {
+        "highlight": true,
+        "title": {
+          "en": "The battery charging changed"
+        },
+        "tokens": [
+          {
+            "name": "measure_power.batt_charge",
+            "title": {
+              "en": "Power",
+              "nl": "Vermogen",
+              "de": "Leistung",
+              "sv": "Effekt"
+            },
+            "type": "number",
+            "example": 100
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt|huaweiwithemma|huaweiwithbatt|huaweidouble|growattwithbatt_tl|growattwithbatt"
+          }
+        ],
+        "id": "measure_power_battery_charge_changed"
+      },
+      {
+        "highlight": true,
+        "title": {
+          "en": "The battery charging changed"
+        },
+        "tokens": [
+          {
+            "name": "measure_power.batt_charge",
+            "title": {
+              "en": "Power",
+              "nl": "Vermogen",
+              "de": "Leistung",
+              "sv": "Effekt"
+            },
+            "type": "number",
+            "example": 100
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt|huaweiwithemma|huaweiwithbatt|huaweidouble|growattwithbatt_tl|growattwithbatt"
+          }
+        ],
+        "id": "measure_power_battery_discharge_changed"
       },
       {
         "highlight": true,
@@ -2970,6 +3051,32 @@
                 }
               }
             ]
+          }
+        ]
+      },
+      {
+        "id": "grid_first_discharge_percentage",
+        "title": {
+          "en": "Discharge powerrate, grid first"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt_tl"
+          },
+          {
+            "type": "range",
+            "name": "value",
+            "title": {
+              "en": "percentage",
+              "de": "Prozent",
+              "sv": "Procent"
+            },
+            "min": 1,
+            "max": 100,
+            "step": 1,
+            "labelDecimals": 0
           }
         ]
       },
@@ -9984,7 +10091,7 @@
       },
       "getable": true,
       "setable": false,
-      "uiComponent": "picker",
+      "uiComponent": "sensor",
       "uiQuickAction": false,
       "values": [
         {

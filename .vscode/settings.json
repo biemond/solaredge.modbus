@@ -91,5 +91,8 @@
     "timeenabled",
     "timesync",
     "totalhouseload"
-  ]
+  ],
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
 }
