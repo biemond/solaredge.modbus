@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.210",
+  "version": "3.0.211",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -7183,8 +7183,8 @@
     },
     {
       "name": {
-        "en": "Solaredge + Storedge",
-        "de": "Solaredge Storedge (mit Batterie)"
+        "en": "Solaredge + Meter/Battery",
+        "de": "Solaredge + Meter/Batterie)"
       },
       "class": "solarpanel",
       "energy": {

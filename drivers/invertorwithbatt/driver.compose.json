@@ -1,13 +1,15 @@
 {
   "name": {
-    "en": "Solaredge + Storedge",
-    "de": "Solaredge Storedge (mit Batterie)"
+    "en": "Solaredge + Meter/Battery",
+    "de": "Solaredge + Meter/Batterie)"
   },
   "class": "solarpanel",
   "energy": {
     "cumulativeImportedCapability": "meter_power.import",
     "cumulativeExportedCapability": "meter_power.export",
-    "batteries": ["OTHER"]
+    "batteries": [
+      "OTHER"
+    ]
   },
   "capabilities": [
     "measure_battery",
@@ -272,8 +274,12 @@
       "icon": "/assets/total_yield.svg"
     }
   },
-  "platforms": ["local"],
-  "connectivity": ["lan"],
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.jpg",
     "large": "{{driverAssetsPath}}/images/large.jpg"
