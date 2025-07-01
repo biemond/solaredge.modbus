@@ -40,6 +40,13 @@ class MySigenergyDevice extends Sigenergy {
     if (this.hasCapability('meter_power.total_load_consumption') === false) {
       await this.addCapability('meter_power.total_load_consumption');
     }            
+    if (this.hasCapability('meter_power.import') === false) {
+      await this.addCapability('meter_power.import');
+    }  
+    if (this.hasCapability('meter_power.export') === false) {
+      await this.addCapability('meter_power.export');
+    }  
+
 
     this.registerCapabilityListener('sigen_remote_ems_code', async (value) => {
       this.updateControl('sigen_remote_ems_code', Number(value), this);

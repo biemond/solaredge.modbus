@@ -102,7 +102,10 @@ export class Sigenergy extends Homey.Device {
     "sigen_total_load_daily_consumption": [30092, 2, 'UINT32', "Total load daily consumption", -2],
     "sigen_total_load_consumption":       [30094, 4, 'UINT64', "Total load consumption", -2],
 
-    "sigen_total_energy_consumption":       [30228, 4, 'UINT64', "Total energy consumption of common loads", -2],
+    "sigen_total_imported_energy":        [30216, 4, 'UINT64', "Total imported energy", -2],
+    "sigen_total_exported_energy":        [30220, 4, 'UINT64', "Total exported energy", -2],
+
+    "sigen_total_energy_consumption":     [30228, 4, 'UINT64', "Total energy consumption of common loads", -2],
 
   };
 
@@ -310,6 +313,15 @@ export class Sigenergy extends Homey.Device {
         this.setCapabilityValue('meter_power.pv_total', Math.round(PowerDC));
       }
 
+      if (result['sigen_plant_pv_total_generation'] && result['sigen_plant_pv_total_generation'].value != 'xxx') {
+        if (this.hasCapability('meter_power') === false) {
+           this.addCapability('meter_power');
+        }           
+        const PowerDC = Number(result['sigen_plant_pv_total_generation'].value) * Math.pow(10, Number(result['sigen_plant_pv_total_generation'].scale));
+        this.setCapabilityValue('meter_power', Math.round(PowerDC));
+      }
+
+
       if (result['sigen_total_load_daily_consumption'] && result['sigen_total_load_daily_consumption'].value != 'xxx') {
           if (this.hasCapability('meter_power.daily_load_consumption') === false) {
            this.addCapability('meter_power.daily_load_consumption');
@@ -324,6 +336,21 @@ export class Sigenergy extends Homey.Device {
         }           
         const PowerDC = Number(result['sigen_total_load_consumption'].value) * Math.pow(10, Number(result['sigen_total_load_consumption'].scale));
         this.setCapabilityValue('meter_power.total_load_consumption', Math.round(PowerDC));
+      }
+
+      if (result['sigen_total_imported_energy'] && result['sigen_total_imported_energy'].value != 'xxx') {
+        if (this.hasCapability('meter_power.import') === false) {
+           this.addCapability('meter_power.import');
+        }           
+        const PowerDC = Number(result['sigen_total_imported_energy'].value) * Math.pow(10, Number(result['sigen_total_imported_energy'].scale));
+        this.setCapabilityValue('meter_power.import', Math.round(PowerDC));
+      }
+      if (result['sigen_total_exported_energy'] && result['sigen_total_exported_energy'].value != 'xxx') {
+        if (this.hasCapability('meter_power.export') === false) {
+           this.addCapability('meter_power.export');
+        }           
+        const PowerDC = Number(result['sigen_total_exported_energy'].value) * Math.pow(10, Number(result['sigen_total_exported_energy'].scale));
+        this.setCapabilityValue('meter_power.export', Math.round(PowerDC));
       }
 
       if (result['sigen_grid_sensor_active_power'] && result['sigen_grid_sensor_active_power'].value != 'xxx') {

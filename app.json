@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.215",
+  "version": "3.0.216",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -7800,6 +7800,8 @@
       },
       "class": "solarpanel",
       "energy": {
+        "cumulativeImportedCapability": "meter_power.import",
+        "cumulativeExportedCapability": "meter_power.export",
         "batteries": [
           "OTHER"
         ]
@@ -7820,6 +7822,8 @@
         "meter_power.pv_daily",
         "meter_power.daily_load_consumption",
         "meter_power.total_load_consumption",
+        "meter_power.import",
+        "meter_power.export",
         "measure_voltage.battery",
         "battery",
         "measure_battery",
@@ -7908,6 +7912,20 @@
         "meter_power.daily_discharge": {
           "title": {
             "en": "Total Day Discharge"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.import": {
+          "title": {
+            "en": "Total import"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.export": {
+          "title": {
+            "en": "Total export"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
