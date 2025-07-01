@@ -345,6 +345,7 @@ export class Sigenergy extends Homey.Device {
         const PowerDC = Number(result['sigen_total_imported_energy'].value) * Math.pow(10, Number(result['sigen_total_imported_energy'].scale));
         this.setCapabilityValue('meter_power.import', Math.round(PowerDC));
       }
+      
       if (result['sigen_total_exported_energy'] && result['sigen_total_exported_energy'].value != 'xxx') {
         if (this.hasCapability('meter_power.export') === false) {
            this.addCapability('meter_power.export');

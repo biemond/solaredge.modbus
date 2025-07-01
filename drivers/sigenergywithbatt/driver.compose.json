@@ -29,6 +29,7 @@
     "meter_power.total_load_consumption",
     "meter_power.import",
     "meter_power.export",
+    "meter_power",
     "measure_voltage.battery",
     "battery",
     "measure_battery",
@@ -131,6 +132,13 @@
     "meter_power.export": {
       "title": {
         "en": "Total export"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power": {
+      "title": {
+        "en": "Total Plant PV"
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
