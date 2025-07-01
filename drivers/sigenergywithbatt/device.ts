@@ -31,8 +31,8 @@ class MySigenergyDevice extends Sigenergy {
     if (this.hasCapability('meter_power.pv_total') === false) {
       await this.addCapability('meter_power.pv_total');
     }
-    if (this.hasCapability('"meter_power.pv_daily') === false) {
-      await this.addCapability('"meter_power.pv_daily');
+    if (this.hasCapability('meter_power.pv_daily') === false) {
+      await this.addCapability('meter_power.pv_daily');
     }
     if (this.hasCapability('meter_power.daily_load_consumption') === false) {
       await this.addCapability('meter_power.daily_load_consumption');

@@ -402,8 +402,8 @@ export class Sigenergy extends Homey.Device {
         this.setCapabilityValue('measure_current.phase1', currenteac1);
       }
       if (result['sigendev_phase_b_current'] && result['sigendev_phase_b_current'].value != '-1' && result['sigendev_phase_b_current'].value != 'xxx') {
-        if (this.hasCapability('easure_current.phase2') === false) {
-           this.addCapability('easure_current.phase2');
+        if (this.hasCapability('measure_current.phase2') === false) {
+           this.addCapability('measure_current.phase2');
         }           
         const currenteac2 = Number(result['sigendev_phase_b_current'].value) * Math.pow(10, Number(result['sigendev_phase_b_current'].scale));
         this.setCapabilityValue('measure_current.phase2', currenteac2);
@@ -443,8 +443,8 @@ export class Sigenergy extends Homey.Device {
         && result['sigendev_ess_average_cell_voltage'].value != '-1'
         && result['sigendev_ess_average_cell_voltage'].value != 'xxx'
       ) {
-        if (this.hasCapability('easure_voltage.battery') === false) {
-           this.addCapability('easure_voltage.battery');
+        if (this.hasCapability('measure_voltage.battery') === false) {
+           this.addCapability('measure_voltage.battery');
         }           
         const voltageebatt = Number(result['sigendev_ess_average_cell_voltage'].value) * Math.pow(10, Number(result['sigendev_ess_average_cell_voltage'].scale));
         this.setCapabilityValue('measure_voltage.battery', voltageebatt);
