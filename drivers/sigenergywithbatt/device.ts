@@ -28,6 +28,18 @@ class MySigenergyDevice extends Sigenergy {
     if (this.hasCapability('grid_status') === false) {
       await this.addCapability('grid_status');
     }
+    if (this.hasCapability('meter_power.pv_total') === false) {
+      await this.addCapability('meter_power.pv_total');
+    }
+    if (this.hasCapability('"meter_power.pv_daily') === false) {
+      await this.addCapability('"meter_power.pv_daily');
+    }
+    if (this.hasCapability('meter_power.daily_load_consumption') === false) {
+      await this.addCapability('meter_power.daily_load_consumption');
+    }
+    if (this.hasCapability('meter_power.total_load_consumption') === false) {
+      await this.addCapability('meter_power.total_load_consumption');
+    }            
 
     this.registerCapabilityListener('sigen_remote_ems_code', async (value) => {
       this.updateControl('sigen_remote_ems_code', Number(value), this);

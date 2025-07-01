@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.211",
+  "version": "3.0.213",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -7816,6 +7816,10 @@
         "meter_power.daily_import",
         "meter_power.daily_charge",
         "meter_power.daily_discharge",
+        "meter_power.pv_total",
+        "meter_power.pv_daily",
+        "meter_power.daily_load_consumption",
+        "meter_power.total_load_consumption",
         "measure_voltage.battery",
         "battery",
         "measure_battery",
@@ -7904,6 +7908,34 @@
         "meter_power.daily_discharge": {
           "title": {
             "en": "Total Day Discharge"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.pv_total": {
+          "title": {
+            "en": "PV total"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.pv_daily": {
+          "title": {
+            "en": "PV Daily"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.daily_load_consumption": {
+          "title": {
+            "en": "Daily load consumption"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.total_load_consumption": {
+          "title": {
+            "en": "Total load consumption"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
