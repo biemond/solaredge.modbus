@@ -48,6 +48,9 @@ class MyGrowattDevice extends Growatt {
       await this.updateControl('exportlimitpowerrate', args.percentage);
     });
 
+    if (this.hasCapability('growatt_onoff') === false) {
+      await this.addCapability('growatt_onoff');
+    }
     if (this.hasCapability('exportlimitenabled') === false) {
       await this.addCapability('exportlimitenabled');
     }
