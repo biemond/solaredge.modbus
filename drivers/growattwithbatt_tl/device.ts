@@ -1,8 +1,10 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import moment from 'moment-timezone';
+/* eslint-disable node/no-missing-import */
 import { checkRegisterGrowatt, checkHoldingRegisterGrowatt } from '../response';
 import { Growatt } from '../growatt';
+/* eslint-enable node/no-missing-import */
 
 const RETRY_INTERVAL = 60 * 1000;
 
@@ -25,6 +27,13 @@ class MyGrowattTLBattery extends Growatt {
       this.pollInvertor().catch(this.error);
     }, RETRY_INTERVAL);
 
+    // on/off state condition
+    const onoffCondition = this.homey.flow.getConditionCard('on_off');
+    onoffCondition.registerRunListener(async (args, state) => {
+      const result = Number(await args.device.getCapabilityValue('growatt_onoff')) === Number(args.inverterstate);
+      return Promise.resolve(result);
+    });
+
     // priority condition
     const prioCondition = this.homey.flow.getConditionCard('priorityMode');
     prioCondition.registerRunListener(async (args, state) => {
@@ -45,6 +54,11 @@ class MyGrowattTLBattery extends Growatt {
     });
 
     // flow action
+    const onoffAction = this.homey.flow.getActionCard('on_off');
+    onoffAction.registerRunListener(async (args, state) => {
+      await this.updateControl('growatt_onoff', Number(args.mode));
+    });
+
     const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
       await this.updateControl('exportlimitenabled', Number(args.mode));
@@ -137,6 +151,9 @@ class MyGrowattTLBattery extends Growatt {
       return value;
     });
 
+    if (this.hasCapability('growatt_onoff') === false) {
+      await this.addCapability('growatt_onoff');
+    }
     if (this.hasCapability('period1') === false) {
       await this.addCapability('period1');
     }
@@ -224,6 +241,20 @@ class MyGrowattTLBattery extends Growatt {
     socket.on('connect', () => {
       (async () => {
         this.log('Connected ...');
+
+        if (type == 'growatt_onoff') {
+          // 0 – Disabled
+          // 1 – Enabled
+          if (value == 1) {
+            const onoffRes = await client.writeSingleRegister(0, Number(1));
+            this.log('onoff', onoffRes);
+          } else if (value == 0) {
+            const onoffRes = await client.writeSingleRegister(0, Number(0));
+            this.log('onoff', onoffRes);
+          } else {
+            this.log(`onoff unknown value: ${value}`);
+          }
+        }
 
         if (type == 'exportlimitenabled') {
           // 0 – Disabled

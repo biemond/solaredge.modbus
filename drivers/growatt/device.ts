@@ -1,7 +1,9 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
+/* eslint-disable node/no-missing-import */
 import { checkRegisterGrowatt } from '../response';
 import { Growatt } from '../growatt';
+/* eslint-enable node/no-missing-import */
 
 const RETRY_INTERVAL = 28 * 1000;
 
@@ -17,11 +19,11 @@ class MyGrowattDevice extends Growatt {
     this.log(`device name id ${name}`);
     this.log(`device name ${this.getName()}`);
 
-    this.pollInvertor();
+    this.pollInvertor().catch(this.error);
 
     this.timer = this.homey.setInterval(() => {
       // poll device state from inverter
-      this.pollInvertor();
+      this.pollInvertor().catch(this.error);
     }, RETRY_INTERVAL);
   }
 
@@ -40,8 +42,16 @@ class MyGrowattDevice extends Growatt {
    * @param {string[]} event.changedKeys An array of keys changed since the previous version
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
-  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string | void> {
-    this.log('MyGrowattDevice settings where changed');
+  async onSettings({
+    oldSettings,
+    newSettings,
+    changedKeys,
+  }: {
+    oldSettings: { [key: string]: string };
+    newSettings: { [key: string]: string };
+    changedKeys: string[];
+  }): Promise<string | void> {
+    this.log('MyGrowattBattery settings were changed');
   }
 
   /**
@@ -82,30 +92,33 @@ class MyGrowattDevice extends Growatt {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
-      console.log(modbusOptions);
+    socket.on('connect', () => {
+      (async () => {
+        this.log('Connected ...');
+        this.log(modbusOptions);
 
-      const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
-      const finalRes = { ...checkRegisterRes };
-      this.processResult(finalRes, this.getSetting('maxpeakpower'));
+        const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
+
+        this.log('disconnect');
+        client.socket.end();
+        socket.end();
+        const finalRes = { ...checkRegisterRes };
+        this.processResult(finalRes, this.getSetting('maxpeakpower'));
+      })().catch(this.error);
     });
 
     socket.on('close', () => {
-      console.log('Client closed');
+      this.log('Client closed');
     });
 
     socket.on('timeout', () => {
-      console.log('socket timed out!');
+      this.log('socket timed out!');
       client.socket.end();
       socket.end();
     });
 
     socket.on('error', (err) => {
-      console.log(err);
+      this.log(err);
       client.socket.end();
       socket.end();
     });
