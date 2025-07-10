@@ -19,6 +19,13 @@ class MyGrowattDevice extends Growatt {
     this.log(`device name id ${name}`);
     this.log(`device name ${this.getName()}`);
 
+    // on/off state condition
+    const onoffCondition = this.homey.flow.getConditionCard('on_off');
+    onoffCondition.registerRunListener(async (args, state) => {
+      const result = Number(await args.device.getCapabilityValue('growatt_onoff')) === Number(args.inverterstate);
+      return Promise.resolve(result);
+    });
+
     const limitCondition = this.homey.flow.getConditionCard('exportLimit');
     limitCondition.registerRunListener(async (args, state) => {
       const result = Number(await args.device.getCapabilityValue('exportlimitenabled')) === Number(args.exportlimit);
@@ -26,6 +33,11 @@ class MyGrowattDevice extends Growatt {
     });
 
     // flow action
+    const onoffAction = this.homey.flow.getActionCard('on_off');
+    onoffAction.registerRunListener(async (args, state) => {
+      await this.updateControl('growatt_onoff', Number(args.mode));
+    });
+
     const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
       await this.updateControl('exportlimitenabled', Number(args.mode));
