@@ -98,6 +98,15 @@ export class Sigenergy extends Homey.Device {
     // scale: 0.001
 
     // "sigen_plant_running_state_code": [30051, 1, 'UINT16', "Sigen Plant running state code", 0],
+    "sigen_plant_pv_total_generation":    [30088, 4, 'UINT64', "Plant PV total generation", -2],
+    "sigen_total_load_daily_consumption": [30092, 2, 'UINT32', "Total load daily consumption", -2],
+    "sigen_total_load_consumption":       [30094, 4, 'UINT64', "Total load consumption", -2],
+
+    "sigen_total_imported_energy":        [30216, 4, 'UINT64', "Total imported energy", -2],
+    "sigen_total_exported_energy":        [30220, 4, 'UINT64', "Total exported energy", -2],
+
+    "sigen_total_energy_consumption":     [30228, 4, 'UINT64', "Total energy consumption of common loads", -2],
+
   };
 
   holdingRegisters = {
@@ -149,6 +158,10 @@ export class Sigenergy extends Homey.Device {
     // precision: 3
     // unit_of_measurement: kW
     // scale: 0.001
+
+
+    sigendev_pv_daily_generation: [31509, 2, 'UINT32', 'Sigen PV daily generation', -2],
+    sigendev_pv_total_generation: [31511, 2, 'UINT32', 'Sigen PV total generation', -2],
 
     sigendev_daily_export_energy: [30554, 2, 'UINT32', 'Sigen Daily export energy', -2],
     // precision: 2
@@ -269,31 +282,98 @@ export class Sigenergy extends Homey.Device {
       }
 
       if (result['sigen_plant_active_power'] && result['sigen_plant_active_power'].value != 'xxx') {
-        this.addCapability('measure_power');
+        if (this.hasCapability('measure_power') === false) {
+           this.addCapability('measure_power');
+        }   
         const activePower = Number(result['sigen_plant_active_power'].value) * Math.pow(10, Number(result['sigen_plant_active_power'].scale));
         this.setCapabilityValue('measure_power', Math.round(activePower));
       }
 
       if (result['sigen_pv_power'] && result['sigen_pv_power'].value != 'xxx') {
-        this.addCapability('measure_power.pv');
+        if (this.hasCapability('measure_power.pv') === false) {
+           this.addCapability('measure_power.pv');
+        }           
         const PowerDC = Number(result['sigen_pv_power'].value) * Math.pow(10, Number(result['sigen_pv_power'].scale));
         this.setCapabilityValue('measure_power.pv', Math.round(PowerDC));
       }
 
+      if (result['sigendev_pv_daily_generation'] && result['sigendev_pv_daily_generation'].value != 'xxx') {
+        if (this.hasCapability('meter_power.pv_daily') === false) {
+           this.addCapability('meter_power.pv_daily');
+        }           
+        const PowerDC = Number(result['sigendev_pv_daily_generation'].value) * Math.pow(10, Number(result['sigendev_pv_daily_generation'].scale));
+        this.setCapabilityValue('meter_power.pv_daily', Math.round(PowerDC));
+      }
+
+      if (result['sigendev_pv_total_generation'] && result['sigendev_pv_total_generation'].value != 'xxx') {
+        if (this.hasCapability('meter_power.pv_total') === false) {
+           this.addCapability('meter_power.pv_total');
+        }           
+        const PowerDC = Number(result['sigendev_pv_total_generation'].value) * Math.pow(10, Number(result['sigendev_pv_total_generation'].scale));
+        this.setCapabilityValue('meter_power.pv_total', Math.round(PowerDC));
+      }
+
+      if (result['sigen_plant_pv_total_generation'] && result['sigen_plant_pv_total_generation'].value != 'xxx') {
+        if (this.hasCapability('meter_power') === false) {
+           this.addCapability('meter_power');
+        }           
+        const PowerDC = Number(result['sigen_plant_pv_total_generation'].value) * Math.pow(10, Number(result['sigen_plant_pv_total_generation'].scale));
+        this.setCapabilityValue('meter_power', Math.round(PowerDC));
+      }
+
+
+      if (result['sigen_total_load_daily_consumption'] && result['sigen_total_load_daily_consumption'].value != 'xxx') {
+          if (this.hasCapability('meter_power.daily_load_consumption') === false) {
+           this.addCapability('meter_power.daily_load_consumption');
+        }           
+        const PowerDC = Number(result['sigen_total_load_daily_consumption'].value) * Math.pow(10, Number(result['sigen_total_load_daily_consumption'].scale));
+        this.setCapabilityValue('meter_power.daily_load_consumption', Math.round(PowerDC));
+      }
+
+      if (result['sigen_total_load_consumption'] && result['sigen_total_load_consumption'].value != 'xxx') {
+        if (this.hasCapability('meter_power.total_load_consumption') === false) {
+           this.addCapability('meter_power.total_load_consumption');
+        }           
+        const PowerDC = Number(result['sigen_total_load_consumption'].value) * Math.pow(10, Number(result['sigen_total_load_consumption'].scale));
+        this.setCapabilityValue('meter_power.total_load_consumption', Math.round(PowerDC));
+      }
+
+      if (result['sigen_total_imported_energy'] && result['sigen_total_imported_energy'].value != 'xxx') {
+        if (this.hasCapability('meter_power.import') === false) {
+           this.addCapability('meter_power.import');
+        }           
+        const PowerDC = Number(result['sigen_total_imported_energy'].value) * Math.pow(10, Number(result['sigen_total_imported_energy'].scale));
+        this.setCapabilityValue('meter_power.import', Math.round(PowerDC));
+      }
+      
+      if (result['sigen_total_exported_energy'] && result['sigen_total_exported_energy'].value != 'xxx') {
+        if (this.hasCapability('meter_power.export') === false) {
+           this.addCapability('meter_power.export');
+        }           
+        const PowerDC = Number(result['sigen_total_exported_energy'].value) * Math.pow(10, Number(result['sigen_total_exported_energy'].scale));
+        this.setCapabilityValue('meter_power.export', Math.round(PowerDC));
+      }
+
       if (result['sigen_grid_sensor_active_power'] && result['sigen_grid_sensor_active_power'].value != 'xxx') {
-        this.addCapability('measure_power.grid');
+        if (this.hasCapability('measure_power.grid') === false) {
+           this.addCapability('measure_power.grid');
+        }           
         const PowerGrid = Number(result['sigen_grid_sensor_active_power'].value) * Math.pow(10, Number(result['sigen_grid_sensor_active_power'].scale));
         this.setCapabilityValue('measure_power.grid', Math.round(PowerGrid));
       }
 
       if (result['sigen_battery_power'] && result['sigen_battery_power'].value != 'xxx') {
-        this.addCapability('measure_power.batt_charge_discharge');
+        if (this.hasCapability('measure_power.batt_charge_discharge') === false) {
+           this.addCapability('measure_power.batt_charge_discharge');
+        }           
         const PowerBatt = Number(result['sigen_battery_power'].value) * Math.pow(10, Number(result['sigen_battery_power'].scale));
         this.setCapabilityValue('measure_power.batt_charge_discharge', Math.round(PowerBatt));
       }
 
       if (result['sigen_grid_sensor_active_power'] && result['sigen_grid_sensor_active_power'].value != 'xxx') {
-        this.addCapability('measure_power.consumed');
+        if (this.hasCapability('measure_power.consumed') === false) {
+           this.addCapability('measure_power.consumed');
+        }           
         const PowerBatt = Number(result['sigen_battery_power'].value) * Math.pow(10, Number(result['sigen_battery_power'].scale));
         const PowerGrid = Number(result['sigen_grid_sensor_active_power'].value) * Math.pow(10, Number(result['sigen_grid_sensor_active_power'].scale));
         const PowerDC = Number(result['sigen_pv_power'].value) * Math.pow(10, Number(result['sigen_pv_power'].scale));
@@ -301,63 +381,87 @@ export class Sigenergy extends Homey.Device {
       }
 
       if (result['sigendev_ess_battery_soc'] && result['sigendev_ess_battery_soc'].value != 'xxx') {
-        this.addCapability('battery');
-        this.addCapability('measure_battery');
+        if (this.hasCapability('battery') === false) {
+           this.addCapability('battery');
+        }           
+        if (this.hasCapability('measure_battery') === false) {
+           this.addCapability('measure_battery');
+        }           
         const soc = Number(result['sigendev_ess_battery_soc'].value) * Math.pow(10, Number(result['sigendev_ess_battery_soc'].scale));
         this.setCapabilityValue('battery', soc);
         this.setCapabilityValue('measure_battery', soc);
       }
       if (result['sigendev_ess_battery_soh'] && result['sigendev_ess_battery_soh'].value != 'xxx') {
-        this.addCapability('batterysoh');
+        if (this.hasCapability('batterysoh') === false) {
+           this.addCapability('batterysoh');
+        }           
         const soh = Number(result['sigendev_ess_battery_soh'].value) * Math.pow(10, Number(result['sigendev_ess_battery_soh'].scale));
         this.setCapabilityValue('batterysoh', soh);
       }
 
       if (result['sigendev_inverter_temperature'] && result['sigendev_inverter_temperature'].value != 'xxx') {
-        this.addCapability('measure_temperature.invertor');
+        if (this.hasCapability('measure_temperature.invertor') === false) {
+           this.addCapability('measure_temperature.invertor');
+        }           
         const temperature = Number(result['sigendev_inverter_temperature'].value) * Math.pow(10, Number(result['sigendev_inverter_temperature'].scale));
         this.setCapabilityValue('measure_temperature.invertor', temperature);
       }
       if (result['sigendev_ess_average_cell_temperature'] && result['sigendev_ess_average_cell_temperature'].value != 'xxx') {
-        this.addCapability('measure_temperature.battery');
+        if (this.hasCapability('measure_temperature.battery') === false) {
+           this.addCapability('measure_temperature.battery');
+        }           
         const temperature = Number(result['sigendev_ess_average_cell_temperature'].value) * Math.pow(10, Number(result['sigendev_ess_average_cell_temperature'].scale));
         this.setCapabilityValue('measure_temperature.battery', temperature);
       }
 
       if (result['sigendev_running_state_code'] && result['sigendev_running_state_code'].value != 'xxx') {
-        this.addCapability('sigendev_running_state_code');
+        if (this.hasCapability('sigendev_running_state_code') === false) {
+           this.addCapability('sigendev_running_state_code');
+        }           
         const state = result['sigendev_running_state_code'].value;
         this.setCapabilityValue('sigendev_running_state_code', state);
       }
 
       if (result['sigendev_phase_a_current'] && result['sigendev_phase_a_current'].value != '-1' && result['sigendev_phase_a_current'].value != 'xxx') {
-        this.addCapability('measure_current.phase1');
+        if (this.hasCapability('measure_current.phase1') === false) {
+           this.addCapability('measure_current.phase1');
+        }           
         const currenteac1 = Number(result['sigendev_phase_a_current'].value) * Math.pow(10, Number(result['sigendev_phase_a_current'].scale));
         this.setCapabilityValue('measure_current.phase1', currenteac1);
       }
       if (result['sigendev_phase_b_current'] && result['sigendev_phase_b_current'].value != '-1' && result['sigendev_phase_b_current'].value != 'xxx') {
-        this.addCapability('measure_current.phase2');
+        if (this.hasCapability('measure_current.phase2') === false) {
+           this.addCapability('measure_current.phase2');
+        }           
         const currenteac2 = Number(result['sigendev_phase_b_current'].value) * Math.pow(10, Number(result['sigendev_phase_b_current'].scale));
         this.setCapabilityValue('measure_current.phase2', currenteac2);
       }
       if (result['sigendev_phase_c_current'] && result['sigendev_phase_c_current'].value != '-1' && result['sigendev_phase_c_current'].value != 'xxx') {
-        this.addCapability('measure_current.phase3');
+        if (this.hasCapability('measure_current.phase3') === false) {
+           this.addCapability('measure_current.phase3');
+        }           
         const currenteac3 = Number(result['sigendev_phase_c_current'].value) * Math.pow(10, Number(result['sigendev_phase_c_current'].scale));
         this.setCapabilityValue('measure_current.phase3', currenteac3);
       }
 
       if (result['sigendev_phase_a_voltage'] && result['sigendev_phase_a_voltage'].value != '-1' && result['sigendev_phase_a_voltage'].value != 'xxx') {
-        this.addCapability('measure_voltage.phase1');
+        if (this.hasCapability('measure_voltage.phase1') === false) {
+           this.addCapability('measure_voltage.phase1');
+        }           
         const voltageeac1 = Number(result['sigendev_phase_a_voltage'].value) * Math.pow(10, Number(result['sigendev_phase_a_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase1', voltageeac1);
       }
       if (result['sigendev_phase_b_voltage'] && result['sigendev_phase_b_voltage'].value != '-1' && result['sigendev_phase_b_voltage'].value != 'xxx') {
-        this.addCapability('measure_voltage.phase2');
+        if (this.hasCapability('measure_voltage.phase2') === false) {
+           this.addCapability('measure_voltage.phase2');
+        }           
         const voltageeac2 = Number(result['sigendev_phase_b_voltage'].value) * Math.pow(10, Number(result['sigendev_phase_b_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase2', voltageeac2);
       }
       if (result['sigendev_phase_c_voltage'] && result['sigendev_phase_c_voltage'].value != '-1' && result['sigendev_phase_c_voltage'].value != 'xxx') {
-        this.addCapability('measure_voltage.phase3');
+        if (this.hasCapability('measure_voltage.phase3') === false) {
+           this.addCapability('measure_voltage.phase3');
+        }           
         const voltageeac3 = Number(result['sigendev_phase_c_voltage'].value) * Math.pow(10, Number(result['sigendev_phase_c_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase3', voltageeac3);
       }
@@ -367,7 +471,9 @@ export class Sigenergy extends Homey.Device {
         && result['sigendev_ess_average_cell_voltage'].value != '-1'
         && result['sigendev_ess_average_cell_voltage'].value != 'xxx'
       ) {
-        this.addCapability('measure_voltage.battery');
+        if (this.hasCapability('measure_voltage.battery') === false) {
+           this.addCapability('measure_voltage.battery');
+        }           
         const voltageebatt = Number(result['sigendev_ess_average_cell_voltage'].value) * Math.pow(10, Number(result['sigendev_ess_average_cell_voltage'].scale));
         this.setCapabilityValue('measure_voltage.battery', voltageebatt);
       }
@@ -377,7 +483,9 @@ export class Sigenergy extends Homey.Device {
         && result['sigendev_daily_export_energy'].value != '-1'
         && result['sigendev_daily_export_energy'].value != 'xxx'
       ) {
-        this.addCapability('meter_power.daily_export');
+        if (this.hasCapability('meter_power.daily_export') === false) {
+           this.addCapability('meter_power.daily_export');
+        }           
         const voltageebatt = Number(result['sigendev_daily_export_energy'].value) * Math.pow(10, Number(result['sigendev_daily_export_energy'].scale));
         this.setCapabilityValue('meter_power.daily_export', voltageebatt);
       }
@@ -387,7 +495,9 @@ export class Sigenergy extends Homey.Device {
         && result['sigendev_daily_import_energy'].value != '-1'
         && result['sigendev_daily_import_energy'].value != 'xxx'
       ) {
-        this.addCapability('meter_power.daily_import');
+        if (this.hasCapability('meter_power.daily_import') === false) {
+           this.addCapability('meter_power.daily_import');
+        }           
         const voltageebatt = Number(result['sigendev_daily_import_energy'].value) * Math.pow(10, Number(result['sigendev_daily_import_energy'].scale));
         this.setCapabilityValue('meter_power.daily_import', voltageebatt);
       }
@@ -397,7 +507,9 @@ export class Sigenergy extends Homey.Device {
         && result['sigendev_daily_charge_energy'].value != '-1'
         && result['sigendev_daily_charge_energy'].value != 'xxx'
       ) {
-        this.addCapability('meter_power.daily_charge');
+        if (this.hasCapability('meter_power.daily_charge') === false) {
+           this.addCapability('meter_power.daily_charge');
+        }           
         const voltageebatt = Number(result['sigendev_daily_charge_energy'].value) * Math.pow(10, Number(result['sigendev_daily_charge_energy'].scale));
         this.setCapabilityValue('meter_power.daily_charge', voltageebatt);
       }
@@ -407,13 +519,17 @@ export class Sigenergy extends Homey.Device {
         && result['sigendev_daily_discharge_energy'].value != '-1'
         && result['sigendev_daily_discharge_energy'].value != 'xxx'
       ) {
-        this.addCapability('meter_power.daily_discharge');
+        if (this.hasCapability('meter_power.daily_discharge') === false) {
+           this.addCapability('meter_power.daily_discharge');
+        }           
         const voltageebatt = Number(result['sigendev_daily_discharge_energy'].value) * Math.pow(10, Number(result['sigendev_daily_discharge_energy'].scale));
         this.setCapabilityValue('meter_power.daily_discharge', voltageebatt);
       }
 
       if (result['sigen_remote_ems_code'] && result['sigen_remote_ems_code'].value != '-1' && result['sigen_remote_ems_code'].value != 'xxx') {
-        this.addCapability('sigen_remote_ems_code');
+        if (this.hasCapability('sigen_remote_ems_code') === false) {
+           this.addCapability('sigen_remote_ems_code');
+        }           
         const emscode = result['sigen_remote_ems_code'].value;
         this.setCapabilityValue('sigen_remote_ems_code', emscode);
       }
@@ -423,13 +539,17 @@ export class Sigenergy extends Homey.Device {
         && result['sigen_remote_ems_control_mode_code'].value != '-1'
         && result['sigen_remote_ems_control_mode_code'].value != 'xxx'
       ) {
-        this.addCapability('sigen_remote_ems_control_mode_code');
+        if (this.hasCapability('sigen_remote_ems_control_mode_code') === false) {
+           this.addCapability('sigen_remote_ems_control_mode_code');
+        }           
         const emscode = result['sigen_remote_ems_control_mode_code'].value;
         this.setCapabilityValue('sigen_remote_ems_control_mode_code', emscode);
       }
 
       if (result['sigen_grid_status_mode'] && result['sigen_grid_status_mode'].value != '-1' && result['sigen_grid_status_mode'].value != 'xxx') {
-        this.addCapability('grid_status');
+        if (this.hasCapability('grid_status') === false) {
+           this.addCapability('grid_status');
+        }           
         const gridmode = result['sigen_grid_status_mode'].value;
         this.setCapabilityValue('grid_status', gridmode);
       }

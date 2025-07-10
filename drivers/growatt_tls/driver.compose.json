@@ -1,14 +1,15 @@
 {
   "name": {
-    "en": "Growatt Inverter",
-    "de": "Growatt Wechselrichter"
+    "en": "Growatt TL3-S Inverter",
+    "de": "Growatt TL3-S Wechselrichter"
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": ["OTHER"]
+    "batteries": [
+      "OTHER"
+    ]
   },
   "capabilities": [
-    "growatt_onoff",
     "measure_power",
     "measure_power.input",
     "measure_power.gridoutput",
@@ -26,7 +27,7 @@
     "meter_power.pv2TotalEnergy",
     "measure_voltage.meter",
     "exportlimitenabled",
-    "exportlimitpowerrate"   
+    "exportlimitpowerrate"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -148,8 +149,12 @@
       }
     }
   },
-  "platforms": ["local"],
-  "connectivity": ["lan"],
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"

@@ -190,7 +190,11 @@ export class Huawei extends Homey.Device {
     model: [30222, 20, 'STRING', 'Model Name', 0],
     // Energy charged today RO U32 kWh 100 30306  2
     energy_charged_today: [30306, 2, 'UINT32', 'Energy charged today', -2],
+    energy_charged_total: [30308, 4, 'UINT64', 'Energy charged total', -2],
     energy_discharged_today: [30312, 2, 'UINT32', 'Energy discharged today', -2],
+    energy_discharged_total: [30314, 4, 'UINT64', 'Energy discharged total', -2],
+
+
     consumption_today: [30324, 2, 'UINT32', 'Consumption today', -2],
     feedin_to_grid_today: [30330, 2, 'UINT32', 'Feed-in to grid today', -2],
 
@@ -388,6 +392,31 @@ export class Huawei extends Homey.Device {
         const power_control_mode_at_grid = result['power_control_mode_at_grid'].value;
         this.setCapabilityValue('power_control_mode_at_grid', power_control_mode_at_grid);
       }
+
+      if (result['energy_charged_today'] && result['energy_charged_today'].value != 'xxx') {
+        this.addCapability('meter_power.daily_charge');
+        const energy_charged_today = Number(result['energy_charged_today'].value) * Math.pow(10, Number(result['energy_charged_today'].scale));
+        this.setCapabilityValue('meter_power.daily_charge', energy_charged_today);
+      }
+
+      if (result['energy_discharged_today'] && result['energy_discharged_today'].value != 'xxx') {
+        this.addCapability('meter_power.daily_discharge');
+        const energy_discharged_today = Number(result['energy_discharged_today'].value) * Math.pow(10, Number(result['energy_discharged_today'].scale));
+        this.setCapabilityValue('meter_power.daily_discharge', energy_discharged_today);
+      }
+
+      if (result['energy_charged_total'] && result['energy_charged_total'].value != 'xxx') {
+        this.addCapability('meter_power.total_charge');
+        const energy_charged_total = Number(result['energy_charged_total'].value) * Math.pow(10, Number(result['energy_charged_total'].scale));
+        this.setCapabilityValue('meter_power.total_charge', energy_charged_total);
+      }
+
+      if (result['energy_discharged_total'] && result['energy_discharged_total'].value != 'xxx') {
+        this.addCapability('meter_power.total_discharge');
+        const energy_discharged_total = Number(result['energy_discharged_total'].value) * Math.pow(10, Number(result['energy_discharged_total'].scale));
+        this.setCapabilityValue('meter_power.total_discharge', energy_discharged_total);
+      }
+
     }
   }
 

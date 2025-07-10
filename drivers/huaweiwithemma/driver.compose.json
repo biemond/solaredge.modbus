@@ -19,6 +19,10 @@
     "meter_power.daily",
     "meter_power.grid_import",
     "meter_power.grid_export",
+    "meter_power.daily_charge",
+    "meter_power.daily_discharge",
+    "meter_power.total_charge",
+    "meter_power.total_discharge",            
     "measure_current.phase1",
     "measure_current.phase2",
     "measure_current.phase3",
@@ -81,6 +85,34 @@
       "decimals": 2,
       "icon": "/assets/total_yield.svg"
     },
+    "meter_power.daily_charge": {
+      "title": {
+        "en": "Total Day charge Yield"
+      },
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.daily_discharge": {
+      "title": {
+        "en": "Total Day discharge Yield"
+      },
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.total_charge": {
+      "title": {
+        "en": "Total charge Yield"
+      },
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.total_discharge": {
+      "title": {
+        "en": "Total discharge Yield"
+      },
+      "decimals": 2,
+      "icon": "/assets/total_yield.svg"
+    },                
     "meter_power.grid_import": {
       "title": {
         "en": "Grid Import Yield",

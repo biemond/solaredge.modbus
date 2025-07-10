@@ -79,6 +79,11 @@ export class Growatt extends Homey.Device {
     period4stop: [3045, 1, 'UINT16', 'period4stop', 0],
   };
 
+  readonly holdingRegistersBase: { [key: string]: RegisterDefinition } = {
+    exportlimitenabled: [122, 1, 'UINT16', 'Export Limit enable', 0],
+    exportlimitpowerrate: [123, 1, 'UINT16', 'Export Limit Power Rate', -1]
+  };
+
   readonly registers: { [key: string]: RegisterDefinition } = {
     l1_current: [39, 1, 'UINT16', 'L1 Current', -1],
     l2_current: [43, 1, 'UINT16', 'L2 Current', -1],
@@ -106,8 +111,8 @@ export class Growatt extends Homey.Device {
     // pv2Current: data[8] / 10.0, //A
     pv2InputPower: [9, 2, 'UINT32', 'pv2 Power', -1],
 
-    pv1TodayEnergy: [59, 2, 'UINT32', 'pv2 Today Energy', -1],
-    pv1TotalEnergy: [61, 2, 'UINT32', 'pv2 Total Energy', -1],
+    pv1TodayEnergy: [59, 2, 'UINT32', 'pv1 Today Energy', -1],
+    pv1TotalEnergy: [61, 2, 'UINT32', 'pv1 Total Energy', -1],
     pv2TodayEnergy: [63, 2, 'UINT32', 'pv2 Today Energy', -1],
     pv2TotalEnergy: [65, 2, 'UINT32', 'pv2 Total Energy', -1],
     pvEnergyTotal: [91, 2, 'UINT32', 'pv Total Energy', -1],
@@ -157,6 +162,86 @@ export class Growatt extends Homey.Device {
     today_load: [1060, 2, 'UINT32', "Today's Load", -1],
     total_load: [1062, 2, 'UINT32', 'Total Load', -1],
   };
+
+  readonly registersTLS: { [key: string]: RegisterDefinition } = {
+    l1_current: [15, 1, 'UINT16', 'L1 Current', -1],
+    l2_current: [19, 1, 'UINT16', 'L2 Current', -1],
+    l3_current: [23, 1, 'UINT16', 'L3 Current', -1],
+
+    temperature: [32, 1, 'UINT16', 'Temperature', -1],
+
+    status: [0, 1, 'UINT16', 'Status', 0],
+    inputPower: [1, 2, 'UINT32', 'Input Power', -1],
+    outputPower: [11, 2, 'UINT32', 'Output Power', -1],
+
+    pv1Voltage: [3, 1, 'UINT16', 'pv1 Voltage', -1],
+    pv2Voltage: [7, 1, 'UINT16', 'pv2 Voltage', -1],
+
+    gridFrequency: [13, 1, 'UINT16', 'Grid Frequency', -2],
+    // gridVoltage: [38, 1, 'UINT16', 'Grid Voltage', -1],
+    // gridOutputCurrent: [39, 1, 'UINT16', 'Grid Output Current', -1],
+    // gridOutputPower: [40, 2, 'UINT32', 'Grid Output Power', -1],
+    todayEnergy: [26, 2, 'UINT32', 'Today Energy', -1],
+    totalEnergy: [28, 2, 'UINT32', 'Total Energy', -1],
+
+    // pv1Current: data[4] / 10.0, //A
+    pv1InputPower: [5, 2, 'UINT32', 'pv1 Power', -1],
+    // pv2Voltage: data[7] / 10.0, //V
+    // pv2Current: data[8] / 10.0, //A
+    pv2InputPower: [9, 2, 'UINT32', 'pv2 Power', -1],
+
+    pv1TodayEnergy: [48, 2, 'UINT32', 'pv1 Today Energy', -1],
+    pv1TotalEnergy: [50, 2, 'UINT32', 'pv1 Total Energy', -1],
+    pv2TodayEnergy: [52, 2, 'UINT32', 'pv2 Today Energy', -1],
+    pv2TotalEnergy: [54, 2, 'UINT32', 'pv2 Total Energy', -1],
+    pvEnergyTotal:  [56, 2, 'UINT32', 'pv Total Energy', -1],
+
+    // "realoutputpercentage": [101, 1, 'UINT16', "real output power percentage", 0],
+    // "outputmaxpowerlimited": [102 ,2, 'UINT32', "output max power limited", -1 ],
+
+    // ipmTemperature: data[94] / 10.0, //°C
+    // inverterOutputPf: data[100], //powerfactor 0-20000
+    error: [105, 1, 'UINT16', 'Error', 0],
+    // realPowerPercent: data[113] //% 0-100
+
+    // "ac_chargepower": [116 ,2, 'UINT32', "AC charge Power", -1 ],
+
+    battDischarge: [1009, 2, 'UINT32', 'battery Discharge', -1],
+    battCharge: [1011, 2, 'UINT32', 'battery Charge', -1],
+    battvoltage: [1013, 1, 'UINT16', 'battery Voltage', -1],
+    battsoc: [1014, 1, 'UINT16', 'battery soc', 0],
+
+    batttemperature: [1040, 1, 'UINT16', 'battery Temperature', -1],
+
+    bmssoc: [1086, 1, 'UINT16', 'bms soc', 0],
+    bmstemperature: [1089, 1, 'UINT16', 'bms Temperature', -1],
+    bmscyclecount: [1095, 1, 'UINT16', 'bms cycle count', 0],
+    bmshealth: [1096, 1, 'UINT16', 'bms soh', 0],
+    bmsstatus: [1083, 1, 'UINT16', 'bms status', 0],
+    bmserror: [1085, 1, 'UINT16', 'bms error', 0],
+
+    totalhouseload: [1037, 2, 'UINT32', 'Total house Load', -1],
+    priority: [118, 1, 'UINT16', 'priority', 0],
+
+    pactouserr: [1015, 2, 'UINT32', 'import from grid to user', -1],
+    pactousertotal: [1021, 2, 'UINT32', 'import from grid to user total', -1],
+    pactogrid: [1023, 2, 'UINT32', 'export to grid', -1],
+    pactogridtotal: [1029, 2, 'UINT32', 'export to grid total', -1],
+
+    today_grid_import: [1044, 2, 'UINT32', "Today's Grid Import", -1],
+    total_grid_import: [1046, 2, 'UINT32', 'Total Grid Import', -1],
+    today_grid_export: [1048, 2, 'UINT32', "Today's Grid Export", -1],
+    total_grid_export: [1050, 2, 'UINT32', 'Total Grid Export', -1],
+
+    today_battery_output_energy: [1052, 2, 'UINT32', "Today's Battery Output Energy", -1],
+    total_battery_output_energy: [1054, 2, 'UINT32', 'Total Battery Output Energy', -1],
+    today_battery_input_energy: [1056, 2, 'UINT32', "Today's Battery Input Energy", -1],
+    total_battery_intput_energy: [1058, 2, 'UINT32', 'Total Battery Input Energy', -1],
+
+    today_load: [1060, 2, 'UINT32', "Today's Load", -1],
+    total_load: [1062, 2, 'UINT32', 'Total Load', -1],
+  };
+
 
   readonly registersTL: { [key: string]: RegisterDefinition } = {
     l1_current: [39, 1, 'UINT16', 'L1 Current', -1],

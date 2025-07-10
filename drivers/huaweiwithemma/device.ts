@@ -18,6 +18,21 @@ class MyHuaweiEmmaDevice extends Huawei {
     this.log(`device name id ${name}`);
     this.log(`device name ${this.getName()}`);
 
+    if (this.hasCapability('meter_power.daily_charge') === false) {
+      await this.addCapability('meter_power.daily_charge');
+    }
+
+    if (this.hasCapability('meter_power.daily_discharge') === false) {
+      await this.addCapability('meter_power.daily_discharge');
+    }
+    if (this.hasCapability('meter_power.total_charge') === false) {
+      await this.addCapability('meter_power.total_charge');
+    }
+
+    if (this.hasCapability('meter_power.total_discharge') === false) {
+      await this.addCapability('meter_power.total_discharge');
+    }
+
     this.pollInvertor();
 
     this.timer = this.homey.setInterval(() => {

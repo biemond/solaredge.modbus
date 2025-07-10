@@ -234,6 +234,8 @@ export class Solax extends Homey.Device {
     Powerdc2: [0x000b, 1, 'UINT16', 'Powerdc2', 0],
     Powerdc3: [0x0124, 1, 'UINT16', 'Powerdc2', 0],
 
+    Temperature: [0x0008, 1, 'INT16', 'radiator temperature', -1],
+
     // 0x0014 BatVoltage_Charge1 R BatVoltage_Charge1 0.1V int16 1
     BatVoltage_Charge1: [0x0014, 1, 'INT16', 'BatVoltage_Charge1', -1],
     BatVoltage_Charge2: [0x0127, 1, 'INT16', 'BatVoltage_Charge2', -1],    
@@ -307,7 +309,11 @@ export class Solax extends Homey.Device {
     // 0x0026    BMS_BatteryCapacity R BMS_BatteryCapacity Wh uint16 1
     BMS_BatteryCapacity:  [0x0026, 1, 'UINT16', 'BMS Battery Capacity', 0],
     BMS_BatteryCapacity2: [0x002a, 1, 'UINT16', 'BMS Battery Capacity 2', 0],
- 
+
+
+    measured_power:          [0x0046, 2, 'INT32', 'measured power', 0],
+    meter_2_measured_power:  [0x00A8, 2, 'INT32', 'meter 2 measured power', 0],
+
   };
 
   holdingRegisters: Object = {
@@ -464,7 +470,11 @@ export class Solax extends Homey.Device {
         } else {
           this.setCapabilityValue('measure_power.pvinput', Math.round(dcPower1 + dcPower2 ));
         }
+
       }
+
+
+
 
       if (result['Temperature'] && result['Temperature'].value != 'xxx') {
         this.addCapability('measure_temperature.invertor');
@@ -487,6 +497,19 @@ export class Solax extends Homey.Device {
         this.addCapability('measure_power.gridoutput');
         var dcPower = Number(result['feedin_power'].value) * Math.pow(10, Number(result['feedin_power'].scale));
         this.setCapabilityValue('measure_power.gridoutput', Math.round(dcPower));
+      }
+
+      if (result['measured_power'] && result['measured_power'].value != 'xxx') {
+        this.addCapability('measure_power.gridoutput');
+        var gridPower = Number(result['measured_power'].value) * Math.pow(10, Number(result['measured_power'].scale));
+        this.setCapabilityValue('measure_power.gridoutput', Math.round(gridPower));
+
+        this.addCapability('measure_power.load');
+        const dcPower1 = Number(result['Powerdc1'].value) * Math.pow(10, Number(result['Powerdc1'].scale));
+        const dcPower2 = Number(result['Powerdc2'].value) * Math.pow(10, Number(result['Powerdc2'].scale));
+        const dcPower3 = Number(result['Powerdc3'].value) * Math.pow(10, Number(result['Powerdc3'].scale));
+        var battPower  = Number(result['BatCurrent_Charge1'].value) * Math.pow(10, Number(result['BatCurrent_Charge1'].scale));
+        this.setCapabilityValue('measure_power.load', Math.round(dcPower1 + dcPower2 + dcPower3 - gridPower - battPower ));
       }
 
       if (result['feedin_energy_total'] && result['feedin_energy_total'].value != 'xxx') {

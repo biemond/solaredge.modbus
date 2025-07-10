@@ -99,6 +99,12 @@ export class Sungrow extends Homey.Device {
       if (result['battery_power'] && result['battery_power'].value != 'xxx') {
         this.addCapability('measure_power.battery');
         var dcPower = Number(result['battery_power'].value) * Math.pow(10, Number(result['battery_power'].scale));
+        if (this.getCapabilityValue('measure_power.battery') != dcPower) {
+          const tokens = {
+            'measure_power.battery': dcPower,
+          };
+          this.homey.flow.getDeviceTriggerCard('measure_power_battery_changed').trigger(this, tokens);
+        }
         this.setCapabilityValue('measure_power.battery', Math.round(dcPower));
       }
 

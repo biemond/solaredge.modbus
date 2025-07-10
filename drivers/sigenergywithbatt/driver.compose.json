@@ -5,7 +5,11 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": ["OTHER"]
+    "cumulativeImportedCapability": "meter_power.import",
+    "cumulativeExportedCapability": "meter_power.export",
+    "batteries": [
+      "OTHER"
+    ]
   },
   "capabilities": [
     "measure_power",
@@ -19,6 +23,13 @@
     "meter_power.daily_import",
     "meter_power.daily_charge",
     "meter_power.daily_discharge",
+    "meter_power.pv_total",
+    "meter_power.pv_daily",
+    "meter_power.daily_load_consumption",
+    "meter_power.total_load_consumption",
+    "meter_power.import",
+    "meter_power.export",
+    "meter_power",
     "measure_voltage.battery",
     "battery",
     "measure_battery",
@@ -111,6 +122,55 @@
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
     },
+    "meter_power.import": {
+      "title": {
+        "en": "Total import"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.export": {
+      "title": {
+        "en": "Total export"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power": {
+      "title": {
+        "en": "Total Plant PV"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.pv_total": {
+      "title": {
+        "en": "PV total"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.pv_daily": {
+      "title": {
+        "en": "PV Daily"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.daily_load_consumption": {
+      "title": {
+        "en": "Daily load consumption"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.total_load_consumption": {
+      "title": {
+        "en": "Total load consumption"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
     "measure_voltage.battery": {
       "title": {
         "en": "Battery Voltage",
@@ -154,8 +214,12 @@
       }
     }
   },
-  "platforms": ["local"],
-  "connectivity": ["lan"],
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"

@@ -43,7 +43,7 @@ class MyGrowattTLBattery extends Growatt {
 
     const limitCondition = this.homey.flow.getConditionCard('exportLimit');
     limitCondition.registerRunListener(async (args, state) => {
-      const result = Number(await args.device.getCapabilityValue('exportLimit')) === Number(args.exportlimit);
+      const result = Number(await args.device.getCapabilityValue('exportlimitenabled')) === Number(args.exportlimit);
       return Promise.resolve(result);
     });
 
@@ -62,6 +62,11 @@ class MyGrowattTLBattery extends Growatt {
     const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
       await this.updateControl('exportlimitenabled', Number(args.mode));
+    });
+
+    const dischargeAction = this.homey.flow.getActionCard('grid_first_discharge_percentage');
+    dischargeAction.registerRunListener(async (args, state) => {
+      await this.updateControl('grid_first_discharge_percentage', Number(args.value));
     });
 
     const exportlimitpowerrateAction = this.homey.flow.getActionCard('exportlimitpowerrate');
@@ -268,6 +273,11 @@ class MyGrowattTLBattery extends Growatt {
           } else {
             this.log(`exportlimitenabled unknown value: ${value}`);
           }
+        }
+        
+        if (type == 'grid_first_discharge_percentage') {
+            const dischargeRatedRes = await client.writeSingleRegister(3036, value);
+            this.log('dischargeRatedRes', dischargeRatedRes);
         }
 
         if (type == 'battacchargeswitch') {

@@ -5,7 +5,7 @@
   },
   "getable": true,
   "setable": false,
-  "uiComponent": "picker",
+  "uiComponent": "sensor",
   "uiQuickAction": false,
   "values": [
     {

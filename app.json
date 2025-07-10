@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.195",
+  "version": "3.0.218",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -171,6 +171,87 @@
       {
         "highlight": true,
         "title": {
+          "en": "The battery (dis)charging changed"
+        },
+        "tokens": [
+          {
+            "name": "measure_power.battery",
+            "title": {
+              "en": "Power",
+              "nl": "Vermogen",
+              "de": "Leistung",
+              "sv": "Effekt"
+            },
+            "type": "number",
+            "example": 100
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sungrowhybirdwithbatt|solaxultrawithbatt|solaxwithbatt"
+          }
+        ],
+        "id": "measure_power_battery_changed"
+      },
+      {
+        "highlight": true,
+        "title": {
+          "en": "The battery charging changed"
+        },
+        "tokens": [
+          {
+            "name": "measure_power.batt_charge",
+            "title": {
+              "en": "Power",
+              "nl": "Vermogen",
+              "de": "Leistung",
+              "sv": "Effekt"
+            },
+            "type": "number",
+            "example": 100
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt|huaweiwithemma|huaweiwithbatt|huaweidouble|growattwithbatt_tl|growattwithbatt"
+          }
+        ],
+        "id": "measure_power_battery_charge_changed"
+      },
+      {
+        "highlight": true,
+        "title": {
+          "en": "The battery discharging changed"
+        },
+        "tokens": [
+          {
+            "name": "measure_power.batt_discharge",
+            "title": {
+              "en": "Power",
+              "nl": "Vermogen",
+              "de": "Leistung",
+              "sv": "Effekt"
+            },
+            "type": "number",
+            "example": 100
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=invertorwithbatt|huaweiwithemma|huaweiwithbatt|huaweidouble|growattwithbatt_tl|growattwithbatt"
+          }
+        ],
+        "id": "measure_power_battery_discharge_changed"
+      },
+      {
+        "highlight": true,
+        "title": {
           "en": "The solar power changed",
           "nl": "Het solar vermogen is veranderd",
           "de": "Solarleistung hat sich geändert",
@@ -193,7 +274,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=invertor|invertorwithbatt|sungrowhybirdwithbatt|sungrow|sigenergywithbatt|huawei|huaweiwithbatt|wattsonic|huaweiwithemma|growatt|growattwithbatt|kostal"
+            "filter": "driver_id=invertor|invertorwithbatt|sungrowhybirdwithbatt|sungrow|sigenergywithbatt|huawei|huaweiwithbatt|wattsonic|huaweiwithemma|growatt|growatt_tls|growattwithbatt|kostal"
           }
         ],
         "id": "measure_power_changed"
@@ -252,7 +333,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=invertor|invertorwithbatt|sungrowhybirdwithbatt|sungrow|sigenergywithbatt|huawei|huaweiwithbatt|wattsonic|huaweiwithemma|growatt|growattwithbatt|kostal"
+            "filter": "driver_id=invertor|invertorwithbatt|sungrowhybirdwithbatt|sungrow|sigenergywithbatt|huawei|huaweiwithbatt|wattsonic|huaweiwithemma|growatt|growatt_tls|growattwithbatt|kostal"
           }
         ],
         "id": "meter_power_changed"
@@ -995,7 +1076,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+            "filter": "driver_id=growattwithbatt|growattwithbatt_tl|growatt|growatt_tls"
           },
           {
             "name": "exportlimit",
@@ -2118,7 +2199,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+            "filter": "driver_id=growattwithbatt|growattwithbatt_tl|growatt|growatt_tls"
           }
         ],
         "id": "exportlimitenabled"
@@ -2155,7 +2236,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+            "filter": "driver_id=growattwithbatt|growattwithbatt_tl|growatt|growatt_tls"
           }
         ],
         "id": "exportlimitpowerrate"
@@ -2317,7 +2398,7 @@
               "sv": "begränsning(%)"
             },
             "min": 0,
-            "max": 100,
+            "max": 110,
             "step": 0.1,
             "labelDecimals": 1,
             "label": "%"
@@ -3068,6 +3149,32 @@
                 }
               }
             ]
+          }
+        ]
+      },
+      {
+        "id": "grid_first_discharge_percentage",
+        "title": {
+          "en": "Discharge powerrate, grid first"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt_tl"
+          },
+          {
+            "type": "range",
+            "name": "value",
+            "title": {
+              "en": "percentage",
+              "de": "Prozent",
+              "sv": "Procent"
+            },
+            "min": 1,
+            "max": 100,
+            "step": 1,
+            "labelDecimals": 0
           }
         ]
       },
@@ -4933,7 +5040,9 @@
         "meter_power.pv1TotalEnergy",
         "meter_power.pv2TodayEnergy",
         "meter_power.pv2TotalEnergy",
-        "measure_voltage.meter"
+        "measure_voltage.meter",
+        "exportlimitenabled",
+        "exportlimitpowerrate"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -5125,6 +5234,228 @@
         }
       ],
       "id": "growatt"
+    },
+    {
+      "name": {
+        "en": "Growatt TL3-S Inverter",
+        "de": "Growatt TL3-S Wechselrichter"
+      },
+      "class": "solarpanel",
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "capabilities": [
+        "measure_power",
+        "measure_power.input",
+        "measure_power.gridoutput",
+        "measure_power.pv1input",
+        "measure_power.pv2input",
+        "measure_current.phase1",
+        "measure_current.phase2",
+        "measure_current.phase3",
+        "measure_temperature.invertor",
+        "meter_power",
+        "meter_power.daily",
+        "meter_power.pv1TodayEnergy",
+        "meter_power.pv1TotalEnergy",
+        "meter_power.pv2TodayEnergy",
+        "meter_power.pv2TotalEnergy",
+        "measure_voltage.meter",
+        "exportlimitenabled",
+        "exportlimitpowerrate"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "decimals": 0,
+          "title": {
+            "en": "Solar Power",
+            "de": "Solarleistung"
+          }
+        },
+        "measure_power.input": {
+          "decimals": 0,
+          "title": {
+            "en": "Solar input",
+            "de": "Solarer Eingang"
+          }
+        },
+        "measure_power.pv1input": {
+          "decimals": 0,
+          "title": {
+            "en": "PV1 input",
+            "de": "PV-Strang 1 Eingang"
+          }
+        },
+        "measure_power.pv2input": {
+          "decimals": 0,
+          "title": {
+            "en": "PV2 input",
+            "de": " PV-Strang 2 Eingang"
+          }
+        },
+        "measure_power.gridoutput": {
+          "decimals": 0,
+          "title": {
+            "en": "Grid output",
+            "de": "Netzexport"
+          }
+        },
+        "measure_current.phase1": {
+          "title": {
+            "en": "AC Current phase1",
+            "de": "AC-Strom Phase 1"
+          }
+        },
+        "measure_current.phase2": {
+          "title": {
+            "en": "AC Current phase2",
+            "de": "AC-Strom Phase 2"
+          }
+        },
+        "measure_current.phase3": {
+          "title": {
+            "en": "AC Current phase3",
+            "de": "AC-Strom Phase 3"
+          }
+        },
+        "measure_temperature.invertor": {
+          "title": {
+            "en": "Heatsink temperature",
+            "nl": "Heatsink temperatuur",
+            "de": "Kühlkörpertemperatur"
+          },
+          "decimals": 2
+        },
+        "meter_power": {
+          "title": {
+            "en": "Total Yield",
+            "nl": "Totale opbrengst",
+            "de": "Gesamtertrag"
+          },
+          "decimals": 1
+        },
+        "meter_power.pv1TotalEnergy": {
+          "title": {
+            "en": "Total PV1 Yield",
+            "nl": "Totale PV1 opbrengst",
+            "de": "Gesamtertrag PV-Strang 1"
+          },
+          "decimals": 1
+        },
+        "meter_power.pv2TotalEnergy": {
+          "title": {
+            "en": "Total PV2 Yield",
+            "nl": "Totale PV2 opbrengst",
+            "de": "Gesamtertrag PV-Strang 2"
+          },
+          "decimals": 1
+        },
+        "meter_power.daily": {
+          "title": {
+            "en": "Total Day Yield",
+            "nl": "Totale dag opbrengst",
+            "de": "Tagesgesamtertrag"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.pv1TodayEnergy": {
+          "title": {
+            "en": "Total PV1 Day Yield",
+            "nl": "Totale PV1 dag opbrengst",
+            "de": "Tagesgesamtertrag PV-Strang 1"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.pv2TodayEnergy": {
+          "title": {
+            "en": "Total PV2 Day Yield",
+            "nl": "Totale PV2 dag opbrengst",
+            "de": "Tagesgesamtertrag PV-Strang 2"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "measure_voltage.meter": {
+          "title": {
+            "en": "Meter AC Voltage",
+            "de": "Zähler AC-Spannung"
+          }
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "small": "/drivers/growatt_tls/assets/images/small.png",
+        "large": "/drivers/growatt_tls/assets/images/large.png"
+      },
+      "pair": [
+        {
+          "id": "start"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Inverter settings",
+            "de": "Wechselrichtereinstellungen"
+          },
+          "children": [
+            {
+              "id": "address",
+              "type": "text",
+              "value": "0.0.0.0",
+              "label": {
+                "en": "IP Address",
+                "de": "IP-Adresse"
+              }
+            },
+            {
+              "id": "port",
+              "type": "number",
+              "value": 1502,
+              "step": 1,
+              "label": {
+                "en": "Port",
+                "de": "Port"
+              }
+            },
+            {
+              "id": "maxpeakpower",
+              "type": "number",
+              "value": 0,
+              "step": 1,
+              "label": {
+                "en": "Max peak power in W"
+              }
+            },
+            {
+              "id": "id",
+              "type": "number",
+              "value": 1,
+              "step": 1,
+              "attr": {
+                "min": 0,
+                "max": 50
+              },
+              "label": {
+                "en": "Inverter ID",
+                "nl": "Inverter ID",
+                "de": "Wechselrichter-ID"
+              }
+            }
+          ]
+        }
+      ],
+      "id": "growatt_tls"
     },
     {
       "name": {
@@ -6760,6 +7091,10 @@
         "meter_power.daily",
         "meter_power.grid_import",
         "meter_power.grid_export",
+        "meter_power.daily_charge",
+        "meter_power.daily_discharge",
+        "meter_power.total_charge",
+        "meter_power.total_discharge",
         "measure_current.phase1",
         "measure_current.phase2",
         "measure_current.phase3",
@@ -6818,6 +7153,34 @@
             "en": "Total Day Yield",
             "nl": "Totale dag opbrengst",
             "de": "PV-Ertrag Heute"
+          },
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.daily_charge": {
+          "title": {
+            "en": "Total Day charge Yield"
+          },
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.daily_discharge": {
+          "title": {
+            "en": "Total Day discharge Yield"
+          },
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.total_charge": {
+          "title": {
+            "en": "Total charge Yield"
+          },
+          "decimals": 2,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.total_discharge": {
+          "title": {
+            "en": "Total discharge Yield"
           },
           "decimals": 2,
           "icon": "/assets/total_yield.svg"
@@ -7116,7 +7479,7 @@
               "step": 1,
               "attr": {
                 "min": 0,
-                "max": 50
+                "max": 126
               },
               "label": {
                 "en": "Inverter ID",
@@ -7143,8 +7506,8 @@
     },
     {
       "name": {
-        "en": "Solaredge + Storedge",
-        "de": "Solaredge Storedge (mit Batterie)"
+        "en": "Solaredge + Meter/Battery",
+        "de": "Solaredge + Meter/Batterie)"
       },
       "class": "solarpanel",
       "energy": {
@@ -7475,7 +7838,7 @@
               "step": 1,
               "attr": {
                 "min": 0,
-                "max": 50
+                "max": 126
               },
               "label": {
                 "en": "Inverter ID",
@@ -7760,6 +8123,8 @@
       },
       "class": "solarpanel",
       "energy": {
+        "cumulativeImportedCapability": "meter_power.import",
+        "cumulativeExportedCapability": "meter_power.export",
         "batteries": [
           "OTHER"
         ]
@@ -7776,6 +8141,13 @@
         "meter_power.daily_import",
         "meter_power.daily_charge",
         "meter_power.daily_discharge",
+        "meter_power.pv_total",
+        "meter_power.pv_daily",
+        "meter_power.daily_load_consumption",
+        "meter_power.total_load_consumption",
+        "meter_power.import",
+        "meter_power.export",
+        "meter_power",
         "measure_voltage.battery",
         "battery",
         "measure_battery",
@@ -7864,6 +8236,55 @@
         "meter_power.daily_discharge": {
           "title": {
             "en": "Total Day Discharge"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.import": {
+          "title": {
+            "en": "Total import"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.export": {
+          "title": {
+            "en": "Total export"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power": {
+          "title": {
+            "en": "Total Plant PV"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.pv_total": {
+          "title": {
+            "en": "PV total"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.pv_daily": {
+          "title": {
+            "en": "PV Daily"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.daily_load_consumption": {
+          "title": {
+            "en": "Daily load consumption"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.total_load_consumption": {
+          "title": {
+            "en": "Total load consumption"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
@@ -7986,6 +8407,8 @@
       },
       "capabilities": [
         "measure_power",
+        "measure_power.gridoutput",
+        "measure_power.load",
         "measure_power.battery",
         "measure_power.pvinput",
         "measure_power.pv1input",
@@ -8002,7 +8425,9 @@
         "batterysoh",
         "battery",
         "measure_battery",
-        "storage_force_charge_discharge2"
+        "storage_force_charge_discharge2",
+        "measure_temperature.invertor",
+        "solarcharger_use_mode"
       ],
       "capabilitiesOptions": {
         "measure_current.batt_charge": {
@@ -8110,6 +8535,27 @@
           },
           "decimals": 2,
           "icon": "/assets/total_yield.svg"
+        },
+        "measure_temperature.invertor": {
+          "title": {
+            "en": "Heatsink temperature",
+            "nl": "Heatsink temperatuur",
+            "de": "Kühlkörpertemperatur"
+          },
+          "decimals": 2
+        },
+        "measure_power.gridoutput": {
+          "decimals": 0,
+          "title": {
+            "en": "Grid in/output",
+            "de": "Netz im/export"
+          }
+        },
+        "measure_power.load": {
+          "decimals": 0,
+          "title": {
+            "en": "House Load Power"
+          }
         }
       },
       "platforms": [
@@ -8674,7 +9120,7 @@
           "title": {
             "en": "Solar Power",
             "de": "Solarleistung",
-            "sv": "Soleffekt"
+            "sv": "Solpanel-effekt (DC)"
           }
         },
         "measure_power.battery": {
@@ -9473,7 +9919,7 @@
       "title": {
         "en": "Active power limit",
         "de": "Aktive Leistungsbeschränkung",
-        "sv": "Aktiv Effektbegränsning"
+        "sv": "Utmatad effekt (AC)"
       },
       "getable": true,
       "setable": false,
@@ -10026,7 +10472,7 @@
       },
       "getable": true,
       "setable": false,
-      "uiComponent": "picker",
+      "uiComponent": "sensor",
       "uiQuickAction": false,
       "values": [
         {
@@ -10859,7 +11305,7 @@
       "type": "number",
       "title": {
         "en": "Power limitation adjustment",
-        "sv": "Justera effektbegränsningen"
+        "sv": "Effektbegränsning"
       },
       "getable": true,
       "setable": false,

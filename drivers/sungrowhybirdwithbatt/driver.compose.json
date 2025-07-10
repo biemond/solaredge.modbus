@@ -55,7 +55,7 @@
       "title": {
         "en": "Solar Power",
         "de": "Solarleistung",
-        "sv": "Soleffekt"
+        "sv": "Solpanel-effekt (DC)"
       }
     },
     "measure_power.battery": {

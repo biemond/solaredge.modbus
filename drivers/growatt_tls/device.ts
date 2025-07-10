@@ -1,19 +1,17 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-/* eslint-disable node/no-missing-import */
-import { checkRegisterGrowatt, checkHoldingRegisterGrowatt } from '../response';
+import { checkRegisterGrowatt,checkHoldingRegisterGrowatt } from '../response';
 import { Growatt } from '../growatt';
-/* eslint-enable node/no-missing-import */
 
 const RETRY_INTERVAL = 28 * 1000;
 
-class MyGrowattDevice extends Growatt {
+class MyGrowattTL3sDevice extends Growatt {
   timer!: NodeJS.Timer;
   /**
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    this.log('MyGrowattDevice has been initialized');
+    this.log('MyGrowattTL3sDevice has been initialized');
 
     const name = this.getData().id;
     this.log(`device name id ${name}`);
@@ -38,16 +36,16 @@ class MyGrowattDevice extends Growatt {
 
     if (this.hasCapability('exportlimitenabled') === false) {
       await this.addCapability('exportlimitenabled');
-    }
+    }   
     if (this.hasCapability('exportlimitpowerrate') === false) {
       await this.addCapability('exportlimitpowerrate');
-    }
+    } 
 
-    this.pollInvertor().catch(this.error);
+    this.pollInvertor();
 
     this.timer = this.homey.setInterval(() => {
       // poll device state from inverter
-      this.pollInvertor().catch(this.error);
+      this.pollInvertor();
     }, RETRY_INTERVAL);
   }
 
@@ -55,7 +53,7 @@ class MyGrowattDevice extends Growatt {
    * onAdded is called when the user adds the device, called just after pairing.
    */
   async onAdded() {
-    this.log('MyGrowattDevice has been added');
+    this.log('MyGrowattTL3sDevice has been added');
   }
 
   /**
@@ -66,16 +64,8 @@ class MyGrowattDevice extends Growatt {
    * @param {string[]} event.changedKeys An array of keys changed since the previous version
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
-  async onSettings({
-    oldSettings,
-    newSettings,
-    changedKeys,
-  }: {
-    oldSettings: { [key: string]: string };
-    newSettings: { [key: string]: string };
-    changedKeys: string[];
-  }): Promise<string | void> {
-    this.log('MyGrowattBattery settings were changed');
+  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string | void> {
+    this.log('MyGrowattTL3sDevice settings where changed');
   }
 
   /**
@@ -84,25 +74,15 @@ class MyGrowattDevice extends Growatt {
    * @param {string} name The new name
    */
   async onRenamed(name: string) {
-    this.log('MyGrowattDevice was renamed');
+    this.log('MyGrowattTL3sDevice was renamed');
   }
 
   /**
    * onDeleted is called when the user deleted the device.
    */
   async onDeleted() {
-    this.log('MyGrowattDevice has been deleted');
+    this.log('MyGrowattTL3sDevice has been deleted');
     this.homey.clearInterval(this.timer);
-  }
-
-  private getRegisterAddressForCapability(capability: string): number | undefined {
-    const result = this.getMappingAndRegister(capability, this.holdingRegistersBase);
-    if (!result) return undefined;
-    return result.registerDefinition[0];
-  }
-
-  private processRegisterValue(capability: string, registerValue: number): number | null {
-    return this.processRegisterValueCommon(capability, registerValue, this.holdingRegistersBase);
   }
 
   async updateControl(type: string, value: number) {
@@ -128,24 +108,33 @@ class MyGrowattDevice extends Growatt {
     socket.on('connect', () => {
       (async () => {
         this.log('Connected ...');
-        let res;
 
-        this.log(`${type} value: ${value}`);
-        const registerAddress = this.getRegisterAddressForCapability(type);
-        const regValue = this.processRegisterValue(type, value);
-        if (registerAddress === undefined) {
-          this.log(`${type} register mapping not found`);
-        } else if (regValue === null) {
-          this.log(`${type} register value not valid`);
-        } else {
-          this.log(`${type} register: ${registerAddress} value: ${regValue}`);
-          res = await client.writeSingleRegister(registerAddress, regValue);
-          this.log(type, res);
-          // Update the changed capability value
-          const typedValue = this.castToCapabilityType(type, value);
-          this.log(`typeof typedValue: ${typeof typedValue}, value:`, typedValue);
-          await this.setCapabilityValue(type, typedValue);
+        if (type == 'exportlimitenabled') {
+          // 0 – Disabled
+          // 1 – Enabled
+          if (value == 1) {
+            const exportlimitenabledRes = await client.writeSingleRegister(122, Number(1));
+            this.log('exportlimitenabled', exportlimitenabledRes);
+          } else if (value == 0) {
+            const exportlimitenabledRes = await client.writeSingleRegister(122, Number(0));
+            this.log('exportlimitenabled', exportlimitenabledRes);
+          } else {
+            this.log(`exportlimitenabled unknown value: ${value}`);
+          }
         }
+        if (type == 'exportlimitpowerrate') {
+          // 0 – 100 % with 1 decimal
+          // 0 – 1000 as values
+          this.log(`exportlimitpowerrate value: ${value}`);
+          if (value >= 0 && value <= 100) {
+            const exportlimitpowerratedRes = await client.writeSingleRegister(123, value * 10);
+            this.log('exportlimitpowerrate', exportlimitpowerratedRes);
+            this.log(`exportlimitpowerrate value 2: ${value * 10}`);
+          } else {
+            this.log(`exportlimitpowerrate unknown value: ${value}`);
+          }
+        }
+
         this.log('disconnect');
         client.socket.end();
         socket.end();
@@ -162,6 +151,7 @@ class MyGrowattDevice extends Growatt {
       this.homey.setTimeout(() => socket.connect(modbusOptions), 4000);
     });
   }
+
 
   async pollInvertor() {
     this.log('pollInvertor');
@@ -184,37 +174,35 @@ class MyGrowattDevice extends Growatt {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
-    socket.on('connect', () => {
-      (async () => {
-        this.log('Connected ...');
-        this.log(modbusOptions);
+    socket.on('connect', async () => {
+      console.log('Connected ...');
+      console.log(modbusOptions);
 
-        const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
-        const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegistersBase, client);
-        this.log('disconnect');
-        client.socket.end();
-        socket.end();
-        const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
-        this.processResult(finalRes, this.getSetting('maxpeakpower'));
-      })().catch(this.error);
+      const checkRegisterRes = await checkRegisterGrowatt(this.registersTLS, client);
+      const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegistersBase, client);      
+      console.log('disconnect');
+      client.socket.end();
+      socket.end();
+      const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
+      this.processResult(finalRes, this.getSetting('maxpeakpower'));
     });
 
     socket.on('close', () => {
-      this.log('Client closed');
+      console.log('Client closed');
     });
 
     socket.on('timeout', () => {
-      this.log('socket timed out!');
+      console.log('socket timed out!');
       client.socket.end();
       socket.end();
     });
 
     socket.on('error', (err) => {
-      this.log(err);
+      console.log(err);
       client.socket.end();
       socket.end();
     });
   }
 }
 
-module.exports = MyGrowattDevice;
+module.exports = MyGrowattTL3sDevice;

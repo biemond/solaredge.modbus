@@ -9,6 +9,8 @@
   },
   "capabilities": [
     "measure_power",
+    "measure_power.gridoutput",
+    "measure_power.load",       
     "measure_power.battery",
     "measure_power.pvinput",
     "measure_power.pv1input",
@@ -25,7 +27,9 @@
     "batterysoh",
     "battery",    
     "measure_battery",
-    "storage_force_charge_discharge2"        
+    "storage_force_charge_discharge2",
+    "measure_temperature.invertor",
+    "solarcharger_use_mode"
   ],
   "capabilitiesOptions": {
     "measure_current.batt_charge": {
@@ -133,7 +137,28 @@
       },
       "decimals": 2,
       "icon": "/assets/total_yield.svg"
-    }
+    },
+    "measure_temperature.invertor": {
+      "title": {
+        "en": "Heatsink temperature",
+        "nl": "Heatsink temperatuur",
+        "de": "Kühlkörpertemperatur"
+      },
+      "decimals": 2
+    },
+    "measure_power.gridoutput": {
+      "decimals": 0,
+      "title": {
+        "en": "Grid in/output",
+        "de": "Netz im/export"
+      }
+    },
+    "measure_power.load": {
+      "decimals": 0,
+      "title": {
+        "en": "House Load Power"
+      }
+    }            
   },
   "platforms": ["local"],
   "connectivity": ["lan"],

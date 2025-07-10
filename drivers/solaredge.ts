@@ -245,7 +245,7 @@ export class Solaredge extends Homey.Device {
     return false;
   }
 
-  processResult(result: Record<string, Measurement>, maxpeakpower: number) {
+  async processResult(result: Record<string, Measurement>, maxpeakpower: number) {
     if (result) {
       // result
       for (const k in result) {
@@ -253,7 +253,9 @@ export class Solaredge extends Homey.Device {
       }
 
       if (this.validResultRecord(result['power_ac'])) {
-        this.addCapability('measure_power');
+        if (this.hasCapability('measure_power') === false) {
+           await this.addCapability('measure_power');
+        }   
         var acpower = Number(result['power_ac'].value) * Math.pow(10, Number(result['power_ac'].scale));
         if (maxpeakpower > 0 && acpower > maxpeakpower) {
           // skip
@@ -264,54 +266,74 @@ export class Solaredge extends Homey.Device {
       }
 
       if (this.validResultRecord(result['current'])) {
-        this.addCapability('measure_current');
+        if (this.hasCapability('measure_current') === false) {
+           await this.addCapability('measure_current');
+        }   
         var currenteac = Number(result['current'].value) * Math.pow(10, Number(result['current'].scale));
         this.setCapabilityValue('measure_current', currenteac);
       }
       if (this.validResultRecord(result['l1_current']) && this.validResultScaleRecord(result['current']) && result['l1_current'].value != '-1') {
-        this.addCapability('measure_current.phase1');
+        if (this.hasCapability('measure_current.phase1') === false) {
+           await this.addCapability('measure_current.phase1');
+        }   
         var currenteac1 = Number(result['l1_current'].value) * Math.pow(10, Number(result['current'].scale));
         this.setCapabilityValue('measure_current.phase1', currenteac1);
       }
       if (this.validResultRecord(result['l2_current']) && this.validResultScaleRecord(result['current']) && result['l2_current'].value != '-1') {
-        this.addCapability('measure_current.phase2');
+        if (this.hasCapability('measure_current.phase2') === false) {
+           await this.addCapability('measure_current.phase2');
+        }   
         var currenteac2 = Number(result['l2_current'].value) * Math.pow(10, Number(result['current'].scale));
         this.setCapabilityValue('measure_current.phase2', currenteac2);
       }
       if (this.validResultRecord(result['l3_current']) && this.validResultScaleRecord(result['current']) && result['l3_current'].value != '-1') {
-        this.addCapability('measure_current.phase3');
+        if (this.hasCapability('measure_current.phase3') === false) {
+           await this.addCapability('measure_current.phase3');
+        }   
         var currenteac3 = Number(result['l3_current'].value) * Math.pow(10, Number(result['current'].scale));
         this.setCapabilityValue('measure_current.phase3', currenteac3);
       }
 
       if (this.validResultRecord(result['l1_voltage']) && this.validResultScaleRecord(result['l1_voltage']) && result['l1_voltage'].value != '-1') {
-        this.addCapability('measure_voltage.phase1');
+        if (this.hasCapability('measure_voltage.phase1') === false) {
+           await this.addCapability('measure_voltage.phase1');
+        }   
         const voltagel1 = Number(result['l1_voltage'].value) * Math.pow(10, Number(result['l1_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase1', voltagel1);
       }
       if (this.validResultRecord(result['l2_voltage']) && this.validResultScaleRecord(result['l2_voltage']) && result['l2_voltage'].value != '-1') {
-        this.addCapability('measure_voltage.phase2');
+        if (this.hasCapability('measure_voltage.phase2') === false) {
+           await this.addCapability('measure_voltage.phase2');
+        }   
         const voltagel2 = Number(result['l2_voltage'].value) * Math.pow(10, Number(result['l2_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase2', voltagel2);
       }
       if (this.validResultRecord(result['l3_voltage']) && this.validResultScaleRecord(result['l3_voltage']) && result['l3_voltage'].value != '-1') {
-        this.addCapability('measure_voltage.phase3');
+        if (this.hasCapability('measure_voltage.phase3') === false) {
+           await this.addCapability('measure_voltage.phase3');
+        }   
         const voltagel3 = Number(result['l3_voltage'].value) * Math.pow(10, Number(result['l3_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase3', voltagel3);
       }
 
       if (this.validResultRecord(result['l1n_voltage']) && this.validResultScaleRecord(result['l1n_voltage']) && result['l1n_voltage'].value != '-1') {
-        this.addCapability('measure_voltage.phase1n');
+        if (this.hasCapability('measure_voltage.phase1n') === false) {
+           await this.addCapability('measure_voltage.phase1n');
+        }   
         const voltagel1n = Number(result['l1n_voltage'].value) * Math.pow(10, Number(result['l1n_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase1n', voltagel1n);
       }
       if (this.validResultRecord(result['l2n_voltage']) && this.validResultScaleRecord(result['l2n_voltage']) && result['l2n_voltage'].value != '-1') {
-        this.addCapability('measure_voltage.phase2n');
+        if (this.hasCapability('measure_voltage.phase2n') === false) {
+           await this.addCapability('measure_voltage.phase2n');
+        }   
         const voltagel2n = Number(result['l2n_voltage'].value) * Math.pow(10, Number(result['l2n_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase2n', voltagel2n);
       }
       if (this.validResultRecord(result['l3n_voltage']) && this.validResultScaleRecord(result['l3n_voltage']) && result['l3n_voltage'].value != '-1') {
-        this.addCapability('measure_voltage.phase3n');
+        if (this.hasCapability('measure_voltage.phase3n') === false) {
+           await this.addCapability('measure_voltage.phase3n');
+        }   
         const voltagel3n = Number(result['l3n_voltage'].value) * Math.pow(10, Number(result['l3n_voltage'].scale));
         this.setCapabilityValue('measure_voltage.phase3n', voltagel3n);
       }
@@ -325,7 +347,9 @@ export class Solaredge extends Homey.Device {
       });
 
       if (this.validResultRecord(result['energy_total'])) {
-        this.addCapability('meter_power');
+        if (this.hasCapability('meter_power') === false) {
+           await this.addCapability('meter_power');
+        }   
         const total = Number(result['energy_total'].value) * Math.pow(10, Number(result['energy_total'].scale));
         this.setCapabilityValue('meter_power', total / 1000);
         console.log(now);
@@ -340,7 +364,9 @@ export class Solaredge extends Homey.Device {
           if (this.getStoreValue('daily') != null) {
             const daily_power = Number((total / 1000 - this.getStoreValue('daily')).toFixed(2));
             console.log(`daily: ${daily_power}`);
-            this.addCapability('meter_power.daily');
+            if (this.hasCapability('meter_power.daily') === false) {
+              await this.addCapability('meter_power.daily');
+            }   
             if (this.getCapabilityValue('meter_power.daily') != daily_power) {
               const tokens = {
                 'meter_power.daily': daily_power,
@@ -363,7 +389,9 @@ export class Solaredge extends Homey.Device {
       // }
 
       if (this.validResultRecord(result['temperature'])) {
-        this.addCapability('measure_temperature.invertor');
+        if (this.hasCapability('measure_temperature.invertor') === false) {
+           await this.addCapability('measure_temperature.invertor');
+        }   
         const temperature = Number((Number(result['temperature'].value) * Math.pow(10, Number(result['temperature'].scale))).toFixed(2));
 
         if (this.getCapabilityValue('measure_temperature.invertor') != temperature) {
@@ -376,13 +404,17 @@ export class Solaredge extends Homey.Device {
       }
 
       if (this.validResultRecord(result['active_power_limit'])) {
-        this.addCapability('activepowerlimit');
+        if (this.hasCapability('activepowerlimit') === false) {
+           await this.addCapability('activepowerlimit');
+        }   
         var power_limit = Number(result['active_power_limit'].value);
         this.setCapabilityValue('activepowerlimit', power_limit);
       }
 
       if (this.validResultRecord(result['powerreduce']) && this.hasCapability('powerreduce')) {
-        this.addCapability('powerreduce');
+        if (this.hasCapability('powerreduce') === false) {
+           await this.addCapability('powerreduce');
+        }   
         var power_limit = Number(result['powerreduce'].value);
         this.setCapabilityValue('powerreduce', power_limit);
       }
@@ -421,7 +453,10 @@ export class Solaredge extends Homey.Device {
 
       if (this.validResultRecord(result['status'])) {
         if (parseInt(result['status'].value) < 9) {
-          this.addCapability('invertorstatus');
+          if (this.hasCapability('invertorstatus') === false) {
+            await this.addCapability('invertorstatus');
+          }   
+
           if (this.getCapabilityValue('invertorstatus') != result['status'].value) {
             const status_str: { [key: string]: string } = {
               0: 'Undefined',
@@ -447,70 +482,96 @@ export class Solaredge extends Homey.Device {
 
       // meters
       if (this.validResultRecord(result['meter1-export_energy_active'])) {
-        this.addCapability('meter_power.export');
+        if (this.hasCapability('meter_power.export') === false) {
+          await this.addCapability('meter_power.export');
+        }   
         const totalexport = Number(result['meter1-export_energy_active'].value) * Math.pow(10, Number(result['meter1-export_energy_active'].scale));
         this.setCapabilityValue('meter_power.export', totalexport / 1000);
       }
 
       if (this.validResultRecord(result['meter1-import_energy_active']) && this.validResultScaleRecord(result['meter1-export_energy_active'])) {
-        this.addCapability('meter_power.import');
+        if (this.hasCapability('meter_power.import') === false) {
+          await this.addCapability('meter_power.import');
+        }  
         const totalimport = Number(result['meter1-import_energy_active'].value) * Math.pow(10, Number(result['meter1-export_energy_active'].scale));
         this.setCapabilityValue('meter_power.import', totalimport / 1000);
       }
 
       if (this.validResultRecord(result['meter1-voltage_ln']) && this.validResultScaleRecord(result['meter1-voltage_ln'])) {
-        this.addCapability('measure_voltage.meter');
+        if (this.hasCapability('measure_voltage.meter') === false) {
+          await this.addCapability('measure_voltage.meter');
+        }  
         const voltageac = Number(result['meter1-voltage_ln'].value) * Math.pow(10, Number(result['meter1-voltage_ln'].scale));
         this.setCapabilityValue('measure_voltage.meter', voltageac);
       }
 
       if (this.validResultRecord(result['meter1-current'])) {
-        this.addCapability('measure_current.meter');
+        if (this.hasCapability('measure_current.meter') === false) {
+          await this.addCapability('measure_current.meter');
+        }  
         var currenteac = Number(result['meter1-current'].value) * Math.pow(10, Number(result['meter1-current'].scale));
         this.setCapabilityValue('measure_current.meter', currenteac);
       }
 
       if (this.validResultRecord(result['meter1-l1_current']) && this.validResultScaleRecord(result['meter1-current'])) {
-        this.addCapability('measure_current.meter_phase1');
+        if (this.hasCapability('measure_current.meter_phase1') === false) {
+          await this.addCapability('measure_current.meter_phase1');
+        }  
         var currenteac1 = Number(result['meter1-l1_current'].value) * Math.pow(10, Number(result['meter1-current'].scale));
         this.setCapabilityValue('measure_current.meter_phase1', currenteac1);
       }
 
       if (this.validResultRecord(result['meter1-l2_current']) && this.validResultScaleRecord(result['meter1-current'])) {
-        this.addCapability('measure_current.meter_phase2');
+        if (this.hasCapability('measure_current.meter_phase2') === false) {
+          await this.addCapability('measure_current.meter_phase2');
+        }  
         var currenteac2 = Number(result['meter1-l2_current'].value) * Math.pow(10, Number(result['meter1-current'].scale));
         this.setCapabilityValue('measure_current.meter_phase2', currenteac2);
       }
 
       if (this.validResultRecord(result['meter1-l3_current']) && this.validResultScaleRecord(result['meter1-current'])) {
-        this.addCapability('measure_current.meter_phase3');
+        if (this.hasCapability('measure_current.meter_phase3') === false) {
+          await this.addCapability('measure_current.meter_phase3');
+        }  
         var currenteac3 = Number(result['meter1-l3_current'].value) * Math.pow(10, Number(result['meter1-current'].scale));
         this.setCapabilityValue('measure_current.meter_phase3', currenteac3);
       }
 
       if (this.validResultRecord(result['meter1-l1n_voltage']) && this.validResultRecord(result['meter1-voltage_ln_scale'])) {
-        this.addCapability('measure_voltage.meter_phase1');
+        if (this.hasCapability('measure_voltage.meter_phase1') === false) {
+          await this.addCapability('measure_voltage.meter_phase1');
+        }  
         const voltageeac1 = Number(result['meter1-l1n_voltage'].value) * Math.pow(10, Number(result['meter1-voltage_ln_scale'].value));
         console.log(voltageeac1);
         this.setCapabilityValue('measure_voltage.meter_phase1', voltageeac1);
       }
 
       if (this.validResultRecord(result['meter1-l2n_voltage']) && this.validResultRecord(result['meter1-voltage_ln_scale'])) {
-        this.addCapability('measure_voltage.meter_phase2');
+        if (this.hasCapability('measure_voltage.meter_phase2') === false) {
+          await this.addCapability('measure_voltage.meter_phase2');
+        }  
         const voltageeac2 = Number(result['meter1-l2n_voltage'].value) * Math.pow(10, Number(result['meter1-voltage_ln_scale'].value));
         this.setCapabilityValue('measure_voltage.meter_phase2', voltageeac2);
       }
 
       if (this.validResultRecord(result['meter1-l3n_voltage']) && this.validResultRecord(result['meter1-voltage_ln_scale'])) {
-        this.addCapability('measure_voltage.meter_phase3');
+        if (this.hasCapability('measure_voltage.meter_phase3') === false) {
+          await this.addCapability('measure_voltage.meter_phase3');
+        }  
         const voltageeac3 = Number(result['meter1-l3n_voltage'].value) * Math.pow(10, Number(result['meter1-voltage_ln_scale'].value));
         this.setCapabilityValue('measure_voltage.meter_phase3', voltageeac3);
       }
 
       if (this.validResultRecord(result['meter1-power']) && this.validResultRecord(result['meter1-power'])) {
-        this.addCapability('measure_power.import');
-        this.addCapability('measure_power.export');
-        this.addCapability('ownconsumption');
+        if (this.hasCapability('measure_power.import') === false) {
+          await this.addCapability('measure_power.import');
+        }  
+        if (this.hasCapability('measure_power.export') === false) {
+          await this.addCapability('measure_power.export');
+        }          
+        if (this.hasCapability('ownconsumption') === false) {
+          await this.addCapability('ownconsumption');
+        }  
         var acpower = Number(result['power_ac'].value) * Math.pow(10, Number(result['power_ac'].scale));
         const meterpower = Number(result['meter1-power'].value) * Math.pow(10, Number(result['meter1-power'].scale));
         console.log(`acpower: ${acpower}`);
@@ -540,8 +601,12 @@ export class Solaredge extends Homey.Device {
 
       // battery
       if (this.validResultRecord(result['batt1-instantaneous_power'])) {
-        this.addCapability('measure_power.batt_charge');
-        this.addCapability('measure_power.batt_discharge');
+        if (this.hasCapability('measure_power.batt_charge') === false) {
+          await this.addCapability('measure_power.batt_charge');
+        }  
+        if (this.hasCapability('measure_power.batt_discharge') === false) {
+          await this.addCapability('measure_power.batt_discharge');
+        }          
         var battpower = Number(result['batt1-instantaneous_power'].value);
         if (battpower > 0 || battpower == 0) {
           this.setCapabilityValue('measure_power.batt_charge', battpower);
@@ -553,8 +618,12 @@ export class Solaredge extends Homey.Device {
       }
 
       if (this.validResultRecord(result['batt1-soe'])) {
-        this.addCapability('battery');
-        this.addCapability('measure_battery');
+        if (this.hasCapability('battery') === false) {
+          await this.addCapability('battery');
+        }  
+        if (this.hasCapability('measure_battery') === false) {
+          await this.addCapability('measure_battery');
+        }  
         var battery = Number(Number.parseFloat(result['batt1-soe'].value).toFixed(2));
         if (battery > 0) {
           if (this.validResultRecord(result['batt2-soe'])) {
@@ -608,8 +677,12 @@ export class Solaredge extends Homey.Device {
       }
 
       if (this.validResultRecord(result['batt2-instantaneous_power'])) {
-        this.addCapability('measure_power.batt_charge2');
-        this.addCapability('measure_power.batt_discharge2');
+        if (this.hasCapability('measure_power.batt_charge2') === false) {
+          await this.addCapability('measure_power.batt_charge2');
+        }  
+        if (this.hasCapability('measure_power.batt_discharge2') === false) {
+          await this.addCapability('measure_power.batt_discharge2');
+        }  
         var battpower = Number(result['batt2-instantaneous_power'].value);
         if (battpower > 0 || battpower == 0) {
           this.setCapabilityValue('measure_power.batt_charge2', battpower);
@@ -621,7 +694,9 @@ export class Solaredge extends Homey.Device {
       }
 
       if (this.validResultRecord(result['batt2-soe'])) {
-        this.addCapability('battery2');
+        if (this.hasCapability('battery2') === false) {
+          await this.addCapability('battery2');
+        }  
         var battery = Number(Number.parseFloat(result['batt2-soe'].value).toFixed(2));
         if (battery > 0) {
           this.setCapabilityValue('battery2', battery);
@@ -629,14 +704,18 @@ export class Solaredge extends Homey.Device {
       }
 
       if (this.validResultRecord(result['batt2-soh'])) {
-        this.addCapability('batterysoh2');
+        if (this.hasCapability('batterysoh2') === false) {
+          await this.addCapability('batterysoh2');
+        }  
         var health = Number(result['batt2-soh'].value);
         this.setCapabilityValue('batterysoh2', health);
       }
 
       if (this.validResultRecord(result['batt1-soh'])) {
         if (this.validResultRecord(result['storage_control_mode'])) {
-          this.addCapability('storagecontrolmode');
+          if (this.hasCapability('storagecontrolmode') === false) {
+            await this.addCapability('storagecontrolmode');
+          }  
           const storagecontrolmode = result['storage_control_mode'].value;
           console.log(`changedStoragecontrolmode old ${this.getCapabilityValue('storagecontrolmode')}`);
           console.log(`changedStoragecontrolmode new ${storagecontrolmode}`);
@@ -655,13 +734,17 @@ export class Solaredge extends Homey.Device {
         }
 
         if (this.validResultRecord(result['storage_accharge_policy'])) {
-          this.addCapability('storageacchargepolicy');
+          if (this.hasCapability('storageacchargepolicy') === false) {
+            await this.addCapability('storageacchargepolicy');
+          }  
           const storageacchargepolicy = result['storage_accharge_policy'].value;
           this.setCapabilityValue('storageacchargepolicy', storageacchargepolicy);
         }
 
         if (this.validResultRecord(result['remote_control_command_mode'])) {
-          this.addCapability('storagedefaultmode');
+          if (this.hasCapability('storagedefaultmode') === false) {
+            await this.addCapability('storagedefaultmode');
+          }  
           const storagedefaultmode = result['remote_control_command_mode'].value;
           if (this.getCapabilityValue('storagedefaultmode') != storagedefaultmode) {
             const tokens = {
@@ -678,27 +761,35 @@ export class Solaredge extends Homey.Device {
         }
 
         if (this.validResultRecord(result['remote_control_charge_limit'])) {
-          this.addCapability('measure_power.chargesetting');
+          if (this.hasCapability('measure_power.chargesetting') === false) {
+            await this.addCapability('measure_power.chargesetting');
+          }  
           const chargeLimit = Number(result['remote_control_charge_limit'].value);
           this.setCapabilityValue('measure_power.chargesetting', chargeLimit);
         }
 
         if (this.validResultRecord(result['remote_control_command_discharge_limit'])) {
-          this.addCapability('measure_power.dischargesetting');
+          if (this.hasCapability('measure_power.dischargesetting') === false) {
+            await this.addCapability('measure_power.dischargesetting');
+          }  
           const dischargeLimit = Number(result['remote_control_command_discharge_limit'].value);
           this.setCapabilityValue('measure_power.dischargesetting', dischargeLimit);
         }
       }
 
       if (this.validResultRecord(result['batt1-average_temperature'])) {
-        this.addCapability('measure_temperature.battery');
+        if (this.hasCapability('measure_temperature.battery') === false) {
+          await this.addCapability('measure_temperature.battery');
+        }  
         var batt_temperature = Number(result['batt1-average_temperature'].value);
         this.setCapabilityValue('measure_temperature.battery', Math.round(batt_temperature));
       }
 
       if (this.validResultRecord(result['batt1-status'])) {
         if (parseInt(result['batt1-status'].value) < 11) {
-          this.addCapability('battstatus');
+          if (this.hasCapability('battstatus') === false) {
+            await this.addCapability('battstatus');
+          }  
           if (this.getCapabilityValue('battstatus') != result['batt1-status'].value) {
             const status_str: { [key: string]: string } = {
               0: 'Off',
@@ -719,36 +810,48 @@ export class Solaredge extends Homey.Device {
       }
       if (this.validResultRecord(result['batt1-maximum_energy'])) {
         var maxenergy = Number(result['batt1-maximum_energy'].value);
-        this.addCapability('batterymaxcap');
+        if (this.hasCapability('batterymaxcap') === false) {
+          await this.addCapability('batterymaxcap');
+        }  
         this.setCapabilityValue('batterymaxcap', maxenergy / 1000);
       }
 
       if (this.validResultRecord(result['batt1-available_energy'])) {
         var availenergy = Number(result['batt1-available_energy'].value);
-        this.addCapability('batterycap');
+        if (this.hasCapability('batterycap') === false) {
+          await this.addCapability('batterycap');
+        }  
         this.setCapabilityValue('batterycap', availenergy / 1000);
       }
 
       if (this.validResultRecord(result['batt2-average_temperature'])) {
-        this.addCapability('measure_temperature.battery2');
+        if (this.hasCapability('measure_temperature.battery2') === false) {
+          await this.addCapability('measure_temperature.battery2');
+        }  
         var batt_temperature = Number(result['batt2-average_temperature'].value);
         this.setCapabilityValue('measure_temperature.battery2', Math.round(batt_temperature));
       }
 
       if (this.validResultRecord(result['batt2-status'])) {
         if (parseInt(result['batt2-status'].value) < 11) {
-          this.addCapability('battstatus2');
+          if (this.hasCapability('battstatus2') === false) {
+            await this.addCapability('battstatus2');
+          }  
           this.setCapabilityValue('battstatus2', result['batt2-status'].value);
         }
       }
       if (this.validResultRecord(result['batt2-maximum_energy'])) {
         var maxenergy = Number(result['batt2-maximum_energy'].value);
-        this.addCapability('batterymaxcap2');
+        if (this.hasCapability('batterymaxcap2') === false) {
+          await this.addCapability('batterymaxcap2');
+        }  
         this.setCapabilityValue('batterymaxcap2', maxenergy / 1000);
       }
       if (this.validResultRecord(result['batt2-available_energy'])) {
         var availenergy = Number(result['batt2-available_energy'].value);
-        this.addCapability('batterycap2');
+        if (this.hasCapability('batterycap2') === false) {
+          await this.addCapability('batterycap2');
+        }  
         this.setCapabilityValue('batterycap2', availenergy / 1000);
       }
     }
