@@ -1,7 +1,9 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
-import { checkRegisterGrowatt,checkHoldingRegisterGrowatt } from '../response';
+/* eslint-disable node/no-missing-import */
+import { checkRegisterGrowatt, checkHoldingRegisterGrowatt } from '../response';
 import { Growatt } from '../growatt';
+/* eslint-enable node/no-missing-import */
 
 const RETRY_INTERVAL = 28 * 1000;
 
@@ -17,6 +19,13 @@ class MyGrowattDevice extends Growatt {
     this.log(`device name id ${name}`);
     this.log(`device name ${this.getName()}`);
 
+    // on/off state condition
+    const onoffCondition = this.homey.flow.getConditionCard('on_off');
+    onoffCondition.registerRunListener(async (args, state) => {
+      const result = Number(await args.device.getCapabilityValue('growatt_onoff')) === Number(args.inverterstate);
+      return Promise.resolve(result);
+    });
+
     const limitCondition = this.homey.flow.getConditionCard('exportLimit');
     limitCondition.registerRunListener(async (args, state) => {
       const result = Number(await args.device.getCapabilityValue('exportlimitenabled')) === Number(args.exportlimit);
@@ -24,6 +33,11 @@ class MyGrowattDevice extends Growatt {
     });
 
     // flow action
+    const onoffAction = this.homey.flow.getActionCard('on_off');
+    onoffAction.registerRunListener(async (args, state) => {
+      await this.updateControl('growatt_onoff', Number(args.mode));
+    });
+
     const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
       await this.updateControl('exportlimitenabled', Number(args.mode));
@@ -34,18 +48,21 @@ class MyGrowattDevice extends Growatt {
       await this.updateControl('exportlimitpowerrate', args.percentage);
     });
 
+    if (this.hasCapability('growatt_onoff') === false) {
+      await this.addCapability('growatt_onoff');
+    }
     if (this.hasCapability('exportlimitenabled') === false) {
       await this.addCapability('exportlimitenabled');
-    }   
+    }
     if (this.hasCapability('exportlimitpowerrate') === false) {
       await this.addCapability('exportlimitpowerrate');
-    } 
+    }
 
-    this.pollInvertor();
+    this.pollInvertor().catch(this.error);
 
     this.timer = this.homey.setInterval(() => {
       // poll device state from inverter
-      this.pollInvertor();
+      this.pollInvertor().catch(this.error);
     }, RETRY_INTERVAL);
   }
 
@@ -64,8 +81,16 @@ class MyGrowattDevice extends Growatt {
    * @param {string[]} event.changedKeys An array of keys changed since the previous version
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
-  async onSettings({ oldSettings: {}, newSettings: {}, changedKeys: {} }): Promise<string | void> {
-    this.log('MyGrowattDevice settings where changed');
+  async onSettings({
+    oldSettings,
+    newSettings,
+    changedKeys,
+  }: {
+    oldSettings: { [key: string]: string };
+    newSettings: { [key: string]: string };
+    changedKeys: string[];
+  }): Promise<string | void> {
+    this.log('MyGrowattBattery settings were changed');
   }
 
   /**
@@ -83,6 +108,16 @@ class MyGrowattDevice extends Growatt {
   async onDeleted() {
     this.log('MyGrowattDevice has been deleted');
     this.homey.clearInterval(this.timer);
+  }
+
+  private getRegisterAddressForCapability(capability: string): number | undefined {
+    const result = this.getMappingAndRegister(capability, this.holdingRegistersBase);
+    if (!result) return undefined;
+    return result.registerDefinition[0];
+  }
+
+  private processRegisterValue(capability: string, registerValue: number): number | null {
+    return this.processRegisterValueCommon(capability, registerValue, this.holdingRegistersBase);
   }
 
   async updateControl(type: string, value: number) {
@@ -108,33 +143,24 @@ class MyGrowattDevice extends Growatt {
     socket.on('connect', () => {
       (async () => {
         this.log('Connected ...');
+        let res;
 
-        if (type == 'exportlimitenabled') {
-          // 0 – Disabled
-          // 1 – Enabled
-          if (value == 1) {
-            const exportlimitenabledRes = await client.writeSingleRegister(122, Number(1));
-            this.log('exportlimitenabled', exportlimitenabledRes);
-          } else if (value == 0) {
-            const exportlimitenabledRes = await client.writeSingleRegister(122, Number(0));
-            this.log('exportlimitenabled', exportlimitenabledRes);
-          } else {
-            this.log(`exportlimitenabled unknown value: ${value}`);
-          }
+        this.log(`${type} value: ${value}`);
+        const registerAddress = this.getRegisterAddressForCapability(type);
+        const regValue = this.processRegisterValue(type, value);
+        if (registerAddress === undefined) {
+          this.log(`${type} register mapping not found`);
+        } else if (regValue === null) {
+          this.log(`${type} register value not valid`);
+        } else {
+          this.log(`${type} register: ${registerAddress} value: ${regValue}`);
+          res = await client.writeSingleRegister(registerAddress, regValue);
+          this.log(type, res);
+          // Update the changed capability value
+          const typedValue = this.castToCapabilityType(type, value);
+          this.log(`typeof typedValue: ${typeof typedValue}, value:`, typedValue);
+          await this.setCapabilityValue(type, typedValue);
         }
-        if (type == 'exportlimitpowerrate') {
-          // 0 – 100 % with 1 decimal
-          // 0 – 1000 as values
-          this.log(`exportlimitpowerrate value: ${value}`);
-          if (value >= 0 && value <= 100) {
-            const exportlimitpowerratedRes = await client.writeSingleRegister(123, value * 10);
-            this.log('exportlimitpowerrate', exportlimitpowerratedRes);
-            this.log(`exportlimitpowerrate value 2: ${value * 10}`);
-          } else {
-            this.log(`exportlimitpowerrate unknown value: ${value}`);
-          }
-        }
-
         this.log('disconnect');
         client.socket.end();
         socket.end();
@@ -151,7 +177,6 @@ class MyGrowattDevice extends Growatt {
       this.homey.setTimeout(() => socket.connect(modbusOptions), 4000);
     });
   }
-
 
   async pollInvertor() {
     this.log('pollInvertor');
@@ -174,31 +199,33 @@ class MyGrowattDevice extends Growatt {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
-      console.log(modbusOptions);
+    socket.on('connect', () => {
+      (async () => {
+        this.log('Connected ...');
+        this.log(modbusOptions);
 
-      const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
-      const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegistersBase, client);      
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
-      const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
-      this.processResult(finalRes, this.getSetting('maxpeakpower'));
+        const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
+        const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegistersBase, client);
+        this.log('disconnect');
+        client.socket.end();
+        socket.end();
+        const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
+        this.processResult(finalRes, this.getSetting('maxpeakpower'));
+      })().catch(this.error);
     });
 
     socket.on('close', () => {
-      console.log('Client closed');
+      this.log('Client closed');
     });
 
     socket.on('timeout', () => {
-      console.log('socket timed out!');
+      this.log('socket timed out!');
       client.socket.end();
       socket.end();
     });
 
     socket.on('error', (err) => {
-      console.log(err);
+      this.log(err);
       client.socket.end();
       socket.end();
     });

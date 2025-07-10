@@ -27,6 +27,7 @@ type RegisterDefinition = [number, number, string, string, number];
 
 export class Growatt extends Homey.Device {
   readonly holdingRegisters: { [key: string]: RegisterDefinition } = {
+    onoff: [0, 1, 'UINT16', 'On/Off state', 0],
     exportlimitenabled: [122, 1, 'UINT16', 'Export Limit enable', 0],
     exportlimitpowerrate: [123, 1, 'UINT16', 'Export Limit Power Rate', -1],
     priority: [1044, 1, 'UINT16', 'Priority', 0],
@@ -60,6 +61,7 @@ export class Growatt extends Homey.Device {
   };
 
   readonly holdingRegistersTL: { [key: string]: RegisterDefinition } = {
+    onoff: [0, 1, 'UINT16', 'On/Off state', 0],
     exportlimitenabled: [122, 1, 'UINT16', 'Export Limit enable', 0],
     exportlimitpowerrate: [123, 1, 'UINT16', 'Export Limit Power Rate', -1],
     gridfirststopsoc: [3037, 1, 'UINT16', 'GridFirst stop SOC', 0],
@@ -78,6 +80,7 @@ export class Growatt extends Homey.Device {
   };
 
   readonly holdingRegistersBase: { [key: string]: RegisterDefinition } = {
+    onoff: [0, 1, 'UINT16', 'On/Off state', 0],
     exportlimitenabled: [122, 1, 'UINT16', 'Export Limit enable', 0],
     exportlimitpowerrate: [123, 1, 'UINT16', 'Export Limit Power Rate', -1]
   };
@@ -308,6 +311,12 @@ export class Growatt extends Homey.Device {
   };
 
   readonly CapabilityMappings: CapabilityMapping[] = [
+    {
+      resultKey: 'onoff',
+      capabilities: ['growatt_onoff'],
+      valid: (data) => this.isValidNumberInRange(data.value, 0, 1),
+      transform: (data) => data.value,
+    },
     {
       resultKey: 'outputPower',
       capabilities: ['measure_power'],
