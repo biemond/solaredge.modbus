@@ -5247,6 +5247,7 @@
         ]
       },
       "capabilities": [
+        "growatt_onoff",
         "measure_power",
         "measure_power.input",
         "measure_power.gridoutput",
