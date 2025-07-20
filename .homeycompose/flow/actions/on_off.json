@@ -1,0 +1,45 @@
+{
+  "title": {
+    "en": "Set inverter state to",
+    "nl": "Stel omvormerstatus in op",
+    "de": "Setze Wechselrichterstatus auf",
+    "sv": "Ställ in växelriktarstatus till"
+  },
+  "titleFormatted": {
+    "en": "Set inverter state to [[mode]]",
+    "nl": "Stel omvormerstatus in op [[mode]]",
+    "de": "Setze Wechselrichterstatus auf [[mode]]",
+    "sv": "Ställ in växelriktarstatus till [[mode]]"
+  },
+  "args": [
+    {
+      "name": "mode",
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off",
+            "nl": "Uit",
+            "de": "Aus",
+            "sv": "Av"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "On",
+            "nl": "Aan",
+            "de": "An",
+            "sv": "På"
+          }
+        }
+      ]
+    },
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+    }
+  ]
+}
