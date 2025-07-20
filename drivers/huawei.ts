@@ -198,7 +198,9 @@ export class Huawei extends Homey.Device {
     consumption_today: [30324, 2, 'UINT32', 'Consumption today', -2],
     feedin_to_grid_today: [30330, 2, 'UINT32', 'Feed-in to grid today', -2],
 
+    total_feedin_togrid:  [30332, 4, 'UINT64', 'Total feed-in to grid', -2],
     supply_from_grid_today: [30336, 2, 'UINT32', 'Supply from grid today', -2],
+    total_supply_fromgrid:  [30338, 4, 'UINT64', 'Total supply from grid', -2],
     inverter_energy_yield_today: [30342, 2, 'UINT32', 'Inverter energy yield today', -2],
     pv_yield_today: [30346, 2, 'UINT32', 'PV yield today', -2],
 
@@ -374,11 +376,22 @@ export class Huawei extends Homey.Device {
         const supply_from_grid_today = Number(result['supply_from_grid_today'].value) * Math.pow(10, Number(result['supply_from_grid_today'].scale));
         this.setCapabilityValue('meter_power.grid_import', supply_from_grid_today);
       }
+      if (result['total_supply_fromgrid'] && result['total_supply_fromgrid'].value != 'xxx') {
+        this.addCapability('meter_power.grid_import_total');
+        const total_supply_fromgrid = Number(result['total_supply_fromgrid'].value) * Math.pow(10, Number(result['total_supply_fromgrid'].scale));
+        this.setCapabilityValue('meter_power.grid_import_total', total_supply_fromgrid);
+      }
 
       if (result['feedin_to_grid_today'] && result['feedin_to_grid_today'].value != 'xxx') {
         this.addCapability('meter_power.grid_export');
         const feedin_to_grid_today = Number(result['feedin_to_grid_today'].value) * Math.pow(10, Number(result['feedin_to_grid_today'].scale));
         this.setCapabilityValue('meter_power.grid_export', feedin_to_grid_today);
+      }
+
+      if (result['total_feedin_togrid'] && result['total_feedin_togrid'].value != 'xxx') {
+        this.addCapability('meter_power.grid_export_total');
+        const total_feedin_togrid = Number(result['total_feedin_togrid'].value) * Math.pow(10, Number(result['total_feedin_togrid'].scale));
+        this.setCapabilityValue('meter_power.grid_export_total', total_feedin_togrid);
       }
 
       if (result['battery_control'] && result['battery_control'].value != 'xxx') {

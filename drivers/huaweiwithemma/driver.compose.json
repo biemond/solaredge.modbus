@@ -5,7 +5,9 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": ["OTHER"]
+    "batteries": [
+      "OTHER"
+    ]
   },
   "capabilities": [
     "measure_power",
@@ -18,11 +20,13 @@
     "meter_power",
     "meter_power.daily",
     "meter_power.grid_import",
+    "meter_power.grid_import_total",
     "meter_power.grid_export",
+    "meter_power.grid_export_total",
     "meter_power.daily_charge",
     "meter_power.daily_discharge",
     "meter_power.total_charge",
-    "meter_power.total_discharge",            
+    "meter_power.total_discharge",
     "measure_current.phase1",
     "measure_current.phase2",
     "measure_current.phase3",
@@ -112,7 +116,7 @@
       },
       "decimals": 2,
       "icon": "/assets/total_yield.svg"
-    },                
+    },
     "meter_power.grid_import": {
       "title": {
         "en": "Grid Import Yield",
@@ -124,10 +128,32 @@
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
     },
+    "meter_power.grid_import_total": {
+      "title": {
+        "en": "Grid Import total Yield",
+        "de": "Netzimport total"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
     "meter_power.grid_export": {
       "title": {
         "en": "Grid Export Yield",
         "de": "Netzexport Heute"
+      },
+      "units": {
+        "en": "kWh"
+      },
+      "decimals": 1,
+      "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.grid_export_total": {
+      "title": {
+        "en": "Grid Export total Yield",
+        "de": "Netzexport total"
       },
       "units": {
         "en": "kWh"
@@ -172,8 +198,12 @@
       }
     }
   },
-  "platforms": ["local"],
-  "connectivity": ["lan"],
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"

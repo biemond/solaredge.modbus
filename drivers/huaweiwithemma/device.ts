@@ -33,6 +33,14 @@ class MyHuaweiEmmaDevice extends Huawei {
       await this.addCapability('meter_power.total_discharge');
     }
 
+    if (this.hasCapability('meter_power.grid_import_total') === false) {
+      await this.addCapability('meter_power.grid_import_total');
+    }
+
+    if (this.hasCapability('meter_power.grid_export_total') === false) {
+      await this.addCapability('meter_power.grid_export_total');
+    }
+
     this.pollInvertor();
 
     this.timer = this.homey.setInterval(() => {
