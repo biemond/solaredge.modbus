@@ -5,7 +5,9 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": ["OTHER"]
+    "batteries": [
+      "OTHER"
+    ]
   },
   "capabilities": [
     "measure_power",
@@ -84,8 +86,12 @@
       "icon": "/assets/total_yield.svg"
     }
   },
-  "platforms": ["local"],
-  "connectivity": ["lan"],
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"
@@ -129,7 +135,7 @@
           "step": 1,
           "attr": {
             "min": 0,
-            "max": 50
+            "max": 260
           },
           "label": {
             "en": "Inverter ID",
