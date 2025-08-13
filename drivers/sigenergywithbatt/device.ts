@@ -62,7 +62,7 @@ class MySigenergyDevice extends Sigenergy {
     // flow action
     const sigen_remote_ems_code = this.homey.flow.getActionCard('sigen_remote_ems_code');
     sigen_remote_ems_code.registerRunListener(async (args, state) => {
-      await this.updateControl('sigen_remote_ems_code', Number(args.value), args.device);
+      await this.updateControl('sigen_remote_ems_code', Number(args.mode), args.device);
     });
 
     const sigen_remote_ems_control_mode_code = this.homey.flow.getActionCard('sigen_remote_ems_control_mode_code');
