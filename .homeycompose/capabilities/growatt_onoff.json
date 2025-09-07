@@ -1,0 +1,31 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Inverter State",
+    "de": "Wechselrichterstatus",
+    "nl": "Omvormerstatus"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "icon": "/assets/onoff.svg",
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Off",
+        "de": "Aus",
+        "nl": "Uit"
+      }
+    },
+    {
+      "id": "1",
+      "title": {
+        "en": "On",
+        "de": "An",
+        "nl": "Aan"
+      }
+    }
+  ]
+}

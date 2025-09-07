@@ -1,0 +1,51 @@
+{
+  "title": {
+    "en": "Inverter state !{{is|is not}}",
+    "nl": "Omvormerstatus !{{is|is niet}}",
+    "de": "Wechselrichterstatus !{{ist|ist nicht}}",
+    "sv": "Växelriktarstatus !{{är|är inte}}"
+  },
+  "titleFormatted": {
+    "en": "Inverter state !{{is|is not}} [[inverterstate]]",
+    "nl": "Omvormerstatus !{{is|is niet}} [[inverterstate]]",
+    "de": "Wechselrichterstatus !{{ist|ist nicht}} [[inverterstate]]",
+    "sv": "Växelriktarstatus !{{är|är inte}} [[inverterstate]]"
+  },
+  "hint": {
+    "en": "Whether the inverter is turned on or off",
+    "nl": "Of de omvormer is ingeschakeld of uitgeschakeld",
+    "de": "Ob der Wechselrichter ein- oder ausgeschaltet ist",
+    "sv": "Huruvida växelriktaren är på eller av"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+    },
+    {
+      "name": "inverterstate",
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "0",
+          "label": {
+            "en": "Off",
+            "nl": "Uit",
+            "de": "Aus",
+            "sv": "Av"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "On",
+            "nl": "Aan",
+            "de": "An",
+            "sv": "På"
+          }
+        }
+      ]
+    }
+  ]
+}

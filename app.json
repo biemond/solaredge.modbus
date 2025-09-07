@@ -1107,6 +1107,58 @@
       },
       {
         "title": {
+          "en": "Inverter state !{{is|is not}}",
+          "nl": "Omvormerstatus !{{is|is niet}}",
+          "de": "Wechselrichterstatus !{{ist|ist nicht}}",
+          "sv": "Växelriktarstatus !{{är|är inte}}"
+        },
+        "titleFormatted": {
+          "en": "Inverter state !{{is|is not}} [[inverterstate]]",
+          "nl": "Omvormerstatus !{{is|is niet}} [[inverterstate]]",
+          "de": "Wechselrichterstatus !{{ist|ist nicht}} [[inverterstate]]",
+          "sv": "Växelriktarstatus !{{är|är inte}} [[inverterstate]]"
+        },
+        "hint": {
+          "en": "Whether the inverter is turned on or off",
+          "nl": "Of de omvormer is ingeschakeld of uitgeschakeld",
+          "de": "Ob der Wechselrichter ein- oder ausgeschaltet ist",
+          "sv": "Huruvida växelriktaren är på eller av"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+          },
+          {
+            "name": "inverterstate",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Off",
+                  "nl": "Uit",
+                  "de": "Aus",
+                  "sv": "Av"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "On",
+                  "nl": "Aan",
+                  "de": "An",
+                  "sv": "På"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "on_off"
+      },
+      {
+        "title": {
           "en": "Power limitation !{{is|is not}}",
           "sv": "Effektbegränsning !{{är|är inte}}"
         },
@@ -2241,6 +2293,52 @@
           }
         ],
         "id": "limitcontrolmode"
+      },
+      {
+        "title": {
+          "en": "Set inverter state to",
+          "nl": "Stel omvormerstatus in op",
+          "de": "Setze Wechselrichterstatus auf",
+          "sv": "Ställ in växelriktarstatus till"
+        },
+        "titleFormatted": {
+          "en": "Set inverter state to [[mode]]",
+          "nl": "Stel omvormerstatus in op [[mode]]",
+          "de": "Setze Wechselrichterstatus auf [[mode]]",
+          "sv": "Ställ in växelriktarstatus till [[mode]]"
+        },
+        "args": [
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Off",
+                  "nl": "Uit",
+                  "de": "Aus",
+                  "sv": "Av"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "On",
+                  "nl": "Aan",
+                  "de": "An",
+                  "sv": "På"
+                }
+              }
+            ]
+          },
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt|growattwithbatt_tl"
+          }
+        ],
+        "id": "on_off"
       },
       {
         "title": {
@@ -4926,6 +5024,7 @@
         ]
       },
       "capabilities": [
+        "growatt_onoff",
         "measure_power",
         "measure_power.input",
         "measure_power.gridoutput",
@@ -5148,6 +5247,7 @@
         ]
       },
       "capabilities": [
+        "growatt_onoff",
         "measure_power",
         "measure_power.input",
         "measure_power.gridoutput",
@@ -5370,6 +5470,7 @@
         ]
       },
       "capabilities": [
+        "growatt_onoff",
         "measure_power",
         "measure_power.input",
         "measure_power.gridoutput",
@@ -5723,6 +5824,7 @@
         ]
       },
       "capabilities": [
+        "growatt_onoff",
         "measure_power",
         "measure_power.input",
         "measure_power.gridoutput",
@@ -10654,6 +10756,37 @@
       "uiComponent": "sensor",
       "uiQuickAction": false,
       "icon": "/assets/clock.svg"
+    },
+    "growatt_onoff": {
+      "type": "enum",
+      "title": {
+        "en": "Inverter State",
+        "de": "Wechselrichterstatus",
+        "nl": "Omvormerstatus"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "icon": "/assets/onoff.svg",
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off",
+            "de": "Aus",
+            "nl": "Uit"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "On",
+            "de": "An",
+            "nl": "Aan"
+          }
+        }
+      ]
     },
     "huawei_status": {
       "type": "string",

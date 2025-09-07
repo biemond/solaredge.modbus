@@ -27,6 +27,13 @@ class MyGrowattBattery extends Growatt {
       this.pollInvertor().catch(this.error);
     }, RETRY_INTERVAL);
 
+    // on/off state condition
+    const onoffCondition = this.homey.flow.getConditionCard('on_off');
+    onoffCondition.registerRunListener(async (args, state) => {
+      const result = Number(await args.device.getCapabilityValue('growatt_onoff')) === Number(args.inverterstate);
+      return Promise.resolve(result);
+    });
+
     // priority condition
     const prioCondition = this.homey.flow.getConditionCard('priorityMode');
     prioCondition.registerRunListener(async (args, state) => {
@@ -47,6 +54,11 @@ class MyGrowattBattery extends Growatt {
     });
 
     // flow action
+    const onoffAction = this.homey.flow.getActionCard('on_off');
+    onoffAction.registerRunListener(async (args, state) => {
+      await this.updateControl('growatt_onoff', Number(args.mode));
+    });
+
     const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
       await this.updateControl('exportlimitenabled', Number(args.mode));
@@ -143,6 +155,9 @@ class MyGrowattBattery extends Growatt {
       return value;
     });
 
+    if (this.hasCapability('growatt_onoff') === false) {
+      await this.addCapability('growatt_onoff');
+    }
     if (this.hasCapability('priority') === false) {
       await this.addCapability('priority');
     }
