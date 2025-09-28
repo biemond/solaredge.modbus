@@ -31,6 +31,18 @@
       "title": {
         "en": "Manual mode"
       }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "Peak Shaving"
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "TOU mode"
+      }
     }
   ]
 }

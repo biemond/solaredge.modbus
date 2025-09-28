@@ -322,6 +322,8 @@ export class Solax extends Homey.Device {
     // 1: Feedin Priority
     // 2:Back up mode
     // 3:Manual mode
+    // 4 power shaving
+    // 5 TOU mode
     SolarChargerUseMode: [0x008b, 1, 'UINT16', 'SolarChargerUseMode', 0],
 
     // 0:Stop charge&discharge
