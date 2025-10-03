@@ -536,7 +536,7 @@ class MyGrowattBattery extends Growatt {
     if (end.date() !== now.date()) {
       endTime = 5947; // 23:59
     } else {
-      endTime = (end.hours() << 8) + end.minutes();
+      endTime = (end.hours() << 8) + (end.minutes() - 1);
     }
 
     socket.on('connect', () => {
