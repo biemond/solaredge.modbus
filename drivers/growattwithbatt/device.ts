@@ -528,15 +528,16 @@ class MyGrowattBattery extends Growatt {
       return;
     }
 
+    const minutesToAdd = Math.round((hours * 60) / 15) * 15 - 1;
     const now = moment().tz(this.homey.clock.getTimezone());
-    const end = moment().tz(this.homey.clock.getTimezone()).add(hours, 'hours');
+    const end = now.clone().add(minutesToAdd, 'minutes');
     const startTime = (now.hours() << 8) + now.minutes();
     let endTime = 0;
     // if end time is not today, set to 23:59
     if (end.date() !== now.date()) {
       endTime = 5947; // 23:59
     } else {
-      endTime = (end.hours() << 8) + (end.minutes() - 1);
+      endTime = (end.hours() << 8) + (end.minutes());
     }
 
     socket.on('connect', () => {
