@@ -5,7 +5,9 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": ["OTHER"]
+    "batteries": [
+      "OTHER"
+    ]
   },
   "capabilities": [
     "measure_power",
@@ -30,7 +32,10 @@
     "measure_current.meter_phase3",
     "measure_voltage.meter_phase1",
     "measure_voltage.meter_phase2",
-    "measure_voltage.meter_phase3"
+    "measure_voltage.meter_phase3",
+    "measure_power.meter_phase1",
+    "measure_power.meter_phase2",
+    "measure_power.meter_phase3"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -81,7 +86,9 @@
         "nl": "Totale opbrengst",
         "de": "Gesamtertrag"
       },
-      "units": { "en": "kWh" },
+      "units": {
+        "en": "kWh"
+      },
       "decimals": 0
     },
     "meter_power.daily": {
@@ -90,7 +97,9 @@
         "nl": "Totale dag opbrengst",
         "de": "Tagesgesamtertrag"
       },
-      "units": { "en": "kWh" },
+      "units": {
+        "en": "kWh"
+      },
       "decimals": 0,
       "icon": "/assets/total_yield.svg"
     },
@@ -100,7 +109,9 @@
         "nl": "Totale consumption opbrengst",
         "de": "Gesamter Hausverbrauch"
       },
-      "units": { "en": "kWh" },
+      "units": {
+        "en": "kWh"
+      },
       "decimals": 0,
       "icon": "/assets/total_yield.svg"
     },
@@ -193,8 +204,12 @@
       }
     }
   },
-  "platforms": ["local"],
-  "connectivity": ["lan"],
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"
