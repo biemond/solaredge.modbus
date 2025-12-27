@@ -1,6 +1,6 @@
 {
   "id": "solaredge.modbus",
-  "version": "3.0.223",
+  "version": "3.0.224",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -98,6 +98,10 @@
       {
         "name": "Jelger Haanstra",
         "email": "homey@solidewebservices.com"
+      },
+      {
+        "name": "Danee de Kruyff",
+        "email": "daneedekruyff@outlook.com"
       }
     ]
   }

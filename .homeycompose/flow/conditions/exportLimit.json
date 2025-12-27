@@ -1,20 +1,41 @@
 {
   "title": {
-    "en": "Export Limit !{{is|is not}}",
-    "nl": "Export limiet !{{is|is niet}}",
+    "en": "Export limit !{{is|is not}}",
+    "da": "Eksportgrænse !{{er|er ikke}}",
     "de": "Exportlimit !{{ist|ist nicht}}",
+    "es": "Límite de exportación !{{está|no está}}",
+    "fr": "Limite d’exportation !{{est|n’est pas}}",
+    "it": "Limite di esportazione !{{è|non è}}",
+    "ko": "수출 제한 !{{활성화됨|비활성화됨}}",
+    "nl": "Exportlimiet !{{is|is niet}}",
+    "no": "Eksportgrense !{{er|er ikke}}",
+    "pl": "Limit eksportu !{{jest|nie jest}}",
     "sv": "Exportbegränsning !{{är|är inte}}"
   },
   "titleFormatted": {
     "en": "Export limit !{{is|is not}} [[exportlimit]]",
-    "nl": "Export limiet !{{is|is niet}} [[exportlimit]]",
+    "da": "Eksportgrænse !{{er|er ikke}} [[exportlimit]]",
     "de": "Exportlimit !{{ist|ist nicht}} [[exportlimit]]",
+    "es": "Límite de exportación !{{está|no está}} [[exportlimit]]",
+    "fr": "Limite d’exportation !{{est|n’est pas}} [[exportlimit]]",
+    "it": "Limite di esportazione !{{è|non è}} [[exportlimit]]",
+    "ko": "수출 제한이 [[exportlimit]] !{{상태입니다|상태가 아닙니다}}",
+    "nl": "Exportlimiet !{{is|is niet}} [[exportlimit]]",
+    "no": "Eksportgrense !{{er|er ikke}} [[exportlimit]]",
+    "pl": "Limit eksportu !{{jest|nie jest}} [[exportlimit]]",
     "sv": "Exportbegränsning !{{är|är inte}} [[exportlimit]]"
   },
   "hint": {
     "en": "Whether export limit is enabled or disabled",
-    "nl": "Of de export limiet is ingeschakeld of uitgeschakeld",
+    "da": "Om eksportgrænsen er aktiveret eller deaktiveret",
     "de": "Ob das Exportlimit aktiviert oder deaktiviert ist",
+    "es": "Si el límite de exportación está activado o desactivado",
+    "fr": "Si la limite d’exportation est activée ou désactivée",
+    "it": "Se il limite di esportazione è attivato o disattivato",
+    "ko": "수출 제한이 활성화되었는지 또는 비활성화되었는지 여부",
+    "nl": "Of de exportlimiet is ingeschakeld of uitgeschakeld",
+    "no": "Om eksportgrensen er aktivert eller deaktivert",
+    "pl": "Czy limit eksportu jest włączony czy wyłączony",
     "sv": "Huruvida exportgränsen är aktiverad eller inaktiverad"
   },
   "args": [
@@ -31,8 +52,15 @@
           "id": "0",
           "label": {
             "en": "Disabled",
-            "nl": "Uitgeschakeld",
+            "da": "Deaktiveret",
             "de": "Deaktiviert",
+            "es": "Desactivado",
+            "fr": "Désactivé",
+            "it": "Disattivato",
+            "ko": "비활성화됨",
+            "nl": "Uitgeschakeld",
+            "no": "Deaktivert",
+            "pl": "Wyłączone",
             "sv": "Inaktiverad"
           }
         },
@@ -40,8 +68,15 @@
           "id": "1",
           "label": {
             "en": "Enabled",
-            "nl": "Ingeschakeld",
+            "da": "Aktiveret",
             "de": "Aktiviert",
+            "es": "Activado",
+            "fr": "Activé",
+            "it": "Attivato",
+            "ko": "활성화됨",
+            "nl": "Ingeschakeld",
+            "no": "Aktivert",
+            "pl": "Włączone",
             "sv": "Aktiverad"
           }
         }

@@ -1,0 +1,29 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Export capacity %",
+    "da": "Eksportkapacitet %",
+    "de": "Exportkapazität %",
+    "es": "Capacidad de exportación %",
+    "fr": "Capacité d’exportation %",
+    "it": "Capacità di esportazione %",
+    "ko": "수출 용량 %",
+    "nl": "Exportcapaciteit %",
+    "no": "Eksportkapasitet %",
+    "pl": "Pojemność eksportu %",
+    "sv": "Exportkapacitet %"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": true,
+  "insights": true,
+  "icon": "/assets/limit.svg",
+  "units": {
+    "en": "%"
+  },
+  "decimals": 0,
+  "min": 0,
+  "max": 100,
+  "step": 1
+}

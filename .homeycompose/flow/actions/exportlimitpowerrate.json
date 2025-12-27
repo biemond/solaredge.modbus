@@ -1,14 +1,28 @@
 {
   "title": {
-    "en": "Set Export limit to",
+    "en": "Set export limit to",
+    "da": "Indstil eksportgrænse til",
+    "de": "Exportbegrenzung festlegen auf",
+    "es": "Establecer el límite de exportación en",
+    "fr": "Définir la limite d’exportation à",
+    "it": "Impostare il limite di esportazione su",
+    "ko": "수출 제한 설정:",
     "nl": "Stel de exportlimiet in op",
-    "de": "Setze Exportbeschränkung auf",
+    "no": "Angi eksportgrense til",
+    "pl": "Ustaw limit eksportu na",
     "sv": "Ställ in exportbegränsning till"
   },
   "titleFormatted": {
-    "en": "Set Export limit to [[percentage]]",
+    "en": "Set export limit to [[percentage]]",
+    "da": "Indstil eksportgrænse til [[percentage]]",
+    "de": "Exportbegrenzung auf [[percentage]] festlegen",
+    "es": "Establecer el límite de exportación en [[percentage]]",
+    "fr": "Définir la limite d’exportation à [[percentage]]",
+    "it": "Impostare il limite di esportazione su [[percentage]]",
+    "ko": "수출 제한을 [[percentage]]로 설정",
     "nl": "Stel de exportlimiet in op [[percentage]]",
-    "de": "Setze Exportbeschränkung auf [[percentage]]",
+    "no": "Angi eksportgrense til [[percentage]]",
+    "pl": "Ustaw limit eksportu na [[percentage]]",
     "sv": "Ställ in exportbegränsning till [[percentage]]"
   },
   "args": [
@@ -16,10 +30,17 @@
       "type": "range",
       "name": "percentage",
       "title": {
-        "en": "Export Limit(%)",
-        "nl": "Exportlimiet(%)",
-        "de": "Exportbeschränkung(%)",
-        "sv": "Exportbegränsning(%)"
+        "en": "Export limit (%)",
+        "da": "Eksportgrænse (%)",
+        "de": "Exportbegrenzung (%)",
+        "es": "Límite de exportación (%)",
+        "fr": "Limite d’exportation (%)",
+        "it": "Limite di esportazione (%)",
+        "ko": "수출 제한 (%)",
+        "nl": "Exportlimiet (%)",
+        "no": "Eksportgrense (%)",
+        "pl": "Limit eksportu (%)",
+        "sv": "Exportbegränsning (%)"
       },
       "min": 0,
       "max": 100,

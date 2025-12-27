@@ -85,6 +85,22 @@ export class Growatt extends Homey.Device {
     exportlimitpowerrate: [123, 1, 'UINT16', 'Export Limit Power Rate', -1]
   };
 
+  readonly holdingRegistersTLS: { [key: string]: RegisterDefinition } = {
+    onoff: [0, 1, 'UINT16', 'On/Off state', 0],
+    activePRate:   [3, 1, 'UINT16', 'Inverter max output active power rate (%)', 0],   // 0..100 curtail PV production
+    /*
+    fwVersionH:  [9, 1, 'UINT16', 'Firmware version (high)', 0],
+    fwVersionM:  [10, 1, 'UINT16', 'Firmware version (middle)', 0],
+    fwVersionL:  [11, 1, 'UINT16', 'Firmware version (low)', 0],
+    fw2VersionH: [12, 1, 'UINT16', 'Control firmware version (high)', 0],
+    fw2VersionM: [13, 1, 'UINT16', 'Control firmware version (middle)', 0],
+    fw2VersionL: [14, 1, 'UINT16', 'Control firmware version (low)', 0]
+    */
+    exportlimitenabled: [202, 1, 'UINT16', 'Export Limit enable', 0],
+    exportlimitpowerrate: [201, 1, 'UINT16', 'Export Limit Power Rate', -1]
+  }
+
+
   readonly registers: { [key: string]: RegisterDefinition } = {
     l1_current: [39, 1, 'UINT16', 'L1 Current', -1],
     l2_current: [43, 1, 'UINT16', 'L2 Current', -1],
@@ -176,73 +192,80 @@ export class Growatt extends Homey.Device {
     outputPower: [11, 2, 'UINT32', 'Output Power', -1],
 
     pv1Voltage: [3, 1, 'UINT16', 'pv1 Voltage', -1],
+    pv1Current:  [4, 1, 'UINT16', 'pv1 Current', -1],
+    pv1InputPower: [5, 2, 'UINT32', 'pv1 Power', -1],
     pv2Voltage: [7, 1, 'UINT16', 'pv2 Voltage', -1],
+    pv2Current:  [8, 1, 'UINT16', 'pv2 Current', -1], 
+    pv2InputPower: [9, 2, 'UINT32', 'pv2 Power', -1],
 
     gridFrequency: [13, 1, 'UINT16', 'Grid Frequency', -2],
-    // gridVoltage: [38, 1, 'UINT16', 'Grid Voltage', -1],
-    // gridOutputCurrent: [39, 1, 'UINT16', 'Grid Output Current', -1],
-    // gridOutputPower: [40, 2, 'UINT32', 'Grid Output Power', -1],
-    todayEnergy: [26, 2, 'UINT32', 'Today Energy', -1],
-    totalEnergy: [28, 2, 'UINT32', 'Total Energy', -1],
 
-    // pv1Current: data[4] / 10.0, //A
-    pv1InputPower: [5, 2, 'UINT32', 'pv1 Power', -1],
-    // pv2Voltage: data[7] / 10.0, //V
-    // pv2Current: data[8] / 10.0, //A
-    pv2InputPower: [9, 2, 'UINT32', 'pv2 Power', -1],
+    todayEnergy: [26, 2, 'UINT32', 'Today Energy', -1],
+    totalEnergy: [28, 2, 'UINT32', 'Total Energy', -1], // Total Energy delivered to AC
+
+    inverterFaultBits: [40, 1, 'UINT16', 'Inverter fault/status bitfield', 0],
+    //        1~23 " Error: 99+x ",
+    //        24 "Auto Test Failed",
+    //        25 "No AC Connection",
+    //        26 "PV Isolation Low",
+    //        27 " Residual I High",
+    //        28 " Output High DCI",
+    //        29 " PV Voltage High",
+    //        30 " AC V Outrange ",
+    //        31 " AC F Outrange ",
+    //        32 " Module Hot "
+
+    //WarningCode: [64, 1, 'UINT16', 'Warning Code', 0], to make
 
     pv1TodayEnergy: [48, 2, 'UINT32', 'pv1 Today Energy', -1],
     pv1TotalEnergy: [50, 2, 'UINT32', 'pv1 Total Energy', -1],
     pv2TodayEnergy: [52, 2, 'UINT32', 'pv2 Today Energy', -1],
     pv2TotalEnergy: [54, 2, 'UINT32', 'pv2 Total Energy', -1],
-    pvEnergyTotal:  [56, 2, 'UINT32', 'pv Total Energy', -1],
-
-    // "realoutputpercentage": [101, 1, 'UINT16', "real output power percentage", 0],
-    // "outputmaxpowerlimited": [102 ,2, 'UINT32', "output max power limited", -1 ],
+    //pvEnergyTotal:  [56, 2, 'UINT32', 'pv Total Energy', -1], // Total Energy produced by panels
 
     // ipmTemperature: data[94] / 10.0, //°C
     // inverterOutputPf: data[100], //powerfactor 0-20000
-    error: [105, 1, 'UINT16', 'Error', 0],
+    // error: [105, 1, 'UINT16', 'Error', 0],
     // realPowerPercent: data[113] //% 0-100
 
     // "ac_chargepower": [116 ,2, 'UINT32', "AC charge Power", -1 ],
 
-    battDischarge: [1009, 2, 'UINT32', 'battery Discharge', -1],
-    battCharge: [1011, 2, 'UINT32', 'battery Charge', -1],
-    battvoltage: [1013, 1, 'UINT16', 'battery Voltage', -1],
-    battsoc: [1014, 1, 'UINT16', 'battery soc', 0],
+    //battDischarge: [1009, 2, 'UINT32', 'battery Discharge', -1],
+    //battCharge: [1011, 2, 'UINT32', 'battery Charge', -1],
+    //battvoltage: [1013, 1, 'UINT16', 'battery Voltage', -1],
+    //battsoc: [1014, 1, 'UINT16', 'battery soc', 0],
 
-    batttemperature: [1040, 1, 'UINT16', 'battery Temperature', -1],
+    //batttemperature: [1040, 1, 'UINT16', 'battery Temperature', -1],
 
-    bmssoc: [1086, 1, 'UINT16', 'bms soc', 0],
-    bmstemperature: [1089, 1, 'UINT16', 'bms Temperature', -1],
-    bmscyclecount: [1095, 1, 'UINT16', 'bms cycle count', 0],
-    bmshealth: [1096, 1, 'UINT16', 'bms soh', 0],
-    bmsstatus: [1083, 1, 'UINT16', 'bms status', 0],
-    bmserror: [1085, 1, 'UINT16', 'bms error', 0],
+    //bmssoc: [1086, 1, 'UINT16', 'bms soc', 0],
+    //bmstemperature: [1089, 1, 'UINT16', 'bms Temperature', -1],
+    //bmscyclecount: [1095, 1, 'UINT16', 'bms cycle count', 0],
+    //bmshealth: [1096, 1, 'UINT16', 'bms soh', 0],
+    //bmsstatus: [1083, 1, 'UINT16', 'bms status', 0],
+    //bmserror: [1085, 1, 'UINT16', 'bms error', 0],
 
-    totalhouseload: [1037, 2, 'UINT32', 'Total house Load', -1],
-    priority: [118, 1, 'UINT16', 'priority', 0],
+    //totalhouseload: [1037, 2, 'UINT32', 'Total house Load', -1],
+    //priority: [118, 1, 'UINT16', 'priority', 0],
 
-    pactouserr: [1015, 2, 'UINT32', 'import from grid to user', -1],
-    pactousertotal: [1021, 2, 'UINT32', 'import from grid to user total', -1],
-    pactogrid: [1023, 2, 'UINT32', 'export to grid', -1],
-    pactogridtotal: [1029, 2, 'UINT32', 'export to grid total', -1],
+    //pactouserr: [1015, 2, 'UINT32', 'import from grid to user', -1],
+    //pactousertotal: [1021, 2, 'UINT32', 'import from grid to user total', -1],
+    //pactogrid: [1023, 2, 'UINT32', 'export to grid', -1],
+    //pactogridtotal: [1029, 2, 'UINT32', 'export to grid total', -1],
 
-    today_grid_import: [1044, 2, 'UINT32', "Today's Grid Import", -1],
-    total_grid_import: [1046, 2, 'UINT32', 'Total Grid Import', -1],
-    today_grid_export: [1048, 2, 'UINT32', "Today's Grid Export", -1],
-    total_grid_export: [1050, 2, 'UINT32', 'Total Grid Export', -1],
+    //today_grid_import: [1044, 2, 'UINT32', "Today's Grid Import", -1],
+    //total_grid_import: [1046, 2, 'UINT32', 'Total Grid Import', -1],
+    //today_grid_export: [1048, 2, 'UINT32', "Today's Grid Export", -1],
+    //total_grid_export: [1050, 2, 'UINT32', 'Total Grid Export', -1],
 
-    today_battery_output_energy: [1052, 2, 'UINT32', "Today's Battery Output Energy", -1],
-    total_battery_output_energy: [1054, 2, 'UINT32', 'Total Battery Output Energy', -1],
-    today_battery_input_energy: [1056, 2, 'UINT32', "Today's Battery Input Energy", -1],
-    total_battery_intput_energy: [1058, 2, 'UINT32', 'Total Battery Input Energy', -1],
+    //today_battery_output_energy: [1052, 2, 'UINT32', "Today's Battery Output Energy", -1],
+    //total_battery_output_energy: [1054, 2, 'UINT32', 'Total Battery Output Energy', -1],
+    //today_battery_input_energy: [1056, 2, 'UINT32', "Today's Battery Input Energy", -1],
+    //total_battery_intput_energy: [1058, 2, 'UINT32', 'Total Battery Input Energy', -1],
 
-    today_load: [1060, 2, 'UINT32', "Today's Load", -1],
-    total_load: [1062, 2, 'UINT32', 'Total Load', -1],
+    //today_load: [1060, 2, 'UINT32', "Today's Load", -1],
+    //total_load: [1062, 2, 'UINT32', 'Total Load', -1],
+
   };
-
 
   readonly registersTL: { [key: string]: RegisterDefinition } = {
     l1_current: [39, 1, 'UINT16', 'L1 Current', -1],
@@ -318,6 +341,12 @@ export class Growatt extends Homey.Device {
       transform: (data) => data.value,
     },
     {
+      resultKey: 'status',
+      capabilities: ['growattstatus'],
+      valid: (data) => this.isValidNumberInRange(Number(data.value), 0, 1),
+      transform: (data) => (Number(data.value) === 1 ? '1' : '0'),
+    },
+    {
       resultKey: 'outputPower',
       capabilities: ['measure_power'],
       valid: (data: GrowattData, context?: GrowattContext): boolean => {
@@ -347,16 +376,51 @@ export class Growatt extends Homey.Device {
       transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
     },
     {
+      resultKey: 'pv1Voltage',
+      capabilities: ['measure_voltage.pv1'],
+      requireCapabilityCheck: true,
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number((Number(data.value) * 10 ** Number(data.scale)).toFixed(1)),
+    },
+    {
+      resultKey: 'pv1Current',
+      capabilities: ['measure_current.pv1'],
+      requireCapabilityCheck: true,
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number((Number(data.value) * 10 ** Number(data.scale)).toFixed(1)),
+    },
+    {
       resultKey: 'pv1InputPower',
       capabilities: ['measure_power.pv1input'],
       valid: (data) => data.value !== 'xxx',
       transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
     },
     {
+      resultKey: 'pv2Voltage',
+      capabilities: ['measure_voltage.pv2'],
+      requireCapabilityCheck: true,
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number((Number(data.value) * 10 ** Number(data.scale)).toFixed(1)),
+    },
+    {
+      resultKey: 'pv2Current',
+      capabilities: ['measure_current.pv2'],
+      requireCapabilityCheck: true,
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number((Number(data.value) * 10 ** Number(data.scale)).toFixed(1)),
+    },
+    {
       resultKey: 'pv2InputPower',
       capabilities: ['measure_power.pv2input'],
       valid: (data) => data.value !== 'xxx',
       transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
+    },
+    {
+      resultKey: 'gridFrequency',
+      capabilities: ['measure_frequency'],
+      requireCapabilityCheck: true,
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number((Number(data.value) * 10 ** Number(data.scale)).toFixed(2)),
     },
     {
       resultKey: 'l1_current',
@@ -381,6 +445,13 @@ export class Growatt extends Homey.Device {
       capabilities: ['measure_temperature.invertor'],
       valid: (data) => data.value !== 'xxx',
       transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'inverterFaultBits',
+      capabilities: ['measure_inverter_fault_bits'],
+      requireCapabilityCheck: true,
+      valid: (data) => data.value !== 'xxx' && data.value !== undefined && data.value !== null,
+      transform: (data) => Number(data.value),
     },
     {
       resultKey: 'todayEnergy',
@@ -481,6 +552,12 @@ export class Growatt extends Homey.Device {
       capabilities: ['batterycycles'],
       valid: (data) => data.value !== 'xxx',
       transform: (data) => Number(data.value) * 10 ** Number(data.scale),
+    },
+    {
+      resultKey: 'activePRate',
+      capabilities: ['exportcapacity'],
+      valid: (data) => this.isValidNumberInRange(data.value, 0, 100),
+      transform: (data) => Number(data.value),
     },
     {
       resultKey: 'exportlimitenabled',
@@ -686,6 +763,7 @@ export class Growatt extends Homey.Device {
           const transformedValue = mapping.transform?.(data, context);
           if (transformedValue === null || transformedValue === undefined) continue;
           for (const cap of mapping.capabilities) {
+            //if (!this.hasCapability(cap)) continue;   // don't add, don't set
             this.addCapability(cap).catch(this.error);
             this.setCapabilityValue(cap, transformedValue).catch(this.error);
           }

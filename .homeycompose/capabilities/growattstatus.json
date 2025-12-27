@@ -1,0 +1,55 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Inverter state",
+    "da": "Inverterstatus",
+    "de": "Wechselrichterstatus",
+    "es": "Estado del inversor",
+    "fr": "État de l’onduleur",
+    "it": "Stato dell’inverter",
+    "ko": "인버터 상태",
+    "nl": "Omvormerstatus",
+    "no": "Inverterstatus",
+    "pl": "Stan falownika",
+    "sv": "Växelriktarstatus"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "uiQuickAction": false,
+  "icon": "/assets/onoff.svg",
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Off",
+        "da": "Fra",
+        "de": "Aus",
+        "es": "Apagado",
+        "fr": "Arrêt",
+        "it": "Spento",
+        "ko": "꺼짐",
+        "nl": "Uit",
+        "no": "Av",
+        "pl": "Wyłączony",
+        "sv": "Av"
+      }
+    },
+    {
+      "id": "1",
+      "title": {
+        "en": "On",
+        "da": "Til",
+        "de": "An",
+        "es": "Encendido",
+        "fr": "Marche",
+        "it": "Acceso",
+        "ko": "켜짐",
+        "nl": "Aan",
+        "no": "På",
+        "pl": "Włączony",
+        "sv": "På"
+      }
+    }
+  ]
+}
