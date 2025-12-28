@@ -8,7 +8,8 @@ import { Growatt } from '../growatt';
 const RETRY_INTERVAL = 28 * 1000;
 
 class MyGrowattTL3sDevice extends Growatt {
-  timer!: NodeJS.Timer;
+  timer!: NodeJS.Timeout;
+  private _dailyCheckInterval?: NodeJS.Timeout;
   /**
    * onInit is called when the device is initialized.
    */
@@ -20,40 +21,104 @@ class MyGrowattTL3sDevice extends Growatt {
     this.log(`device name ${this.getName()}`);
 
     // on/off state condition
+    /* Flowcard not available for this device
     const onoffCondition = this.homey.flow.getConditionCard('on_off');
     onoffCondition.registerRunListener(async (args, state) => {
       const result = Number(await args.device.getCapabilityValue('growatt_onoff')) === Number(args.inverterstate);
       return Promise.resolve(result);
     });
+    */
 
     const limitCondition = this.homey.flow.getConditionCard('exportLimit');
     limitCondition.registerRunListener(async (args, state) => {
       const result = Number(await args.device.getCapabilityValue('exportlimitenabled')) === Number(args.exportlimit);
-      return Promise.resolve(result);
+      return result;
     });
 
     // flow action
+    /* Flowcard not available for this device
     const onoffAction = this.homey.flow.getActionCard('on_off');
     onoffAction.registerRunListener(async (args, state) => {
       await this.updateControl('growatt_onoff', Number(args.mode));
     });
+    */
 
     const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
-      await this.updateControl('exportlimitenabled', Number(args.mode));
+      const smartmeter = this.getSetting('smartMeter')
+        if (!smartmeter) {
+          throw new Error(
+            'No Modbus Smart Meter is configured.\n\nYou can enable it in the devices Advanced Settings.\nImportant: Do NOT enable the seting when no Modbus Smart Meter is connected.'
+          );
+        }
+      //await this.updateControl('exportlimitenabled', Number(args.mode));
     });
 
     const exportlimitpowerrateAction = this.homey.flow.getActionCard('exportlimitpowerrate');
     exportlimitpowerrateAction.registerRunListener(async (args, state) => {
-      await this.updateControl('exportlimitpowerrate', args.percentage);
+      const smartmeter = this.getSetting('smartMeter')
+        if (!smartmeter) {
+          throw new Error(
+            'No Modbus Smart Meter is configured.\n\nYou can enable it in the devices Advanced Settings.\nImportant: Do NOT enable the seting when no Modbus Smart Meter is connected.'
+          );
+        }          
+      //await this.updateControl('exportlimitpowerrate', args.percentage);
     });
 
-    if (this.hasCapability('growatt_onoff') === false) {
-      await this.addCapability('growatt_onoff');
+    const exportcapacityAction = this.homey.flow.getActionCard('exportcapacity');
+    exportcapacityAction.registerRunListener(async (args, state) => {        
+      await this.updateControl('exportcapacity', args.percentage);
+    });
+    
+
+    // remove unexpected capabilities 
+    if (this.hasCapability('growatt_onoff')) {
+      await this.removeCapability('growatt_onoff');
+      this.log('Removed legacy capability growatt_onoff (TLS driver)');
     }
+
+    if (this.hasCapability('growatttls_onoff')) {
+      await this.removeCapability('growatttls_onoff');
+    }
+
+    if (this.hasCapability('priority')) {
+      await this.removeCapability('priority');
+      this.log('Removed legacy capability priority (TLS driver)');
+    }
+
+    if (this.hasCapability('batterystatus')) {
+      await this.removeCapability('batterystatus');
+      this.log('Removed legacy capability batterystatus (TLS driver)');
+    }
+
+    if (this.hasCapability('measure_power.export')) {
+      await this.removeCapability('measure_power.export');
+      this.log('Removed legacy capability measure_power.export (TLS driver)');
+    }
+
+    if (this.hasCapability('measure_power.gridoutput')) {
+      await this.removeCapability('measure_power.gridoutput');
+      this.log('Removed legacy capability measure_power.gridoutput (TLS driver)');
+    }
+    
+    if (this.hasCapability('measure_voltage.meter')) {
+      await this.removeCapability('measure_voltage.meter');
+      this.log('Removed legacy capability measure_voltage.meter (TLS driver)');
+    }    
+    // end
+
+    if (this.hasCapability('onoff') === true) {
+      await this.removeCapability('onoff');
+    }
+
+    if (this.hasCapability('exportcapacity') === false) {
+      await this.addCapability('exportcapacity');
+    }
+
     if (this.hasCapability('exportlimitenabled') === false) {
       await this.addCapability('exportlimitenabled');
     }
+
     if (this.hasCapability('exportlimitpowerrate') === false) {
       await this.addCapability('exportlimitpowerrate');
     }
@@ -64,6 +129,24 @@ class MyGrowattTL3sDevice extends Growatt {
       // poll device state from inverter
       this.pollInvertor().catch(this.error);
     }, RETRY_INTERVAL);
+
+    this._dailyCheckInterval = this.homey.setInterval(
+      () => this.checkDailyReset().catch(this.error),
+      5 * 60 * 1000 // 5 minutes 
+    );
+  }
+
+  async checkDailyReset() {
+    const today = new Date().toDateString();
+    const lastReset = this.getStoreValue('lastDailyReset');
+
+    if (lastReset !== today) {
+      await this.setCapabilityValue('meter_power.daily', 0);
+      await this.setCapabilityValue('meter_power.pv1TodayEnergy', 0);
+      await this.setCapabilityValue('meter_power.pv2TodayEnergy', 0);
+      await this.setStoreValue('lastDailyReset', today);
+      this.log(`Daily values have been reset to zero for`, this.getName())
+    }
   }
 
   /**
@@ -108,16 +191,19 @@ class MyGrowattTL3sDevice extends Growatt {
   async onDeleted() {
     this.log('MyGrowattTL3sDevice has been deleted');
     this.homey.clearInterval(this.timer);
+    if (this._dailyCheckInterval) {
+      this.homey.clearInterval(this._dailyCheckInterval);
+    }
   }
 
   private getRegisterAddressForCapability(capability: string): number | undefined {
-    const result = this.getMappingAndRegister(capability, this.holdingRegistersBase);
+    const result = this.getMappingAndRegister(capability, this.holdingRegistersTLS);
     if (!result) return undefined;
     return result.registerDefinition[0];
   }
 
   private processRegisterValue(capability: string, registerValue: number): number | null {
-    return this.processRegisterValueCommon(capability, registerValue, this.holdingRegistersBase);
+    return this.processRegisterValueCommon(capability, registerValue, this.holdingRegistersTLS);
   }
 
   async updateControl(type: string, value: number) {
@@ -205,7 +291,7 @@ class MyGrowattTL3sDevice extends Growatt {
         this.log(modbusOptions);
 
         const checkRegisterRes = await checkRegisterGrowatt(this.registersTLS, client);
-        const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegistersBase, client);
+        const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegistersTLS, client);
         this.log('disconnect');
         client.socket.end();
         socket.end();

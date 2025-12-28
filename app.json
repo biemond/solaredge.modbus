@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.223",
+  "version": "3.0.224",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -99,6 +99,10 @@
       {
         "name": "Jelger Haanstra",
         "email": "homey@solidewebservices.com"
+      },
+      {
+        "name": "Danee de Kruyff",
+        "email": "daneedekruyff@outlook.com"
       }
     ]
   },
@@ -253,8 +257,15 @@
         "highlight": true,
         "title": {
           "en": "The solar power changed",
-          "nl": "Het solar vermogen is veranderd",
+          "da": "Solcelleeffekten er ændret",
           "de": "Solarleistung hat sich geändert",
+          "es": "La potencia solar ha cambiado",
+          "fr": "La puissance solaire a changé",
+          "it": "La potenza solare è cambiata",
+          "ko": "태양광 출력이 변경됨",
+          "nl": "Het zonnevermogen is veranderd",
+          "no": "Solcelleeffekten er endret",
+          "pl": "Moc instalacji solarnej uległa zmianie",
           "sv": "Soleffekten har ändrats"
         },
         "tokens": [
@@ -262,8 +273,15 @@
             "name": "measure_power",
             "title": {
               "en": "Power",
-              "nl": "Vermogen",
+              "da": "Effekt",
               "de": "Leistung",
+              "es": "Potencia",
+              "fr": "Puissance",
+              "it": "Potenza",
+              "ko": "전력",
+              "nl": "Vermogen",
+              "no": "Effekt",
+              "pl": "Moc",
               "sv": "Effekt"
             },
             "type": "number",
@@ -311,18 +329,32 @@
       },
       {
         "title": {
-          "en": "Total Yield changed",
-          "nl": "Totale opbrengst is veranderd",
+          "en": "Total yield changed",
+          "da": "Samlet produktion er ændret",
           "de": "Gesamtertrag hat sich geändert",
-          "sv": "Totala produktionen har ändrats"
+          "es": "La producción total ha cambiado",
+          "fr": "La production totale a changé",
+          "it": "La produzione totale è cambiata",
+          "ko": "총 발전량이 변경됨",
+          "nl": "Totale opbrengst is veranderd",
+          "no": "Total produksjon er endret",
+          "pl": "Całkowita produkcja uległa zmianie",
+          "sv": "Total produktion har ändrats"
         },
         "tokens": [
           {
             "name": "meter_power",
             "title": {
               "en": "Energy",
-              "nl": "Energie",
+              "da": "Energi",
               "de": "Energie",
+              "es": "Energía",
+              "fr": "Énergie",
+              "it": "Energia",
+              "ko": "에너지",
+              "nl": "Energie",
+              "no": "Energi",
+              "pl": "Energia",
               "sv": "Energi"
             },
             "type": "number",
@@ -1055,21 +1087,42 @@
       },
       {
         "title": {
-          "en": "Export Limit !{{is|is not}}",
-          "nl": "Export limiet !{{is|is niet}}",
+          "en": "Export limit !{{is|is not}}",
+          "da": "Eksportgrænse !{{er|er ikke}}",
           "de": "Exportlimit !{{ist|ist nicht}}",
+          "es": "Límite de exportación !{{está|no está}}",
+          "fr": "Limite d’exportation !{{est|n’est pas}}",
+          "it": "Limite di esportazione !{{è|non è}}",
+          "ko": "수출 제한 !{{활성화됨|비활성화됨}}",
+          "nl": "Exportlimiet !{{is|is niet}}",
+          "no": "Eksportgrense !{{er|er ikke}}",
+          "pl": "Limit eksportu !{{jest|nie jest}}",
           "sv": "Exportbegränsning !{{är|är inte}}"
         },
         "titleFormatted": {
           "en": "Export limit !{{is|is not}} [[exportlimit]]",
-          "nl": "Export limiet !{{is|is niet}} [[exportlimit]]",
+          "da": "Eksportgrænse !{{er|er ikke}} [[exportlimit]]",
           "de": "Exportlimit !{{ist|ist nicht}} [[exportlimit]]",
+          "es": "Límite de exportación !{{está|no está}} [[exportlimit]]",
+          "fr": "Limite d’exportation !{{est|n’est pas}} [[exportlimit]]",
+          "it": "Limite di esportazione !{{è|non è}} [[exportlimit]]",
+          "ko": "수출 제한이 [[exportlimit]] !{{상태입니다|상태가 아닙니다}}",
+          "nl": "Exportlimiet !{{is|is niet}} [[exportlimit]]",
+          "no": "Eksportgrense !{{er|er ikke}} [[exportlimit]]",
+          "pl": "Limit eksportu !{{jest|nie jest}} [[exportlimit]]",
           "sv": "Exportbegränsning !{{är|är inte}} [[exportlimit]]"
         },
         "hint": {
           "en": "Whether export limit is enabled or disabled",
-          "nl": "Of de export limiet is ingeschakeld of uitgeschakeld",
+          "da": "Om eksportgrænsen er aktiveret eller deaktiveret",
           "de": "Ob das Exportlimit aktiviert oder deaktiviert ist",
+          "es": "Si el límite de exportación está activado o desactivado",
+          "fr": "Si la limite d’exportation est activée ou désactivée",
+          "it": "Se il limite di esportazione è attivato o disattivato",
+          "ko": "수출 제한이 활성화되었는지 또는 비활성화되었는지 여부",
+          "nl": "Of de exportlimiet is ingeschakeld of uitgeschakeld",
+          "no": "Om eksportgrensen er aktivert eller deaktivert",
+          "pl": "Czy limit eksportu jest włączony czy wyłączony",
           "sv": "Huruvida exportgränsen är aktiverad eller inaktiverad"
         },
         "args": [
@@ -1086,8 +1139,15 @@
                 "id": "0",
                 "label": {
                   "en": "Disabled",
-                  "nl": "Uitgeschakeld",
+                  "da": "Deaktiveret",
                   "de": "Deaktiviert",
+                  "es": "Desactivado",
+                  "fr": "Désactivé",
+                  "it": "Disattivato",
+                  "ko": "비활성화됨",
+                  "nl": "Uitgeschakeld",
+                  "no": "Deaktivert",
+                  "pl": "Wyłączone",
                   "sv": "Inaktiverad"
                 }
               },
@@ -1095,8 +1155,15 @@
                 "id": "1",
                 "label": {
                   "en": "Enabled",
-                  "nl": "Ingeschakeld",
+                  "da": "Aktiveret",
                   "de": "Aktiviert",
+                  "es": "Activado",
+                  "fr": "Activé",
+                  "it": "Attivato",
+                  "ko": "활성화됨",
+                  "nl": "Ingeschakeld",
+                  "no": "Aktivert",
+                  "pl": "Włączone",
                   "sv": "Aktiverad"
                 }
               }
@@ -1983,6 +2050,64 @@
       },
       {
         "title": {
+          "en": "Set inverter output capacity",
+          "da": "Indstil inverterens udgangskapacitet",
+          "de": "Wechselrichter-Ausgangsleistung festlegen",
+          "es": "Establecer la capacidad de salida del inversor",
+          "fr": "Définir la capacité de sortie de l’onduleur",
+          "it": "Impostare la capacità di uscita dell’inverter",
+          "ko": "인버터 출력 용량 설정",
+          "nl": "Stel omvormeroutputcapaciteit in",
+          "no": "Angi inverterens utgangseffekt",
+          "pl": "Ustaw moc wyjściową falownika",
+          "sv": "Ställ in växelriktarens uteffekt"
+        },
+        "titleFormatted": {
+          "en": "Set inverter output capacity [[percentage]]",
+          "da": "Indstil inverterens udgangskapacitet til [[percentage]]",
+          "de": "Wechselrichter-Ausgangsleistung på [[percentage]] fastlegen",
+          "es": "Establecer la capacidad de salida del inversor en [[percentage]]",
+          "fr": "Définir la capacité de sortie de l’onduleur à [[percentage]]",
+          "it": "Impostare la capacità di uscita dell’inverter su [[percentage]]",
+          "ko": "인버터 출력 용량을 [[percentage]]로 설정",
+          "nl": "Stel omvormeroutputcapaciteit in op [[percentage]]",
+          "no": "Angi inverterens utgangseffekt til [[percentage]]",
+          "pl": "Ustaw moc wyjściową falownika na [[percentage]]",
+          "sv": "Ställ in växelriktarens uteffekt till [[percentage]]"
+        },
+        "args": [
+          {
+            "type": "range",
+            "name": "percentage",
+            "title": {
+              "en": "Output capacity",
+              "da": "Udgangskapacitet",
+              "de": "Ausgangsleistung",
+              "es": "Capacidad de salida",
+              "fr": "Capacité de sortie",
+              "it": "Capacità di uscita",
+              "ko": "출력 용량",
+              "nl": "Outputcapaciteit",
+              "no": "Utgangseffekt",
+              "pl": "Moc wyjściowa",
+              "sv": "Uteffekt"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "labelDecimals": 0,
+            "label": "%"
+          },
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growatt_tls"
+          }
+        ],
+        "id": "exportcapacity"
+      },
+      {
+        "title": {
           "en": "Set Export Limit to",
           "de": "Setzte Exportbeschränkung auf",
           "sv": "Ställ in exportbegränsningen till"
@@ -2161,14 +2286,28 @@
       {
         "title": {
           "en": "Set export limit to",
+          "da": "Indstil eksportgrænse til",
+          "de": "Exportbegrenzung festlegen auf",
+          "es": "Establecer el límite de exportación en",
+          "fr": "Définir la limite d’exportation à",
+          "it": "Impostare il limite di esportazione su",
+          "ko": "수출 제한 설정:",
           "nl": "Stel de exportlimiet in op",
-          "de": "Setze Exportbeschränkung auf",
+          "no": "Angi eksportgrense til",
+          "pl": "Ustaw limit eksportu na",
           "sv": "Ställ in exportbegränsningen till"
         },
         "titleFormatted": {
           "en": "Set export limit to [[mode]]",
+          "da": "Indstil eksportgrænse til [[mode]]",
+          "de": "Exportbegrenzung auf [[mode]] festlegen",
+          "es": "Establecer el límite de exportación en [[mode]]",
+          "fr": "Définir la limite d’exportation à [[mode]]",
+          "it": "Impostare il limite di esportazione su [[mode]]",
+          "ko": "수출 제한을 [[mode]]로 설정",
           "nl": "Stel de exportlimiet in op [[mode]]",
-          "de": "Setze Exportbeschränkung auf [[mode]]",
+          "no": "Angi eksportgrense til [[mode]]",
+          "pl": "Ustaw limit eksportu na [[mode]]",
           "sv": "Ställ in exportbegränsningen till [[mode]]"
         },
         "args": [
@@ -2180,8 +2319,15 @@
                 "id": "0",
                 "title": {
                   "en": "Disabled",
-                  "nl": "Uit",
+                  "da": "Deaktiveret",
                   "de": "Deaktiviert",
+                  "es": "Desactivado",
+                  "fr": "Désactivé",
+                  "it": "Disattivato",
+                  "ko": "비활성화됨",
+                  "nl": "Uit",
+                  "no": "Deaktivert",
+                  "pl": "Wyłączone",
                   "sv": "Inaktiverad"
                 }
               },
@@ -2189,8 +2335,15 @@
                 "id": "1",
                 "title": {
                   "en": "Enabled",
-                  "nl": "Aan",
+                  "da": "Aktiveret",
                   "de": "Aktiviert",
+                  "es": "Activado",
+                  "fr": "Activé",
+                  "it": "Attivato",
+                  "ko": "활성화됨",
+                  "nl": "Aan",
+                  "no": "Aktivert",
+                  "pl": "Włączone",
                   "sv": "Aktiverad"
                 }
               }
@@ -2206,15 +2359,29 @@
       },
       {
         "title": {
-          "en": "Set Export limit to",
+          "en": "Set export limit to",
+          "da": "Indstil eksportgrænse til",
+          "de": "Exportbegrenzung festlegen auf",
+          "es": "Establecer el límite de exportación en",
+          "fr": "Définir la limite d’exportation à",
+          "it": "Impostare il limite di esportazione su",
+          "ko": "수출 제한 설정:",
           "nl": "Stel de exportlimiet in op",
-          "de": "Setze Exportbeschränkung auf",
+          "no": "Angi eksportgrense til",
+          "pl": "Ustaw limit eksportu na",
           "sv": "Ställ in exportbegränsning till"
         },
         "titleFormatted": {
-          "en": "Set Export limit to [[percentage]]",
+          "en": "Set export limit to [[percentage]]",
+          "da": "Indstil eksportgrænse til [[percentage]]",
+          "de": "Exportbegrenzung auf [[percentage]] festlegen",
+          "es": "Establecer el límite de exportación en [[percentage]]",
+          "fr": "Définir la limite d’exportation à [[percentage]]",
+          "it": "Impostare il limite di esportazione su [[percentage]]",
+          "ko": "수출 제한을 [[percentage]]로 설정",
           "nl": "Stel de exportlimiet in op [[percentage]]",
-          "de": "Setze Exportbeschränkung auf [[percentage]]",
+          "no": "Angi eksportgrense til [[percentage]]",
+          "pl": "Ustaw limit eksportu na [[percentage]]",
           "sv": "Ställ in exportbegränsning till [[percentage]]"
         },
         "args": [
@@ -2222,10 +2389,17 @@
             "type": "range",
             "name": "percentage",
             "title": {
-              "en": "Export Limit(%)",
-              "nl": "Exportlimiet(%)",
-              "de": "Exportbeschränkung(%)",
-              "sv": "Exportbegränsning(%)"
+              "en": "Export limit (%)",
+              "da": "Eksportgrænse (%)",
+              "de": "Exportbegrenzung (%)",
+              "es": "Límite de exportación (%)",
+              "fr": "Limite d’exportation (%)",
+              "it": "Limite di esportazione (%)",
+              "ko": "수출 제한 (%)",
+              "nl": "Exportlimiet (%)",
+              "no": "Eksportgrense (%)",
+              "pl": "Limit eksportu (%)",
+              "sv": "Exportbegränsning (%)"
             },
             "min": 0,
             "max": 100,
@@ -5241,31 +5415,26 @@
         "de": "Growatt TL3-S Wechselrichter"
       },
       "class": "solarpanel",
-      "energy": {
-        "batteries": [
-          "OTHER"
-        ]
-      },
+      "energy": {},
       "capabilities": [
-        "growatt_onoff",
         "measure_power",
         "measure_power.input",
-        "measure_power.gridoutput",
         "measure_power.pv1input",
         "measure_power.pv2input",
         "measure_current.phase1",
         "measure_current.phase2",
         "measure_current.phase3",
         "measure_temperature.invertor",
-        "meter_power",
         "meter_power.daily",
+        "meter_power",
         "meter_power.pv1TodayEnergy",
         "meter_power.pv1TotalEnergy",
         "meter_power.pv2TodayEnergy",
         "meter_power.pv2TotalEnergy",
-        "measure_voltage.meter",
         "exportlimitenabled",
-        "exportlimitpowerrate"
+        "exportlimitpowerrate",
+        "exportcapacity",
+        "growattstatus"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -5296,13 +5465,6 @@
             "de": " PV-Strang 2 Eingang"
           }
         },
-        "measure_power.gridoutput": {
-          "decimals": 0,
-          "title": {
-            "en": "Grid output",
-            "de": "Netzexport"
-          }
-        },
         "measure_current.phase1": {
           "title": {
             "en": "AC Current phase1",
@@ -5329,30 +5491,6 @@
           },
           "decimals": 2
         },
-        "meter_power": {
-          "title": {
-            "en": "Total Yield",
-            "nl": "Totale opbrengst",
-            "de": "Gesamtertrag"
-          },
-          "decimals": 1
-        },
-        "meter_power.pv1TotalEnergy": {
-          "title": {
-            "en": "Total PV1 Yield",
-            "nl": "Totale PV1 opbrengst",
-            "de": "Gesamtertrag PV-Strang 1"
-          },
-          "decimals": 1
-        },
-        "meter_power.pv2TotalEnergy": {
-          "title": {
-            "en": "Total PV2 Yield",
-            "nl": "Totale PV2 opbrengst",
-            "de": "Gesamtertrag PV-Strang 2"
-          },
-          "decimals": 1
-        },
         "meter_power.daily": {
           "title": {
             "en": "Total Day Yield",
@@ -5361,6 +5499,14 @@
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
+        },
+        "meter_power": {
+          "title": {
+            "en": "Total Yield",
+            "nl": "Totale opbrengst",
+            "de": "Gesamtertrag"
+          },
+          "decimals": 1
         },
         "meter_power.pv1TodayEnergy": {
           "title": {
@@ -5371,6 +5517,14 @@
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
         },
+        "meter_power.pv1TotalEnergy": {
+          "title": {
+            "en": "Total PV1 Yield",
+            "nl": "Totale PV1 opbrengst",
+            "de": "Gesamtertrag PV-Strang 1"
+          },
+          "decimals": 1
+        },
         "meter_power.pv2TodayEnergy": {
           "title": {
             "en": "Total PV2 Day Yield",
@@ -5380,11 +5534,13 @@
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
         },
-        "measure_voltage.meter": {
+        "meter_power.pv2TotalEnergy": {
           "title": {
-            "en": "Meter AC Voltage",
-            "de": "Zähler AC-Spannung"
-          }
+            "en": "Total PV2 Yield",
+            "nl": "Totale PV2 opbrengst",
+            "de": "Gesamtertrag PV-Strang 2"
+          },
+          "decimals": 1
         }
       },
       "platforms": [
@@ -5417,6 +5573,9 @@
               "label": {
                 "en": "IP Address",
                 "de": "IP-Adresse"
+              },
+              "hint": {
+                "en": "Please enter IP address of your modbus device."
               }
             },
             {
@@ -5427,6 +5586,9 @@
               "label": {
                 "en": "Port",
                 "de": "Port"
+              },
+              "hint": {
+                "en": "Please enter portnumber to connect to your modbus device."
               }
             },
             {
@@ -5436,6 +5598,9 @@
               "step": 1,
               "label": {
                 "en": "Max peak power in W"
+              },
+              "hint": {
+                "en": "Please enter the maximum capacity of your inverter. Setting this value will filter unrealistic peak values which can occur in modbus communication."
               }
             },
             {
@@ -5451,6 +5616,29 @@
                 "en": "Inverter ID",
                 "nl": "Inverter ID",
                 "de": "Wechselrichter-ID"
+              },
+              "hint": {
+                "en": "Please enter inverter ID. When using 1 inverter it is most likely the default value of 1. When using multiple inverters, a unique ID must be configured in each inverter."
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Smart Meter",
+            "de": "Smart Meter"
+          },
+          "children": [
+            {
+              "id": "smartMeter",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Modbus Smart Meter connected."
+              },
+              "hint": {
+                "en": "Enabling this setting will enable the flow card to enable or disable the limiting of exporting energie to the grid.\n\nImportant: do NOT enable this setting when there is no Modbus Smart Meter connected to the Modbus input of your inverter(s)!"
               }
             }
           ]
@@ -10565,6 +10753,35 @@
         }
       ]
     },
+    "exportcapacity": {
+      "type": "number",
+      "title": {
+        "en": "Export capacity %",
+        "da": "Eksportkapacitet %",
+        "de": "Exportkapazität %",
+        "es": "Capacidad de exportación %",
+        "fr": "Capacité d’exportation %",
+        "it": "Capacità di esportazione %",
+        "ko": "수출 용량 %",
+        "nl": "Exportcapaciteit %",
+        "no": "Eksportkapasitet %",
+        "pl": "Pojemność eksportu %",
+        "sv": "Exportkapacitet %"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": true,
+      "insights": true,
+      "icon": "/assets/limit.svg",
+      "units": {
+        "en": "%"
+      },
+      "decimals": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
     "exportcontrollimitmode": {
       "type": "enum",
       "title": {
@@ -10769,6 +10986,37 @@
       },
       "getable": true,
       "setable": true,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "icon": "/assets/onoff.svg",
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off",
+            "de": "Aus",
+            "nl": "Uit"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "On",
+            "de": "An",
+            "nl": "Aan"
+          }
+        }
+      ]
+    },
+    "growattstatus": {
+      "type": "enum",
+      "title": {
+        "en": "Inverter State",
+        "de": "Wechselrichterstatus",
+        "nl": "Omvormerstatus"
+      },
+      "getable": true,
+      "setable": false,
       "uiComponent": "sensor",
       "uiQuickAction": false,
       "icon": "/assets/onoff.svg",

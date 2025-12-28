@@ -124,5 +124,8 @@
   },
   "3.0.223": {
     "en": "growat sph battery & sungrow, solax ultra, sigenergy, sungrow battery, huawei emma changes, batt (dis)charge triggers"
+  },
+  "3.0.224": {
+    "en": "Updated Growatt TL3-S series driver, removed not supported capabilities, added capability and flow card to set export capacity. Added correct images and icon."
   }
 }

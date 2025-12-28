@@ -2,8 +2,15 @@
   "highlight": true,
   "title": {
     "en": "The solar power changed",
-    "nl": "Het solar vermogen is veranderd",
+    "da": "Solcelleeffekten er ændret",
     "de": "Solarleistung hat sich geändert",
+    "es": "La potencia solar ha cambiado",
+    "fr": "La puissance solaire a changé",
+    "it": "La potenza solare è cambiata",
+    "ko": "태양광 출력이 변경됨",
+    "nl": "Het zonnevermogen is veranderd",
+    "no": "Solcelleeffekten er endret",
+    "pl": "Moc instalacji solarnej uległa zmianie",
     "sv": "Soleffekten har ändrats"
   },
   "tokens": [
@@ -11,8 +18,15 @@
       "name": "measure_power",
       "title": {
         "en": "Power",
-        "nl": "Vermogen",
+        "da": "Effekt",
         "de": "Leistung",
+        "es": "Potencia",
+        "fr": "Puissance",
+        "it": "Potenza",
+        "ko": "전력",
+        "nl": "Vermogen",
+        "no": "Effekt",
+        "pl": "Moc",
         "sv": "Effekt"
       },
       "type": "number",

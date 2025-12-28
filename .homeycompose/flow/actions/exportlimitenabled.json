@@ -1,14 +1,28 @@
 {
   "title": {
     "en": "Set export limit to",
+    "da": "Indstil eksportgrænse til",
+    "de": "Exportbegrenzung festlegen auf",
+    "es": "Establecer el límite de exportación en",
+    "fr": "Définir la limite d’exportation à",
+    "it": "Impostare il limite di esportazione su",
+    "ko": "수출 제한 설정:",
     "nl": "Stel de exportlimiet in op",
-    "de": "Setze Exportbeschränkung auf",
+    "no": "Angi eksportgrense til",
+    "pl": "Ustaw limit eksportu na",
     "sv": "Ställ in exportbegränsningen till"
   },
   "titleFormatted": {
     "en": "Set export limit to [[mode]]",
+    "da": "Indstil eksportgrænse til [[mode]]",
+    "de": "Exportbegrenzung auf [[mode]] festlegen",
+    "es": "Establecer el límite de exportación en [[mode]]",
+    "fr": "Définir la limite d’exportation à [[mode]]",
+    "it": "Impostare il limite di esportazione su [[mode]]",
+    "ko": "수출 제한을 [[mode]]로 설정",
     "nl": "Stel de exportlimiet in op [[mode]]",
-    "de": "Setze Exportbeschränkung auf [[mode]]",
+    "no": "Angi eksportgrense til [[mode]]",
+    "pl": "Ustaw limit eksportu na [[mode]]",
     "sv": "Ställ in exportbegränsningen till [[mode]]"
   },
   "args": [
@@ -20,8 +34,15 @@
           "id": "0",
           "title": {
             "en": "Disabled",
-            "nl": "Uit",
+            "da": "Deaktiveret",
             "de": "Deaktiviert",
+            "es": "Desactivado",
+            "fr": "Désactivé",
+            "it": "Disattivato",
+            "ko": "비활성화됨",
+            "nl": "Uit",
+            "no": "Deaktivert",
+            "pl": "Wyłączone",
             "sv": "Inaktiverad"
           }
         },
@@ -29,8 +50,15 @@
           "id": "1",
           "title": {
             "en": "Enabled",
-            "nl": "Aan",
+            "da": "Aktiveret",
             "de": "Aktiviert",
+            "es": "Activado",
+            "fr": "Activé",
+            "it": "Attivato",
+            "ko": "활성화됨",
+            "nl": "Aan",
+            "no": "Aktivert",
+            "pl": "Włączone",
             "sv": "Aktiverad"
           }
         }

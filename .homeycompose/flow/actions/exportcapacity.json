@@ -1,0 +1,57 @@
+{
+  "title": {
+    "en": "Set inverter output capacity",
+    "da": "Indstil inverterens udgangskapacitet",
+    "de": "Wechselrichter-Ausgangsleistung festlegen",
+    "es": "Establecer la capacidad de salida del inversor",
+    "fr": "Définir la capacité de sortie de l’onduleur",
+    "it": "Impostare la capacità di uscita dell’inverter",
+    "ko": "인버터 출력 용량 설정",
+    "nl": "Stel omvormeroutputcapaciteit in",
+    "no": "Angi inverterens utgangseffekt",
+    "pl": "Ustaw moc wyjściową falownika",
+    "sv": "Ställ in växelriktarens uteffekt"
+  },
+  "titleFormatted": {
+    "en": "Set inverter output capacity [[percentage]]",
+    "da": "Indstil inverterens udgangskapacitet til [[percentage]]",
+    "de": "Wechselrichter-Ausgangsleistung på [[percentage]] fastlegen",
+    "es": "Establecer la capacidad de salida del inversor en [[percentage]]",
+    "fr": "Définir la capacité de sortie de l’onduleur à [[percentage]]",
+    "it": "Impostare la capacità di uscita dell’inverter su [[percentage]]",
+    "ko": "인버터 출력 용량을 [[percentage]]로 설정",
+    "nl": "Stel omvormeroutputcapaciteit in op [[percentage]]",
+    "no": "Angi inverterens utgangseffekt til [[percentage]]",
+    "pl": "Ustaw moc wyjściową falownika na [[percentage]]",
+    "sv": "Ställ in växelriktarens uteffekt till [[percentage]]"
+  },
+  "args": [
+    {
+      "type": "range",
+      "name": "percentage",
+      "title": {
+        "en": "Output capacity",
+        "da": "Udgangskapacitet",
+        "de": "Ausgangsleistung",
+        "es": "Capacidad de salida",
+        "fr": "Capacité de sortie",
+        "it": "Capacità di uscita",
+        "ko": "출력 용량",
+        "nl": "Outputcapaciteit",
+        "no": "Utgangseffekt",
+        "pl": "Moc wyjściowa",
+        "sv": "Uteffekt"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "labelDecimals": 0,
+      "label": "%"
+    },
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=growatt_tls"
+    }
+  ]
+}

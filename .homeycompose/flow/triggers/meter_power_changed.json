@@ -1,17 +1,31 @@
 {
   "title": {
-    "en": "Total Yield changed",
-    "nl": "Totale opbrengst is veranderd",
+    "en": "Total yield changed",
+    "da": "Samlet produktion er ændret",
     "de": "Gesamtertrag hat sich geändert",
-    "sv": "Totala produktionen har ändrats"
+    "es": "La producción total ha cambiado",
+    "fr": "La production totale a changé",
+    "it": "La produzione totale è cambiata",
+    "ko": "총 발전량이 변경됨",
+    "nl": "Totale opbrengst is veranderd",
+    "no": "Total produksjon er endret",
+    "pl": "Całkowita produkcja uległa zmianie",
+    "sv": "Total produktion har ändrats"
   },
   "tokens": [
     {
       "name": "meter_power",
       "title": {
         "en": "Energy",
-        "nl": "Energie",
+        "da": "Energi",
         "de": "Energie",
+        "es": "Energía",
+        "fr": "Énergie",
+        "it": "Energia",
+        "ko": "에너지",
+        "nl": "Energie",
+        "no": "Energi",
+        "pl": "Energia",
         "sv": "Energi"
       },
       "type": "number",
