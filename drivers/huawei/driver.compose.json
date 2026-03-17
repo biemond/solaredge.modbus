@@ -4,9 +4,6 @@
     "de": "Huawei Wechselrichter"
   },
   "class": "solarpanel",
-  "energy": {
-    "batteries": ["OTHER"]
-  },
   "capabilities": [
     "measure_power",
     "measure_power.active_power",

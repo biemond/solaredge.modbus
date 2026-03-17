@@ -1,4 +1,8 @@
 {
+  "3.0.225": {
+    "en": "Add Huawei LUNA2000 Battery driver (class: battery, homeBattery: true) so the battery appears correctly in Homey's Energy tab (fixes #134)",
+    "de": "Huawei LUNA2000 Batterie-Treiber hinzugefügt (class: battery, homeBattery: true), damit die Batterie korrekt im Homey Energie-Tab angezeigt wird (behebt #134)"
+  },
   "2.1.19": {
     "en": "Small fixes"
   },
