@@ -127,5 +127,8 @@
   },
   "3.0.224": {
     "en": "Updated Growatt TL3-S series driver, removed not supported capabilities, added capability and flow card to set export capacity. Added correct images and icon."
+  },
+  "3.0.225": {
+    "en": "Updated Growatt TL3-S with Battery series driver"
   }
 }

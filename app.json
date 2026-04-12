@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.224",
+  "version": "3.0.225",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -6334,6 +6334,359 @@
         }
       ],
       "id": "growattwithbatt_tl"
+    },
+    {
+      "name": {
+        "en": "Growatt TL3-S Inverter + Battery",
+        "de": "Growatt TL3-S Wechselrichter mit Batterie"
+      },
+      "class": "solarpanel",
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "capabilities": [
+        "measure_power",
+        "measure_power.input",
+        "measure_power.pv1input",
+        "measure_power.pv2input",
+        "measure_current.phase1",
+        "measure_current.phase2",
+        "measure_current.phase3",
+        "measure_temperature.invertor",
+        "measure_temperature.battery",
+        "meter_power.daily",
+        "meter_power",
+        "meter_power.pv1TodayEnergy",
+        "meter_power.pv1TotalEnergy",
+        "meter_power.pv2TodayEnergy",
+        "meter_power.pv2TotalEnergy",
+        "exportlimitenabled",
+        "exportlimitpowerrate",
+        "exportcapacity",
+        "growattstatus",
+        "battery",
+        "measure_battery",
+        "batterysoh",
+        "measure_power.batt_charge",
+        "measure_power.batt_discharge",
+        "batterystatus",
+        "batterycycles",
+        "measure_voltage.meter",
+        "measure_voltage.battery",
+        "priority",
+        "measure_power.houseload",
+        "meter_power.today_grid_import",
+        "meter_power.today_grid_export",
+        "meter_power.today_batt_output",
+        "meter_power.today_batt_input",
+        "meter_power.today_load"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "decimals": 0,
+          "title": {
+            "en": "Solar Power",
+            "de": "Solarleistung"
+          }
+        },
+        "measure_power.input": {
+          "decimals": 0,
+          "title": {
+            "en": "Solar input",
+            "de": "Solarer Eingang"
+          }
+        },
+        "measure_power.pv1input": {
+          "decimals": 0,
+          "title": {
+            "en": "PV1 input",
+            "de": "PV-Strang 1 Eingang"
+          }
+        },
+        "measure_power.pv2input": {
+          "decimals": 0,
+          "title": {
+            "en": "PV2 input",
+            "de": " PV-Strang 2 Eingang"
+          }
+        },
+        "measure_current.phase1": {
+          "title": {
+            "en": "AC Current phase1",
+            "de": "AC-Strom Phase 1"
+          }
+        },
+        "measure_current.phase2": {
+          "title": {
+            "en": "AC Current phase2",
+            "de": "AC-Strom Phase 2"
+          }
+        },
+        "measure_current.phase3": {
+          "title": {
+            "en": "AC Current phase3",
+            "de": "AC-Strom Phase 3"
+          }
+        },
+        "measure_temperature.invertor": {
+          "title": {
+            "en": "Heatsink temperature",
+            "nl": "Heatsink temperatuur",
+            "de": "Kühlkörpertemperatur"
+          },
+          "decimals": 2
+        },
+        "meter_power.daily": {
+          "title": {
+            "en": "Total Day Yield",
+            "nl": "Totale dag opbrengst",
+            "de": "Tagesgesamtertrag"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power": {
+          "title": {
+            "en": "Total Yield",
+            "nl": "Totale opbrengst",
+            "de": "Gesamtertrag"
+          },
+          "decimals": 1
+        },
+        "meter_power.pv1TodayEnergy": {
+          "title": {
+            "en": "Total PV1 Day Yield",
+            "nl": "Totale PV1 dag opbrengst",
+            "de": "Tagesgesamtertrag PV-Strang 1"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.pv1TotalEnergy": {
+          "title": {
+            "en": "Total PV1 Yield",
+            "nl": "Totale PV1 opbrengst",
+            "de": "Gesamtertrag PV-Strang 1"
+          },
+          "decimals": 1
+        },
+        "meter_power.pv2TodayEnergy": {
+          "title": {
+            "en": "Total PV2 Day Yield",
+            "nl": "Totale PV2 dag opbrengst",
+            "de": "Tagesgesamtertrag PV-Strang 2"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.pv2TotalEnergy": {
+          "title": {
+            "en": "Total PV2 Yield",
+            "nl": "Totale PV2 opbrengst",
+            "de": "Gesamtertrag PV-Strang 2"
+          },
+          "decimals": 1
+        },
+        "measure_temperature.battery": {
+          "title": {
+            "en": "Battery temperature",
+            "de": "Batterietemperatur"
+          },
+          "decimals": 2
+        },
+        "measure_power.batt_discharge": {
+          "decimals": 0,
+          "title": {
+            "en": "Battery Power discharge",
+            "de": "Batterieentladeleistung"
+          }
+        },
+        "measure_power.batt_charge": {
+          "decimals": 0,
+          "title": {
+            "en": "Battery Power charge",
+            "de": "Batterieladeleistung"
+          }
+        },
+        "measure_power.houseload": {
+          "decimals": 1,
+          "title": {
+            "en": "House load",
+            "de": "Hauslast"
+          }
+        },
+        "measure_voltage.meter": {
+          "title": {
+            "en": "Meter AC Voltage",
+            "de": "Zähler AC-Spannung"
+          }
+        },
+        "measure_voltage.battery": {
+          "title": {
+            "en": "Battery Voltage",
+            "de": "Batteriespannung"
+          }
+        },
+        "meter_power.today_grid_import": {
+          "title": {
+            "en": "Grid Import Day Yield",
+            "de": "Netztagesimport"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.today_grid_export": {
+          "title": {
+            "en": "Grid Export Day Yield",
+            "de": "Netztagesexport"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.today_batt_output": {
+          "title": {
+            "en": "Battery Output Day Yield",
+            "de": "Tagesgesamtentladung der Batterie"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.today_batt_input": {
+          "title": {
+            "en": "Battery Input Day Yield",
+            "de": "Tagesgesamtladung der Batterie"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        },
+        "meter_power.today_load": {
+          "title": {
+            "en": "Load Day Yield",
+            "de": "Tagesgesamtverbrauch"
+          },
+          "units": {
+            "en": "kWh"
+          },
+          "decimals": 1,
+          "icon": "/assets/total_yield.svg"
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "small": "/drivers/growattwithbatt_tls/assets/images/small.png",
+        "large": "/drivers/growattwithbatt_tls/assets/images/large.png"
+      },
+      "pair": [
+        {
+          "id": "start"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Inverter settings",
+            "de": "Wechselrichtereinstellungen"
+          },
+          "children": [
+            {
+              "id": "address",
+              "type": "text",
+              "value": "0.0.0.0",
+              "label": {
+                "en": "IP Address",
+                "de": "IP-Adresse"
+              },
+              "hint": {
+                "en": "Please enter IP address of your modbus device."
+              }
+            },
+            {
+              "id": "port",
+              "type": "number",
+              "value": 1502,
+              "step": 1,
+              "label": {
+                "en": "Port",
+                "de": "Port"
+              },
+              "hint": {
+                "en": "Please enter portnumber to connect to your modbus device."
+              }
+            },
+            {
+              "id": "maxpeakpower",
+              "type": "number",
+              "value": 0,
+              "step": 1,
+              "label": {
+                "en": "Max peak power in W"
+              },
+              "hint": {
+                "en": "Please enter the maximum capacity of your inverter. Setting this value will filter unrealistic peak values which can occur in modbus communication."
+              }
+            },
+            {
+              "id": "id",
+              "type": "number",
+              "value": 1,
+              "step": 1,
+              "attr": {
+                "min": 0,
+                "max": 50
+              },
+              "label": {
+                "en": "Inverter ID",
+                "nl": "Inverter ID",
+                "de": "Wechselrichter-ID"
+              },
+              "hint": {
+                "en": "Please enter inverter ID. When using 1 inverter it is most likely the default value of 1. When using multiple inverters, a unique ID must be configured in each inverter."
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Smart Meter",
+            "de": "Smart Meter"
+          },
+          "children": [
+            {
+              "id": "smartMeter",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Modbus Smart Meter connected."
+              },
+              "hint": {
+                "en": "Enabling this setting will enable the flow card to enable or disable the limiting of exporting energie to the grid.\n\nImportant: do NOT enable this setting when there is no Modbus Smart Meter connected to the Modbus input of your inverter(s)!"
+              }
+            }
+          ]
+        }
+      ],
+      "id": "growattwithbatt_tls"
     },
     {
       "name": {

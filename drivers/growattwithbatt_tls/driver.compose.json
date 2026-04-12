@@ -1,7 +1,7 @@
 {
   "name": {
-    "en": "Growatt TL-X + Battery",
-    "de": "Growatt TL-X mit Batterie"
+    "en": "Growatt TL3-S Inverter + Battery",
+    "de": "Growatt TL3-S Wechselrichter mit Batterie"
   },
   "class": "solarpanel",
   "energy": {
@@ -10,10 +10,8 @@
     ]
   },
   "capabilities": [
-    "growatt_onoff",
     "measure_power",
     "measure_power.input",
-    "measure_power.gridoutput",
     "measure_power.pv1input",
     "measure_power.pv2input",
     "measure_current.phase1",
@@ -21,12 +19,16 @@
     "measure_current.phase3",
     "measure_temperature.invertor",
     "measure_temperature.battery",
-    "meter_power",
     "meter_power.daily",
+    "meter_power",
     "meter_power.pv1TodayEnergy",
     "meter_power.pv1TotalEnergy",
     "meter_power.pv2TodayEnergy",
     "meter_power.pv2TotalEnergy",
+    "exportlimitenabled",
+    "exportlimitpowerrate",
+    "exportcapacity",
+    "growattstatus",
     "battery",
     "measure_battery",
     "batterysoh",
@@ -36,29 +38,20 @@
     "batterycycles",
     "measure_voltage.meter",
     "measure_voltage.battery",
-    "exportlimitenabled",
-    "exportlimitpowerrate",
     "priority",
     "measure_power.houseload",
     "meter_power.today_grid_import",
     "meter_power.today_grid_export",
     "meter_power.today_batt_output",
     "meter_power.today_batt_input",
-    "meter_power.today_load",
-    "batterymaxsoc",
-    "batteryminsoc",
-    "period1",
-    "period2",
-    "period3",
-    "period4",
-    "battacchargeswitch"
+    "meter_power.today_load"
   ],
   "capabilitiesOptions": {
     "measure_power": {
       "decimals": 0,
       "title": {
-        "en": "Solar/Batt Power",
-        "de": "Solar- und Batterie-Leistung"
+        "en": "Solar Power",
+        "de": "Solarleistung"
       }
     },
     "measure_power.input": {
@@ -79,14 +72,7 @@
       "decimals": 0,
       "title": {
         "en": "PV2 input",
-        "de": "PV-Strang 2 Eingang"
-      }
-    },
-    "measure_power.gridoutput": {
-      "decimals": 0,
-      "title": {
-        "en": "Grid output",
-        "de": "Netzexport"
+        "de": " PV-Strang 2 Eingang"
       }
     },
     "measure_current.phase1": {
@@ -115,37 +101,6 @@
       },
       "decimals": 2
     },
-    "measure_temperature.battery": {
-      "title": {
-        "en": "Battery temperature",
-        "de": "Batterietemperatur"
-      },
-      "decimals": 2
-    },
-    "meter_power": {
-      "title": {
-        "en": "Total Yield",
-        "nl": "Totale opbrengst",
-        "de": "Gesamtertrag"
-      },
-      "decimals": 1
-    },
-    "meter_power.pv1TotalEnergy": {
-      "title": {
-        "en": "Total PV1 Yield",
-        "nl": "Totale PV1 opbrengst",
-        "de": "Gesamtertrag PV-Strang 1"
-      },
-      "decimals": 1
-    },
-    "meter_power.pv2TotalEnergy": {
-      "title": {
-        "en": "Total PV2 Yield",
-        "nl": "Totale PV2 opbrengst",
-        "de": "Gesamtertrag PV-Strang 2"
-      },
-      "decimals": 1
-    },
     "meter_power.daily": {
       "title": {
         "en": "Total Day Yield",
@@ -154,6 +109,14 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
+    },
+    "meter_power": {
+      "title": {
+        "en": "Total Yield",
+        "nl": "Totale opbrengst",
+        "de": "Gesamtertrag"
+      },
+      "decimals": 1
     },
     "meter_power.pv1TodayEnergy": {
       "title": {
@@ -164,6 +127,14 @@
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
     },
+    "meter_power.pv1TotalEnergy": {
+      "title": {
+        "en": "Total PV1 Yield",
+        "nl": "Totale PV1 opbrengst",
+        "de": "Gesamtertrag PV-Strang 1"
+      },
+      "decimals": 1
+    },
     "meter_power.pv2TodayEnergy": {
       "title": {
         "en": "Total PV2 Day Yield",
@@ -172,6 +143,21 @@
       },
       "decimals": 1,
       "icon": "/assets/total_yield.svg"
+    },
+    "meter_power.pv2TotalEnergy": {
+      "title": {
+        "en": "Total PV2 Yield",
+        "nl": "Totale PV2 opbrengst",
+        "de": "Gesamtertrag PV-Strang 2"
+      },
+      "decimals": 1
+    },
+    "measure_temperature.battery": {
+      "title": {
+        "en": "Battery temperature",
+        "de": "Batterietemperatur"
+      },
+      "decimals": 2
     },
     "measure_power.batt_discharge": {
       "decimals": 0,
@@ -292,6 +278,9 @@
           "label": {
             "en": "IP Address",
             "de": "IP-Adresse"
+          },
+          "hint": {
+            "en": "Please enter IP address of your modbus device."
           }
         },
         {
@@ -302,6 +291,9 @@
           "label": {
             "en": "Port",
             "de": "Port"
+          },
+          "hint": {
+            "en": "Please enter portnumber to connect to your modbus device."
           }
         },
         {
@@ -311,6 +303,9 @@
           "step": 1,
           "label": {
             "en": "Max peak power in W"
+          },
+          "hint": {
+            "en": "Please enter the maximum capacity of your inverter. Setting this value will filter unrealistic peak values which can occur in modbus communication."
           }
         },
         {
@@ -326,6 +321,29 @@
             "en": "Inverter ID",
             "nl": "Inverter ID",
             "de": "Wechselrichter-ID"
+          },
+          "hint": {
+            "en": "Please enter inverter ID. When using 1 inverter it is most likely the default value of 1. When using multiple inverters, a unique ID must be configured in each inverter."
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Smart Meter",
+        "de": "Smart Meter"
+      },
+      "children": [
+        {
+          "id": "smartMeter",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Modbus Smart Meter connected."
+          },
+          "hint": {
+            "en": "Enabling this setting will enable the flow card to enable or disable the limiting of exporting energie to the grid.\n\nImportant: do NOT enable this setting when there is no Modbus Smart Meter connected to the Modbus input of your inverter(s)!"
           }
         }
       ]
