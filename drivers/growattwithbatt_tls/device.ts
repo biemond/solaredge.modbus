@@ -290,7 +290,7 @@ class MyGrowattBattTL3sDevice extends Growatt {
         this.log('Connected ...');
         this.log(modbusOptions);
 
-        const checkRegisterRes = await checkRegisterGrowatt(this.registersTLS, client);
+        const checkRegisterRes = await checkRegisterGrowatt(this.registersTLSbatt, client);
         const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegistersTLS, client);
         this.log('disconnect');
         client.socket.end();

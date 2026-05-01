@@ -6,6 +6,39 @@ class MyGrowattTL3sDriver extends Homey.Driver {
    */
   async onInit() {
     this.log('MyGrowattTL3sDriver has been initialized');
+    
+    const limitCondition = this.homey.flow.getConditionCard('exportLimit');
+    limitCondition.registerRunListener(async (args, state) => {
+      const result = Number(await args.device.getCapabilityValue('exportlimitenabled')) === Number(args.exportlimit);
+      return result;
+    });
+
+    const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
+    exportEnabledAction.registerRunListener(async (args, state) => {
+      const smartmeter = args.device.getSetting('smartMeter');
+      if (!smartmeter) {
+        throw new Error(
+          'No Modbus Smart Meter is configured.\n\nYou can enable it in the devices Advanced Settings.\nImportant: Do NOT enable the seting when no Modbus Smart Meter is connected.'
+        );
+      }
+      await args.device.updateControl('exportlimitenabled', Number(args.mode));
+    });
+
+    const exportlimitpowerrateAction = this.homey.flow.getActionCard('exportlimitpowerrate');
+    exportlimitpowerrateAction.registerRunListener(async (args, state) => {
+      const smartmeter = args.device.getSetting('smartMeter');
+      if (!smartmeter) {
+        throw new Error(
+          'No Modbus Smart Meter is configured.\n\nYou can enable it in the devices Advanced Settings.\nImportant: Do NOT enable the seting when no Modbus Smart Meter is connected.'
+        );
+      }
+      await args.device.updateControl('exportlimitpowerrate', args.percentage);
+    });
+
+    const exportcapacityAction = this.homey.flow.getActionCard('exportcapacity');
+    exportcapacityAction.registerRunListener(async (args, state) => {
+      await args.device.updateControl('exportcapacity', args.percentage);
+    });
   }
 
   /**

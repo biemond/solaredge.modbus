@@ -20,28 +20,12 @@ class MyGrowattTL3sDevice extends Growatt {
     this.log(`device name id ${name}`);
     this.log(`device name ${this.getName()}`);
 
-    // on/off state condition
-    /* Flowcard not available for this device
-    const onoffCondition = this.homey.flow.getConditionCard('on_off');
-    onoffCondition.registerRunListener(async (args, state) => {
-      const result = Number(await args.device.getCapabilityValue('growatt_onoff')) === Number(args.inverterstate);
-      return Promise.resolve(result);
-    });
-    */
-
-    const limitCondition = this.homey.flow.getConditionCard('exportLimit');
+    /*
+   const limitCondition = this.homey.flow.getConditionCard('exportLimit');
     limitCondition.registerRunListener(async (args, state) => {
       const result = Number(await args.device.getCapabilityValue('exportlimitenabled')) === Number(args.exportlimit);
       return result;
     });
-
-    // flow action
-    /* Flowcard not available for this device
-    const onoffAction = this.homey.flow.getActionCard('on_off');
-    onoffAction.registerRunListener(async (args, state) => {
-      await this.updateControl('growatt_onoff', Number(args.mode));
-    });
-    */
 
     const exportEnabledAction = this.homey.flow.getActionCard('exportlimitenabled');
     exportEnabledAction.registerRunListener(async (args, state) => {
@@ -51,7 +35,7 @@ class MyGrowattTL3sDevice extends Growatt {
             'No Modbus Smart Meter is configured.\n\nYou can enable it in the devices Advanced Settings.\nImportant: Do NOT enable the seting when no Modbus Smart Meter is connected.'
           );
         }
-      //await this.updateControl('exportlimitenabled', Number(args.mode));
+      await this.updateControl('exportlimitenabled', Number(args.mode));
     });
 
     const exportlimitpowerrateAction = this.homey.flow.getActionCard('exportlimitpowerrate');
@@ -62,14 +46,14 @@ class MyGrowattTL3sDevice extends Growatt {
             'No Modbus Smart Meter is configured.\n\nYou can enable it in the devices Advanced Settings.\nImportant: Do NOT enable the seting when no Modbus Smart Meter is connected.'
           );
         }          
-      //await this.updateControl('exportlimitpowerrate', args.percentage);
+      await this.updateControl('exportlimitpowerrate', args.percentage);
     });
 
     const exportcapacityAction = this.homey.flow.getActionCard('exportcapacity');
     exportcapacityAction.registerRunListener(async (args, state) => {        
       await this.updateControl('exportcapacity', args.percentage);
     });
-    
+    */
 
     // remove unexpected capabilities 
     if (this.hasCapability('growatt_onoff')) {
@@ -265,8 +249,7 @@ class MyGrowattTL3sDevice extends Growatt {
   }
 
   async pollInvertor() {
-    this.log('pollInvertor');
-    this.log(this.getSetting('address'));
+    this.log('pollInvertor',this.getSetting('address'),this.getSetting('id'));
 
     const modbusOptions = {
       host: this.getSetting('address'),
@@ -296,6 +279,11 @@ class MyGrowattTL3sDevice extends Growatt {
         client.socket.end();
         socket.end();
         const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
+        if (Number(finalRes.inverterFaultBits?.value) !== 0) {
+          await this.setWarning(`Inverter fault active (code: ${finalRes.inverterFaultBits?.value})`);
+        } else {
+          await this.unsetWarning();
+        }   
         this.processResult(finalRes, this.getSetting('maxpeakpower'));
       })().catch(this.error);
     });

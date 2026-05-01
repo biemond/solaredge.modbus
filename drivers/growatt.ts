@@ -223,6 +223,51 @@ export class Growatt extends Homey.Device {
     pv2TotalEnergy: [54, 2, 'UINT32', 'pv2 Total Energy', -1],
     //pvEnergyTotal:  [56, 2, 'UINT32', 'pv Total Energy', -1], // Total Energy produced by panels
 
+  };
+
+  readonly registersTLSbatt: { [key: string]: RegisterDefinition } = {
+    l1_current: [15, 1, 'UINT16', 'L1 Current', -1],
+    l2_current: [19, 1, 'UINT16', 'L2 Current', -1],
+    l3_current: [23, 1, 'UINT16', 'L3 Current', -1],
+
+    temperature: [32, 1, 'UINT16', 'Temperature', -1],
+
+    status: [0, 1, 'UINT16', 'Status', 0],
+    inputPower: [1, 2, 'UINT32', 'Input Power', -1],
+    outputPower: [11, 2, 'UINT32', 'Output Power', -1],
+
+    pv1Voltage: [3, 1, 'UINT16', 'pv1 Voltage', -1],
+    pv1Current:  [4, 1, 'UINT16', 'pv1 Current', -1],
+    pv1InputPower: [5, 2, 'UINT32', 'pv1 Power', -1],
+    pv2Voltage: [7, 1, 'UINT16', 'pv2 Voltage', -1],
+    pv2Current:  [8, 1, 'UINT16', 'pv2 Current', -1], 
+    pv2InputPower: [9, 2, 'UINT32', 'pv2 Power', -1],
+
+    gridFrequency: [13, 1, 'UINT16', 'Grid Frequency', -2],
+
+    todayEnergy: [26, 2, 'UINT32', 'Today Energy', -1],
+    totalEnergy: [28, 2, 'UINT32', 'Total Energy', -1], // Total Energy delivered to AC
+
+    inverterFaultBits: [40, 1, 'UINT16', 'Inverter fault/status bitfield', 0],
+    //        1~23 " Error: 99+x ",
+    //        24 "Auto Test Failed",
+    //        25 "No AC Connection",
+    //        26 "PV Isolation Low",
+    //        27 " Residual I High",
+    //        28 " Output High DCI",
+    //        29 " PV Voltage High",
+    //        30 " AC V Outrange ",
+    //        31 " AC F Outrange ",
+    //        32 " Module Hot "
+
+    //WarningCode: [64, 1, 'UINT16', 'Warning Code', 0], to make
+
+    pv1TodayEnergy: [48, 2, 'UINT32', 'pv1 Today Energy', -1],
+    pv1TotalEnergy: [50, 2, 'UINT32', 'pv1 Total Energy', -1],
+    pv2TodayEnergy: [52, 2, 'UINT32', 'pv2 Today Energy', -1],
+    pv2TotalEnergy: [54, 2, 'UINT32', 'pv2 Total Energy', -1],
+    //pvEnergyTotal:  [56, 2, 'UINT32', 'pv Total Energy', -1], // Total Energy produced by panels
+
     // ipmTemperature: data[94] / 10.0, //°C
     // inverterOutputPf: data[100], //powerfactor 0-20000
     // error: [105, 1, 'UINT16', 'Error', 0],
@@ -763,7 +808,7 @@ export class Growatt extends Homey.Device {
           const transformedValue = mapping.transform?.(data, context);
           if (transformedValue === null || transformedValue === undefined) continue;
           for (const cap of mapping.capabilities) {
-            //if (!this.hasCapability(cap)) continue;   // don't add, don't set
+            if (!this.hasCapability(cap)) continue;   // don't add, don't set
             this.addCapability(cap).catch(this.error);
             this.setCapabilityValue(cap, transformedValue).catch(this.error);
           }

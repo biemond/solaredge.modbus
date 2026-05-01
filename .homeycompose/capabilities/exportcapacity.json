@@ -1,17 +1,17 @@
 {
   "type": "number",
   "title": {
-    "en": "Export capacity %",
-    "da": "Eksportkapacitet %",
-    "de": "Exportkapazität %",
-    "es": "Capacidad de exportación %",
-    "fr": "Capacité d’exportation %",
-    "it": "Capacità di esportazione %",
-    "ko": "수출 용량 %",
-    "nl": "Exportcapaciteit %",
-    "no": "Eksportkapasitet %",
-    "pl": "Pojemność eksportu %",
-    "sv": "Exportkapacitet %"
+    "en": "Output capacity %",
+    "da": "Udgangskapacitet %",
+    "de": "Ausgangskapazität %",
+    "es": "Capacidad de salida %",
+    "fr": "Capacité de sortie %",
+    "it": "Capacità di uscita %",
+    "ko": "출력 용량 %",
+    "nl": "Uitgangscapaciteit %",
+    "no": "Utgangskapasitet %",
+    "pl": "Pojemność wyjściowa %",
+    "sv": "Uteffektkapacitet %"
   },
   "getable": true,
   "setable": false,
