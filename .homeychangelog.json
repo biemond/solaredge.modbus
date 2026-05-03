@@ -130,5 +130,8 @@
   },
   "3.0.225": {
     "en": "Updated Growatt TL3-S with Battery series driver"
+  },
+  "3.0.226": {
+    "en": "Updated Growatt TLS"
   }
 }
