@@ -2050,30 +2050,30 @@
       },
       {
         "title": {
-          "en": "Set inverter output capacity",
-          "da": "Indstil inverterens udgangskapacitet",
-          "de": "Wechselrichter-Ausgangsleistung festlegen",
-          "es": "Establecer la capacidad de salida del inversor",
-          "fr": "Définir la capacité de sortie de l’onduleur",
-          "it": "Impostare la capacità di uscita dell’inverter",
-          "ko": "인버터 출력 용량 설정",
-          "nl": "Stel omvormeroutputcapaciteit in",
-          "no": "Angi inverterens utgangseffekt",
-          "pl": "Ustaw moc wyjściową falownika",
-          "sv": "Ställ in växelriktarens uteffekt"
+          "en": "Set output capacity",
+          "da": "Indstil udgangskapacitet",
+          "de": "Ausgangskapazität festlegen",
+          "es": "Establecer capacidad de salida",
+          "fr": "Définir la capacité de sortie",
+          "it": "Imposta capacità di uscita",
+          "ko": "출력 용량 설정",
+          "nl": "Stel uitgangscapaciteit in",
+          "no": "Angi utgangskapasitet",
+          "pl": "Ustaw pojemność wyjściową",
+          "sv": "Ställ in utgangskapacitet"
         },
         "titleFormatted": {
-          "en": "Set inverter output capacity [[percentage]]",
-          "da": "Indstil inverterens udgangskapacitet til [[percentage]]",
-          "de": "Wechselrichter-Ausgangsleistung på [[percentage]] fastlegen",
-          "es": "Establecer la capacidad de salida del inversor en [[percentage]]",
-          "fr": "Définir la capacité de sortie de l’onduleur à [[percentage]]",
-          "it": "Impostare la capacità di uscita dell’inverter su [[percentage]]",
-          "ko": "인버터 출력 용량을 [[percentage]]로 설정",
-          "nl": "Stel omvormeroutputcapaciteit in op [[percentage]]",
-          "no": "Angi inverterens utgangseffekt til [[percentage]]",
-          "pl": "Ustaw moc wyjściową falownika na [[percentage]]",
-          "sv": "Ställ in växelriktarens uteffekt till [[percentage]]"
+          "en": "Set the output capacity to [[percentage]]",
+          "da": "Indstil udgangskapaciteten til [[percentage]]",
+          "de": "Ausgangskapazität auf [[percentage]] festlegen",
+          "es": "Establecer la capacidad de salida en [[percentage]]",
+          "fr": "Définir la capacité de sortie à [[percentage]]",
+          "it": "Imposta la capacità di uscita su [[percentage]]",
+          "ko": "출력 용량을 [[percentage]]로 설정",
+          "nl": "Stel de uitgangscapaciteit in op [[percentage]]",
+          "no": "Angi utgangskapasiteten til [[percentage]]",
+          "pl": "Ustaw pojemność wyjściową na [[percentage]]",
+          "sv": "Ställ in utgangskapaciteten till [[percentage]]"
         },
         "args": [
           {
@@ -2082,7 +2082,7 @@
             "title": {
               "en": "Output capacity",
               "da": "Udgangskapacitet",
-              "de": "Ausgangsleistung",
+              "de": "Ausgangskapazität",
               "es": "Capacidad de salida",
               "fr": "Capacité de sortie",
               "it": "Capacità di uscita",
@@ -5412,7 +5412,16 @@
     {
       "name": {
         "en": "Growatt TL3-S Inverter",
-        "de": "Growatt TL3-S Wechselrichter"
+        "da": "Growatt TL3-S Inverter",
+        "de": "Growatt TL3-S Wechselrichter",
+        "es": "Inversor Growatt TL3-S",
+        "fr": "Onduleur Growatt TL3-S",
+        "it": "Inverter Growatt TL3-S",
+        "ko": "Growatt TL3-S 인버터",
+        "nl": "Growatt TL3-S Omvormer",
+        "no": "Growatt TL3-S Inverter",
+        "pl": "Falownik Growatt TL3-S",
+        "sv": "Growatt TL3-S Växelriktare"
       },
       "class": "solarpanel",
       "energy": {},
@@ -5441,61 +5450,140 @@
           "decimals": 0,
           "title": {
             "en": "Solar Power",
-            "de": "Solarleistung"
+            "da": "Solenergi",
+            "de": "Solarleistung",
+            "es": "Energía solar",
+            "fr": "Énergie solaire",
+            "it": "Energia solare",
+            "ko": "태양광 전력",
+            "nl": "Zonnestroom",
+            "no": "Solenergi",
+            "pl": "Energia słoneczna",
+            "sv": "Solenergi"
           }
         },
         "measure_power.input": {
           "decimals": 0,
           "title": {
             "en": "Solar input",
-            "de": "Solarer Eingang"
+            "da": "Solindgang",
+            "de": "Solarer Eingang",
+            "es": "Entrada solar",
+            "fr": "Entrée solaire",
+            "it": "Ingresso solare",
+            "ko": "태양광 입력",
+            "nl": "Zonne-ingang",
+            "no": "Solinngang",
+            "pl": "Wejście słoneczne",
+            "sv": "Solinmatning"
           }
         },
         "measure_power.pv1input": {
           "decimals": 0,
           "title": {
             "en": "PV1 input",
-            "de": "PV-Strang 1 Eingang"
+            "da": "PV1 indgang",
+            "de": "PV-Strang 1 Eingang",
+            "es": "Entrada PV1",
+            "fr": "Entrée PV1",
+            "it": "Ingresso PV1",
+            "ko": "PV1 입력",
+            "nl": "PV1 ingang",
+            "no": "PV1 inngang",
+            "pl": "Wejście PV1",
+            "sv": "PV1 ingång"
           }
         },
         "measure_power.pv2input": {
           "decimals": 0,
           "title": {
             "en": "PV2 input",
-            "de": " PV-Strang 2 Eingang"
+            "da": "PV2 indgang",
+            "de": "PV-Strang 2 Eingang",
+            "es": "Entrada PV2",
+            "fr": "Entrée PV2",
+            "it": "Ingresso PV2",
+            "ko": "PV2 입력",
+            "nl": "PV2 ingang",
+            "no": "PV2 inngang",
+            "pl": "Wejście PV2",
+            "sv": "PV2 ingång"
           }
         },
         "measure_current.phase1": {
           "title": {
             "en": "AC Current phase1",
-            "de": "AC-Strom Phase 1"
+            "da": "AC-strøm fase 1",
+            "de": "AC-Strom Phase 1",
+            "es": "Corriente AC fase 1",
+            "fr": "Courant AC phase 1",
+            "it": "Corrente AC fase 1",
+            "ko": "AC 전류 위상 1",
+            "nl": "AC stroom fase 1",
+            "no": "AC-strøm fase 1",
+            "pl": "Prąd AC faza 1",
+            "sv": "AC-ström fas 1"
           }
         },
         "measure_current.phase2": {
           "title": {
             "en": "AC Current phase2",
-            "de": "AC-Strom Phase 2"
+            "da": "AC-strøm fase 2",
+            "de": "AC-Strom Phase 2",
+            "es": "Corriente AC fase 2",
+            "fr": "Courant AC phase 2",
+            "it": "Corrente AC fase 2",
+            "ko": "AC 전류 위상 2",
+            "nl": "AC stroom fase 2",
+            "no": "AC-strøm fase 2",
+            "pl": "Prąd AC faza 2",
+            "sv": "AC-ström fas 2"
           }
         },
         "measure_current.phase3": {
           "title": {
             "en": "AC Current phase3",
-            "de": "AC-Strom Phase 3"
+            "da": "AC-strøm fase 3",
+            "de": "AC-Strom Phase 3",
+            "es": "Corriente AC fase 3",
+            "fr": "Courant AC phase 3",
+            "it": "Corrente AC fase 3",
+            "ko": "AC 전류 위상 3",
+            "nl": "AC stroom fase 3",
+            "no": "AC-strøm fase 3",
+            "pl": "Prąd AC faza 3",
+            "sv": "AC-ström fas 3"
           }
         },
         "measure_temperature.invertor": {
           "title": {
             "en": "Heatsink temperature",
+            "da": "Kølepladetemperatur",
+            "de": "Kühlkörpertemperatur",
+            "es": "Temperatura del disipador",
+            "fr": "Température du dissipateur",
+            "it": "Temperatura del dissipatore",
+            "ko": "방열판 온도",
             "nl": "Heatsink temperatuur",
-            "de": "Kühlkörpertemperatur"
+            "no": "Kjøleribbe temperatur",
+            "pl": "Temperatura radiatora",
+            "sv": "Kylflänstemperatur"
           },
           "decimals": 2
         },
         "meter_power.daily": {
           "title": {
             "en": "Total Day Yield",
+            "da": "Samlet dagsudbytte",
+            "de": "Tagesgesamtertrag",
+            "es": "Rendimiento total del día",
+            "fr": "Rendement total journalier",
+            "it": "Resa totale giornaliera",
+            "ko": "일일 총 발전량",
             "nl": "Totale dag opbrengst",
-            "de": "Tagesgesamtertrag"
+            "no": "Total dagsavkastning",
+            "pl": "Całkowita dzienna produkcja",
+            "sv": "Total dagsavkastning"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
@@ -5503,16 +5591,32 @@
         "meter_power": {
           "title": {
             "en": "Total Yield",
+            "da": "Samlet udbytte",
+            "de": "Gesamtertrag",
+            "es": "Rendimiento total",
+            "fr": "Rendement total",
+            "it": "Resa totale",
+            "ko": "총 발전량",
             "nl": "Totale opbrengst",
-            "de": "Gesamtertrag"
+            "no": "Total avkastning",
+            "pl": "Całkowita produkcja",
+            "sv": "Total avkastning"
           },
           "decimals": 1
         },
         "meter_power.pv1TodayEnergy": {
           "title": {
             "en": "Total PV1 Day Yield",
+            "da": "Samlet PV1 dagsudbytte",
+            "de": "Tagesgesamtertrag PV-Strang 1",
+            "es": "Rendimiento total PV1 del día",
+            "fr": "Rendement total PV1 journalier",
+            "it": "Resa totale giornaliera PV1",
+            "ko": "PV1 일일 총 발전량",
             "nl": "Totale PV1 dag opbrengst",
-            "de": "Tagesgesamtertrag PV-Strang 1"
+            "no": "Total PV1 dagsavkastning",
+            "pl": "Całkowita dzienna produkcja PV1",
+            "sv": "Total PV1 dagsavkastning"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
@@ -5520,16 +5624,32 @@
         "meter_power.pv1TotalEnergy": {
           "title": {
             "en": "Total PV1 Yield",
+            "da": "Samlet PV1 udbytte",
+            "de": "Gesamtertrag PV-Strang 1",
+            "es": "Rendimiento total PV1",
+            "fr": "Rendement total PV1",
+            "it": "Resa totale PV1",
+            "ko": "PV1 총 발전량",
             "nl": "Totale PV1 opbrengst",
-            "de": "Gesamtertrag PV-Strang 1"
+            "no": "Total PV1 avkastning",
+            "pl": "Całkowita produkcja PV1",
+            "sv": "Total PV1 avkastning"
           },
           "decimals": 1
         },
         "meter_power.pv2TodayEnergy": {
           "title": {
             "en": "Total PV2 Day Yield",
+            "da": "Samlet PV2 dagsudbytte",
+            "de": "Tagesgesamtertrag PV-Strang 2",
+            "es": "Rendimiento total PV2 del día",
+            "fr": "Rendement total PV2 journalier",
+            "it": "Resa totale giornaliera PV2",
+            "ko": "PV2 일일 총 발전량",
             "nl": "Totale PV2 dag opbrengst",
-            "de": "Tagesgesamtertrag PV-Strang 2"
+            "no": "Total PV2 dagsavkastning",
+            "pl": "Całkowita dzienna produkcja PV2",
+            "sv": "Total PV2 dagsavkastning"
           },
           "decimals": 1,
           "icon": "/assets/total_yield.svg"
@@ -5537,8 +5657,16 @@
         "meter_power.pv2TotalEnergy": {
           "title": {
             "en": "Total PV2 Yield",
+            "da": "Samlet PV2 udbytte",
+            "de": "Gesamtertrag PV-Strang 2",
+            "es": "Rendimiento total PV2",
+            "fr": "Rendement total PV2",
+            "it": "Resa totale PV2",
+            "ko": "PV2 총 발전량",
             "nl": "Totale PV2 opbrengst",
-            "de": "Gesamtertrag PV-Strang 2"
+            "no": "Total PV2 avkastning",
+            "pl": "Całkowita produkcja PV2",
+            "sv": "Total PV2 avkastning"
           },
           "decimals": 1
         }
@@ -5563,7 +5691,16 @@
           "type": "group",
           "label": {
             "en": "Inverter settings",
-            "de": "Wechselrichtereinstellungen"
+            "da": "Inverterindstillinger",
+            "de": "Wechselrichtereinstellungen",
+            "es": "Configuración del inversor",
+            "fr": "Paramètres de l'onduleur",
+            "it": "Impostazioni inverter",
+            "ko": "인버터 설정",
+            "nl": "Omvormer instellingen",
+            "no": "Inverterinnstillinger",
+            "pl": "Ustawienia falownika",
+            "sv": "Växelriktarinställningar"
           },
           "children": [
             {
@@ -5572,10 +5709,29 @@
               "value": "0.0.0.0",
               "label": {
                 "en": "IP Address",
-                "de": "IP-Adresse"
+                "da": "IP-adresse",
+                "de": "IP-Adresse",
+                "es": "Dirección IP",
+                "fr": "Adresse IP",
+                "it": "Indirizzo IP",
+                "ko": "IP 주소",
+                "nl": "IP-adres",
+                "no": "IP-adresse",
+                "pl": "Adres IP",
+                "sv": "IP-adress"
               },
               "hint": {
-                "en": "Please enter IP address of your modbus device."
+                "en": "Please enter IP address of your modbus device.",
+                "da": "Indtast IP-adressen på din modbus-enhed.",
+                "de": "Bitte geben Sie die IP-Adresse Ihres Modbus-Geräts ein.",
+                "es": "Por favor, introduzca la dirección IP de su dispositivo Modbus.",
+                "fr": "Veuillez entrer l'adresse IP de votre appareil Modbus.",
+                "it": "Inserire l'indirizzo IP del dispositivo Modbus.",
+                "ko": "Modbus 장치의 IP 주소를 입력하세요.",
+                "nl": "Voer het IP-adres van uw modbus-apparaat in.",
+                "no": "Vennligst oppgi IP-adressen til Modbus-enheten din.",
+                "pl": "Proszę podać adres IP urządzenia Modbus.",
+                "sv": "Ange IP-adressen för din Modbus-enhet."
               }
             },
             {
@@ -5585,10 +5741,29 @@
               "step": 1,
               "label": {
                 "en": "Port",
-                "de": "Port"
+                "da": "Port",
+                "de": "Port",
+                "es": "Puerto",
+                "fr": "Port",
+                "it": "Porta",
+                "ko": "포트",
+                "nl": "Poort",
+                "no": "Port",
+                "pl": "Port",
+                "sv": "Port"
               },
               "hint": {
-                "en": "Please enter portnumber to connect to your modbus device."
+                "en": "Please enter portnumber to connect to your modbus device.",
+                "da": "Indtast portnummeret for at oprette forbindelse til din modbus-enhed.",
+                "de": "Bitte geben Sie die Portnummer ein, um eine Verbindung zu Ihrem Modbus-Gerät herzustellen.",
+                "es": "Por favor, introduzca el número de puerto para conectarse a su dispositivo Modbus.",
+                "fr": "Veuillez entrer le numéro de port pour vous connecter à votre appareil Modbus.",
+                "it": "Inserire il numero di porta per connettersi al dispositivo Modbus.",
+                "ko": "Modbus 장치에 연결할 포트 번호를 입력하세요.",
+                "nl": "Voer het poortnummer in om verbinding te maken met uw modbus-apparaat.",
+                "no": "Vennligst oppgi portnummeret for å koble til Modbus-enheten din.",
+                "pl": "Proszę podać numer portu, aby połączyć się z urządzeniem Modbus.",
+                "sv": "Ange portnumret för att ansluta till din Modbus-enhet."
               }
             },
             {
@@ -5597,10 +5772,30 @@
               "value": 0,
               "step": 1,
               "label": {
-                "en": "Max peak power in W"
+                "en": "Max peak power in W",
+                "da": "Maks. spidseffekt i W",
+                "de": "Maximale Spitzenleistung in W",
+                "es": "Potencia máxima de pico en W",
+                "fr": "Puissance de pointe maximale en W",
+                "it": "Potenza di picco massima in W",
+                "ko": "최대 피크 전력 (W)",
+                "nl": "Max. piekvermogens in W",
+                "no": "Maks. toppeffekt i W",
+                "pl": "Maksymalna moc szczytowa w W",
+                "sv": "Max toppeffekt i W"
               },
               "hint": {
-                "en": "Please enter the maximum capacity of your inverter. Setting this value will filter unrealistic peak values which can occur in modbus communication."
+                "en": "Please enter the maximum capacity of your inverter. Setting this value will filter unrealistic peak values which can occur in modbus communication.",
+                "da": "Indtast den maksimale kapacitet på din inverter. Indstilling af denne værdi vil filtrere urealistiske toppværdier, som kan forekomme i modbus-kommunikation.",
+                "de": "Bitte geben Sie die maximale Kapazität Ihres Wechselrichters ein. Das Einstellen dieses Wertes filtert unrealistische Spitzenwerte, die bei der Modbus-Kommunikation auftreten können.",
+                "es": "Por favor, introduzca la capacidad máxima de su inversor. Establecer este valor filtrará los valores de pico no realistas que pueden ocurrir en la comunicación Modbus.",
+                "fr": "Veuillez entrer la capacité maximale de votre onduleur. La définition de cette valeur filtrera les valeurs de pointe irréalistes qui peuvent survenir lors de la communication Modbus.",
+                "it": "Inserire la capacità massima dell'inverter. Impostando questo valore si filtreranno i valori di picco non realistici che possono verificarsi nella comunicazione Modbus.",
+                "ko": "인버터의 최대 용량을 입력하세요. 이 값을 설정하면 Modbus 통신에서 발생할 수 있는 비현실적인 피크 값이 필터링됩니다.",
+                "nl": "Voer de maximale capaciteit van uw omvormer in. Het instellen van deze waarde filtert onrealistische piekwaarden die kunnen optreden bij modbus-communicatie.",
+                "no": "Vennligst oppgi den maksimale kapasiteten til inverteren din. Å angi denne verdien vil filtrere urealistiske toppverdier som kan oppstå i Modbus-kommunikasjon.",
+                "pl": "Proszę podać maksymalną moc falownika. Ustawienie tej wartości odfiltruje nierealistyczne wartości szczytowe, które mogą wystąpić w komunikacji Modbus.",
+                "sv": "Ange den maximala kapaciteten för din växelriktare. Om du anger detta värde filtreras orealistiska toppvärden som kan uppstå vid Modbus-kommunikation."
               }
             },
             {
@@ -5614,11 +5809,29 @@
               },
               "label": {
                 "en": "Inverter ID",
+                "da": "Inverter-ID",
+                "de": "Wechselrichter-ID",
+                "es": "ID del inversor",
+                "fr": "ID de l'onduleur",
+                "it": "ID inverter",
+                "ko": "인버터 ID",
                 "nl": "Inverter ID",
-                "de": "Wechselrichter-ID"
+                "no": "Inverter-ID",
+                "pl": "ID falownika",
+                "sv": "Växelriktare-ID"
               },
               "hint": {
-                "en": "Please enter inverter ID. When using 1 inverter it is most likely the default value of 1. When using multiple inverters, a unique ID must be configured in each inverter."
+                "en": "Please enter inverter ID. When using 1 inverter it is most likely the default value of 1. When using multiple inverters, a unique ID must be configured in each inverter.",
+                "da": "Indtast inverter-ID. Ved brug af 1 inverter er det sandsynligvis standardværdien 1. Ved brug af flere invertere skal et unikt ID konfigureres i hver inverter.",
+                "de": "Bitte geben Sie die Wechselrichter-ID ein. Bei Verwendung eines Wechselrichters ist es höchstwahrscheinlich der Standardwert 1. Bei Verwendung mehrerer Wechselrichter muss in jedem Wechselrichter eine eindeutige ID konfiguriert werden.",
+                "es": "Por favor, introduzca el ID del inversor. Al usar 1 inversor, es muy probable que sea el valor predeterminado de 1. Al usar varios inversores, se debe configurar un ID único en cada inversor.",
+                "fr": "Veuillez entrer l'ID de l'onduleur. Lors de l'utilisation d'un seul onduleur, il s'agit très probablement de la valeur par défaut de 1. Lors de l'utilisation de plusieurs onduleurs, un ID unique doit être configuré dans chaque onduleur.",
+                "it": "Inserire l'ID dell'inverter. Quando si utilizza 1 inverter, è molto probabile che sia il valore predefinito di 1. Quando si utilizzano più inverter, è necessario configurare un ID univoco in ciascun inverter.",
+                "ko": "인버터 ID를 입력하세요. 인버터 1대 사용 시 기본값은 1입니다. 여러 대의 인버터를 사용하는 경우 각 인버터에 고유한 ID를 설정해야 합니다.",
+                "nl": "Voer het inverter-ID in. Bij gebruik van 1 omvormer is dit hoogstwaarschijnlijk de standaardwaarde van 1. Bij gebruik van meerdere omvormers moet in elke omvormer een uniek ID worden geconfigureerd.",
+                "no": "Vennligst oppgi inverter-ID. Ved bruk av 1 inverter er det mest sannsynlig standardverdien 1. Ved bruk av flere invertere må en unik ID konfigureres i hver inverter.",
+                "pl": "Proszę podać ID falownika. W przypadku korzystania z 1 falownika jest to najprawdopodobniej wartość domyślna 1. W przypadku korzystania z wielu falowników należy skonfigurować unikalny ID w każdym falowniku.",
+                "sv": "Ange växelriktarens ID. Vid användning av 1 växelriktare är det troligen standardvärdet 1. Vid användning av flera växelriktare måste ett unikt ID konfigureras i varje växelriktare."
               }
             }
           ]
@@ -5627,7 +5840,16 @@
           "type": "group",
           "label": {
             "en": "Smart Meter",
-            "de": "Smart Meter"
+            "da": "Smart Meter",
+            "de": "Smart Meter",
+            "es": "Contador inteligente",
+            "fr": "Compteur intelligent",
+            "it": "Contatore intelligente",
+            "ko": "스마트 미터",
+            "nl": "Slimme meter",
+            "no": "Smart Meter",
+            "pl": "Licznik inteligentny",
+            "sv": "Smart Meter"
           },
           "children": [
             {
@@ -5635,10 +5857,30 @@
               "type": "checkbox",
               "value": false,
               "label": {
-                "en": "Modbus Smart Meter connected."
+                "en": "Modbus Smart Meter connected.",
+                "da": "Modbus Smart Meter tilsluttet.",
+                "de": "Modbus Smart Meter verbunden.",
+                "es": "Contador inteligente Modbus conectado.",
+                "fr": "Compteur intelligent Modbus connecté.",
+                "it": "Contatore intelligente Modbus collegato.",
+                "ko": "Modbus 스마트 미터 연결됨.",
+                "nl": "Modbus slimme meter aangesloten.",
+                "no": "Modbus Smart Meter tilkoblet.",
+                "pl": "Modbus licznik inteligentny podłączony.",
+                "sv": "Modbus Smart Meter ansluten."
               },
               "hint": {
-                "en": "Enabling this setting will enable the flow card to enable or disable the limiting of exporting energie to the grid.\n\nImportant: do NOT enable this setting when there is no Modbus Smart Meter connected to the Modbus input of your inverter(s)!"
+                "en": "Enabling this setting will enable the flow card to enable or disable the limiting of exporting energie to the grid.\n\nImportant: do NOT enable this setting when there is no Modbus Smart Meter connected to the Modbus input of your inverter(s)!",
+                "da": "Aktivering af denne indstilling vil aktivere flow-kortet til at aktivere eller deaktivere begrænsningen af eksport af energi til nettet.\n\nVigtigt: Aktiver IKKE denne indstilling, når der ikke er tilsluttet en Modbus Smart Meter til Modbus-indgangen på din/dine inverter(e)!",
+                "de": "Das Aktivieren dieser Einstellung ermöglicht der Flow-Karte, die Begrenzung des Energieexports ins Netz zu aktivieren oder zu deaktivieren.\n\nWichtig: Aktivieren Sie diese Einstellung NICHT, wenn kein Modbus Smart Meter am Modbus-Eingang Ihres Wechselrichters angeschlossen ist!",
+                "es": "Habilitar esta configuración permitirá que la tarjeta de flujo habilite o deshabilite la limitación de exportación de energía a la red.\n\nImportante: ¡NO habilite esta configuración cuando no haya un contador inteligente Modbus conectado a la entrada Modbus de su(s) inversor(es)!",
+                "fr": "L'activation de ce paramètre permettra à la carte de flux d'activer ou de désactiver la limitation de l'exportation d'énergie vers le réseau.\n\nImportant : N'activez PAS ce paramètre lorsqu'aucun compteur intelligent Modbus n'est connecté à l'entrée Modbus de votre/vos onduleur(s) !",
+                "it": "L'abilitazione di questa impostazione consentirà alla scheda di flusso di abilitare o disabilitare la limitazione dell'esportazione di energia alla rete.\n\nImportante: NON abilitare questa impostazione quando non è collegato alcun contatore intelligente Modbus all'ingresso Modbus del/degli inverter!",
+                "ko": "이 설정을 활성화하면 플로우 카드가 그리드로의 에너지 수출 제한을 활성화하거나 비활성화할 수 있습니다.\n\n중요: 인버터의 Modbus 입력에 Modbus 스마트 미터가 연결되어 있지 않은 경우 이 설정을 활성화하지 마세요!",
+                "nl": "Het inschakelen van deze instelling stelt de flow-kaart in staat om het beperken van energieterugleveringaan het net in of uit te schakelen.\n\nBelangrijk: schakel deze instelling NIET in als er geen Modbus slimme meter is aangesloten op de Modbus-ingang van uw omvormer(s)!",
+                "no": "Aktivering av denne innstillingen vil aktivere flytkortet for å aktivere eller deaktivere begrensningen av energieksport til nettet.\n\nViktig: IKKE aktiver denne innstillingen når det ikke er koblet til en Modbus Smart Meter til Modbus-inngangen på inverteren(e) dine!",
+                "pl": "Włączenie tego ustawienia umożliwi karcie przepływu włączenie lub wyłączenie ograniczenia eksportu energii do sieci.\n\nWażne: NIE włączaj tego ustawienia, gdy do wejścia Modbus falownika/falowników nie jest podłączony licznik inteligentny Modbus!",
+                "sv": "Aktivering av denna inställning gör att flödeskortet kan aktivera eller inaktivera begränsningen av energiexport till nätet.\n\nViktigt: Aktivera INTE denna inställning när ingen Modbus Smart Meter är ansluten till Modbus-ingången på din/dina växelriktare!"
               }
             }
           ]
@@ -11109,17 +11351,17 @@
     "exportcapacity": {
       "type": "number",
       "title": {
-        "en": "Export capacity %",
-        "da": "Eksportkapacitet %",
-        "de": "Exportkapazität %",
-        "es": "Capacidad de exportación %",
-        "fr": "Capacité d’exportation %",
-        "it": "Capacità di esportazione %",
-        "ko": "수출 용량 %",
-        "nl": "Exportcapaciteit %",
-        "no": "Eksportkapasitet %",
-        "pl": "Pojemność eksportu %",
-        "sv": "Exportkapacitet %"
+        "en": "Output capacity %",
+        "da": "Udgangskapacitet %",
+        "de": "Ausgangskapazität %",
+        "es": "Capacidad de salida %",
+        "fr": "Capacité de sortie %",
+        "it": "Capacità di uscita %",
+        "ko": "출력 용량 %",
+        "nl": "Uitgangscapaciteit %",
+        "no": "Utgangskapasitet %",
+        "pl": "Pojemność wyjściowa %",
+        "sv": "Uteffektkapacitet %"
       },
       "getable": true,
       "setable": false,

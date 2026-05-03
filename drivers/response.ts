@@ -106,7 +106,7 @@ export async function checkRegisterGrowatt(registers: Object, client: InstanceTy
     }
   }
 
-  console.log('checkRegister result');
+  console.log('checkRegisterGrowatt result');
   return result;
 }
 
@@ -496,7 +496,7 @@ export async function checkHoldingRegisterGrowatt(registers: Object, client: Ins
     }
   }
 
-  console.log('checkRegister result');
+  console.log('checkHoldingRegisterGrowatt result');
   return result;
 }
 
