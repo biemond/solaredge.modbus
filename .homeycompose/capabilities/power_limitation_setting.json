@@ -2,7 +2,7 @@
   "type": "number",
   "title": {
     "en": "power limitation setting",
-    "sv": "Effektbegränsning"
+    "sv": "Effektbegränsning (%)"
   },
   "getable": true,
   "setable": false,
