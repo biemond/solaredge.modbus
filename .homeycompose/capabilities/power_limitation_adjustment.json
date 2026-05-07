@@ -2,7 +2,7 @@
   "type": "number",
   "title": {
     "en": "Power limitation adjustment",
-    "sv": "Effektbegränsning"
+    "sv": "Effektbegränsning (kW)"
   },
   "getable": true,
   "setable": false,
