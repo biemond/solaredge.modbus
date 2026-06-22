@@ -600,7 +600,7 @@ export class Growatt extends Homey.Device {
     },
     {
       resultKey: 'activePRate',
-      capabilities: ['exportcapacity'],
+      capabilities: ['target_power'],
       valid: (data) => this.isValidNumberInRange(data.value, 0, 100),
       transform: (data) => Number(data.value),
     },

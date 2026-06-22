@@ -1,12 +1,12 @@
 {
   "title": {
-    "en": "Sync Invertor Clock",
+    "en": "Sync Inverter Clock",
     "nl": "Synchroniseer omvormerklok",
     "de": "Synchronisiere Wechselrichteruhr",
     "sv": "Synkronisera växelriktarens klocka"
   },
   "titleFormatted": {
-    "en": "Sync Invertor Clock, including date: [[syncdate]]",
+    "en": "Sync Inverter Clock, including date: [[syncdate]]",
     "nl": "Synchroniseer omvormerklok, inclusief datum: [[syncdate]]",
     "de": "Synchronisiere Wechselrichteruhr, einschließlich Datum: [[syncdate]]",
     "sv": "Synkronisera växelriktarens klocka, inkl. datum: [[syncdate]]"

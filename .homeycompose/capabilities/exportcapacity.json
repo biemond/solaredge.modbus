@@ -1,29 +1,29 @@
 {
   "type": "number",
   "title": {
-    "en": "Output capacity %",
-    "da": "Udgangskapacitet %",
-    "de": "Ausgangskapazität %",
-    "es": "Capacidad de salida %",
-    "fr": "Capacité de sortie %",
-    "it": "Capacità di uscita %",
-    "ko": "출력 용량 %",
-    "nl": "Uitgangscapaciteit %",
-    "no": "Utgangskapasitet %",
-    "pl": "Pojemność wyjściowa %",
-    "sv": "Uteffektkapacitet %"
+    "en": "Power Limit",
+    "da": "Effektgrænse",
+    "de": "Leistungsgrenze",
+    "es": "Límite de potencia",
+    "fr": "Limite de puissance",
+    "it": "Limite di potenza",
+    "ko": "전력 한도",
+    "nl": "Vermogenslimiet",
+    "no": "Effektgrense",
+    "pl": "Limit mocy",
+    "sv": "Effektgräns"
   },
   "getable": true,
   "setable": false,
   "uiComponent": "sensor",
   "uiQuickAction": true,
-  "insights": true,
+  "insights": false,
   "icon": "/assets/limit.svg",
   "units": {
-    "en": "%"
+    "en": "W"
   },
   "decimals": 0,
   "min": 0,
-  "max": 100,
+  "max": 6000,
   "step": 1
 }
