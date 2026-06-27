@@ -1,8 +1,8 @@
 {
   "type": "number",
   "title": {
-    "en": "Battery Max capacity",
-    "de": "Maximale Batteriekapazität"
+    "en": "Rated Battery capacity",
+    "de": "Nennkapazität der Batterie"
   },
   "getable": true,
   "setable": false,

@@ -1,8 +1,8 @@
 {
   "type": "number",
   "title": {
-    "en": "Battery Capacity",
-    "de": "Batteriekapazität"
+    "en": "Actual Battery Capacity",
+    "de": "Tatsächlich Batteriekapazität"
   },
   "getable": true,
   "setable": false,

@@ -10875,8 +10875,8 @@
     "batterycap": {
       "type": "number",
       "title": {
-        "en": "Battery Capacity",
-        "de": "Batteriekapazität"
+        "en": "Actual Battery Capacity",
+        "de": "Tatsächlich Batteriekapazität"
       },
       "getable": true,
       "setable": false,
@@ -10891,8 +10891,8 @@
     "batterycap2": {
       "type": "number",
       "title": {
-        "en": "Battery 2 Capacity",
-        "de": "Batteriekapazität 2"
+        "en": "Actual Battery 2 Capacity",
+        "de": "Tatsächlich Batteriekapazität 2"
       },
       "getable": true,
       "setable": false,
@@ -10920,8 +10920,8 @@
     "batterymaxcap": {
       "type": "number",
       "title": {
-        "en": "Battery Max capacity",
-        "de": "Maximale Batteriekapazität"
+        "en": "Rated Battery capacity",
+        "de": "Nennkapazität der Batterie"
       },
       "getable": true,
       "setable": false,
@@ -10937,7 +10937,7 @@
       "type": "number",
       "title": {
         "en": "Battery 2 Max capacity",
-        "de": "Maximale Batteriekapazität 2"
+        "de": "Nennkapazität der Batterie 2"
       },
       "getable": true,
       "setable": false,

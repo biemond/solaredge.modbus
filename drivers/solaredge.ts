@@ -202,7 +202,6 @@ export class Solaredge extends Homey.Device {
     c_deviceaddress: [0xe140, 1, 'UINT16', 'Modbus ID'],
     c_sunspec_did: [0xe141, 1, 'UINT16', 'SunSpec DID'],
 
-    rated_energy: [0xe142, 2, 'SEFLOAT', 'Rated Energy'],
     maximum_charge_continuous_power: [0xe144, 2, 'SEFLOAT', 'Maximum Charge Continuous Power'],
     maximum_discharge_continuous_power: [0xe146, 2, 'SEFLOAT', 'Maximum Discharge Continuous Power'],
     maximum_charge_peak_power: [0xe148, 2, 'SEFLOAT', 'Maximum Charge Peak Power'],
@@ -218,8 +217,9 @@ export class Solaredge extends Homey.Device {
     lifetime_export_energy_counter: [0xe176, 4, 'UINT64', 'Total Exported Energy'],
     lifetime_import_energy_counter: [0xe17a, 4, 'UINT64', 'Total Imported Energy'],
 
-    maximum_energy: [0xe17e, 2, 'SEFLOAT', 'Maximum Energy'],
-    available_energy: [0xe180, 2, 'SEFLOAT', 'Available Energy'],
+    rated_energy: [0xe142, 2, 'SEFLOAT', 'Rated Energy'],   // Battery 1 Rated Energy
+    maximum_energy:   [0xe17e, 2, 'SEFLOAT', 'Maximum Energy'],    // Battery 1 Max Energy
+    available_energy: [0xe180, 2, 'SEFLOAT', 'Available Energy'],   //Battery 1 Available Energy
 
     soh: [0xe182, 2, 'SEFLOAT', 'State of Health [SOH)'],
     soe: [0xe184, 2, 'SEFLOAT', 'State of Energy [SOE)'],
