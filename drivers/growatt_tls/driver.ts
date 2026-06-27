@@ -37,7 +37,9 @@ class MyGrowattTL3sDriver extends Homey.Driver {
 
     const exportcapacityAction = this.homey.flow.getActionCard('exportcapacity');
     exportcapacityAction.registerRunListener(async (args, state) => {
-      await args.device.updateControl('exportcapacity', args.percentage);
+      const maxpeakpower = Number(args.device.getSetting('maxpeakpower'));
+      await args.device.updateControl('target_power', args.percentage);
+      await args.device.setCapabilityValue('exportcapacity', Math.round((args.percentage / 100) * maxpeakpower));
     });
   }
 

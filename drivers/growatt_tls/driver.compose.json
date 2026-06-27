@@ -32,6 +32,7 @@
     "exportlimitenabled",
     "exportlimitpowerrate",
     "exportcapacity",
+    "target_power",
     "growattstatus"
   ],
   "capabilitiesOptions": {
