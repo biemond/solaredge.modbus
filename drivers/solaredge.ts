@@ -217,7 +217,7 @@ export class Solaredge extends Homey.Device {
     lifetime_export_energy_counter: [0xe176, 4, 'UINT64', 'Total Exported Energy'],
     lifetime_import_energy_counter: [0xe17a, 4, 'UINT64', 'Total Imported Energy'],
 
-    rated_energy: [0xe142, 2, 'SEFLOAT', 'Rated Energy'],   // Battery 1 Rated Energy
+    rated_energy:     [0xe142, 2, 'SEFLOAT', 'Rated Energy'],   // Battery 1 Rated Energy
     maximum_energy:   [0xe17e, 2, 'SEFLOAT', 'Maximum Energy'],    // Battery 1 Max Energy
     available_energy: [0xe180, 2, 'SEFLOAT', 'Available Energy'],   //Battery 1 Available Energy
 
