@@ -19,6 +19,38 @@ class MyGrowattDevice extends Growatt {
     this.log(`device name id ${name}`);
     this.log(`device name ${this.getName()}`);
 
+    const maxpeakpower = Number(this.getSetting('maxpeakpower'));
+
+    if (!this.hasCapability('exportcapacity')) {
+      await this.addCapability('exportcapacity');
+    }
+    if (!this.hasCapability('target_power')) {
+      await this.addCapability('target_power');
+    }
+
+    await this.setCapabilityOptions('target_power', { min: 0, max: this.getEffectiveMaxPower() });
+    await this.setCapabilityOptions('exportcapacity', { max: this.getEffectiveMaxPower() });
+
+    if (maxpeakpower <= 0) {
+      await this.homey.notifications.createNotification({
+        excerpt: 'Growatt: Max peak power is not configured. Please set it in the device settings for accurate target power control.',
+      });
+    }
+
+    this.registerCapabilityListener('target_power', async (value) => {
+      const currentMax = Number(this.getSetting('maxpeakpower'));
+      if (currentMax <= 0) {
+        throw new Error('Max peak power is not configured. Please set it in the device settings.');
+      }
+      const percentage = Math.round((value / currentMax) * 100);
+      await this.updateControl('target_power', percentage);
+      await this.setCapabilityValue('exportcapacity', value);
+    });
+
+    if (this.getCapabilityValue('target_power') === null) {
+      await this.setCapabilityValue('target_power', 0);
+    }
+
     // on/off state condition
     const onoffCondition = this.homey.flow.getConditionCard('on_off');
     onoffCondition.registerRunListener(async (args, state) => {
@@ -31,6 +63,24 @@ class MyGrowattDevice extends Growatt {
       const result = Number(await args.device.getCapabilityValue('exportlimitenabled')) === Number(args.exportlimit);
       return Promise.resolve(result);
     });
+
+    // Make export limit capabilities writable only when the user has explicitly
+    // opted in via the 'ems_control' device setting. The global capability
+    // definitions keep setable: false to protect other Growatt variants (e.g.
+    // TLS) where writing these registers without a compatible meter on the
+    // Modbus network can cause inverter errors.
+    if (this.getSetting('ems_control') === true) {
+      await this.setCapabilityOptions('exportlimitenabled',   { setable: true });
+      await this.setCapabilityOptions('exportlimitpowerrate', { setable: true });
+
+      this.registerCapabilityListener('exportlimitenabled', async (value) => {
+        await this.updateControl('exportlimitenabled', Number(value));
+      });
+
+      this.registerCapabilityListener('exportlimitpowerrate', async (value) => {
+        await this.updateControl('exportlimitpowerrate', Number(value));
+      });
+    }
 
     // flow action
     const onoffAction = this.homey.flow.getActionCard('on_off');
@@ -91,6 +141,15 @@ class MyGrowattDevice extends Growatt {
     changedKeys: string[];
   }): Promise<string | void> {
     this.log('MyGrowattBattery settings were changed');
+    if (changedKeys.includes('maxpeakpower')) {
+      const max = Number(newSettings.maxpeakpower) || 6000;
+      await this.setCapabilityOptions('target_power', { min: 0, max });
+      await this.setCapabilityOptions('exportcapacity', { max });
+    }
+    if (changedKeys.includes('ems_control')) {
+      // Restart required to re-register capability listeners
+      return this.homey.__('settings.restart_required') ?? 'Restart the app to apply this change.';
+    }
   }
 
   /**
@@ -108,6 +167,10 @@ class MyGrowattDevice extends Growatt {
   async onDeleted() {
     this.log('MyGrowattDevice has been deleted');
     this.homey.clearInterval(this.timer);
+  }
+
+  private getEffectiveMaxPower(): number {
+    return Number(this.getSetting('maxpeakpower')) || 6000;
   }
 
   private getRegisterAddressForCapability(capability: string): number | undefined {
@@ -157,9 +220,12 @@ class MyGrowattDevice extends Growatt {
           res = await client.writeSingleRegister(registerAddress, regValue);
           this.log(type, res);
           // Update the changed capability value
-          const typedValue = this.castToCapabilityType(type, value);
-          this.log(`typeof typedValue: ${typeof typedValue}, value:`, typedValue);
-          await this.setCapabilityValue(type, typedValue);
+          // target_power is updated via pollInvertor (% → W back-conversion), not here
+          if (type !== 'target_power') {
+            const typedValue = this.castToCapabilityType(type, value);
+            this.log(`typeof typedValue: ${typeof typedValue}, value:`, typedValue);
+            await this.setCapabilityValue(type, typedValue);
+          }
         }
         this.log('disconnect');
         client.socket.end();
@@ -210,7 +276,16 @@ class MyGrowattDevice extends Growatt {
         client.socket.end();
         socket.end();
         const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
-        this.processResult(finalRes, this.getSetting('maxpeakpower'));
+        const maxpeakpower = Number(this.getSetting('maxpeakpower'));
+        this.processResult(finalRes, maxpeakpower);
+        if (finalRes.activePRate && maxpeakpower > 0 && this.hasCapability('target_power')) {
+          const pct = Number(finalRes.activePRate.value);
+          if (pct >= 0 && pct <= 100) {
+            const watts = Math.round((pct / 100) * maxpeakpower);
+            await this.setCapabilityValue('target_power', watts);
+            await this.setCapabilityValue('exportcapacity', watts);
+          }
+        }
       })().catch(this.error);
     });
 

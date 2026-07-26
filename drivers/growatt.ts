@@ -81,6 +81,7 @@ export class Growatt extends Homey.Device {
 
   readonly holdingRegistersBase: { [key: string]: RegisterDefinition } = {
     onoff: [0, 1, 'UINT16', 'On/Off state', 0],
+    activePRate: [3, 1, 'UINT16', 'Inverter max output active power rate (%)', 0],
     exportlimitenabled: [122, 1, 'UINT16', 'Export Limit enable', 0],
     exportlimitpowerrate: [123, 1, 'UINT16', 'Export Limit Power Rate', -1]
   };

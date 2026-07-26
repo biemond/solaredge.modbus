@@ -26,7 +26,9 @@
     "meter_power.pv2TotalEnergy",
     "measure_voltage.meter",
     "exportlimitenabled",
-    "exportlimitpowerrate"   
+    "exportlimitpowerrate",
+    "exportcapacity",
+    "target_power"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -208,6 +210,19 @@
             "en": "Inverter ID",
             "nl": "Inverter ID",
             "de": "Wechselrichter-ID"
+          }
+        },
+        {
+          "id": "ems_control",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Enable EMS control (export limit)",
+            "nl": "EMS-aansturing inschakelen (exportlimiet)"
+          },
+          "hint": {
+            "en": "Allow an external Energy Management System to write exportlimitenabled and exportlimitpowerrate via setCapabilityValue(). Only enable this if your inverter supports export limiting via a compatible meter on the Modbus network.",
+            "nl": "Sta een extern EMS toe om exportlimitenabled en exportlimitpowerrate te schrijven via setCapabilityValue(). Schakel dit alleen in als jouw omvormer exportbeperking ondersteunt via een compatibele meter op het Modbus-netwerk."
           }
         }
       ]

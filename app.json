@@ -5217,7 +5217,9 @@
         "meter_power.pv2TotalEnergy",
         "measure_voltage.meter",
         "exportlimitenabled",
-        "exportlimitpowerrate"
+        "exportlimitpowerrate",
+        "exportcapacity",
+        "target_power"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -11429,7 +11431,7 @@
         "de": "Exportbeschränkung"
       },
       "getable": true,
-      "setable": false,
+      "setable": true,
       "uiComponent": "sensor",
       "uiQuickAction": true,
       "icon": "/assets/onoff.svg",
@@ -11455,7 +11457,7 @@
         "de": "Setze Exportbeschränkung"
       },
       "getable": true,
-      "setable": false,
+      "setable": true,
       "uiComponent": "sensor",
       "uiQuickAction": true,
       "insights": true,
@@ -13067,6 +13069,34 @@
           }
         }
       ]
+    },
+    "target_power": {
+      "type": "number",
+      "title": {
+        "en": "Target Power",
+        "nl": "Doelvermogen",
+        "de": "Zielleistung",
+        "fr": "Puissance cible",
+        "it": "Potenza target",
+        "es": "Potencia objetivo",
+        "sv": "Måleffekt",
+        "no": "Måleffekt",
+        "da": "Måleffekt",
+        "pl": "Docelowa moc",
+        "ko": "목표 전력"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "slider",
+      "insights": false,
+      "icon": "/assets/limit.svg",
+      "units": {
+        "en": "W"
+      },
+      "decimals": 0,
+      "min": 0,
+      "max": 6000,
+      "step": 1
     }
   }
 }
