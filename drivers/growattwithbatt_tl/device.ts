@@ -177,6 +177,10 @@ class MyGrowattTLBattery extends Growatt {
     if (this.hasCapability('battfirst1') === true) {
       await this.removeCapability('battfirst1');
     }
+    if (this.hasCapability('gridfirstdischargepowerrate') === false) {
+      await this.addCapability('gridfirstdischargepowerrate');
+    }
+
   }
 
   /**

@@ -140,7 +140,7 @@
   "3.0.228": {
     "en": "Cleaned up migration code for Growatt TLS"
   },
-  "3.0.229": {
+  "3.0.230": {
     "en": "Growatt TL batt Grid First discharge power rate"
   }
 }
