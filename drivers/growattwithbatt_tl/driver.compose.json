@@ -51,7 +51,8 @@
     "period2",
     "period3",
     "period4",
-    "battacchargeswitch"
+    "battacchargeswitch",
+    "gridfirstdischargepowerrate"
   ],
   "capabilitiesOptions": {
     "measure_power": {

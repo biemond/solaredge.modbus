@@ -64,6 +64,8 @@ export class Growatt extends Homey.Device {
     onoff: [0, 1, 'UINT16', 'On/Off state', 0],
     exportlimitenabled: [122, 1, 'UINT16', 'Export Limit enable', 0],
     exportlimitpowerrate: [123, 1, 'UINT16', 'Export Limit Power Rate', -1],
+
+    gridfirstdischargepowerrate: [3036, 1, 'UINT16', 'GridFirst Discharge Power Rate', 0],
     gridfirststopsoc: [3037, 1, 'UINT16', 'GridFirst stop SOC', 0],
     batfirststopsoc: [3048, 1, 'UINT16', 'BatFirst stop SOC', 0],
 
@@ -708,6 +710,12 @@ export class Growatt extends Homey.Device {
       valid: (data) => this.isValidNumberInRange(data.value, 0, 1),
       transform: (data) => data.value,
     },
+    {
+      resultKey: 'gridfirstdischargepowerrate',
+      capabilities: ['gridfirstdischargepowerrate'],
+      valid: (data) => this.isValidNumberInRange(data.value, 0, 100),
+      transform: (data) => Number(data.value),
+    },   
   ];
 
   private isValidNumberInRange(value: string | number, min: number, max: number): boolean {
