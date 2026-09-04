@@ -1,4 +1,5 @@
 import Homey, { Device } from 'homey';
+import calculateSolarPanelPower from './solar-power';
 
 export interface Measurement {
   value: string;
@@ -262,6 +263,45 @@ export class Solaredge extends Homey.Device {
           console.log(`skip measure_power, max: ${maxpeakpower} power: ${acpower}`);
         } else {
           this.setCapabilityValue('measure_power', Math.round(acpower));
+        }
+      }
+
+      const dcPowerRecord = result['power_dc'];
+      const acPowerRecord = result['power_ac'];
+      const battery1PowerRecord = result['batt1-instantaneous_power'];
+      const battery2PowerRecord = result['batt2-instantaneous_power'];
+
+      if (
+        dcPowerRecord
+        && dcPowerRecord.value !== 'xxx'
+        && dcPowerRecord.scale !== 'xxx'
+        && battery1PowerRecord
+        && battery1PowerRecord.value !== 'xxx'
+      ) {
+        const dcPower = Number(dcPowerRecord.value) * Math.pow(10, Number(dcPowerRecord.scale));
+        const acPower = acPowerRecord && acPowerRecord.value !== 'xxx' && acPowerRecord.scale !== 'xxx'
+          ? Number(acPowerRecord.value) * Math.pow(10, Number(acPowerRecord.scale))
+          : undefined;
+        const batteryPowers = [Number(battery1PowerRecord.value)];
+
+        if (battery2PowerRecord?.value !== undefined && battery2PowerRecord.value !== 'xxx') {
+          batteryPowers.push(Number(battery2PowerRecord.value));
+        }
+
+        if (
+          Number.isFinite(dcPower)
+          && (acPower === undefined || Number.isFinite(acPower))
+          && batteryPowers.every((power) => Number.isFinite(power))
+        ) {
+          const solarPower = calculateSolarPanelPower(dcPower, acPower, batteryPowers);
+
+          if (this.hasCapability('measure_power.pv') === false) {
+            await this.addCapability('measure_power.pv');
+          }
+
+          if (maxpeakpower <= 0 || solarPower <= maxpeakpower) {
+            await this.setCapabilityValue('measure_power.pv', solarPower);
+          }
         }
       }
 

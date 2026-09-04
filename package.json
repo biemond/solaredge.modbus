@@ -10,6 +10,7 @@
     "clean": "del-cli ./.homeybuild/** ./node_modules/**",
     "format": "prettier --write .",
     "lint": "eslint --ext .js,.ts --ignore-path .gitignore .",
+    "test:solar-power": "npm run build && node .homeybuild/tests/solar-power.test.cjs",
     "validate": "homey app validate"
   },
   "devDependencies": {
