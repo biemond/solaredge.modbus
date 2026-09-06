@@ -15,6 +15,10 @@ class MySolaredgeBatteryDevice extends Solaredge {
   async onInit() {
     this.log('MySolaredgeBatteryDevice has been initialized');
 
+    if (this.hasCapability('measure_power.pv') === false) {
+      await this.addCapability('measure_power.pv');
+    }
+
     const name = this.getData().id;
     this.log(`device name id ${name}`);
     this.log(`device name ${this.getName()}`);

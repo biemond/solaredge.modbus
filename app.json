@@ -8346,6 +8346,7 @@
       "capabilities": [
         "measure_battery",
         "measure_power",
+        "measure_power.pv",
         "measure_power.import",
         "measure_power.export",
         "measure_power.batt_charge",
@@ -8402,6 +8403,15 @@
           "title": {
             "en": "Solar + Batt Power",
             "de": "Solar- und Batterie-Leistung"
+          }
+        },
+        "measure_power.pv": {
+          "decimals": 0,
+          "title": {
+            "en": "Solar Power (Panels Only)",
+            "nl": "Zonnepaneelvermogen",
+            "de": "PV-Modulleistung",
+            "pl": "Moc paneli PV"
           }
         },
         "measure_current.phase1": {
