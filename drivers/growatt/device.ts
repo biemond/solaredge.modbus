@@ -5,7 +5,9 @@ import { checkRegisterGrowatt, checkHoldingRegisterGrowatt } from '../response';
 import { Growatt } from '../growatt';
 /* eslint-enable node/no-missing-import */
 
-const RETRY_INTERVAL = 28 * 1000;
+
+const DEFAULT_RETRY_INTERVAL = 28;
+
 
 class MyGrowattDevice extends Growatt {
   timer!: NodeJS.Timer;
@@ -109,11 +111,19 @@ class MyGrowattDevice extends Growatt {
     }
 
     this.pollInvertor().catch(this.error);
+    let settings = this.getSettings();
+
+    if (settings.pollinginterval === undefined) {
+      this.setSettings({ pollinginterval: DEFAULT_RETRY_INTERVAL });
+      settings.pollinginterval = 28;
+    }
 
     this.timer = this.homey.setInterval(() => {
       // poll device state from inverter
       this.pollInvertor().catch(this.error);
-    }, RETRY_INTERVAL);
+    }, settings.pollinginterval * 1000);
+
+  
   }
 
   /**
@@ -150,6 +160,17 @@ class MyGrowattDevice extends Growatt {
       // Restart required to re-register capability listeners
       return this.homey.__('settings.restart_required') ?? 'Restart the app to apply this change.';
     }
+
+    if (changedKeys.indexOf('pollinginterval') > -1) {
+      console.log('Changing the "pollinginterval" settings from', oldSettings.pollinginterval, 'to', newSettings.pollinginterval);
+
+      this.homey.clearInterval(this.timer);
+      this.timer = this.homey.setInterval(() => {
+        // poll device state from inverter
+        this.pollInvertor();
+      }, Number(newSettings.pollinginterval) * 1000);
+    }
+
   }
 
   /**
@@ -252,7 +273,7 @@ class MyGrowattDevice extends Growatt {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
-      timeout: 22,
+      timeout: this.getSetting('pollinginterval') - 1,
       autoReconnect: false,
       logLabel: 'Growatt Inverter',
       logLevel: 'error',

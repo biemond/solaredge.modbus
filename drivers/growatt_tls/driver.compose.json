@@ -389,6 +389,15 @@
           }
         },
         {
+          "id": "pollinginterval",
+          "type": "number",
+          "value": 28,
+          "min": 10,
+          "label": {
+            "en": "Polling interval"
+          }
+        },
+        {
           "id": "id",
           "type": "number",
           "value": 1,

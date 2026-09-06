@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.230",
+  "version": "3.0.231",
   "compatibility": ">=12.13.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -5419,6 +5419,15 @@
                 "en": "Allow an external Energy Management System to write exportlimitenabled and exportlimitpowerrate via setCapabilityValue(). Only enable this if your inverter supports export limiting via a compatible meter on the Modbus network.",
                 "nl": "Sta een extern EMS toe om exportlimitenabled en exportlimitpowerrate te schrijven via setCapabilityValue(). Schakel dit alleen in als jouw omvormer exportbeperking ondersteunt via een compatibele meter op het Modbus-netwerk."
               }
+            },
+            {
+              "id": "pollinginterval",
+              "type": "number",
+              "value": 28,
+              "min": 10,
+              "label": {
+                "en": "Polling interval"
+              }
             }
           ]
         }
@@ -5813,6 +5822,15 @@
                 "no": "Vennligst oppgi den maksimale kapasiteten til inverteren din. Å angi denne verdien vil filtrere urealistiske toppverdier som kan oppstå i Modbus-kommunikasjon.",
                 "pl": "Proszę podać maksymalną moc falownika. Ustawienie tej wartości odfiltruje nierealistyczne wartości szczytowe, które mogą wystąpić w komunikacji Modbus.",
                 "sv": "Ange den maximala kapaciteten för din växelriktare. Om du anger detta värde filtreras orealistiska toppvärden som kan uppstå vid Modbus-kommunikation."
+              }
+            },
+            {
+              "id": "pollinginterval",
+              "type": "number",
+              "value": 28,
+              "min": 10,
+              "label": {
+                "en": "Polling interval"
               }
             },
             {

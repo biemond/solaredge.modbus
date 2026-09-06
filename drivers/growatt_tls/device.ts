@@ -5,7 +5,7 @@ import { checkRegisterGrowatt, checkHoldingRegisterGrowatt } from '../response';
 import { Growatt } from '../growatt';
 /* eslint-enable node/no-missing-import */
 
-const RETRY_INTERVAL = 28 * 1000;
+const DEFAULT_RETRY_INTERVAL = 28;
 
 class MyGrowattTL3sDevice extends Growatt {
   timer!: NodeJS.Timeout;
@@ -43,11 +43,18 @@ class MyGrowattTL3sDevice extends Growatt {
     }
 
     this.pollInvertor().catch(this.error);
+    let settings = this.getSettings();
+
+    if (settings.pollinginterval === undefined) {
+      this.setSettings({ pollinginterval: DEFAULT_RETRY_INTERVAL });
+      settings.pollinginterval = 28;
+    }
 
     this.timer = this.homey.setInterval(() => {
       // poll device state from inverter
       this.pollInvertor().catch(this.error);
-    }, RETRY_INTERVAL);
+    }, settings.pollinginterval * 1000);
+
 
     this._dailyCheckInterval = this.homey.setInterval(
       () => this.checkDailyReset().catch(this.error),
@@ -97,7 +104,18 @@ class MyGrowattTL3sDevice extends Growatt {
       const max = Number(newSettings.maxpeakpower) || 6000;
       await this.setCapabilityOptions('target_power', { min: 0, max });
       await this.setCapabilityOptions('exportcapacity', { max });
+    }  
+
+    if (changedKeys.indexOf('pollinginterval') > -1) {
+      console.log('Changing the "pollinginterval" settings from', oldSettings.pollinginterval, 'to', newSettings.pollinginterval);
+
+      this.homey.clearInterval(this.timer);
+      this.timer = this.homey.setInterval(() => {
+        // poll device state from inverter
+        this.pollInvertor();
+      }, Number(newSettings.pollinginterval) * 1000);
     }    
+    
   }
 
   /**
@@ -201,7 +219,7 @@ class MyGrowattTL3sDevice extends Growatt {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
-      timeout: 22,
+      timeout: this.getSetting('pollinginterval') - 1,
       autoReconnect: false,
       logLabel: 'Growatt Inverter',
       logLevel: 'error',
