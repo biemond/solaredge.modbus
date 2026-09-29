@@ -9993,7 +9993,7 @@
         "charge_discharge_power",
         "batteryminsoc",
         "batterymaxsoc",
-        "batteryreservesoc",
+        "reserve_soc_for_backup",
         "start_stop",
         "power_limitation_switch",
         "power_limitation_setting",
@@ -10184,7 +10184,7 @@
           "min": 70,
           "max": 100
         },
-        "batteryreservesoc": {
+        "reserve_soc_for_backup": {
           "min": 0,
           "max": 100
         },
@@ -11063,7 +11063,7 @@
       "max": 100,
       "step": 1
     },
-    "batteryreservesoc": {
+    "reserve_soc_for_backup": {
       "type": "number",
       "title": {
         "en": "Reserve SoC for backup",
