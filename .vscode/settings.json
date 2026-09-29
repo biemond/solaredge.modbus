@@ -16,7 +16,7 @@
     "batterycycles",
     "batterymaxsoc",
     "batteryminsoc",
-    "batteryreservesoc",
+    "reserve_soc_for_backup",
     "batteryminsoclf",
     "batterysoh",
     "batterystatus",
