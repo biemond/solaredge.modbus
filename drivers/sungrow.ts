@@ -73,6 +73,7 @@ export class Sungrow extends Homey.Device {
     charge_discharge_power: [13051, 1, 'UINT16', 'Charge/discharge power', 0],
     max_soc: [13057, 1, 'UINT16', 'Max SOC ', -1],
     min_soc: [13058, 1, 'UINT16', 'Min SOC', -1],
+    reserve_soc_for_backup: [13099, 1, 'UINT16', 'Reserve SOC', -1],
     export_power: [13073, 1, 'UINT16', 'Export power', 0],
     export_power_enabled: [13086, 1, 'UINT16', 'Export power limitation 170: Enable, 85: Disable | ', 0],
 
@@ -402,6 +403,13 @@ export class Sungrow extends Homey.Device {
         const min_soc = Number(result['min_soc'].value) * Math.pow(10, Number(result['min_soc'].scale));
         this.setCapabilityValue('batteryminsoc', min_soc);
       }
+
+      if (result['reserve_soc_for_backup'] && result['reserve_soc_for_backup'].value != 'xxx' && this.hasCapability('reserve_soc_for_backup')) {
+        this.addCapability('reserve_soc_for_backup');
+        const reserve_soc = Number(result['reserve_soc_for_backup'].value) * Math.pow(10, Number(result['reserve_soc_for_backup'].scale));
+        this.setCapabilityValue('reserve_soc_for_backup', reserve_soc);
+      }
+    
     }
   }
 
