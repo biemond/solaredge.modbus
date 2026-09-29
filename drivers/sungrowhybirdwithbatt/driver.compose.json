@@ -44,6 +44,7 @@
     "charge_discharge_power",
     "batteryminsoc",
     "batterymaxsoc",
+    "reserve_soc_for_backup",
     "start_stop",
     "power_limitation_switch",
     "power_limitation_setting",
@@ -232,6 +233,10 @@
     },
     "batterymaxsoc": {
       "min": 70,
+      "max": 100
+    },
+    "reserve_soc_for_backup": {
+      "min": 0,
       "max": 100
     }
   },
