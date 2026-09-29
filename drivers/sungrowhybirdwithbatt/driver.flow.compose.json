@@ -190,6 +190,24 @@
           "type": "number"
         }
       ]
+    },
+    {
+      "id": "reserve_soc_for_backup",
+      "title": {
+        "en": "Reserve SoC for backup"
+      },
+      "args": [
+        {
+          "name": "percentage",
+          "type": "number",
+          "title": {
+            "en": "Reserve SoC (%)"
+          },
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      ]
     }
   ]
 }
