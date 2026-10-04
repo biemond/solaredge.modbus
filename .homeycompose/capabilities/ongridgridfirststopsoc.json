@@ -1,8 +1,7 @@
 {
   "type": "number",
   "title": {
-    "en": "Battery Minimum Capacity",
-    "de": "Minimaler Batteriestand"
+    "en": "Stop Discharge soc when Grid 1st, grid"
   },
   "getable": true,
   "setable": false,
@@ -13,7 +12,7 @@
     "en": "%",
     "nl": "%"
   },
-  "min": 10,
+  "min": 1,
   "max": 100,
   "step": 1
 }

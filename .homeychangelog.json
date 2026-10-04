@@ -145,5 +145,8 @@
   },
   "3.0.232": {
     "en": "solaredge pv only cap on batt devices, set own refresh timer on growatt"
+  },
+  "3.0.233": {
+    "en": "sungow reserve_soc_for_backup, growatt tl ongridgridfirststopsoc"
   }
 }

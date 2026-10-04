@@ -5,7 +5,9 @@
   },
   "class": "solarpanel",
   "energy": {
-    "batteries": ["OTHER"]
+    "batteries": [
+      "OTHER"
+    ]
   },
   "capabilities": [
     "measure_power",
@@ -21,7 +23,7 @@
     "measure_battery",
     "batterysoh",
     "activepowerlimit2",
-    "nominalactivepower",    
+    "nominalactivepower",
     "meter_power.today_grid_import",
     "meter_power.today_grid_export",
     "meter_power.grid_import",
@@ -47,7 +49,8 @@
     "start_stop",
     "power_limitation_switch",
     "power_limitation_setting",
-    "power_limitation_adjustment"    
+    "power_limitation_adjustment",
+    "reserve_soc_for_backup"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -235,8 +238,12 @@
       "max": 100
     }
   },
-  "platforms": ["local"],
-  "connectivity": ["lan"],
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png"

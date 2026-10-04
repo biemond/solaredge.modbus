@@ -43,7 +43,6 @@ class MyWSungrowDevice extends Sungrow {
     if (this.hasCapability('power_limitation_adjustment') === false) {
       await this.addCapability('power_limitation_adjustment');
     }    
-    
 
     this.pollInvertor();
 
@@ -87,6 +86,11 @@ class MyWSungrowDevice extends Sungrow {
     const chargeAction = this.homey.flow.getActionCard('charge');
     chargeAction.registerRunListener(async (args, state) => {
       await this.updateControl2('charge', Number(args.command), Number(args.power), args.device);
+    });
+
+    const reserveSocAction = this.homey.flow.getActionCard('reserve_soc_for_backup');
+    reserveSocAction.registerRunListener(async (args, state) => {
+      await this.updateControl('reserve_soc_for_backup', Number(args.percentage), args.device);
     });
 
     // homey menu / device actions
@@ -164,6 +168,11 @@ class MyWSungrowDevice extends Sungrow {
         console.log('powerlimitationsetting', powerlimitationsettingRes);
       }
 
+      if (type == 'reserve_soc_for_backup') {
+        // Register 13099, value is 0–100 (%), sent as-is (no *10 multiplier needed for SoC %)
+        const reserveSocRes = await client.writeSingleRegister(13099, value);
+        console.log('reserve_soc_for_backup', reserveSocRes);
+      }      
 
       console.log('disconnect');
       client.socket.end();

@@ -1,8 +1,7 @@
 {
   "type": "number",
   "title": {
-    "en": "Battery Minimum Capacity",
-    "de": "Minimaler Batteriestand"
+    "en": "reserve soc for backup"
   },
   "getable": true,
   "setable": false,
@@ -13,7 +12,7 @@
     "en": "%",
     "nl": "%"
   },
-  "min": 10,
+  "min": 0,
   "max": 100,
   "step": 1
 }

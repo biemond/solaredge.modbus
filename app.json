@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.232",
+  "version": "3.0.233",
   "compatibility": ">=12.13.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -5118,6 +5118,29 @@
         ]
       },
       {
+        "id": "reserve_soc_for_backup",
+        "title": {
+          "en": "Reserve SoC for backup"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sungrowhybirdwithbatt"
+          },
+          {
+            "name": "percentage",
+            "type": "number",
+            "title": {
+              "en": "Reserve SoC (%)"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1
+          }
+        ]
+      },
+      {
         "id": "hybridinvertermode",
         "title": {
           "en": "Hybrid Inverter Working Mode"
@@ -6340,7 +6363,8 @@
         "period3",
         "period4",
         "battacchargeswitch",
-        "gridfirstdischargepowerrate"
+        "gridfirstdischargepowerrate",
+        "ongridgridfirststopsoc"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -9996,7 +10020,8 @@
         "start_stop",
         "power_limitation_switch",
         "power_limitation_setting",
-        "power_limitation_adjustment"
+        "power_limitation_adjustment",
+        "reserve_soc_for_backup"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -12170,6 +12195,24 @@
       },
       "decimals": 1
     },
+    "ongridgridfirststopsoc": {
+      "type": "number",
+      "title": {
+        "en": "Stop Discharge soc when Grid 1st, grid"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "uiComponent": "sensor",
+      "icon": "/assets/battery.svg",
+      "units": {
+        "en": "%",
+        "nl": "%"
+      },
+      "min": 1,
+      "max": 100,
+      "step": 1
+    },
     "outputmaxpowerlimited": {
       "type": "number",
       "title": {
@@ -12505,6 +12548,24 @@
           }
         }
       ]
+    },
+    "reserve_soc_for_backup": {
+      "type": "number",
+      "title": {
+        "en": "reserve soc for backup"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "uiComponent": "sensor",
+      "icon": "/assets/battery.svg",
+      "units": {
+        "en": "%",
+        "nl": "%"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1
     },
     "sigen_remote_ems_code": {
       "type": "enum",

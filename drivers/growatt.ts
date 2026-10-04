@@ -69,6 +69,8 @@ export class Growatt extends Homey.Device {
     gridfirststopsoc: [3037, 1, 'UINT16', 'GridFirst stop SOC', 0],
     batfirststopsoc: [3048, 1, 'UINT16', 'BatFirst stop SOC', 0],
 
+    ongridgridfirststopsoc: [3067, 1, 'UINT16', 'Stop Discharge soc when Grid First and on-grid', 0],
+
     acchargeswitch: [3049, 1, 'UINT16', 'Batt AC charge switch', 0],
 
     period1start: [3038, 1, 'UINT16', 'period1start', 0],
@@ -679,6 +681,12 @@ export class Growatt extends Homey.Device {
       resultKey: 'gridfirststopsoc',
       capabilities: ['batteryminsoc'],
       valid: (data) => this.isValidNumberInRange(data.value, 10, 100),
+      transform: (data) => Number(data.value),
+    },
+    {
+      resultKey: 'ongridgridfirststopsoc',
+      capabilities: ['ongridgridfirststopsoc'],
+      valid: (data) => this.isValidNumberInRange(data.value, 1, 100),
       transform: (data) => Number(data.value),
     },
     {
