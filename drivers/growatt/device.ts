@@ -1,7 +1,7 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 /* eslint-disable node/no-missing-import */
-import { checkRegisterGrowatt, checkHoldingRegisterGrowatt } from '../response';
+import { checkHoldingRegisterGrowatt } from '../response';
 import { Growatt } from '../growatt';
 /* eslint-enable node/no-missing-import */
 
@@ -291,7 +291,22 @@ class MyGrowattDevice extends Growatt {
         this.log('Connected ...');
         this.log(modbusOptions);
 
-        const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
+        // ShineWLAN-X2 stops answering when these input registers are read one key
+        // at a time. Registers 0 through 105 fit in one request. Higher addresses
+        // belong to the battery drivers.
+        const inputRes = await client.readInputRegisters(0, 106);
+        const inputValues = inputRes.response.body.valuesAsArray;
+        const checkRegisterRes: Record<string, { value: string; scale: string; label: string }> = {};
+        for (const [key, value] of Object.entries(this.registers)) {
+          const address = Number(value[0]);
+          const length = Number(value[1]);
+          if (address + length > inputValues.length) continue;
+          let resultValue: string | undefined;
+          if (value[2] === 'UINT16') resultValue = String(inputValues[address]);
+          else if (value[2] === 'UINT32') resultValue = String((inputValues[address] << 16) | inputValues[address + 1]);
+          if (resultValue === undefined) continue;
+          checkRegisterRes[key] = { value: resultValue, scale: String(value[4]), label: value[3] };
+        }
         const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegistersBase, client);
         this.log('disconnect');
         client.socket.end();
