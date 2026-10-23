@@ -239,6 +239,19 @@
           "label": {
             "en": "Polling interval"
           }
+        },
+        {
+          "id": "block_read",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Read registers in blocks",
+            "nl": "Registers in blokken lezen"
+          },
+          "hint": {
+            "en": "Read the registers in a few block requests instead of one request per register. Enable this if your datalogger (e.g. ShineWiLan-X2) stops answering after a while.",
+            "nl": "Lees de registers met een paar blokverzoeken in plaats van één verzoek per register. Zet dit aan als je datalogger (bv. ShineWiLan-X2) na een tijd niet meer antwoordt."
+          }
         }
       ]
     }

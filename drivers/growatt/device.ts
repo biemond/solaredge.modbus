@@ -1,7 +1,7 @@
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 /* eslint-disable node/no-missing-import */
-import { checkRegisterGrowatt, checkHoldingRegisterGrowatt } from '../response';
+import { checkRegisterGrowatt, checkHoldingRegisterGrowatt, checkRegisterGrowattBlocks } from '../response';
 import { Growatt } from '../growatt';
 import withErrorContext from '../../lib/error-context';
 /* eslint-enable node/no-missing-import */
@@ -292,8 +292,14 @@ class MyGrowattDevice extends Growatt {
         this.log('Connected ...');
         this.log(modbusOptions);
 
-        const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
-        const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegistersBase, client);
+        // Optional (device setting): read registers in blocks instead of one request per register
+        const blockRead = this.getSetting('block_read') === true;
+        const checkRegisterRes = blockRead
+          ? await checkRegisterGrowattBlocks(this.registers, client, 'input')
+          : await checkRegisterGrowatt(this.registers, client);
+        const checkHoldingRegisterRes = blockRead
+          ? await checkRegisterGrowattBlocks(this.holdingRegistersBase, client, 'holding')
+          : await checkHoldingRegisterGrowatt(this.holdingRegistersBase, client);
         this.log('disconnect');
         client.socket.end();
         socket.end();

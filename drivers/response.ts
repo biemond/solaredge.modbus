@@ -501,6 +501,77 @@ export async function checkHoldingRegisterGrowatt(registers: Object, client: Ins
   return result;
 }
 
+// Max registers per block read (Modbus allows 125, 100 is what other Growatt integrations use)
+const GROWATT_MAX_BLOCK = 100;
+
+// Same result as checkRegisterGrowatt / checkHoldingRegisterGrowatt, but reads contiguous blocks
+// instead of one request per register. Some dataloggers (e.g. ShineWiLan-X2) stall when they get
+// ~50 separate requests per poll. A block that returns a Modbus exception is read per register.
+export async function checkRegisterGrowattBlocks(
+  registers: Object,
+  client: InstanceType<typeof Modbus.client.TCP>,
+  type: 'input' | 'holding',
+) {
+  const result: Record<string, Measurement> = {};
+  const read = (start: number, count: number) => (type === 'input' ? client.readInputRegisters(start, count) : client.readHoldingRegisters(start, count));
+
+  const entries = Object.entries(registers).sort((a, b) => a[1][0] - b[1][0]);
+  const blocks: { start: number; end: number; entries: [string, any][] }[] = [];
+  for (const entry of entries) {
+    const start = entry[1][0];
+    const end = start + entry[1][1];
+    const last = blocks[blocks.length - 1];
+    if (last && end - last.start <= GROWATT_MAX_BLOCK) {
+      last.end = Math.max(last.end, end);
+      last.entries.push(entry);
+    } else {
+      blocks.push({ start, end, entries: [entry] });
+    }
+  }
+
+  const decode = (key: string, value: any, values: number[], offset: number) => {
+    let resultValue: string = 'xxx';
+    switch (value[2]) {
+      case 'UINT16':
+        resultValue = values[offset].toString();
+        break;
+      case 'UINT32':
+        resultValue = ((values[offset] << 16) | values[offset + 1]).toString();
+        break;
+      default:
+        console.log(`${key}: type not found ${value[2]}`);
+        break;
+    }
+    result[key] = { value: resultValue, scale: value[4], label: value[3] };
+  };
+
+  for (const block of blocks) {
+    try {
+      const { response } = await read(block.start, block.end - block.start);
+      const values = response.body.valuesAsArray as number[];
+      for (const [key, value] of block.entries) {
+        decode(key, value, values, value[0] - block.start);
+      }
+    } catch (err: any) {
+      console.log(`error with block ${block.start}-${block.end - 1}`);
+      // An unsupported address inside the block: fall back to one request per register.
+      // On a timeout, don't: the datalogger isn't answering anyway.
+      if (err?.err !== 'ModbusException') continue;
+      for (const [key, value] of block.entries) {
+        try {
+          const { response } = await read(value[0], value[1]);
+          decode(key, value, response.body.valuesAsArray as number[], 0);
+        } catch (e) {
+          console.log(`error with key: ${key}`);
+        }
+      }
+    }
+  }
+
+  console.log(`checkRegisterGrowattBlocks ${type} result (${blocks.length} blocks)`);
+  return result;
+}
+
 export async function checkRegisterSungrow(registers: Object, client: InstanceType<typeof Modbus.client.TCP>) {
   const result: Record<string, Measurement> = {};
 
