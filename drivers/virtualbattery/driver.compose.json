@@ -1,0 +1,52 @@
+{
+  "name": {
+    "en": "Virtual Battery"
+  },
+  "class": "battery",
+  "capabilities": [
+    "measure_power",
+    "measure_battery"
+  ],
+  "energy": {
+    "homeBattery": true
+  },
+  "capabilitiesOptions": {
+    "meter_power.charged": {
+      "title": {
+        "en": "Charged Energy"
+      }
+    },
+    "meter_power.discharged": {
+      "title": {
+        "en": "Discharged Energy"
+      }
+    },
+    "batterycap": {
+      "title": {
+        "en": "Available Energy"
+      }
+    },
+    "batterymaxcap": {
+      "title": {
+        "en": "Maximum Energy"
+      }
+    }
+  },
+  "images": {
+    "small": "/drivers/virtualbattery/assets/images/small.png",
+    "large": "/drivers/virtualbattery/assets/images/large.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

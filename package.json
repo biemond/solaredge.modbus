@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "lint": "eslint --ext .js,.ts --ignore-path .gitignore .",
     "test:solar-power": "npm run build && node .homeybuild/tests/solar-power.test.cjs",
-    "validate": "homey app validate"
+    "validate": "homey app validate",
+    "test:virtual-battery": "npm run build && node .homeybuild/tests/virtual-battery.test.cjs"
   },
   "devDependencies": {
     "@tsconfig/node16": "^16.1.8",

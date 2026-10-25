@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Rated Capacity"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "decimals": 1,
+  "insights": true,
+  "units": {
+    "en": "kWh"
+  }
+}

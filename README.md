@@ -62,3 +62,57 @@ following this blog Wattsonic Hybrid Inverter Gen3 Modbus RTU Protocol https://s
 ## Support topic
 
 For support please use the official support topic on the forum [here](https://community.athom.com/t/app-SolarEdge/45487).
+
+## Virtual batteries (SolarEdge and Growatt)
+
+Add **Virtual Battery** after pairing a supported inverter and letting it finish a
+successful battery poll. Pairing lists the inverter name and each battery source.
+SolarEdge exposes battery slots 1 and 2 separately; the Growatt battery, TL and
+TLS drivers currently expose one battery bank per inverter. Two inverters with
+one battery each therefore produce two independent pairing choices. An already
+paired source is omitted from the list. If the list is empty, wait for the next
+master poll and reopen pairing.
+
+The virtual device receives snapshots from the existing inverter poll. It has no
+Modbus connection, IP settings or polling requests. It reports signed battery
+power (positive charging, negative discharging), individual SoC, and supported
+health, temperature, voltage, current, capacity, status-code and cycle readings.
+Missing optional measurements are cleared; zero power and 0% SoC are valid.
+SolarEdge reuses the existing `battstatus` enum (for example Idle and Sleep).
+Growatt status codes remain vendor-specific numeric diagnostic values.
+
+Growatt lifetime battery input/output counters feed charged/discharged energy in
+Homey Energy. SolarEdge lifetime counters are intentionally not exposed yet:
+`checkBattery()` currently truncates UINT64 values and their decoding, direction
+and units need verification first. This limits Energy features that require
+separate charged/discharged totals on SolarEdge.
+
+The virtual battery is monitoring-only. Existing master `measure_power`, solar
+Energy reporting, Flows and controls are unchanged. On hybrid inverters the master
+may include battery power in its solar reporting, so the combined Homey Energy
+view still needs the separately planned PV-only reporting option.
+
+After an app restart the device waits for a fresh master poll. It becomes
+unavailable when its master is removed or no complete battery snapshot arrives
+for the greater of two minutes and three configured polling intervals. It
+recovers automatically on fresh data. A 15-second timer checks availability only.
+
+### Extending battery support
+
+`lib/battery-data.ts` contains the shared in-memory snapshot service and pure
+SolarEdge/Growatt adapters. Adapters normalize existing decoded poll results into
+per-source capability values; source IDs identify either a physical slot or a
+battery bank. Add another master driver to `SUPPORTED_DRIVERS`, implement its
+adapter and call `publishBatteries` from its result-processing path. Do not add
+Modbus reads to the virtual driver. Unsupported fields should be omitted, never
+invented or filled with zero. Use lifetime counters, not resetting daily totals.
+
+### Local checks and hardware trial
+
+Run `npm run test:virtual-battery`, `npm run test:solar-power` and
+`homey app validate`. Install the development app through the Homey CLI, then add
+Virtual Battery devices for the desired sources. Check idle/charge/discharge
+signs, per-slot SoC/SoH and capacity units against the inverter. Test two masters,
+app restart, disconnection/recovery and deletion of a master. This feature has
+local mocked SDK coverage; live inverter and Homey Energy verification is still
+required.

@@ -1,3 +1,4 @@
+import { publishBatteries } from '../lib/battery-data';
 import * as Homey from 'homey';
 
 export interface Measurement {
@@ -806,6 +807,7 @@ export class Growatt extends Homey.Device {
   }
 
   processResult(result: Record<string, Measurement>, maxpeakpower: number) {
+    if (result) publishBatteries(this, result, 'growatt');
     const context = { maxpeakpower };
     const slots = ['battfirst1', 'battfirst2', 'battfirst3', 'gridfirst1', 'gridfirst2', 'gridfirst3'];
 

@@ -1,0 +1,11 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Battery Status Code"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "decimals": 0,
+  "insights": false
+}

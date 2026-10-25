@@ -1,3 +1,4 @@
+import { publishBatteries } from '../lib/battery-data';
 import Homey, { Device } from 'homey';
 import calculateSolarPanelPower from './solar-power';
 
@@ -248,6 +249,7 @@ export class Solaredge extends Homey.Device {
 
   async processResult(result: Record<string, Measurement>, maxpeakpower: number) {
     if (result) {
+      publishBatteries(this, result, 'solaredge');
       // result
       for (const k in result) {
         console.log('solaredge: ', k, result[k].value, result[k].scale, result[k].label);

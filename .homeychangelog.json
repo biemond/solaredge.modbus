@@ -148,5 +148,8 @@
   },
   "3.0.233": {
     "en": "sungow reserve_soc_for_backup, growatt tl ongridgridfirststopsoc"
+  },
+  "3.0.300": {
+    "en": "virtual battery device"
   }
 }
