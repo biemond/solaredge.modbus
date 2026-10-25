@@ -51,6 +51,33 @@ async function main() {
   assert.equal(solarEdgeBatteries({ ...solar(1, -500, 50),
     'batt1-instantaneous_current': measurement(-1.25) })[0].values.measure_current, -1.25,
   'preserve real negative current');
+  const energySources = solarEdgeBatteries({ ...solar(1, 2000, 50), ...solar(2, -400, 70),
+    'batt1-lifetime_import_energy_counter': measurement(12345678),
+    'batt1-lifetime_export_energy_counter': measurement(9876543),
+    'batt2-lifetime_import_energy_counter': measurement(2222222),
+    'batt2-lifetime_export_energy_counter': measurement(1111111) });
+  assert.equal(energySources[0].values['meter_power.charged'], 12345.678);
+  assert.equal(energySources[0].values['meter_power.discharged'], 9876.543);
+  assert.equal(energySources[1].values['meter_power.charged'], 2222.222);
+  assert.equal(energySources[1].values['meter_power.discharged'], 1111.111);
+  for (const manufacturer of ['LG', ' lg\0\0 ', 'LG Chem', 'LG Energy Solution', 'BYD', ' bYd\0 ', 'BYD Battery-Box']) {
+    const mixedSources = solarEdgeBatteries({ ...solar(1, -500, 42), ...solar(2, 100, 55),
+      'batt1-c_manufacturer': measurement(manufacturer), 'batt1-soh': measurement(90.5),
+      'batt1-lifetime_import_energy_counter': measurement(12345678),
+      'batt1-lifetime_export_energy_counter': measurement(9876543),
+      'batt2-c_manufacturer': measurement('SolarEdge\0'),
+      'batt2-lifetime_import_energy_counter': measurement(160001),
+      'batt2-lifetime_export_energy_counter': measurement(156946) });
+    assert.equal(mixedSources[0].lifetimeCountersSupported, false, manufacturer);
+    assert.equal(mixedSources[0].values['meter_power.charged'], null);
+    assert.equal(mixedSources[0].values['meter_power.discharged'], null);
+    assert.equal(mixedSources[0].values.measure_power, -500);
+    assert.equal(mixedSources[0].values.measure_battery, 42);
+    assert.equal(mixedSources[0].values.batterysoh, 90.5);
+    assert.equal(mixedSources[1].lifetimeCountersSupported, true);
+    assert.equal(mixedSources[1].values['meter_power.charged'], 160.001);
+    assert.equal(mixedSources[1].values['meter_power.discharged'], 156.946);
+  }
   const bank = growattBatteries(growatt)[0];
   assert.equal(bank.scope, 'bank');
   assert.equal(bank.values.measure_power, 2000);
@@ -121,6 +148,9 @@ async function main() {
   device.homey = homey;
   device.getData = () => choices[0].data;
   const values = { measure_power: null, measure_battery: null, battery_status_code: 6 };
+  const store = {};
+  device.getStoreValue = (key) => store[key];
+  device.setStoreValue = async (key, value) => { store[key] = value; };
   device.removeCapability = async (key) => { delete values[key]; };
   device.hasCapability = (key) => key in values;
   device.getCapabilities = () => Object.keys(values);
@@ -145,6 +175,59 @@ async function main() {
   publishBatteries(masters[0], { ...solar(1, 0, 30), 'batt1-status': measurement(99) }, 'solaredge');
   await device.updates;
   assert.equal(values.battstatus, null, 'unknown enum IDs clear the old status');
+  publishBatteries(masters[0], { ...solar(1, 0, 30),
+    'batt1-lifetime_import_energy_counter': measurement(12345678),
+    'batt1-lifetime_export_energy_counter': measurement(9876543) }, 'solaredge');
+  await device.updates;
+  assert.equal(values['meter_power.charged'], 12345.678);
+  assert.equal(values['meter_power.discharged'], 9876.543);
+  assert.equal(energy.meterPowerImportedCapability, 'meter_power.charged');
+  assert.equal(energy.meterPowerExportedCapability, 'meter_power.discharged');
+
+  for (const manufacturer of [' LG\0 ', 'BYD']) {
+    publishBatteries(masters[0], { ...solar(1, 200, 30),
+      'batt1-c_manufacturer': measurement(manufacturer), 'batt1-soh': measurement(90.5),
+      'batt1-lifetime_import_energy_counter': measurement(12345678),
+      'batt1-lifetime_export_energy_counter': measurement(9876543) }, 'solaredge');
+    await device.updates;
+    assert.equal(values['meter_power.charged'], null, 'clear previously displayed totals');
+    assert.equal(values['meter_power.discharged'], null);
+    assert.deepEqual(energy, { homeBattery: true }, 'remove Energy counter mappings for LG/BYD');
+    assert.equal(store.lifetimeCountersSupported, false);
+    assert.equal(values.measure_power, 200);
+    assert.equal(values.batterysoh, 90.5);
+    assert.equal(device.available, true);
+  }
+  publishBatteries(masters[0], { ...solar(1, 0, 30),
+    'batt1-lifetime_import_energy_counter': measurement(12345678),
+    'batt1-lifetime_export_energy_counter': measurement(9876543) }, 'solaredge');
+  await device.updates;
+  assert.equal(values['meter_power.charged'], null, 'missing manufacturer must not re-enable unreliable counters');
+  assert.deepEqual(energy, { homeBattery: true });
+
+  // A new device instance reuses the persisted decision even if the next poll lacks manufacturer.
+  const resumedLg = new VirtualDevice();
+  for (const key of ['hasCapability', 'getCapabilities', 'addCapability', 'removeCapability', 'setCapabilityValue',
+    'getEnergy', 'setEnergy', 'getStoreValue', 'setStoreValue', 'getData', 'error']) resumedLg[key] = device[key];
+  resumedLg.homey = homey;
+  resumedLg.setAvailable = async () => { resumedLg.available = true; };
+  resumedLg.setUnavailable = async () => { resumedLg.available = false; };
+  await resumedLg.onInit();
+  await resumedLg.updates;
+  assert.equal(values['meter_power.charged'], null, 'retain manufacturer exclusion across device restart');
+  assert.deepEqual(energy, { homeBattery: true });
+  assert.equal(resumedLg.available, true);
+  await resumedLg.onUninit();
+
+  // A known supported manufacturer can restore mappings without pairing again.
+  publishBatteries(masters[0], { ...solar(1, 0, 30), 'batt1-c_manufacturer': measurement('SolarEdge\0'),
+    'batt1-lifetime_import_energy_counter': measurement(160001),
+    'batt1-lifetime_export_energy_counter': measurement(156946) }, 'solaredge');
+  await device.updates;
+  assert.equal(values['meter_power.charged'], 160.001);
+  assert.equal(energy.meterPowerImportedCapability, 'meter_power.charged');
+  assert.equal(store.lifetimeCountersSupported, true);
+
   assert.equal(device.available, true);
   publishBatteries(masters[0], { ...solar(1, -250, 0), 'batt1-soh': measurement(95) }, 'solaredge');
   await device.updates;
@@ -176,7 +259,7 @@ async function main() {
   assert.equal(batteryService(homey).events.listenerCount(sourceKey('invertorwithbatt', 'inverter-a', 'slot:1')), 0);
   const growattChoice = (await driver.onPairListDevices()).find((choice) => choice.data.masterDriverId === 'growattwithbatt');
   const growattDevice = new VirtualDevice();
-  for (const key of ['hasCapability', 'getCapabilities', 'addCapability', 'setCapabilityValue', 'getEnergy', 'setEnergy', 'error']) {
+  for (const key of ['hasCapability', 'getCapabilities', 'addCapability', 'setCapabilityValue', 'getEnergy', 'setEnergy', 'getStoreValue', 'setStoreValue', 'error']) {
     growattDevice[key] = device[key];
   }
   growattDevice.homey = homey;
@@ -195,7 +278,7 @@ async function main() {
   const restartedHomey = { ...homey };
   const restartedMaster = { ...masters.find((m) => m.driver.id === 'growattwithbatt'), homey: restartedHomey };
   const restarted = new VirtualDevice();
-  for (const key of ['hasCapability', 'getCapabilities', 'addCapability', 'setCapabilityValue', 'getEnergy', 'setEnergy', 'error']) restarted[key] = device[key];
+  for (const key of ['hasCapability', 'getCapabilities', 'addCapability', 'setCapabilityValue', 'getEnergy', 'setEnergy', 'getStoreValue', 'setStoreValue', 'error']) restarted[key] = device[key];
   restarted.homey = restartedHomey;
   restarted.getData = growattDevice.getData;
   restarted.setAvailable = async () => { restarted.available = true; };

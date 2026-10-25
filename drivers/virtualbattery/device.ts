@@ -53,6 +53,18 @@ class VirtualBatteryDevice extends Homey.Device {
       return;
     }
     const values = { ...snapshot.values };
+    let countersSupported = snapshot.lifetimeCountersSupported;
+    const previousSupport = this.getStoreValue('lifetimeCountersSupported');
+    if (typeof countersSupported === 'boolean' && countersSupported !== previousSupport) {
+      await this.setStoreValue('lifetimeCountersSupported', countersSupported);
+    } else if (countersSupported === undefined) {
+      countersSupported = previousSupport;
+    }
+    if (countersSupported === false) {
+      // Keep numeric tiles visible as unavailable, including devices paired before this fix.
+      values['meter_power.charged'] = null;
+      values['meter_power.discharged'] = null;
+    }
     for (const [capability, value] of Object.entries(values)) {
       const definition = this.homey.manifest.capabilities?.[capability];
       // Use the existing capability enum as the authority for supported status IDs.
@@ -68,7 +80,8 @@ class VirtualBatteryDevice extends Homey.Device {
     for (const capability of this.getCapabilities()) {
       if (!(capability in values)) await this.setCapabilityValue(capability, null);
     }
-    const hasCounters = this.hasCapability('meter_power.charged')
+    const hasCounters = countersSupported !== false
+      && this.hasCapability('meter_power.charged')
       && this.hasCapability('meter_power.discharged');
     const energy = hasCounters ? {
       homeBattery: true,

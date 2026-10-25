@@ -13,13 +13,15 @@
   "capabilitiesOptions": {
     "meter_power.charged": {
       "title": {
-        "en": "Charged Energy"
-      }
+        "en": "Total Charged Energy"
+      },
+      "decimals": 3
     },
     "meter_power.discharged": {
       "title": {
-        "en": "Discharged Energy"
-      }
+        "en": "Total Discharged Energy"
+      },
+      "decimals": 3
     },
     "batterycap": {
       "title": {

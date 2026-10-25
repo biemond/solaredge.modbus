@@ -1,11 +1,14 @@
 import { EventEmitter } from 'events';
 import type Homey from 'homey';
+// eslint-disable-next-line node/no-missing-import
+import { solarEdgeCounterKWh } from './solaredge-counter';
 
 export interface BatterySource {
   id: string;
   label: string;
   scope: 'battery' | 'bank';
-  values: Record<string, number | string>;
+  values: Record<string, number | string | null>;
+  lifetimeCountersSupported?: boolean;
 }
 
 export interface BatterySnapshot extends BatterySource {
@@ -68,7 +71,7 @@ function readNumber(result: Result, key: string, scaled = false): number | undef
   return Number.isFinite(value) ? value : undefined;
 }
 
-function put(values: Record<string, number | string>, capability: string, value: number | undefined, min = -Infinity, max = Infinity) {
+function put(values: Record<string, number | string | null>, capability: string, value: number | undefined, min = -Infinity, max = Infinity) {
   if (typeof value === 'number' && Number.isFinite(value) && value >= min && value <= max) values[capability] = value;
 }
 
@@ -83,7 +86,7 @@ function solarEdgeBatteries(result: Result): BatterySource[] {
     const power = get('instantaneous_power');
     const soc = get('soe');
     if (power === undefined || soc === undefined || soc < 0 || soc > 100) return [];
-    const values: Record<string, number | string> = { measure_power: power, measure_battery: soc };
+    const values: Record<string, number | string | null> = { measure_power: power, measure_battery: soc };
     put(values, 'batterysoh', get('soh'), 0, 100);
     put(values, 'measure_temperature', get('average_temperature'), -100, 150);
     put(values, 'measure_voltage', get('instantaneous_voltage'), 0);
@@ -93,9 +96,23 @@ function solarEdgeBatteries(result: Result): BatterySource[] {
     put(values, 'batteryratedcap', (get('rated_energy') ?? NaN) / 1000, 0);
     const status = get('status');
     if (status !== undefined && Number.isInteger(status) && status >= 0) values.battstatus = String(status);
-    // Lifetime counters intentionally omitted until SolarEdge UINT64 decoding is verified.
+    const manufacturer = String(result[`batt${slot}-c_manufacturer`]?.value ?? '')
+      .replace(/\0/g, '').trim().toUpperCase();
+    // These BMS counters can reset and are not reliable lifetime energy totals.
+    // A missing manufacturer leaves the last known support decision unchanged.
+    const lifetimeCountersSupported = !manufacturer || manufacturer === 'XXX'
+      ? undefined : !/^(LG|BYD)\b/.test(manufacturer);
+    if (lifetimeCountersSupported === false) {
+      values['meter_power.charged'] = null;
+      values['meter_power.discharged'] = null;
+    } else {
+      put(values, 'meter_power.charged',
+        solarEdgeCounterKWh(result[`batt${slot}-lifetime_import_energy_counter`]?.value), 0);
+      put(values, 'meter_power.discharged',
+        solarEdgeCounterKWh(result[`batt${slot}-lifetime_export_energy_counter`]?.value), 0);
+    }
     return [{
-      id: `slot:${slot}`, label: `Battery ${slot}`, scope: 'battery', values,
+      id: `slot:${slot}`, label: `Battery ${slot}`, scope: 'battery', values, lifetimeCountersSupported,
     }];
   });
 }
@@ -117,7 +134,7 @@ function growattBatteries(result: Result): BatterySource[] {
   put(values, 'meter_power.discharged', get('total_battery_output_energy'), 0);
   // Do not copy the legacy temperature <6 correction: it also changes valid cold readings.
   return [{
-    id: 'bank:1', label: 'Battery bank', scope: 'bank', values,
+    id: 'bank:1', label: 'Battery bank', scope: 'bank', values, lifetimeCountersSupported: true,
   }];
 }
 

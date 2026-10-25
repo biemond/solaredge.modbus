@@ -81,11 +81,20 @@ Missing optional measurements are cleared; zero power and 0% SoC are valid.
 SolarEdge reuses the existing `battstatus` enum (for example Idle and Sleep).
 Growatt status codes remain vendor-specific numeric diagnostic values.
 
-Growatt lifetime battery input/output counters feed charged/discharged energy in
-Homey Energy. SolarEdge lifetime counters are intentionally not exposed yet:
-`checkBattery()` currently truncates UINT64 values and their decoding, direction
-and units need verification first. This limits Energy features that require
-separate charged/discharged totals on SolarEdge.
+SolarEdge and Growatt lifetime battery input/output counters feed total charged
+and discharged energy in Homey Energy. SolarEdge reads all four UINT64 registers
+(low word first, big-endian bytes per register), maps battery import to charged
+and export to discharged, and converts Wh to kWh. Invalid/all-ones counters and
+values outside safe JS integer precision are omitted. Zero is a valid total.
+LG and BYD batteries connected through SolarEdge do not provide reliable lifetime
+counters. Their per-slot manufacturer is matched without case, padding whitespace
+or null characters; their total-energy tiles show unavailable (`—`) and their
+charged/discharged Energy mappings are removed. Existing devices update without
+re-pairing. The support decision is retained across missing manufacturer readings
+and app restarts. Other battery measurements continue to update normally.
+SolarEdge Energy Bank and Growatt keep their native counters; no extra reads are
+made. See [SolarEdge Monitoring API, page 31, Disclaimer 1](https://knowledge-center.solaredge.com/sites/kc/files/se_monitoring_api.pdf)
+and [SolarEdge Modbus Multi battery-energy notes](https://github.com/WillCodeForCats/solaredge-modbus-multi/wiki/Known-Issues#battery-energy).
 
 The virtual battery is monitoring-only. Existing master `measure_power`, solar
 Energy reporting, Flows and controls are unchanged. On hybrid inverters the master

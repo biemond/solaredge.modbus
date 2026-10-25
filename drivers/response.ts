@@ -1,3 +1,4 @@
+import { decodeSolarEdgeUint64 } from '../lib/solaredge-counter';
 import * as Modbus from 'jsmodbus';
 import { Measurement } from './solaredge';
 
@@ -826,8 +827,18 @@ export async function checkBattery(battery_dids: Object, batt_registers: Object,
                     resultValue = response.body.valuesAsArray[0].toString();
                     break;
                   case 'UINT64':
-                    resultValue = response.body.valuesAsArray[0].toString();
-                    // resultValue = response.body.valuesAsBuffer.readBigUInt64LE().toString();
+                    resultValue = decodeSolarEdgeUint64(response.body.valuesAsBuffer);
+                    // Temporary diagnostics: reuse the response already retrieved by this poll.
+                    console.log('SolarEdge battery UINT64', JSON.stringify({
+                      battery: key,
+                      manufacturer: result[`${key}-c_manufacturer`]?.value,
+                      model: result[`${key}-c_model`]?.value,
+                      counter: key2,
+                      register: `0x${(value2[0] + value[3]).toString(16)}`,
+                      words: response.body.valuesAsArray,
+                      rawHex: response.body.valuesAsBuffer.toString('hex'),
+                      decodedWh: resultValue,
+                    }));
                     break;
                   default:
                     console.log(`${key2}: type not found ${value2[2]}`);
