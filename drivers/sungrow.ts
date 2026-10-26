@@ -133,9 +133,10 @@ export class Sungrow extends Homey.Device {
         this.setCapabilityValue('start_stop', switchvalue);
       }
 
-      if (result['power_limitation_switch'] && result['power_limitation_switch'].value != 'xxx') {
+      // Only the documented enum IDs are valid; never forward unknown register values.
+      if (['85', '170'].includes(String(result['power_limitation_switch']?.value))) {
         this.addCapability('power_limitation_switch');
-        const switchvalue = result['power_limitation_switch'].value;
+        const switchvalue = String(result['power_limitation_switch'].value);
         this.setCapabilityValue('power_limitation_switch', switchvalue);
       }
       if (result['power_limitation_setting'] && result['power_limitation_setting'].value != 'xxx') {
@@ -449,9 +450,10 @@ export class Sungrow extends Homey.Device {
         this.setCapabilityValue('start_stop', switchvalue);
       }
 
-      if (result['power_limitation_switch'] && result['power_limitation_switch'].value != 'xxx') {
+      // Only the documented enum IDs are valid; never forward unknown register values.
+      if (['85', '170'].includes(String(result['power_limitation_switch']?.value))) {
         this.addCapability('power_limitation_switch');
-        const switchvalue = result['power_limitation_switch'].value;
+        const switchvalue = String(result['power_limitation_switch'].value);
         this.setCapabilityValue('power_limitation_switch', switchvalue);
       }
 

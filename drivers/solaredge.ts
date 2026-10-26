@@ -604,7 +604,12 @@ export class Solaredge extends Homey.Device {
         this.setCapabilityValue('measure_voltage.meter_phase3', voltageeac3);
       }
 
-      if (this.validResultRecord(result['meter1-power']) && this.validResultRecord(result['meter1-power'])) {
+      // A meter read can succeed while the inverter AC-power read is missing or invalid.
+      const meterPowerRecord = result['meter1-power'];
+      const meterAcPower = Number(acPowerRecord?.value) * Math.pow(10, Number(acPowerRecord?.scale));
+      const meterGridPower = Number(meterPowerRecord?.value) * Math.pow(10, Number(meterPowerRecord?.scale));
+      if (this.validResultRecord(meterPowerRecord) && this.validResultRecord(acPowerRecord)
+        && Number.isFinite(meterAcPower) && Number.isFinite(meterGridPower)) {
         if (this.hasCapability('measure_power.import') === false) {
           await this.addCapability('measure_power.import');
         }  
@@ -614,8 +619,8 @@ export class Solaredge extends Homey.Device {
         if (this.hasCapability('ownconsumption') === false) {
           await this.addCapability('ownconsumption');
         }  
-        var acpower = Number(result['power_ac'].value) * Math.pow(10, Number(result['power_ac'].scale));
-        const meterpower = Number(result['meter1-power'].value) * Math.pow(10, Number(result['meter1-power'].scale));
+        var acpower = meterAcPower;
+        const meterpower = meterGridPower;
         console.log(`acpower: ${acpower}`);
         console.log(`meterpower: ${meterpower}`);
         if (meterpower > 0) {

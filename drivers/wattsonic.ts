@@ -1,3 +1,5 @@
+// eslint-disable-next-line node/no-missing-import
+import readScaledNumber from '../lib/modbus-values';
 import Homey, { Device } from 'homey';
 
 export interface Measurement {
@@ -239,15 +241,16 @@ export class Wattsonic extends Homey.Device {
       // // total batt power 30258	2	Battery_P	I32	kW	1000	Battery Power
       // "battery_power":  [30258, 2, 'INT32',  "Battery power", 0],
 
-      if (result['battery_power'] && result['battery_power'].value != 'xxx' && this.hasCapability('measure_power.batt_discharge')) {
+      const discharge = readScaledNumber(result['battery_power']);
+      const inputPower = readScaledNumber(result['inputPower']);
+      const batteryMode = String(result['battery_mode']?.value);
+      if (discharge !== undefined && inputPower !== undefined && ['0', '1'].includes(batteryMode)
+        && this.hasCapability('measure_power.batt_discharge')) {
         this.addCapability('measure_power.batt_charge');
         this.addCapability('measure_power.batt_discharge');
 
-        const discharge = Number(result['battery_power'].value) * Math.pow(10, Number(result['battery_power'].scale));
-        const type = Number(result['battery_mode'].value);
-
+        const type = Number(batteryMode);
         this.addCapability('measure_power');
-        const inputPower = Number(result['inputPower'].value) * Math.pow(10, Number(result['inputPower'].scale));
 
         if (type == 0) {
           this.setCapabilityValue('measure_power.batt_charge', 0);

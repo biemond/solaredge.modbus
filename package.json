@@ -13,7 +13,10 @@
     "test:solar-power": "npm run build && node .homeybuild/tests/solar-power.test.cjs",
     "validate": "homey app validate",
     "test:virtual-battery": "npm run build && node .homeybuild/tests/virtual-battery.test.cjs",
-    "test:solaredge-counters": "npm run build && node .homeybuild/tests/solaredge-counters.test.cjs"
+    "test:solaredge-counters": "npm run build && node .homeybuild/tests/solaredge-counters.test.cjs",
+    "test:solaredge-partial-poll": "npm run build && node .homeybuild/tests/solaredge-partial-poll.test.cjs",
+    "test:sungrow-enum": "npm run build && node .homeybuild/tests/sungrow-enum.test.cjs",
+    "test:huawei-wattsonic-partial-poll": "npm run build && node .homeybuild/tests/huawei-wattsonic-partial-poll.test.cjs"
   },
   "devDependencies": {
     "@tsconfig/node16": "^16.1.8",

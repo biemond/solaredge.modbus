@@ -1,3 +1,5 @@
+// eslint-disable-next-line node/no-missing-import
+import readScaledNumber from '../../lib/modbus-values';
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import Homey, { Device } from 'homey';
@@ -252,10 +254,13 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
       }
       this.processResult2(finalRes2);
 
-      this.addCapability('measure_power');
-      const inputPower = Number(checkRegisterRes['inputPower'].value) * Math.pow(10, Number(checkRegisterRes['inputPower'].scale));
-      const inputPower2 = Number(checkRegisterRes2['inputPower'].value) * Math.pow(10, Number(checkRegisterRes2['inputPower'].scale));
-      this.setCapabilityValue('measure_power', inputPower + inputPower2);
+      // Publish a combined reading only when both inverter readings are valid.
+      const inputPower = readScaledNumber(checkRegisterRes['inputPower']);
+      const inputPower2 = readScaledNumber(checkRegisterRes2['inputPower']);
+      if (inputPower !== undefined && inputPower2 !== undefined && Number.isFinite(inputPower + inputPower2)) {
+        if (!this.hasCapability('measure_power')) await this.addCapability('measure_power');
+        await this.setCapabilityValue('measure_power', inputPower + inputPower2);
+      }
 
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
