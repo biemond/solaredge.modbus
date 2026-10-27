@@ -1,3 +1,5 @@
+// eslint-disable-next-line node/no-missing-import
+import withErrorContext from '../../lib/error-context';
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import { checkHoldingRegisterHuawei } from '../response';
@@ -86,7 +88,8 @@ class MyHuaweiDevice extends Huawei {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
-    socket.on('connect', async () => {
+    const errorContext = `Huawei driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`;
+    socket.on('connect', withErrorContext(errorContext, async () => {
       console.log('Connected ...');
       console.log(modbusOptions);
       const startTime = new Date();
@@ -98,12 +101,12 @@ class MyHuaweiDevice extends Huawei {
       client.socket.end();
       socket.end();
       const finalRes = { ...checkRegisterRes };
-      this.processResult(finalRes);
+      await this.processResult(finalRes);
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
       const seconds = Math.floor(timeDiff / 1000);
       console.log(`total time: ${seconds} seconds`);
-    });
+    }));
 
     socket.on('close', () => {
       console.log('Client closed');

@@ -7,6 +7,12 @@ export interface Measurement {
 }
 
 export class Huawei extends Homey.Device {
+  private isSupportedEnumValue(capabilityId: string, value: unknown): boolean {
+    const definition = this.homey.manifest.capabilities?.[capabilityId];
+    return definition?.type === 'enum' && Array.isArray(definition.values)
+      && definition.values.some((option: { id: string }) => option.id === String(value));
+  }
+
   holdingRegisters: Object = {
     // rn.RATED_POWER: U32Register("W", 1, 30073, 2),
     // "ratedPower": [30073, 2, 'UINT32', "Rated Power", 0],
@@ -394,15 +400,23 @@ export class Huawei extends Homey.Device {
         this.setCapabilityValue('meter_power.grid_export_total', total_feedin_togrid);
       }
 
-      if (result['battery_control'] && result['battery_control'].value != 'xxx') {
+      if (
+        result['battery_control']
+        && result['battery_control'].value != 'xxx'
+        && this.isSupportedEnumValue('battery_control', result['battery_control'].value)
+      ) {
         this.addCapability('battery_control');
-        const battery_control = result['battery_control'].value;
+        const battery_control = String(result['battery_control'].value);
         this.setCapabilityValue('battery_control', battery_control);
       }
 
-      if (result['power_control_mode_at_grid'] && result['power_control_mode_at_grid'].value != 'xxx') {
+      if (
+        result['power_control_mode_at_grid']
+        && result['power_control_mode_at_grid'].value != 'xxx'
+        && this.isSupportedEnumValue('power_control_mode_at_grid', result['power_control_mode_at_grid'].value)
+      ) {
         this.addCapability('power_control_mode_at_grid');
-        const power_control_mode_at_grid = result['power_control_mode_at_grid'].value;
+        const power_control_mode_at_grid = String(result['power_control_mode_at_grid'].value);
         this.setCapabilityValue('power_control_mode_at_grid', power_control_mode_at_grid);
       }
 
@@ -637,11 +651,14 @@ export class Huawei extends Homey.Device {
         40960: 'Standby: no irradiation',
       };
 
-      if (result['DEVICE_STATUS'] && result['DEVICE_STATUS'].value !== undefined && result['DEVICE_STATUS'].value && result['DEVICE_STATUS'].value != 'xxx') {
+      const statusCode = result['DEVICE_STATUS']?.value;
+      if (statusCode !== undefined && /^\d+$/.test(String(statusCode))) {
         this.addCapability('huawei_status');
-        const huawei_status = result['DEVICE_STATUS'].value;
-        this.setCapabilityValue('huawei_status', DEVICE_STATUS_DEFINITIONS[huawei_status]);
-        console.log(`inverter status ${DEVICE_STATUS_DEFINITIONS[huawei_status]}`);
+        const huawei_status = String(statusCode);
+        const knownStatus = DEVICE_STATUS_DEFINITIONS[huawei_status];
+        const status = typeof knownStatus === 'string' ? knownStatus : `Unknown (${huawei_status})`;
+        this.setCapabilityValue('huawei_status', status);
+        console.log(`inverter status ${status}`);
       }
 
       // "STORAGE_STATE_OF_CAPACITY": [37760, 1, 'UINT16', "RUNNING STATUS", -1],
@@ -747,9 +764,14 @@ export class Huawei extends Homey.Device {
         this.setCapabilityValue('meter_power.today_batt_input', STORAGE_CURRENT_DAY_CHARGE_CAPACITY);
       }
 
-      if (result['ACTIVE_POWER_CONTROL_MODE'] && result['ACTIVE_POWER_CONTROL_MODE'].value != 'xxx' && this.hasCapability('activepower_controlmode')) {
+      if (
+        result['ACTIVE_POWER_CONTROL_MODE']
+        && result['ACTIVE_POWER_CONTROL_MODE'].value != 'xxx'
+        && this.hasCapability('activepower_controlmode')
+        && this.isSupportedEnumValue('activepower_controlmode', result['ACTIVE_POWER_CONTROL_MODE'].value)
+      ) {
         this.addCapability('activepower_controlmode');
-        const ACTIVE_POWER_CONTROL_MODE = result['ACTIVE_POWER_CONTROL_MODE'].value;
+        const ACTIVE_POWER_CONTROL_MODE = String(result['ACTIVE_POWER_CONTROL_MODE'].value);
         this.setCapabilityValue('activepower_controlmode', ACTIVE_POWER_CONTROL_MODE);
       }
 
@@ -757,9 +779,10 @@ export class Huawei extends Homey.Device {
         result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE']
         && result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value != 'xxx'
         && this.hasCapability('storage_force_charge_discharge')
+        && this.isSupportedEnumValue('storage_force_charge_discharge', result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value)
       ) {
         this.addCapability('storage_force_charge_discharge');
-        const STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE = result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value;
+        const STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE = String(result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value);
         this.setCapabilityValue('storage_force_charge_discharge', STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE);
       }
 
@@ -767,9 +790,10 @@ export class Huawei extends Homey.Device {
         result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU']
         && result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value != 'xxx'
         && this.hasCapability('storage_excess_pv_energy_use_in_tou')
+        && this.isSupportedEnumValue('storage_excess_pv_energy_use_in_tou', result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value)
       ) {
         this.addCapability('storage_excess_pv_energy_use_in_tou');
-        const STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU = result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value;
+        const STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU = String(result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value);
         this.setCapabilityValue('storage_excess_pv_energy_use_in_tou', STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU);
       }
 
@@ -777,9 +801,10 @@ export class Huawei extends Homey.Device {
         result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE']
         && result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value != 'xxx'
         && this.hasCapability('remote_charge_discharge_control_mode')
+        && this.isSupportedEnumValue('remote_charge_discharge_control_mode', result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value)
       ) {
         this.addCapability('remote_charge_discharge_control_mode');
-        const REMOTE_CHARGE_DISCHARGE_CONTROL_MODE = result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value;
+        const REMOTE_CHARGE_DISCHARGE_CONTROL_MODE = String(result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value);
         this.setCapabilityValue('remote_charge_discharge_control_mode', REMOTE_CHARGE_DISCHARGE_CONTROL_MODE);
       }
 
@@ -787,9 +812,10 @@ export class Huawei extends Homey.Device {
         result['STORAGE_WORKING_MODE_SETTINGS']
         && result['STORAGE_WORKING_MODE_SETTINGS'].value != 'xxx'
         && this.hasCapability('storage_working_mode_settings')
+        && this.isSupportedEnumValue('storage_working_mode_settings', result['STORAGE_WORKING_MODE_SETTINGS'].value)
       ) {
         this.addCapability('storage_working_mode_settings');
-        const STORAGE_WORKING_MODE_SETTINGS = result['STORAGE_WORKING_MODE_SETTINGS'].value;
+        const STORAGE_WORKING_MODE_SETTINGS = String(result['STORAGE_WORKING_MODE_SETTINGS'].value);
         this.setCapabilityValue('storage_working_mode_settings', STORAGE_WORKING_MODE_SETTINGS);
       }
 
@@ -1013,11 +1039,14 @@ export class Huawei extends Homey.Device {
         40960: 'Standby: no irradiation',
       };
 
-      if (result['DEVICE_STATUS'] && result['DEVICE_STATUS'].value !== undefined && result['DEVICE_STATUS'].value && result['DEVICE_STATUS'].value != 'xxx') {
+      const statusCode = result['DEVICE_STATUS']?.value;
+      if (statusCode !== undefined && /^\d+$/.test(String(statusCode))) {
         this.addCapability('huawei_status_2');
-        const huawei_status = result['DEVICE_STATUS'].value;
-        this.setCapabilityValue('huawei_status_2', DEVICE_STATUS_DEFINITIONS[huawei_status]);
-        console.log(`inverter status ${DEVICE_STATUS_DEFINITIONS[huawei_status]}`);
+        const huawei_status = String(statusCode);
+        const knownStatus = DEVICE_STATUS_DEFINITIONS[huawei_status];
+        const status = typeof knownStatus === 'string' ? knownStatus : `Unknown (${huawei_status})`;
+        this.setCapabilityValue('huawei_status_2', status);
+        console.log(`inverter status ${status}`);
       }
 
       // "STORAGE_STATE_OF_CAPACITY": [37760, 1, 'UINT16', "RUNNING STATUS", -1],
@@ -1111,9 +1140,14 @@ export class Huawei extends Homey.Device {
       //     this.setCapabilityValue('meter_power.today_batt_input', STORAGE_CURRENT_DAY_CHARGE_CAPACITY);
       // }
 
-      if (result['ACTIVE_POWER_CONTROL_MODE'] && result['ACTIVE_POWER_CONTROL_MODE'].value != 'xxx' && this.hasCapability('activepower_controlmode2')) {
+      if (
+        result['ACTIVE_POWER_CONTROL_MODE']
+        && result['ACTIVE_POWER_CONTROL_MODE'].value != 'xxx'
+        && this.hasCapability('activepower_controlmode2')
+        && this.isSupportedEnumValue('activepower_controlmode2', result['ACTIVE_POWER_CONTROL_MODE'].value)
+      ) {
         this.addCapability('activepower_controlmode2');
-        const ACTIVE_POWER_CONTROL_MODE = result['ACTIVE_POWER_CONTROL_MODE'].value;
+        const ACTIVE_POWER_CONTROL_MODE = String(result['ACTIVE_POWER_CONTROL_MODE'].value);
         this.setCapabilityValue('activepower_controlmode2', ACTIVE_POWER_CONTROL_MODE);
       }
 
@@ -1121,9 +1155,10 @@ export class Huawei extends Homey.Device {
         result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE']
         && result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value != 'xxx'
         && this.hasCapability('storage_force_charge_discharge3')
+        && this.isSupportedEnumValue('storage_force_charge_discharge3', result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value)
       ) {
         this.addCapability('storage_force_charge_discharge3');
-        const STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE = result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value;
+        const STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE = String(result['STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE'].value);
         this.setCapabilityValue('storage_force_charge_discharge3', STORAGE_FORCIBLE_CHARGE_DISCHARGE_WRITE);
       }
 
@@ -1131,9 +1166,10 @@ export class Huawei extends Homey.Device {
         result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU']
         && result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value != 'xxx'
         && this.hasCapability('storage_excess_pv_energy_use_in_tou2')
+        && this.isSupportedEnumValue('storage_excess_pv_energy_use_in_tou2', result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value)
       ) {
         this.addCapability('storage_excess_pv_energy_use_in_tou2');
-        const STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU = result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value;
+        const STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU = String(result['STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU'].value);
         this.setCapabilityValue('storage_excess_pv_energy_use_in_tou2', STORAGE_EXCESS_PV_ENERGY_USE_IN_TOU);
       }
 
@@ -1141,9 +1177,10 @@ export class Huawei extends Homey.Device {
         result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE']
         && result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value != 'xxx'
         && this.hasCapability('remote_charge_discharge_control_mode2')
+        && this.isSupportedEnumValue('remote_charge_discharge_control_mode2', result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value)
       ) {
         this.addCapability('remote_charge_discharge_control_mode2');
-        const REMOTE_CHARGE_DISCHARGE_CONTROL_MODE = result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value;
+        const REMOTE_CHARGE_DISCHARGE_CONTROL_MODE = String(result['REMOTE_CHARGE_DISCHARGE_CONTROL_MODE'].value);
         this.setCapabilityValue('remote_charge_discharge_control_mode2', REMOTE_CHARGE_DISCHARGE_CONTROL_MODE);
       }
 
@@ -1151,9 +1188,10 @@ export class Huawei extends Homey.Device {
         result['STORAGE_WORKING_MODE_SETTINGS']
         && result['STORAGE_WORKING_MODE_SETTINGS'].value != 'xxx'
         && this.hasCapability('storage_working_mode_settings2')
+        && this.isSupportedEnumValue('storage_working_mode_settings2', result['STORAGE_WORKING_MODE_SETTINGS'].value)
       ) {
         this.addCapability('storage_working_mode_settings2');
-        const STORAGE_WORKING_MODE_SETTINGS = result['STORAGE_WORKING_MODE_SETTINGS'].value;
+        const STORAGE_WORKING_MODE_SETTINGS = String(result['STORAGE_WORKING_MODE_SETTINGS'].value);
         this.setCapabilityValue('storage_working_mode_settings2', STORAGE_WORKING_MODE_SETTINGS);
       }
 

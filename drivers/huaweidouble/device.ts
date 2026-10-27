@@ -1,4 +1,6 @@
 // eslint-disable-next-line node/no-missing-import
+import withErrorContext from '../../lib/error-context';
+// eslint-disable-next-line node/no-missing-import
 import readScaledNumber from '../../lib/modbus-values';
 import * as Modbus from 'jsmodbus';
 import net from 'net';
@@ -75,7 +77,8 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
     socket.connect(modbusOptions);
     console.log(modbusOptions);
 
-    socket.on('connect', async () => {
+    const errorContext = `Huawei driver=${device.driver.id} device=${device.getData().id} name=${device.getName()} write=${type} unit=${deviceid}`;
+    socket.on('connect', withErrorContext(errorContext, async () => {
       console.log('Connected ...');
       await this.delay(5000);
       if (type == 'storage_excess_pv_energy_use_in_tou') {
@@ -106,7 +109,7 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
       console.log('disconnect');
       client.socket.end();
       socket.end();
-    });
+    }));
 
     socket.on('close', () => {
       console.log('Client closed');
@@ -183,7 +186,8 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
     socket.setKeepAlive(true);
     socket.connect(modbusOptions);
 
-    socket.on('connect', async () => {
+    const errorContext = `Huawei driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID} secondUnit=${unitID2}`;
+    socket.on('connect', withErrorContext(errorContext, async () => {
       console.log('Connected s-dongle...');
       console.log(modbusOptions);
       const startTime = new Date();
@@ -230,7 +234,7 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
         this.removeCapability('measure_power.chargesetting');
         this.removeCapability('measure_power.dischargesetting');
       }
-      this.processResult(finalRes, true);
+      await this.processResult(finalRes, true);
 
       let finalRes2 = { ...checkRegisterRes2 };
       if (this.getSetting('has_battery2') == true) {
@@ -252,7 +256,7 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
         this.removeCapability('measure_power.chargesetting2');
         this.removeCapability('measure_power.dischargesetting2');
       }
-      this.processResult2(finalRes2);
+      await this.processResult2(finalRes2);
 
       // Publish a combined reading only when both inverter readings are valid.
       const inputPower = readScaledNumber(checkRegisterRes['inputPower']);
@@ -266,7 +270,7 @@ class MyHuaweiDoubleDeviceBattery extends Huawei {
       const timeDiff = endTime.getTime() - startTime.getTime();
       const seconds = Math.floor(timeDiff / 1000);
       console.log(`total time: ${seconds} seconds`);
-    });
+    }));
 
     socket.on('close', () => {
       console.log('Client s-dongle closed');

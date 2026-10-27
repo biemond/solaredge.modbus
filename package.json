@@ -16,7 +16,9 @@
     "test:solaredge-counters": "npm run build && node .homeybuild/tests/solaredge-counters.test.cjs",
     "test:solaredge-partial-poll": "npm run build && node .homeybuild/tests/solaredge-partial-poll.test.cjs",
     "test:sungrow-enum": "npm run build && node .homeybuild/tests/sungrow-enum.test.cjs",
-    "test:huawei-wattsonic-partial-poll": "npm run build && node .homeybuild/tests/huawei-wattsonic-partial-poll.test.cjs"
+    "test:huawei-wattsonic-partial-poll": "npm run build && node .homeybuild/tests/huawei-wattsonic-partial-poll.test.cjs",
+    "test:huawei-error-context": "npm run build && node .homeybuild/tests/huawei-error-context.test.cjs",
+    "test:huawei-status-enum": "npm run build && node .homeybuild/tests/huawei-status-enum.test.cjs"
   },
   "devDependencies": {
     "@tsconfig/node16": "^16.1.8",

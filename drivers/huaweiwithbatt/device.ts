@@ -1,3 +1,5 @@
+// eslint-disable-next-line node/no-missing-import
+import withErrorContext from '../../lib/error-context';
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import Homey, { Device } from 'homey';
@@ -131,7 +133,8 @@ class MyHuaweiDeviceBattery extends Huawei {
     socket.connect(modbusOptions);
     console.log(modbusOptions);
 
-    socket.on('connect', async () => {
+    const errorContext = `Huawei driver=${device.driver.id} device=${device.getData().id} name=${device.getName()} write=${type} unit=${unitID}`;
+    socket.on('connect', withErrorContext(errorContext, async () => {
       console.log('Connected ...');
 
       if (type == 'storage_excess_pv_energy_use_in_tou') {
@@ -162,7 +165,7 @@ class MyHuaweiDeviceBattery extends Huawei {
       console.log('disconnect');
       client.socket.end();
       socket.end();
-    });
+    }));
 
     socket.on('close', () => {
       console.log('Client closed');
@@ -200,7 +203,8 @@ class MyHuaweiDeviceBattery extends Huawei {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
-    socket.on('connect', async () => {
+    const errorContext = `Huawei driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`;
+    socket.on('connect', withErrorContext(errorContext, async () => {
       console.log('Connected ...');
       console.log(modbusOptions);
       const startTime = new Date();
@@ -214,12 +218,12 @@ class MyHuaweiDeviceBattery extends Huawei {
       client.socket.end();
       socket.end();
       const finalRes = { ...checkRegisterRes, ...checkBatteryRes, ...checkMetersRes };
-      this.processResult(finalRes);
+      await this.processResult(finalRes);
       const endTime = new Date();
       const timeDiff = endTime.getTime() - startTime.getTime();
       const seconds = Math.floor(timeDiff / 1000);
       console.log(`total time: ${seconds} seconds`);
-    });
+    }));
 
     socket.on('close', () => {
       console.log('Client closed');

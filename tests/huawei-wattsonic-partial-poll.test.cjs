@@ -29,6 +29,9 @@ async function huawei(first, second, expected) {
   const values = { measure_power: 777 };
   const processed = [];
   const settings = { id: 1, id2: 2, has_battery: false, has_battery2: false };
+  device.driver = { id: 'huaweidouble' };
+  device.getData = () => ({ id: 'test-huawei-double' });
+  device.getName = () => 'Test Huawei Double';
   device.getSetting = (key) => settings[key];
   device.getSettings = () => settings;
   device.log = () => {};
