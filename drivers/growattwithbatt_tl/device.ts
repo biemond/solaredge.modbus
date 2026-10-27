@@ -4,6 +4,7 @@ import moment from 'moment-timezone';
 /* eslint-disable node/no-missing-import */
 import { checkRegisterGrowatt, checkHoldingRegisterGrowatt } from '../response';
 import { Growatt } from '../growatt';
+import withErrorContext from '../../lib/error-context';
 /* eslint-enable node/no-missing-import */
 
 const DEFAULT_RETRY_INTERVAL = 60;
@@ -266,7 +267,7 @@ class MyGrowattTLBattery extends Growatt {
     this.log(modbusOptions);
 
     socket.on('connect', () => {
-      (async () => {
+      withErrorContext(`Growatt driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} write=${type} unit=${unitID}`, async () => {
         this.log('Connected ...');
 
         if (type == 'growatt_onoff') {
@@ -418,7 +419,7 @@ class MyGrowattTLBattery extends Growatt {
     };
 
     socket.on('connect', () => {
-      (async () => {
+      withErrorContext(`Growatt driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} write-profile=${type} unit=${unitID}`, async () => {
         this.log('Connected ...');
         const startRegister = startRegisters[type];
         // any slot has the same structure: start time, stop time, enabled status
@@ -465,7 +466,7 @@ class MyGrowattTLBattery extends Growatt {
     socket.connect(modbusOptions);
 
     socket.on('connect', () => {
-      (async () => {
+      withErrorContext(`Growatt driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`, async () => {
         this.log('Connected ...');
         this.log(modbusOptions);
 
@@ -476,7 +477,7 @@ class MyGrowattTLBattery extends Growatt {
         client.socket.end();
         socket.end();
         const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
-        this.processResult(finalRes, this.getSetting('maxpeakpower'));
+        await this.processResult(finalRes, this.getSetting('maxpeakpower'));
       })().catch(this.error);
     });
 

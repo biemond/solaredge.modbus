@@ -3,6 +3,7 @@ import net from 'net';
 /* eslint-disable node/no-missing-import */
 import { checkRegisterGrowatt, checkHoldingRegisterGrowatt } from '../response';
 import { Growatt } from '../growatt';
+import withErrorContext from '../../lib/error-context';
 /* eslint-enable node/no-missing-import */
 
 const DEFAULT_RETRY_INTERVAL = 28;
@@ -173,7 +174,7 @@ class MyGrowattTL3sDevice extends Growatt {
     this.log(modbusOptions);
 
     socket.on('connect', () => {
-      (async () => {
+      withErrorContext(`Growatt driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} write=${type} unit=${unitID}`, async () => {
         this.log('Connected ...');
         let res;
 
@@ -233,7 +234,7 @@ class MyGrowattTL3sDevice extends Growatt {
     socket.connect(modbusOptions);
 
     socket.on('connect', () => {
-      (async () => {
+      withErrorContext(`Growatt driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`, async () => {
         this.log('Connected ...');
         this.log(modbusOptions);
 
@@ -249,7 +250,7 @@ class MyGrowattTL3sDevice extends Growatt {
           await this.unsetWarning();
         }   
         const maxpeakpower = Number(this.getSetting('maxpeakpower'));
-        this.processResult(finalRes, maxpeakpower);
+        await this.processResult(finalRes, maxpeakpower);
         if (finalRes.activePRate && maxpeakpower > 0 && this.hasCapability('target_power')) {
           const pct = Number(finalRes.activePRate.value);
           if (pct >= 0 && pct <= 100) {

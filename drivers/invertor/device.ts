@@ -42,39 +42,6 @@ class MySolaredgeDevice extends Solaredge {
     //   return value;
     // });
 
-    const controlActionActivePower = this.homey.flow.getActionCard('activepowerlimit');
-    controlActionActivePower.registerRunListener(async (args, state) => {
-      // let name = this.getData().id;
-      // this.log("device name id " + name );
-      // this.log("device name " + this.getName());
-      this.log(args.device.getName());
-      this.log(args.device.getSettings());
-      await this.updateControl('activepowerlimit', Number(args.value), args.device);
-    });
-
-    const controlpowerreduce = this.homey.flow.getActionCard('powerreduce');
-    controlpowerreduce.registerRunListener(async (args, state) => {
-      // let name = this.getData().id;
-      // this.log("device name id " + name );
-      // this.log("device name " + this.getName());
-      this.log(args.device.getName());
-      this.log(args.device.getSettings());
-      await this.updateControl('powerreduce', Number(args.value), args.device);
-    });
-
-    // flow conditions
-    const changedStatus = this.homey.flow.getConditionCard('changedStatus');
-    changedStatus.registerRunListener(async (args, state) => {
-      const result = (await args.device.getCapabilityValue('invertorstatus')) == args.argument_main;
-      return Promise.resolve(result);
-    });
-
-    const solarcharge = this.homey.flow.getConditionCard('solarcharge');
-    solarcharge.registerRunListener(async (args, state) => {
-      const result = (await args.device.getCapabilityValue('measure_power')) >= args.charging;
-      return Promise.resolve(result);
-    });
-
     // if (this.hasCapability('measure_voltage.phase1') === false) {
     //   await this.addCapability('measure_voltage.phase1');
     // }

@@ -18,6 +18,8 @@
     "test:sungrow-enum": "npm run build && node .homeybuild/tests/sungrow-enum.test.cjs",
     "test:huawei-wattsonic-partial-poll": "npm run build && node .homeybuild/tests/huawei-wattsonic-partial-poll.test.cjs",
     "test:huawei-error-context": "npm run build && node .homeybuild/tests/huawei-error-context.test.cjs",
+    "test:solaredge-flow-listeners": "npm run build && node .homeybuild/tests/solaredge-flow-listeners.test.cjs",
+    "test:growatt-error-context": "npm run build && node .homeybuild/tests/growatt-error-context.test.cjs",
     "test:huawei-status-enum": "npm run build && node .homeybuild/tests/huawei-status-enum.test.cjs"
   },
   "devDependencies": {

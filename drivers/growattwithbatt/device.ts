@@ -4,6 +4,7 @@ import moment from 'moment-timezone';
 /* eslint-disable node/no-missing-import */
 import { checkRegisterGrowatt, checkHoldingRegisterGrowatt } from '../response';
 import { Growatt } from '../growatt';
+import withErrorContext from '../../lib/error-context';
 /* eslint-enable node/no-missing-import */
 
 const DEFAULT_RETRY_INTERVAL = 28;
@@ -319,7 +320,7 @@ class MyGrowattBattery extends Growatt {
     this.log(modbusOptions);
 
     socket.on('connect', () => {
-      (async () => {
+      withErrorContext(`Growatt driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} write=${type} unit=${unitID}`, async () => {
         this.log('Connected ...');
         let res;
         switch (type) {
@@ -479,7 +480,7 @@ class MyGrowattBattery extends Growatt {
     this.log(modbusOptions);
 
     socket.on('connect', () => {
-      (async () => {
+      withErrorContext(`Growatt driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} write-profile=${type} unit=${unitID}`, async () => {
         this.log('Connected ...');
         const limit = Number(this.getCapabilityValue('exportlimitenabled'));
         const startRegister = this.holdingRegisters[`${type}starttime`]?.[0];
@@ -558,7 +559,7 @@ class MyGrowattBattery extends Growatt {
     }
 
     socket.on('connect', () => {
-      (async () => {
+      withErrorContext(`Growatt driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} write-priority=${type} unit=${unitID}`, async () => {
         this.log('Connected ...');
         const registers: number[] = Array(13).fill(0);
         registers[0] = percentage; // Charge/discharge rate limit
@@ -627,7 +628,7 @@ class MyGrowattBattery extends Growatt {
     socket.connect(modbusOptions);
 
     socket.on('connect', () => {
-      (async () => {
+      withErrorContext(`Growatt driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`, async () => {
         this.log('Connected ...');
         this.log(modbusOptions);
 
@@ -638,7 +639,7 @@ class MyGrowattBattery extends Growatt {
         client.socket.end();
         socket.end();
         const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
-        this.processResult(finalRes, this.getSetting('maxpeakpower'));
+        await this.processResult(finalRes, this.getSetting('maxpeakpower'));
       })().catch(this.error);
     });
 
