@@ -20,7 +20,8 @@
     "test:huawei-error-context": "npm run build && node .homeybuild/tests/huawei-error-context.test.cjs",
     "test:solaredge-flow-listeners": "npm run build && node .homeybuild/tests/solaredge-flow-listeners.test.cjs",
     "test:growatt-error-context": "npm run build && node .homeybuild/tests/growatt-error-context.test.cjs",
-    "test:huawei-status-enum": "npm run build && node .homeybuild/tests/huawei-status-enum.test.cjs"
+    "test:huawei-status-enum": "npm run build && node .homeybuild/tests/huawei-status-enum.test.cjs",
+    "test:remaining-error-context": "npm run build && node .homeybuild/tests/remaining-error-context.test.cjs"
   },
   "devDependencies": {
     "@tsconfig/node16": "^16.1.8",

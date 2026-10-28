@@ -1,6 +1,6 @@
 {
   "id": "solaredge.modbus",
-  "version": "3.0.304",
+  "version": "3.0.305",
   "compatibility": ">=12.13.0",
   "sdk": 3,
   "brandColor": "#df001c",

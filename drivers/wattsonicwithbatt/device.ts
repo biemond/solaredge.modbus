@@ -1,3 +1,4 @@
+import withErrorContext from '../../lib/error-context';
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import { checkHoldingRegisterWattsonic } from '../response';
@@ -97,30 +98,32 @@ class MyWattsonicBatteryDevice extends Wattsonic {
     socket.connect(modbusOptions);
     console.log(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} write=${type} unit=${unitID}`, async () => {
+        console.log('Connected ...');
 
-      if (type == 'hybridinvertermode') {
-        if (value == '11' || value == '12' || value == '13' || value == '31' || value == '32' || value == '33' || value == '34') {
-          const high = Number(value.charAt(0));
-          const low = Number(value.charAt(1));
-          const modevalue = high * 256 + low;
-          const hybridinvertermodeRes = await client.writeSingleRegister(50000, Number(modevalue));
-          console.log('hybridinvertermode', hybridinvertermodeRes);
-          console.log('hybridinvertermode', Number(modevalue));
-        } else if (value == '2') {
-          const modevalue = 2 * 256;
-          const hybridinvertermodeRes = await client.writeSingleRegister(50000, Number(modevalue));
-          console.log('hybridinvertermode', Number(modevalue));
-          console.log('hybridinvertermode', hybridinvertermodeRes);
-        } else {
-          console.log(`hybridinvertermode unknown value: ${value}`);
+        if (type == 'hybridinvertermode') {
+          if (value == '11' || value == '12' || value == '13' || value == '31' || value == '32' || value == '33' || value == '34') {
+            const high = Number(value.charAt(0));
+            const low = Number(value.charAt(1));
+            const modevalue = high * 256 + low;
+            const hybridinvertermodeRes = await client.writeSingleRegister(50000, Number(modevalue));
+            console.log('hybridinvertermode', hybridinvertermodeRes);
+            console.log('hybridinvertermode', Number(modevalue));
+          } else if (value == '2') {
+            const modevalue = 2 * 256;
+            const hybridinvertermodeRes = await client.writeSingleRegister(50000, Number(modevalue));
+            console.log('hybridinvertermode', Number(modevalue));
+            console.log('hybridinvertermode', hybridinvertermodeRes);
+          } else {
+            console.log(`hybridinvertermode unknown value: ${value}`);
+          }
         }
-      }
 
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+      })().catch(this.error);
     });
 
     socket.on('close', () => {
@@ -155,16 +158,18 @@ class MyWattsonicBatteryDevice extends Wattsonic {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
-      console.log(modbusOptions);
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`, async () => {
+        console.log('Connected ...');
+        console.log(modbusOptions);
 
-      const checkRegisterRes = await checkHoldingRegisterWattsonic(this.holdingRegistersBattery, client);
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
-      const finalRes = { ...checkRegisterRes };
-      this.processResult(finalRes);
+        const checkRegisterRes = await checkHoldingRegisterWattsonic(this.holdingRegistersBattery, client);
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+        const finalRes = { ...checkRegisterRes };
+        await this.processResult(finalRes);
+      })().catch(this.error);
     });
 
     socket.on('close', () => {

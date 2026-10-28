@@ -1,3 +1,4 @@
+import withErrorContext from '../../lib/error-context';
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import { checkholdingRegisterKostal } from '../response';
@@ -86,23 +87,25 @@ class MyKostalDevice extends Kostal {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
-      console.log(modbusOptions);
-      const startTime = new Date();
-      await this.delay(5000);
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`, async () => {
+        console.log('Connected ...');
+        console.log(modbusOptions);
+        const startTime = new Date();
+        await this.delay(5000);
 
-      const checkRegisterRes = await checkholdingRegisterKostal(this.holdingRegisters, client);
+        const checkRegisterRes = await checkholdingRegisterKostal(this.holdingRegisters, client);
 
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
-      const finalRes = { ...checkRegisterRes };
-      this.processResult(finalRes);
-      const endTime = new Date();
-      const timeDiff = endTime.getTime() - startTime.getTime();
-      const seconds = Math.floor(timeDiff / 1000);
-      console.log(`total time: ${seconds} seconds`);
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+        const finalRes = { ...checkRegisterRes };
+        await this.processResult(finalRes);
+        const endTime = new Date();
+        const timeDiff = endTime.getTime() - startTime.getTime();
+        const seconds = Math.floor(timeDiff / 1000);
+        console.log(`total time: ${seconds} seconds`);
+      })().catch(this.error);
     });
 
     socket.on('close', () => {

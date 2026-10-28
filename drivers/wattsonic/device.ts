@@ -1,3 +1,4 @@
+import withErrorContext from '../../lib/error-context';
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import { checkHoldingRegisterWattsonic } from '../response';
@@ -82,16 +83,18 @@ class MyWattsonicDevice extends Wattsonic {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
-      console.log(modbusOptions);
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`, async () => {
+        console.log('Connected ...');
+        console.log(modbusOptions);
 
-      const checkRegisterRes = await checkHoldingRegisterWattsonic(this.holdingRegisters, client);
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
-      const finalRes = { ...checkRegisterRes };
-      this.processResult(finalRes);
+        const checkRegisterRes = await checkHoldingRegisterWattsonic(this.holdingRegisters, client);
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+        const finalRes = { ...checkRegisterRes };
+        await this.processResult(finalRes);
+      })().catch(this.error);
     });
 
     socket.on('close', () => {

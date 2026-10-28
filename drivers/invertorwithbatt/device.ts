@@ -1,3 +1,4 @@
+import withErrorContext from '../../lib/error-context';
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import Homey, { Device } from 'homey';
@@ -146,141 +147,143 @@ class MySolaredgeBatteryDevice extends Solaredge {
     socket.connect(modbusOptions);
     console.log(modbusOptions);
 
-    socket.on('connect', async () => {
-      // https://babbage.cs.qc.cuny.edu/ieee-754.old/Decimal.html
-      // https://www.rapidtables.com/convert/number/hex-to-decimal.html
-
-      console.log('Connected ...');
-      if (type == 'chargelimit') {
-        let buffer;
-        buffer = Buffer.allocUnsafe(4);
-        buffer.writeFloatBE(value);
-        buffer.swap32().swap16();
-        const bytes = buffer
-          .toString('hex')
-          .toUpperCase()
-          .replace(/(.{2})/g, '$1 ')
-          .trimEnd();
-        console.log(`Write register: Bytes: ${bytes}`);
-        const chargeRes = await client.writeMultipleRegisters(0xe00e, buffer);
-        console.log('charge', chargeRes);
-      }
-
-      if (type == 'dischargelimit') {
-        let buffer;
-        buffer = Buffer.allocUnsafe(4);
-        buffer.writeFloatBE(value);
-        buffer.swap32().swap16();
-        const bytes = buffer
-          .toString('hex')
-          .toUpperCase()
-          .replace(/(.{2})/g, '$1 ')
-          .trimEnd();
-        console.log(`Write register: Bytes: ${bytes}`);
-        const dischargeRes = await client.writeMultipleRegisters(0xe010, buffer);
-        console.log('discharge', dischargeRes);
-      }
-
-      if (type == 'activepowerlimit') {
-        const activepowerlimitRes = await client.writeSingleRegister(0xf001, Number(value));
-        console.log('activepowerlimit', activepowerlimitRes);
-      }
-
-      if (type == 'limitcontrolmode') {
-        // 0 – Disabled
-        // 1 – Export Control
-        // 2 – Production Control
-        // 11 – Minimum Import Control
-        if (value == 1) {
-          const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(1));
-          console.log('limitcontrolmode', limitcontrolmodeeRes);
-          // side = 0
-          const limitcontrolsideRes = await client.writeSingleRegister(0xe001, Number(0));
-          console.log('limitcontrolside', limitcontrolsideRes);
-          // 3000
-          const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [32768, 17723]);
-          console.log('limitcontrolwatt', limitcontrolWattRes);
-        } else if (value == 2) {
-          const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(4));
-          console.log('limitcontrolmode', limitcontrolmodeeRes);
-          // 500
-          const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [0, 17402]);
-          console.log('limitcontrolwatt', limitcontrolWattRes);
-        } else if (value == 11) {
-          const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(2049));
-          console.log('limitcontrolmode', limitcontrolmodeeRes);
-          // 500
-          const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [0, 17402]);
-          console.log('limitcontrolwatt', limitcontrolWattRes);
-        } else {
-          const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(0));
-          console.log('limitcontrolmode', limitcontrolmodeeRes);
-        }
-      }
-
-      if (type == 'exportlimit') {
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${device.getData().id} name=${device.getName()} write=${type} unit=${unitID}`, async () => {
         // https://babbage.cs.qc.cuny.edu/ieee-754.old/Decimal.html
         // https://www.rapidtables.com/convert/number/hex-to-decimal.html
-        let buffer;
-        buffer = Buffer.allocUnsafe(4);
-        buffer.writeFloatBE(value);
-        buffer.swap32().swap16();
-        const bytes = buffer
-          .toString('hex')
-          .toUpperCase()
-          .replace(/(.{2})/g, '$1 ')
-          .trimEnd();
-        console.log(`Write register: Bytes: ${bytes}`);
-        const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, buffer);
-        console.log('limitcontrolwatt', limitcontrolWattRes);
-      }
 
-      if (type == 'storagecontrolmode') {
-        // 0 – Disabled
-        // 1 – Maximize Self Consumption – requires a SolarEdge Electricity meter on the grid or load connection point
-        // 2 – Time of Use (Profile programming) – requires a SolarEdge Electricity meter on the grid or load connection point 3 – Backup Only (applicable only for systems support backup functionality)
-        // 4 – Remote Control – the battery charge/discharge state is controlled by an external controller
-        const storagecontrolmodeRes = await client.writeSingleRegister(0xe004, Number(value));
-        console.log('controlmodewrite', storagecontrolmodeRes);
-      }
+        console.log('Connected ...');
+        if (type == 'chargelimit') {
+          let buffer;
+          buffer = Buffer.allocUnsafe(4);
+          buffer.writeFloatBE(value);
+          buffer.swap32().swap16();
+          const bytes = buffer
+            .toString('hex')
+            .toUpperCase()
+            .replace(/(.{2})/g, '$1 ')
+            .trimEnd();
+          console.log(`Write register: Bytes: ${bytes}`);
+          const chargeRes = await client.writeMultipleRegisters(0xe00e, buffer);
+          console.log('charge', chargeRes);
+        }
 
-      if (type == 'storageacchargepolicy') {
-        // 0 – Disable
-        // 1 – Always allowed – needed for AC coupling operation. Allows unlimited charging from the AC. When used with Maximize self-consumption, only excess power is used for charging (charging from the grid is not allowed).
-        // 2 – Fixed Energy Limit – allows AC charging with a fixed yearly (Jan 1 to Dec 31) limit (needed for meeting ITC regulation in the US)
-        // 3 – Percent of Production - allows AC charging with a % of system production year to date limit (needed for meeting ITC regulation in the US)
-        const storageacchargepolicyRes = await client.writeSingleRegister(0xe005, Number(value));
-        console.log('storageacchargepolicy', storageacchargepolicyRes);
-      }
+        if (type == 'dischargelimit') {
+          let buffer;
+          buffer = Buffer.allocUnsafe(4);
+          buffer.writeFloatBE(value);
+          buffer.swap32().swap16();
+          const bytes = buffer
+            .toString('hex')
+            .toUpperCase()
+            .replace(/(.{2})/g, '$1 ')
+            .trimEnd();
+          console.log(`Write register: Bytes: ${bytes}`);
+          const dischargeRes = await client.writeMultipleRegisters(0xe010, buffer);
+          console.log('discharge', dischargeRes);
+        }
 
-      if (type == 'storagedefaultmode') {
-        const storagedefaultmodeRes = await client.writeSingleRegister(0xe004, Number(4));
-        console.log('controlmodewrite', storagedefaultmodeRes);
+        if (type == 'activepowerlimit') {
+          const activepowerlimitRes = await client.writeSingleRegister(0xf001, Number(value));
+          console.log('activepowerlimit', activepowerlimitRes);
+        }
 
-        // set timeout to 6 hours, done in seconds
-        const remoteTimeout = await client.writeMultipleRegisters(0xe00b, [Number(21600), 0]);
-        console.log('remote_control_command_timeout', remoteTimeout);
-        // 0 – Off
-        // 1 – Charge excess PV power only.
-        // Only PV excess power not going to AC is used for charging the battery. Inverter NominalActivePowerLimit (or the inverter rated power whichever is lower) sets how much power the inverter is producing to the AC. In this mode, the battery cannot be discharged. If the PV power is lower than NominalActivePowerLimit the AC production will be equal to the PV power.
-        // 2 – Charge from PV first, before producing power to the AC.
-        // The Battery charge has higher priority than AC production. First charge the battery then produce AC.
-        // If StorageRemoteCtrl_ChargeLimit is lower than PV excess power goes to AC according to NominalActivePowerLimit. If NominalActivePowerLimit is reached and battery StorageRemoteCtrl_ChargeLimit is reached, PV power is curtailed.
-        // 3 – Charge from PV+AC according to the max battery power.
-        // Charge from both PV and AC with priority on PV power.
-        // If PV production is lower than StorageRemoteCtrl_ChargeLimit, the battery will be charged from AC up to NominalActivePow-erLimit. In this case AC power = StorageRemoteCtrl_ChargeLimit- PVpower.
-        // If PV power is larger than StorageRemoteCtrl_ChargeLimit the excess PV power will be directed to the AC up to the Nominal-ActivePowerLimit beyond which the PV is curtailed.
-        // 4 – Maximize export – discharge battery to meet max inverter AC limit.
-        // AC power is maintained to NominalActivePowerLimit, using PV power and/or battery power. If the PV power is not sufficient, battery power is used to complement AC power up to StorageRemoteCtrl_DishargeLimit. In this mode, charging excess power will occur if there is more PV than the AC limit.
-        // 5 – Discharge to meet loads consumption. Discharging to the grid is not allowed.
-        // 7 – Maximize self-consumption
-        const remotecontrolwrite = await client.writeSingleRegister(0xe00d, Number(value));
-        console.log('remotecontrolwrite', remotecontrolwrite);
-      }
+        if (type == 'limitcontrolmode') {
+          // 0 – Disabled
+          // 1 – Export Control
+          // 2 – Production Control
+          // 11 – Minimum Import Control
+          if (value == 1) {
+            const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(1));
+            console.log('limitcontrolmode', limitcontrolmodeeRes);
+            // side = 0
+            const limitcontrolsideRes = await client.writeSingleRegister(0xe001, Number(0));
+            console.log('limitcontrolside', limitcontrolsideRes);
+            // 3000
+            const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [32768, 17723]);
+            console.log('limitcontrolwatt', limitcontrolWattRes);
+          } else if (value == 2) {
+            const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(4));
+            console.log('limitcontrolmode', limitcontrolmodeeRes);
+            // 500
+            const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [0, 17402]);
+            console.log('limitcontrolwatt', limitcontrolWattRes);
+          } else if (value == 11) {
+            const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(2049));
+            console.log('limitcontrolmode', limitcontrolmodeeRes);
+            // 500
+            const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [0, 17402]);
+            console.log('limitcontrolwatt', limitcontrolWattRes);
+          } else {
+            const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(0));
+            console.log('limitcontrolmode', limitcontrolmodeeRes);
+          }
+        }
 
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
+        if (type == 'exportlimit') {
+          // https://babbage.cs.qc.cuny.edu/ieee-754.old/Decimal.html
+          // https://www.rapidtables.com/convert/number/hex-to-decimal.html
+          let buffer;
+          buffer = Buffer.allocUnsafe(4);
+          buffer.writeFloatBE(value);
+          buffer.swap32().swap16();
+          const bytes = buffer
+            .toString('hex')
+            .toUpperCase()
+            .replace(/(.{2})/g, '$1 ')
+            .trimEnd();
+          console.log(`Write register: Bytes: ${bytes}`);
+          const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, buffer);
+          console.log('limitcontrolwatt', limitcontrolWattRes);
+        }
+
+        if (type == 'storagecontrolmode') {
+          // 0 – Disabled
+          // 1 – Maximize Self Consumption – requires a SolarEdge Electricity meter on the grid or load connection point
+          // 2 – Time of Use (Profile programming) – requires a SolarEdge Electricity meter on the grid or load connection point 3 – Backup Only (applicable only for systems support backup functionality)
+          // 4 – Remote Control – the battery charge/discharge state is controlled by an external controller
+          const storagecontrolmodeRes = await client.writeSingleRegister(0xe004, Number(value));
+          console.log('controlmodewrite', storagecontrolmodeRes);
+        }
+
+        if (type == 'storageacchargepolicy') {
+          // 0 – Disable
+          // 1 – Always allowed – needed for AC coupling operation. Allows unlimited charging from the AC. When used with Maximize self-consumption, only excess power is used for charging (charging from the grid is not allowed).
+          // 2 – Fixed Energy Limit – allows AC charging with a fixed yearly (Jan 1 to Dec 31) limit (needed for meeting ITC regulation in the US)
+          // 3 – Percent of Production - allows AC charging with a % of system production year to date limit (needed for meeting ITC regulation in the US)
+          const storageacchargepolicyRes = await client.writeSingleRegister(0xe005, Number(value));
+          console.log('storageacchargepolicy', storageacchargepolicyRes);
+        }
+
+        if (type == 'storagedefaultmode') {
+          const storagedefaultmodeRes = await client.writeSingleRegister(0xe004, Number(4));
+          console.log('controlmodewrite', storagedefaultmodeRes);
+
+          // set timeout to 6 hours, done in seconds
+          const remoteTimeout = await client.writeMultipleRegisters(0xe00b, [Number(21600), 0]);
+          console.log('remote_control_command_timeout', remoteTimeout);
+          // 0 – Off
+          // 1 – Charge excess PV power only.
+          // Only PV excess power not going to AC is used for charging the battery. Inverter NominalActivePowerLimit (or the inverter rated power whichever is lower) sets how much power the inverter is producing to the AC. In this mode, the battery cannot be discharged. If the PV power is lower than NominalActivePowerLimit the AC production will be equal to the PV power.
+          // 2 – Charge from PV first, before producing power to the AC.
+          // The Battery charge has higher priority than AC production. First charge the battery then produce AC.
+          // If StorageRemoteCtrl_ChargeLimit is lower than PV excess power goes to AC according to NominalActivePowerLimit. If NominalActivePowerLimit is reached and battery StorageRemoteCtrl_ChargeLimit is reached, PV power is curtailed.
+          // 3 – Charge from PV+AC according to the max battery power.
+          // Charge from both PV and AC with priority on PV power.
+          // If PV production is lower than StorageRemoteCtrl_ChargeLimit, the battery will be charged from AC up to NominalActivePow-erLimit. In this case AC power = StorageRemoteCtrl_ChargeLimit- PVpower.
+          // If PV power is larger than StorageRemoteCtrl_ChargeLimit the excess PV power will be directed to the AC up to the Nominal-ActivePowerLimit beyond which the PV is curtailed.
+          // 4 – Maximize export – discharge battery to meet max inverter AC limit.
+          // AC power is maintained to NominalActivePowerLimit, using PV power and/or battery power. If the PV power is not sufficient, battery power is used to complement AC power up to StorageRemoteCtrl_DishargeLimit. In this mode, charging excess power will occur if there is more PV than the AC limit.
+          // 5 – Discharge to meet loads consumption. Discharging to the grid is not allowed.
+          // 7 – Maximize self-consumption
+          const remotecontrolwrite = await client.writeSingleRegister(0xe00d, Number(value));
+          console.log('remotecontrolwrite', remotecontrolwrite);
+        }
+
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+      })().catch(this.error);
     });
 
     socket.on('close', () => {
@@ -323,21 +326,23 @@ class MySolaredgeBatteryDevice extends Solaredge {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
     console.log(modbusOptions);
-    socket.on('connect', async () => {
-      const startTime = new Date();
-      console.log('Connected ...');
-      const checkRegisterRes = await checkRegister(this.registers, client);
-      const checkMeterRes = await checkMeter(this.meter_dids, this.meter_registers, client);
-      const checkBatteryRes = await checkBattery(this.battery_dids, this.batt_registers, client);
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
-      const finalRes = { ...checkRegisterRes, ...checkMeterRes, ...checkBatteryRes };
-      this.processResult(finalRes, this.getSetting('maxpeakpower'));
-      const endTime = new Date();
-      const timeDiff = endTime.getTime() - startTime.getTime();
-      const seconds = Math.floor(timeDiff / 1000);
-      console.log(`total time: ${seconds} seconds`);
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`, async () => {
+        const startTime = new Date();
+        console.log('Connected ...');
+        const checkRegisterRes = await checkRegister(this.registers, client);
+        const checkMeterRes = await checkMeter(this.meter_dids, this.meter_registers, client);
+        const checkBatteryRes = await checkBattery(this.battery_dids, this.batt_registers, client);
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+        const finalRes = { ...checkRegisterRes, ...checkMeterRes, ...checkBatteryRes };
+        await this.processResult(finalRes, this.getSetting('maxpeakpower'));
+        const endTime = new Date();
+        const timeDiff = endTime.getTime() - startTime.getTime();
+        const seconds = Math.floor(timeDiff / 1000);
+        console.log(`total time: ${seconds} seconds`);
+      })().catch(this.error);
     });
 
     socket.on('close', () => {

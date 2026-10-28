@@ -1,3 +1,4 @@
+import withErrorContext from '../../lib/error-context';
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import Homey, { Device } from 'homey';
@@ -66,37 +67,39 @@ class MySolaxUltraDevice extends Solax {
     socket.connect(modbusOptions);
     console.log(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${device.getData().id} name=${device.getName()} write=${type} unit=${unitID}`, async () => {
+        console.log('Connected ...');
 
-      if (type == 'solarcharger_use_mode') {
-        const solarcharger_use_modeRes = await client.writeSingleRegister(0x001f, value);
-        console.log('solarcharger_use_mode', solarcharger_use_modeRes);
-      }
+        if (type == 'solarcharger_use_mode') {
+          const solarcharger_use_modeRes = await client.writeSingleRegister(0x001f, value);
+          console.log('solarcharger_use_mode', solarcharger_use_modeRes);
+        }
 
-      if (type == 'storage_force_charge_discharge') {
-        const storage_forceRes = await client.writeSingleRegister(0x0020, value);
-        console.log('storage_force_charge_discharge', storage_forceRes);
-      }
+        if (type == 'storage_force_charge_discharge') {
+          const storage_forceRes = await client.writeSingleRegister(0x0020, value);
+          console.log('storage_force_charge_discharge', storage_forceRes);
+        }
 
-      // // 0x00B7 FeedinOnPower W 0~8000 1W uint16
-      // if (type == 'FeedinOnPower') {
-      //   const FeedinOnPowerRes = await client.writeSingleRegister(0x00b7, value);
-      //   console.log('FeedinOnPower', FeedinOnPowerRes);
-      // }
+        // // 0x00B7 FeedinOnPower W 0~8000 1W uint16
+        // if (type == 'FeedinOnPower') {
+        //   const FeedinOnPowerRes = await client.writeSingleRegister(0x00b7, value);
+        //   console.log('FeedinOnPower', FeedinOnPowerRes);
+        // }
 
-      // // 0x0042 ExportcontrolUserLimit W
-      // // Export control User_Limit
-      // // (0~60000)
-      // // 1W uint16
-      // if (type == 'ExportcontrolUserLimit') {
-      //   const ExportcontrolUserLimitRes = await client.writeSingleRegister(0x0042, value);
-      //   console.log('ExportcontrolUserLimit', ExportcontrolUserLimitRes);
-      // }
+        // // 0x0042 ExportcontrolUserLimit W
+        // // Export control User_Limit
+        // // (0~60000)
+        // // 1W uint16
+        // if (type == 'ExportcontrolUserLimit') {
+        //   const ExportcontrolUserLimitRes = await client.writeSingleRegister(0x0042, value);
+        //   console.log('ExportcontrolUserLimit', ExportcontrolUserLimitRes);
+        // }
 
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+      })().catch(this.error);
     });
 
     socket.on('close', () => {
@@ -170,17 +173,19 @@ class MySolaxUltraDevice extends Solax {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
-      console.log(modbusOptions);
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`, async () => {
+        console.log('Connected ...');
+        console.log(modbusOptions);
 
-      const checkRegisterRes = await checkinputRegisterSolax(this.inputRegistersUltra, client);
-      const checkRegisterHoldingRes = await checkholdingRegisterSolax(this.holdingRegistersUltra, client);
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
-      const finalRes = { ...checkRegisterRes, ...checkRegisterHoldingRes };
-      this.processResult(finalRes);
+        const checkRegisterRes = await checkinputRegisterSolax(this.inputRegistersUltra, client);
+        const checkRegisterHoldingRes = await checkholdingRegisterSolax(this.holdingRegistersUltra, client);
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+        const finalRes = { ...checkRegisterRes, ...checkRegisterHoldingRes };
+        await this.processResult(finalRes);
+      })().catch(this.error);
     });
 
     socket.on('close', () => {
