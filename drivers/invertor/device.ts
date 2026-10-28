@@ -1,3 +1,4 @@
+import withErrorContext from '../../lib/error-context';
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import Homey, { Device } from 'homey';
@@ -148,120 +149,122 @@ class MySolaredgeDevice extends Solaredge {
     socket.connect(modbusOptions);
     console.log(modbusOptions);
 
-    socket.on('connect', async () => {
-      // https://babbage.cs.qc.cuny.edu/ieee-754.old/Decimal.html
-      // https://www.rapidtables.com/convert/number/hex-to-decimal.html
-
-      console.log('Connected ...');
-
-      if (type == 'activepowerlimit') {
-        const activepowerlimitRes = await client.writeSingleRegister(0xf001, Number(value));
-        console.log('activepowerlimit', activepowerlimitRes);
-      }
-
-      if (type == 'powerreduce') {
-        let buffer;
-        buffer = Buffer.allocUnsafe(4);
-        buffer.writeFloatBE(value);
-        buffer.swap32().swap16();
-        const bytes = buffer
-          .toString('hex')
-          .toUpperCase()
-          .replace(/(.{2})/g, '$1 ')
-          .trimEnd();
-        console.log(`Write register: Bytes: ${bytes}`);
-        const powerreduceRes = await client.writeMultipleRegisters(0xf140, buffer);
-        console.log('powerreduce', powerreduceRes);
-      }
-
-      if (type == 'limitcontrolmode') {
-        // 0 – Disabled
-        // 1 – Export Control
-        // 2 – Production Control
-        // 11 – Minimum Import Control
-        if (value == 1) {
-          const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(1));
-          console.log('limitcontrolmode', limitcontrolmodeeRes);
-          // side = 0
-          const limitcontrolsideRes = await client.writeSingleRegister(0xe001, Number(0));
-          console.log('limitcontrolside', limitcontrolsideRes);
-          // 3000
-          const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [32768, 17723]);
-          console.log('limitcontrolwatt', limitcontrolWattRes);
-        } else if (value == 11) {
-          const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(2049));
-          console.log('limitcontrolmode', limitcontrolmodeeRes);
-          // 500
-          const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [0, 17402]);
-          console.log('limitcontrolwatt', limitcontrolWattRes);
-        } else {
-          const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(0));
-          console.log('limitcontrolmode', limitcontrolmodeeRes);
-        }
-      }
-
-      if (type == 'exportlimit') {
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${device.getData().id} name=${device.getName()} write=${type} unit=${unitID}`, async () => {
         // https://babbage.cs.qc.cuny.edu/ieee-754.old/Decimal.html
         // https://www.rapidtables.com/convert/number/hex-to-decimal.html
-        let dischargehex1 = 16384;
-        let dischargehex2 = 17820;
 
-        if (value == 0) {
-          dischargehex1 = 0;
-          dischargehex2 = 0;
-        } else if (value == 50) {
-          dischargehex1 = 0;
-          dischargehex2 = 16968;
-        } else if (value == 100) {
-          dischargehex1 = 0;
-          dischargehex2 = 17096;
-        } else if (value == 150) {
-          dischargehex1 = 0;
-          dischargehex2 = 17174;
-        } else if (value == 200) {
-          dischargehex1 = 0;
-          dischargehex2 = 17224;
-        } else if (value == 300) {
-          dischargehex1 = 0;
-          dischargehex2 = 17302;
-        } else if (value == 400) {
-          dischargehex1 = 0;
-          dischargehex2 = 17352;
-        } else if (value == 500) {
-          dischargehex1 = 0;
-          dischargehex2 = 17402;
-        } else if (value == 1000) {
-          dischargehex1 = 0;
-          dischargehex2 = 17530;
-        } else if (value == 1500) {
-          dischargehex1 = 32768;
-          dischargehex2 = 17595;
-        } else if (value == 2000) {
-          dischargehex1 = 0;
-          dischargehex2 = 17658;
-        } else if (value == 2500) {
-          dischargehex1 = 16384;
-          dischargehex2 = 17692;
-        } else if (value == 3000) {
-          dischargehex1 = 32768;
-          dischargehex2 = 17723;
-        } else if (value == 4000) {
-          dischargehex1 = 0;
-          dischargehex2 = 17786;
-        } else if (value == 5000) {
-          dischargehex1 = 16384;
-          dischargehex2 = 17820;
-        } else if (value == 6600) {
-          dischargehex1 = 16384;
-          dischargehex2 = 17870;
+        console.log('Connected ...');
+
+        if (type == 'activepowerlimit') {
+          const activepowerlimitRes = await client.writeSingleRegister(0xf001, Number(value));
+          console.log('activepowerlimit', activepowerlimitRes);
         }
-        const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [dischargehex1, dischargehex2]);
-        console.log('limitcontrolwatt', limitcontrolWattRes);
-      }
 
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
+        if (type == 'powerreduce') {
+          let buffer;
+          buffer = Buffer.allocUnsafe(4);
+          buffer.writeFloatBE(value);
+          buffer.swap32().swap16();
+          const bytes = buffer
+            .toString('hex')
+            .toUpperCase()
+            .replace(/(.{2})/g, '$1 ')
+            .trimEnd();
+          console.log(`Write register: Bytes: ${bytes}`);
+          const powerreduceRes = await client.writeMultipleRegisters(0xf140, buffer);
+          console.log('powerreduce', powerreduceRes);
+        }
+
+        if (type == 'limitcontrolmode') {
+          // 0 – Disabled
+          // 1 – Export Control
+          // 2 – Production Control
+          // 11 – Minimum Import Control
+          if (value == 1) {
+            const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(1));
+            console.log('limitcontrolmode', limitcontrolmodeeRes);
+            // side = 0
+            const limitcontrolsideRes = await client.writeSingleRegister(0xe001, Number(0));
+            console.log('limitcontrolside', limitcontrolsideRes);
+            // 3000
+            const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [32768, 17723]);
+            console.log('limitcontrolwatt', limitcontrolWattRes);
+          } else if (value == 11) {
+            const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(2049));
+            console.log('limitcontrolmode', limitcontrolmodeeRes);
+            // 500
+            const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [0, 17402]);
+            console.log('limitcontrolwatt', limitcontrolWattRes);
+          } else {
+            const limitcontrolmodeeRes = await client.writeSingleRegister(0xe000, Number(0));
+            console.log('limitcontrolmode', limitcontrolmodeeRes);
+          }
+        }
+
+        if (type == 'exportlimit') {
+          // https://babbage.cs.qc.cuny.edu/ieee-754.old/Decimal.html
+          // https://www.rapidtables.com/convert/number/hex-to-decimal.html
+          let dischargehex1 = 16384;
+          let dischargehex2 = 17820;
+
+          if (value == 0) {
+            dischargehex1 = 0;
+            dischargehex2 = 0;
+          } else if (value == 50) {
+            dischargehex1 = 0;
+            dischargehex2 = 16968;
+          } else if (value == 100) {
+            dischargehex1 = 0;
+            dischargehex2 = 17096;
+          } else if (value == 150) {
+            dischargehex1 = 0;
+            dischargehex2 = 17174;
+          } else if (value == 200) {
+            dischargehex1 = 0;
+            dischargehex2 = 17224;
+          } else if (value == 300) {
+            dischargehex1 = 0;
+            dischargehex2 = 17302;
+          } else if (value == 400) {
+            dischargehex1 = 0;
+            dischargehex2 = 17352;
+          } else if (value == 500) {
+            dischargehex1 = 0;
+            dischargehex2 = 17402;
+          } else if (value == 1000) {
+            dischargehex1 = 0;
+            dischargehex2 = 17530;
+          } else if (value == 1500) {
+            dischargehex1 = 32768;
+            dischargehex2 = 17595;
+          } else if (value == 2000) {
+            dischargehex1 = 0;
+            dischargehex2 = 17658;
+          } else if (value == 2500) {
+            dischargehex1 = 16384;
+            dischargehex2 = 17692;
+          } else if (value == 3000) {
+            dischargehex1 = 32768;
+            dischargehex2 = 17723;
+          } else if (value == 4000) {
+            dischargehex1 = 0;
+            dischargehex2 = 17786;
+          } else if (value == 5000) {
+            dischargehex1 = 16384;
+            dischargehex2 = 17820;
+          } else if (value == 6600) {
+            dischargehex1 = 16384;
+            dischargehex2 = 17870;
+          }
+          const limitcontrolWattRes = await client.writeMultipleRegisters(0xe002, [dischargehex1, dischargehex2]);
+          console.log('limitcontrolwatt', limitcontrolWattRes);
+        }
+
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+      })().catch(this.error);
     });
 
     socket.on('close', () => {
@@ -296,16 +299,18 @@ class MySolaredgeDevice extends Solaredge {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
-      console.log(modbusOptions);
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`, async () => {
+        console.log('Connected ...');
+        console.log(modbusOptions);
 
-      const checkRegisterRes = await checkRegister(this.registers, client);
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
-      const finalRes = { ...checkRegisterRes };
-      this.processResult(finalRes, this.getSetting('maxpeakpower'));
+        const checkRegisterRes = await checkRegister(this.registers, client);
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+        const finalRes = { ...checkRegisterRes };
+        await this.processResult(finalRes, this.getSetting('maxpeakpower'));
+      })().catch(this.error);
     });
 
     socket.on('close', () => {

@@ -1,3 +1,4 @@
+import withErrorContext from '../../lib/error-context';
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import { checkRegisterSungrow, checkHoldingRegisterSungrow } from '../response';
@@ -138,45 +139,47 @@ class MyWSungrowDevice extends Sungrow {
     socket.connect(modbusOptions);
     console.log(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${device.getData().id} name=${device.getName()} write=${type} unit=${unitID}`, async () => {
+        console.log('Connected ...');
 
-      if (type == 'emsmodeselection') {
-        // 0 – Self-consumption mode
-        // 2 – Forced mode (charge/discharge/stop)
-        // 3 - External EMS mode
-        const emsmodeselectionRes = await client.writeSingleRegister(13049, value);
-        console.log('emsmodeselection', emsmodeselectionRes);
-      }
+        if (type == 'emsmodeselection') {
+          // 0 – Self-consumption mode
+          // 2 – Forced mode (charge/discharge/stop)
+          // 3 - External EMS mode
+          const emsmodeselectionRes = await client.writeSingleRegister(13049, value);
+          console.log('emsmodeselection', emsmodeselectionRes);
+        }
 
-      if (type == 'power_limitation_switch') {
-        const power_limitation_switchRes = await client.writeSingleRegister(5006, value);
-        console.log('power_limitation_switch', power_limitation_switchRes);
-      }
+        if (type == 'power_limitation_switch') {
+          const power_limitation_switchRes = await client.writeSingleRegister(5006, value);
+          console.log('power_limitation_switch', power_limitation_switchRes);
+        }
 
-      if (type == 'start_stop') {
-        const start_stopRes = await client.writeSingleRegister(5005, value);
-        console.log('start_stop', start_stopRes);
-      }
-      if (type == 'adjustpowerlimitation') {
-        const adjustpowerlimitationRes = await client.writeSingleRegister(5038, value * 10);
-        console.log('adjustpowerlimitation', adjustpowerlimitationRes);
-      }
+        if (type == 'start_stop') {
+          const start_stopRes = await client.writeSingleRegister(5005, value);
+          console.log('start_stop', start_stopRes);
+        }
+        if (type == 'adjustpowerlimitation') {
+          const adjustpowerlimitationRes = await client.writeSingleRegister(5038, value * 10);
+          console.log('adjustpowerlimitation', adjustpowerlimitationRes);
+        }
 
-      if (type == 'powerlimitationsetting') {
-        const powerlimitationsettingRes = await client.writeSingleRegister(5007, value * 10);
-        console.log('powerlimitationsetting', powerlimitationsettingRes);
-      }
+        if (type == 'powerlimitationsetting') {
+          const powerlimitationsettingRes = await client.writeSingleRegister(5007, value * 10);
+          console.log('powerlimitationsetting', powerlimitationsettingRes);
+        }
 
-      if (type == 'reserve_soc_for_backup') {
-        // Register 13099, value is 0–100 (%), sent as-is (no *10 multiplier needed for SoC %)
-        const reserveSocRes = await client.writeSingleRegister(13099, value);
-        console.log('reserve_soc_for_backup', reserveSocRes);
-      }      
+        if (type == 'reserve_soc_for_backup') {
+          // Register 13099, value is 0–100 (%), sent as-is (no *10 multiplier needed for SoC %)
+          const reserveSocRes = await client.writeSingleRegister(13099, value);
+          console.log('reserve_soc_for_backup', reserveSocRes);
+        }
 
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+      })().catch(this.error);
     });
 
     socket.on('close', () => {
@@ -213,28 +216,30 @@ class MyWSungrowDevice extends Sungrow {
     socket.connect(modbusOptions);
     console.log(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${device.getData().id} name=${device.getName()} write=${type} command=${command} unit=${unitID}`, async () => {
+        console.log('Connected ...');
 
-      if (type == 'export') {
-        const exportLimitationRes = await client.writeSingleRegister(13086, command);
-        console.log('exportLimitation', exportLimitationRes);
+        if (type == 'export') {
+          const exportLimitationRes = await client.writeSingleRegister(13086, command);
+          console.log('exportLimitation', exportLimitationRes);
 
-        const exportPowerRes = await client.writeSingleRegister(13073, value);
-        console.log('exportPower', exportPowerRes);
-      }
+          const exportPowerRes = await client.writeSingleRegister(13073, value);
+          console.log('exportPower', exportPowerRes);
+        }
 
-      if (type == 'charge') {
-        const chargeCommandRes = await client.writeSingleRegister(13050, command);
-        console.log('chargeCommand', chargeCommandRes);
+        if (type == 'charge') {
+          const chargeCommandRes = await client.writeSingleRegister(13050, command);
+          console.log('chargeCommand', chargeCommandRes);
 
-        const chargePowerRes = await client.writeSingleRegister(13051, value);
-        console.log('chargePower', chargePowerRes);
-      }
+          const chargePowerRes = await client.writeSingleRegister(13051, value);
+          console.log('chargePower', chargePowerRes);
+        }
 
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+      })().catch(this.error);
     });
 
     socket.on('close', () => {
@@ -305,17 +310,19 @@ class MyWSungrowDevice extends Sungrow {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
-      console.log(modbusOptions);
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`, async () => {
+        console.log('Connected ...');
+        console.log(modbusOptions);
 
-      const checkRegisterRes = await checkRegisterSungrow(this.inputRegisters, client);
-      const checkHoldingRegisterRes = await checkHoldingRegisterSungrow(this.holdingRegisters, client);
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
-      const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
-      this.processResult(finalRes);
+        const checkRegisterRes = await checkRegisterSungrow(this.inputRegisters, client);
+        const checkHoldingRegisterRes = await checkHoldingRegisterSungrow(this.holdingRegisters, client);
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+        const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
+        await this.processResult(finalRes);
+      })().catch(this.error);
     });
 
     socket.on('close', () => {

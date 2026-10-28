@@ -1,3 +1,4 @@
+import withErrorContext from '../../lib/error-context';
 import * as Modbus from 'jsmodbus';
 import net from 'net';
 import Homey, { Device } from 'homey';
@@ -128,31 +129,33 @@ class MySigenergyDevice extends Sigenergy {
     socket.connect(modbusOptions);
     console.log(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${device.getData().id} name=${device.getName()} write=${type} unit=247`, async () => {
+        console.log('Connected ...');
 
-      if (type == 'sigen_remote_ems_code') {
-        // 0 – Disable
-        // 1 – enable
-        const sigen_remote_ems_codeRes = await client.writeSingleRegister(40029, Number(value));
-        console.log('sigen_remote_ems_code', sigen_remote_ems_codeRes);
-      }
+        if (type == 'sigen_remote_ems_code') {
+          // 0 – Disable
+          // 1 – enable
+          const sigen_remote_ems_codeRes = await client.writeSingleRegister(40029, Number(value));
+          console.log('sigen_remote_ems_code', sigen_remote_ems_codeRes);
+        }
 
-      if (type == 'sigen_remote_ems_control_mode_code') {
-        const sigen_remote_ems_control_mode_codeRes = await client.writeSingleRegister(40031, Number(value));
-        console.log('sigen_remote_ems_control_mode_code', sigen_remote_ems_control_mode_codeRes);
-        // # 0: PCS remote control
-        // # 1: Standby
-        // # 2: Maximum self-consumption
-        // # 3: Command charging (consume power from the grid first)
-        // # 4: Command charging (consume power from the PV first)
-        // # 5: Command discharging (output power from PV first)
-        // # 6: Command discharging (output power from the battery first)
-      }
+        if (type == 'sigen_remote_ems_control_mode_code') {
+          const sigen_remote_ems_control_mode_codeRes = await client.writeSingleRegister(40031, Number(value));
+          console.log('sigen_remote_ems_control_mode_code', sigen_remote_ems_control_mode_codeRes);
+          // # 0: PCS remote control
+          // # 1: Standby
+          // # 2: Maximum self-consumption
+          // # 3: Command charging (consume power from the grid first)
+          // # 4: Command charging (consume power from the PV first)
+          // # 5: Command discharging (output power from PV first)
+          // # 6: Command discharging (output power from the battery first)
+        }
 
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+      })().catch(this.error);
     });
 
     socket.on('close', () => {
@@ -187,18 +190,20 @@ class MySigenergyDevice extends Sigenergy {
     socket.setKeepAlive(false);
     socket.connect(modbusOptions);
 
-    socket.on('connect', async () => {
-      console.log('Connected ...');
-      console.log(modbusOptions);
+    socket.on('connect', () => {
+      withErrorContext(`Modbus driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID} plant-unit=247`, async () => {
+        console.log('Connected ...');
+        console.log(modbusOptions);
 
-      const checkRegisterRes = await checkRegisterSigenergy(this.registers, client);
-      const checkHoldingRegisterRes = await checkHoldingRegisterSigenergy(this.holdingRegisters, client);
-      const checkRegisterInverterRes = await checkRegisterSigenergy(this.registersInverter, clientInverter);
-      console.log('disconnect');
-      client.socket.end();
-      socket.end();
-      const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes, ...checkRegisterInverterRes };
-      this.processResult(finalRes);
+        const checkRegisterRes = await checkRegisterSigenergy(this.registers, client);
+        const checkHoldingRegisterRes = await checkHoldingRegisterSigenergy(this.holdingRegisters, client);
+        const checkRegisterInverterRes = await checkRegisterSigenergy(this.registersInverter, clientInverter);
+        console.log('disconnect');
+        client.socket.end();
+        socket.end();
+        const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes, ...checkRegisterInverterRes };
+        await this.processResult(finalRes);
+      })().catch(this.error);
     });
 
     socket.on('close', () => {

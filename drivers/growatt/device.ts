@@ -8,10 +8,14 @@ import withErrorContext from '../../lib/error-context';
 
 
 const DEFAULT_RETRY_INTERVAL = 28;
+// Mark the device unavailable after this many failed polls in a row
+const MAX_FAILED_POLLS = 3;
 
 
 class MyGrowattDevice extends Growatt {
   timer!: NodeJS.Timer;
+  pollBusy = false;
+  failedPolls = 0;
   /**
    * onInit is called when the device is initialized.
    */
@@ -267,6 +271,38 @@ class MyGrowattDevice extends Growatt {
   }
 
   async pollInvertor() {
+    // Never start a second connection while the previous poll is still running,
+    // dataloggers like the ShineWiLan-X2 can't handle parallel Modbus connections.
+    if (this.pollBusy) {
+      this.log('pollInvertor: previous poll still running, skipped');
+      return;
+    }
+    this.pollBusy = true;
+    try {
+      const ok = await this.readInvertor();
+      await this.updateAvailability(ok);
+    } finally {
+      this.pollBusy = false;
+    }
+  }
+
+  async updateAvailability(ok: boolean) {
+    if (ok) {
+      this.failedPolls = 0;
+      if (!this.getAvailable()) {
+        await this.setAvailable();
+      }
+      return;
+    }
+    this.failedPolls += 1;
+    this.log(`pollInvertor: failed poll ${this.failedPolls} in a row`);
+    if (this.failedPolls >= MAX_FAILED_POLLS && this.getAvailable()) {
+      await this.setUnavailable('No response from the inverter');
+    }
+  }
+
+  // Resolves true when the inverter answered, false on connect error, timeout or no data.
+  readInvertor(): Promise<boolean> {
     this.log('pollInvertor');
     this.log(this.getSetting('address'));
 
@@ -274,7 +310,6 @@ class MyGrowattDevice extends Growatt {
       host: this.getSetting('address'),
       port: this.getSetting('port'),
       unitId: this.getSetting('id'),
-      timeout: this.getSetting('pollinginterval') - 1,
       autoReconnect: false,
       logLabel: 'Growatt Inverter',
       logLevel: 'error',
@@ -284,53 +319,77 @@ class MyGrowattDevice extends Growatt {
     const socket = new net.Socket();
     const unitID = this.getSetting('id');
     const client = new Modbus.client.TCP(socket, unitID, 1000);
-    socket.setKeepAlive(false);
-    socket.connect(modbusOptions);
 
-    socket.on('connect', () => {
-      withErrorContext(`Growatt driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`, async () => {
-        this.log('Connected ...');
-        this.log(modbusOptions);
+    // A poll must end before the next one is due. An idle timeout on the socket doesn't
+    // work here: every new request counts as activity, and an inverter that doesn't answer
+    // makes a poll take ~1 s per register (54 registers).
+    const pollTimeoutMs = (Number(this.getSetting('pollinginterval')) || DEFAULT_RETRY_INTERVAL) * 1000 - 1000;
 
-        // Optional (device setting): read registers in blocks instead of one request per register
-        const blockRead = this.getSetting('block_read') === true;
-        const checkRegisterRes = blockRead
-          ? await checkRegisterGrowattBlocks(this.registers, client, 'input')
-          : await checkRegisterGrowatt(this.registers, client);
-        const checkHoldingRegisterRes = blockRead
-          ? await checkRegisterGrowattBlocks(this.holdingRegistersBase, client, 'holding')
-          : await checkHoldingRegisterGrowatt(this.holdingRegistersBase, client);
-        this.log('disconnect');
-        client.socket.end();
-        socket.end();
-        const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
-        const maxpeakpower = Number(this.getSetting('maxpeakpower'));
-        await this.processResult(finalRes, maxpeakpower);
-        if (finalRes.activePRate && maxpeakpower > 0 && this.hasCapability('target_power')) {
-          const pct = Number(finalRes.activePRate.value);
-          if (pct >= 0 && pct <= 100) {
-            const watts = Math.round((pct / 100) * maxpeakpower);
-            await this.setCapabilityValue('target_power', watts);
-            await this.setCapabilityValue('exportcapacity', watts);
+    return new Promise<boolean>((resolve) => {
+      const started = Date.now();
+      let done = false;
+      const finish = (ok: boolean) => {
+        if (done) return;
+        done = true;
+        this.homey.clearTimeout(pollTimer);
+        this.log(`pollInvertor: ${ok ? 'ok' : 'failed'} after ${Date.now() - started} ms`);
+        resolve(ok);
+      };
+      const pollTimer = this.homey.setTimeout(() => {
+        this.log('poll timed out!');
+        socket.destroy();
+        finish(false);
+      }, pollTimeoutMs);
+
+      socket.setKeepAlive(false);
+      socket.connect(modbusOptions);
+
+      socket.on('connect', () => {
+        withErrorContext(`Growatt driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} poll unit=${unitID}`, async () => {
+          this.log('Connected ...');
+          this.log(modbusOptions);
+
+          // Optional (device setting): read registers in blocks instead of one request per register
+          const blockRead = this.getSetting('block_read') === true;
+          const checkRegisterRes = blockRead
+            ? await checkRegisterGrowattBlocks(this.registers, client, 'input')
+            : await checkRegisterGrowatt(this.registers, client);
+          const checkHoldingRegisterRes = blockRead
+            ? await checkRegisterGrowattBlocks(this.holdingRegistersBase, client, 'holding')
+            : await checkHoldingRegisterGrowatt(this.holdingRegistersBase, client);
+          // The poll was already given up (timeout or error), don't use partial results
+          if (done) return;
+          this.log('disconnect');
+          socket.end();
+          finish(Object.keys(checkRegisterRes).length > 0);
+          const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
+          const maxpeakpower = Number(this.getSetting('maxpeakpower'));
+          await this.processResult(finalRes, maxpeakpower);
+          if (finalRes.activePRate && maxpeakpower > 0 && this.hasCapability('target_power')) {
+            const pct = Number(finalRes.activePRate.value);
+            if (pct >= 0 && pct <= 100) {
+              const watts = Math.round((pct / 100) * maxpeakpower);
+              await this.setCapabilityValue('target_power', watts);
+              await this.setCapabilityValue('exportcapacity', watts);
+            }
           }
-        }
-      })().catch(this.error);
-    });
+        })().catch((err) => {
+          this.error(err);
+          socket.destroy();
+          finish(false);
+        });
+      });
 
-    socket.on('close', () => {
-      this.log('Client closed');
-    });
+      socket.on('close', () => {
+        this.log('Client closed');
+        finish(false);
+      });
 
-    socket.on('timeout', () => {
-      this.log('socket timed out!');
-      client.socket.end();
-      socket.end();
-    });
-
-    socket.on('error', (err) => {
-      this.log(err);
-      client.socket.end();
-      socket.end();
+      socket.on('error', (err) => {
+        this.log(err);
+        socket.destroy();
+        finish(false);
+      });
     });
   }
 }
