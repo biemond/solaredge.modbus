@@ -8,8 +8,9 @@ import withErrorContext from '../../lib/error-context';
 
 
 const DEFAULT_RETRY_INTERVAL = 28;
-// Mark the device unavailable after this many failed polls in a row
-const MAX_FAILED_POLLS = 3;
+// Default for the 'unavailable_after' setting: mark the device unavailable
+// after this many failed polls in a row (0 = never)
+const DEFAULT_UNAVAILABLE_AFTER = 3;
 
 
 class MyGrowattDevice extends Growatt {
@@ -166,6 +167,15 @@ class MyGrowattDevice extends Growatt {
       return this.homey.__('settings.restart_required') ?? 'Restart the app to apply this change.';
     }
 
+    if (changedKeys.includes('unavailable_after')) {
+      // Re-apply right away: available again if the new limit is 0 or not reached yet
+      const unavailableAfter = this.getUnavailableAfter(newSettings.unavailable_after);
+      const reached = unavailableAfter > 0 && this.failedPolls >= unavailableAfter;
+      if (!reached && !this.getAvailable()) {
+        await this.setAvailable();
+      }
+    }
+
     if (changedKeys.indexOf('pollinginterval') > -1) {
       console.log('Changing the "pollinginterval" settings from', oldSettings.pollinginterval, 'to', newSettings.pollinginterval);
 
@@ -296,9 +306,15 @@ class MyGrowattDevice extends Growatt {
     }
     this.failedPolls += 1;
     this.log(`pollInvertor: failed poll ${this.failedPolls} in a row`);
-    if (this.failedPolls >= MAX_FAILED_POLLS && this.getAvailable()) {
+    const unavailableAfter = this.getUnavailableAfter();
+    if (unavailableAfter > 0 && this.failedPolls >= unavailableAfter && this.getAvailable()) {
       await this.setUnavailable('No response from the inverter');
     }
+  }
+
+  getUnavailableAfter(value: unknown = this.getSetting('unavailable_after')): number {
+    const n = Number(value);
+    return value === undefined || value === null || Number.isNaN(n) ? DEFAULT_UNAVAILABLE_AFTER : n;
   }
 
   // Resolves true when the inverter answered, false on connect error, timeout or no data.
