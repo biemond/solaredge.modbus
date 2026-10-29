@@ -7,7 +7,7 @@ import withErrorContext from '../../lib/error-context';
 /* eslint-enable node/no-missing-import */
 
 
-const DEFAULT_RETRY_INTERVAL = 28;
+const DEFAULT_RETRY_INTERVAL = 35;
 // Mark the device unavailable after this many failed polls in a row
 const MAX_FAILED_POLLS = 3;
 
@@ -318,7 +318,7 @@ class MyGrowattDevice extends Growatt {
 
     const socket = new net.Socket();
     const unitID = this.getSetting('id');
-    const client = new Modbus.client.TCP(socket, unitID, 1000);
+    const client = new Modbus.client.TCP(socket, unitID, 3000);
 
     // A poll must end before the next one is due. An idle timeout on the socket doesn't
     // work here: every new request counts as activity, and an inverter that doesn't answer
