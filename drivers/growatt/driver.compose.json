@@ -252,6 +252,24 @@
             "en": "Read the registers in a few block requests instead of one request per register. Enable this if your datalogger (e.g. ShineWiLan-X2) stops answering after a while.",
             "nl": "Lees de registers met een paar blokverzoeken in plaats van één verzoek per register. Zet dit aan als je datalogger (bv. ShineWiLan-X2) na een tijd niet meer antwoordt."
           }
+        },
+        {
+          "id": "unavailable_after",
+          "type": "number",
+          "value": 3,
+          "step": 1,
+          "attr": {
+            "min": 0,
+            "max": 100
+          },
+          "label": {
+            "en": "Mark unavailable after failed polls",
+            "nl": "Onbeschikbaar na mislukte polls"
+          },
+          "hint": {
+            "en": "Mark the device unavailable after this many failed polls in a row (e.g. at night, or when the WiFi datalogger doesn't answer). Polling continues and the device becomes available again after the first successful poll. 0 = never mark unavailable.",
+            "nl": "Zet het apparaat op onbeschikbaar na zoveel mislukte polls achter elkaar (bv. 's nachts, of als de wifi-datalogger niet antwoordt). Het pollen gaat door en het apparaat wordt weer beschikbaar na de eerste geslaagde poll. 0 = nooit op onbeschikbaar zetten."
+          }
         }
       ]
     }
