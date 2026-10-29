@@ -6,11 +6,9 @@ import { Growatt } from '../growatt';
 import withErrorContext from '../../lib/error-context';
 /* eslint-enable node/no-missing-import */
 
-
-const DEFAULT_RETRY_INTERVAL = 28;
+const DEFAULT_RETRY_INTERVAL = 35;
 // Mark the device unavailable after this many failed polls in a row
-const MAX_FAILED_POLLS = 3;
-
+const DEFAULT_UNAVAILABLE_AFTER = 3;
 
 class MyGrowattDevice extends Growatt {
   timer!: NodeJS.Timer;
