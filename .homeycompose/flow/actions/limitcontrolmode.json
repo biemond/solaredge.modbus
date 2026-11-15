@@ -4,6 +4,11 @@
     "de": "Setze Limit-Modus auf",
     "sv": "Ställ in begränsning till"
   },
+  "titleFormatted": {
+    "en": "Set Limit mode to [[mode]]",
+    "de": "Setze Limit-Modus auf [[mode]]",
+    "sv": "Ställ in begränsning till [[mode]]"
+  },
   "args": [
     {
       "name": "mode",

@@ -7,6 +7,10 @@
         "en": "Inverter power !{{is|isn't}} higher than",
         "de": "Wechselrichterleistung !{{ist|ist nicht}} größer als"
       },
+      "titleFormatted": {
+        "en": "Inverter power !{{is|isn't}} higher than [[charging]] W",
+        "de": "Wechselrichterleistung !{{ist|ist nicht}} größer als [[charging]] W"
+      },
       "hint": {
         "en": "Inverter charging in Watt",
         "de": "Wechselrichterleistung in Watt"
@@ -24,6 +28,9 @@
       "id": "powerreduce",
       "title": {
         "en": "Set Power reduce Limit to"
+      },
+      "titleFormatted": {
+        "en": "Set Power reduce Limit to [[value]]%"
       },
       "args": [
         {

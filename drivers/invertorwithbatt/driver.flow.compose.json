@@ -347,6 +347,10 @@
         "en": "Battery !{{is|isn't}} higher than",
         "de": "Batteriestand !{{ist|ist nicht}} größer als"
       },
+      "titleFormatted": {
+        "en": "Battery !{{is|isn't}} higher than [[charged]] %",
+        "de": "Batteriestand !{{ist|ist nicht}} größer als [[charged]] %"
+      },
       "hint": {
         "en": "Battery charged in percentage",
         "de": "Batteriestand in Prozent"
@@ -363,6 +367,10 @@
       "title": {
         "en": "Battery charging !{{is|isn't}} higher than",
         "de": "Batterieladeleistung !{{ist|ist nicht}} größer als"
+      },
+      "titleFormatted": {
+        "en": "Battery charging !{{is|isn't}} higher than [[charging]] W",
+        "de": "Batterieladeleistung !{{ist|ist nicht}} größer als [[charging]] W"
       },
       "hint": {
         "en": "Battery charging in Watt",
@@ -381,6 +389,10 @@
         "en": "Battery discharging !{{is|isn't}} higher than",
         "de": "Batterieentladeleistung !{{ist|ist nicht}} größer als"
       },
+      "titleFormatted": {
+        "en": "Battery discharging !{{is|isn't}} higher than [[discharging]] W",
+        "de": "Batterieentladeleistung !{{ist|ist nicht}} größer als [[discharging]] W"
+      },
       "hint": {
         "en": "Battery discharging in Watt",
         "de": "Batterieentladeleistung in Watt"
@@ -397,6 +409,10 @@
       "title": {
         "en": "Grid export !{{is|isn't}} higher than",
         "de": "Netzexportleistung !{{ist|ist nicht}} größer als"
+      },
+      "titleFormatted": {
+        "en": "Grid export !{{is|isn't}} higher than [[export]] W",
+        "de": "Netzexportleistung !{{ist|ist nicht}} größer als [[export]] W"
       },
       "hint": {
         "en": "Grid export",
@@ -415,6 +431,10 @@
         "en": "Grid import !{{is|isn't}} higher than",
         "de": "Netzimportleistung !{{ist|ist nicht}} größer als"
       },
+      "titleFormatted": {
+        "en": "Grid import !{{is|isn't}} higher than [[import]] W",
+        "de": "Netzimportleistung !{{ist|ist nicht}} größer als [[import]] W"
+      },
       "hint": {
         "en": "Grid import",
         "de": "Netzimportleistung"
@@ -431,6 +451,10 @@
       "title": {
         "en": "Inverter + Battery !{{is|isn't}} higher than",
         "de": "Solar- und Batterie-Wechselrichterleistung !{{ist|ist nicht}} größer als"
+      },
+      "titleFormatted": {
+        "en": "Inverter + Battery !{{is|isn't}} higher than [[charging]] W",
+        "de": "Solar- und Batterie-Wechselrichterleistung !{{ist|ist nicht}} größer als [[charging]] W"
       },
       "hint": {
         "en": "Inverter plus battery charging in Watt",
@@ -667,6 +691,10 @@
         "en": "Set Storage Control Mode to",
         "de": "Setze Speicherkontrollmodus auf"
       },
+      "titleFormatted": {
+        "en": "Set Storage Control Mode to [[mode]]",
+        "de": "Setze Speicherkontrollmodus auf [[mode]]"
+      },
       "args": [
         {
           "name": "mode",
@@ -716,6 +744,10 @@
       "title": {
         "en": "Set Storage Charge/Discharge Mode to",
         "de": "Setze Speicher-Lade/Entlade-Modus auf"
+      },
+      "titleFormatted": {
+        "en": "Set Storage Charge/Discharge Mode to [[mode]]",
+        "de": "Setze Speicher-Lade/Entlade-Modus auf [[mode]]"
       },
       "args": [
         {
@@ -787,6 +819,10 @@
       "title": {
         "en": "Set Charge power to",
         "de": "Setze maximale Ladeleistung auf"
+      },
+      "titleFormatted": {
+        "en": "Set Charge power to [[chargepower]]",
+        "de": "Setze maximale Ladeleistung auf [[chargepower]]"
       },
       "args": [
         {
@@ -874,6 +910,10 @@
       "title": {
         "en": "Set Discharge power to",
         "de": "Setze maximale Entladeleistung auf"
+      },
+      "titleFormatted": {
+        "en": "Set Discharge power to [[dischargepower]]",
+        "de": "Setze maximale Entladeleistung auf [[dischargepower]]"
       },
       "args": [
         {

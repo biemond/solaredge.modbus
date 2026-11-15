@@ -3,6 +3,10 @@
     "en": "Set Power limitation setting to",
     "sv": "Ställ in effektbegränsningen på"
   },
+  "titleFormatted": {
+    "en": "Set Power limitation setting to [[percentage]]%",
+    "sv": "Ställ in effektbegränsningen på [[percentage]]%"
+  },
   "args": [
     {
       "type": "range",

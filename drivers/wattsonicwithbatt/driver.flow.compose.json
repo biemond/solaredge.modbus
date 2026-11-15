@@ -7,6 +7,10 @@
         "en": "Battery !{{is|isn't}} higher than",
         "de": "Batteriestand !{{ist|ist nicht}} größer als"
       },
+      "titleFormatted": {
+        "en": "Battery !{{is|isn't}} higher than [[charged]] %",
+        "de": "Batteriestand !{{ist|ist nicht}} größer als [[charged]] %"
+      },
       "hint": {
         "en": "Battery charged in percentage",
         "de": "Batteriestand in Prozent"
@@ -24,6 +28,9 @@
       "id": "hybridinvertermode",
       "title": {
         "en": "Hybrid Inverter Working Mode"
+      },
+      "titleFormatted": {
+        "en": "Hybrid Inverter Working Mode [[mode]]"
       },
       "args": [
         {
