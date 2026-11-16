@@ -5,6 +5,9 @@
       "title": {
         "en": "Discharge powerrate, grid first"
       },
+      "titleFormatted": {
+        "en": "Discharge powerrate, grid first [[value]]%"
+      },
       "args": [
         {
           "type": "range",
@@ -26,6 +29,10 @@
       "title": {
         "en": "Time slot 1:",
         "de": "Zeitfenster 1:"
+      },
+      "titleFormatted": {
+        "en": "Time slot 1: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], priority: [[priority]], state: [[active]]",
+        "de": "Zeitfenster 1: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], Priorität: [[priority]], Status: [[active]]"
       },
       "args": [
         {
@@ -136,6 +143,10 @@
         "en": "Time slot 2:",
         "de": "Zeitfenster 2:"
       },
+      "titleFormatted": {
+        "en": "Time slot 2: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], priority: [[priority]], state: [[active]]",
+        "de": "Zeitfenster 2: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], Priorität: [[priority]], Status: [[active]]"
+      },
       "args": [
         {
           "type": "range",
@@ -245,6 +256,10 @@
         "en": "Time slot 3:",
         "de": "Zeitfenster 3:"
       },
+      "titleFormatted": {
+        "en": "Time slot 3: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], priority: [[priority]], state: [[active]]",
+        "de": "Zeitfenster 3: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], Priorität: [[priority]], Status: [[active]]"
+      },
       "args": [
         {
           "type": "range",
@@ -353,6 +368,10 @@
       "title": {
         "en": "Time slot 4:",
         "de": "Zeitfenster 4:"
+      },
+      "titleFormatted": {
+        "en": "Time slot 4: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], priority: [[priority]], state: [[active]]",
+        "de": "Zeitfenster 4: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], Priorität: [[priority]], Status: [[active]]"
       },
       "args": [
         {

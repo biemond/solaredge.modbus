@@ -4,6 +4,11 @@
     "de": "Setze Aktive Leistungsbeschränkung auf",
     "sv": "Ange effektbegränsning till"
   },
+  "titleFormatted": {
+    "en": "Set Active Power Limit to [[value]]%",
+    "de": "Setze Aktive Leistungsbeschränkung auf [[value]]%",
+    "sv": "Ange effektbegränsning till [[value]]%"
+  },
   "args": [
     {
       "type": "range",

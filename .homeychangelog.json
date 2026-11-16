@@ -149,10 +149,10 @@
   "3.0.233": {
     "en": "sungow reserve_soc_for_backup, growatt tl ongridgridfirststopsoc"
   },
-  "3.0.308": {
+  "3.0.309": {
     "en": "virtual battery device, batch poll growatt for ShineWiLan-X2"
   },
-  "3.0.309": {
+  "3.0.310": {
     "en": "Removed target_power.json file which was overriding a default capability. This was causing issues with the Growatt TL3-S series driver."
   }
 }

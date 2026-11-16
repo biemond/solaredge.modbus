@@ -7,6 +7,9 @@
       "title": {
         "en": "Storage working mode setting"
       },
+      "titleFormatted": {
+        "en": "Storage working mode setting: [[mode]] (Modbus ID [[deviceid]])"
+      },
       "args": [
         {
           "type": "number",
@@ -74,6 +77,9 @@
       "title": {
         "en": "Remote charge/discharge control mode"
       },
+      "titleFormatted": {
+        "en": "Remote charge/discharge control mode: [[mode]] (Modbus ID [[deviceid]])"
+      },
       "args": [
         {
           "type": "number",
@@ -128,6 +134,9 @@
       "title": {
         "en": "Storage forcible charge/discharge"
       },
+      "titleFormatted": {
+        "en": "Storage forcible charge/discharge: [[mode]] (Modbus ID [[deviceid]])"
+      },
       "args": [
         {
           "type": "number",
@@ -169,6 +178,9 @@
       "id": "activepower_controlmode",
       "title": {
         "en": "Active power control mode"
+      },
+      "titleFormatted": {
+        "en": "Active power control mode: [[mode]] (Modbus ID [[deviceid]])"
       },
       "args": [
         {
@@ -223,6 +235,9 @@
       "id": "storage_excess_pv_energy_use_in_tou",
       "title": {
         "en": "Storage excess pv"
+      },
+      "titleFormatted": {
+        "en": "Storage excess pv: [[mode]] (Modbus ID [[deviceid]])"
       },
       "args": [
         {

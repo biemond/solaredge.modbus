@@ -7,6 +7,9 @@
       "title": {
         "en": "Storage working mode setting"
       },
+      "titleFormatted": {
+        "en": "Storage working mode setting [[mode]]"
+      },
       "args": [
         {
           "name": "mode",
@@ -64,6 +67,9 @@
       "title": {
         "en": "Remote charge/discharge control mode"
       },
+      "titleFormatted": {
+        "en": "Remote charge/discharge control mode [[mode]]"
+      },
       "args": [
         {
           "name": "mode",
@@ -108,6 +114,9 @@
       "title": {
         "en": "Storage forcible charge/discharge"
       },
+      "titleFormatted": {
+        "en": "Storage forcible charge/discharge [[mode]]"
+      },
       "args": [
         {
           "type": "dropdown",
@@ -139,6 +148,9 @@
       "id": "activepower_controlmode_main",
       "title": {
         "en": "Active power control mode"
+      },
+      "titleFormatted": {
+        "en": "Active power control mode [[mode]]"
       },
       "args": [
         {
@@ -183,6 +195,9 @@
       "id": "storage_excess_pv_energy_use_in_tou_main",
       "title": {
         "en": "Storage excess pv"
+      },
+      "titleFormatted": {
+        "en": "Storage excess pv [[mode]]"
       },
       "args": [
         {

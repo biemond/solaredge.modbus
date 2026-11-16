@@ -73,6 +73,10 @@
         "en": "Hybrid Inverter Working Mode",
         "sv": "Arbetsläge för hybridväxelriktare"
       },
+      "titleFormatted": {
+        "en": "Hybrid Inverter Working Mode [[mode]]",
+        "sv": "Arbetsläge för hybridväxelriktare [[mode]]"
+      },
       "args": [
         {
           "name": "mode",
@@ -122,6 +126,11 @@
         "de": "Exportbeschränkung",
         "sv": "Exportbegränsning"
       },
+      "titleFormatted": {
+        "en": "Set export limit: [[limitation]], power: [[power]]",
+        "de": "Exportbeschränkung: [[limitation]], Leistung: [[power]]",
+        "sv": "Exportbegränsning: [[limitation]], effekt: [[power]]"
+      },
       "args": [
         {
           "name": "limitation",
@@ -156,6 +165,10 @@
       "title": {
         "en": "Charge/discharge",
         "sv": "Ladda/Ladda ur"
+      },
+      "titleFormatted": {
+        "en": "Charge/discharge: [[command]], power: [[power]]",
+        "sv": "Ladda/Ladda ur: [[command]], effekt: [[power]]"
       },
       "args": [
         {
@@ -195,6 +208,9 @@
       "id": "reserve_soc_for_backup",
       "title": {
         "en": "Reserve SoC for backup"
+      },
+      "titleFormatted": {
+        "en": "Reserve SoC for backup [[percentage]]%"
       },
       "args": [
         {

@@ -4,6 +4,11 @@
     "de": "Setzte Exportbeschränkung auf",
     "sv": "Ställ in exportbegränsningen till"
   },
+  "titleFormatted": {
+    "en": "Set Export Limit to [[exportlimit]]",
+    "de": "Setzte Exportbeschränkung auf [[exportlimit]]",
+    "sv": "Ställ in exportbegränsningen till [[exportlimit]]"
+  },
   "args": [
     {
       "type": "dropdown",

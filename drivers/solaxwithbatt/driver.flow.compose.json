@@ -89,6 +89,9 @@
       "title": {
         "en": "Set Feedin Power to"
       },
+      "titleFormatted": {
+        "en": "Set Feedin Power to [[power]] W"
+      },
       "args": [
         {
           "type": "number",
@@ -110,6 +113,9 @@
       "title": {
         "en": "Set User Export Power to"
       },
+      "titleFormatted": {
+        "en": "Set User Export Power to [[power]] W"
+      },
       "args": [
         {
           "type": "number",
@@ -130,6 +136,9 @@
       "id": "solarcharger_use_mode",
       "title": {
         "en": "Use mode"
+      },
+      "titleFormatted": {
+        "en": "Use mode [[mode]]"
       },
       "args": [
         {
@@ -169,6 +178,10 @@
       "title": {
         "en": "Set Storage Charge/Discharge Mode to",
         "de": "Setze Speicher-Lade/Entlade-Modus auf"
+      },
+      "titleFormatted": {
+        "en": "Set Storage Charge/Discharge Mode to [[mode]]",
+        "de": "Setze Speicher-Lade/Entlade-Modus auf [[mode]]"
       },
       "args": [
         {

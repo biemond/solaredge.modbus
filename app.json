@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "solaredge.modbus",
-  "version": "3.0.309",
+  "version": "3.0.310",
   "compatibility": ">=12.13.0",
   "sdk": 3,
   "brandColor": "#df001c",
@@ -1383,6 +1383,10 @@
           "en": "Inverter power !{{is|isn't}} higher than",
           "de": "Wechselrichterleistung !{{ist|ist nicht}} größer als"
         },
+        "titleFormatted": {
+          "en": "Inverter power !{{is|isn't}} higher than [[charging]] W",
+          "de": "Wechselrichterleistung !{{ist|ist nicht}} größer als [[charging]] W"
+        },
         "hint": {
           "en": "Inverter charging in Watt",
           "de": "Wechselrichterleistung in Watt"
@@ -1404,6 +1408,10 @@
         "title": {
           "en": "Battery !{{is|isn't}} higher than",
           "de": "Batteriestand !{{ist|ist nicht}} größer als"
+        },
+        "titleFormatted": {
+          "en": "Battery !{{is|isn't}} higher than [[charged]] %",
+          "de": "Batteriestand !{{ist|ist nicht}} größer als [[charged]] %"
         },
         "hint": {
           "en": "Battery charged in percentage",
@@ -1427,6 +1435,10 @@
           "en": "Battery charging !{{is|isn't}} higher than",
           "de": "Batterieladeleistung !{{ist|ist nicht}} größer als"
         },
+        "titleFormatted": {
+          "en": "Battery charging !{{is|isn't}} higher than [[charging]] W",
+          "de": "Batterieladeleistung !{{ist|ist nicht}} größer als [[charging]] W"
+        },
         "hint": {
           "en": "Battery charging in Watt",
           "de": "Batterieladeleistung in Watt"
@@ -1448,6 +1460,10 @@
         "title": {
           "en": "Battery discharging !{{is|isn't}} higher than",
           "de": "Batterieentladeleistung !{{ist|ist nicht}} größer als"
+        },
+        "titleFormatted": {
+          "en": "Battery discharging !{{is|isn't}} higher than [[discharging]] W",
+          "de": "Batterieentladeleistung !{{ist|ist nicht}} größer als [[discharging]] W"
         },
         "hint": {
           "en": "Battery discharging in Watt",
@@ -1471,6 +1487,10 @@
           "en": "Grid export !{{is|isn't}} higher than",
           "de": "Netzexportleistung !{{ist|ist nicht}} größer als"
         },
+        "titleFormatted": {
+          "en": "Grid export !{{is|isn't}} higher than [[export]] W",
+          "de": "Netzexportleistung !{{ist|ist nicht}} größer als [[export]] W"
+        },
         "hint": {
           "en": "Grid export",
           "de": "Netzexportleistung"
@@ -1493,6 +1513,10 @@
           "en": "Grid import !{{is|isn't}} higher than",
           "de": "Netzimportleistung !{{ist|ist nicht}} größer als"
         },
+        "titleFormatted": {
+          "en": "Grid import !{{is|isn't}} higher than [[import]] W",
+          "de": "Netzimportleistung !{{ist|ist nicht}} größer als [[import]] W"
+        },
         "hint": {
           "en": "Grid import",
           "de": "Netzimportleistung"
@@ -1514,6 +1538,10 @@
         "title": {
           "en": "Inverter + Battery !{{is|isn't}} higher than",
           "de": "Solar- und Batterie-Wechselrichterleistung !{{ist|ist nicht}} größer als"
+        },
+        "titleFormatted": {
+          "en": "Inverter + Battery !{{is|isn't}} higher than [[charging]] W",
+          "de": "Solar- und Batterie-Wechselrichterleistung !{{ist|ist nicht}} größer als [[charging]] W"
         },
         "hint": {
           "en": "Inverter plus battery charging in Watt",
@@ -1860,6 +1888,10 @@
           "en": "Battery !{{is|isn't}} higher than",
           "de": "Batteriestand !{{ist|ist nicht}} größer als"
         },
+        "titleFormatted": {
+          "en": "Battery !{{is|isn't}} higher than [[charged]] %",
+          "de": "Batteriestand !{{ist|ist nicht}} größer als [[charged]] %"
+        },
         "hint": {
           "en": "Battery charged in percentage",
           "de": "Batteriestand in Prozent"
@@ -1883,6 +1915,11 @@
           "en": "Set Active Power Limit to",
           "de": "Setze Aktive Leistungsbeschränkung auf",
           "sv": "Ange effektbegränsning till"
+        },
+        "titleFormatted": {
+          "en": "Set Active Power Limit to [[value]]%",
+          "de": "Setze Aktive Leistungsbeschränkung auf [[value]]%",
+          "sv": "Ange effektbegränsning till [[value]]%"
         },
         "args": [
           {
@@ -1910,6 +1947,10 @@
         "title": {
           "en": "Adjust Power limitation",
           "sv": "Justera effektbegränsning"
+        },
+        "titleFormatted": {
+          "en": "Adjust Power limitation [[mode]] kW",
+          "sv": "Justera effektbegränsning [[mode]] kW"
         },
         "args": [
           {
@@ -2112,6 +2153,11 @@
           "en": "Set Export Limit to",
           "de": "Setzte Exportbeschränkung auf",
           "sv": "Ställ in exportbegränsningen till"
+        },
+        "titleFormatted": {
+          "en": "Set Export Limit to [[exportlimit]]",
+          "de": "Setzte Exportbeschränkung auf [[exportlimit]]",
+          "sv": "Ställ in exportbegränsningen till [[exportlimit]]"
         },
         "args": [
           {
@@ -2422,6 +2468,11 @@
           "de": "Setze Limit-Modus auf",
           "sv": "Ställ in begränsning till"
         },
+        "titleFormatted": {
+          "en": "Set Limit mode to [[mode]]",
+          "de": "Setze Limit-Modus auf [[mode]]",
+          "sv": "Ställ in begränsning till [[mode]]"
+        },
         "args": [
           {
             "name": "mode",
@@ -2561,6 +2612,10 @@
         "title": {
           "en": "Set Power limitation setting to",
           "sv": "Ställ in effektbegränsningen på"
+        },
+        "titleFormatted": {
+          "en": "Set Power limitation setting to [[percentage]]%",
+          "sv": "Ställ in effektbegränsningen på [[percentage]]%"
         },
         "args": [
           {
@@ -3332,6 +3387,9 @@
         "title": {
           "en": "Discharge powerrate, grid first"
         },
+        "titleFormatted": {
+          "en": "Discharge powerrate, grid first [[value]]%"
+        },
         "args": [
           {
             "type": "device",
@@ -3358,6 +3416,10 @@
         "title": {
           "en": "Time slot 1:",
           "de": "Zeitfenster 1:"
+        },
+        "titleFormatted": {
+          "en": "Time slot 1: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], priority: [[priority]], state: [[active]]",
+          "de": "Zeitfenster 1: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], Priorität: [[priority]], Status: [[active]]"
         },
         "args": [
           {
@@ -3473,6 +3535,10 @@
           "en": "Time slot 2:",
           "de": "Zeitfenster 2:"
         },
+        "titleFormatted": {
+          "en": "Time slot 2: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], priority: [[priority]], state: [[active]]",
+          "de": "Zeitfenster 2: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], Priorität: [[priority]], Status: [[active]]"
+        },
         "args": [
           {
             "type": "device",
@@ -3586,6 +3652,10 @@
         "title": {
           "en": "Time slot 3:",
           "de": "Zeitfenster 3:"
+        },
+        "titleFormatted": {
+          "en": "Time slot 3: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], priority: [[priority]], state: [[active]]",
+          "de": "Zeitfenster 3: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], Priorität: [[priority]], Status: [[active]]"
         },
         "args": [
           {
@@ -3701,6 +3771,10 @@
           "en": "Time slot 4:",
           "de": "Zeitfenster 4:"
         },
+        "titleFormatted": {
+          "en": "Time slot 4: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], priority: [[priority]], state: [[active]]",
+          "de": "Zeitfenster 4: [[hourstart]]:[[minstart]] - [[hourstop]]:[[minstop]], Priorität: [[priority]], Status: [[active]]"
+        },
         "args": [
           {
             "type": "device",
@@ -3814,6 +3888,9 @@
         "title": {
           "en": "Storage working mode setting"
         },
+        "titleFormatted": {
+          "en": "Storage working mode setting: [[mode]] (Modbus ID [[deviceid]])"
+        },
         "args": [
           {
             "type": "device",
@@ -3886,6 +3963,9 @@
         "title": {
           "en": "Remote charge/discharge control mode"
         },
+        "titleFormatted": {
+          "en": "Remote charge/discharge control mode: [[mode]] (Modbus ID [[deviceid]])"
+        },
         "args": [
           {
             "type": "device",
@@ -3945,6 +4025,9 @@
         "title": {
           "en": "Storage forcible charge/discharge"
         },
+        "titleFormatted": {
+          "en": "Storage forcible charge/discharge: [[mode]] (Modbus ID [[deviceid]])"
+        },
         "args": [
           {
             "type": "device",
@@ -3991,6 +4074,9 @@
         "id": "activepower_controlmode",
         "title": {
           "en": "Active power control mode"
+        },
+        "titleFormatted": {
+          "en": "Active power control mode: [[mode]] (Modbus ID [[deviceid]])"
         },
         "args": [
           {
@@ -4051,6 +4137,9 @@
         "title": {
           "en": "Storage excess pv"
         },
+        "titleFormatted": {
+          "en": "Storage excess pv: [[mode]] (Modbus ID [[deviceid]])"
+        },
         "args": [
           {
             "type": "device",
@@ -4091,6 +4180,9 @@
         "id": "storage_working_mode_settings_main",
         "title": {
           "en": "Storage working mode setting"
+        },
+        "titleFormatted": {
+          "en": "Storage working mode setting [[mode]]"
         },
         "args": [
           {
@@ -4154,6 +4246,9 @@
         "title": {
           "en": "Remote charge/discharge control mode"
         },
+        "titleFormatted": {
+          "en": "Remote charge/discharge control mode [[mode]]"
+        },
         "args": [
           {
             "type": "device",
@@ -4203,6 +4298,9 @@
         "title": {
           "en": "Storage forcible charge/discharge"
         },
+        "titleFormatted": {
+          "en": "Storage forcible charge/discharge [[mode]]"
+        },
         "args": [
           {
             "type": "device",
@@ -4239,6 +4337,9 @@
         "id": "activepower_controlmode_main",
         "title": {
           "en": "Active power control mode"
+        },
+        "titleFormatted": {
+          "en": "Active power control mode [[mode]]"
         },
         "args": [
           {
@@ -4289,6 +4390,9 @@
         "title": {
           "en": "Storage excess pv"
         },
+        "titleFormatted": {
+          "en": "Storage excess pv [[mode]]"
+        },
         "args": [
           {
             "type": "device",
@@ -4320,6 +4424,10 @@
         "title": {
           "en": "Battery Control",
           "de": "Batterie kontroll"
+        },
+        "titleFormatted": {
+          "en": "Battery Control [[mode]]",
+          "de": "Batterie kontroll [[mode]]"
         },
         "args": [
           {
@@ -4367,6 +4475,9 @@
         "title": {
           "en": "Power control mode at grid"
         },
+        "titleFormatted": {
+          "en": "Power control mode at grid [[mode]]"
+        },
         "args": [
           {
             "type": "device",
@@ -4410,6 +4521,9 @@
         "title": {
           "en": "Set Power reduce Limit to"
         },
+        "titleFormatted": {
+          "en": "Set Power reduce Limit to [[value]]%"
+        },
         "args": [
           {
             "type": "device",
@@ -4435,6 +4549,10 @@
         "title": {
           "en": "Set Storage Control Mode to",
           "de": "Setze Speicherkontrollmodus auf"
+        },
+        "titleFormatted": {
+          "en": "Set Storage Control Mode to [[mode]]",
+          "de": "Setze Speicherkontrollmodus auf [[mode]]"
         },
         "args": [
           {
@@ -4490,6 +4608,10 @@
         "title": {
           "en": "Set Storage Charge/Discharge Mode to",
           "de": "Setze Speicher-Lade/Entlade-Modus auf"
+        },
+        "titleFormatted": {
+          "en": "Set Storage Charge/Discharge Mode to [[mode]]",
+          "de": "Setze Speicher-Lade/Entlade-Modus auf [[mode]]"
         },
         "args": [
           {
@@ -4566,6 +4688,10 @@
         "title": {
           "en": "Set Charge power to",
           "de": "Setze maximale Ladeleistung auf"
+        },
+        "titleFormatted": {
+          "en": "Set Charge power to [[chargepower]]",
+          "de": "Setze maximale Ladeleistung auf [[chargepower]]"
         },
         "args": [
           {
@@ -4658,6 +4784,10 @@
         "title": {
           "en": "Set Discharge power to",
           "de": "Setze maximale Entladeleistung auf"
+        },
+        "titleFormatted": {
+          "en": "Set Discharge power to [[dischargepower]]",
+          "de": "Setze maximale Entladeleistung auf [[dischargepower]]"
         },
         "args": [
           {
@@ -4756,6 +4886,9 @@
         "title": {
           "en": "Remote EMS control mode"
         },
+        "titleFormatted": {
+          "en": "Remote EMS control mode [[mode]]"
+        },
         "args": [
           {
             "type": "device",
@@ -4817,6 +4950,9 @@
         "title": {
           "en": "Remote EMS"
         },
+        "titleFormatted": {
+          "en": "Remote EMS [[mode]]"
+        },
         "args": [
           {
             "type": "device",
@@ -4850,6 +4986,9 @@
         "title": {
           "en": "Set Feedin Power to"
         },
+        "titleFormatted": {
+          "en": "Set Feedin Power to [[power]] W"
+        },
         "args": [
           {
             "type": "device",
@@ -4876,6 +5015,9 @@
         "title": {
           "en": "Set User Export Power to"
         },
+        "titleFormatted": {
+          "en": "Set User Export Power to [[power]] W"
+        },
         "args": [
           {
             "type": "device",
@@ -4901,6 +5043,9 @@
         "id": "solarcharger_use_mode",
         "title": {
           "en": "Use mode"
+        },
+        "titleFormatted": {
+          "en": "Use mode [[mode]]"
         },
         "args": [
           {
@@ -4946,6 +5091,10 @@
           "en": "Set Storage Charge/Discharge Mode to",
           "de": "Setze Speicher-Lade/Entlade-Modus auf"
         },
+        "titleFormatted": {
+          "en": "Set Storage Charge/Discharge Mode to [[mode]]",
+          "de": "Setze Speicher-Lade/Entlade-Modus auf [[mode]]"
+        },
         "args": [
           {
             "type": "device",
@@ -4983,6 +5132,10 @@
         "title": {
           "en": "Hybrid Inverter Working Mode",
           "sv": "Arbetsläge för hybridväxelriktare"
+        },
+        "titleFormatted": {
+          "en": "Hybrid Inverter Working Mode [[mode]]",
+          "sv": "Arbetsläge för hybridväxelriktare [[mode]]"
         },
         "args": [
           {
@@ -5038,6 +5191,11 @@
           "de": "Exportbeschränkung",
           "sv": "Exportbegränsning"
         },
+        "titleFormatted": {
+          "en": "Set export limit: [[limitation]], power: [[power]]",
+          "de": "Exportbeschränkung: [[limitation]], Leistung: [[power]]",
+          "sv": "Exportbegränsning: [[limitation]], effekt: [[power]]"
+        },
         "args": [
           {
             "type": "device",
@@ -5077,6 +5235,10 @@
         "title": {
           "en": "Charge/discharge",
           "sv": "Ladda/Ladda ur"
+        },
+        "titleFormatted": {
+          "en": "Charge/discharge: [[command]], power: [[power]]",
+          "sv": "Ladda/Ladda ur: [[command]], effekt: [[power]]"
         },
         "args": [
           {
@@ -5122,6 +5284,9 @@
         "title": {
           "en": "Reserve SoC for backup"
         },
+        "titleFormatted": {
+          "en": "Reserve SoC for backup [[percentage]]%"
+        },
         "args": [
           {
             "type": "device",
@@ -5144,6 +5309,9 @@
         "id": "hybridinvertermode",
         "title": {
           "en": "Hybrid Inverter Working Mode"
+        },
+        "titleFormatted": {
+          "en": "Hybrid Inverter Working Mode [[mode]]"
         },
         "args": [
           {

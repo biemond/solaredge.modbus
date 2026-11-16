@@ -8,6 +8,10 @@
         "en": "Battery Control",
         "de": "Batterie kontroll"
       },
+      "titleFormatted": {
+        "en": "Battery Control [[mode]]",
+        "de": "Batterie kontroll [[mode]]"
+      },
       "args": [
         {
           "name": "mode",
@@ -48,6 +52,9 @@
       "id": "power_control_mode_at_grid",
       "title": {
         "en": "Power control mode at grid"
+      },
+      "titleFormatted": {
+        "en": "Power control mode at grid [[mode]]"
       },
       "args": [
         {

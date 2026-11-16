@@ -3,6 +3,10 @@
     "en": "Adjust Power limitation",
     "sv": "Justera effektbegränsning"
   },
+  "titleFormatted": {
+    "en": "Adjust Power limitation [[mode]] kW",
+    "sv": "Justera effektbegränsning [[mode]] kW"
+  },
   "args": [
     {
       "name": "mode",

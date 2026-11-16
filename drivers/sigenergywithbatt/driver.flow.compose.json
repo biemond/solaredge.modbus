@@ -7,6 +7,9 @@
       "title": {
         "en": "Remote EMS control mode"
       },
+      "titleFormatted": {
+        "en": "Remote EMS control mode [[mode]]"
+      },
       "args": [
         {
           "name": "mode",
@@ -62,6 +65,9 @@
       "id": "sigen_remote_ems_code",
       "title": {
         "en": "Remote EMS"
+      },
+      "titleFormatted": {
+        "en": "Remote EMS [[mode]]"
       },
       "args": [
         {
