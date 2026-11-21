@@ -400,6 +400,89 @@
         "id": "meter_power_day_changed"
       },
       {
+        "id": "eps_activated",
+        "title": {
+          "en": "EPS (backup) became active (grid down)",
+          "nl": "Noodstroom werd actief (net weg)"
+        },
+        "hint": {
+          "en": "The grid failed and the inverter now feeds the EPS output itself (system mode 7 or 8).",
+          "nl": "Het net is uitgevallen en de omvormer voedt de EPS-uitgang nu zelf (systeemmodus 7 of 8)."
+        },
+        "tokens": [
+          {
+            "name": "mode",
+            "type": "string",
+            "title": {
+              "en": "System mode",
+              "nl": "Systeemmodus"
+            },
+            "example": "EPS / backup (battery)"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "eps_deactivated",
+        "title": {
+          "en": "EPS (backup) ended (grid back)",
+          "nl": "Noodstroom beëindigd (net terug)"
+        },
+        "tokens": [
+          {
+            "name": "mode",
+            "type": "string",
+            "title": {
+              "en": "System mode",
+              "nl": "Systeemmodus"
+            },
+            "example": "Normal (PV + battery, grid)"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "eps_power_changed",
+        "title": {
+          "en": "EPS power changed",
+          "nl": "EPS-vermogen is veranderd"
+        },
+        "hint": {
+          "en": "Only power produced by the inverter itself is reported; while the grid is present the EPS output may be fed from the grid (bypass) and read 0 W.",
+          "nl": "Alleen vermogen dat de omvormer zelf levert wordt gemeld; zolang het net er is, kan de EPS-uitgang via het net gevoed worden (bypass) en 0 W tonen."
+        },
+        "tokens": [
+          {
+            "name": "power",
+            "type": "number",
+            "title": {
+              "en": "EPS power (W)",
+              "nl": "EPS-vermogen (W)"
+            },
+            "example": 250
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          }
+        ]
+      },
+      {
         "id": "changedStoragecontrolmode",
         "title": {
           "en": "Storage Control Mode has changed",
@@ -1376,6 +1459,48 @@
           }
         ],
         "id": "start_stop"
+      },
+      {
+        "id": "eps_is_active",
+        "title": {
+          "en": "EPS (backup) !{{is|is not}} active",
+          "nl": "Noodstroom !{{is|is niet}} actief"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          }
+        ]
+      },
+      {
+        "id": "eps_power_above",
+        "title": {
+          "en": "EPS power !{{is|is not}} above ...",
+          "nl": "EPS-vermogen !{{is|is niet}} hoger dan ..."
+        },
+        "titleFormatted": {
+          "en": "EPS power !{{is|is not}} above [[power]] W",
+          "nl": "EPS-vermogen !{{is|is niet}} hoger dan [[power]] W"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=growattwithbatt"
+          },
+          {
+            "type": "number",
+            "name": "power",
+            "min": 0,
+            "step": 1,
+            "placeholder": {
+              "en": "Watt",
+              "nl": "Watt"
+            }
+          }
+        ]
       },
       {
         "id": "solarcharge",
@@ -6205,9 +6330,94 @@
         "battfirst1",
         "battfirst2",
         "battfirst3",
-        "battacchargeswitch"
+        "battacchargeswitch",
+        "eps_active",
+        "eps_mode",
+        "measure_power.eps",
+        "eps_load",
+        "measure_frequency.eps",
+        "measure_voltage.eps",
+        "measure_current.eps",
+        "inverter_clock"
       ],
       "capabilitiesOptions": {
+        "measure_power.eps": {
+          "decimals": 0,
+          "title": {
+            "en": "EPS power",
+            "nl": "EPS-vermogen"
+          }
+        },
+        "measure_voltage.eps": {
+          "decimals": 1,
+          "title": {
+            "en": "EPS voltage L1",
+            "nl": "EPS-spanning L1"
+          }
+        },
+        "measure_current.eps": {
+          "decimals": 1,
+          "title": {
+            "en": "EPS current L1",
+            "nl": "EPS-stroom L1"
+          }
+        },
+        "measure_frequency.eps": {
+          "decimals": 2,
+          "title": {
+            "en": "EPS frequency",
+            "nl": "EPS-frequentie"
+          }
+        },
+        "measure_power.eps_l1": {
+          "decimals": 0,
+          "title": {
+            "en": "EPS power L1",
+            "nl": "EPS-vermogen L1"
+          }
+        },
+        "measure_power.eps_l2": {
+          "decimals": 0,
+          "title": {
+            "en": "EPS power L2",
+            "nl": "EPS-vermogen L2"
+          }
+        },
+        "measure_power.eps_l3": {
+          "decimals": 0,
+          "title": {
+            "en": "EPS power L3",
+            "nl": "EPS-vermogen L3"
+          }
+        },
+        "measure_voltage.eps_l2": {
+          "decimals": 1,
+          "title": {
+            "en": "EPS voltage L2",
+            "nl": "EPS-spanning L2"
+          }
+        },
+        "measure_current.eps_l2": {
+          "decimals": 1,
+          "title": {
+            "en": "EPS current L2",
+            "nl": "EPS-stroom L2"
+          }
+        },
+        "measure_voltage.eps_l3": {
+          "decimals": 1,
+          "title": {
+            "en": "EPS voltage L3",
+            "nl": "EPS-spanning L3"
+          }
+        },
+        "measure_current.eps_l3": {
+          "decimals": 1,
+          "title": {
+            "en": "EPS current L3",
+            "nl": "EPS-stroom L3"
+          }
+        },
         "measure_power": {
           "decimals": 0,
           "title": {
@@ -6501,6 +6711,19 @@
               "min": 10,
               "label": {
                 "en": "Polling interval"
+              }
+            },
+            {
+              "id": "three_phase",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Three-phase model (TL3)",
+                "nl": "Driefasenmodel (TL3)"
+              },
+              "hint": {
+                "en": "Also read EPS L2 and L3 and show the total EPS power.",
+                "nl": "Lees ook EPS L2 en L3 uit en toon het totale EPS-vermogen."
               }
             }
           ]
@@ -11725,6 +11948,54 @@
         }
       ]
     },
+    "eps_active": {
+      "type": "boolean",
+      "title": {
+        "en": "EPS active (grid down)",
+        "nl": "Noodstroom actief (net weg)"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "EPS (backup) active",
+        "nl": "Noodstroom actief"
+      },
+      "insightsTitleFalse": {
+        "en": "Grid present",
+        "nl": "Net aanwezig"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/eps.svg"
+    },
+    "eps_load": {
+      "type": "number",
+      "title": {
+        "en": "EPS load",
+        "nl": "EPS-belasting"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "decimals": 1,
+      "units": {
+        "en": "%",
+        "nl": "%"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/eps.svg"
+    },
+    "eps_mode": {
+      "type": "string",
+      "title": {
+        "en": "System mode",
+        "nl": "Systeemmodus"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/operational_status.svg"
+    },
     "exportcapacity": {
       "type": "number",
       "title": {
@@ -12128,6 +12399,17 @@
           }
         }
       ]
+    },
+    "inverter_clock": {
+      "type": "string",
+      "title": {
+        "en": "Inverter clock",
+        "nl": "Klok omvormer"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/clock.svg"
     },
     "invertorstatus": {
       "type": "enum",

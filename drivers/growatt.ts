@@ -61,6 +61,29 @@ export class Growatt extends Homey.Device {
     battfirst3switch: [1108, 1, 'UINT16', 'Battery First Stop Switch 1', 0],
   };
 
+  // EPS / off-grid (backup) output - SPH input registers, Growatt Modbus protocol v1.24.
+  // Only read by the Growatt + Battery (SPH) driver.
+  readonly epsRegisters: { [key: string]: RegisterDefinition } = {
+    sysWorkMode: [1000, 1, 'UINT16', 'System work mode', 0],
+    epsFrequency: [1067, 1, 'UINT16', 'EPS frequency', -2],
+    epsVoltage: [1068, 1, 'UINT16', 'EPS voltage (L1)', -1],
+    epsCurrent: [1069, 1, 'UINT16', 'EPS current (L1)', -1],
+    epsPower: [1070, 2, 'UINT32', 'EPS power (L1)', -1],
+    epsVoltageL2: [1072, 1, 'UINT16', 'EPS voltage (L2)', -1],
+    epsCurrentL2: [1073, 1, 'UINT16', 'EPS current (L2)', -1], // documented as 'No use'
+    epsPowerL2: [1074, 2, 'UINT32', 'EPS power (L2)', -1],
+    epsVoltageL3: [1076, 1, 'UINT16', 'EPS voltage (L3)', -1],
+    epsCurrentL3: [1077, 1, 'UINT16', 'EPS current (L3)', -1], // documented as 'No use'
+    epsPowerL3: [1078, 2, 'UINT32', 'EPS power (L3)', -1],
+    epsLoadPercent: [1080, 1, 'UINT16', 'EPS load percent', -1], // doc says 1 %, measured on SPH 7000TL3 BH-UP: 0.1 %
+  };
+
+  // Inverter clock (holding registers). Time slots are evaluated with this clock, not Homey's.
+  readonly clockRegisters: { [key: string]: RegisterDefinition } = {
+    clockHour: [48, 1, 'UINT16', 'Inverter clock hour', 0],
+    clockMinute: [49, 1, 'UINT16', 'Inverter clock minute', 0],
+  };
+
   readonly holdingRegistersTL: { [key: string]: RegisterDefinition } = {
     onoff: [0, 1, 'UINT16', 'On/Off state', 0],
     exportlimitenabled: [122, 1, 'UINT16', 'Export Limit enable', 0],
@@ -726,6 +749,61 @@ export class Growatt extends Homey.Device {
       valid: (data) => this.isValidNumberInRange(data.value, 0, 100),
       transform: (data) => Number(data.value),
     },   
+    // --- EPS (backup output), only present on the Growatt + Battery (SPH) driver ---
+    {
+      resultKey: 'epsPower',
+      capabilities: ['measure_power.eps_l1'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
+    },
+    {
+      resultKey: 'epsPowerL2',
+      capabilities: ['measure_power.eps_l2'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
+    },
+    {
+      resultKey: 'epsPowerL3',
+      capabilities: ['measure_power.eps_l3'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Math.round(Number(data.value) * 10 ** Number(data.scale)),
+    },
+    {
+      resultKey: 'epsVoltage',
+      capabilities: ['measure_voltage.eps'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number((Number(data.value) * 10 ** Number(data.scale)).toFixed(1)),
+    },
+    {
+      resultKey: 'epsVoltageL2',
+      capabilities: ['measure_voltage.eps_l2'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number((Number(data.value) * 10 ** Number(data.scale)).toFixed(1)),
+    },
+    {
+      resultKey: 'epsVoltageL3',
+      capabilities: ['measure_voltage.eps_l3'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number((Number(data.value) * 10 ** Number(data.scale)).toFixed(1)),
+    },
+    {
+      resultKey: 'epsCurrent',
+      capabilities: ['measure_current.eps'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number((Number(data.value) * 10 ** Number(data.scale)).toFixed(1)),
+    },
+    {
+      resultKey: 'epsFrequency',
+      capabilities: ['measure_frequency.eps'],
+      valid: (data) => data.value !== 'xxx',
+      transform: (data) => Number((Number(data.value) * 10 ** Number(data.scale)).toFixed(2)),
+    },
+    {
+      resultKey: 'epsLoadPercent',
+      capabilities: ['eps_load'],
+      valid: (data) => this.isValidNumberInRange(data.value, 0, 2000),
+      transform: (data) => Number((Number(data.value) * 10 ** Number(data.scale)).toFixed(1)),
+    },
   ];
 
   private isValidNumberInRange(value: string | number, min: number, max: number): boolean {

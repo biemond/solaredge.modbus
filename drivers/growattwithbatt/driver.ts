@@ -6,6 +6,15 @@ class MyGrowattBatteryDriver extends Homey.Driver {
    */
   async onInit() {
     this.log('MyGrowattBatteryDriver has been initialized');
+
+    this.homey.flow.getConditionCard('eps_is_active').registerRunListener(async (args) => {
+      return args.device.getCapabilityValue('eps_active') === true;
+    });
+
+    this.homey.flow.getConditionCard('eps_power_above').registerRunListener(async (args) => {
+      const value = args.device.getCapabilityValue('measure_power.eps');
+      return typeof value === 'number' && value > Number(args.power);
+    });
   }
 
   /**

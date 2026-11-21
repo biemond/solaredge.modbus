@@ -55,6 +55,21 @@ Go to the menu by the following steps:
 
 Please do the following on Growatt described in this doc https://www.dropbox.com/s/584915enkxc508u/Setup%20Growatt.pdf?dl=0
 
+### Growatt SPH: EPS (backup output) and inverter clock
+
+The Growatt + Battery (SPH) driver reads the EPS / off-grid output (input registers 1000 and 1067-1080, protocol v1.24):
+system mode, EPS active (grid down), EPS power, voltage, current, frequency and load. Enable **Three-phase model (TL3)**
+in the device settings to also get L2/L3 and the total EPS power. Flow cards: *EPS (backup) became active / ended*,
+*EPS power changed*, *EPS (backup) is active* and *EPS power is above*.
+
+- On SPH BH-UP models the EPS output is fed from the grid (bypass) while the grid is present: the voltage is reported,
+  but power, current, frequency and load stay 0 until the inverter supplies backup power itself (system mode 7/8).
+- EPS load (register 1080) has a scale of 0.1 % (the protocol document says 1 %; measured on an SPH 7000TL3 BH-UP).
+
+The *Set Battery First / Grid First for the next X hours* cards calculate the time slot with the inverter's own clock
+(holding registers 48/49), so they also work when the inverter clock differs from Homey's. The device shows the
+*Inverter clock* and its offset; use the *Sync Inverter Clock* card to correct it.
+
 ## Wattsonic gen3 inverter
 
 following this blog Wattsonic Hybrid Inverter Gen3 Modbus RTU Protocol https://smarthome.exposed/wattsonic-hybrid-inverter-gen3-modbus-rtu-protocol/

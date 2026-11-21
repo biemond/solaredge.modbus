@@ -1,0 +1,11 @@
+{
+  "type": "string",
+  "title": {
+    "en": "System mode",
+    "nl": "Systeemmodus"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/operational_status.svg"
+}
