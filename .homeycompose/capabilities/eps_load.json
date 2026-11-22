@@ -1,0 +1,17 @@
+{
+  "type": "number",
+  "title": {
+    "en": "EPS load",
+    "nl": "EPS-belasting"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "decimals": 1,
+  "units": {
+    "en": "%",
+    "nl": "%"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/eps.svg"
+}

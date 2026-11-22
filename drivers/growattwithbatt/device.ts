@@ -3,11 +3,36 @@ import * as net from 'net';
 import moment from 'moment-timezone';
 /* eslint-disable node/no-missing-import */
 import { checkRegisterGrowatt, checkHoldingRegisterGrowatt } from '../response';
-import { Growatt } from '../growatt';
+import { Growatt, Measurement } from '../growatt';
 import withErrorContext from '../../lib/error-context';
 /* eslint-enable node/no-missing-import */
 
 const DEFAULT_RETRY_INTERVAL = 28;
+
+// System work mode (input register 1000), Growatt Modbus protocol v1.24
+const WORK_MODES: Record<number, string> = {
+  0: 'Waiting',
+  1: 'Self-test',
+  2: 'Reserved',
+  3: 'System fault',
+  4: 'Firmware update',
+  5: 'Normal (PV + battery, grid)',
+  6: 'Normal (battery, grid)',
+  7: 'EPS / backup (PV)',
+  8: 'EPS / backup (battery)',
+};
+const EPS_MODES = new Set([7, 8]);
+const EPS_CAPABILITIES = ['eps_active', 'eps_mode', 'measure_power.eps', 'measure_voltage.eps', 'measure_current.eps', 'measure_frequency.eps', 'eps_load'];
+// Extra per-phase EPS values for three-phase models (SPH TL3)
+const EPS_PHASE_CAPABILITIES = [
+  'measure_power.eps_l1',
+  'measure_power.eps_l2',
+  'measure_power.eps_l3',
+  'measure_voltage.eps_l2',
+  'measure_voltage.eps_l3',
+  'measure_current.eps_l2',
+  'measure_current.eps_l3',
+];
 
 class MyGrowattBattery extends Growatt {
   timer!: NodeJS.Timer;
@@ -229,6 +254,91 @@ class MyGrowattBattery extends Growatt {
     if (this.hasCapability('bfchargerate') === false) {
       await this.addCapability('bfchargerate');
     }
+    for (const cap of [...EPS_CAPABILITIES, 'inverter_clock']) {
+      if (this.hasCapability(cap) === false) {
+        await this.addCapability(cap).catch(this.error);
+      }
+    }
+    await this.syncEpsPhaseCapabilities(this.getSetting('three_phase') === true);
+  }
+
+  /**
+   * Add or remove the per-phase EPS values (three-phase models).
+   */
+  async syncEpsPhaseCapabilities(threePhase: boolean) {
+    for (const cap of EPS_PHASE_CAPABILITIES) {
+      if (threePhase && !this.hasCapability(cap)) await this.addCapability(cap).catch(this.error);
+      if (!threePhase && this.hasCapability(cap)) await this.removeCapability(cap).catch(this.error);
+    }
+    await this.setCapabilityOptions('measure_power.eps', {
+      title: threePhase ? { en: 'EPS power (total)', nl: 'EPS-vermogen (totaal)' } : { en: 'EPS power', nl: 'EPS-vermogen' },
+    }).catch(this.error);
+  }
+
+  lastEpsPower: number | null = null;
+
+  /**
+   * EPS status from the system work mode, total EPS power, L2/L3 current and flow triggers.
+   */
+  async processEps(result: Record<string, Measurement>) {
+    const scaled = (m?: Measurement) => (m && m.value !== 'xxx' ? Number(m.value) * 10 ** Number(m.scale) : null);
+    const mode = result.sysWorkMode;
+    if (mode && mode.value !== 'xxx') {
+      const code = Number(mode.value);
+      const label = WORK_MODES[code] ?? `Unknown (${code})`;
+      const active = EPS_MODES.has(code);
+      const wasActive = this.getCapabilityValue('eps_active');
+      await this.setCapabilityValue('eps_mode', label).catch(this.error);
+      await this.setCapabilityValue('eps_active', active).catch(this.error);
+      if (wasActive !== null && wasActive !== active) {
+        const card = active ? 'eps_activated' : 'eps_deactivated';
+        await this.homey.flow.getDeviceTriggerCard(card).trigger(this, { mode: label }, {}).catch(this.error);
+      }
+    }
+
+    const threePhase = this.getSetting('three_phase') === true;
+    if (threePhase) {
+      for (const phase of ['L2', 'L3']) {
+        const cap = `measure_current.eps_${phase.toLowerCase()}`;
+        if (!this.hasCapability(cap)) continue;
+        // registers 1073/1077 are documented as 'No use': use them when filled, otherwise power / voltage
+        const current = scaled(result[`epsCurrent${phase}`]);
+        const power = scaled(result[`epsPower${phase}`]);
+        const voltage = scaled(result[`epsVoltage${phase}`]);
+        let value = current;
+        if ((current === null || current === 0) && power !== null && voltage !== null && voltage > 50) value = power / voltage;
+        if (value !== null) await this.setCapabilityValue(cap, Number(value.toFixed(1))).catch(this.error);
+      }
+    }
+
+    const phases = (threePhase ? ['epsPower', 'epsPowerL2', 'epsPowerL3'] : ['epsPower']).map((k) => scaled(result[k])).filter((v) => v !== null) as number[];
+    if (phases.length > 0) {
+      const watts = Math.round(phases.reduce((sum, v) => sum + v, 0));
+      await this.setCapabilityValue('measure_power.eps', watts).catch(this.error);
+      if (this.lastEpsPower !== watts) {
+        this.lastEpsPower = watts;
+        await this.homey.flow.getDeviceTriggerCard('eps_power_changed').trigger(this, { power: watts }, {}).catch(this.error);
+      }
+    }
+  }
+
+  /**
+   * Show the inverter clock and its offset to Homey's clock (time slots use the inverter clock).
+   */
+  async processClock(result: Record<string, Measurement>) {
+    const h = result.clockHour;
+    const m = result.clockMinute;
+    if (!h || !m || h.value === 'xxx' || m.value === 'xxx' || !this.hasCapability('inverter_clock')) return;
+    const hour = Number(h.value);
+    const minute = Number(m.value);
+    if (hour > 23 || minute > 59) return;
+    const now = moment().tz(this.homey.clock.getTimezone());
+    let offset = hour * 60 + minute - (now.hours() * 60 + now.minutes());
+    if (offset > 720) offset -= 1440;
+    if (offset < -720) offset += 1440;
+    const clock = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+    const text = Math.abs(offset) <= 2 ? `${clock} (ok)` : `${clock} (${offset > 0 ? '+' : ''}${offset} min)`;
+    await this.setCapabilityValue('inverter_clock', text).catch(this.error);
   }
 
   /**
@@ -256,6 +366,9 @@ class MyGrowattBattery extends Growatt {
     changedKeys: string[];
   }): Promise<string | void> {
     this.log('MyGrowattBattery settings were changed');
+    if (changedKeys.indexOf('three_phase') > -1) {
+      await this.syncEpsPhaseCapabilities(Boolean(newSettings.three_phase));
+    }
     if (changedKeys.indexOf('pollinginterval') > -1) {
       console.log('Changing the "pollinginterval" settings from', oldSettings.pollinginterval, 'to', newSettings.pollinginterval);
 
@@ -549,7 +662,7 @@ class MyGrowattBattery extends Growatt {
     const minutesToAdd = Math.round((hours * 60) / 15) * 15 - 1;
     const now = moment().tz(this.homey.clock.getTimezone());
     const end = now.clone().add(minutesToAdd, 'minutes');
-    const startTime = (now.hours() << 8) + now.minutes();
+    let startTime = (now.hours() << 8) + now.minutes();
     let endTime = 0;
     // if end time is not today, set to 23:59
     if (end.date() !== now.date()) {
@@ -561,6 +674,22 @@ class MyGrowattBattery extends Growatt {
     socket.on('connect', () => {
       withErrorContext(`Growatt driver=${this.driver.id} device=${this.getData().id} name=${this.getName()} write-priority=${type} unit=${unitID}`, async () => {
         this.log('Connected ...');
+        // The inverter decides with its OWN clock whether a time slot is active. Use that clock
+        // (holding 48/49) instead of Homey's, so a clock offset (e.g. DST not applied) cannot
+        // place the slot in the past or future.
+        try {
+          const clock = await client.readHoldingRegisters(48, 2);
+          const [invHour, invMinute] = clock.response.body.valuesAsArray as number[];
+          if (invHour <= 23 && invMinute <= 59) {
+            this.log(`inverter clock ${invHour}:${invMinute}, Homey ${now.format('HH:mm')}`);
+            startTime = (invHour << 8) + invMinute;
+            const endMinutes = invHour * 60 + invMinute + minutesToAdd;
+            endTime = endMinutes > 23 * 60 + 59 ? 5947 : (Math.floor(endMinutes / 60) << 8) + (endMinutes % 60);
+          }
+          await this.delay(850); // Growatt needs at least 850ms between commands
+        } catch (err) {
+          this.log('could not read inverter clock, using Homey time', err);
+        }
         const registers: number[] = Array(13).fill(0);
         registers[0] = percentage; // Charge/discharge rate limit
         registers[1] = soc; // SOC limit
@@ -634,12 +763,16 @@ class MyGrowattBattery extends Growatt {
 
         const checkRegisterRes = await checkRegisterGrowatt(this.registers, client);
         const checkHoldingRegisterRes = await checkHoldingRegisterGrowatt(this.holdingRegisters, client);
+        const checkEpsRes = await checkRegisterGrowatt(this.epsRegisters, client);
+        const checkClockRes = await checkHoldingRegisterGrowatt(this.clockRegisters, client);
 
         this.log('disconnect');
         client.socket.end();
         socket.end();
-        const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes };
+        const finalRes = { ...checkRegisterRes, ...checkHoldingRegisterRes, ...checkEpsRes, ...checkClockRes };
         await this.processResult(finalRes, this.getSetting('maxpeakpower'));
+        await this.processEps(finalRes);
+        await this.processClock(finalRes);
       })().catch(this.error);
     });
 

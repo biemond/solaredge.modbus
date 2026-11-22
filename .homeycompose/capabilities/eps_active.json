@@ -1,0 +1,20 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "EPS active (grid down)",
+    "nl": "Noodstroom actief (net weg)"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "EPS (backup) active",
+    "nl": "Noodstroom actief"
+  },
+  "insightsTitleFalse": {
+    "en": "Grid present",
+    "nl": "Net aanwezig"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/eps.svg"
+}

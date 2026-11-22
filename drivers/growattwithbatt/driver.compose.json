@@ -58,9 +58,94 @@
     "battfirst1",
     "battfirst2",
     "battfirst3",
-    "battacchargeswitch"
+    "battacchargeswitch",
+    "eps_active",
+    "eps_mode",
+    "measure_power.eps",
+    "eps_load",
+    "measure_frequency.eps",
+    "measure_voltage.eps",
+    "measure_current.eps",
+    "inverter_clock"
   ],
   "capabilitiesOptions": {
+    "measure_power.eps": {
+      "decimals": 0,
+      "title": {
+        "en": "EPS power",
+        "nl": "EPS-vermogen"
+      }
+    },
+    "measure_voltage.eps": {
+      "decimals": 1,
+      "title": {
+        "en": "EPS voltage L1",
+        "nl": "EPS-spanning L1"
+      }
+    },
+    "measure_current.eps": {
+      "decimals": 1,
+      "title": {
+        "en": "EPS current L1",
+        "nl": "EPS-stroom L1"
+      }
+    },
+    "measure_frequency.eps": {
+      "decimals": 2,
+      "title": {
+        "en": "EPS frequency",
+        "nl": "EPS-frequentie"
+      }
+    },
+    "measure_power.eps_l1": {
+      "decimals": 0,
+      "title": {
+        "en": "EPS power L1",
+        "nl": "EPS-vermogen L1"
+      }
+    },
+    "measure_power.eps_l2": {
+      "decimals": 0,
+      "title": {
+        "en": "EPS power L2",
+        "nl": "EPS-vermogen L2"
+      }
+    },
+    "measure_power.eps_l3": {
+      "decimals": 0,
+      "title": {
+        "en": "EPS power L3",
+        "nl": "EPS-vermogen L3"
+      }
+    },
+    "measure_voltage.eps_l2": {
+      "decimals": 1,
+      "title": {
+        "en": "EPS voltage L2",
+        "nl": "EPS-spanning L2"
+      }
+    },
+    "measure_current.eps_l2": {
+      "decimals": 1,
+      "title": {
+        "en": "EPS current L2",
+        "nl": "EPS-stroom L2"
+      }
+    },
+    "measure_voltage.eps_l3": {
+      "decimals": 1,
+      "title": {
+        "en": "EPS voltage L3",
+        "nl": "EPS-spanning L3"
+      }
+    },
+    "measure_current.eps_l3": {
+      "decimals": 1,
+      "title": {
+        "en": "EPS current L3",
+        "nl": "EPS-stroom L3"
+      }
+    },
     "measure_power": {
       "decimals": 0,
       "title": {
@@ -354,6 +439,19 @@
           "min": 10,
           "label": {
             "en": "Polling interval"
+          }
+        },
+        {
+          "id": "three_phase",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Three-phase model (TL3)",
+            "nl": "Driefasenmodel (TL3)"
+          },
+          "hint": {
+            "en": "Also read EPS L2 and L3 and show the total EPS power.",
+            "nl": "Lees ook EPS L2 en L3 uit en toon het totale EPS-vermogen."
           }
         }
       ]

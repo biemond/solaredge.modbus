@@ -1,0 +1,11 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Inverter clock",
+    "nl": "Klok omvormer"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/clock.svg"
+}
