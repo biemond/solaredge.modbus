@@ -154,5 +154,8 @@
   },
   "3.0.310": {
     "en": "Removed target_power.json file which was overriding a default capability. This was causing issues with the Growatt TL3-S series driver."
+  },
+  "3.0.311": {
+    "en": "Growatt SPH: EPS readout, register 1080 scale and inverter-clock time"
   }
 }
